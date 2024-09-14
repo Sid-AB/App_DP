@@ -1,0 +1,505 @@
+
+.progress-stepper {
+  display: flex; /* Flexbox for stepper layout */
+  justify-content: space-between; /* Evenly distribute steps */
+  margin-bottom: 30px; /* Space below stepper */
+  position: relative; /* Positioning for line */
+}
+
+.progress-stepper::before {
+  content: ''; /* Empty content for the line */
+  position: absolute; /* Position relative to stepper */
+  top: 25%; /* Centered vertically */
+  left: 0; /* Start from the left */
+  right: 0; /* End at the right */
+  height: 2px; /* Line thickness */
+  background-color: #ddd; /* Line color */
+  z-index: 1; /* Below step numbers */
+}
+
+.step {
+  position: relative; /* Position for step elements */
+  z-index: 2; /* Above the line */
+  background-color: #fff; /* White background */
+  border: 2px solid #ddd; /* Border color */
+  border-radius: 50%; /* Rounded circles */
+  width: 40px; /* Circle size */
+  height: 40px; /* Circle size */
+  display: flex; /* Flexbox for centering */
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
+  font-weight: bold; /* Bold numbers */
+  color: #666; /* Text color */
+}
+
+.step.completed {
+  border-color: #0d6efd; /* Active border color */
+  background-color: #0d6efd; /* Active background color */
+  color: #fff; /* White text for active steps */
+}
+
+.step-label {
+  color: white;
+  margin-top: 10px; /* Space above labels */
+  text-align: center; /* Center text */
+}
+  /**  ---------- input styles ::**/
+  .inp {
+    position: relative;
+    margin: auto;
+    width: 100%;
+    max-width: 280px;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .inp .label {
+    position: absolute;
+    top: 20px;
+    left: 12px;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.5);
+    font-weight: 500;
+    transform-origin: 0 0;
+    transform: translate3d(0, 0, 0);
+    transition: all 0.2s ease;
+    pointer-events: none;
+  }
+  .inp .focus-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.05);
+    z-index: -1;
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  .inp input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+         appearance: none;
+    width: 100%;
+    border: 0;
+    font-family: inherit;
+    padding: 16px 12px 0 12px;
+    height: 56px;
+    font-size: 16px;
+    font-weight: 400;
+    background: rgba(0, 0, 0, 0.02);
+    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+    color: #000;
+    transition: all 0.15s ease;
+  }
+  .inp input:hover {
+    background: rgba(0, 0, 0, 0.04);
+    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.5);
+  }
+  .inp input:not(:-moz-placeholder-shown) + .label {
+    color: rgba(0, 0, 0, 0.5);
+    transform: translate3d(0, -12px, 0) scale(0.75);
+  }
+  .inp input:not(:-ms-input-placeholder) + .label {
+    color: rgba(0, 0, 0, 0.5);
+    transform: translate3d(0, -12px, 0) scale(0.75);
+  }
+  .inp input:not(:placeholder-shown) + .label {
+    color: rgba(0, 0, 0, 0.5);
+    transform: translate3d(0, -12px, 0) scale(0.75);
+  }
+  .inp input:focus {
+    background: rgba(0, 0, 0, 0.05);
+    outline: none;
+    box-shadow: inset 0 -2px 0 #0077FF;
+  }
+  .inp input:focus + .label {
+    color: #0077FF;
+    transform: translate3d(0, -12px, 0) scale(0.75);
+  }
+  .inp input:focus + .label + .focus-bg {
+    transform: scaleX(1);
+    transition: all 0.1s ease;
+  }
+  /**------ end input styles ::**/
+  /** Style Numer 2 input **/
+  html, body {
+    font-family: "Roboto", sans-serif;
+    padding: 0;
+    margin: 0 auto;
+    min-height: 100vh;
+    width: 100vw;
+    background-size: cover;
+    background-image: url("https://image.freepik.com/foto-gratis/fondo-abstracto-3d-poli-baja_1048-9819.jpg");
+    background-repeat: no-repeat;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  #menu-toggle {
+    display: none;
+  }
+  
+  .dflex {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .menu {
+    position: fixed;
+    z-index: 999;
+    right: 0;
+    width: 250px;
+    height: 100vh;
+    padding: 15px 0;
+    justify-content: space-between;
+    transition: right 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .menu .animation, .menu .element {
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    animation: scale-to-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+  .menu #logoCSS3, .menu .element {
+    z-index: 1;
+  }
+  .menu, .menu html, .menu body {
+    overflow-x: hidden;
+  }
+  .menu .element, .menu .menu-btn {
+    cursor: pointer;
+  }
+  .menu, .menu #logoCSS3, .menu .element, .menu .menu-btn {
+    color: #FFFFFF;
+  }
+  .menu #logoCSS3, .menu .element, .menu .menu-container-btn, .menu .menu-toggle-btn {
+    position: relative;
+  }
+  .menu .menu-btn, .menu .menu-toggle-btn:after, .menu .menu-toggle-btn:before {
+    position: absolute;
+  }
+  .menu .fa-bars {
+    display: none;
+  }
+  .menu .fa-close {
+    display: block;
+  }
+  .menu #logoCSS3, .menu .elements-container {
+    padding: 0 10px 0 25px;
+  }
+  .menu #logoCSS3 {
+    font-size: 4em;
+    max-width: 250px;
+  }
+  .menu .elements-container {
+    max-height: 47vh;
+    overflow-y: auto;
+  }
+  .menu .elements-container .element {
+    text-decoration: none;
+    padding: 10px 0 10px 10px;
+  }
+  .menu .elements-container .element:hover {
+    background-color: #FFC107;
+  }
+  .menu .menu-container-btn {
+    overflow: hidden;
+    width: 70px;
+    padding: 35px 0;
+    box-shadow: 609px 0 0 600px #FFA000;
+  }
+  .menu .menu-container-btn .menu-toggle-btn {
+    height: 70px;
+    border-radius: 0 50% 50% 0;
+    box-shadow: 43px 0 0 0 #FFA000;
+  }
+  .menu .menu-container-btn .menu-toggle-btn:after, .menu .menu-container-btn .menu-toggle-btn:before {
+    z-index: -1;
+    width: 100%;
+    height: 50px;
+    left: 0;
+    content: " ";
+  }
+  .menu .menu-container-btn .menu-toggle-btn:after {
+    top: 0;
+    border-radius: 0 0 0 100%;
+    box-shadow: 8px -43px 0px 0px #FFA000;
+  }
+  .menu .menu-container-btn .menu-toggle-btn:before {
+    bottom: -86px;
+    border-radius: 100% 0 0 0;
+    box-shadow: 8px -43px 0px 0px #FFA000;
+  }
+  .menu .menu-container-btn .menu-toggle-btn .menu-btn {
+    text-shadow: 0 0 5px black;
+    padding: 14px 16px;
+    left: 14px;
+    top: 13px;
+    background-color: #FFA000;
+    border: none;
+    border-radius: 50%;
+  }
+  
+  #menu-toggle:checked + .menu {
+    right: -185px;
+  }
+  #menu-toggle:checked + .menu #logoCSS3, #menu-toggle:checked + .menu .elements-container {
+    padding: 0 25px 0 65px;
+  }
+  #menu-toggle:checked + .menu .fa-close {
+    display: none;
+  }
+  #menu-toggle:checked + .menu .fa-bars {
+    display: block;
+  }
+  #menu-toggle:checked + .menu .animation, #menu-toggle:checked + .menu .element {
+    animation: none;
+    opacity: 0;
+  }
+  #menu-toggle:checked + .menu .menu-container-btn {
+    box-shadow: 640px 0 0 600px #FFA000;
+  }
+  #menu-toggle:checked + .menu .menu-container-btn .menu-toggle-btn {
+    border-radius: 50% 0 0 50%;
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 55%, #FFA000 56%, #FFA000 100%);
+    box-shadow: 76px 0 0 50px #FFA000;
+  }
+  #menu-toggle:checked + .menu .menu-container-btn .menu-toggle-btn:after, #menu-toggle:checked + .menu .menu-container-btn .menu-toggle-btn:before {
+    left: 21px;
+    width: 20px;
+  }
+  #menu-toggle:checked + .menu .menu-container-btn .menu-toggle-btn:after {
+    top: -48px;
+    border-radius: 0 0 100% 0;
+    box-shadow: 12px 1px 0 10px #FFA000;
+  }
+  #menu-toggle:checked + .menu .menu-container-btn .menu-toggle-btn:before {
+    top: 68px;
+    border-radius: 0 100% 0 0;
+    box-shadow: 12px 3px 0 12px #FFA000;
+  }
+  #menu-toggle:checked + .menu .menu-container-btn .menu-toggle-btn .menu-btn {
+    background-color: rgba(0, 0, 0, 0);
+    box-shadow: 0 0 0 12px #FFA000;
+  }
+  
+  @keyframes scale-to-right {
+    0% {
+      -webkit-transform: scaleX(0);
+      transform: scaleX(0);
+      opacity: 0;
+    }
+    100% {
+      -webkit-transform: scaleX(1);
+      transform: scaleX(1);
+      opacity: 1;
+    }
+  }
+  .element:nth-child(1n) {
+    animation-delay: 0.25s;
+  }
+  
+  .element:nth-child(2n) {
+    animation-delay: 0.5s;
+  }
+  
+  .element:nth-child(3n) {
+    animation-delay: 0.75s;
+  }
+  
+  .element:nth-child(4n) {
+    animation-delay: 1s;
+  }
+  
+  .element:nth-child(5n) {
+    animation-delay: 1.25s;
+  }
+  
+  .element:nth-child(6n) {
+    animation-delay: 1.5s;
+  }
+  
+  .element:nth-child(7n) {
+    animation-delay: 1.75s;
+  }
+  
+  .element:nth-child(8n) {
+    animation-delay: 2s;
+  }
+  
+  .element:nth-child(9n) {
+    animation-delay: 2.25s;
+  }
+  
+  .element:nth-child(10n) {
+    animation-delay: 2.5s;
+  }
+  /** this the end of side bar*/
+  .card:hover img
+  {
+    cursor: pointer;
+    border-radius: 5px ;
+    -webkit-box-shadow: 3px -1px 35px -7px rgba(0,0,0,0.75);
+    -moz-box-shadow: 3px -1px 35px -7px rgba(0,0,0,0.75);
+    box-shadow: 3px -1px 35px -7px rgba(0,0,0,0.75);
+    scale: 1.02;
+  }
+  .wht
+  {
+    color:white !important;
+  }
+  .card-mar-right
+  {
+    margin-right: 20px
+  }
+  .card-photo-holder
+  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    background-color: #bdb9b9;
+    text-align: center;
+    width: 100%;
+    height: 491px;
+    
+  }
+  .card-photo-holder:hover
+  {
+    cursor: pointer;
+    border-radius: 5px ;
+    -webkit-box-shadow: 3px -1px 35px -7px rgba(0,0,0,0.75);
+    -moz-box-shadow: 3px -1px 35px -7px rgba(0,0,0,0.75);
+    box-shadow: 3px -1px 35px -7px rgba(0,0,0,0.75);
+    scale: 1.02;
+   
+  }
+  .icon-car
+  {
+    font-size: 200px; 
+    text-align:center ; 
+    transition: transform 1s linear;
+  }
+  .icon-card
+  {
+    font-size: 200px; 
+    text-align:center ; 
+    transition: transform 1s linear;
+  }
+  .icon-car:hover
+  {
+    transform: rotate(180deg);
+  }
+  .hidden-field
+  {
+
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    opacity: 0;
+   
+  }
+  .field-holder
+  {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: center
+  }
+  .field-holder button
+  {
+    position: relative;
+    top: 8px
+  }
+  .field-w
+  {
+   
+    display: inline;
+    width: 99%;
+  }
+  .show
+  {
+     /* Display the box */
+    opacity: 1;
+    transition: opacity  2s ease;
+  }
+  @media screen and (min-width: 1200px) {
+    .card-photo-holder
+  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    background-color: #bdb9b9;
+    text-align: center;
+    width: 100%;
+    height: 590px;
+    
+  }
+  }
+  @media screen and (max-width: 992px) {
+    .card-photo-holder
+  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    background-color: #bdb9b9;
+    text-align: center;
+    width: 100%;
+    height: 558px;
+    
+  }
+  }
+  @media screen and (min-width: 1400px) {
+    .card-photo-holder
+  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    background-color: #bdb9b9;
+    text-align: center;
+    width: 100%;
+    height: 715px;
+    
+  }
+  }
+  /**  ------ */
+  @media (max-width: 767px) {
+		.carousel-inner .carousel-item > div {
+			display: none;
+		}
+		.carousel-inner .carousel-item > div:first-child {
+			display: block;
+		}
+	}
+
+	.carousel-inner .carousel-item.active,
+	.carousel-inner .carousel-item-next,
+	.carousel-inner .carousel-item-prev {
+		display: flex;
+	}
+
+	/* medium and up screens */
+	@media (min-width: 768px) {
+
+		.carousel-inner .carousel-item-end.active,
+		.carousel-inner .carousel-item-next {
+			transform: translateX(25%);
+		}
+
+		.carousel-inner .carousel-item-start.active, 
+		.carousel-inner .carousel-item-prev {
+			transform: translateX(-25%);
+		}
+	}
+
+	.carousel-inner .carousel-item-end,
+	.carousel-inner .carousel-item-start { 
+		transform: translateX(0);
+	}
+  /***/
