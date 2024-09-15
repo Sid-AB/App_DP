@@ -12,4 +12,10 @@ return view('test.carsoule');
 Route::get('/testing/tree',function (){
     return view('test.tree');
     });
-Route::get('/Portfail',[PortfailDetails::class,'index'])->name('home.portfail');
+//Route::get('/Portfail',[PortfailDetails::class,'index'])->name('home.portfail');
+
+
+//===============ROUTE PORTEFEUILLE==============================
+Route::controller(portfeuilleController::class)->group(function(){
+    Route::get('/Portfail','index')->name('home.portfail');
+});
