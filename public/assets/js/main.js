@@ -1,3 +1,39 @@
+$('a').click(function(e){
+	var _elem = $(this);
+  
+  $('a').parent('li').each(function(){
+  	$(this).removeClass('active');
+  });
+  
+  _elem.parent('li').addClass('active');
+});
+(function(){
+  $('#msbo').on('click', function(){
+    $('body').toggleClass('msb-x');
+  });
+}());
+$(document).ready(function(){
+  $('.card-photo-holder').on('click',function()
+  {
+    alert('clicks')
+      window.location='/tech';
+  })
+})
+$(document).ready(function(){
+  $('#T1').on('click',function(){
+    console.log('data is')
+    $('#Tport-handle').addClass('scale-out');
+    setTimeout(() => {
+      // Add the class to hide the table
+      $('#Tport-handle').addClass('scale-hidden');
+      // Optionally remove the scaling out class after hiding
+      $('#Tport-handle').removeClass('scale-out');
+      $('.T-handle').css('display','flex')
+  }, 500)
+   
+  })
+})
+
 const progress = document.getElementById("progress");
 const stepCircles = document.querySelectorAll(".circle");
 let currentActive = 1;
@@ -24,24 +60,8 @@ function update(currentActive) {
 
   
 }
-$('a').click(function(e){
-	var _elem = $(this);
+
+function gettingT1()
+{
   
-  $('a').parent('li').each(function(){
-  	$(this).removeClass('active');
-  });
-  
-  _elem.parent('li').addClass('active');
-});
-(function(){
-  $('#msbo').on('click', function(){
-    $('body').toggleClass('msb-x');
-  });
-}());
-$(document).ready(function(){
-  $('.card-photo-holder').on('click',function()
-  {
-    alert('clicks')
-      window.location='/tech';
-  })
-})
+}
