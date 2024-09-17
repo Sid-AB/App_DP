@@ -46,8 +46,8 @@
     <!-- First Car Card -->
     <div class="carousel-item active">
     <div class="col-md-6 col-lg-4 mb-4 card-mar-right">
-      <div class="card">
-        <div class="card-photo-holder">
+      <div class="card" >
+        <div class="card-photo-holder" id="create-dir">
           <i class="fas fa-plus-circle icon-car"></i>
         </div>
         <div class="card-body">
@@ -229,7 +229,11 @@ let arrow = document.querySelectorAll(".arrow");
   });*/
   $(document).ready(function(){
     $('.card-photo-holder').on('click',function(){
-      console.log('{{route('home.portfail')}}');
+      console.log('{{route('home.portfail')}}'+'---'+$(this).attr('id'));
+      if($(this).attr('id') == 'create-dir')
+      {
+        window.location.href='{{route('creation.portfail')}}'
+      }
       window.location.href='{{route('home.portfail')}}'
     })
   })
