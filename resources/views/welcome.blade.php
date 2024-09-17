@@ -13,9 +13,9 @@
         <link href="{{asset('assets/bootstrap-5.0.2/css/bootstrap.css')}}" rel="stylesheet"/>
         <link href="{{asset('assets/fontawesome-free/css/all.css')}}" rel="stylesheet"/>
         <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-        <link 
-                rel="stylesheet" 
-                href="https://unpkg.com/@patternfly/patternfly/patternfly.css" 
+        <link
+                rel="stylesheet"
+                href="https://unpkg.com/@patternfly/patternfly/patternfly.css"
                 crossorigin="anonymous"
               >
 
@@ -40,15 +40,15 @@
     <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="3" aria-label="Slide 4"></button>
   </div>
   <div class="row justify-content-center">
- 
+
 
   <div class="carousel-inner">
     <!-- First Car Card -->
-    <div class="carousel-item active">  
+    <div class="carousel-item active">
     <div class="col-md-6 col-lg-4 mb-4 card-mar-right">
       <div class="card">
-        <div class="card-photo-holder">      
-          <i class="fas fa-plus-circle icon-car"></i> 
+        <div class="card-photo-holder">
+          <i class="fas fa-plus-circle icon-car"></i>
         </div>
         <div class="card-body">
           <h5 class="card-title">Creation un nouvel Portfail de année</h5>
@@ -58,8 +58,8 @@
     </div>
     <div class="col-md-6 col-lg-4 mb-4 card-mar-right">
       <div class="card">
-        <div class="card-photo-holder">      
-          <i class="fas fa-folder-open icon-card"></i>
+        <div class="card-photo-holder">
+          {{-- <i class="fas fa-folder-open icon-card"></i> --}}
         </div>
         <div class="card-body">
           <h5 class="card-title">Portfail jj-mm-aaaa</h5>
@@ -69,7 +69,7 @@
     </div>
     <div class="col-md-6 col-lg-4 mb-4 card-mar-right">
       <div class="card">
-        <div class="card-photo-holder">      
+        <div class="card-photo-holder">
           <i class="fas fa-folder-open icon-card"></i>
         </div>
         <div class="card-body">
@@ -85,7 +85,7 @@
     <div class="carousel-item">
     <div class="col-md-6 col-lg-4 mb-4 card-mar-right">
       <div class="card">
-        <div class="card-photo-holder">      
+        <div class="card-photo-holder">
           <i class="fas fa-folder-open icon-card"></i>
         </div>
         <div class="card-body">
@@ -96,7 +96,7 @@
     </div>
     <div class="col-md-6 col-lg-4 mb-4 card-mar-right">
       <div class="card">
-        <div class="card-photo-holder">      
+        <div class="card-photo-holder">
           <i class="fas fa-folder-open icon-card"></i>
         </div>
         <div class="card-body">
@@ -107,7 +107,7 @@
     </div>
     <div class="col-md-6 col-lg-4 mb-4 card-mar-right">
       <div class="card">
-        <div class="card-photo-holder">      
+        <div class="card-photo-holder">
           <i class="fas fa-folder-open icon-card"></i>
         </div>
         <div class="card-body">
@@ -123,7 +123,7 @@
     <div class="carousel-item">
     <div class="col-md-6 col-lg-4 mb-4 card-mar-right">
       <div class="card">
-        <div class="card-photo-holder">      
+        <div class="card-photo-holder">
           <i class="fas fa-folder-open icon-card"></i>
         </div>
         <div class="card-body">
@@ -134,7 +134,7 @@
     </div>
     <div class="col-md-6 col-lg-4 mb-4 card-mar-right">
       <div class="card">
-        <div class="card-photo-holder">      
+        <div class="card-photo-holder">
           <i class="fas fa-folder-open icon-card"></i>
         </div>
         <div class="card-body">
@@ -145,7 +145,7 @@
     </div>
     <div class="col-md-6 col-lg-4 mb-4 card-mar-right">
       <div class="card">
-        <div class="card-photo-holder">      
+        <div class="card-photo-holder">
           <i class="fas fa-folder-open icon-card"></i>
         </div>
         <div class="card-body">
@@ -161,7 +161,7 @@
    <div class="carousel-item">
     <div class="col-md-6 col-lg-4 mb-4 card-mar-right">
       <div class="card">
-        <div class="card-photo-holder">      
+        <div class="card-photo-holder">
           <i class="fas fa-folder-open icon-card"></i>
         </div>
         <div class="card-body">
@@ -172,7 +172,7 @@
     </div>
     <div class="col-md-6 col-lg-4 mb-4 card-mar-right">
       <div class="card">
-        <div class="card-photo-holder">      
+        <div class="card-photo-holder">
           <i class="fas fa-folder-open icon-card"></i>
         </div>
         <div class="card-body">
