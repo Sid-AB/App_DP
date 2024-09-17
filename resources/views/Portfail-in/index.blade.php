@@ -228,7 +228,7 @@
               <div class="card-body p-4">
                 <div class="row">
                   <div class="col-8">
-                    <h5 class="card-title widget-card-title mb-3">Action 2012</h5>
+                    <h5 class="card-title widget-card-title mb-3">Sous_programme 2012</h5>
                     <h4 class="card-subtitle text-body-secondary m-0">152,820 DZ</h4>
                   </div>
                   <div class="col-4">
@@ -246,8 +246,8 @@
                         <i class="bi bi-arrow-right-short bsb-rotate-45"></i>
                       </span>
                       <div>
-                        <p class="fs-7 mb-0">-9%</p>
-                        <p class="fs-7 mb-0 text-secondary">since last week</p>
+                        <p class="fs-7 mb-0">ACTION 2012</p>
+                        <p class="fs-7 mb-0 text-secondary">ACTION 2013</p>
                       </div>
                     </div>
                   </div>
@@ -258,6 +258,13 @@
                     </span>
                  </li>
                 </ul>
+                <li>
+                  <span class="member"> </span>
+                    <ul>
+                      <span class="member"> OPERATION</span>
+                    </ul>
+                  
+                </li>
               </li>
             </ul>
           </li>
