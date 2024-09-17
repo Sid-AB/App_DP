@@ -21,19 +21,53 @@
 <body>
 @include('side_bar.side-barV1')
 <div>
-    <div>
-    <div class="select" tabindex="1">
-    <input class="selectopt" name="test" type="radio" id="opt1" checked>
-    <label for="opt1" class="option">Oranges</label>
-    <input class="selectopt" name="test" type="radio" id="opt2">
-    <label for="opt2" class="option">Apples</label>
-    <input class="selectopt" name="test" type="radio" id="opt3">
-    <label for="opt3" class="option">Grapefruit</label>
-    <input class="selectopt" name="test" type="radio" id="opt4">
-    <label for="opt4" class="option">Bananas</label>
-    <input class="selectopt" name="test" type="radio" id="opt5">
-    <label for="opt5" class="option">Watermelon</label>
+    <div id="progam-handle">
+    <div class="form-container">
+      <form>
+        <div class="form-group">
+          <label for="input1">Programme 1</label>
+          <input type="text" class="form-control" id="input1" placeholder="Donnee Nom Programme">
+        </div>
+        <div class="form-group">
+          <label for="input2">Numero Journal :</label>
+          <input type="text" class="form-control" id="input2" placeholder="Donnee Refrence Journal">
+        </div>
+        <div class="form-group">
+          <label for="inputDate">Date Journal</label>
+          <input type="date" class="form-control" id="inputDate">
+        </div>
+        <br>
+        <div>
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+        <hr>
+        <div class="file-handle">
+        <input type="file" class="form-control" id="file">
+        <button class="btn btn-primary">Journal</button>
+        </div>
+        </div>
+      </form>
     </div>
+    </div>
+    <div id="sous_prog-handle">
+
+    </div>
+    <div id="act-handle">
+
+    </div>
+    <div id="T_List-handle">
+
+        <div id="T1-handle">
+
+        </div>
+        <div id="T2-handle">
+
+        </div>
+        <div id="T3-handle">
+
+        </div>
+        <div id="T4-handle">
+
+        </div>
     </div>
 </div>
 

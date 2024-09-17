@@ -233,8 +233,8 @@ let arrow = document.querySelectorAll(".arrow");
       if($(this).attr('id') == 'create-dir')
       {
         window.location.href='{{route('creation.portfail')}}'
-      }
-      window.location.href='{{route('home.portfail')}}'
+      }else{
+      window.location.href='{{route('home.portfail')}}'}
     })
   })
 </script>
