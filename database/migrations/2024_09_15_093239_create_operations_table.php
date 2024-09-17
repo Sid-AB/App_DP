@@ -20,23 +20,25 @@ return new class extends Migration
 
             $table->DateTime('date_insert_operation');
             $table->DateTime('date_update_operation');
-   
-            $table->boolean('credits_ouverts');
-            $table->boolean('credits_attendus');
-   
 
-            $table->boolean('AE_reporte');
-            $table->boolean('AE_notifie');
-            $table->boolean('AE_engage');
-            $table->boolean('CP_reporte');
-            $table->boolean('CP_notifie');
-            $table->boolean('CP_consome');
+            $table->float('AE_ouvert');
+            $table->float('AE_atendu');
+            $table->float('CP_ouvert');
+            $table->float('CP_atendu');
 
-            $table->boolean('montant_t4');
+
+            $table->float('AE_reporte');
+            $table->float('AE_notifie');
+            $table->float('AE_engage');
+            $table->float('CP_reporte');
+            $table->float('CP_notifie');
+            $table->float('CP_consome');
+
+
 
             $table->integer('code_grp_operation');
             $table->foreign('code_grp_operation')->references('code_grp_operation')->on('group_operations');
-           
+
             $table->integer('code_t1');
             $table->foreign('code_t1')->references('code_t1')->on('t1_s');
 
