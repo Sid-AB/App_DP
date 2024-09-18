@@ -20,14 +20,14 @@ return new class extends Migration
 
             $table->DateTime('date_insert_portef');
             $table->DateTime('date_update_portef');
-            $table->integer('num_journ');
+          //  $table->integer('num_journ');
 
 
             $table->integer('id_rp');
             $table->foreign('id_rp')->references('id_rp')->on('respo__progs');
             $table->integer('num_portefeuil');
             $table->foreign('num_portefeuil')->references('num_portefeuil')->on('portefeuilles');
-    
+
         });
     }
 
