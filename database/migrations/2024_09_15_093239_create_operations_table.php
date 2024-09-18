@@ -15,8 +15,8 @@ return new class extends Migration
             $table->integer('code_operation')->primary();
             $table->string('nom_operation');
             $table->string('nom_operation_ar');
-            $table->float('AE_operation');
-            $table->float('CP_operation');
+            $table->float('AE_operation'); //si t1 ou t4
+            $table->float('CP_operation'); //si t1 ou t4
 
             $table->DateTime('date_insert_operation');
             $table->DateTime('date_update_operation');
