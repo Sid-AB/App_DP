@@ -20,6 +20,7 @@ Route::get('/testing/tree',function (){
 //===============ROUTE PORTEFEUILLE==============================
 Route::controller(portfeuilleController::class)->group(function(){
     Route::get('/Portfail','affich_portef')->name('home.portfail');
+    Route::get('/creation','creat_portef')->name('creation.portfail');
 });
 
 //===============ROUTE PROGRAMME==============================

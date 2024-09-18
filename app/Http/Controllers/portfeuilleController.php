@@ -22,6 +22,6 @@ class portfeuilleController extends Controller
 // creation de la portefeuille
     function creat_portef()
     {
-        return view('Portfail-in.creat');
+        return view('Portfail-in.creation');
     }
 }
