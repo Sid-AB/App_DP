@@ -58,7 +58,7 @@ class actionController extends Controller
         $action = new action();
         $action->num_action = $request->num_action;
         $action->num_sous_prog = $num_sous_prog;
-        $action->nom_sous_prog = $request->nom_sous_prog;
+        $action->nom_action = $request->nom_action;
         $action->AE_action = $request->AE_action;
         $action->CP_action = $request->CP_action;
         $action->id_ra = 1;//periodiquement
@@ -74,7 +74,7 @@ class actionController extends Controller
         } else {
             return response()->json([
                 'success' => false,
-                'message' => 'Erreur lors de l\'ajout du Action.',
+                'message' => 'Erreur lors de l\'ajout de l\'action.',
                 'code' => 500,
             ]);
         }

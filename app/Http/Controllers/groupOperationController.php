@@ -6,29 +6,52 @@ use Illuminate\Http\Request;
 
 class groupOperationController extends Controller
 {
-    //insertion DPA
-    public function insertDPA(Request $request, $t1, $t2, $t3, $t4, $sousAction)
+//===================================================================================
+                            //insertion DPA
+//===================================================================================
+    public function insertDPA(Request $request, $t1, $t2, $t3, $t4, $num_sous_action)
+
 {   if($t1==1)
     {
-    $montantAe = $request->input('montantAe');
-    $montantCp = $request->input('montantCp');
+     // Récupérer les données du formulaire
+     $aeData = $request->input('ae');
+     $cpData = $request->input('cp');
 
-    foreach ($montantAe as $code => $montantAe) {
-        // Si le montant AE n'a pas été saisi, on lui attribue la valeur par défaut de 0.00
-        $montantCp = $montantCp ?? 0.00;
+     // Charger les données JSON depuis le fichier
+    $jsonFilePath = storage_path('dataT1.json');
 
-        // Récupérer Montant CP pour chaque code, et s'il est vide, on lui attribue 0.00
-        $montantCp = $montantsCp[$code] ?? 0.00;
+    if (!file_exists($jsonFilePath)) {
+        return back()->withErrors('Le fichier JSON est introuvable.');
+    }
 
-        // Récupérer le nom associé à chaque code (optionnel si présent dans la requête)
-        $nom = $request->input("noms[$code]");
+    $jsonData = json_decode(file_get_contents($jsonFilePath), true);
+
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        return back()->withErrors('Erreur lors du décodage du fichier JSON.');
+    }
+
+     foreach ($jsonData as $item) {
+        $code = $item['code']?? null;
+        $nom = $item['nom'] ?? '';
+        $ae = $aeData[$code] ?? 0.00;
+        $cp = $cpData[$code] ?? 0.00;
+
+        // Vérifier si le code est manquant
+        if (!$code) {
+            return back()->withErrors("Code manquant pour l'élément avec nom : $nom");
+        }
+
+        // Vérifier si le nom est manquant
+        if (!$nom) {
+            return back()->withErrors("Nom manquant pour l'élément avec code : $code");
+        }
 
         // Vérifier si le code représente un groupe d'opérations
         if ($code % 1000 == 0) {
             // Insertion dans la table groupoperation
             GroupOperation::updateOrCreate(
                 ['code_grp_operation' => $code],
-                ['nom_grp_operation' => $nom, 'AE_grp_operation' => $montantAe, 'CP_grp_operation' => $montantCp]
+                ['nom_grp_operation' => $nom, 'num_sous_action' => $num_sous_action]
             );
         }
         // Vérifier si le code représente une opération
@@ -38,7 +61,7 @@ class groupOperationController extends Controller
             // Insertion dans la table operation
             Operation::updateOrCreate(
                 ['code_operation' => $code],
-                ['code_grp_operation' => $codeGp, 'nom_operation' => $nom, 'AE_operation' => $montantAe, 'CP_operation' => $montantCp]
+                ['code_grp_operation' => $codeGp, 'nom_operation' => $nom, 'AE_operation' => $ae, 'CP_operation' => $cp]
             );
         }
         // Sinon, il s'agit d'une sous-opération
@@ -46,9 +69,9 @@ class groupOperationController extends Controller
             $codeOp = floor($code / 100) * 100;
 
             // Insertion dans la table sousoperation
-            SubOperation::updateOrCreate(
+            sousoperation::updateOrCreate(
                 ['code_sous_operation' => $code],
-                ['code_operation' => $codeOp, 'nom_sous_operation' => $nom, 'AE_sous_operation' => $montantAe, 'CP_sous_operation' => $montantCp]
+                ['code_operation' => $codeOp, 'nom_sous_operation' => $nom, 'AE_sous_operation' => $ae, 'CP_sous_operation' => $cp]
             );
         }
     }
@@ -58,99 +81,147 @@ class groupOperationController extends Controller
 }
 elseif($t2==2)
 {
-    $montantAe_ouvert = $request->input('montantAe_ouvert');
-    $montantCp_ouvert = $request->input('montantCp_ouvert');
+    // Récupérer les données du formulaire
+    $aeDataOuvert = $request->input('ae_ouvert');
+    $cpDataOuvert = $request->input('cp_ouvert');
+    $aeDataAttendu = $request->input('ae_attendu');
+    $cpDataAttendu = $request->input('cp_attendu');
 
-    $montantCp_atendu = $request->input('montantCp_atendu');
-    $montantCp_atendu = $request->input('montantCp_atendu');
+    // Charger les données JSON depuis le fichier
+   $jsonFilePath = storage_path('dataT2.json');
 
-    foreach ($montantAe_ouvert as $code => $montantAe_ouvert) {
-        // Si le montant AE n'a pas été saisi, on lui attribue la valeur par défaut de 0.00
-        $montantCp_atendu = $montantCp_atendu ?? 0.00;
+   if (!file_exists($jsonFilePath)) {
+       return back()->withErrors('Le fichier JSON est introuvable.');
+   }
 
-        // Récupérer Montant CP pour chaque code, et s'il est vide, on lui attribue 0.00
-        $montantCp = $montantsCp[$code] ?? 0.00;
+   $jsonData = json_decode(file_get_contents($jsonFilePath), true);
 
-        // Récupérer le nom associé à chaque code (optionnel si présent dans la requête)
-        $nom = $request->input("noms[$code]");
+   if (json_last_error() !== JSON_ERROR_NONE) {
+       return back()->withErrors('Erreur lors du décodage du fichier JSON.');
+   }
 
-        // Vérifier si le code représente un groupe d'opérations
-        if ($code % 1000 == 0) {
-            // Insertion dans la table groupoperation
-            GroupOperation::updateOrCreate(
-                ['code_grp_operation' => $code],
-                ['nom_grp_operation' => $nom, 'AE_grp_operation' => $montantAe, 'CP_grp_operation' => $montantCp]
-            );
-        }
-        // Vérifier si le code représente une opération
-        elseif ($code % 100 == 0) {
-            $codeGp = floor($code / 1000) * 1000;
+    foreach ($jsonData as $item) {
+       $code = $item['code']?? null;
+       $nom = $item['nom'] ?? '';
+       $ae_ouvert = $aeDataOuvert[$code] ?? 0.00;
+       $cp_ouvert = $cpDataOuvert[$code] ?? 0.00;
+       $ae_attendu = $aeDataAttendu[$code] ?? 0.00;
+       $cp_attendu = $cpDataAttendu[$code] ?? 0.00;
+       // Vérifier si le code est manquant
+       if (!$code) {
+           return back()->withErrors("Code manquant pour l'élément avec nom : $nom");
+       }
 
-            // Insertion dans la table operation
-            Operation::updateOrCreate(
-                ['code_operation' => $code],
-                ['code_grp_operation' => $codeGp, 'nom_operation' => $nom, 'AE_operation' => $montantAe, 'CP_operation' => $montantCp]
-            );
-        }
-        // Sinon, il s'agit d'une sous-opération
-        else {
-            $codeOp = floor($code / 100) * 100;
+       // Vérifier si le nom est manquant
+       if (!$nom) {
+           return back()->withErrors("Nom manquant pour l'élément avec code : $code");
+       }
 
-            // Insertion dans la table sousoperation
-            SubOperation::updateOrCreate(
-                ['code_sous_operation' => $code],
-                ['code_operation' => $codeOp, 'nom_sous_operation' => $nom, 'AE_sous_operation' => $montantAe, 'CP_sous_operation' => $montantCp]
-            );
-        }
-    }
+       // Vérifier si le code représente un groupe d'opérations
+       if ($code % 1000 == 0) {
+           // Insertion dans la table groupoperation
+           GroupOperation::updateOrCreate(
+               ['code_grp_operation' => $code],
+               ['nom_grp_operation' => $nom, 'num_sous_action' => $num_sous_action]
+           );
+       }
+       // Vérifier si le code représente une opération
+       elseif ($code % 100 == 0) {
+           $codeGp = floor($code / 1000) * 1000;
 
-    return back()->with('success', 'Données insérées avec succès !');
+           // Insertion dans la table operation
+           Operation::updateOrCreate(
+               ['code_operation' => $code],
+               ['code_grp_operation' => $codeGp, 'nom_operation' => $nom, 'AE_operation' => ($ae_attendu+$ae_ouvert),
+               'CP_operation' => ($cp_attendu+$cp_ouvert),  'AE_atendu' => $ae_attendu,  'AE_ouvert' => $ae_ouvert,
+                'CP_ouvert' => $cp_ouvert,'CP_ouvert' => $cp_ouvert]
+           );
+       }
+       // Sinon, il s'agit d'une sous-opération
+       else {
+           $codeOp = floor($code / 100) * 100;
+
+           // Insertion dans la table sousoperation
+           sousoperation::updateOrCreate(
+               ['code_sous_operation' => $code],
+               ['code_operation' => $codeOp, 'nom_sous_operation' => $nom,'AE_sous_operation' => ($ae_attendu+$ae_ouvert),
+               'CP_sous_operation' => ($cp_attendu+$cp_ouvert),  'AE_atendu' => $ae_attendu,  'AE_ouvert' => $ae_ouvert,
+                'CP_ouvert' => $cp_ouvert,'CP_ouvert' => $cp_ouvert]
+           );
+       }
+   }
+
+   return back()->with('success', 'Données insérées avec succès !');
 
 }elseif ($t3==3) {
-    $montants = $request->input('montants');
+       // Récupérer les données du formulaire
+       $aeDataReporte = $request->input('AE_reporte');
+       $aeDataNotifie = $request->input('AE_notifie');
+       $aeDataEngage = $request->input('AE_engage');
 
-    foreach ($montantAe as $code => $montantAe) {
-        // Si le montant AE n'a pas été saisi, on lui attribue la valeur par défaut de 0.00
-        $montantAe = $montantAe ?? 0.00;
+       $cpDataReporte = $request->input('CP_reporte');
+       $cpDataNotifie = $request->input('CP_notifie');
+       $cpDataConsome = $request->input('CP_consome');
 
-        // Récupérer Montant CP pour chaque code, et s'il est vide, on lui attribue 0.00
-        $montantCp = $montantsCp[$code] ?? 0.00;
+       // Charger les données JSON depuis le fichier
+      $jsonFilePath = storage_path('dataT3.json');
 
-        // Récupérer le nom associé à chaque code (optionnel si présent dans la requête)
-        $nom = $request->input("noms[$code]");
+      if (!file_exists($jsonFilePath)) {
+          return back()->withErrors('Le fichier JSON est introuvable.');
+      }
 
-        // Vérifier si le code représente un groupe d'opérations
-        if ($code % 1000 == 0) {
-            // Insertion dans la table groupoperation
-            GroupOperation::updateOrCreate(
-                ['code_grp_operation' => $code],
-                ['nom_grp_operation' => $nom, 'AE_grp_operation' => $montantAe, 'CP_grp_operation' => $montantCp]
-            );
-        }
-        // Vérifier si le code représente une opération
-        elseif ($code % 100 == 0) {
-            $codeGp = floor($code / 1000) * 1000;
+      $jsonData = json_decode(file_get_contents($jsonFilePath), true);
 
-            // Insertion dans la table operation
-            Operation::updateOrCreate(
-                ['code_operation' => $code],
-                ['code_grp_operation' => $codeGp, 'nom_operation' => $nom, 'AE_operation' => $montantAe, 'CP_operation' => $montantCp]
-            );
-        }
-        // Sinon, il s'agit d'une sous-opération
-        else {
-            $codeOp = floor($code / 100) * 100;
+      if (json_last_error() !== JSON_ERROR_NONE) {
+          return back()->withErrors('Erreur lors du décodage du fichier JSON.');
+      }
 
-            // Insertion dans la table sousoperation
-            SubOperation::updateOrCreate(
-                ['code_sous_operation' => $code],
-                ['code_operation' => $codeOp, 'nom_sous_operation' => $nom, 'AE_sous_operation' => $montantAe, 'CP_sous_operation' => $montantCp]
-            );
-        }
-    }
+       foreach ($jsonData as $item) {
+          $code = $item['code']?? null;
+          $nom = $item['nom'] ?? '';
+          $ae_reporte = $aeDataReporte[$code] ?? 0.00;
+          $ae_notifie = $aeDataNotifie[$code] ?? 0.00;
+          $ae_engage = $aeDataEngage[$code] ?? 0.00;
 
-    return back()->with('success', 'Données insérées avec succès !');
-}elseif (t4==4) {
+          $cp_reporte = $cpDataReporte[$code] ?? 0.00;
+          $cp_notifie = $cpDataNotifie[$code] ?? 0.00;
+          $cp_consome = $cpDataConsome[$code] ?? 0.00;
+          // Vérifier si le code est manquant
+          if (!$code) {
+              return back()->withErrors("Code manquant pour l'élément avec nom : $nom");
+          }
+
+          // Vérifier si le nom est manquant
+          if (!$nom) {
+              return back()->withErrors("Nom manquant pour l'élément avec code : $code");
+          }
+
+          // Vérifier si le code représente un groupe d'opérations
+          if ($code % 1000 == 0) {
+              // Insertion dans la table groupoperation
+              GroupOperation::updateOrCreate(
+                  ['code_grp_operation' => $code],
+                  ['nom_grp_operation' => $nom, 'num_sous_action' => $num_sous_action]
+              );
+          }
+          // Vérifier si le code représente une opération
+          elseif ($code % 100 == 0) {
+              $codeGp = floor($code / 1000) * 1000;
+
+              // Insertion dans la table operation
+              Operation::updateOrCreate(
+                  ['code_operation' => $code],
+                  ['code_grp_operation' => $codeGp, 'nom_operation' => $nom, 'AE_operation' => ($ae_reporte+$ae_notifie+$ae_engage),
+                  'CP_operation' => ($cp_reporte+$cp_notifie+$cp_consome),  'AE_reporte' => $ae_reporte,  'AE_notifie' => $ae_notifie,'AE_engage' => $ae_engage,
+                   'CP_reporte' => $cp_reporte,'CP_notifie' => $cp_notifie,'CP_consome' => $cp_consome]
+              );
+          }
+
+      }
+
+      return back()->with('success', 'Données insérées avec succès !');
+
+}elseif ($t4==4) {
     $montants = $request->input('montants');
 
     foreach ($montantAe as $code => $montantAe) {
