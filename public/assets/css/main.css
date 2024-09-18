@@ -633,4 +633,15 @@ background-color: #f0f0f0e7;
 -moz-box-shadow: 2px 4px 40px -6px rgba(255,162,0,1);
 box-shadow: 2px 4px 40px -6px rgba(255,162,0,1);
 }
+.form-container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+.form-group label {
+  font-weight: bold;
+}
   /** ------ ---------**/

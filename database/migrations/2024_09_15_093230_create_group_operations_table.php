@@ -15,12 +15,17 @@ return new class extends Migration
             $table->integer('code_grp_operation')->primary();
             $table->string('nom_grp_operation');
             $table->string('nom_grp_operation_ar');
+<<<<<<< HEAD
             $table->float('AE_grp_operation');
             $table->float('CP_grp_operation');
+=======
+         //   $table->float('AE_grp_operation');
+           // $table->float('CP_grp_operation');
+>>>>>>> 7761c0633d50898037438c8c98aeabbad0f0381c
 
             $table->DateTime('date_insert_grp_operation');
             $table->DateTime('date_update_grp_operation');
-   
+
 
             $table->integer('num_sous_action');
             $table->foreign('num_sous_action')->references('num_sous_action')->on('sous_actions');

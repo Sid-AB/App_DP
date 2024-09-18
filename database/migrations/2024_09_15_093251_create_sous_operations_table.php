@@ -18,9 +18,14 @@ return new class extends Migration
             $table->float('AE_sous_operation');
             $table->float('CP_sous_operation');
 
+            $table->float('AE_ouvert');
+            $table->float('AE_atendu');
+            $table->float('CP_ouvert');
+            $table->float('CP_atendu');
+
             $table->integer('code_operation');
             $table->foreign('code_operation')->references('code_operation')->on('operations');
-           
+
         });
     }
 
