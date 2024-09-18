@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,18 +12,27 @@
 <link href="{{asset('assets/bootstrap-5.0.2/css/bootstrap.css')}}" rel="stylesheet"/>
 <link href="{{asset('assets/fontawesome-free/css/all.css')}}" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-<link 
-        rel="stylesheet" 
-        href="https://unpkg.com/@patternfly/patternfly/patternfly.css" 
+<link
+        rel="stylesheet"
+        href="https://unpkg.com/@patternfly/patternfly/patternfly.css"
         crossorigin="anonymous"
       >
 </head>
 <body>
-@include('side_bar.side-barV1')
+@include('side_bar.side-barV1') --}}
+
+@extends('welcome')
+
+@section('title', 'Creat')
+
+@section('content')
+
+    <body>
 <div>
     <div id="progam-handle">
     <div class="form-container">
-      <form>
+      <form action="{{ route('creation.portfail') }}" method="POST">
+        @csrf
         <div class="form-group">
           <label for="input1">Programme 1</label>
           <input type="text" class="form-control" id="input1" placeholder="Donnee Nom Programme">
@@ -70,10 +79,13 @@
         </div>
     </div>
 </div>
-
+{{--
 <script src="{{asset('assets/bootstrap-5.0.2/js/bootstrap.js')}}"></script>
 <script src="{{asset('assets/fontawesome-free/js/all.js')}}"></script>
 <script src="{{asset('assets/js/jquery-3.7.1.min.js')}}"></script>
 <script src="{{asset('assets/js/main.js')}}"></script>
 </body>
-</html>
+</html> --}}
+
+</body>
+@endsection
