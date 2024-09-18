@@ -10,7 +10,7 @@ class Programme extends Model
     use HasFactory;
     protected $table = 'programmes';
     protected $primaryKey = 'id_prog';
-    public $incrementing = false;
+    public $incrementing = true;
     protected $keyType = 'integer';
     public $timestamps = false;
 

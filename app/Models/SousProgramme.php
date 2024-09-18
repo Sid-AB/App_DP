@@ -10,7 +10,7 @@ class SousProgramme extends Model
     use HasFactory;
     protected $table = 'sous_programmes';
     protected $primaryKey = 'id_sous_prog';
-    public $incrementing = false;
+    public $incrementing = true;
     protected $keyType = 'integer';
     public $timestamps = false;
 
