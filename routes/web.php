@@ -25,16 +25,20 @@ Route::controller(portfeuilleController::class)->group(function(){
 
 //===============ROUTE PROGRAMME==============================
 Route::controller(programmeController::class)->group(function(){
+    Route::get('/Programme','affich_prog')->name('home.programme');
+    Route::get('/creationProg','creat_prog')->name('creation.programme');
 });
 
 //===============ROUTE SOUS PROGRAMME==============================
 Route::controller(sousProgrammeController::class)->group(function(){
-
+    Route::get('/SousProgramme','affich_sou_prog')->name('home.sousProgramme');
+    Route::get('/creationSousProg','create_sou_prog')->name('creation.souProgramme');
 });
 
 //===============ROUTE ACTION==============================
 Route::controller(actionController::class)->group(function(){
-    Route::get('/Action','afficher_detail')->name('action.detail');
+    Route::get('/Action','affich_action')->name('action.detail');
+    Route::get('/creationProg','creat_prog')->name('creation.programme');
 });
 
 //===============ROUTE SOUS ACTION==============================

@@ -14,17 +14,12 @@ return new class extends Migration
         Schema::create('group_operations', function (Blueprint $table) {
             $table->integer('code_grp_operation')->primary();
             $table->string('nom_grp_operation');
-            $table->string('nom_grp_operation_ar');
-<<<<<<< HEAD
-            $table->float('AE_grp_operation');
-            $table->float('CP_grp_operation');
-=======
-         //   $table->float('AE_grp_operation');
-           // $table->float('CP_grp_operation');
->>>>>>> 7761c0633d50898037438c8c98aeabbad0f0381c
+            $table->string('nom_grp_operation_ar')->nullable();
+            //$table->float('AE_grp_operation');
+            //$table->float('CP_grp_operation');
 
             $table->DateTime('date_insert_grp_operation');
-            $table->DateTime('date_update_grp_operation');
+            $table->DateTime('date_update_grp_operation')->nullable();
 
 
             $table->integer('num_sous_action');

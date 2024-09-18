@@ -13,9 +13,9 @@
 <link href="{{asset('assets/bootstrap-5.0.2/css/bootstrap.css')}}" rel="stylesheet"/>
 <link href="{{asset('assets/fontawesome-free/css/all.css')}}" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-<link 
-        rel="stylesheet" 
-        href="https://unpkg.com/@patternfly/patternfly/patternfly.css" 
+<link
+        rel="stylesheet"
+        href="https://unpkg.com/@patternfly/patternfly/patternfly.css"
         crossorigin="anonymous"
       >
 </head>
@@ -69,7 +69,7 @@
     </div>
     <div id="progam-handle" style="display:none;">
     <div class="form-container">
-      <form>
+      <form >
         <div class="form-group">
           <label for="input1">Programme 1</label>
           <input type="text" class="form-control" id="input1" placeholder="Donnee Nom Programme">
