@@ -15,7 +15,7 @@ class GroupOperation extends Model
     public $timestamps = false;
 
     protected $fillable = [
-       'code_grp_operation','nom_grp_operation','nom_grp_operation_ar','AE_grp_operation','CP_grp_operation'
+       'code_grp_operation','nom_grp_operation','nom_grp_operation_ar'
 ,'date_insert_grp_operation','date_update_grp_operation','num_sous_action'
  ];
    

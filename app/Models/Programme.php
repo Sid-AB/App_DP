@@ -17,7 +17,7 @@ class Programme extends Model
     protected $fillable = [
        'num_prog','nom_prog','nom_prog_ar','date_update_portef'
 ,'AE_prog','CP_prog','id_rp','num_portefeuil','date_insert_portef' 
- ,'num_journ'];
+ ];
    
  
     public function Respo_Prog()
