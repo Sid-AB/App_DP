@@ -25,6 +25,8 @@ Route::controller(portfeuilleController::class)->group(function(){
 
 //===============ROUTE PROGRAMME==============================
 Route::controller(programmeController::class)->group(function(){
+    Route::get('/Programme','affich_porog')->name('home.programme');
+    Route::get('/creationProg','creat_prog')->name('creation.programme');
 });
 
 //===============ROUTE SOUS PROGRAMME==============================

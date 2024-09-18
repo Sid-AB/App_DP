@@ -7,24 +7,18 @@ use Illuminate\Http\Request;
 class portfeuilleController extends Controller
 {
 
-//affichage de le portrefeuilleS
-    function affich_portefs()
-    {
-        return view('Portfail-in.index');
-    }
-
-//affichage de le portrefeuille
+//affichage du portrefeuille
     function affich_portef()
     {
-        return view('Portfail-in.index');
+        // Récupérer tous les portefeuilles de la base de données
+            $portefeuilles = Portefeuille::all();
+
+    // Passer les données à la vue
+        return view('Portfail-in.index', compact('portefeuilles'));
     }
 
-   /* function creat_portef()
-    {
-        return view('Portfail-in.creation');
-    }*/
 
-    // creation de le portefeuille
+    // creation du portefeuille
     function creat_portef(Request $request)
     {
          // Validation des données
@@ -42,7 +36,8 @@ class portfeuilleController extends Controller
 
         if ($existing) {
             return response()->json([
-                'success'=> 'Le portefeuille avec ce numéro existe déjà.',
+                'success' => false,
+                'message' => 'Le portefeuille avec ce numéro existe déjà.',
                 'code'=>404,
             ]);
         }
@@ -50,7 +45,7 @@ class portfeuilleController extends Controller
         // Créer un nouveau portefeuille
         $portefeuille = new Portefeuille();
         $portefeuille->num_portefeuil = $request->num_port;
-        $portefeuille->nom_journal = $request->nom;
+        $portefeuille->nom_journal = $request->nom_journal;
         $portefeuille->num_journal = $request->num_journal;
         $portefeuille->AE_portef = $request->AE_portef;
         $portefeuille->CP_portef = $request->CP_portef;
@@ -73,8 +68,7 @@ class portfeuilleController extends Controller
             ]);
         }
 
-        //return redirect()->back()->with('success', 'Portefeuille ajouté avec succès.');
-        //return view('Portfail-in.index');
+
     }
 
 }

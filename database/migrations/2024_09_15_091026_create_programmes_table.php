@@ -12,14 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('programmes', function (Blueprint $table) {
-            $table->integer('num_prog')->primary();
+            $table->integer('id_prog')->primary();
+            $table->integer('num_prog');
             $table->string('nom_prog');
             $table->string('nom_prog_ar');
             $table->float('AE_porg');
             $table->float('CP_prog');
 
             $table->DateTime('date_insert_portef');
-            $table->DateTime('date_update_portef');
+            $table->DateTime('date_update_portef')->nullable();
           //  $table->integer('num_journ');
 
 
