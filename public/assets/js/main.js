@@ -1,10 +1,10 @@
 $('a').click(function(e){
 	var _elem = $(this);
-  
+
   $('a').parent('li').each(function(){
   	$(this).removeClass('active');
   });
-  
+
   _elem.parent('li').addClass('active');
 });
 (function(){
@@ -30,7 +30,7 @@ $(document).ready(function(){
       $('#Tport-handle').removeClass('scale-out');
       $('.T-handle').css('display','flex')
   }, 500)
-   
+
   })
 })
 
@@ -58,10 +58,10 @@ function update(currentActive) {
   progress.style.width =
     ((activeCircles.length - 1) / (stepCircles.length - 1)) * 100 + "%";
 
-  
+
 }
 
 function gettingT1()
 {
-  
+
 }

@@ -13,9 +13,9 @@
 <link href="{{asset('assets/bootstrap-5.0.2/css/bootstrap.css')}}" rel="stylesheet"/>
 <link href="{{asset('assets/fontawesome-free/css/all.css')}}" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-<link 
-        rel="stylesheet" 
-        href="https://unpkg.com/@patternfly/patternfly/patternfly.css" 
+<link
+        rel="stylesheet"
+        href="https://unpkg.com/@patternfly/patternfly/patternfly.css"
         crossorigin="anonymous"
       >
 
@@ -36,7 +36,7 @@
         <ul>
           <li>
             <span class="member" id="Portfail">
-                
+
                 <!--  -->
 
                 <div class="col-12 col-sm-6">

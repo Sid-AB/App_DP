@@ -1,4 +1,4 @@
-{{-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -19,20 +19,11 @@
       >
 </head>
 <body>
-@include('side_bar.side-barV1') --}}
-
-@extends('welcome')
-
-@section('title', 'Creat')
-
-@section('content')
-
-    <body>
+@include('side_bar.side-barV1')
 <div>
     <div id="progam-handle">
     <div class="form-container">
-      <form action="{{ route('creation.portfail') }}" method="POST">
-        @csrf
+      <form >
         <div class="form-group">
           <label for="input1">Programme 1</label>
           <input type="text" class="form-control" id="input1" placeholder="Donnee Nom Programme">
@@ -79,13 +70,10 @@
         </div>
     </div>
 </div>
-{{--
+
 <script src="{{asset('assets/bootstrap-5.0.2/js/bootstrap.js')}}"></script>
 <script src="{{asset('assets/fontawesome-free/js/all.js')}}"></script>
 <script src="{{asset('assets/js/jquery-3.7.1.min.js')}}"></script>
 <script src="{{asset('assets/js/main.js')}}"></script>
 </body>
-</html> --}}
-
-</body>
-@endsection
+</html>
