@@ -20,7 +20,7 @@ return new class extends Migration
 
             $table->DateTime('date_insert_portef');
             $table->DateTime('date_update_portef');
-            $table->integer('num_journ');
+          //  $table->integer('num_journ');
 
 
             $table->integer('id_rp');
