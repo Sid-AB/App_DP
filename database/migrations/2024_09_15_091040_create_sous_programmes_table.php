@@ -12,8 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('sous_programmes', function (Blueprint $table) {
-            $table->integer('id_sou_prog')->primary();
-            $table->integer('num_sous_prog');
+            $table->integer('num_sous_prog')->primary();
             $table->string('nom_sous_prog');
             $table->string('nom_sous_prog_ar')->nullable();
             $table->float('AE_sous_porg');

@@ -6,198 +6,79 @@ use Illuminate\Http\Request;
 
 class actionController extends Controller
 {
-    public function afficher_detail()
+//===================================================================================
+                            // affichage de l'action
+//===================================================================================
+    public function affich_action($num_sous_prog)
     {
-        return view('Action-in.index');
+        // Récupérer les action qui ont le même num_sous_prog
+        $action = action::where('num_sous_prog', $num_sous_prog)->get();
+
+    // Vérifier si des action existent
+        if ($action->isEmpty()) {
+             return response()->json([
+                'success' => false,
+                'message' => 'Aucune action trouvée pour ce sous programme.',
+            ]);
+        }
+
+    // Retourner les action à la vue
+        return view('Action-in.index', compact('action'));
     }
 
-    public function insertDPA(Request $request, $t1, $t2, $t3, $t4, $sousAction)
-{   if($t1==1)
+
+//===================================================================================
+                            // creation de l'action
+//===================================================================================
+    function create_action(Request $request, $num_sous_prog)
     {
-    $montantAe = $request->input('montantAe');
-    $montantCp = $request->input('montantCp');
+        // Validation des données
+        $request->validate([
+            'num_action' => 'required',
+            'nom_action' => 'required',
+            'AE_action' => 'required',
+            'CP_action' => 'required',
+            'date_insert_action' => 'required|date',
+        ]);
 
-    foreach ($montantAe as $code => $montantAe) {
-        // Si le montant AE n'a pas été saisi, on lui attribue la valeur par défaut de 0.00
-        $montantCp = $montantCp ?? 0.00;
+        // Vérifier si le action existe déjà en fonction du numéro et des dates
+        $existing = action::where('num_action', $request->num_action)
+                             ->whereNotNull('date_insert_action')
+                             ->exists(); // Vérifie s'il y a un enregistrement existant
 
-        // Récupérer Montant CP pour chaque code, et s'il est vide, on lui attribue 0.00
-        $montantCp = $montantsCp[$code] ?? 0.00;
-
-        // Récupérer le nom associé à chaque code (optionnel si présent dans la requête)
-        $nom = $request->input("noms[$code]");
-
-        // Vérifier si le code représente un groupe d'opérations
-        if ($code % 1000 == 0) {
-            // Insertion dans la table groupoperation
-            GroupOperation::updateOrCreate(
-                ['code_grp_operation' => $code],
-                ['nom_grp_operation' => $nom, 'AE_grp_operation' => $montantAe, 'CP_grp_operation' => $montantCp]
-            );
+        if ($existing) {
+            return response()->json([
+                'success' => false,
+                'message' => 'L\'action avec ce numéro existe déjà.',
+                'code' => 404,
+            ]);
         }
-        // Vérifier si le code représente une opération
-        elseif ($code % 100 == 0) {
-            $codeGp = floor($code / 1000) * 1000;
 
-            // Insertion dans la table operation
-            Operation::updateOrCreate(
-                ['code_operation' => $code],
-                ['code_grp_operation' => $codeGp, 'nom_operation' => $nom, 'AE_operation' => $montantAe, 'CP_operation' => $montantCp]
-            );
-        }
-        // Sinon, il s'agit d'une sous-opération
-        else {
-            $codeOp = floor($code / 100) * 100;
+        // Créer une nouvelle action
+        $action = new action();
+        $action->num_action = $request->num_action;
+        $action->num_sous_prog = $num_sous_prog;
+        $action->nom_sous_prog = $request->nom_sous_prog;
+        $action->AE_action = $request->AE_action;
+        $action->CP_action = $request->CP_action;
+        $action->id_ra = 1;
+        $action->date_insert_action = $request->date_insert_action;
+        $action->save();
 
-            // Insertion dans la table sousoperation
-            SubOperation::updateOrCreate(
-                ['code_sous_operation' => $code],
-                ['code_operation' => $codeOp, 'nom_sous_operation' => $nom, 'AE_sous_operation' => $montantAe, 'CP_sous_operation' => $montantCp]
-            );
-        }
-    }
-
-    return back()->with('success', 'Données insérées avec succès !');
-
-}
-elseif($t2==2)
-{
-    $montantAe_ouvert = $request->input('montantAe_ouvert');
-    $montantCp_ouvert = $request->input('montantCp_ouvert');
-
-    $montantCp_atendu = $request->input('montantCp_atendu');
-    $montantCp_atendu = $request->input('montantCp_atendu');
-
-    foreach ($montantAe_ouvert as $code => $montantAe_ouvert) {
-        // Si le montant AE n'a pas été saisi, on lui attribue la valeur par défaut de 0.00
-        $montantCp_atendu = $montantCp_atendu ?? 0.00;
-
-        // Récupérer Montant CP pour chaque code, et s'il est vide, on lui attribue 0.00
-        $montantCp = $montantsCp[$code] ?? 0.00;
-
-        // Récupérer le nom associé à chaque code (optionnel si présent dans la requête)
-        $nom = $request->input("noms[$code]");
-
-        // Vérifier si le code représente un groupe d'opérations
-        if ($code % 1000 == 0) {
-            // Insertion dans la table groupoperation
-            GroupOperation::updateOrCreate(
-                ['code_grp_operation' => $code],
-                ['nom_grp_operation' => $nom, 'AE_grp_operation' => $montantAe, 'CP_grp_operation' => $montantCp]
-            );
-        }
-        // Vérifier si le code représente une opération
-        elseif ($code % 100 == 0) {
-            $codeGp = floor($code / 1000) * 1000;
-
-            // Insertion dans la table operation
-            Operation::updateOrCreate(
-                ['code_operation' => $code],
-                ['code_grp_operation' => $codeGp, 'nom_operation' => $nom, 'AE_operation' => $montantAe, 'CP_operation' => $montantCp]
-            );
-        }
-        // Sinon, il s'agit d'une sous-opération
-        else {
-            $codeOp = floor($code / 100) * 100;
-
-            // Insertion dans la table sousoperation
-            SubOperation::updateOrCreate(
-                ['code_sous_operation' => $code],
-                ['code_operation' => $codeOp, 'nom_sous_operation' => $nom, 'AE_sous_operation' => $montantAe, 'CP_sous_operation' => $montantCp]
-            );
+        if ($action) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Action ajouté avec succès.',
+                'code' => 200,
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Erreur lors de l\'ajout du Action.',
+                'code' => 500,
+            ]);
         }
     }
 
-    return back()->with('success', 'Données insérées avec succès !');
 
-}elseif ($t3==3) {
-    $montants = $request->input('montants');
-
-    foreach ($montantAe as $code => $montantAe) {
-        // Si le montant AE n'a pas été saisi, on lui attribue la valeur par défaut de 0.00
-        $montantAe = $montantAe ?? 0.00;
-
-        // Récupérer Montant CP pour chaque code, et s'il est vide, on lui attribue 0.00
-        $montantCp = $montantsCp[$code] ?? 0.00;
-
-        // Récupérer le nom associé à chaque code (optionnel si présent dans la requête)
-        $nom = $request->input("noms[$code]");
-
-        // Vérifier si le code représente un groupe d'opérations
-        if ($code % 1000 == 0) {
-            // Insertion dans la table groupoperation
-            GroupOperation::updateOrCreate(
-                ['code_grp_operation' => $code],
-                ['nom_grp_operation' => $nom, 'AE_grp_operation' => $montantAe, 'CP_grp_operation' => $montantCp]
-            );
-        }
-        // Vérifier si le code représente une opération
-        elseif ($code % 100 == 0) {
-            $codeGp = floor($code / 1000) * 1000;
-
-            // Insertion dans la table operation
-            Operation::updateOrCreate(
-                ['code_operation' => $code],
-                ['code_grp_operation' => $codeGp, 'nom_operation' => $nom, 'AE_operation' => $montantAe, 'CP_operation' => $montantCp]
-            );
-        }
-        // Sinon, il s'agit d'une sous-opération
-        else {
-            $codeOp = floor($code / 100) * 100;
-
-            // Insertion dans la table sousoperation
-            SubOperation::updateOrCreate(
-                ['code_sous_operation' => $code],
-                ['code_operation' => $codeOp, 'nom_sous_operation' => $nom, 'AE_sous_operation' => $montantAe, 'CP_sous_operation' => $montantCp]
-            );
-        }
-    }
-
-    return back()->with('success', 'Données insérées avec succès !');
-}elseif (t4==4) {
-    $montants = $request->input('montants');
-
-    foreach ($montantAe as $code => $montantAe) {
-        // Si le montant AE n'a pas été saisi, on lui attribue la valeur par défaut de 0.00
-        $montantAe = $montantAe ?? 0.00;
-
-        // Récupérer Montant CP pour chaque code, et s'il est vide, on lui attribue 0.00
-        $montantCp = $montantsCp[$code] ?? 0.00;
-
-        // Récupérer le nom associé à chaque code (optionnel si présent dans la requête)
-        $nom = $request->input("noms[$code]");
-
-        // Vérifier si le code représente un groupe d'opérations
-        if ($code % 1000 == 0) {
-            // Insertion dans la table groupoperation
-            GroupOperation::updateOrCreate(
-                ['code_grp_operation' => $code],
-                ['nom_grp_operation' => $nom, 'AE_grp_operation' => $montantAe, 'CP_grp_operation' => $montantCp]
-            );
-        }
-        // Vérifier si le code représente une opération
-        elseif ($code % 100 == 0) {
-            $codeGp = floor($code / 1000) * 1000;
-
-            // Insertion dans la table operation
-            Operation::updateOrCreate(
-                ['code_operation' => $code],
-                ['code_grp_operation' => $codeGp, 'nom_operation' => $nom, 'AE_operation' => $montantAe, 'CP_operation' => $montantCp]
-            );
-        }
-        // Sinon, il s'agit d'une sous-opération
-        else {
-            $codeOp = floor($code / 100) * 100;
-
-            // Insertion dans la table sousoperation
-            SubOperation::updateOrCreate(
-                ['code_sous_operation' => $code],
-                ['code_operation' => $codeOp, 'nom_sous_operation' => $nom, 'AE_sous_operation' => $montantAe, 'CP_sous_operation' => $montantCp]
-            );
-        }
-    }
-
-    return back()->with('success', 'Données insérées avec succès !');
-}
-}
 }

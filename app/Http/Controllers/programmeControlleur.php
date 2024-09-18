@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 
 class programmeControlleur extends Controller
 {
-    //affichage du programme
+    //===================================================================================
+                                //affichage du programme
+    //===================================================================================
     function affich_prog( $num_port)
     {
            // Récupérer les programmes qui ont le même num_port
@@ -24,8 +26,9 @@ class programmeControlleur extends Controller
         return view('Portfail-in.index', compact('programmes'));
     }
 
-
-    // creation du programme
+ //===================================================================================
+                                // creation du programme
+//===================================================================================
     function create_prog(Request $request, $num_port)
     {
         // Validation des données
@@ -40,7 +43,6 @@ class programmeControlleur extends Controller
         // Vérifier si le programme existe déjà en fonction du numéro et des dates
         $existing = programme::where('num_prog', $request->num_prog)
                              ->whereNotNull('date_insert_portef')
-                             ->whereNotNull('date_update_portef')
                              ->exists(); // Vérifie s'il y a un enregistrement existant
 
         if ($existing) {

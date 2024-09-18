@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 class portfeuilleController extends Controller
 {
 
-//affichage du portrefeuille
+//===================================================================================
+                                //affichage du portrefeuille
+//===================================================================================
     function affich_portef()
     {
         // Récupérer tous les portefeuilles de la base de données
@@ -17,8 +19,9 @@ class portfeuilleController extends Controller
         return view('Portfail-in.index', compact('portefeuilles'));
     }
 
-
-    // creation du portefeuille
+//===================================================================================
+                                // creation du portefeuille
+//===================================================================================
     function creat_portef(Request $request)
     {
          // Validation des données

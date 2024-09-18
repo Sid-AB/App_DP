@@ -6,11 +6,14 @@ use Illuminate\Http\Request;
 
 class SousProgrammeController extends Controller
 {
-    //affichage du SousProgramme
+
+//===================================================================================
+                            //affichage du SousProgramme
+//===================================================================================
     function affich_sou_prog($num_prog)
     {
         // Récupérer les SousProgramme qui ont le même num_prog
-            $SousProgramme = Programme::where('num_prog', $num_prog)->get();
+            $SousProgramme = SousProgramme::where('num_prog', $num_prog)->get();
 
         // Vérifier si des SousProgramme existent
             if ($SousProgramme->isEmpty()) {
@@ -24,8 +27,9 @@ class SousProgrammeController extends Controller
              return view('Portfail-in.index', compact('SousProgramme'));
     }
 
-
-    // creation du SousProgramme
+//===================================================================================
+                            // creation du SousProgramme
+//===================================================================================
     function create_sou_prog(Request $request, $num_prog)
     {
         // Validation des données
@@ -40,7 +44,6 @@ class SousProgrammeController extends Controller
         // Vérifier si le SousProgramme existe déjà en fonction du numéro et des dates
         $existing = SousProgramme::where('num_sous_prog', $request->num_sous_prog)
                              ->whereNotNull('date_insert_sousProg')
-                             ->whereNotNull('date_update_sousProg')
                              ->exists(); // Vérifie s'il y a un enregistrement existant
 
         if ($existing) {
