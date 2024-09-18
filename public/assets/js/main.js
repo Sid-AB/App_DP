@@ -160,7 +160,7 @@ $("#add-prg").on('click',function(){
   '<tr>'+
     '<th rowspan="2"><h1>T Description</h1><th> </th></th>'+
     '<th><h1>AE</h1></th>'+
-    '<th><h1>CP</h1></th>'+
+    '<th><h1>CP </h1></th>'+
     '</tr>'+
     '</thead>'+
     '<tbody>'+
@@ -173,9 +173,9 @@ $("#add-prg").on('click',function(){
                     // Create a table row
                     let row = '<tr>' +
                         '<td>' + key + '</td>' +
-                        '<td>' + value + '</td>' +
+                        '<td>' + value + ' </td>' +
                         '<td>' + 0 + '</td>' +
-                        '<td>' + 0 + '</td>' +
+                        '<td>' + 180+',000</td>' +
                         '</tr>';
 
                     // Append the row to the table body

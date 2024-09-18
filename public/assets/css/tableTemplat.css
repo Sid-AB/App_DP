@@ -124,9 +124,7 @@ transition-timing-function: line;
     background-clip: padding-box;
     border-radius: 45px;
     padding: 40px;
-    img {
-      margin-bottom: 32px;
-    }
+   
   }
   
   .bg-green-box,

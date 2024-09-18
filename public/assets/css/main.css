@@ -797,15 +797,22 @@ z-index: 1000;
 }
 .gr_list
 {
+  width: 100%;
   position: absolute;
   top: 5%;
+}
+#table-T{
+  overflow: scroll;
+  height: 600px;
+  overflow-y: scroll;
+  overflow-x: visible;
 }
 /**====================== Table Template =======================*/
 .container-T th h1 {
   font-weight: bold;
-  font-size: 1em;
+  font-size: 24px;
 text-align: left;
-color: #185875;
+color: rgba(255, 162, 0, 1);
 }
 
 .container-T td {
@@ -819,16 +826,24 @@ color: #185875;
 .container-T {
   text-align: left;
   overflow: hidden;
-  width: 80%;
-  margin: 0 auto;
+  width: 100%;
+ /* margin: 0 auto;*/
 display: table;
 padding: 0 0 8em 0;
 }
-
+.container-T thead th {
+  position: sticky;
+  top: 0; /* Keep the header at the top when scrolling */
+  z-index: 1; /* Ensures the header stays on top of table content */
+}
+.container-T tbody {
+  max-height: 300px; /* Example height for the scrollable body */
+  overflow-y: auto;
+}
 .container-T td, .container-T th {
   padding-bottom: 2%;
   padding-top: 2%;
-padding-left:2%;  
+  padding-left:2%;  
 }
 
 /* Background-color of the odd rows */
@@ -927,9 +942,6 @@ transition-timing-function: line;
   background-clip: padding-box;
   border-radius: 45px;
   padding: 40px;
-  img {
-    margin-bottom: 32px;
-  }
 }
 
 .bg-green-box,

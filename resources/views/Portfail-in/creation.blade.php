@@ -7,7 +7,6 @@
     <title>Creation Portfail</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
      <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-      <link href="{{asset('assets/css/tableTemplat.css')}}" rel="stylesheet"/>
 <link href="{{asset('assets/css/main.css')}}" rel="stylesheet"/>
 <link href="{{asset('assets/css/steps.css')}}" rel="stylesheet"/>
 <link href="{{asset('assets/bootstrap-5.0.2/css/bootstrap.css')}}" rel="stylesheet"/>
