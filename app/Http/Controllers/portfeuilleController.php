@@ -53,7 +53,7 @@ class portfeuilleController extends Controller
         $portefeuille->AE_portef = $request->AE_portef;
         $portefeuille->CP_portef = $request->CP_portef;
         $portefeuille->Date_portefeuille = $request->date;
-        $portefeuille->id_nin =1;
+        $portefeuille->id_nin =1;//periodiquement
         $portefeuille->save();
 
         if($portefeuille)

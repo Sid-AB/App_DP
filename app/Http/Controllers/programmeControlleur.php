@@ -61,7 +61,7 @@ class programmeControlleur extends Controller
         $programme->AE_prog = $request->AE_prog;
         $programme->CP_prog = $request->CP_prog;
         $programme->date_insert_portef = $request->date_insert_portef;
-        $programme->id_rp = 1; // Assurez-vous que cela est correct pour votre cas
+        $programme->id_rp = 1; //periodiquement
         $programme->save();
 
         if ($programme) {

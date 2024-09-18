@@ -61,7 +61,7 @@ class actionController extends Controller
         $action->nom_sous_prog = $request->nom_sous_prog;
         $action->AE_action = $request->AE_action;
         $action->CP_action = $request->CP_action;
-        $action->id_ra = 1;
+        $action->id_ra = 1;//periodiquement
         $action->date_insert_action = $request->date_insert_action;
         $action->save();
 
