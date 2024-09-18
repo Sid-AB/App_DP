@@ -13,13 +13,16 @@ return new class extends Migration
     {
         Schema::create('operations', function (Blueprint $table) {
             $table->integer('code_operation')->primary();
-            $table->string('nom_operation');
+            $table->string('nom_operation')->nullable();
             $table->string('nom_operation_ar');
             $table->float('AE_operation')->nullable();
             $table->float('CP_operation')->nullable();
 
             $table->DateTime('date_insert_operation');
             $table->DateTime('date_update_operation')->nullable();
+
+            $table->string('num_decision')->nullable();
+            $table->string('intitule')->nullable();
 
             $table->float('AE_ouvert')->nullable();
             $table->float('AE_atendu')->nullable();
