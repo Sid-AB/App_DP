@@ -23,6 +23,14 @@
     </head>
     <body>
     @include('side_bar.side-barV1')
+       {{--On inclus les messages d'alert--}}
+       @include('alerts.alert-message')
+
+       {{-- le contenu des pages sera afficher ici--}}
+       @yield('content')
+
+        {{--  script js--}}
+        @include('script')
 <!-- Container for Car Cards -->
 <div>
  {{--@include('progress_step.progress_step')--}}

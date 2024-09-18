@@ -10,15 +10,15 @@ class Portefeuille extends Model
     use HasFactory;
     protected $table = 'portefeuilles';
     protected $primaryKey = 'num_portefeuil';
-    public $incrementing = false; 
-    protected $keyType = 'integer'; 
+    public $incrementing = false;
+    protected $keyType = 'integer';
     public $timestamps = false;
 
     protected $fillable = [
-       'num_portefeuil','Date_portefeuille','journaux' 
-   ,'decision','AE_portef','CP_portef','id_min'   
+       'num_portefeuil','Date_portefeuille','Nom_journal'
+   ,'AE_portef','CP_portef','id_min'
  ];
-   
+
     public function Ministre()
     {
         return $this->belongsTo(Ministre::class);
