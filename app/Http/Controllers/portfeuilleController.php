@@ -56,15 +56,15 @@ class portfeuilleController extends Controller
         if($portefeuille)
         {
             return response()->json([
-                'success'=>'Portefeuille ajouté avec succès.',
-                'code'=>200,
+                'success' => true,
+                'message' => 'Portefeuille ajouté avec succès.',
+                'code' => 200,
             ]);
-        }
-        else
-        {
+        } else {
             return response()->json([
-                'success'=> 'erreur.',
-                'code'=>404,
+                'success' => false,
+                'message' => 'Erreur lors de l\'ajout du portefeuille.',
+                'code' => 500,
             ]);
         }
 

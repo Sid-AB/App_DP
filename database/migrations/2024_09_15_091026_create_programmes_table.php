@@ -15,7 +15,7 @@ return new class extends Migration
             $table->integer('id_prog')->primary();
             $table->integer('num_prog');
             $table->string('nom_prog');
-            $table->string('nom_prog_ar');
+            $table->string('nom_prog_ar')->nullable();
             $table->float('AE_porg');
             $table->float('CP_prog');
 
