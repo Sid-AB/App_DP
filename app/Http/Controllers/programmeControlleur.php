@@ -7,9 +7,21 @@ use Illuminate\Http\Request;
 class programmeControlleur extends Controller
 {
     //affichage du programme
-    function affich_prog()
+    function affich_prog( $num_port)
     {
-        return view('Portfail-in.index');
+           // Récupérer les programmes qui ont le même num_port
+    $programmes = Programme::where('num_portefeuil', $num_port)->get();
+
+    // Vérifier si des programmes existent
+    if ($programmes->isEmpty()) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Aucun programme trouvé pour ce portefeuille.',
+        ]);
+    }
+
+    // Retourner les programmes à la vue
+        return view('Portfail-in.index', compact('programmes'));
     }
 
 

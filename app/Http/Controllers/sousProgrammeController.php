@@ -4,12 +4,24 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class sousSousProgrammeController extends Controller
+class SousProgrammeController extends Controller
 {
     //affichage du SousProgramme
-    function affich_sou_prog()
+    function affich_sou_prog($num_prog)
     {
-        return view('Portfail-in.index');
+        // Récupérer les SousProgramme qui ont le même num_prog
+            $SousProgramme = Programme::where('num_prog', $num_prog)->get();
+
+        // Vérifier si des SousProgramme existent
+            if ($SousProgramme->isEmpty()) {
+                 return response()->json([
+                    'success' => false,
+                    'message' => 'Aucun Sous programme trouvé pour ce programme.',
+                ]);
+            }
+
+        // Retourner les SousProgramme à la vue
+             return view('Portfail-in.index', compact('SousProgramme'));
     }
 
 
