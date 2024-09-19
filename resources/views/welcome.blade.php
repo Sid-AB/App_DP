@@ -13,7 +13,7 @@
         <link href="{{asset('assets/bootstrap-5.0.2/css/bootstrap.css')}}" rel="stylesheet"/>
         <link href="{{asset('assets/fontawesome-free/css/all.css')}}" rel="stylesheet"/>
         <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-        
+
         <link
                 rel="stylesheet"
                 href="https://unpkg.com/@patternfly/patternfly/patternfly.css"
@@ -233,7 +233,7 @@ let arrow = document.querySelectorAll(".arrow");
       console.log('{{route('home.portfail')}}'+'---'+$(this).attr('id'));
       if($(this).attr('id') == 'create-dir')
       {
-        window.location.href='{{route('creation.portfail')}}'
+        window.location.href='{{route('form.portfail')}}'
       }else{
       window.location.href='{{route('home.portfail')}}'}
     })
