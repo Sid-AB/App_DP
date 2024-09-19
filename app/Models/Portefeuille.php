@@ -15,7 +15,7 @@ class Portefeuille extends Model
     public $timestamps = false;
 
     protected $fillable = [
-       'num_portefeuil','Date_portefeuille','Nom_journal'
+       'num_portefeuil','Date_portefeuille','nom_journal','num_journal'
    ,'AE_portef','CP_portef','id_min'
  ];
 

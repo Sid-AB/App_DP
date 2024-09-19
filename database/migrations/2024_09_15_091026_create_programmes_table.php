@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('programmes', function (Blueprint $table) {
             $table->integer('num_prog')->primary();
             $table->string('nom_prog');
-            $table->string('nom_prog_ar');
+            $table->string('nom_prog_ar')->nullable();
             $table->float('AE_porg');
             $table->float('CP_prog');
 
             $table->DateTime('date_insert_portef');
-            $table->DateTime('date_update_portef');
+            $table->DateTime('date_update_portef')->nullable();
           //  $table->integer('num_journ');
 
 
@@ -27,7 +27,7 @@ return new class extends Migration
             $table->foreign('id_rp')->references('id_rp')->on('respo__progs');
             $table->integer('num_portefeuil');
             $table->foreign('num_portefeuil')->references('num_portefeuil')->on('portefeuilles');
-    
+
         });
     }
 
