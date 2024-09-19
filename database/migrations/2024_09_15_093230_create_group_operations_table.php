@@ -15,8 +15,7 @@ return new class extends Migration
             $table->integer('code_grp_operation')->primary();
             $table->string('nom_grp_operation');
             $table->string('nom_grp_operation_ar')->nullable();
-            //$table->float('AE_grp_operation');
-            //$table->float('CP_grp_operation');
+
 
             $table->DateTime('date_insert_grp_operation');
             $table->DateTime('date_update_grp_operation')->nullable();
