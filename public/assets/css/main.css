@@ -901,7 +901,23 @@ padding: 0 0 8em 0;
 .container-T th {
   background-color: #1F2739;
 }
+.fusion-child
+{
+  
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  width: 50px;
+  justify-content: flex-start;
 
+}
+.fusion-father
+{
+  
+  display: flex;
+  flex-direction: column;
+
+}
 .container-T td:first-child { color: #FB667A; }
 
 .container-T tr:hover {

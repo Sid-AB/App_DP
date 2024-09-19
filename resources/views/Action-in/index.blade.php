@@ -80,9 +80,35 @@
             <thead>
 		<tr>
 			<th><h1>T Description</h1></th>
-			<th><h1></h1></th>
-			<th><h1>AE</h1></th>
-			<th><h1>CP</h1></th>
+      <th></th>
+			<th colspan="2">
+        <div class="fusion-father">
+          <h1>CREDITS OUVERTS</h1>
+          <div class="fusion-child">
+            <h1 style="width:40px;">AE</h1>
+            <h1>CP</h1>
+</div>
+</div>  <th></th>   
+      </th>
+      
+			<th colspan="2">
+        <div class="fusion-father">
+          <h1>CREDITS ATTENDUS EVENUS DISPONIBLES</h1>
+          <div class="fusion-child">
+            <h1 style="width:40px;">AE</h1>
+            <h1>CP</h1>
+</div>
+</div>    
+      </th>
+			<th colspan="2">
+        <div class="fusion-father">
+          <h1>TOTAL CREDITS DISPONIBLES</h1>
+          <div class="fusion-child">
+            <h1 style="width:40px;">AE</h1>
+            <h1>CP</h1>
+</div>
+</div>    
+      </th>
 		</tr>
 	</thead>
 	<tbody>
@@ -162,7 +188,7 @@
 <script src="{{asset('assets/js/jquery-3.7.1.min.js')}}"></script>
 <script src="{{asset('assets/js/main.js')}}"></script>
 <script>
-  var jsonpath="{{asset('assets/Titre/T1-frjson.json')}}"
+  var jsonpath="{{asset('assets/Titre/dataT2.json')}}"
   $.getJSON(jsonpath, function (data) {
                 // Loop through each item in the JSON data
                 $.each(data, function (key, value) {
@@ -172,6 +198,10 @@
                         '<td>' + value + ' </td>' +
                         '<td class="editable">' + 0 + '</td>' +
                         '<td class="editable">' + 180+',000</td>' +
+                        '<td class="editable">' + 0 + '</td>' +
+                        '<td class="editable">' + 180+',000</td>' +
+                        '<td class="editable">' + 0 + '</td>' +
+                        '<td class="editable">' + 360+',000</td>' +
                         '</tr>';
 
                     // Append the row to the table body
