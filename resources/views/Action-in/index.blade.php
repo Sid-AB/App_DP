@@ -29,16 +29,50 @@
     <div class="T-handle">
         <div class="list-T-hanlde">
                 <div class="TP-handle">
-                <i class="fas fa-door-closed T-icon"></i>
+                <div class="card-T">
+                  <div class="container-card bg-yellow-box">
+                    <!--i class="fas fa-door-closed T-icon"></i-->
+                    <i class="fas fa-door-closed T-icon icon icon-card"></i>
+                    <i class="fas fa-door-open hover-icon icon icon-card"></i>
+                    <p class="card-title-T">Titre Port 1</p>
+                    <p class="card-description-T">AE 190,000 DZ.</p>
+                    <p class="card-description-T">CP 100,000 DZ.</p>
+                  </div>
+                </div>
                 </div>
                 <div class="TP-handle">
-                <i class="fas fa-door-closed T-icon"></i>
+                <div class="card-T">
+                  <div class="container-card bg-yellow-box">
+                  <i class="fas fa-door-closed T-icon icon icon-card"></i>
+                  <i class="fas fa-door-open hover-icon icon icon-card"></i>
+                    <p class="card-title-T">Titre Port 2</p>
+                    <p class="card-description-T">AE 220,000 DZ.</p>
+                    <p class="card-description-T">CP 180,000 DZ.</p>
+                  </div>
+                </div>
                 </div>
                 <div class="TP-handle">
-                <i class="fas fa-door-closed T-icon"></i>
+                <div class="card-T">
+                  <div class="container-card bg-yellow-box">
+                  <i class="fas fa-door-closed T-icon icon icon-card"></i>
+                  <i class="fas fa-door-open hover-icon icon icon-card"></i>
+                    <p class="card-title-T">Titre Port 3</p>
+                    <p class="card-description-T">AE 150,000 DZ.</p>
+                    <p class="card-description-T">CP 100,000 DZ.</p>
+                  </div>
+                </div>
                 </div>
                 <div class="TP-handle">
-                <i class="fas fa-door-closed T-icon"></i>
+               
+                <div class="card-T">
+                  <div class="container-card bg-yellow-box">
+                  <i class="fas fa-door-closed T-icon icon icon-card"></i>
+                  <i class="fas fa-door-open hover-icon icon icon-card"></i>
+                    <p class="card-title-T">Titre Port 4</p>
+                    <p class="card-description-T">AE 180,000 DZ.</p>
+                    <p class="card-description-T">CP 180,000 DZ.</p>
+                  </div>
+                </div>
                 </div>
         </div>
         <hr>

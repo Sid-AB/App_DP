@@ -7,8 +7,8 @@
     <title>Creation Portfail</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
      <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-      <link href="{{asset('assets/css/tableTemplat.css')}}" rel="stylesheet"/>
 <link href="{{asset('assets/css/main.css')}}" rel="stylesheet"/>
+<link href="{{asset('assets/css/steps.css')}}" rel="stylesheet"/>
 <link href="{{asset('assets/bootstrap-5.0.2/css/bootstrap.css')}}" rel="stylesheet"/>
 <link href="{{asset('assets/fontawesome-free/css/all.css')}}" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
@@ -21,7 +21,52 @@
 <body>
 @include('side_bar.side-barV1')
 <div>
-    <div id="progam-handle">
+ {{-- @include('progress_step.program_steps') --}}
+</div>
+<div class="font-bk back-bk">
+  <div class="wallet-path" style="display:none;">
+    <div class="the-path">
+      <div class="pinfo-handle">
+      <i class="fas fa-wallet"></i>
+      <p >code :</p>
+      <p> 23-2024</p>
+      </div>
+      <div class="next-handle">
+      <i class="fas fa-angle-double-right complet-icon"></i>
+      </div>
+    </div>
+  </div>
+    <div class="wallet-handle">
+    <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="fas fa-file-alt"></i> Upload your document
+                </h5>
+                <form>
+                    <div class="form-group">
+                        <label for="inputText">Ajouter Code Du Portfail</label>
+                        <input type="text" class="form-control" id="inputText" placeholder="Code du portfail">
+                    </div>
+                    <div class="form-group">
+                        <label for="number">AE</label>
+                        <input type="text" class="form-control" id="AE_portf" placeholder="AE">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputText">CP</label>
+                        <input type="number" class="form-control" id="AE_portf" placeholder="CP">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputFile">File Input</label>
+                        <input type="file" class="form-control-file" id="inputFile">
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="add-wallet">
+                        <i class="fas fa-plus"></i> Add
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="progam-handle" style="display:none;">
     <div class="form-container">
       <form >
         <div class="form-group">
@@ -36,16 +81,17 @@
           <label for="inputDate">Date Journal</label>
           <input type="date" class="form-control" id="inputDate">
         </div>
+        </form>
         <br>
         <div>
-        <button type="submit" class="btn btn-primary">Ajouter</button>
+        <button class="btn btn-primary" id="add-prg">Ajouter</button>
         <hr>
         <div class="file-handle">
         <input type="file" class="form-control" id="file">
         <button class="btn btn-primary">Journal</button>
         </div>
         </div>
-      </form>
+      
     </div>
     </div>
     <div id="sous_prog-handle">
@@ -54,7 +100,8 @@
     <div id="act-handle">
 
     </div>
-    <div id="T_List-handle">
+    <div id="gr_list_handle">
+     <div id="T_List-handle">
 
         <div id="T1-handle">
 
@@ -69,11 +116,17 @@
 
         </div>
     </div>
+    <div id="table-T">
+    </div>
+    </div>
 </div>
-
+<script>
+  var jsonpath="{{asset('assets/Titre/T1-frjson.json')}}"
+</script>
 <script src="{{asset('assets/bootstrap-5.0.2/js/bootstrap.js')}}"></script>
 <script src="{{asset('assets/fontawesome-free/js/all.js')}}"></script>
 <script src="{{asset('assets/js/jquery-3.7.1.min.js')}}"></script>
 <script src="{{asset('assets/js/main.js')}}"></script>
+
 </body>
 </html>
