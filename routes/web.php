@@ -13,7 +13,9 @@ return view('test.carsoule');
 Route::get('/testing/tree',function (){
     return view('test.tree');
     });
-
+    Route::get('/testing/Action',function (){
+        return view('Action-in.index');
+        });
 //Route::get('/Portfail',action: [portfeuilleController::class,'affich_portef'])->name('home.portfail');
 
 

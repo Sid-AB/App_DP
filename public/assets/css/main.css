@@ -1,11 +1,11 @@
-html, body 
-{
-  min-height: 110vh;
-    width: 100vw;
-    height: 152vh;
-    background-size: contain;
-    background-image: url(https://image.freepik.com/foto-gratis/fondo-abstracto-3d-poli-baja_1048-9819.jpg);
-    background-repeat: no-repeat;
+html, body {
+  font-family: "Roboto", sans-serif;
+  padding: 0;
+  margin: 0 auto;
+  min-height: 100vh;
+  background-size: cover;
+  background-image: url("https://image.freepik.com/foto-gratis/fondo-abstracto-3d-poli-baja_1048-9819.jpg");
+  background-repeat: repeat;
 }
 .progress-stepper {
   display: flex; /* Flexbox for stepper layout */
@@ -130,16 +130,7 @@ html, body
   }
   /**------ end input styles ::**/
   /** Style Numer 2 input **/
-  html, body {
-    font-family: "Roboto", sans-serif;
-    padding: 0;
-    margin: 0 auto;
-    min-height: 100vh;
-    width: 100vw;
-    background-size: cover;
-    background-image: url("https://image.freepik.com/foto-gratis/fondo-abstracto-3d-poli-baja_1048-9819.jpg");
-    background-repeat: no-repeat;
-  }
+
   
   .text-center {
     text-align: center;
@@ -624,13 +615,14 @@ box-shadow: 2px 4px 40px -6px rgba(255,162,0,1);
 }
 .T-icon
 {
+  color:rgba(255, 162, 0, 1);
   font-size: 60px;
 }
 .TP-handle
 {
  /* height: 150px;*/
   background-color: #d4d4d400;
-  border-radius: 5px;
+  border-radius: 45px;
 }
 .TP-handle:hover
 {
@@ -797,17 +789,65 @@ z-index: 1000;
 }
 .gr_list
 {
-  width: 100%;
-  position: absolute;
-  top: 5%;
+    display: flex;
+    width: 100%;
+    position: absolute;
+    top: 5%;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: nowrap;
 }
-#table-T{
+.table-T-scroll{
+  width: 97%;
   overflow: scroll;
   height: 600px;
   overflow-y: scroll;
   overflow-x: visible;
 }
+.table-T-scroll::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+}
+
+/* Track (background of the scrollbar) */
+.table-T-scroll::-webkit-scrollbar-track {
+  background: #0E1119; /* Color of the scrollbar track */
+  border-radius: 10px; /* Rounded track */
+}
+
+/* Handle (scrollbar thumb) */
+.table-T-scroll::-webkit-scrollbar-thumb {
+  background-color: #0E1119; /* Color of the scrollbar thumb */
+  border-radius: 10px; /* Rounded thumb */
+  border: 3px solid #dab902; /* Padding around the thumb */
+}
+
+/* Handle on hover (scrollbar thumb when hovered) */
+.table-T-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: #dab902; /* Darker color on hover */
+}
+
 /**====================== Table Template =======================*/
+.container-T::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+}
+
+/* Track (background of the scrollbar) */
+.container-T::-webkit-scrollbar-track {
+  background: #0E1119; /* Color of the scrollbar track */
+  border-radius: 10px; /* Rounded track */
+}
+
+/* Handle (scrollbar thumb) */
+.container-T::-webkit-scrollbar-thumb {
+  background-color: #0E1119; /* Color of the scrollbar thumb */
+  border-radius: 10px; /* Rounded thumb */
+  border: 3px solid #0E1119; /* Padding around the thumb */
+}
+
+/* Handle on hover (scrollbar thumb when hovered) */
+.container-T::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Darker color on hover */
+}
 .container-T th h1 {
   font-weight: bold;
   font-size: 24px;
@@ -824,8 +864,9 @@ color: rgba(255, 162, 0, 1);
 }
 
 .container-T {
+  max-height: 600px;
   text-align: left;
-  overflow: hidden;
+  overflow-y: scroll;
   width: 100%;
  /* margin: 0 auto;*/
 display: table;
@@ -841,6 +882,7 @@ padding: 0 0 8em 0;
   overflow-y: auto;
 }
 .container-T td, .container-T th {
+  color: white;
   padding-bottom: 2%;
   padding-top: 2%;
   padding-left:2%;  
@@ -917,7 +959,20 @@ transition-timing-function: line;
     grid-template-columns: 1fr;
   }
 }
-
+.editable input
+{
+  width: 120px;
+}
+.editable input:focus
+{
+  color: #212529;
+  background-color: #6c757d;
+  border-color: rgba(255, 162, 0, 1);
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem #ffa0003b;
+}
+/**================= end table ===================**/
+/**================= Card begin ====================*/
 .container-title {
   text-align: center;
   padding: 0 !important;
@@ -985,7 +1040,7 @@ transition-timing-function: line;
   font-weight: 600;
   color: white;
   letter-spacing: -0.02em;
-  line-height: 40px;
+  line-height: 15px;
   font-style: normal;
   font-size: 28px;
   padding-bottom: 8px;
@@ -993,9 +1048,11 @@ transition-timing-function: line;
 
 .card-description-T {
   font-weight: 600;
-  line-height: 32px;
+  line-height: 10px;
   color: hsla(0, 0%, 100%, 0.5);
   font-size: 16px;
   max-width: 470px;
 }
+
+
 /** ====================== End table Template*/
