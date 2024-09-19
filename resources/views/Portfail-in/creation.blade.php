@@ -42,18 +42,18 @@
                 <h5 class="card-title">
                     <i class="fas fa-file-alt"></i> Upload your document
                 </h5>
-                <form>
+                <form  action="{{ route('creation.portfail') }}" method="POST">
                     <div class="form-group">
                         <label for="inputText">Ajouter Code Du Portfail</label>
-                        <input type="text" class="form-control" id="inputText" placeholder="Code du portfail">
+                        <input type="text" class="form-control" id="num_port" placeholder="Code du portfail">
                     </div>
                     <div class="form-group">
                         <label for="number">AE</label>
-                        <input type="text" class="form-control" id="AE_portf" placeholder="AE">
+                        <input type="text" class="form-control" id="AE_portef" placeholder="AE">
                     </div>
                     <div class="form-group">
                         <label for="inputText">CP</label>
-                        <input type="number" class="form-control" id="AE_portf" placeholder="CP">
+                        <input type="number" class="form-control" id="CP_portef" placeholder="CP">
                     </div>
                     <div class="form-group">
                         <label for="inputFile">File Input</label>
@@ -91,7 +91,7 @@
         <button class="btn btn-primary">Journal</button>
         </div>
         </div>
-      
+
     </div>
     </div>
     <div id="sous_prog-handle">

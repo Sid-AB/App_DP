@@ -18,7 +18,8 @@ class portfeuilleController extends Controller
     // Passer les données à la vue
         return view('Portfail-in.index', /*compact('portefeuilles')*/);
     }
-    function create_vportef()
+    //affichage formulaire
+    function form_portef()
     {
         return view('Portfail-in.creation');
     }
