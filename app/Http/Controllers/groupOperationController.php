@@ -27,8 +27,7 @@ $jsonFilePath = public_path('titre/dataT1.json');
 if (file_exists($jsonFilePath)) {
     $jsonData = json_decode(file_get_contents($jsonFilePath), true);
 
-    // $jsonData contient les données du fichier JSON sous forme de tableau associatif PHP
-    // Vous pouvez maintenant utiliser ces données comme bon vous semble
+
 } else {
     // Gérer le cas où le fichier n'existe pas
     return response()->json(['error' => 'Le fichier JSON est introuvable.'], 404);
@@ -52,7 +51,7 @@ if (file_exists($jsonFilePath)) {
                 'message' => 'Code manquant pour l\'élément avec nom : '.$nom,
                 'code' => 404,
             ]);
-              //return back()->withErrors("Code manquant pour l'élément avec nom : $nom");
+
           }
 
         // Vérifier si le nom est manquant
@@ -62,7 +61,7 @@ if (file_exists($jsonFilePath)) {
                 'message' => 'Nom manquant pour l\'élément avec code : '.$code,
                 'code' => 404,
             ]);
-            //return back()->withErrors("Nom manquant pour l'élément avec code : $code");
+
         }
 
         // Vérifier si le code représente un groupe d'opérations
@@ -123,8 +122,7 @@ $jsonFilePath = public_path('titre/dataT2.json');
 if (file_exists($jsonFilePath)) {
     $jsonData = json_decode(file_get_contents($jsonFilePath), true);
 
-    // $jsonData contient les données du fichier JSON sous forme de tableau associatif PHP
-    // Vous pouvez maintenant utiliser ces données comme bon vous semble
+
 } else {
     // Gérer le cas où le fichier n'existe pas
     return response()->json(['error' => 'Le fichier JSON est introuvable.'], 404);
@@ -150,7 +148,7 @@ if (file_exists($jsonFilePath)) {
                 'message' => 'Code manquant pour l\'élément avec nom : '.$nom,
                 'code' => 404,
             ]);
-              //return back()->withErrors("Code manquant pour l'élément avec nom : $nom");
+
           }
 
         // Vérifier si le nom est manquant
@@ -160,7 +158,7 @@ if (file_exists($jsonFilePath)) {
                 'message' => 'Nom manquant pour l\'élément avec code : '.$code,
                 'code' => 404,
             ]);
-            //return back()->withErrors("Nom manquant pour l'élément avec code : $code");
+
         }
        // Vérifier si le code représente un groupe d'opérations
        if ($code % 1000 == 0) {
@@ -224,8 +222,7 @@ elseif ($t3==3) {
   if (file_exists($jsonFilePath)) {
       $jsonData = json_decode(file_get_contents($jsonFilePath), true);
 
-      // $jsonData contient les données du fichier JSON sous forme de tableau associatif PHP
-      // Vous pouvez maintenant utiliser ces données comme bon vous semble
+
   } else {
       // Gérer le cas où le fichier n'existe pas
       return response()->json(['error' => 'Le fichier JSON est introuvable.'], 404);
@@ -255,7 +252,7 @@ elseif ($t3==3) {
                 'message' => 'Code manquant pour l\'élément avec nom : '.$nom,
                 'code' => 404,
             ]);
-              //return back()->withErrors("Code manquant pour l'élément avec nom : $nom");
+
           }
 
         // Vérifier si le nom est manquant
@@ -265,7 +262,7 @@ elseif ($t3==3) {
                 'message' => 'Nom manquant pour l\'élément avec code : '.$code,
                 'code' => 404,
             ]);
-            //return back()->withErrors("Nom manquant pour l'élément avec code : $code");
+
         }
 
 
@@ -319,8 +316,7 @@ $cpData = $request->input('cp');
   if (file_exists($jsonFilePath)) {
       $jsonData = json_decode(file_get_contents($jsonFilePath), true);
 
-      // $jsonData contient les données du fichier JSON sous forme de tableau associatif PHP
-      // Vous pouvez maintenant utiliser ces données comme bon vous semble
+
   } else {
       // Gérer le cas où le fichier n'existe pas
       return response()->json(['error' => 'Le fichier JSON est introuvable.'], 404);
@@ -344,7 +340,7 @@ foreach ($jsonData as $item) {
         'message' => 'Code manquant pour l\'élément avec nom : '.$nom,
         'code' => 404,
     ]);
-      //return back()->withErrors("Code manquant pour l'élément avec nom : $nom");
+
   }
 
 // Vérifier si le nom est manquant
@@ -354,7 +350,7 @@ if (!$nom) {
         'message' => 'Nom manquant pour l\'élément avec code : '.$code,
         'code' => 404,
     ]);
-    //return back()->withErrors("Nom manquant pour l'élément avec code : $code");
+
 }
 
    // Vérifier si le code représente un groupe d'opérations
