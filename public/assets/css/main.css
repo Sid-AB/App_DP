@@ -602,7 +602,14 @@ box-shadow: 2px 4px 40px -6px rgba(255,162,0,1);
   animation: scale-in 0.3s linear; /* 0.5s duration for scaling */
   /*display: table; /* Ensure the table is displayed */
 }
-
+.change_app button:hover
+{
+  background-color: #FFA000;
+  border-color: #FFC107;
+  -webkit-box-shadow: 2px 4px 40px -6px rgba(255,162,0,1);
+-moz-box-shadow: 2px 4px 40px -6px rgba(255,162,0,1);
+box-shadow: 2px 4px 40px -6px rgba(255,162,0,1);
+}
 /* Table while scaling out */
 .scale-out {
   transform: scale(0); /* Shrink to 0 size */
@@ -673,6 +680,7 @@ z-index: 1000;
   width: 100%;
   top: 0px;
   background-color: #d3dbff9d;
+  z-index: 5;
 }
 .the-path
 {
@@ -687,10 +695,10 @@ z-index: 1000;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  width: 150px;
+  width: 190px;
   background-color: #FFC107;
   height: 40px;
-  border-radius: 10%;
+  border-radius: 40%;
   margin: 5px;
 }
 .pinfo-handle p
@@ -825,7 +833,10 @@ z-index: 1000;
 .table-T-scroll::-webkit-scrollbar-thumb:hover {
   background-color: #dab902; /* Darker color on hover */
 }
-
+.container
+{
+  margin-top: 3%;
+}
 /**====================== Table Template =======================*/
 .container-T::-webkit-scrollbar {
   width: 12px; /* Width of the scrollbar */
@@ -881,11 +892,17 @@ padding: 0 0 8em 0;
   max-height: 300px; /* Example height for the scrollable body */
   overflow-y: auto;
 }
+.container-T tbody td {
+  border-color: #FFC107;
+  border-style: dashed;
+  border-width: 1px;
+  max-height: 300px; /* Example height for the scrollable body */
+  overflow-y: auto;
+}
 .container-T td, .container-T th {
   color: white;
   padding-bottom: 2%;
   padding-top: 2%;
-  padding-left:2%;  
 }
 
 /* Background-color of the odd rows */
@@ -904,11 +921,12 @@ padding: 0 0 8em 0;
 .fusion-child
 {
   
+  text-align: center;
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
-  width: 50px;
-  justify-content: flex-start;
+  width: 100%;
+  justify-content: space-around;
 
 }
 .fusion-father
@@ -918,7 +936,11 @@ padding: 0 0 8em 0;
   flex-direction: column;
 
 }
-.container-T td:first-child { color: #FB667A; }
+.container-T td:first-child { 
+  padding-left:2%;  
+  width: 100px;
+  color: #FB667A;
+ }
 
 .container-T tr:hover {
 background-color: #464A52;
@@ -974,6 +996,11 @@ transition-timing-function: line;
   @media screen and (max-width: 991px) {
     grid-template-columns: 1fr;
   }
+}
+.editable
+{
+  text-align: center;
+  padding-left: 0px;
 }
 .editable input
 {

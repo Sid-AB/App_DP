@@ -24,10 +24,58 @@
  {{--@include('progress_step.progress_step')--}}
  <br>
  </div>
- <div>
+ <div class="wallet-path">
+    <div class="the-path">
+      <!-- path insert -->
+      <div class="pinfo-handle">
+      <i class="fas fa-wallet"></i>
+      <p >code :</p>
+      <p> {{$port}}</p>
+      </div>
+      <div class="next-handle">
+      <i class="fas fa-angle-double-right complet-icon"></i>
+      </div>
+      <!-- end path -->
+       <!-- path insert -->
+       <div class="pinfo-handle">
+      <i class="fas fa-wallet"></i>
+      <p >Programme :</p>
+      <p> {{$prog}}</p>
+      </div>
+      <div class="next-handle">
+      <i class="fas fa-angle-double-right complet-icon"></i>
+      </div>
+      <!-- end path -->
+       <!-- path insert -->
+       <div class="pinfo-handle">
+      <i class="fas fa-wallet"></i>
+      <p >Sous_Program :</p>
+      <p> {{$sous_prog}}</p>
+      </div>
+      <div class="next-handle">
+      <i class="fas fa-angle-double-right complet-icon"></i>
+      </div>
+      <!-- end path -->
+       <!-- path insert -->
+       <div class="pinfo-handle">
+      <i class="fas fa-wallet"></i>
+      <p >ACtion :</p>
+      <p> {{$act}}</p>
+      </div>
+      <div class="next-handle">
+      <i class="fas fa-angle-double-right complet-icon"></i>
+      </div>
+      <!-- end path -->
+      <!-- confirme button in -->
+      <div class="change_app">
+      </div>
+      <!-- end -->
+    </div>
+  </div>
+ <div class="container">
     <div class="T-handle">
         <div class="list-T-hanlde">
-                <div class="TP-handle">
+                <div class="TP-handle" id="T_port1">
                 <div class="card-T">
                   <div class="container-card bg-yellow-box">
                     <!--i class="fas fa-door-closed T-icon"></i-->
@@ -39,7 +87,7 @@
                   </div>
                 </div>
                 </div>
-                <div class="TP-handle">
+                <div class="TP-handle" id="T_port2">
                 <div class="card-T">
                   <div class="container-card bg-yellow-box">
                   <i class="fas fa-door-closed T-icon icon icon-card"></i>
@@ -50,7 +98,7 @@
                   </div>
                 </div>
                 </div>
-                <div class="TP-handle">
+                <div class="TP-handle" id="T_port3">
                 <div class="card-T">
                   <div class="container-card bg-yellow-box">
                   <i class="fas fa-door-closed T-icon icon icon-card"></i>
@@ -61,7 +109,7 @@
                   </div>
                 </div>
                 </div>
-                <div class="TP-handle">
+                <div class="TP-handle" id="T_port4">
                
                 <div class="card-T">
                   <div class="container-card bg-yellow-box">
@@ -78,39 +126,7 @@
         <div class="table-T-handle">
             <table class="container-T" id="T-tables" style="width:97%;">
             <thead>
-		<tr>
-			<th><h1>T Description</h1></th>
-      <th></th>
-			<th colspan="2">
-        <div class="fusion-father">
-          <h1>CREDITS OUVERTS</h1>
-          <div class="fusion-child">
-            <h1 style="width:40px;">AE</h1>
-            <h1>CP</h1>
-</div>
-</div>  <th></th>   
-      </th>
-      
-			<th colspan="2">
-        <div class="fusion-father">
-          <h1>CREDITS ATTENDUS EVENUS DISPONIBLES</h1>
-          <div class="fusion-child">
-            <h1 style="width:40px;">AE</h1>
-            <h1>CP</h1>
-</div>
-</div>    
-      </th>
-			<th colspan="2">
-        <div class="fusion-father">
-          <h1>TOTAL CREDITS DISPONIBLES</h1>
-          <div class="fusion-child">
-            <h1 style="width:40px;">AE</h1>
-            <h1>CP</h1>
-</div>
-</div>    
-      </th>
-		</tr>
-	</thead>
+	         </thead>
 	<tbody>
 	</tbody>
             </table>
@@ -188,28 +204,10 @@
 <script src="{{asset('assets/js/jquery-3.7.1.min.js')}}"></script>
 <script src="{{asset('assets/js/main.js')}}"></script>
 <script>
-  var jsonpath="{{asset('assets/Titre/dataT2.json')}}"
-  $.getJSON(jsonpath, function (data) {
-                // Loop through each item in the JSON data
-                $.each(data, function (key, value) {
-                    // Create a table row
-                    let row = '<tr>' +
-                        '<td>' + key + '</td>' +
-                        '<td>' + value + ' </td>' +
-                        '<td class="editable">' + 0 + '</td>' +
-                        '<td class="editable">' + 180+',000</td>' +
-                        '<td class="editable">' + 0 + '</td>' +
-                        '<td class="editable">' + 180+',000</td>' +
-                        '<td class="editable">' + 0 + '</td>' +
-                        '<td class="editable">' + 360+',000</td>' +
-                        '</tr>';
-
-                    // Append the row to the table body
-                    $('#T-tables tbody').append(row);
-                    Edit()
-                });
-            }).fail(function () {
-                console.error('Error loading JSON file.');
-            });
+  var mount_chang=false; // this for showing if changing in table;
+  var jsonpath1="{{asset('assets/Titre/dataT1.json')}}"
+  var jsonpath2="{{asset('assets/Titre/dataT2.json')}}"
+  var jsonpath3="{{asset('assets/Titre/dataT3.json')}}"
+  var jsonpath4="{{asset('assets/Titre/dataT4.json')}}"
 </script>
 </html>

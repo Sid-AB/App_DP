@@ -24,7 +24,7 @@
  {{-- @include('progress_step.program_steps') --}}
 </div>
 <div class="font-bk back-bk">
-  <div class="wallet-path" style="display:none;">
+  <div class="wallet-path">
     <div class="the-path">
       <div class="pinfo-handle">
       <i class="fas fa-wallet"></i>
@@ -70,16 +70,16 @@
     <div class="form-container">
       <form >
         <div class="form-group">
-          <label for="input1">Programme 1</label>
-          <input type="text" class="form-control" id="input1" placeholder="Donnee Nom Programme">
+          <label for="input1">Programme</label>
+          <input type="text" class="form-control" id="Programme" placeholder="Donnee Nom Programme">
         </div>
         <div class="form-group">
           <label for="input2">Numero Journal :</label>
-          <input type="text" class="form-control" id="input2" placeholder="Donnee Refrence Journal">
+          <input type="text" class="form-control" id="num_journ" placeholder="Donnee Refrence Journal">
         </div>
         <div class="form-group">
           <label for="inputDate">Date Journal</label>
-          <input type="date" class="form-control" id="inputDate">
+          <input type="date" class="form-control" id="date_journ">
         </div>
         </form>
         <br>
@@ -122,6 +122,7 @@
 </div>
 <script>
   var jsonpath="{{asset('assets/Titre/dataT1.json')}}"
+  var path=new Array();
 </script>
 <script src="{{asset('assets/bootstrap-5.0.2/js/bootstrap.js')}}"></script>
 <script src="{{asset('assets/fontawesome-free/js/all.js')}}"></script>
