@@ -11,7 +11,7 @@ $(document).ready(function () {
     old = cell.text();
   })
   $('.editable').dblclick(function () {
-   
+    var clickid=$(this).attr('id');
     var clickedRow = $(this).closest('tr');
     var code=clickedRow.find('td:first-child');
       let cell = $(this);  // Reference to the clicked cell
@@ -43,7 +43,7 @@ $(document).ready(function () {
               $('.change_app').empty()
             })
           }
-          value_chng.push({'code':code.text(),'values':{'AE':newText,'CP':0}})
+          value_chng.push({'code':code.text(),'values':{'type':clickid,'chiffre':newText}})
           cell.text(newText);
         }
         else
@@ -436,8 +436,8 @@ function T1_table()
         let row = '<tr>' +
             '<td class="code">' + key + '</td>' +
             '<td>' + value + ' </td>' +
-            '<td class="editable">' + 0 + '</td>' +
-            '<td class="editable">' + 180+',000</td>' +
+            '<td class="editable" id="AE_T1">' + 0 + '</td>' +
+            '<td class="editable" id="CP_T2">' + 180+',000</td>' +
             '</tr>';
 
         // Append the row to the table body
@@ -496,12 +496,12 @@ $('#T-tables thead').append(headT)
                     let row = '<tr>' +
                         '<td class="code">' + key + '</td>' +
                         '<td>' + value + ' </td>' +
-                        '<td class="editable">' + 0 + '</td>' +
-                        '<td class="editable">' + 180+',000</td>' +
-                        '<td class="editable">' + 0 + '</td>' +
-                        '<td class="editable">' + 180+',000</td>' +
-                        '<td class="editable">' + 0 + '</td>' +
-                        '<td class="editable">' + 360+',000</td>' +
+                        '<td class="editable" id="AE_Over">' + 0 + '</td>' +
+                        '<td class="editable" id="CP_Over">' + 180+',000</td>' +
+                        '<td class="editable" id="AE_att">' + 0 + '</td>' +
+                        '<td class="editable" id="CP_att">' + 180+',000</td>' +
+                        '<td class="editable" id="AE_TT">' + 0 + '</td>' +
+                        '<td class="editable" id="CP_TT">' + 360+',000</td>' +
                         '</tr>';
 
                     // Append the row to the table body
