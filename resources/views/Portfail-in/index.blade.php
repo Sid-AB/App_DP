@@ -266,6 +266,42 @@
                 <div class="row">
                   <div class="col-8">
                     <h5 class="card-title widget-card-title mb-3">ACTION 001</h5>
+                    <h4 class="card-subtitle text-body-secondary m-0">Sous_Action 001 </h4>
+                    <h4 class="card-subtitle text-body-secondary m-0">Sous_Action 002 </h4>
+                  </div>
+                  <div class="col-4">
+                    <div class="d-flex justify-content-end">
+                      <div class="lh-1 text-white bg-info rounded-circle p-3 d-flex align-items-center justify-content-center">
+                        <i class="bi bi-truck fs-4"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <div class="d-flex align-items-center mt-3">
+                      <span class="lh-1 me-3 bg-danger-subtle text-danger rounded-circle p-1 d-flex align-items-center justify-content-center">
+                        <i class="bi bi-arrow-right-short bsb-rotate-45"></i>
+                      </span>
+                      <div>
+                        <p class="fs-7 mb-0">AE : 250,000 DZ</p>
+                        <p class="fs-7 mb-0 text-secondary">CP : 250,000 DZ</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+                        </span><ul style="display: none;">
+                        <li>
+                        <span class="member" id="S_ACTION-001">
+                        <div class="col-12 col-sm-6">
+            <div class="card widget-card border-light shadow-sm">
+              <div class="card-body p-4">
+                <div class="row">
+                  <div class="col-8">
+                    <h5 class="card-title widget-card-title mb-3">Sous_ACTION 001</h5>
                     <h4 class="card-subtitle text-body-secondary m-0">T1: , T2 : ,T3: ,T4: </h4>
                   </div>
                   <div class="col-4">
@@ -293,6 +329,51 @@
             </div>
           </div>
                         </span>
+                        </li>
+                        <li>
+                        <span class="member" id="S_ACTION-002">
+                        <div class="col-12 col-sm-6">
+            <div class="card widget-card border-light shadow-sm">
+              <div class="card-body p-4">
+                <div class="row">
+                  <div class="col-8">
+                    <h5 class="card-title widget-card-title mb-3">Sous_ACTION 002</h5>
+                    <h4 class="card-subtitle text-body-secondary m-0">T1: , T2 : ,T3: ,T4: </h4>
+                  </div>
+                  <div class="col-4">
+                    <div class="d-flex justify-content-end">
+                      <div class="lh-1 text-white bg-info rounded-circle p-3 d-flex align-items-center justify-content-center">
+                        <i class="bi bi-truck fs-4"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <div class="d-flex align-items-center mt-3">
+                      <span class="lh-1 me-3 bg-danger-subtle text-danger rounded-circle p-1 d-flex align-items-center justify-content-center">
+                        <i class="bi bi-arrow-right-short bsb-rotate-45"></i>
+                      </span>
+                      <div>
+                        <p class="fs-7 mb-0">AE : 250,000 DZ</p>
+                        <p class="fs-7 mb-0 text-secondary">CP : 250,000 DZ</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+                        </span>
+                        </li>
+                        <li>
+                <span class="member">
+                  <a href="{{route('creation.portfail')}}">
+                   <i class="fas fa-plus-circle icon-car" style='font-size:100px; color:#0dcaf0;'></i>
+                  </a>
+                  </span>
+                  </li>
+                      </ul>
                       </li>
                       <li>
                         <span class="member" id="ACTION-002">
@@ -390,12 +471,20 @@
   $(document).ready(function(){
     $('.member').on('click',function(){
     id=$(this).attr('id');
-    if(id =='ACTION-001')
+    var index=path.indexOf(id)
+    if( index !== -1)
     {
-      window.location.href='{{route('action.detail')}}';
+      path.splice(index+1);
     }
-    path.push(id);
+    else
+    {
+      path.push(id);
+    }
     console.log('-<<'+JSON.stringify(path))
+    if(id =='ACTION-002')
+    {
+      window.location.href='/testing/Action/'+path[0]+'/'+path[1]+'/'+path[2]+'/'+path[3]+'/'
+    }
   })
 })
 

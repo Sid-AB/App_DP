@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="csrf-token" content=" {{csrf_token()}}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Creation Portfail</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -24,12 +25,12 @@
  {{-- @include('progress_step.program_steps') --}}
 </div>
 <div class="font-bk back-bk">
-  <div class="wallet-path">
+  <div class="wallet-path" style="display:none;">
     <div class="the-path">
       <div class="pinfo-handle">
       <i class="fas fa-wallet"></i>
       <p >code :</p>
-      <p> 23-2024</p>
+      <p id="w_id"> </p>
       </div>
       <div class="next-handle">
       <i class="fas fa-angle-double-right complet-icon"></i>
@@ -48,6 +49,16 @@
                         <input type="text" class="form-control" id="num_port" placeholder="Code du portfail">
                     </div>
                     <div class="form-group">
+                        <label for="number">Date de creation Portfail</label>
+                        <input type="date" class="form-control" id="date_crt_portf" placeholder="AE">
+                    </div>
+                    <div class="form-group">
+                        <label for="nomjr">Nom de Journal</label>
+                        <input type="text" class="form-control" id="nom_journ" placeholder="Entre le Nom du journal">
+                        <label for="num_jr">Numero du edition</label>
+                        <input type="text" class="form-control" id="num_journ" placeholder="Entre le numero du journal">
+                    </div>
+                    <div class="form-group">
                         <label for="number">AE</label>
                         <input type="text" class="form-control" id="AE_portef" placeholder="AE">
                     </div>
@@ -56,7 +67,7 @@
                         <input type="number" class="form-control" id="CP_portef" placeholder="CP">
                     </div>
                     <div class="form-group">
-                        <label for="inputFile">File Input</label>
+                        <label for="inputFile">Journal scanner</label>
                         <input type="file" class="form-control-file" id="inputFile">
                     </div>
                     <button type="submit" class="btn btn-primary" id="add-wallet">
