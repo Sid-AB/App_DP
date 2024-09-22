@@ -693,9 +693,9 @@ z-index: 1000;
 {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center;
-  width: 190px;
+  width: 250px;
   background-color: #FFC107;
   height: 40px;
   border-radius: 40%;
@@ -703,9 +703,14 @@ z-index: 1000;
 }
 .pinfo-handle p
 {
+  padding: 5px;
   font-size: 18px;
   text-align: center;
-  margin-top: 10%;
+  margin-top: 5%;
+}
+.pinfo-handle svg
+{
+  margin-left: 10px;
 }
 .waiting-icon
 {

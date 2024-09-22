@@ -41,6 +41,8 @@ $(document).ready(function () {
               console.log('result'+JSON.stringify(value_chng))
           //    alert('changing success')
               $('.change_app').empty()
+              value_chng=new Array()
+              click=0;
             })
           }
           value_chng.push({'code':code.text(),'values':{'type':clickid,'chiffre':newText}})
@@ -220,14 +222,42 @@ $(document).ready(function(){
 })
 $(document).ready(function(){
   $("#add-wallet").on('click',function(){
-    var num_wallet=$('#num_port').val()
-    $('.font-bk').removeClass('back-bk')
-    $('.wallet-path').css('display','flex')
-    $('.wallet-handle').empty()
-    $('#progam-handle').css('display','block')
-    $('#progam-handle').removeClass('scale-out')
-    $('#progam-handle').addClass('scale-visible')
-    path.push(num_wallet);
+    var num_wallet=$('#num_port').val();
+    var formportinsert={
+      'num_portefeuil':$('#num_port').val(),
+      'Date_portefeuille':$('#date_crt_portf').val(),
+      'nom_journal':$('#nom_journ').val(),
+      'num_journal':$('#num_journ').val(),
+      'AE_portef':$('#AE_portef').val(),
+      'Date_portefeuille':$('#CP_portef').val(),
+       _token: $('meta[name="csrf-token"]').attr('content'),
+       _method: 'POST'
+    }
+    $.ajax({
+      url:"/creation",
+      type:"POST",
+      data:formportinsert,
+      success:function(response)
+      {
+        if(response.code == 200)
+        {
+          alert(response.message)
+          $('.font-bk').removeClass('back-bk')
+          $('.wallet-path').css('display','flex')
+          $('.wallet-handle').empty()
+          $('#progam-handle').css('display','block')
+          $('#progam-handle').removeClass('scale-out')
+          $('#progam-handle').addClass('scale-visible')
+          $('#w_id').text(num_wallet)
+          path.push(num_wallet);
+        }
+        else
+        {
+          alert(response.message)
+        }
+      }
+    })
+   
   })
 })
 $("#add-prg").on('click',function(){
@@ -437,7 +467,7 @@ function T1_table()
             '<td class="code">' + key + '</td>' +
             '<td>' + value + ' </td>' +
             '<td class="editable" id="AE_T1">' + 0 + '</td>' +
-            '<td class="editable" id="CP_T2">' + 180+',000</td>' +
+            '<td class="editable" id="CP_T1">' + 180+',000</td>' +
             '</tr>';
 
         // Append the row to the table body
