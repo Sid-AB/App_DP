@@ -7,7 +7,6 @@
     <title>ACTION</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
 <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-<link href="{{asset('assets/css/tableTemplat.css')}}" rel="stylesheet"/>
 <link href="{{asset('assets/css/main.css')}}" rel="stylesheet"/>
 <link href="{{asset('assets/bootstrap-5.0.2/css/bootstrap.css')}}" rel="stylesheet"/>
 <link href="{{asset('assets/fontawesome-free/css/all.css')}}" rel="stylesheet"/>
@@ -25,10 +24,58 @@
  {{--@include('progress_step.progress_step')--}}
  <br>
  </div>
- <div>
+ <div class="wallet-path">
+    <div class="the-path">
+      <!-- path insert -->
+      <div class="pinfo-handle">
+      <i class="fas fa-wallet"></i>
+      <p >code :</p>
+      <p> {{$port}}</p>
+      </div>
+      <div class="next-handle">
+      <i class="fas fa-angle-double-right complet-icon"></i>
+      </div>
+      <!-- end path -->
+       <!-- path insert -->
+       <div class="pinfo-handle">
+      <i class="fas fa-wallet"></i>
+      <p >Programme :</p>
+      <p> {{$prog}}</p>
+      </div>
+      <div class="next-handle">
+      <i class="fas fa-angle-double-right complet-icon"></i>
+      </div>
+      <!-- end path -->
+       <!-- path insert -->
+       <div class="pinfo-handle">
+      <i class="fas fa-wallet"></i>
+      <p >Sous_Program :</p>
+      <p> {{$sous_prog}}</p>
+      </div>
+      <div class="next-handle">
+      <i class="fas fa-angle-double-right complet-icon"></i>
+      </div>
+      <!-- end path -->
+       <!-- path insert -->
+       <div class="pinfo-handle">
+      <i class="fas fa-wallet"></i>
+      <p >ACtion :</p>
+      <p> {{$act}}</p>
+      </div>
+      <div class="next-handle">
+      <i class="fas fa-angle-double-right complet-icon"></i>
+      </div>
+      <!-- end path -->
+      <!-- confirme button in -->
+      <div class="change_app">
+      </div>
+      <!-- end -->
+    </div>
+  </div>
+ <div class="container">
     <div class="T-handle">
         <div class="list-T-hanlde">
-                <div class="TP-handle">
+                <div class="TP-handle" id="T_port1">
                 <div class="card-T">
                   <div class="container-card bg-yellow-box">
                     <!--i class="fas fa-door-closed T-icon"></i-->
@@ -40,7 +87,7 @@
                   </div>
                 </div>
                 </div>
-                <div class="TP-handle">
+                <div class="TP-handle" id="T_port2">
                 <div class="card-T">
                   <div class="container-card bg-yellow-box">
                   <i class="fas fa-door-closed T-icon icon icon-card"></i>
@@ -51,7 +98,7 @@
                   </div>
                 </div>
                 </div>
-                <div class="TP-handle">
+                <div class="TP-handle" id="T_port3">
                 <div class="card-T">
                   <div class="container-card bg-yellow-box">
                   <i class="fas fa-door-closed T-icon icon icon-card"></i>
@@ -62,7 +109,7 @@
                   </div>
                 </div>
                 </div>
-                <div class="TP-handle">
+                <div class="TP-handle" id="T_port4">
                
                 <div class="card-T">
                   <div class="container-card bg-yellow-box">
@@ -77,52 +124,10 @@
         </div>
         <hr>
         <div class="table-T-handle">
-            <table class="container-T" id="T-tables">
+            <table class="container-T" id="T-tables" style="width:97%;">
             <thead>
-		<tr>
-			<th><h1>Sites</h1></th>
-			<th><h1>Views</h1></th>
-			<th><h1>Clicks</h1></th>
-			<th><h1>Average</h1></th>
-		</tr>
-	</thead>
+	         </thead>
 	<tbody>
-		<tr>
-			<td>Google</td>
-			<td>9518</td>
-			<td>6369</td>
-			<td>01:32:50</td>
-		</tr>
-		<tr>
-			<td>Twitter</td>
-			<td>7326</td>
-			<td>10437</td>
-			<td>00:51:22</td>
-		</tr>
-		<tr>
-			<td>Amazon</td>
-			<td>4162</td>
-			<td>5327</td>
-			<td>00:24:34</td>
-		</tr>
-    <tr>
-			<td>LinkedIn</td>
-			<td>3654</td>
-			<td>2961</td>
-			<td>00:12:10</td>
-		</tr>
-    <tr>
-			<td>CodePen</td>
-			<td>2002</td>
-			<td>4135</td>
-			<td>00:46:19</td>
-		</tr>
-    <tr>
-			<td>GitHub</td>
-			<td>4623</td>
-			<td>3486</td>
-			<td>00:31:52</td>
-		</tr>
 	</tbody>
             </table>
         </div>
@@ -198,4 +203,11 @@
 <script src="{{asset('assets/fontawesome-free/js/all.js')}}"></script>
 <script src="{{asset('assets/js/jquery-3.7.1.min.js')}}"></script>
 <script src="{{asset('assets/js/main.js')}}"></script>
+<script>
+  var mount_chang=false; // this for showing if changing in table;
+  var jsonpath1="{{asset('assets/Titre/dataT1.json')}}"
+  var jsonpath2="{{asset('assets/Titre/dataT2.json')}}"
+  var jsonpath3="{{asset('assets/Titre/dataT3.json')}}"
+  var jsonpath4="{{asset('assets/Titre/dataT4.json')}}"
+</script>
 </html>

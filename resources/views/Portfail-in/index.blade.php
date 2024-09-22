@@ -7,18 +7,12 @@
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.bunny.net">
-<link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+
 <link href="{{asset('assets/css/Tree.css')}}" rel="stylesheet"/>
 <link href="{{asset('assets/css/main.css')}}" rel="stylesheet"/>
 <link href="{{asset('assets/bootstrap-5.0.2/css/bootstrap.css')}}" rel="stylesheet"/>
 <link href="{{asset('assets/fontawesome-free/css/all.css')}}" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-<link
-        rel="stylesheet"
-        href="https://unpkg.com/@patternfly/patternfly/patternfly.css"
-        crossorigin="anonymous"
-      >
-
 <!-- Styles -->
 </head>
 <body>
@@ -111,6 +105,13 @@
           </div>
                 </span>
                 <ul style="display: none;">
+                <li>
+                <span class="member">
+                  <a href="{{route('creation.portfail')}}">
+                   <i class="fas fa-plus-circle icon-car" style='font-size:100px; color:#0dcaf0;'></i>
+                  </a>
+                </span>
+          </li>
                   <li>
                     <span class="member" id="Sous-programme-1002">
                     <div class="col-12 col-sm-6">
@@ -329,10 +330,31 @@
           </div>
                         </span>
                       </li>
+                      <li>
+                <span class="member">
+                  <a href="{{route('creation.portfail')}}">
+                   <i class="fas fa-plus-circle icon-car" style='font-size:100px; color:#0dcaf0;'></i>
+                  </a>
+                </span>
+          </li>
                     </ul>
+                    <li>
+                <span class="member">
+                  <a href="{{route('creation.portfail')}}">
+                   <i class="fas fa-plus-circle icon-car" style='font-size:100px; color:#0dcaf0;'></i>
+                  </a>
+                </span>
+          </li>
                  </li>
                 </ul>
               </li>
+              <li>
+                <span class="member">
+                  <a href="{{route('creation.portfail')}}">
+                   <i class="fas fa-plus-circle icon-car" style='font-size:100px; color:#0dcaf0;'></i>
+                  </a>
+                </span>
+          </li>
             </ul>
           </li>
         </ul>

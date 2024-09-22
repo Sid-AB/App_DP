@@ -24,7 +24,7 @@
  {{-- @include('progress_step.program_steps') --}}
 </div>
 <div class="font-bk back-bk">
-  <div class="wallet-path" style="display:none;">
+  <div class="wallet-path">
     <div class="the-path">
       <div class="pinfo-handle">
       <i class="fas fa-wallet"></i>
@@ -42,18 +42,18 @@
                 <h5 class="card-title">
                     <i class="fas fa-file-alt"></i> Upload your document
                 </h5>
-                <form>
+                <form  action="{{ route('creation.portfail') }}" method="POST">
                     <div class="form-group">
                         <label for="inputText">Ajouter Code Du Portfail</label>
-                        <input type="text" class="form-control" id="inputText" placeholder="Code du portfail">
+                        <input type="text" class="form-control" id="num_port" placeholder="Code du portfail">
                     </div>
                     <div class="form-group">
                         <label for="number">AE</label>
-                        <input type="text" class="form-control" id="AE_portf" placeholder="AE">
+                        <input type="text" class="form-control" id="AE_portef" placeholder="AE">
                     </div>
                     <div class="form-group">
                         <label for="inputText">CP</label>
-                        <input type="number" class="form-control" id="AE_portf" placeholder="CP">
+                        <input type="number" class="form-control" id="CP_portef" placeholder="CP">
                     </div>
                     <div class="form-group">
                         <label for="inputFile">File Input</label>
@@ -70,16 +70,16 @@
     <div class="form-container">
       <form >
         <div class="form-group">
-          <label for="input1">Programme 1</label>
-          <input type="text" class="form-control" id="input1" placeholder="Donnee Nom Programme">
+          <label for="input1">Programme</label>
+          <input type="text" class="form-control" id="Programme" placeholder="Donnee Nom Programme">
         </div>
         <div class="form-group">
           <label for="input2">Numero Journal :</label>
-          <input type="text" class="form-control" id="input2" placeholder="Donnee Refrence Journal">
+          <input type="text" class="form-control" id="num_journ" placeholder="Donnee Refrence Journal">
         </div>
         <div class="form-group">
           <label for="inputDate">Date Journal</label>
-          <input type="date" class="form-control" id="inputDate">
+          <input type="date" class="form-control" id="date_journ">
         </div>
         </form>
         <br>
@@ -91,7 +91,7 @@
         <button class="btn btn-primary">Journal</button>
         </div>
         </div>
-      
+
     </div>
     </div>
     <div id="sous_prog-handle">
@@ -121,7 +121,8 @@
     </div>
 </div>
 <script>
-  var jsonpath="{{asset('assets/Titre/T1-frjson.json')}}"
+  var jsonpath="{{asset('assets/Titre/dataT1.json')}}"
+  var path=new Array();
 </script>
 <script src="{{asset('assets/bootstrap-5.0.2/js/bootstrap.js')}}"></script>
 <script src="{{asset('assets/fontawesome-free/js/all.js')}}"></script>

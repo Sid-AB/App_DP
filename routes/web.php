@@ -13,14 +13,20 @@ return view('test.carsoule');
 Route::get('/testing/tree',function (){
     return view('test.tree');
     });
+    Route::get('/testing/Action/{port}/{prog}/{sous_prog}/{act}/',function ($port,$prog,$sous_prog,$act){
 
+
+
+        return view('Action-in.index',compact('port','prog','sous_prog','act'));
+        });
 //Route::get('/Portfail',action: [portfeuilleController::class,'affich_portef'])->name('home.portfail');
 
 
 //===============ROUTE PORTEFEUILLE==============================
 Route::controller(portfeuilleController::class)->group(function(){
     Route::get('/Portfail','affich_portef')->name('home.portfail');
-    Route::get('/creation','create_vportef')->name('creation.portfail');
+    Route::get('/Form','form_portef')->name('form.portfail'); //afficher formulaire d ajout
+    Route::post('/creation','creat_portef')->name('creation.portfail');
 });
 
 //===============ROUTE PROGRAMME==============================

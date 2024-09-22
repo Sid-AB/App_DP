@@ -13,12 +13,13 @@ class portfeuilleController extends Controller
     function affich_portef()
     {
         // Récupérer tous les portefeuilles de la base de données
-            $portefeuilles = Portefeuille::all();
+          //  $portefeuilles = Portefeuille::all();
 
     // Passer les données à la vue
-        return view('Portfail-in.index', compact('portefeuilles'));
+        return view('Portfail-in.index', /*compact('portefeuilles')*/);
     }
-    function create_vportef()
+    //affichage formulaire
+    function form_portef()
     {
         return view('Portfail-in.creation');
     }
