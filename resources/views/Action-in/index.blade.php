@@ -66,6 +66,18 @@
       <i class="fas fa-angle-double-right complet-icon"></i>
       </div>
       <!-- end path -->
+       @if( isset($s_act))
+        <!-- path insert -->
+        <div class="pinfo-handle">
+      <i class="fas fa-wallet"></i>
+      <p >Sous_ACtion :</p>
+      <p> {{$s_act}}</p>
+      </div>
+      <div class="next-handle">
+      <i class="fas fa-angle-double-right complet-icon"></i>
+      </div>
+      <!-- end path -->
+       @endif
       <!-- confirme button in -->
       <div class="change_app">
       </div>

@@ -19,6 +19,12 @@ Route::get('/testing/tree',function (){
 
         return view('Action-in.index',compact('port','prog','sous_prog','act'));
         });
+        Route::get('/testing/S_Action/{port}/{prog}/{sous_prog}/{act}/{s_act}/',function ($port,$prog,$sous_prog,$act,$s_act){
+
+
+
+            return view('Action-in.index',compact('port','prog','sous_prog','act','s_act'));
+            });
 //Route::get('/Portfail',action: [portfeuilleController::class,'affich_portef'])->name('home.portfail');
 
 
