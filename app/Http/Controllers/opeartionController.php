@@ -66,3 +66,59 @@ class opeartionController extends Controller
         return view('portefeuilles.t1', compact('portefeuille', 'programme', 'sousProgramme', 'action', 'sousAction', 'operationsT1', 'totalAeT1', 'totalCpT1', 'groupOperationsAe', 'groupOperationsCp'));
     }
 }
+use App\Http\Controllers\AeCpController;
+
+Route::get('/path/{path}/t1', [AeCpController::class, 'showT1'])->name('showT1');
+Route::get('/path/{path}/t2', [AeCpController::class, 'showT2'])->name('showT2');
+Route::get('/path/{path}/t3', [AeCpController::class, 'showT3'])->name('showT3');
+Route::get('/path/{path}/t4', [AeCpController::class, 'showT4'])->name('showT4');
+namespace App\Http\Controllers;
+
+use App\Services\AeCpService;
+use Illuminate\Http\Request;
+
+class AeCpController extends Controller
+{
+    protected $aeCpService;
+
+    public function __construct(AeCpService $aeCpService)
+    {
+        $this->aeCpService = $aeCpService;
+    }
+
+    /**
+     * Affiche les données pour la période t1.
+     */
+    public function showT1($path)
+    {
+        $data = $this->aeCpService->getAeCpDataFromPath($path, 't1');
+        return view('resultat_t1', compact('data'));
+    }
+
+    /**
+     * Affiche les données pour la période t2.
+     */
+    public function showT2($path)
+    {
+        $data = $this->aeCpService->getAeCpDataFromPath($path, 't2');
+        return view('resultat_t2', compact('data'));
+    }
+
+    /**
+     * Affiche les données pour la période t3.
+     */
+    public function showT3($path)
+    {
+        $data = $this->aeCpService->getAeCpDataFromPath($path, 't3');
+        return view('resultat_t3', compact('data'));
+    }
+
+    /**
+     * Affiche les données pour la période t4.
+     */
+    public function showT4($path)
+    {
+        $data = $this->aeCpService->getAeCpDataFromPath($path, 't4');
+        return view('resultat_t4', compact('data'));
+    }
+}
