@@ -49,7 +49,7 @@
        <!-- path insert -->
        <div class="pinfo-handle">
       <i class="fas fa-wallet"></i>
-      <p >Sous_Program :</p>
+      <p >S_Programme :</p>
       <p> {{$sous_prog}}</p>
       </div>
       <div class="next-handle">
@@ -59,7 +59,7 @@
        <!-- path insert -->
        <div class="pinfo-handle">
       <i class="fas fa-wallet"></i>
-      <p >ACtion :</p>
+      <p >Action :</p>
       <p> {{$act}}</p>
       </div>
       <div class="next-handle">
@@ -70,7 +70,7 @@
         <!-- path insert -->
         <div class="pinfo-handle">
       <i class="fas fa-wallet"></i>
-      <p >Sous_ACtion :</p>
+      <p >S_Action :</p>
       <p> {{$s_act}}</p>
       </div>
       <div class="next-handle">
