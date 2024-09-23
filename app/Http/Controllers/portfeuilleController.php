@@ -40,13 +40,13 @@ class portfeuilleController extends Controller
         ]);
 
         // Vérifier si le portefeuille existe déjà
-           
-        $existing = Portefeuille::where('num_portefeuil', $request->num_port)->first();
-     
+
+        $existing = Portefeuille::where('num_journal', $request->num_journal)->first();
+
         if ($existing) {
             return response()->json([
                 'success' => false,
-                'message' => 'Le portefeuille avec ce numéro existe déjà.',
+                'message' => 'Le portefeuille avec ce numéro de journal existe déjà.',
                 'code'=>404,
             ]);
         }
@@ -59,7 +59,7 @@ class portfeuilleController extends Controller
         $portefeuille->AE_portef = $request->AE_portef;
         $portefeuille->CP_portef = $request->CP_portef;
         $portefeuille->Date_portefeuille = $request->Date_portefeuille;
-        $portefeuille->id_min =2;//periodiquement
+        $portefeuille->id_min =1;//periodiquement
         $portefeuille->save();
        // dd($portefeuille);
 
