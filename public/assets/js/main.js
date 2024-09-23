@@ -1,3 +1,87 @@
+    /*   var nexthop='<div class="pinfo-handle">'+
+                                  '<i class="fas fa-wallet"></i>'+
+                                  '<p >ACTION :</p>'+
+                                  '<p>  </p>'+
+                                  '</div>'+
+                                  ' <div class="next-handle">'+
+                                  '<i class="fas fa-angle-double-right waiting-icon"></i>'+
+                                  '</div>'
+                              $('#progam-handle').addClass('slide-out')
+                              setTimeout(() => {
+                                // Add the class to hide the table
+                                $('#progam-handle').empty();
+                                // Optionally remove the scaling out class after hiding
+                                $('#T_List-handle').addClass('grid-T')
+                                add_T1();add_T2();add_T3();add_T4()
+                              $('.next-handle svg').removeClass('waiting-icon')
+                                $('.next-handle svg').addClass('complet-icon')
+                              $('.the-path').append(nexthop)
+                              $('#T-card_button button').on('click',function(){
+                                var buttonid=$(this).attr('id');
+                                console.log(''+buttonid);
+                                $('#T_List-handle').removeClass('grid-T')
+                                $('#T_List-handle').addClass('row-T')
+                                $('#gr_list_handle').addClass('gr_list')
+                                $('#T1-handle').empty()
+                                $('#T2-handle').empty()
+                                $('#T3-handle').empty()
+                                $('#T4-handle').empty()
+                                T1_newform();
+                                T2_newform();
+                                T3_newform();
+                                T4_newform();
+                                      $('#table-T').addClass('table-T-scroll')
+                                var table='<table class="container-T" id="T-tables">'+
+                                            '<thead style="position: sticky;">'+
+                                           '<tr>'+
+                                           '<th rowspan="2"><h1>T Description</h1><th> </th></th>'+
+                                           '<th><h1>AE</h1></th>'+
+                                           '<th><h1>CP </h1></th>'+
+                                           '</tr>'+
+                                           '</thead>'+
+                                           '<tbody>'+
+                                           '</tbody>'+
+                                         '</table>'
+                          $('#table-T').append(table)
+                          if( buttonid == 'T1')
+                              {   $.getJSON(jsonpath, function (data) {
+                                      // Loop through each item in the JSON data
+                                      $.each(data, function (key, value) {
+                                          // Create a table row
+                                          let row = '<tr>' +
+                                              '<td>' + key + '</td>' +
+                                              '<td>' + value + ' </td>' +
+                                              '<td class="editable">' + 0 + '</td>' +
+                                              '<td class="editable">' + 180+',000</td>' +
+                                              '</tr>';
+                      
+                                          // Append the row to the table body
+                                          $('#T-tables tbody').append(row);
+                                          Edit();
+                                          $('.TP-handle button').on('click',function(){
+                                            var btn=$(this).attr('id')
+                                            console.log('testing card Click'+btn)
+                                            if(btn != 'T1'){
+                                            $('#T-tables tbody').empty()
+                                            $('#T1-handle').empty()
+                                            $('#T2-handle').empty()
+                                            $('#T3-handle').empty()
+                                            $('#T4-handle').empty()
+                                            T1_newform();
+                                            T2_newform();
+                                            T3_newform();
+                                            T4_newform();}
+                                          })
+                                      });
+                                  }).fail(function () {
+                                      console.error('Error loading JSON file.');
+                                  });
+                                  }
+                              })
+                           
+                            }, 500)
+                             /** this to creating at same page  */  
+
 var click=0;
 var changing_mist=new Object();
 var value_chng=new Array()
@@ -265,179 +349,215 @@ $(document).ready(function(){
   })
 })
 $("#add-prg").on('click',function(){
-  var id_prog=$('#Programme').val();
-  var id_jour=$('#num_journ').val();
-  var date_sort_jour=$('#date_journ');
+  var id_prog=$('#num_prog').val();
+  var nom_prog=$('#nom_prog').val();
+  var date_sort_jour=$('#date_insert_portef').val();
+  var AE=$('#AE_prog').val();
+  var CP=$('#CP_prog').val();
+  var formprogdata={
+    num_prog:id_prog,
+    nom_prog:nom_prog,
+    AE_prog:parseFloat(AE),
+    CP_prog:parseFloat(CP),
+    num_portefeuil:path[0],
+    date_insert_portef:date_sort_jour,
+    _token: $('meta[name="csrf-token"]').attr('content'),
+    _method: 'POST'
+  }
   var prg2='<div class="form-container">'+
-      '<form>'+
-        '<div class="form-group">'+
-          '<label for="input1">Sous Programme</label>'+
-          '<input type="text" class="form-control" id="sous_prog" placeholder="Donnee Nom Sous Programme">'+
-        '</div>'+
-       ' <div class="form-group">'+
-         ' <label for="inputDate">Date Journal</label>'+
-          '<input type="date" class="form-control" id="s_date_jour">'+
-        '</div>'+
-       ' </form>'+
-       ' <br>'+
-        '<div id="confirmation-handle">'+
-        '<button class="btn btn-primary" id="add-prg2">Ajouter</button>'+
-        '<hr>'+
-       ' <div class="file-handle">'+
-        '<input type="file" class="form-control" id="file">'+
-        '<button class="btn btn-primary">Journal</button>'+
-        '</div>'+
-        '</div>'
-  var nexthop='<div class="pinfo-handle">'+
-              '<i class="fas fa-wallet"></i>'+
-              '<p >Programm :</p>'+
-              '<p>'+id_prog+'</p>'+
-              '</div>'+
-              ' <div class="next-handle">'+
-              '<i class="fas fa-angle-double-right waiting-icon"></i>'+
-              '</div>'
-              path.push(id_prog);
-  $('.next-handle svg').removeClass('waiting-icon')
-  $('.next-handle svg').addClass('complet-icon')
-  $('.the-path').append(nexthop)
-  $('#progam-handle').append(prg2)
-  $('#add-prg2').on('click',function(){
-    var sou_prog=$('#sous_prog').val()
-    var dat_sous=$('#s_date_jour').val()
-    var nexthop='<div class="pinfo-handle">'+
-    '<i class="fas fa-wallet"></i>'+
-    '<p >S_Program :</p>'+
-    '<p>'+sou_prog+'</p>'+
+  '<form>'+
+    '<div class="form-group">'+
+      '<label for="input1">N° Sous Programme</label>'+
+      '<input type="text" class="form-control" id="num_sous_prog" placeholder="Donnee Nom Sous Programme">'+
     '</div>'+
-    ' <div class="next-handle">'+
-    '<i class="fas fa-angle-double-right waiting-icon"></i>'+
+    '<div class="form-group">'+
+      '<label for="input1">Nom Sous Programme</label>'+
+      '<input type="text" class="form-control" id="nom_sous_prog" placeholder="Donnee Nom Sous Programme">'+
+    '</div>'+
+    '<div class="form-group">'+
+      '<label for="input1">AE</label>'+
+      '<input type="number" class="form-control" id="AE_sous_porg" >'+
+    '</div>'+
+    '<div class="form-group">'+
+      '<label for="input1">CP</label>'+
+      '<input type="number" class="form-control" id="CP_sous_prog">'+
+    '</div>'+
+   ' <div class="form-group">'+
+     ' <label for="inputDate">Date Journal</label>'+
+      '<input type="date" class="form-control" id="date_insert_sousProg">'+
+    '</div>'+
+   ' </form>'+
+   ' <br>'+
+    '<div id="confirm-holder_sprog">'+
+    '<button class="btn btn-primary" id="add-prg2">Ajouter</button>'+
+    '<hr>'+
+   ' <div class="file-handle">'+
+    '<input type="file" class="form-control" id="file">'+
+    '<button class="btn btn-primary">Journal</button>'+
+    '</div>'+
     '</div>'
-    var prg3='<div class="form-container">'+
-        '<form>'+
-          '<div class="form-group">'+
-            '<label for="input1">ACTION</label>'+
-            '<input type="text" class="form-control" id="nom_act" placeholder="Donnee Nom ACTION">'+
+var nexthop='<div class="pinfo-handle">'+
+          '<i class="fas fa-wallet"></i>'+
+          '<p >Programm :</p>'+
+          '<p>'+id_prog+'</p>'+
           '</div>'+
-          '<div class="form-group">'+
-            '<label for="input1">AE pour Action</label>'+
-            '<input type="number" class="form-control" id="AE_act" placeholder="Donnee Nom Programme">'+
-          '</div>'+
-          '<div class="form-group">'+
-            '<label for="input1">CP pour Action</label>'+
-            '<input type="number" class="form-control" id="CP_act" placeholder="Donnee Nom Programme">'+
-          '</div>'+
-         ' <div class="form-group">'+
-           ' <label for="inputDate">Date Journal</label>'+
-            '<input type="date" class="form-control" id="inputDate">'+
-          '</div>'+
-         ' </form>'+
-         ' <br>'+
-          '<div>'+
-          '<button class="btn btn-primary" id="add-prg3">Ajouter</button>'+
-          '<hr>'+
-         ' <div class="file-handle">'+
-          '<input type="file" class="form-control" id="file">'+
-          '<button class="btn btn-primary">Journal</button>'+
-          '</div>'+
-          '</div>'
-          $('.next-handle svg').removeClass('waiting-icon')
-          $('.next-handle svg').addClass('complet-icon')
-          $('.the-path').append(nexthop)
-          $('#progam-handle').append(prg3)
-          path.push(sou_prog);
-          /**  this for Creating the T port so we gonna send it to Action handle to deal with it */
-          $('#add-prg3').on('click',function(){
-            var act=$('#nom_act').val()
-            var ae=$('#AE_act').val()
-            var cp=$('#CP_act').val()
-         /*   var nexthop='<div class="pinfo-handle">'+
-            '<i class="fas fa-wallet"></i>'+
-            '<p >ACTION :</p>'+
-            '<p>  </p>'+
-            '</div>'+
-            ' <div class="next-handle">'+
-            '<i class="fas fa-angle-double-right waiting-icon"></i>'+
-            '</div>'
-        $('#progam-handle').addClass('slide-out')
-        setTimeout(() => {
-          // Add the class to hide the table
-          $('#progam-handle').empty();
-          // Optionally remove the scaling out class after hiding
-          $('#T_List-handle').addClass('grid-T')
-          add_T1();add_T2();add_T3();add_T4()
-        $('.next-handle svg').removeClass('waiting-icon')
-          $('.next-handle svg').addClass('complet-icon')
-        $('.the-path').append(nexthop)
-        $('#T-card_button button').on('click',function(){
-          var buttonid=$(this).attr('id');
-          console.log(''+buttonid);
-          $('#T_List-handle').removeClass('grid-T')
-          $('#T_List-handle').addClass('row-T')
-          $('#gr_list_handle').addClass('gr_list')
-          $('#T1-handle').empty()
-          $('#T2-handle').empty()
-          $('#T3-handle').empty()
-          $('#T4-handle').empty()
-          T1_newform();
-          T2_newform();
-          T3_newform();
-          T4_newform();
-                $('#table-T').addClass('table-T-scroll')
-          var table='<table class="container-T" id="T-tables">'+
-                      '<thead style="position: sticky;">'+
-                     '<tr>'+
-                     '<th rowspan="2"><h1>T Description</h1><th> </th></th>'+
-                     '<th><h1>AE</h1></th>'+
-                     '<th><h1>CP </h1></th>'+
-                     '</tr>'+
-                     '</thead>'+
-                     '<tbody>'+
-                     '</tbody>'+
-                   '</table>'
-    $('#table-T').append(table)
-    if( buttonid == 'T1')
-        {   $.getJSON(jsonpath, function (data) {
-                // Loop through each item in the JSON data
-                $.each(data, function (key, value) {
-                    // Create a table row
-                    let row = '<tr>' +
-                        '<td>' + key + '</td>' +
-                        '<td>' + value + ' </td>' +
-                        '<td class="editable">' + 0 + '</td>' +
-                        '<td class="editable">' + 180+',000</td>' +
-                        '</tr>';
+          ' <div class="next-handle">'+
+          '<i class="fas fa-angle-double-right waiting-icon"></i>'+
+          '</div>';
+              $.ajax({
+                url:'/creationProg',
+                type:"POST",
+                data:formprogdata,
+                success:function(response)
+                {
+                  if(response.code == 200)
+                  {
+                   
+                  alert(response.code)
+                  path.push(id_prog);
+                  $('.next-handle svg').removeClass('waiting-icon')
+                  $('.next-handle svg').addClass('complet-icon')
+                  $('.the-path').append(nexthop)
+                  $('#progam-handle').append(prg2)
+                  $('#confirm-holder').empty()
+                  $('#confirm-holder').append('<i class="fas fa-wrench"></i>')
 
-                    // Append the row to the table body
-                    $('#T-tables tbody').append(row);
-                    Edit();
-                    $('.TP-handle button').on('click',function(){
-                      var btn=$(this).attr('id')
-                      console.log('testing card Click'+btn)
-                      if(btn != 'T1'){
-                      $('#T-tables tbody').empty()
-                      $('#T1-handle').empty()
-                      $('#T2-handle').empty()
-                      $('#T3-handle').empty()
-                      $('#T4-handle').empty()
-                      T1_newform();
-                      T2_newform();
-                      T3_newform();
-                      T4_newform();}
-                    })
-                });
-            }).fail(function () {
-                console.error('Error loading JSON file.');
-            });
-            }
-        })
-     
-      }, 500)
-       /** this to creating at same page  */  
-       path.push(act)
-       window.location.href='testing/Action/'+path[0]+'/'+id_prog+'/'+sou_prog+'/'+act;
-        console.log('path'+JSON.stringify(path))
-       })
-  })
+                  /**  sous action insert */
+                  $('#add-prg2').on('click',function(){
+                    var sou_prog=$('#num_sous_prog').val()
+                    var nom_sou_prog=$('#nom_sous_prog').val();
+                    var AE=$('#AE_sous_porg').val();
+                    var CP=$('#CP_sous_prog').val()
+                    var dat_sou_prog=$('#date_insert_sousProg').val()
+                    var id_prog=path[1];
+                    var nexthop='<div class="pinfo-handle">'+
+                    '<i class="fas fa-wallet"></i>'+
+                    '<p >S_Program :</p>'+
+                    '<p>'+sou_prog+'</p>'+
+                    '</div>'+
+                    ' <div class="next-handle">'+
+                    '<i class="fas fa-angle-double-right waiting-icon"></i>'+
+                    '</div>'
+                    var prg3='<div class="form-container">'+
+                        '<form>'+
+                          '<div class="form-group">'+
+                            '<label for="input1">N° ACTION</label>'+
+                            '<input type="text" class="form-control" id="num_act" placeholder="Donnee Nom ACTION">'+
+                          '</div>'+
+                          '<div class="form-group">'+
+                            '<label for="input1">Nom ACTION</label>'+
+                            '<input type="text" class="form-control" id="nom_act" placeholder="Donnee Nom ACTION">'+
+                          '</div>'+
+                          '<div class="form-group">'+
+                            '<label for="input1">AE pour Action</label>'+
+                            '<input type="number" class="form-control" id="AE_act" placeholder="Donnee Nom Programme">'+
+                          '</div>'+
+                          '<div class="form-group">'+
+                            '<label for="input1">CP pour Action</label>'+
+                            '<input type="number" class="form-control" id="CP_act" placeholder="Donnee Nom Programme">'+
+                          '</div>'+
+                         ' <div class="form-group">'+
+                           ' <label for="inputDate">Date Journal</label>'+
+                            '<input type="date" class="form-control" id="date_insert_action">'+
+                          '</div>'+
+                         ' </form>'+
+                         ' <br>'+
+                          '<div id="confirm-holder_act">'+
+                          '<button class="btn btn-primary" id="add-prg3">Ajouter</button>'+
+                          '<hr>'+
+                         ' <div class="file-handle">'+
+                          '<input type="file" class="form-control" id="file">'+
+                          '<button class="btn btn-primary">Journal</button>'+
+                          '</div>'+
+                          '</div>'
+                          var formdatasou_prog={
+                            num_sous_prog:sou_prog,
+                            nom_sous_prog:nom_sou_prog,
+                            AE_sous_porg:AE,
+                            CP_sous_prog:CP,
+                            date_insert_sousProg:dat_sou_prog,
+                            id_program:id_prog,
+                            _token: $('meta[name="csrf-token"]').attr('content'),
+                            _method: 'POST'
+                          }
+                          console.log('data'+JSON.stringify(formdatasou_prog))
+                          $.ajax({
+                            url:'/creationSousProg',
+                            type:"POST",
+                            data:formdatasou_prog,
+                            success:function(response)
+                            {
+                              if(response.code == 200)
+                              {
+                                alert(response.message)
+                                $('.next-handle svg').removeClass('waiting-icon')
+                                $('.next-handle svg').addClass('complet-icon')
+                                $('.the-path').append(nexthop)
+                                $('#progam-handle').append(prg3)
+                                path.push(sou_prog);
+                                $('#confirm-holder_sprog').empty()
+                                $('#confirm-holder_sprog').append('<i class="fas fa-wrench"></i>')
+                                /******           ACTION add for under_progam                    *********** */
+                                $('#add-prg3').on('click',function(){
+                                  var nom_act=$('#nom_act').val()
+                                  var num_act=$('#num_act').val()
+                                  var ae=$('#AE_act').val()
+                                  var cp=$('#CP_act').val()
+                                  var dat_inst=$('#date_insert_action').val()
+                                  var id_sou_prog=path[2];
+                                  var formdata_act={
+                                    num_action:num_act,
+                                    nom_action:nom_act,
+                                    AE_action:ae,
+                                    CP_action:cp,
+                                    date_insert_action:dat_inst,
+                                    id_sous_prog:id_sou_prog,
+                                    _token: $('meta[name="csrf-token"]').attr('content'),
+                                    _method: 'POST'
+                                  }
+                                  $.ajax({
+                                    url:'/creationAction',
+                                    type:'POST',
+                                    data:formdata_act,
+                                    success:function(response)
+                                    {
+                                      if(response.code == 200)
+                                      {
+                                        alert(response.message)
+                                         path.push(num_act)
+                                       window.location.href='testing/Action/'+path[0]+'/'+path[1]+'/'+path[2]+'/'+path[3];
+                                       console.log('path'+JSON.stringify(path))
+                                      }
+                                    },
+                                    error:function(response)
+                                    {
+                                        alert('error')
+                                    }
+                                  })
+                            
+                             })
+                                /*********         END ACTION ********************************************** */
+                              }
+                            },
+                            error:function(response)
+                            {
+                             alert('error')
+                            }
+                          })
+                         
+                          /**  this for Creating the T port so we gonna send it to Action handle to deal with it */
+                          
+                  })
+                }
+                },
+                error:function(response)
+                {
+                  alert('error')  
+                }
+              })
+             
+          
+  
   
 })
 
@@ -668,4 +788,3 @@ function update(currentActive) {
 
 
 }
-

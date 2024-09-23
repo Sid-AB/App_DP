@@ -30,13 +30,3 @@ class SousProgramme extends Model
         return $this->hasMany(Action::class);
     }
 }
-
-
-
-$table->DateTime('');
-$table->DateTime('');
-
-
-
-$table->integer('num_prog');
-$table->foreign('num_prog')->references('num_prog')->on('programmes');
