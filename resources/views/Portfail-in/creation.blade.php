@@ -50,13 +50,13 @@
                     </div>
                     <div class="form-group">
                         <label for="number">Date de sortie du portefeuille</label>
-                        <input type="date" class="form-control" id="Date_portefeuille" placeholder="AE">
+                        <input type="date" class="form-control" id="date_crt_portf" placeholder="AE">
                     </div>
                     <div class="form-group">
                         <label for="nomjr">Nom du Journal</label>
-                        <input type="text" class="form-control" id="nom_journal" placeholder="Entre le Nom du journal">
+                        <input type="text" class="form-control" id="nom_journ" placeholder="Entre le Nom du journal">
                         <label for="num_jr">Numéro de l'edition</label>
-                        <input type="text" class="form-control" id="num_journal" placeholder="Entre le numero du journal">
+                        <input type="text" class="form-control" id="num_journ" placeholder="Entre le numero du journal">
                     </div>
                     <div class="form-group">
                         <label for="number">AE</label>

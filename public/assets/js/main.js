@@ -54,7 +54,7 @@
                                               '<td class="editable">' + 0 + '</td>' +
                                               '<td class="editable">' + 180+',000</td>' +
                                               '</tr>';
-                      
+
                                           // Append the row to the table body
                                           $('#T-tables tbody').append(row);
                                           Edit();
@@ -78,9 +78,9 @@
                                   });
                                   }
                               })
-                           
+
                             }, 500)
-                             /** this to creating at same page  */  
+                             /** this to creating at same page  */
 
                              var click=0;
                              var changing_mist=new Object();
@@ -105,17 +105,17 @@
                                    let input = $('<input type="number" step="0.01" class="form-control" />').val(currentText);
                                    cell.html(input);  // Replace the cell content with the input
                                    input.focus();  // Focus on the input immediately
-                             
+
                                    // When the input loses focus, update the cell with new text
                                    input.blur(function (t) {
                                        let newText = $(this).val();  // Get new value from input
-                                      
+
                                        if( newText != 0 && newText != '' && newText != null)
                                        {
                                          mount_chang=true
-                                        
+
                                         if( mount_chang == true)
-                                       { 
+                                       {
                                          console.log('tesing'+newText)
                                          click++;
                                          if( click == 1 ){
@@ -123,16 +123,25 @@
                                          $('.change_app').append(buttons)
                                          $('#changin').on('click',function(){
                                            value_chng=new Array()
-                                           
+
                                        //    alert('changing success')
                                        $('#T-tables tbody tr').each(function(){
                                          if( tid == 'T_port1' || tid == 'T1')
                                          {
-                                           var rw={
+                                          /* var rw={
                                            code:$(this).find('td').eq(0).text(),
                                            AE:$(this).find('td').eq(2).text(),
                                            CP:$(this).find('td').eq(3).text(),
-                                         }
+                                         }*/
+
+                                           //ab3athali haka
+                                           var code = $(this).find('td').eq(0).text();
+                                           var aeValue = $(this).find('td').eq(2).text();
+                                           var cpValue = $(this).find('td').eq(3).text();
+
+                                           // Ajoute les valeurs dans les objets
+                                           data.ae[code] = aeValue;
+                                           data.cp[code] = cpValue;
                                        }
                                        if( tid == 'T_port2' || tid == 'T2')
                                          {
@@ -152,13 +161,20 @@
                                            CP:$(this).find('td').eq(3).text(),
                                          }
                                        }
-                                         value_chng.push(rw);
+                                        // sans hadi
+                                        /*value_chng.push(rw);*/
+
+                                        //apres f ajax ykon
+                                        /*data:{
+                                        ae:{}
+                                        cp{}*/
+
                                        })
-                             
+
                                            $('.change_app').empty()
                                            console.log('result'+JSON.stringify(value_chng))
                                            click=0;
-                                          
+
                                          })
                                        }
                                      //  console.log('all table'+JSON.stringify(value_chng))
@@ -171,7 +187,7 @@
                                      }
                                          // Set the new value back to the cell
                                    });
-                             
+
                                    // Optionally, save when Enter key is pressed
                                    input.keydown(function (event) {
                                        if (event.key === 'Enter') {
@@ -179,10 +195,10 @@
                                        }
                                    });
                                });
-                               
+
                              });
                              }
-                             
+
                              function add_T1()
                              {
                                var T1='<div class="col-md-15 hover-container" id="T1-card-handle">'+
@@ -317,11 +333,11 @@
                              }
                              $('a').click(function(e){
                                var _elem = $(this);
-                             
+
                                $('a').parent('li').each(function(){
                                  $(this).removeClass('active');
                                });
-                             
+
                                _elem.parent('li').addClass('active');
                              });
                              (function(){
@@ -377,7 +393,7 @@
                                      alert('error');
                                    }
                                  })
-                                
+
                                })
                              })
                              $("#add-prg").on('click',function(){
@@ -444,7 +460,7 @@
                                              {
                                                if(response.code == 200 || response.code == 404)
                                                {
-                                                
+
                                                alert(response.code)
                                                path.push(id_prog);
                                                $('.next-handle svg').removeClass('waiting-icon')
@@ -453,7 +469,7 @@
                                                $('#progam-handle').append(prg2)
                                                $('#confirm-holder').empty()
                                                $('#confirm-holder').append('<i class="fas fa-wrench"></i>')
-                             
+
                                                /**  sous action insert */
                                                $('#add-prg2').on('click',function(){
                                                  var sou_prog=$('#num_sous_prog').val()
@@ -568,7 +584,7 @@
                                                                })
                                                            /*********         END ACTION ********************************************** */
                                                           })
-                                                            
+
                                                            }
                                                          },
                                                          error:function(response)
@@ -576,28 +592,28 @@
                                                           alert('error')
                                                          }
                                                        })
-                                                     
+
                                                        /**  this for Creating the T port so we gonna send it to Action handle to deal with it */
-                                                       
+
                                                })
                                              }
                                              },
                                              error:function(response)
                                              {
-                                               alert('error')  
+                                               alert('error')
                                              }
                                            })
-                                          
-                                       
-                               
-                               
+
+
+
+
                              })
-                             
+
                              /**
                               * this for action T port select table
-                              * 
+                              *
                               */
-                             
+
                              function T1_table(id)
                              {
                                console.log('data is')
@@ -625,7 +641,7 @@
                                          '<td class="editable" id="AE_T1">' + 0 + '</td>' +
                                          '<td class="editable" id="CP_T1">' + 180+',000</td>' +
                                          '</tr>';
-                             
+
                                      // Append the row to the table body
                                      $('#T-tables tbody').append(row);
                                      Edit(id)
@@ -689,7 +705,7 @@
                                                      '<td class="editable" id="AE_TT">' + 0 + '</td>' +
                                                      '<td class="editable" id="CP_TT">' + 360+',000</td>' +
                                                      '</tr>';
-                             
+
                                                  // Append the row to the table body
                                                  $('#T-tables tbody').append(row);
                                                  Edit(id)
@@ -739,7 +755,7 @@
                                          '<td class="editable">' + 0 + '</td>' +
                                          '<td class="editable">' + 180+',000</td>' +
                                          '</tr>';
-                             
+
                                      // Append the row to the table body
                                      $('#T-tables tbody').append(row);
                                      Edit(id)
@@ -750,30 +766,30 @@
                              }
                              function T4_table()
                              {
-                               
+
                              }
                              $(document).ready(function(){
-                              
+
                                $('#T1').on('click',function(){
                                  var id=$(this).attr('id');
                                T1_table(id)
                                })
                                $('#T2').on('click',function(){
-                               
+
                                  T2_table(id)
                                })
                                $('#T3').on('click',function(){
                                  T3_table(id)
                                })
                                $('#T4').on('click',function(){
-                                 
+
                                })
                                $(".TP-handle").on('click',function()
-                               
+
                                {
                                  $('#T-tables thead').empty()
                                  $('#T-tables tbody').empty()
-                                 
+
                                  var id_tport_c=$(this).attr('id');
                                  if(id_tport_c == 'T_port1')
                                  {
@@ -790,22 +806,22 @@
                                  console.log('testign which port im '+id_tport_c)
                                })
                              })
-                             
+
                              /**
-                              * 
+                              *
                               *  end
                               */
                              const progress = document.getElementById("progress");
                              const stepCircles = document.querySelectorAll(".circle");
                              let currentActive = 1;
-                             
+
                              //NOTE CHANGE HERE TO 1-4
                              //1=25%
                              //2=50%
                              //3=75%
                              //4=100%
                              update(3);
-                             
+
                              function update(currentActive) {
                                stepCircles.forEach((circle, i) => {
                                  if (i < currentActive) {
@@ -814,11 +830,10 @@
                                    circle.classList.remove("active");
                                  }
                                });
-                             
+
                                const activeCircles = document.querySelectorAll(".active");
                                progress.style.width =
                                  ((activeCircles.length - 1) / (stepCircles.length - 1)) * 100 + "%";
-                             
-                             
+
+
                              }
-                             
