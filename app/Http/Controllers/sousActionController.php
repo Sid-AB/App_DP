@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SousAction;
 use Illuminate\Http\Request;
 
 class sousActionController extends Controller
@@ -55,7 +56,7 @@ function create_sous_action(Request $request, $num_action)
     }
 
     // Créer une nouvelle action
-    $action = new sousaction();
+    $action = new SousAction();
     $action->num_sous_action = $request->num_sous_action;
     $action->num_action = $num_action;
     $action->nom_sous_action = $request->nom_sous_action;

@@ -43,7 +43,7 @@
                 <h5 class="card-title">
                     <i class="fas fa-file-alt"></i> Upload your document
                 </h5>
-                <form  action="{{ route('creation.portfail') }}" method="POST">
+                <form>
                     <div class="form-group">
                         <label for="inputText">Ajouter Code Du Portfail</label>
                         <input type="text" class="form-control" id="num_port" placeholder="Code du portfail">
@@ -70,10 +70,11 @@
                         <label for="inputFile">Journal scanner</label>
                         <input type="file" class="form-control-file" id="inputFile">
                     </div>
+                  </form>
                     <button type="submit" class="btn btn-primary" id="add-wallet">
                         <i class="fas fa-plus"></i> Add
                     </button>
-                </form>
+                
             </div>
         </div>
     </div>
@@ -81,20 +82,28 @@
     <div class="form-container">
       <form >
         <div class="form-group">
+          <label for="input1">Code_Programme</label>
+          <input type="text" class="form-control" id="num_prog" placeholder="Donnee Code Programme">
+        </div>
+        <div class="form-group">
           <label for="input1">Programme</label>
-          <input type="text" class="form-control" id="Programme" placeholder="Donnee Nom Programme">
+          <input type="text" class="form-control" id="nom_prog" placeholder="Donnee Nom Programme">
         </div>
         <div class="form-group">
-          <label for="input2">Numero Journal :</label>
-          <input type="text" class="form-control" id="num_journ" placeholder="Donnee Refrence Journal">
+          <label for="input2">Date insertion :</label>
+          <input type="date" class="form-control" id="date_insert_portef">
         </div>
         <div class="form-group">
-          <label for="inputDate">Date Journal</label>
-          <input type="date" class="form-control" id="date_journ">
+          <label for="inputDate">AE</label>
+          <input type="number" class="form-control" id="AE_prog">
+        </div>
+        <div class="form-group">
+          <label for="inputDate">CP</label>
+          <input type="number" class="form-control" id="CP_prog">
         </div>
         </form>
         <br>
-        <div>
+        <div id="confirm-holder">
         <button class="btn btn-primary" id="add-prg">Ajouter</button>
         <hr>
         <div class="file-handle">
