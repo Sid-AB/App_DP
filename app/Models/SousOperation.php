@@ -15,8 +15,9 @@ class SousOperation extends Model
     public $timestamps = false;
 
     protected $fillable = [
-       'code_sous_operation','nom_sous_operation','nom_sous_operation_ar','AE_sous_operation','CP_sous_operation'
-,'AE_ouvert','AE_atendu','CP_ouvert','CP_atendu','code_operation'
+       'code_sous_operation','nom_sous_operation','nom_sous_operation_ar','AE_sous_operation','CP_sous_operation','code_t1','code_t2','code_t3','code_t4'
+,'AE_ouvert','AE_atendu','CP_ouvert','CP_atendu','code_operation','AE_engage','CP_reporte','AE_reporte','AE_notifie','CP_notifie','CP_consome',
+'date_insert_SOUSoperation','date_update_SOUSoperation'
  ];
 
 
@@ -24,6 +25,23 @@ class SousOperation extends Model
     {
         return $this->belongsTo(Operation::class);
     }
+    public function T1()
+    {
+        return $this->belongsTo(T1::class);
+    }
 
+    public function T2()
+    {
+        return $this->belongsTo(T2::class);
+    }
+
+    public function T3()
+    {
+        return $this->belongsTo(T3::class);
+    }
+    public function T4()
+    {
+        return $this->belongsTo(T4::class);
+    }
 
 }

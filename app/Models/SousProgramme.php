@@ -16,7 +16,7 @@ class SousProgramme extends Model
 
     protected $fillable = [
       'num_sous_prog','nom_sous_prog','nom_sous_prog_ar'
-,'AE_sous_porg','CP_sous_prog','date_insert_sousProg','date_update_sousProg','num_prog'
+,'date_insert_sousProg','date_update_sousProg','num_prog'
 ];
 
 

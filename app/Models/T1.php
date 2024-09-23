@@ -18,9 +18,9 @@ class T1 extends Model
        'code_t1','nom_t1','nom_t1_ar' 
     ];
 
-    public function Operation()
+    public function SousOperation()
     {
-        return $this->hasMany(Operation::class);
+        return $this->hasMany(SousOperation::class);
     }
 }
 

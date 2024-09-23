@@ -31,7 +31,7 @@ class portfeuilleController extends Controller
       //  dd($request);
          // Validation des données
          $request->validate([
-            'num_portefeuil' => 'required',
+            'num_portefeuil' => 'required|unique:portefeuille,num_portefeuil',
             'num_journal' => 'required',
             'nom_journal' => 'required',
             'AE_portef' => 'required',

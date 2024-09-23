@@ -18,8 +18,8 @@ class T3 extends Model
        'code_t3','nom_t3','nom_t3_ar' 
     ];
     
-    public function Operation()
+    public function SousOperation()
     {
-        return $this->hasMany(Operation::class);
+        return $this->hasMany(SousOperation::class);
     }
 }
