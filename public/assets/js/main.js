@@ -643,7 +643,7 @@ function T2_table()
  '</th>'+
 '</tr>';
 $('#T-tables thead').append(headT)
-  $.getJSON(jsonpath2, function (data) {
+  /*$.getJSON(jsonpath2, function (data) {
                 // Loop through each item in the JSON data
                 $.each(data, function (key, value) {
                     // Create a table row
@@ -657,17 +657,42 @@ $('#T-tables thead').append(headT)
                         '<td class="editable" id="AE_TT">' + 0 + '</td>' +
                         '<td class="editable" id="CP_TT">' + 360+',000</td>' +
                         '</tr>';
+*/
+$.ajax({
+  url: "/testing/S_Action/${port}/${prog}/${sous_prog}/${act}", // Remplace cette URL par ta route correcte
+  method: "GET",
+  dataType: "json",
+  success: function(data) {
+    
+        //vider la table avant la remplire à nv
+      $('#T-tables tbody').empty();
 
-                    // Append the row to the table body
-                    $('#T-tables tbody').append(row);
-                    Edit()
-                    $('#changin').on('click',function(){
-                      alert('changing success')
-                    })
-                });
-            }).fail(function () {
-                console.error('Error loading JSON file.');
-            });
+      //boucle sur chaque element reçu
+      $.each(data, function(index, operation) {
+        //affichage des données 
+          let row = '<tr>' +
+              '<td class="code">' + operation.code + '</td>' +
+                  '<td class="editable" id="AE_Over">' + operation.values.ae_ouvertsousop + '</td>' +
+                  '<td class="editable" id="CP_Over">' + operation.values.cp_ouvertsousop + '</td>' +
+                  '<td class="editable" id="AE_att">' + operation.values.ae_attendusousop + '</td>' +
+                  '<td class="editable" id="CP_att">' + operation.values.cp_attendsousuop + '</td>' +
+                  '<td class="editable" id="AE_TT">' + operation.values.totalAEsousop + '</td>' +
+                  '<td class="editable" id="CP_TT">' + operation.values.totalCPsousop + '</td>' +
+                  '</tr>';
+
+
+                  // Append the row to the table body
+                  $('#T-tables tbody').append(row);
+                  Edit();});
+
+                  $('#changin').on('click',function(){
+                    alert('changing success')
+                  
+              });
+            },
+          }).fail(function () {
+              console.error('Error loading JSON file.');
+          });
 }
 function T3_table()
 {

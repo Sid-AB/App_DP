@@ -22,16 +22,16 @@ class Programme extends Model
 
     public function Respo_Prog()
     {
-        return $this->belongsTo(Respo_Prog::class);
+        return $this->belongsTo(Respo_Prog::class,'id_rp','id_rp');
     }
 
     public function Portefeuille()
     {
-        return $this->belongsTo(Portefeuille::class);
+        return $this->belongsTo(Portefeuille::class,'num_portefeuil','num_portefeuil');
     }
 
     public function SousProgramme()
     {
-        return $this->hasMany(SousProgramme::class);
+        return $this->hasMany(SousProgramme::class ,'num_prog','num_prog');
     }
 }

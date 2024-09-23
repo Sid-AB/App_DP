@@ -20,7 +20,7 @@ class T1 extends Model
 
     public function SousOperation()
     {
-        return $this->hasMany(SousOperation::class);
+        return $this->hasMany(SousOperation::class,'code_t1');
     }
 }
 

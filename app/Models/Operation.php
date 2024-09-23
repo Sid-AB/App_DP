@@ -21,12 +21,12 @@ class Operation extends Model
 
     public function GroupOperation()
     {
-        return $this->belongsTo(GroupOperation::class);
+        return $this->belongsTo(GroupOperation::class,'code_grp_operation','code_grp_operation');
     }
 
     public function SousOperation()
     {
-        return $this->hasMany(SousOperation::class);
+        return $this->hasMany(SousOperation::class,'code_operation','code_operation');
     }
 
 }

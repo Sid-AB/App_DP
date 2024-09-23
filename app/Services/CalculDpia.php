@@ -5,20 +5,25 @@ use App\Models\Portefeuille;
 
 class CalculDpia
 {
-    public function calculdpiaFromPath($port, $prog, $sous_prog, $act, $s_act)
+    public function calculdpiaFromPath($port, $prog, $sous_prog, $act)
     {
       /*  // décomposer le chemin (portefeuille, programme, sous-programme, action, sous-action)
         $chemin = explode('/', $path);
         if (count($chemin) < 1) {
             throw new \Exception("Le chemin n'est pas valide");
         }*/
-
+        $port = intval($port);
+        $prog = intval($prog);
+        $sous_prog = intval($sous_prog);
+        $act = intval($act);
+        $s_act = intval($s_act);
+          //dd($port, $prog, $sous_prog, $act);
         // récupérer le portefeuille à partir du chemin
         $portefeuille = Portefeuille::where('num_portefeuil',$port)
             ->with([
                 'Programme.SousProgramme.Action.SousAction.GroupOperation.Operation.SousOperation'
             ])->first();
-dd( $portefeuille);
+       // dd( $portefeuille);
         if (!$portefeuille) {
             throw new \Exception("Portefeuille introuvable");
         }
@@ -32,16 +37,22 @@ dd( $portefeuille);
 
         // parcourir tous les programmes du portefeuille
         foreach ($portefeuille->Programme as $programme) {
+           // dd($programme);
             foreach ($programme->SousProgramme as $sousProgramme) {
+              //  dd($sousProgramme);
                 foreach ($sousProgramme->Action as $action) {
+                   // dd($action);
                     foreach ($action->SousAction as $sousAction) {
+                       // dd($sousAction);
                         foreach ($sousAction->GroupOperation as $groupe) {
+                           // dd($groupe);
                             $groupeAeOuvert = 0;
                             $groupeAeAttendu = 0;
                             $groupeCpOuvert = 0;
                             $groupeCpAttendu = 0;
-
+                           
                             foreach ($groupe->Operation as $operation) {
+                              //  dd($operation);
                                 $operationAeOuvert = 0;
                                 $operationAeAttendu = 0;
                                 $operationCPOuvert = 0;
@@ -49,16 +60,20 @@ dd( $portefeuille);
 
                                 // récupérer les sous operations
                                 if (count($operation->SousOperation) > 1) {
+                                    //dd($operation->SousOperation);
                                     // calculer la somme de chaque sous op 
                                     foreach ($operation->SousOperation as $sousOperation) {
+                                        //dd($sousOperation);
                                         $sousopAeouvert= $sousOperation->AE_ouvert;
                                         $sousopAeattendu= $sousOperation->AE_atendu;
-
+                                         // dd($sousopAeouvert,$sousopAeattendu);
                                         $sousopCpouvert= $sousOperation->CP_ouvert;
-                                        $sousopCpattendu= $sousOperation->CP_attendu;
+                                        $sousopCpattendu= $sousOperation->CP_atendu;
+                                      //  dd($sousopCpouvert,$sousopCpattendu);
 
                                         $totalSousAeGlobal = $sousopAeouvert + $sousopAeattendu; // AE_ouvert + AE_attendu global
                                         $totalSousCpGlobal = $sousopCpouvert + $sousopCpattendu; // CP_ouvert + CP_attendu global
+                                        //dd($totalSousAeGlobal,$totalSousCpGlobal);
 
                                         $operationAeOuvert += $sousOperation->AE_ouvert;
                                         $operationAeAttendu += $sousOperation->AE_atendu;
@@ -67,6 +82,9 @@ dd( $portefeuille);
 
                                         $totalOPAeGlobal = $operationAeOuvert + $operationAeAttendu; // AE_ouvert + AE_attendu global
                                         $totalOPCpGlobal = $operationCPOuvert + $operationCPAttendu;
+
+                                        dd( $totalOPAeGlobal,  $totalOPCpGlobal);
+
                                     }
                                 } else {
                                     // si pas des sous op on va considérer l'op la mm sous op et recupérer les ae et cp
@@ -110,8 +128,8 @@ dd( $portefeuille);
                         'ae_attendusousop' => $sousopAeattendu,
                         'cp_ouvertsousop' => $sousopCpouvert,
                         'cp_attendsousuop' => $sousopCpattendu,
-                        'totalAEsousop' => $totalOPAeGlobal,
-                        'totalCPsousop' => $totalOPCpGlobal,
+                        'totalAEsousop' => $totalSousAeGlobal,
+                        'totalCPsousop' => $totalSousCpGlobal,
 
 
                         'ae_ouvertop' => $operationAeOuvert, 
@@ -145,6 +163,10 @@ dd( $portefeuille);
 
                     ];
 
-                    
+                     // Retourner les résultats
+    return [
+        'totalT2' => $totalAeT2,
+        'groupedResults' => $groupedResultsT2,
+    ];
             }
         }

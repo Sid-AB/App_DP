@@ -9,7 +9,7 @@ class Respo_Action extends Model
 {
     use HasFactory;
     protected $table = 'respo__actions';
-    protected $primaryKey = 'id_rp';
+    protected $primaryKey = 'id_ra';
     public $incrementing = false; 
     protected $keyType = 'integer'; 
     public $timestamps = false;
@@ -20,17 +20,22 @@ class Respo_Action extends Model
    
     public function Personne()
     {
-        return $this->belongsTo(Personne::class);
+        return $this->belongsTo(Personne::class,'id_nin','id_nin');
     }
 
     public function Action()
     {
-        return $this->hasOne(Action::class);
+        return $this->hasOne(Action::class,'id_ra','id_ra');
     }
     
     public function Realiser()
     {
-        return $this->hasMany(Realiser::class);
+        return $this->hasMany(Realiser::class,'id_ra','id_ra');
+    }
+
+    public function ConstruireDPIA()
+    {
+        return $this->hasMany(ConstruireDPIA::class,'id_ra','id_ra');
     }
 
     

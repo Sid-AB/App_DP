@@ -21,12 +21,12 @@ class SousAction extends Model
  
     public function Action()
     {
-        return $this->belongsTo(Action::class);
+        return $this->belongsTo(Action::class,'num_sous_action','num_sous_action');
     }
 
     public function GroupOperation()
     {
-        return $this->hasMany(GroupOperation::class);
+        return $this->hasMany(GroupOperation::class,'num_sous_action','num_sous_action');
     }
 
    
