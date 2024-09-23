@@ -18,8 +18,8 @@ class T4 extends Model
        'code_t4','nom_t4','nom_t4_ar' 
     ];
     
-    public function Operation()
+    public function SousOperation()
     {
-        return $this->hasMany(Operation::class);
+        return $this->hasMany(SousOperation::class);
     }
 }
