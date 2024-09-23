@@ -63,6 +63,7 @@ Route::controller(groupOperationController::class)->group(function(){
 
 //===============ROUTE  OPERATION==============================
 Route::controller(operationController::class)->group(function(){
+    Route::get('/dpia/{path}', 'calculerEtEnvoyer')->name('affiche_dpia');
 });
 
 //===============ROUTE SOUS OPERATION==============================

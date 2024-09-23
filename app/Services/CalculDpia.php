@@ -5,27 +5,30 @@ use App\Models\Portefeuille;
 
 class CalculDpia
 {
-    public function calculdpiaFromPath($path, $t)
+    public function calculdpiaFromPath($port, $prog, $sous_prog, $act, $s_act)
     {
-        // décomposer le chemin (portefeuille, programme, sous-programme, action, sous-action)
+      /*  // décomposer le chemin (portefeuille, programme, sous-programme, action, sous-action)
         $chemin = explode('/', $path);
         if (count($chemin) < 1) {
             throw new \Exception("Le chemin n'est pas valide");
-        }
+        }*/
 
         // récupérer le portefeuille à partir du chemin
-        $portefeuille = Portefeuille::where('num_portefeuil', $chemin[0])
+        $portefeuille = Portefeuille::where('num_portefeuil',$port)
             ->with([
                 'Programme.SousProgramme.Action.SousAction.GroupOperation.Operation.SousOperation'
             ])->first();
-
+dd( $portefeuille);
         if (!$portefeuille) {
             throw new \Exception("Portefeuille introuvable");
         }
 
         $totalAeT2 = 0; 
         $totalCpT2 = 0; 
+        $totalAeT3 = 0;
+        $totalCpT3 = 0;
         $groupedResultsT2 = [];
+        $totalt2= [];
 
         // parcourir tous les programmes du portefeuille
         foreach ($portefeuille->Programme as $programme) {
@@ -75,6 +78,7 @@ class CalculDpia
                                     $totalOPAeGlobal = $operationAeOuvert + $operationAeAttendu; // AE_ouvert + AE_attendu global
                                     $totalOPCpGlobal = $operationCPOuvert + $operationCPAttendu;
                                 }
+                               
                                     // ajouter les valeurs de l'operation au groupe d'op
                                     $groupeAeOuvert += $operationAeOuvert;
                                     $groupeAeAttendu += $operationAeAttendu;
@@ -99,37 +103,48 @@ class CalculDpia
                         }
                     }
                 }
+                $groupedResultsT2[] = [
+                    "code" => $operation->code_operation,
+                    "values" => [
+                        'ae_ouvertsousop' => $sousopAeouvert, 
+                        'ae_attendusousop' => $sousopAeattendu,
+                        'cp_ouvertsousop' => $sousopCpouvert,
+                        'cp_attendsousuop' => $sousopCpattendu,
+                        'totalAEsousop' => $totalOPAeGlobal,
+                        'totalCPsousop' => $totalOPCpGlobal,
 
-                            // enregistrer les résultats par groupe d'opérations
-                            $groupedResultsT2[] = [
-                                'groupe' => $groupe->nom,
-                                'total_ae_ouvert' => $groupeAeOuvert,
-                                'total_ae_attendu' => $groupeAeAttendu,
-                                'total_ae_groupe' => $groupeAeOuvert + $groupeAeAttendu  // Somme AE ouvert + AE attendu
-                            ];
-                        }
 
-                        // Enregistrer les résultats pour chaque sous-action
-                        $groupedResultsT2[] = [
-                            'sousAction' => $sousAction->nom,
-                            'total_ae_ouvert' => $sousActionAeOuvert,
-                            'total_ae_attendu' => $sousActionAeAttendu,
-                            'total_ae_sous_action' => $sousActionAeOuvert + $sousActionAeAttendu  // Somme AE ouvert + AE attendu pour sous-action
-                        ];
+                        'ae_ouvertop' => $operationAeOuvert, 
+                        'ae_attenduop' => $operationAeAttendu,
+                        'cp_ouvertop' => $operationCPOuvert,
+                        'cp_attenduop' => $operationCPAttendu,
+                        'totalAEop' => $totalOPAeGlobal, //total horizontal
+                        'totalCPop' => $totalOPCpGlobal,
 
-                        // Ajouter les AE ouverts et attendus de la sous-action au total général pour t2
-                        $totalAeT2 += $sousActionAeOuvert + $sousActionAeAttendu;
-                    }
-                }
+                        'ae_ouvertgrpop' => $groupeAeOuvert, 
+                        'ae_attendugrpop' => $groupeAeAttendu,
+                        'cp_ouvertgrpop' => $groupeCpOuvert,
+                        'cp_attendugrpop' => $groupeCpAttendu,
+                        'totalAEgrpop' => $totalgroupAeGlobal,
+                        'totalCPgrpop' => $totalgroupCpGlobal,
+
+                    ]
+                ];
+
+               $totalt2[] = [
+                "code" => $operation->code_operation,
+                    "values" => [
+                        'totalAEouvrtvertical'=> $totalAeOuvertGlobal,
+                        'totalAEattenduvertical'=> $totalAeAttenduGlobal ,
+                        'totalCPouvrtvertical'=>  $totalCpOuvertGlobal ,
+                        'totalCPattenduvertical'=> $totalCpAttenduGlobal ,
+
+                        'totalAEt2' => $totalAeT2,
+                        'totalCPt2' => $totalCpT2,
+                    ]
+
+                    ];
+
+                    
             }
         }
-
-        // Retourner les résultats pour t2
-        return [
-            'totalAeT2' => $totalAeT2,  // Total des AE pour t2
-            'groupedResultsT2' => $groupedResultsT2,
-            'portefeuille' => $portefeuille->nom
-        ];
-    }
-
-}
