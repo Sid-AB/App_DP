@@ -224,12 +224,12 @@ $(document).ready(function(){
   $("#add-wallet").on('click',function(){
     var num_wallet=$('#num_port').val();
     var formportinsert={
-      'num_portefeuil':$('#num_port').val(),
+      'num_portefeuil':parseInt($('#num_port').val()),
       'Date_portefeuille':$('#date_crt_portf').val(),
       'nom_journal':$('#nom_journ').val(),
-      'num_journal':$('#num_journ').val(),
-      'AE_portef':$('#AE_portef').val(),
-      'Date_portefeuille':$('#CP_portef').val(),
+      'num_journal':parseInt($('#num_journ').val()),
+      'AE_portef':parseFloat($('#AE_portef').val()),
+      'CP_portef':parseFloat($('#CP_portef').val()),
        _token: $('meta[name="csrf-token"]').attr('content'),
        _method: 'POST'
     }
@@ -255,6 +255,10 @@ $(document).ready(function(){
         {
           alert(response.message)
         }
+      },
+      error:function()
+      {
+        alert('error');
       }
     })
    
@@ -276,7 +280,7 @@ $("#add-prg").on('click',function(){
         '</div>'+
        ' </form>'+
        ' <br>'+
-        '<div>'+
+        '<div id="confirmation-handle">'+
         '<button class="btn btn-primary" id="add-prg2">Ajouter</button>'+
         '<hr>'+
        ' <div class="file-handle">'+

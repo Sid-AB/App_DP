@@ -35,8 +35,6 @@ class programmeControlleur extends Controller
         $request->validate([
             'num_prog' => 'required',
             'nom_prog' => 'required',
-            'AE_prog' => 'required',
-            'CP_prog' => 'required',
             'date_insert_portef' => 'required|date',
         ]);
 

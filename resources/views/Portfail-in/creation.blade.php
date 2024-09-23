@@ -43,7 +43,7 @@
                 <h5 class="card-title">
                     <i class="fas fa-file-alt"></i> Upload your document
                 </h5>
-                <form  action="{{ route('creation.portfail') }}" method="POST">
+                <form>
                     <div class="form-group">
                         <label for="inputText">Ajouter Code Du Portfail</label>
                         <input type="text" class="form-control" id="num_port" placeholder="Code du portfail">
@@ -70,10 +70,11 @@
                         <label for="inputFile">Journal scanner</label>
                         <input type="file" class="form-control-file" id="inputFile">
                     </div>
+                  </form>
                     <button type="submit" class="btn btn-primary" id="add-wallet">
                         <i class="fas fa-plus"></i> Add
                     </button>
-                </form>
+                
             </div>
         </div>
     </div>
