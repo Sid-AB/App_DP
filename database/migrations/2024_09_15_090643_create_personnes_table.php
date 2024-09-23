@@ -25,11 +25,11 @@ return new class extends Migration
             $table->string('adress_ar');
             $table->integer('num_tlf');
             $table->string('mail_pro');
- 
+
         });
         DB::table('personnes')->insert([
             [
-              
+
                 'id_nin' => 1,
                 'NSS' => 2,
                 'Nom_per' => 'Boumediene',
@@ -43,29 +43,30 @@ return new class extends Migration
                'adress_ar'=>'الجزائر',
                'num_tlf'=>65852145,
                'mail_pro'=>'dev@mcomm.gov'
-    
-                
-            ],  
+
+
+            ],
             [
-              
+
                 'id_nin' => 2,
                 'NSS' => 3,
-                'Nom_per' => 'Sayeh',
+                'Nom_per' => 'Sayah',
                 'Prenom_per' => 'Nour El-Houda',
                 'Nom_ar_per' => 'سايح',
                 'Prenom_ar_per' => 'نور الهودى',
-               'Date_nais' => '1998-02-19',
+               'Date_nais' => '1998-
+               -19',
                'Lieu_nais_ar' => 'الجزائر',
                'Lieu_nais' => 'alger',
                'adress'=>'alger',
                'adress_ar'=>'الجزائر',
                'num_tlf'=>66852145,
                'mail_pro'=>'dev0@mcomm.gov'
-    
-                
-            ],  
+
+
+            ],
             [
-              
+
                 'id_nin' => 3,
                 'NSS' => 4,
                 'Nom_per' => 'Seddikie',
@@ -79,9 +80,9 @@ return new class extends Migration
                'adress_ar'=>'الجزائر',
                'num_tlf'=>67852145,
                'mail_pro'=>'dev1@mcomm.gov'
-    
-                
-            ],  
+
+
+            ],
         ]) ;
     }
 

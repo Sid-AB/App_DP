@@ -45,18 +45,18 @@
                 </h5>
                 <form>
                     <div class="form-group">
-                        <label for="inputText">Ajouter Code Du Portfail</label>
+                        <label for="inputText"> Code du portefeuille</label>
                         <input type="text" class="form-control" id="num_port" placeholder="Code du portfail">
                     </div>
                     <div class="form-group">
-                        <label for="number">Date de creation Portfail</label>
-                        <input type="date" class="form-control" id="date_crt_portf" placeholder="AE">
+                        <label for="number">Date de sortie du portefeuille</label>
+                        <input type="date" class="form-control" id="Date_portefeuille" placeholder="AE">
                     </div>
                     <div class="form-group">
-                        <label for="nomjr">Nom de Journal</label>
-                        <input type="text" class="form-control" id="nom_journ" placeholder="Entre le Nom du journal">
-                        <label for="num_jr">Numero du edition</label>
-                        <input type="text" class="form-control" id="num_journ" placeholder="Entre le numero du journal">
+                        <label for="nomjr">Nom du Journal</label>
+                        <input type="text" class="form-control" id="nom_journal" placeholder="Entre le Nom du journal">
+                        <label for="num_jr">Numéro de l'edition</label>
+                        <input type="text" class="form-control" id="num_journal" placeholder="Entre le numero du journal">
                     </div>
                     <div class="form-group">
                         <label for="number">AE</label>
@@ -74,7 +74,7 @@
                     <button type="submit" class="btn btn-primary" id="add-wallet">
                         <i class="fas fa-plus"></i> Add
                     </button>
-                
+
             </div>
         </div>
     </div>
