@@ -5,7 +5,7 @@ use App\Models\Portefeuille;
 
 class CalculDpia
 {
-    public function calculdpiaFromPath($port, $prog, $sous_prog, $act)
+    public function calculdpiaFromPath($port, $prog, $sous_prog, $act,$s_act)
     {
       /*  // décomposer le chemin (portefeuille, programme, sous-programme, action, sous-action)
         $chemin = explode('/', $path);
@@ -32,8 +32,17 @@ class CalculDpia
         $totalCpT2 = 0; 
         $totalAeT3 = 0;
         $totalCpT3 = 0;
-        $groupedResultsT2 = [];
+                                     
+
+        $groupT2 = [];
         $totalt2= [];
+        $operationT2 = [];
+        $sousOperationT2 = [];
+
+        $totalAeOuvertGlobal=0;
+        $totalAeAttenduGlobal=0;
+        $totalCpOuvertGlobal=0;
+        $totalCpAttenduGlobal=0;
 
         // parcourir tous les programmes du portefeuille
         foreach ($portefeuille->Programme as $programme) {
@@ -58,9 +67,8 @@ class CalculDpia
                                 $operationCPOuvert = 0;
                                 $operationCPAttendu = 0;
 
-                                // récupérer les sous operations
-                                if (count($operation->SousOperation) > 1) {
-                                    //dd($operation->SousOperation);
+                           
+
                                     // calculer la somme de chaque sous op 
                                     foreach ($operation->SousOperation as $sousOperation) {
                                         //dd($sousOperation);
@@ -74,83 +82,90 @@ class CalculDpia
                                         $totalSousAeGlobal = $sousopAeouvert + $sousopAeattendu; // AE_ouvert + AE_attendu global
                                         $totalSousCpGlobal = $sousopCpouvert + $sousopCpattendu; // CP_ouvert + CP_attendu global
                                         //dd($totalSousAeGlobal,$totalSousCpGlobal);
-
+                                                  
+                                                //calcul l'operation depuis les sous operations
                                         $operationAeOuvert += $sousOperation->AE_ouvert;
                                         $operationAeAttendu += $sousOperation->AE_atendu;
                                         $operationCPOuvert += $sousOperation->CP_ouvert;
-                                        $operationCPAttendu += $sousOperation->CP_attendu;
+                                        $operationCPAttendu += $sousOperation->CP_atendu;
 
-                                        $totalOPAeGlobal = $operationAeOuvert + $operationAeAttendu; // AE_ouvert + AE_attendu global
+                                        $totalOPAeGlobal = $operationAeOuvert + $operationAeAttendu; // AE_ouvert + AE_attendu global ligne(horizontale)
                                         $totalOPCpGlobal = $operationCPOuvert + $operationCPAttendu;
-
-                                        dd( $totalOPAeGlobal,  $totalOPCpGlobal);
+                                     
+                                        $sousOperationT2[] = [
+                                            "code" => $sousOperation->code_sous_operation,
+                                            "values" => [
+                                                'ae_ouvertsousop' => $sousopAeouvert, 
+                                                'ae_attendusousop' => $sousopAeattendu,
+                                                'cp_ouvertsousop' => $sousopCpouvert,
+                                                'cp_attendsousuop' => $sousopCpattendu,
+                                                'totalAEsousop' => $totalSousAeGlobal,
+                                                'totalCPsousop' => $totalSousCpGlobal,
+                                            ]  ];
+                        
+                                           
+                        
 
                                     }
-                                } else {
-                                    // si pas des sous op on va considérer l'op la mm sous op et recupérer les ae et cp
-                                    $operationAeOuvert = $sousOperation->AE_ouvert;
-                                    $operationAeAttendu = $sousOperation->AE_atendu;
-                                    $operationCPOuvert = $sousOperation->CP_ouvert;
-                                    $operationCPAttendu = $sousOperation->CP_attendu;
-
-                                    $totalOPAeGlobal = $operationAeOuvert + $operationAeAttendu; // AE_ouvert + AE_attendu global
-                                    $totalOPCpGlobal = $operationCPOuvert + $operationCPAttendu;
-                                }
-                               
+                                 
+                               // dd($operationAeOuvert,$operationAeAttendu,$operationCPOuvert , $operationCPAttendu);
+                                //dd($totalOPAeGlobal,$totalOPCpGlobal);
+                
+                                $operationT2[] = [
+                                    "code" => $operation->code_operation,
+                                    "values" => [
+                                        'ae_ouvertop' => $operationAeOuvert, 
+                                        'ae_attenduop' => $operationAeAttendu,
+                                        'cp_ouvertop' => $operationCPOuvert,
+                                        'cp_attenduop' => $operationCPAttendu,
+                                        'totalAEop' => $totalOPAeGlobal, //total horizontal
+                                        'totalCPop' => $totalOPCpGlobal,
+                                    ]  ];
+                              
                                     // ajouter les valeurs de l'operation au groupe d'op
                                     $groupeAeOuvert += $operationAeOuvert;
                                     $groupeAeAttendu += $operationAeAttendu;
                                     $groupeCpOuvert += $operationCPOuvert;
                                     $groupeCpAttendu += $operationCPAttendu;
 
-                                    $totalgroupAeGlobal = $groupeAeOuvert + $groupeAeAttendu; // AE_ouvert + AE_attendu global
+                                    //dd($groupeAeOuvert,$groupeAeAttendu,$groupeCpOuvert , $groupeCpAttendu);
+
+                                    $totalgroupAeGlobal = $groupeAeOuvert + $groupeAeAttendu; // AE_ouvert + AE_attendu global horizental
                                     $totalgroupCpGlobal = $groupeCpOuvert + $groupeCpAttendu;
+
+                                   // dd($totalgroupAeGlobal,$totalgroupCpGlobal);
                                     }
 
-                                    // calculer le total ae et cp 
+                                    $groupT2[] = [
+                                        "code" => $groupe->code_grp_operation,
+                                         "values" => [
+                                            'ae_ouvertgrpop' => $groupeAeOuvert, 
+                                            'ae_attendugrpop' => $groupeAeAttendu,
+                                            'cp_ouvertgrpop' => $groupeCpOuvert,
+                                            'cp_attendugrpop' => $groupeCpAttendu,
+                                            'totalAEgrpop' => $totalgroupAeGlobal,
+                                            'totalCPgrpop' => $totalgroupCpGlobal,
+                
+                                    ]
+                                ];
+                                    // calculer le total ae et cp par colonne 
                                     $totalAeOuvertGlobal += $groupeAeOuvert;
                                     $totalAeAttenduGlobal += $groupeAeAttendu;
                                     $totalCpOuvertGlobal += $groupeCpOuvert;
                                     $totalCpAttenduGlobal += $groupeCpAttendu;
 
+                                    //dd($totalAeOuvertGlobal,$totalAeAttenduGlobal,$totalCpOuvertGlobal,$totalCpAttenduGlobal); 
+
                                     $totalAeT2= $totalAeOuvertGlobal + $totalAeAttenduGlobal; // AE_ouvert + AE_attendu global
                                     $totalCpT2 = $totalCpOuvertGlobal + $totalCpAttenduGlobal;
-
+                                    //dd($totalAeT2,$totalCpT2);
                                 }
                             }
                         }
                     }
                 }
-                $groupedResultsT2[] = [
-                    "code" => $operation->code_operation,
-                    "values" => [
-                        'ae_ouvertsousop' => $sousopAeouvert, 
-                        'ae_attendusousop' => $sousopAeattendu,
-                        'cp_ouvertsousop' => $sousopCpouvert,
-                        'cp_attendsousuop' => $sousopCpattendu,
-                        'totalAEsousop' => $totalSousAeGlobal,
-                        'totalCPsousop' => $totalSousCpGlobal,
-
-
-                        'ae_ouvertop' => $operationAeOuvert, 
-                        'ae_attenduop' => $operationAeAttendu,
-                        'cp_ouvertop' => $operationCPOuvert,
-                        'cp_attenduop' => $operationCPAttendu,
-                        'totalAEop' => $totalOPAeGlobal, //total horizontal
-                        'totalCPop' => $totalOPCpGlobal,
-
-                        'ae_ouvertgrpop' => $groupeAeOuvert, 
-                        'ae_attendugrpop' => $groupeAeAttendu,
-                        'cp_ouvertgrpop' => $groupeCpOuvert,
-                        'cp_attendugrpop' => $groupeCpAttendu,
-                        'totalAEgrpop' => $totalgroupAeGlobal,
-                        'totalCPgrpop' => $totalgroupCpGlobal,
-
-                    ]
-                ];
-
+               
                $totalt2[] = [
-                "code" => $operation->code_operation,
                     "values" => [
                         'totalAEouvrtvertical'=> $totalAeOuvertGlobal,
                         'totalAEattenduvertical'=> $totalAeAttenduGlobal ,
@@ -163,10 +178,14 @@ class CalculDpia
 
                     ];
 
-                     // Retourner les résultats
-    return [
-        'totalT2' => $totalAeT2,
-        'groupedResults' => $groupedResultsT2,
-    ];
-            }
-        }
+                     // retourner les résultats
+                        return [
+                                        'sousOperationT2' => $sousOperationT2,
+                                        'operationT2' => $operationT2,
+                                        'groupT2' => $groupT2,
+                                        'totalT2' => $totalt2,
+                                  
+                                ];
+                                      
+                            }
+}
