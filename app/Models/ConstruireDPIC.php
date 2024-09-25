@@ -22,13 +22,13 @@ class ConstruireDPIC extends Model
  
     public function RFF()
     {
-        return $this->belongsTo(RFF::class);
+        return $this->belongsTo(RFF::class,'id_rff','id_rff');
     }
 
 
 
     public function Respo_Prog()
     {
-        return $this->belongsTo(Respo_Prog::class);
+        return $this->belongsTo(Respo_Prog::class,'id_rp','id_rp');
     }
 }

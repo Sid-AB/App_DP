@@ -20,6 +20,10 @@ class Extrait_DPIC extends Model
 
  public function Realiser()
  {
-     return $this->hasMany(Realiser::class);
+     return $this->hasMany(Realiser::class,'id_extrait','id_extrait');
+ }
+ public function Construit()
+ {
+     return $this->hasMany(Construit::class,'id_extrait','id_extrait');
  }
 }

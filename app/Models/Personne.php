@@ -22,20 +22,20 @@ class Personne extends Model
    
     public function Ministre()
     {
-        return $this->hasOne(Ministre::class);
+        return $this->hasOne(Ministre::class,'id_nin','id_nin');
     }
 
     public function Respo_Prog()
     {
-          return $this->hasOne(Respo_Prog::class);
+          return $this->hasOne(Respo_Prog::class,'id_nin','id_nin');
     }
     public function Respo_Action()
     {
-          return $this->hasOne(Respo_Action::class);
+          return $this->hasOne(Respo_Action::class,'id_nin','id_nin');
     }
     public function RFF()
     {
-          return $this->hasOne(RFF::class);
+          return $this->hasOne(RFF::class,'id_nin','id_nin');
     }
 
 

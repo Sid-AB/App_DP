@@ -21,11 +21,11 @@ class Portefeuille extends Model
 
     public function Ministre()
     {
-        return $this->belongsTo(Ministre::class);
+        return $this->belongsTo(Ministre::class,'id_min','id_min');
     }
 
     public function Programme()
     {
-        return $this->hasMany(Programme::class);
+        return $this->hasMany(Programme::class,'num_portefeuil','num_portefeuil');
     }
 }

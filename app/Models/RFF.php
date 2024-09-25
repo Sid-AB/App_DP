@@ -21,7 +21,12 @@ class RFF extends Model
    
     public function Personne()
     {
-        return $this->belongsTo(Personne::class);
+        return $this->belongsTo(Personne::class,'id_nin','id_nin');
+    }
+
+    public function Construit()
+    {
+        return $this->hasMany(Construit::class,'id_rff','id_rff');
     }
 
  

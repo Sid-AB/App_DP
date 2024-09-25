@@ -21,11 +21,11 @@ class Realiser extends Model
  
     public function Extrait_DPIC()
     {
-        return $this->belongsTo(Extrait_DPIC::class);
+        return $this->belongsTo(Extrait_DPIC::class,'id_extrait','id_extrait');
     }
 
     public function Respo_Action()
     {
-        return $this->belongsTo(Respo_Action::class);
+        return $this->belongsTo(Respo_Action::class,'id_ra','id_ra');
     }
 }

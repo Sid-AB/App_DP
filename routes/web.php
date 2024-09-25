@@ -8,6 +8,7 @@ use App\Models\Portefeuille;
 use App\Models\Programme;
 use App\Models\Action;
 use App\Models\SousProgramme;
+use App\Http\Controllers\opeartionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -54,18 +55,18 @@ Route::get('/testing/tree/{id}',function ($id){
 // Passer les données à la vue
 return view('test.tree', compact('allport'));
     });
-    Route::get('/testing/Action/{port}/{prog}/{sous_prog}/{act}/',function ($port,$prog,$sous_prog,$act){
+  /*  Route::get('/testing/Action/{port}/{prog}/{sous_prog}/{act}/',function ($port,$prog,$sous_prog,$act){
 
 
 
         return view('Action-in.index',compact('port','prog','sous_prog','act'));
-        });
-        Route::get('/testing/S_Action/{port}/{prog}/{sous_prog}/{act}/{s_act}/',function ($port,$prog,$sous_prog,$act,$s_act){
+        });*/
+       /* Route::get('/testing/S_Action/{port}/{prog}/{sous_prog}/{act}/{s_act}/',function ($port,$prog,$sous_prog,$act,$s_act){
 
 
 
             return view('Action-in.index',compact('port','prog','sous_prog','act','s_act'));
-            });
+            });*/
 //Route::get('/Portfail',action: [portfeuilleController::class,'affich_portef'])->name('home.portfail');
 
 
@@ -103,7 +104,9 @@ Route::controller(groupOperationController::class)->group(function(){
 });
 
 //===============ROUTE  OPERATION==============================
-Route::controller(operationController::class)->group(function(){
+Route::controller(opeartionController::class)->group(function(){
+    Route::get('/testing/S_Action/{port}/{prog}/{sous_prog}/{act}/{s_act}', 'calculerEtEnvoyer');
+   // Route::get('/testing/Action/{port}/{prog}/{sous_prog}/{act}', 'calculerEtEnvoyer');
 });
 
 //===============ROUTE SOUS OPERATION==============================

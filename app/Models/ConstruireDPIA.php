@@ -16,22 +16,22 @@ class ConstruireDPIA extends Model
 
     protected $fillable = [
        'id_dpia','date_creation_dpia','date_modification_dpia','motif_dpia','AE_dpia_nv'
-,'CP_dpia_nv','code_operation','id_rp','id_ra'
+,'CP_dpia_nv','code_sous_operation','id_rp','id_ra'
  ];
    
  
     public function Respo_Action()
     {
-        return $this->belongsTo(Respo_Action::class);
+        return $this->belongsTo(Respo_Action::class,'id_ra','id_ra');
     }
 
-    public function Operation()
+    public function SousOperation()
     {
-        return $this->belongsTo(Operation::class);
+        return $this->belongsTo(SousOperation::class,'code_sous_operation','code_sous_operation');
     }
 
     public function Respo_Prog()
     {
-        return $this->belongsTo(Respo_Prog::class);
+        return $this->belongsTo(Respo_Prog::class,'id_rp','id_rp');
     }
 }

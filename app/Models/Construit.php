@@ -21,16 +21,16 @@ class Construit extends Model
  
     public function RFF()
     {
-        return $this->belongsTo(RFF::class);
+        return $this->belongsTo(RFF::class,'id_rff','id_rff');
     }
 
     public function Action()
     {
-        return $this->belongsTo(Action::class);
+        return $this->belongsTo(Action::class,'num_action','num_action');
     }
 
     public function Extrait_DPIC()
     {
-        return $this->belongsTo(Extrait_DPIC::class);
+        return $this->belongsTo(Extrait_DPIC::class,'id_extrait','id_extrait');
     }
 }
