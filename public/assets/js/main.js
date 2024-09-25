@@ -54,7 +54,7 @@
                                               '<td class="editable">' + 0 + '</td>' +
                                               '<td class="editable">' + 180+',000</td>' +
                                               '</tr>';
-                      
+
                                           // Append the row to the table body
                                           $('#T-tables tbody').append(row);
                                           Edit();
@@ -78,9 +78,9 @@
                                   });
                                   }
                               })
-                           
+
                             }, 500)
-                             /** this to creating at same page  */  
+                             /** this to creating at same page  */
 
 var click=0;
 var changing_mist=new Object();
@@ -109,13 +109,13 @@ $(document).ready(function () {
       // When the input loses focus, update the cell with new text
       input.blur(function (t) {
           let newText = $(this).val();  // Get new value from input
-         
+
           if( newText != 0 && newText != '' && newText != null)
           {
             mount_chang=true
-           
+
            if( mount_chang == true)
-          { 
+          {
             console.log('tesing'+newText)
             click++;
             if( click == 1 ){
@@ -123,7 +123,7 @@ $(document).ready(function () {
             $('.change_app').append(buttons)
             $('#changin').on('click',function(){
               value_chng=new Array()
-              
+
           //    alert('changing success')
           $('#T-tables tbody tr').each(function(){
             if( tid == 'T_port1' || tid == 'T1')
@@ -158,7 +158,7 @@ $(document).ready(function () {
               $('.change_app').empty()
               console.log('result'+JSON.stringify(value_chng))
               click=0;
-             
+
             })
           }
         //  console.log('all table'+JSON.stringify(value_chng))
@@ -179,7 +179,7 @@ $(document).ready(function () {
           }
       });
   });
-  
+
 });
 }
 
@@ -378,7 +378,7 @@ $(document).ready(function(){
         alert('error');
       }
     })
-   
+
   })
 })
 $("#add-prg").on('click',function(){
@@ -445,7 +445,7 @@ var nexthop='<div class="pinfo-handle">'+
                 {
                   if(response.code == 200 || response.code == 404)
                   {
-                   
+
                   alert(response.code)
                   path.push(id_prog);
                   $('.next-handle svg').removeClass('waiting-icon')
@@ -463,6 +463,7 @@ var nexthop='<div class="pinfo-handle">'+
                     var CP=$('#CP_sous_prog').val()*/
                     var dat_sou_prog=$('#date_insert_sousProg').val()
                     var id_prog=path[1];
+                    var id_port=path[0];
                     var nexthop='<div class="pinfo-handle">'+
                     '<i class="fas fa-wallet"></i>'+
                     '<p >S_Program :</p>'+
@@ -510,6 +511,7 @@ var nexthop='<div class="pinfo-handle">'+
                             CP_sous_prog:CP,*/
                             date_insert_sousProg:dat_sou_prog,
                             id_program:id_prog,
+                            id_porte:id_port,
                             _token: $('meta[name="csrf-token"]').attr('content'),
                             _method: 'POST'
                           }
@@ -649,6 +651,8 @@ var nexthop='<div class="pinfo-handle">'+
                                     CP_action:cp,
                                     date_insert_action:dat_inst,
                                     id_sous_prog:id_sou_prog,
+                                    id_prog:path[1],
+                                    id_porte:path[0],
                                     _token: $('meta[name="csrf-token"]').attr('content'),
                                     _method: 'POST'
                                   }
@@ -676,7 +680,7 @@ var nexthop='<div class="pinfo-handle">'+
                                 }
                               /*********         END ACTION ********************************************** */
                              })
-                               
+
                               }
                             },
                             error:function(response)
@@ -684,26 +688,26 @@ var nexthop='<div class="pinfo-handle">'+
                              alert('error')
                             }
                           })
-                        
+
                           /**  this for Creating the T port so we gonna send it to Action handle to deal with it */
-                          
+
                   })
                 }
                 },
                 error:function(response)
                 {
-                  alert('error')  
+                  alert('error')
                 }
               })
-             
-          
-  
-  
+
+
+
+
 })
 
 /**
  * this for action T port select table
- * 
+ *
  */
 
 function T1_table(id)
@@ -858,30 +862,30 @@ function T3_table(id)
 }
 function T4_table()
 {
-  
+
 }
 $(document).ready(function(){
- 
+
   $('#T1').on('click',function(){
     var id=$(this).attr('id');
   T1_table(id)
   })
   $('#T2').on('click',function(){
-  
+
     T2_table(id)
   })
   $('#T3').on('click',function(){
     T3_table(id)
   })
   $('#T4').on('click',function(){
-    
+
   })
   $(".TP-handle").on('click',function()
-  
+
   {
     $('#T-tables thead').empty()
     $('#T-tables tbody').empty()
-    
+
     var id_tport_c=$(this).attr('id');
     if(id_tport_c == 'T_port1')
     {
@@ -900,7 +904,7 @@ $(document).ready(function(){
 })
 
 /**
- * 
+ *
  *  end
  */
 const progress = document.getElementById("progress");

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\GroupOperation;
 
 class groupOperationController extends Controller
 {
@@ -94,7 +95,7 @@ if (file_exists($jsonFilePath)) {
                 // Insérer dans sousoperation avec un code spécifique
                 sousoperation::updateOrCreate(
                     ['code_sous_operation' => $code . '_extra'], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
-                    ['code_operation' => $code, 'nom_sous_operation' => $nom . ' (sans sous-opération)', 'AE_sous_operation' => $ae, 'CP_sous_operation' => $cp]
+                    ['code_operation' => $code, 'nom_sous_operation' => $nom, 'AE_sous_operation' => $ae, 'CP_sous_operation' => $cp]
                 );
             }
         }
@@ -149,8 +150,9 @@ if (file_exists($jsonFilePath)) {
         return response()->json(['error' => 'Erreur lors du décodage du fichier JSON.'], 404);
     }
 
-
-    foreach ($jsonData as $item) {
+    $numRows = count($jsonData);
+    for ($i = 0; $i < $numRows; $i++) {
+        $item = $jsonData[$i];
        $code = $item['code']?? null;
        $nom = $item['nom'] ?? '';
        $ae_ouvert = $aeDataOuvert[$code] ?? 0.00;
@@ -191,10 +193,24 @@ if (file_exists($jsonFilePath)) {
            // Insertion dans la table operation
            Operation::updateOrCreate(
                ['code_operation' => $code],
-               ['code_grp_operation' => $codeGp, 'nom_operation' => $nom, 'AE_operation' => ($ae_attendu+$ae_ouvert),
-               'CP_operation' => ($cp_attendu+$cp_ouvert),  'AE_atendu' => $ae_attendu,  'AE_ouvert' => $ae_ouvert,
-                'CP_ouvert' => $cp_ouvert,'CP_ouvert' => $cp_ouvert]
+               ['code_grp_operation' => $codeGp, 'nom_operation' => $nom]
            );
+
+                         // Vérifier la ligne suivante
+                         $nextItem = $jsonData[$i + 1];
+                         $nextCode = $nextItem['code'] ?? null;
+
+                         // Si la ligne suivante n'est pas une sous-opération
+                         if ($nextCode && ($nextCode % 100 == 0 || $nextCode % 1000 == 0)) {
+                             // Insérer dans sousoperation avec un code spécifique
+                             sousoperation::updateOrCreate(
+                                 ['code_sous_operation' => $code . '_extra'], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
+                                 ['code_operation' => $code, 'nom_sous_operation' => $nom,
+                                  'AE_operation' => ($ae_attendu+$ae_ouvert),
+                                    'CP_operation' => ($cp_attendu+$cp_ouvert),  'AE_atendu' => $ae_attendu,  'AE_ouvert' => $ae_ouvert,
+                                    'CP_ouvert' => $cp_ouvert,'CP_ouvert' => $cp_ouvert]
+                             );
+                         }
        }
        // Sinon, il s'agit d'une sous-opération
        else {
@@ -249,7 +265,9 @@ elseif ($t3==3) {
           return response()->json(['error' => 'Erreur lors du décodage du fichier JSON.'], 404);
       }
 
-       foreach ($jsonData as $item) {
+      $numRows = count($jsonData);
+      for ($i = 0; $i < $numRows; $i++) {
+          $item = $jsonData[$i];
           $code = $item['code']?? null;
           $nom = $item['nom'] ?? '';
 
@@ -298,11 +316,24 @@ elseif ($t3==3) {
               // Insertion dans la table operation
               Operation::updateOrCreate(
                   ['code_operation' => $code],
-                  ['code_grp_operation' => $codeGp, 'nom_operation' => $nom, 'AE_operation' => ($ae_reporte+$ae_notifie+$ae_engage),
-                  'CP_operation' => ($cp_reporte+$cp_notifie+$cp_consome),  'AE_reporte' => $ae_reporte,
-                  'AE_notifie' => $ae_notifie,'AE_engage' => $ae_engage,'CP_reporte' => $cp_reporte,
-                  'CP_notifie' => $cp_notifie,'CP_consome' => $cp_consome]
+                  ['code_grp_operation' => $codeGp, 'nom_operation' => $nom]
               );
+
+               // Vérifier la ligne suivante
+               $nextItem = $jsonData[$i + 1];
+               $nextCode = $nextItem['code'] ?? null;
+
+              // Si la ligne suivante n'est pas une sous-opération
+              if ($nextCode && ($nextCode % 100 == 0 || $nextCode % 1000 == 0)) {
+                // Insérer dans sousoperation avec un code spécifique
+                sousoperation::updateOrCreate(
+                    ['code_sous_operation' => $code . '_extra'], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
+                    ['code_operation' => $code, 'nom_sous_operation' => $nom, 'AE_operation' => ($ae_reporte+$ae_notifie+$ae_engage),
+                    'CP_operation' => ($cp_reporte+$cp_notifie+$cp_consome),  'AE_reporte' => $ae_reporte,
+                    'AE_notifie' => $ae_notifie,'AE_engage' => $ae_engage,'CP_reporte' => $cp_reporte,
+                    'CP_notifie' => $cp_notifie,'CP_consome' => $cp_consome]
+                );
+            }
           }
 
       }
@@ -343,7 +374,9 @@ $cpData = $request->input('cp');
           return response()->json(['error' => 'Erreur lors du décodage du fichier JSON.'], 404);
       }
 
-foreach ($jsonData as $item) {
+      $numRows = count($jsonData);
+      for ($i = 0; $i < $numRows; $i++) {
+          $item = $jsonData[$i];
    $code = $item['code']?? null;
    $nom = $item['nom'] ?? '';
    $ae = $aeData[$code] ?? 0.00;
@@ -394,8 +427,21 @@ if (!$nom) {
        // Insertion dans la table sousoperation
        sousoperation::updateOrCreate(
            ['code_sous_operation' => $code],
-           ['code_operation' => $codeOp, 'nom_sous_operation' => $nom, 'AE_sous_operation' => $ae, 'CP_sous_operation' => $cp]
+           ['code_operation' => $codeOp, 'nom_sous_operation' => $nom]
        );
+
+        // Vérifier la ligne suivante
+        $nextItem = $jsonData[$i + 1];
+        $nextCode = $nextItem['code'] ?? null;
+
+        // Si la ligne suivante n'est pas une sous-opération
+        if ($nextCode && ($nextCode % 100 == 0 || $nextCode % 1000 == 0)) {
+            // Insérer dans sousoperation avec un code spécifique
+            sousoperation::updateOrCreate(
+                ['code_sous_operation' => $code . '_extra'], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
+                ['code_operation' => $code, 'nom_sous_operation' => $nom, 'AE_sous_operation' => $ae, 'CP_sous_operation' => $cp]
+            );
+        }
    }
 }
 return response()->json([

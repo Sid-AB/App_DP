@@ -31,7 +31,8 @@ class portfeuilleController extends Controller
 //===================================================================================
     function creat_portef(Request $request)
     {
-      //  dd($request);
+
+        //dd($request);
          // Validation des données
          $request->validate([
             'num_portefeuil' => 'required|unique:portefeuilles,num_portefeuil',
@@ -43,14 +44,16 @@ class portfeuilleController extends Controller
         ]);
 
         // Vérifier si le portefeuille existe déjà
-
-        $existing = Portefeuille::where('num_journal', $request->num_journal)->first();
+        $year = date('Y'); // Récupérer l'année actuelle
+        $num=$request->num_portefeuil.$year;
+        $existing = Portefeuille::where('num_portefeuil', $num)->first();
 
         if ($existing) {
             return response()->json([
                 'success' => false,
-                'message' => 'Le portefeuille avec ce numéro de journal existe déjà.',
-                'code'=>404,
+                'message' => 'Le portefeuille avec ce numéro  existe déjà.',
+                'code' => 302, // Utiliser un code 302 pour redirection (redirection implicite)
+                'data' => $existing, // Inclure les données du portefeuille existant
             ]);
         }
 
@@ -80,7 +83,6 @@ class portfeuilleController extends Controller
                 'code' => 500,
             ]);
         }
-
 
     }
 

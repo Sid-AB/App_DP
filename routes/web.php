@@ -10,9 +10,16 @@ use App\Models\Action;
 use App\Models\SousProgramme;
 use App\Http\Controllers\opeartionController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\programmeControlleur;
+use App\Http\Controllers\sousProgrammeController;
+use App\Http\Controllers\ActionController;
+use App\Http\Controllers\SousActionController;
+use App\Http\Controllers\groupOperationController;
+use App\Http\Controllers\OperationController;
+use App\Http\Controllers\SousOperationController;
 
 Route::get('/', function () {
- $portfs =Portefeuille::get(); 
+ $portfs =Portefeuille::get();
     return view('welcome',compact('portfs'));
 });
 Route::get('/testing',function (){
@@ -30,7 +37,6 @@ return view('test.carsoule');
 
             return view('Action-in.index',compact('port','prog','sous_prog','act','s_act'));
             });*/
-//Route::get('/Portfail',action: [portfeuilleController::class,'affich_portef'])->name('home.portfail');
 
 
 //===============ROUTE PORTEFEUILLE==============================
