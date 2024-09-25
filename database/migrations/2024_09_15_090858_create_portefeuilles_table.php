@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('portefeuilles', function (Blueprint $table) {
-            $table->integer('num_portefeuil')->primary();
+            $table->bigInteger('num_portefeuil')->primary();
             $table->DateTime('Date_portefeuille');
             $table->string('nom_journal');
             $table->integer('num_journal');

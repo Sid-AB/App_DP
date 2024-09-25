@@ -1,21 +1,19 @@
 <?php
 
-use App\Http\Controllers\actionController;
-use App\Http\Controllers\portfeuilleController;
-use App\Http\Controllers\programmeControlleur;
-use App\Http\Controllers\sousProgrammeController;
 use App\Models\Portefeuille;
 use App\Models\Programme;
 use App\Models\Action;
 use App\Models\SousProgramme;
-use App\Http\Controllers\opeartionController;
+
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\portfeuilleController;
 use App\Http\Controllers\programmeControlleur;
 use App\Http\Controllers\sousProgrammeController;
-use App\Http\Controllers\ActionController;
+use App\Http\Controllers\actionController;
 use App\Http\Controllers\SousActionController;
 use App\Http\Controllers\groupOperationController;
-use App\Http\Controllers\OperationController;
+use App\Http\Controllers\opeartionController;
 use App\Http\Controllers\SousOperationController;
 
 Route::get('/', function () {

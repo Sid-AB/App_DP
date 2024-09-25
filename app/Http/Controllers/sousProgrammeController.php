@@ -44,7 +44,7 @@ class sousProgrammeController extends Controller
 
         // Vérifier si le SousProgramme existe déjà en fonction du numéro et des dates
         $year = date('Y'); // Récupérer l'année actuelle
-        $num= intval($request->num_sous_prog).intval($request->id_porte).intval($request->id_program).$year;
+        $num= intval($request->num_sous_prog).intval($request->id_program).intval($request->id_porte).$year;
         $existing = SousProgramme::where('num_sous_prog', $num)
                              ->whereNotNull('date_insert_sousProg')
                              ->exists(); // Vérifie s'il y a un enregistrement existant

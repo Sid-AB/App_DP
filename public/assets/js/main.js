@@ -132,6 +132,7 @@ $(document).ready(function () {
               code:$(this).find('td').eq(0).text(),
               AE:$(this).find('td').eq(2).text(),
               CP:$(this).find('td').eq(3).text(),
+              t1:1,
             }
           }
           if( tid == 'T_port2' || tid == 'T2')
@@ -539,6 +540,7 @@ var nexthop='<div class="pinfo-handle">'+
                                   var cp=$('#CP_act').val()*/
                                   var dat_inst=$('#date_insert_action').val()
                                   var id_sou_prog=path[2];
+
                                   var formdata_act={
                                     num_action:num_act,
                                     nom_action:nom_act,

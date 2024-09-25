@@ -38,12 +38,13 @@ class actionController extends Controller
         $request->validate([
             'num_action' => 'required',
             'nom_action' => 'required',
-
             'date_insert_action' => 'required|date',
         ]);
 
-        // Vérifier si le action existe déjà en fonction du numéro et des dates
-        $existing = Action::where('num_action', $request->num_action)
+       // Vérifier si le SousProgramme existe déjà en fonction du numéro et des dates
+       $year = date('Y'); // Récupérer l'année actuelle
+       $num= intval($request->num_action).intval($request->id_sous_prog).intval($request->id_prog).intval($request->id_porte).$year;
+        $existing = Action::where('num_action', $num)
                              ->whereNotNull('date_insert_action')
                              ->exists(); // Vérifie s'il y a un enregistrement existant
 
@@ -58,8 +59,8 @@ class actionController extends Controller
 
         // Créer une nouvelle action et sous action
         $action = new Action();
-        $action->num_action = intval($request->num_action);
-        $action->num_sous_prog = intval($request->id_sous_prog);
+        $action->num_action =$num;
+        $action->num_sous_prog = intval($request->id_sous_prog).intval($request->id_prog).intval($request->id_porte).$year;
         $action->nom_action = $request->nom_action;
        // $action->AE_action = floatval($request->AE_action);
         //$action->CP_action = floatval($request->CP_action);
@@ -69,9 +70,9 @@ class actionController extends Controller
         $action->save();
 
         // Copie dans sousaction
-        SousAction::create([
+        $sousaction=SousAction::create([
             'num_sous_action' => $action->num_action,  // égal à numaction
-            'nom_action' => $action->num_action,
+            'num_action' => $action->num_action,
             'nom_sous_action' => $action->nom_action,
             'date_insert_sous_action' => $action->date_insert_action,      // clé étrangère
         ]);

@@ -20,7 +20,7 @@ class groupOperationController extends Controller
      // Récupérer les données du formulaire
      $aeData = $request->input('ae');
      $cpData = $request->input('cp');
-
+     $sou_action= $request->input('sous_action');
 
      // Chemin vers le fichier JSON dans public/titre
 $jsonFilePath = public_path('titre/dataT1.json');

@@ -43,7 +43,7 @@ class programmeControlleur extends Controller
 
         // Vérifier si le programme existe déjà en fonction du numéro et des dates
         $year = date('Y'); // Récupérer l'année actuelle
-        $num=intval($request->num_portefeuil).intval($request->num_prog).$year;
+        $num=intval($request->num_prog).intval($request->num_portefeuil).$year;
 //dd($num);
         $existing = programme::where('num_prog', $num)
                              ->whereNotNull('date_insert_portef')
