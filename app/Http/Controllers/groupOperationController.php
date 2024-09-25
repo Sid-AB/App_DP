@@ -10,7 +10,7 @@ class groupOperationController extends Controller
 //===================================================================================
                             //insertion DPA
 //===================================================================================
-    public function insertDPA(Request $request, $t, $s_act, $act, $sous_prog,$prog, $port )
+    public function insertDPA(Request $request, $T, $s_act, $act, $sous_prog,$prog, $port )
 {
 //===================================================================================
                             //insertion T1
@@ -351,7 +351,7 @@ elseif ($t==3) {
 //===================================================================================
                             // insertion T4
 //===================================================================================
-elseif ($t==4) {
+else{
 // Récupérer les données du formulaire
 $aeData = $request->input('ae');
 $cpData = $request->input('cp');

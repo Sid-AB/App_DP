@@ -89,6 +89,14 @@ function Edit(tid)
 {
 $(document).ready(function () {
   var old;
+  var data = {
+    ae: {},
+    cp: {},
+    ae_ouvert: {},
+    cp_ouvert: {},
+    ae_attendu: {},
+    cp_attendu: {}
+  };
   // Add double-click event to all cells with the class "editable"
   $('.editable').on('click',function(){
     let cell = $(this);  // Reference to the clicked cell
@@ -128,55 +136,67 @@ $(document).ready(function () {
           $('#T-tables tbody tr').each(function(){
             if( tid == 'T_port1' || tid == 'T1')
             {
-<<<<<<< HEAD
-              var rw={
-              code:$(this).find('td').eq(0).text(),
-              AE:$(this).find('td').eq(2).text(),
-              CP:$(this).find('td').eq(3).text(),
 
-            }
-=======
-               /* var rw={
-                                           code:$(this).find('td').eq(0).text(),
-                                           AE:$(this).find('td').eq(2).text(),
-                                           CP:$(this).find('td').eq(3).text(),
-                                         }*/
+            var code = $(this).find('td').eq(0).text();
+            var aeValue = $(this).find('td').eq(2).text();
+            var cpValue = $(this).find('td').eq(3).text();
+            // Ajoute les valeurs dans les objets
+            data.ae[code] = aeValue;
+            data.cp[code] = cpValue;
 
-                                           //ab3athali haka
-                                           var code = $(this).find('td').eq(0).text();
-                                           var aeValue = $(this).find('td').eq(2).text();
-                                           var cpValue = $(this).find('td').eq(3).text();
 
-                                           // Ajoute les valeurs dans les objets
-                                           data.ae[code] = aeValue;
-                                           data.cp[code] = cpValue;
->>>>>>> 2ab5e8042ad6ce6b8ebe23e2fde78c267d25a1df
           }
           if( tid == 'T_port2' || tid == 'T2')
             {
-              var rw={
-              code:$(this).find('td').eq(0).text(),
-              AE_overt:$(this).find('td').eq(2).text(),
-              CP_overt:$(this).find('td').eq(3).text(),
-              AE_attendu:$(this).find('td').eq(2).text(),
-              CP_attendu:$(this).find('td').eq(3).text(),
-            }
+
+              var code = $(this).find('td').eq(0).text();
+              var aeDataOuvert = $(this).find('td').eq(2).text();
+              var cpDataOuvert = $(this).find('td').eq(3).text();
+              var aeDataAttendu = $(this).find('td').eq(4).text();
+              var cpDataAttendu = $(this).find('td').eq(5).text();
+
+              // Ajoute les valeurs dans les objets
+            data.ae_ouvert[code] = aeDataOuvert;
+            data.cp_ouvert[code] = cpDataOuvert;
+            data.ae_attendu[code] = aeDataAttendu;
+            data.cp_attendu[code] = cpDataAttendu;
+
           }
           if( tid == 'T_port3' || tid == 'T3')
             {
-              var rw={
-              code:$(this).find('td').eq(0).text(),
-              AE:$(this).find('td').eq(2).text(),
-              CP:$(this).find('td').eq(3).text(),
-            }
+              var code = $(this).find('td').eq(0).text();
+              var aeValue = $(this).find('td').eq(2).text();
+              var cpValue = $(this).find('td').eq(3).text();
+              // Ajoute les valeurs dans les objets
+              data.ae[code] = aeValue;
+              data.cp[code] = cpValue;
           }
-            value_chng.push(rw);
+           // value_chng.push(rw);
           })
 
               $('.change_app').empty()
               console.log('result'+JSON.stringify(value_chng))
               click=0;
 
+              $.ajax({
+                url: '/route-vers-votre-controller',  // Remplacez par la route correspondant à votre contrôleur
+                type: 'POST',
+                data: {
+                    ae: data.ae,
+                    cp: data.cp,
+                    ae_ouvert: data.ae_ouvert,
+                    cp_ouvert: data.cp_ouvert,
+                    ae_attendu: data.ae_attendu,
+                    cp_attendu: data.cp_attendu,
+                    _token: $('meta[name="csrf-token"]').attr('content')  // Ajoute le token CSRF
+                },
+                success: function(response) {
+                   // console.log('Données envoyées avec succès !');
+                },
+                error: function(xhr, status, error) {
+                    console.error('Erreur lors de l\'envoi :', error);
+                }
+            });
             })
           }
         //  console.log('all table'+JSON.stringify(value_chng))
@@ -628,7 +648,7 @@ var nexthop='<div class="pinfo-handle">'+
                                     _method: 'POST'
                                   }
                                   path.push(num_sous_act)
-                                  window.location.href='testing/S_Action/'+path[0]+'/'+path[1]+'/'+path[2]+'/'+path[3]+'/'+path[4]+'/';
+                                  window.location.href='testing/S_Action/'+path[0]+'/'+path[1]+'/'+path[2]+'/'+path[3]+'/'+path[4]+'/'+id;
                                  /* $.ajax({
                                     url:'/creationsousAction',
                                     type:'POST',
@@ -686,7 +706,7 @@ var nexthop='<div class="pinfo-handle">'+
 
 
                                          path.push(num_act)
-                                       window.location.href='testing/Action/'+path[0]+'/'+path[1]+'/'+path[2]+'/'+path[3];
+                                       window.location.href='testing/Action/'+path[0]+'/'+path[1]+'/'+path[2]+'/'+path[3]+'/'+T;
                                        console.log('path'+JSON.stringify(path))
                                       }
                                     },
@@ -729,7 +749,7 @@ var nexthop='<div class="pinfo-handle">'+
  *
  */
 
-function T1_table(id)
+function T1_table(id,T)
 {
   console.log('data is')
     $('#Tport-handle').addClass('scale-out');
@@ -765,7 +785,7 @@ function T1_table(id)
     console.error('Error loading JSON file.');
 });
 }
-function T2_table(id)
+function T2_table(id,T)
 {
   $('#Tport-handle').addClass('scale-out');
   setTimeout(() => {
@@ -832,7 +852,7 @@ $('#T-tables thead').append(headT)
                 console.error('Error loading JSON file.');
             });
 }
-function T3_table(id)
+function T3_table(id,T)
 {
   console.log('data is')
     $('#Tport-handle').addClass('scale-out');
@@ -887,14 +907,17 @@ $(document).ready(function(){
 
   $('#T1').on('click',function(){
     var id=$(this).attr('id');
-  T1_table(id)
+    var T=1;
+  T1_table(id,T)
   })
   $('#T2').on('click',function(){
+    var T=2;
 
-    T2_table(id)
+    T2_table(id,T)
   })
   $('#T3').on('click',function(){
-    T3_table(id)
+    var T=3;
+    T3_table(id,T)
   })
   $('#T4').on('click',function(){
 
