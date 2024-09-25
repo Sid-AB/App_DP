@@ -22,12 +22,12 @@ class GroupOperation extends Model
  
     public function sousAction()
     {
-        return $this->belongsTo(sousAction::class);
+        return $this->belongsTo(sousAction::class,'num_sous_action','num_sous_action');
     }
 
     public function Operation()
     {
-        return $this->hasMany(Operation::class);
+        return $this->hasMany(Operation::class,'code_grp_operation','code_grp_operation');
     }
 
 }

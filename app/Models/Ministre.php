@@ -20,11 +20,11 @@ class Ministre extends Model
    
     public function Personne()
     {
-        return $this->belongsTo(Personne::class);
+        return $this->belongsTo(Personne::class,'id_nin','id_nin');
     }
     public function Portefeuille()
     {
-        return $this->hasOne(Portefeuille::class);
+        return $this->hasOne(Portefeuille::class,'id_min','id_min');
     }
 
  

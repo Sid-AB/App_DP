@@ -23,25 +23,31 @@ class SousOperation extends Model
 
     public function Operation()
     {
-        return $this->belongsTo(Operation::class);
+        return $this->belongsTo(Operation::class,'code_operation','code_operation');
     }
     public function T1()
     {
-        return $this->belongsTo(T1::class);
+        return $this->belongsTo(T1::class,'code_t1','code_t1');
     }
 
     public function T2()
     {
-        return $this->belongsTo(T2::class);
+        return $this->belongsTo(T2::class,'code_t2','code_t2');
     }
 
     public function T3()
     {
-        return $this->belongsTo(T3::class);
+        return $this->belongsTo(T3::class,'code_t3','code_t3');
     }
     public function T4()
     {
-        return $this->belongsTo(T4::class);
+        return $this->belongsTo(T4::class,'code_t4','code_t4');
     }
+
+    public function SousOperation()
+    {
+        return $this->hasMany(ConstruireDPIA::class,'code_sous_operation','code_sous_operation');
+    }
+
 
 }
