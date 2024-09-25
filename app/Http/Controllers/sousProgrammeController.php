@@ -42,7 +42,9 @@ class sousProgrammeController extends Controller
         ]);
 
         // Vérifier si le SousProgramme existe déjà en fonction du numéro et des dates
-        $existing = SousProgramme::where('num_sous_prog', $request->num_sous_prog)
+        $year = date('Y'); // Récupérer l'année actuelle
+        $num= intval($request->num_sous_prog).intval($request->id_porte).intval($request->id_program).$year;
+        $existing = SousProgramme::where('num_sous_prog', $num)
                              ->whereNotNull('date_insert_sousProg')
                              ->exists(); // Vérifie s'il y a un enregistrement existant
 
@@ -53,14 +55,16 @@ class sousProgrammeController extends Controller
                'code' => 302, // Utiliser un code 302 pour redirection (redirection implicite)
                 'data' => $existing, // Inclure les données du portefeuille existant
             ]);
+        }
+//dd($request);
 
         // Créer un nouveau SousProgramme
         $SousProgramme = new SousProgramme();
-        $SousProgramme->num_sous_prog = intval($request->num_sous_prog);
-        $SousProgramme->num_prog = intval($request->id_program);
+        $SousProgramme->num_sous_prog = $num;
+        $SousProgramme->num_prog = intval($request->id_porte).intval($request->id_program).$year;
         $SousProgramme->nom_sous_prog = $request->nom_sous_prog;
-        $SousProgramme->AE_sous_porg = floatval($request->AE_sous_porg);
-        $SousProgramme->CP_sous_prog = floatval($request->CP_sous_prog);
+        //$SousProgramme->AE_sous_prog = floatval($request->AE_sous_prog);
+        //$SousProgramme->CP_sous_prog = floatval($request->CP_sous_prog);
         $SousProgramme->date_insert_sousProg = $request->date_insert_sousProg;
 
         $SousProgramme->save();
@@ -78,6 +82,6 @@ class sousProgrammeController extends Controller
                 'code' => 500,
             ]);
         }
-    }
+
 }
 }

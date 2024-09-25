@@ -400,13 +400,13 @@
                                var id_prog=$('#num_prog').val();
                                var nom_prog=$('#nom_prog').val();
                                var date_sort_jour=$('#date_insert_portef').val();
-                               var AE=$('#AE_prog').val();
-                               var CP=$('#CP_prog').val();
+                               //var AE=$('#AE_prog').val();
+                               //var CP=$('#CP_prog').val();
                                var formprogdata={
                                  num_prog:id_prog,
                                  nom_prog:nom_prog,
-                                 AE_prog:parseFloat(AE),
-                                 CP_prog:parseFloat(CP),
+                                 //AE_prog:parseFloat(AE),
+                                 //CP_prog:parseFloat(CP),
                                  num_portefeuil:path[0],
                                  date_insert_portef:date_sort_jour,
                                  _token: $('meta[name="csrf-token"]').attr('content'),
@@ -474,10 +474,11 @@
                                                $('#add-prg2').on('click',function(){
                                                  var sou_prog=$('#num_sous_prog').val()
                                                  var nom_sou_prog=$('#nom_sous_prog').val();
-                                                 var AE=$('#AE_sous_porg').val();
-                                                 var CP=$('#CP_sous_prog').val()
+                                                 //var AE=$('#AE_sous_porg').val();
+                                                 //var CP=$('#CP_sous_prog').val()
                                                  var dat_sou_prog=$('#date_insert_sousProg').val()
                                                  var id_prog=path[1];
+                                                 var id_port=path[0];
                                                  var nexthop='<div class="pinfo-handle">'+
                                                  '<i class="fas fa-wallet"></i>'+
                                                  '<p >S_Program :</p>'+
@@ -521,14 +522,15 @@
                                                        var formdatasou_prog={
                                                          num_sous_prog:sou_prog,
                                                          nom_sous_prog:nom_sou_prog,
-                                                         AE_sous_porg:AE,
-                                                         CP_sous_prog:CP,
+                                                         //AE_sous_prog:AE,
+                                                         //CP_sous_prog:CP,
                                                          date_insert_sousProg:dat_sou_prog,
                                                          id_program:id_prog,
+                                                         id_porte:id_port,
                                                          _token: $('meta[name="csrf-token"]').attr('content'),
                                                          _method: 'POST'
                                                        }
-                                                       console.log('data'+JSON.stringify(formdatasou_prog))
+                                                      //console.log('data'+JSON.stringify(formdatasou_prog))
                                                        $.ajax({
                                                          url:'/creationSousProg',
                                                          type:"POST",
@@ -545,19 +547,20 @@
                                                              path.push(sou_prog);
                                                              $('#confirm-holder_sprog').empty()
                                                              $('#confirm-holder_sprog').append('<i class="fas fa-wrench"></i>')
-                                                             /******           ACTION add for under_progam                    *********** */
+
+                                                             /******           ACTION add for under_progam           ****/
                                                              $('#add-prg3').on('click',function(){
                                                                var nom_act=$('#nom_act').val()
                                                                var num_act=$('#num_act').val()
-                                                               var ae=$('#AE_act').val()
-                                                               var cp=$('#CP_act').val()
+                                                               //var ae=$('#AE_act').val()
+                                                               //var cp=$('#CP_act').val()
                                                                var dat_inst=$('#date_insert_action').val()
                                                                var id_sou_prog=path[2];
                                                                var formdata_act={
                                                                  num_action:num_act,
                                                                  nom_action:nom_act,
-                                                                 AE_action:ae,
-                                                                 CP_action:cp,
+                                                                 //AE_action:ae,
+                                                                 //CP_action:cp,
                                                                  date_insert_action:dat_inst,
                                                                  id_sous_prog:id_sou_prog,
                                                                  _token: $('meta[name="csrf-token"]').attr('content'),
@@ -582,7 +585,7 @@
                                                                      alert('error')
                                                                  }
                                                                })
-                                                           /*********         END ACTION ********************************************** */
+                                                          /*********         END ACTION *****************************************/
                                                           })
 
                                                            }

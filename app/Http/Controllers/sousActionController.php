@@ -37,8 +37,6 @@ function create_sous_action(Request $request, $num_action)
     $request->validate([
         'num_sous_action' => 'required',
         'nom_sous_action' => 'required',
-        'AE_sous_action' => 'required',
-        'CP_sous_action' => 'required',
         'date_insert_sous_action' => 'required|date',
     ]);
 

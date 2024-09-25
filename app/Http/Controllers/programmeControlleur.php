@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\programme;
 
 use Illuminate\Http\Request;
 
@@ -41,8 +42,8 @@ class programmeControlleur extends Controller
 
         // Vérifier si le programme existe déjà en fonction du numéro et des dates
         $year = date('Y'); // Récupérer l'année actuelle
-        $num=$request->num_prog.$year;
-
+        $num=intval($request->num_portefeuil).intval($request->num_prog).$year;
+//dd($num);
         $existing = programme::where('num_prog', $num)
                              ->whereNotNull('date_insert_portef')
                              ->exists(); // Vérifie s'il y a un enregistrement existant
@@ -59,11 +60,11 @@ class programmeControlleur extends Controller
 
         // Créer un nouveau programme
         $programme = new Programme();
-        $programme->num_prog = intval($request->num_prog).intval($request->num_portefeuil).$year;
+        $programme->num_prog = $num;
         $programme->num_portefeuil = intval($request->num_portefeuil).$year;
         $programme->nom_prog = $request->nom_prog;
-        $programme->AE_porg =floatval($request->AE_prog);
-        $programme->CP_prog = floatval($request->CP_prog);
+        //$programme->AE_porg =floatval($request->AE_prog);
+        //$programme->CP_prog = floatval($request->CP_prog);
         $programme->date_insert_portef = $request->date_insert_portef;
         $programme->id_rp = 1; //periodiquement
 

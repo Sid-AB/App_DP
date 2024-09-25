@@ -5,7 +5,6 @@ use App\Http\Controllers\portfeuilleController;
 use App\Http\Controllers\opeartionController;
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\portfeuilleController;
 use App\Http\Controllers\programmeControlleur;
 use App\Http\Controllers\sousProgrammeController;
 use App\Http\Controllers\ActionController;
@@ -23,19 +22,18 @@ return view('test.carsoule');
 Route::get('/testing/tree',function (){
     return view('test.tree');
     });
-  /*  Route::get('/testing/Action/{port}/{prog}/{sous_prog}/{act}/',function ($port,$prog,$sous_prog,$act){
+    Route::get('/testing/Action/{port}/{prog}/{sous_prog}/{act}/',function ($port,$prog,$sous_prog,$act){
 
 
 
         return view('Action-in.index',compact('port','prog','sous_prog','act'));
-        });*/
+        });
        /* Route::get('/testing/S_Action/{port}/{prog}/{sous_prog}/{act}/{s_act}/',function ($port,$prog,$sous_prog,$act,$s_act){
 
 
 
             return view('Action-in.index',compact('port','prog','sous_prog','act','s_act'));
             });*/
-//Route::get('/Portfail',action: [portfeuilleController::class,'affich_portef'])->name('home.portfail');
 
 
 //===============ROUTE PORTEFEUILLE==============================
