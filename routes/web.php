@@ -23,9 +23,6 @@ Route::get('/', function () {
 Route::get('/testing',function (){
 return view('test.carsoule');
 });
-Route::get('/testing/tree',function (){
-    return view('test.tree');
-    });
     Route::get('/testing/Action/{port}/{prog}/{sous_prog}/{act}/',function ($port,$prog,$sous_prog,$act){
 
 

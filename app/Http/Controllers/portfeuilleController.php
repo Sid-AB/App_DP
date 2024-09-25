@@ -59,7 +59,7 @@ class portfeuilleController extends Controller
 
         // Créer un nouveau portefeuille
         $portefeuille = new Portefeuille();
-        $portefeuille->num_portefeuil = intval($num);
+        $portefeuille->num_portefeuil = intval($request->num_portefeuil);
         $portefeuille->nom_journal = $request->nom_journal;
         $portefeuille->num_journal = $request->num_journal;
         $portefeuille->AE_portef = $request->AE_portef;

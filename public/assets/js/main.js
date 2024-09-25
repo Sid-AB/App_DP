@@ -340,8 +340,9 @@ $(document).ready(function(){
 $(document).ready(function(){
   $("#add-wallet").on('click',function(){
     var num_wallet=$('#num_port').val();
+    console.log('id'+num_wallet)
     var formportinsert={
-      'num_portefeuil':parseInt($('#num_port').val()),
+      'num_portefeuil':num_wallet,
       'Date_portefeuille':$('#date_crt_portf').val(),
       'nom_journal':$('#nom_journ').val(),
       'num_journal':parseInt($('#num_journ').val()),
@@ -482,14 +483,14 @@ var nexthop='<div class="pinfo-handle">'+
                             '<label for="input1">Nom ACTION</label>'+
                             '<input type="text" class="form-control" id="nom_act" placeholder="Donnee Nom ACTION">'+
                           '</div>'+
-                          '<!--div class="form-group">'+
+                          '<div class="form-group" id="ElAE_act">'+
                             '<label for="input1">AE pour Action</label>'+
                             '<input type="number" class="form-control" id="AE_act" placeholder="Donnee Nom Programme">'+
                           '</div>'+
-                          '<div class="form-group">'+
+                          '<div class="form-group" id="ElCP_act">'+
                             '<label for="input1">CP pour Action</label>'+
                             '<input type="number" class="form-control" id="CP_act" placeholder="Donnee Nom Programme">'+
-                          '</div-->'+
+                          '</div>'+
                          ' <div class="form-group">'+
                            ' <label for="inputDate">Date Journal</label>'+
                             '<input type="date" class="form-control" id="date_insert_action">'+
@@ -534,18 +535,122 @@ var nexthop='<div class="pinfo-handle">'+
                                 $('#confirm-holder_sprog').append('<i class="fas fa-wrench"></i>')
                                 /******           ACTION add for under_progam                    *********** */
                                 $('#add-prg3').on('click',function(){
+                                  /**
+                                   *  this part for chacking if he want to under_action
+                                   *  
+                                   */
+                                  let userResponse = confirm('Voulez Vous insert une sous action pour cett action?');
+                                  if (userResponse) {
+                                    var num_act=$('#num_act').val()
+                                     var nom_act=$('#nom_act').val();
+                                    $('#ElAE_act').empty()
+                                    $('#ElCP_act').empty()
+                                    var nexthop='<div class="pinfo-handle">'+
+                                    '<i class="fas fa-wallet"></i>'+
+                                    '<p >Action :</p>'+
+                                    '<p>'+num_act+'</p>'+
+                                    '</div>'+
+                                    ' <div class="next-handle">'+
+                                    '<i class="fas fa-angle-double-right waiting-icon"></i>'+
+                                    '</div>'
+                                    var prg4='<div class="form-container">'+
+                                 '<form>'+
+                                   '<div class="form-group">'+
+                                     '<label for="input1">N°Sous ACTION</label>'+
+                                     '<input type="text" class="form-control" id="num_sous_act" placeholder="Donnee code Sous ACTION">'+
+                                   '</div>'+
+                                   '<div class="form-group">'+
+                                     '<label for="input1">Nom Sous ACTION</label>'+
+                                     '<input type="text" class="form-control" id="nom_sous_act" placeholder="Donnee Nom Sous ACTION">'+
+                                   '</div>'+
+                                   '<div class="form-group">'+
+                                     '<label for="input1">AE pour Sous Action</label>'+
+                                     '<input type="number" class="form-control" id="AE_sous_act">'+
+                                   '</div>'+
+                                   '<div class="form-group">'+
+                                     '<label for="input1">CP pour Sous Action</label>'+
+                                     '<input type="number" class="form-control" id="CP_sous_act">'+
+                                   '</div>'+
+                                  ' <div class="form-group">'+
+                                    ' <label for="inputDate">Date Journal</label>'+
+                                     '<input type="date" class="form-control" id="date_insert_sou_action">'+
+                                   '</div>'+
+                                  ' </form>'+
+                                  ' <br>'+
+                                   '<div id="confirm-holder_act">'+
+                                   '<button class="btn btn-primary" id="add-prg4">Ajouter</button>'+
+                                   '<hr>'+
+                                  ' <div class="file-handle">'+
+                                   '<input type="file" class="form-control" id="file">'+
+                                   '<button class="btn btn-primary">Journal</button>'+
+                                   '</div>'+
+                                   '</div>'
+                                    
+                                   $('.next-handle svg').removeClass('waiting-icon')
+                                   $('.next-handle svg').addClass('complet-icon')
+                                   $('.the-path').append(nexthop)
+                                   $('#progam-handle').append(prg4)
+                                   path.push(num_act);
+                                   $('#confirm-holder_sprog').empty()
+                                   $('#confirm-holder_sprog').append('<i class="fas fa-wrench"></i>')
+                                   $('#add-prg4').on('click',function(){
+                                    var nom_sous_act=$('#nom_sous_act').val()
+                                  var num_sous_act=$('#num_sous_act').val()
+                                  var ae=$('#AE_sous_act').val()
+                                  var cp=$('#CP_sous_act').val()
+                                  var dat_inst=$('#date_insert_sous_action').val()
+                                  var num_act=path[3];
+                                  var formdata_act={
+                                    num_sous_action:num_sous_act,
+                                    nom_sous_action:nom_sous_act,
+                                    AE_sous_action:ae,
+                                    CP_sous_action:cp,
+                                    date_insert_sous_action:dat_inst,
+                                    num_act:num_act,
+                                    _token: $('meta[name="csrf-token"]').attr('content'),
+                                    _method: 'POST'
+                                  }
+                                  path.push(num_sous_act)
+                                  window.location.href='testing/S_Action/'+path[0]+'/'+path[1]+'/'+path[2]+'/'+path[3]+'/'+path[4]+'/';
+                                 /* $.ajax({
+                                    url:'/creationAction',
+                                    type:'POST',
+                                    data:formdata_act,
+                                    success:function(response)
+                                    {
+                                      if(response.code == 200 || response.code == 404)
+                                      {
+                                         path.push(num_sous_act)
+                                       window.location.href='testing/S_Action/'+path[0]+'/'+path[1]+'/'+path[2]+'/'+path[3]+'/'+path[4]+'/';
+                                       console.log('path'+JSON.stringify(path))
+                                      }
+                                    },
+                                    error:function(response)
+                                    {
+                                        alert('error')
+                                    }
+                                    
+                                  })*/
+                                   })
+                               } 
+                                 /**
+                                     *  end section
+                                     * 
+                                     */
+                               else 
+                               {
                                   var nom_act=$('#nom_act').val()
                                   var num_act=$('#num_act').val()
-                                 /* var ae=$('#AE_act').val()
-                                  var cp=$('#CP_act').val()*/
+                                  var ae=$('#AE_act').val()
+                                  var cp=$('#CP_act').val()
                                   var dat_inst=$('#date_insert_action').val()
                                   var id_sou_prog=path[2];
 
                                   var formdata_act={
                                     num_action:num_act,
                                     nom_action:nom_act,
-                                   /* AE_action:ae,
-                                    CP_action:cp,*/
+                                    AE_action:ae,
+                                    CP_action:cp,
                                     date_insert_action:dat_inst,
                                     id_sous_prog:id_sou_prog,
                                     id_prog:path[1],
@@ -561,7 +666,8 @@ var nexthop='<div class="pinfo-handle">'+
                                     {
                                       if(response.code == 200 || response.code == 404)
                                       {
-                                        alert(response.message)
+                                        
+                                      
                                          path.push(num_act)
                                        window.location.href='testing/Action/'+path[0]+'/'+path[1]+'/'+path[2]+'/'+path[3];
                                        console.log('path'+JSON.stringify(path))
@@ -571,7 +677,9 @@ var nexthop='<div class="pinfo-handle">'+
                                     {
                                         alert('error')
                                     }
+                                    
                                   })
+                                }
                               /*********         END ACTION ********************************************** */
                              })
 
