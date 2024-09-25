@@ -4,12 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Portefeuille;
-<<<<<<< HEAD
 use App\Models\Programme;
 use App\Models\Action;
 use App\Models\SousProgramme;
-=======
->>>>>>> c95478a971ccb525558b16af806591e49fe71f77
 class portfeuilleController extends Controller
 {
 
