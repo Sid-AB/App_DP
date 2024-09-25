@@ -132,7 +132,7 @@ $(document).ready(function () {
               code:$(this).find('td').eq(0).text(),
               AE:$(this).find('td').eq(2).text(),
               CP:$(this).find('td').eq(3).text(),
-              t1:1,
+
             }
           }
           if( tid == 'T_port2' || tid == 'T2')
@@ -537,7 +537,7 @@ var nexthop='<div class="pinfo-handle">'+
                                 $('#add-prg3').on('click',function(){
                                   /**
                                    *  this part for chacking if he want to under_action
-                                   *  
+                                   *
                                    */
                                   let userResponse = confirm('Voulez Vous insert une sous action pour cett action?');
                                   if (userResponse) {
@@ -585,7 +585,7 @@ var nexthop='<div class="pinfo-handle">'+
                                    '<button class="btn btn-primary">Journal</button>'+
                                    '</div>'+
                                    '</div>'
-                                    
+
                                    $('.next-handle svg').removeClass('waiting-icon')
                                    $('.next-handle svg').addClass('complet-icon')
                                    $('.the-path').append(nexthop)
@@ -603,8 +603,8 @@ var nexthop='<div class="pinfo-handle">'+
                                   var formdata_act={
                                     num_sous_action:num_sous_act,
                                     nom_sous_action:nom_sous_act,
-                                    AE_sous_action:ae,
-                                    CP_sous_action:cp,
+                                   // AE_sous_action:ae,
+                                    //CP_sous_action:cp,
                                     date_insert_sous_action:dat_inst,
                                     num_act:num_act,
                                     _token: $('meta[name="csrf-token"]').attr('content'),
@@ -613,7 +613,7 @@ var nexthop='<div class="pinfo-handle">'+
                                   path.push(num_sous_act)
                                   window.location.href='testing/S_Action/'+path[0]+'/'+path[1]+'/'+path[2]+'/'+path[3]+'/'+path[4]+'/';
                                  /* $.ajax({
-                                    url:'/creationAction',
+                                    url:'/creationsousAction',
                                     type:'POST',
                                     data:formdata_act,
                                     success:function(response)
@@ -629,15 +629,15 @@ var nexthop='<div class="pinfo-handle">'+
                                     {
                                         alert('error')
                                     }
-                                    
+
                                   })*/
                                    })
-                               } 
+                               }
                                  /**
                                      *  end section
-                                     * 
+                                     *
                                      */
-                               else 
+                               else
                                {
                                   var nom_act=$('#nom_act').val()
                                   var num_act=$('#num_act').val()
@@ -649,8 +649,8 @@ var nexthop='<div class="pinfo-handle">'+
                                   var formdata_act={
                                     num_action:num_act,
                                     nom_action:nom_act,
-                                    AE_action:ae,
-                                    CP_action:cp,
+                                    //AE_action:ae,
+                                    //CP_action:cp,
                                     date_insert_action:dat_inst,
                                     id_sous_prog:id_sou_prog,
                                     id_prog:path[1],
@@ -666,8 +666,8 @@ var nexthop='<div class="pinfo-handle">'+
                                     {
                                       if(response.code == 200 || response.code == 404)
                                       {
-                                        
-                                      
+
+
                                          path.push(num_act)
                                        window.location.href='testing/Action/'+path[0]+'/'+path[1]+'/'+path[2]+'/'+path[3];
                                        console.log('path'+JSON.stringify(path))
@@ -677,7 +677,7 @@ var nexthop='<div class="pinfo-handle">'+
                                     {
                                         alert('error')
                                     }
-                                    
+
                                   })
                                 }
                               /*********         END ACTION ********************************************** */

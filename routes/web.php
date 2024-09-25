@@ -64,15 +64,17 @@ Route::controller(actionController::class)->group(function(){
 
 //===============ROUTE SOUS ACTION==============================
 Route::controller(sousActionController::class)->group(function(){
+    Route::post('/creationsousAction','create_sousaction')->name('creation.sousaction');
 });
 
 //===============ROUTE GROUPE D'OPERATIONS==============================
 Route::controller(groupOperationController::class)->group(function(){
+    Route::get('/testing/S_Action/{port}/{prog}/{sous_prog}/{act}/{s_act}', 'insertDPA');
 });
 
 //===============ROUTE  OPERATION==============================
 Route::controller(opeartionController::class)->group(function(){
-    Route::get('/testing/S_Action/{port}/{prog}/{sous_prog}/{act}/{s_act}', 'calculerEtEnvoyer');
+    Route::get('/testing/S_Action/{port}/{prog}/{sous_prog}/{act}/{s_act}/{t}', 'calculerEtEnvoyer');
    // Route::get('/testing/Action/{port}/{prog}/{sous_prog}/{act}', 'calculerEtEnvoyer');
 });
 
