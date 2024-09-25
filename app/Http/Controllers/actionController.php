@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Http\Request;
+use App\Models\Action;
 
 class actionController extends Controller
 {
@@ -41,12 +42,12 @@ class actionController extends Controller
             'CP_action' => 'required',
             'date_insert_action' => 'required|date',
         ]);
-       
+
         // Vérifier si le action existe déjà en fonction du numéro et des dates
         $existing = Action::where('num_action', $request->num_action)
                              ->whereNotNull('date_insert_action')
                              ->exists(); // Vérifie s'il y a un enregistrement existant
-                            
+
         if ($existing) {
             return response()->json([
                 'success' => false,
@@ -64,7 +65,7 @@ class actionController extends Controller
         $action->CP_action = floatval($request->CP_action);
         $action->id_ra = 1;//periodiquement
         $action->date_insert_action = $request->date_insert_action;
-       
+
         $action->save();
       //  dd(vars: $action);
         if ($action) {

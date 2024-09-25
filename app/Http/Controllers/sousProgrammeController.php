@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Http\Request;
+use App\Models\SousProgramme;
 
 class sousProgrammeController extends Controller
 {
@@ -35,25 +36,23 @@ class sousProgrammeController extends Controller
     {
         // Validation des données
         $request->validate([
-            'num_sous_prog' => 'required',
+            'num_sous_prog' => 'required|unique:sous_programmes,num_sous_prog',
             'nom_sous_prog' => 'required',
-            'AE_sous_porg' => 'required',
-            'CP_sous_prog' => 'required',
             'date_insert_sousProg' => 'required|date',
         ]);
-       
+
         // Vérifier si le SousProgramme existe déjà en fonction du numéro et des dates
         $existing = SousProgramme::where('num_sous_prog', $request->num_sous_prog)
                              ->whereNotNull('date_insert_sousProg')
                              ->exists(); // Vérifie s'il y a un enregistrement existant
-                             
+
         if ($existing) {
             return response()->json([
                 'success' => false,
                 'message' => 'Le SousProgramme avec ce numéro existe déjà.',
-                'code' => 404,
+               'code' => 302, // Utiliser un code 302 pour redirection (redirection implicite)
+                'data' => $existing, // Inclure les données du portefeuille existant
             ]);
-        }
 
         // Créer un nouveau SousProgramme
         $SousProgramme = new SousProgramme();
@@ -63,7 +62,7 @@ class sousProgrammeController extends Controller
         $SousProgramme->AE_sous_porg = floatval($request->AE_sous_porg);
         $SousProgramme->CP_sous_prog = floatval($request->CP_sous_prog);
         $SousProgramme->date_insert_sousProg = $request->date_insert_sousProg;
-        
+
         $SousProgramme->save();
       //  dd($SousProgramme);
         if ($SousProgramme) {
@@ -80,4 +79,5 @@ class sousProgrammeController extends Controller
             ]);
         }
     }
+}
 }

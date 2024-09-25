@@ -28,10 +28,11 @@ class portfeuilleController extends Controller
 //===================================================================================
     function creat_portef(Request $request)
     {
-      //  dd($request);
+
+        //dd($request);
          // Validation des données
          $request->validate([
-            'num_portefeuil' => 'required|unique:portefeuille,num_portefeuil',
+            'num_portefeuil' => 'required|unique:portefeuilles,num_portefeuil',
             'num_journal' => 'required',
             'nom_journal' => 'required',
             'AE_portef' => 'required',
@@ -40,20 +41,22 @@ class portfeuilleController extends Controller
         ]);
 
         // Vérifier si le portefeuille existe déjà
-
-        $existing = Portefeuille::where('num_journal', $request->num_journal)->first();
+        $year = date('Y'); // Récupérer l'année actuelle
+        $num=$request->num_portefeuil.$year;
+        $existing = Portefeuille::where('num_portefeuil', $num)->first();
 
         if ($existing) {
             return response()->json([
                 'success' => false,
-                'message' => 'Le portefeuille avec ce numéro de journal existe déjà.',
-                'code'=>404,
+                'message' => 'Le portefeuille avec ce numéro  existe déjà.',
+                'code' => 302, // Utiliser un code 302 pour redirection (redirection implicite)
+                'data' => $existing, // Inclure les données du portefeuille existant
             ]);
         }
 
         // Créer un nouveau portefeuille
         $portefeuille = new Portefeuille();
-        $portefeuille->num_portefeuil = intval($request->num_port);
+        $portefeuille->num_portefeuil = intval($num);
         $portefeuille->nom_journal = $request->nom_journal;
         $portefeuille->num_journal = $request->num_journal;
         $portefeuille->AE_portef = $request->AE_portef;
@@ -77,7 +80,6 @@ class portfeuilleController extends Controller
                 'code' => 500,
             ]);
         }
-
 
     }
 

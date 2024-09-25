@@ -1,9 +1,16 @@
 <?php
 
 
-use App\Http\Controllers\portfeuilleController;
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\portfeuilleController;
+use App\Http\Controllers\programmeControlleur;
+use App\Http\Controllers\sousProgrammeController;
+use App\Http\Controllers\ActionController;
+use App\Http\Controllers\SousActionController;
+use App\Http\Controllers\groupOperationController;
+use App\Http\Controllers\OperationController;
+use App\Http\Controllers\SousOperationController;
 
 Route::get('/', function () {
     return view('welcome');
