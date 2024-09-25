@@ -128,12 +128,29 @@ $(document).ready(function () {
           $('#T-tables tbody tr').each(function(){
             if( tid == 'T_port1' || tid == 'T1')
             {
+<<<<<<< HEAD
               var rw={
               code:$(this).find('td').eq(0).text(),
               AE:$(this).find('td').eq(2).text(),
               CP:$(this).find('td').eq(3).text(),
 
             }
+=======
+               /* var rw={
+                                           code:$(this).find('td').eq(0).text(),
+                                           AE:$(this).find('td').eq(2).text(),
+                                           CP:$(this).find('td').eq(3).text(),
+                                         }*/
+
+                                           //ab3athali haka
+                                           var code = $(this).find('td').eq(0).text();
+                                           var aeValue = $(this).find('td').eq(2).text();
+                                           var cpValue = $(this).find('td').eq(3).text();
+
+                                           // Ajoute les valeurs dans les objets
+                                           data.ae[code] = aeValue;
+                                           data.cp[code] = cpValue;
+>>>>>>> 2ab5e8042ad6ce6b8ebe23e2fde78c267d25a1df
           }
           if( tid == 'T_port2' || tid == 'T2')
             {
