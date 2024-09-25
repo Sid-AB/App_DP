@@ -18,12 +18,12 @@ Route::get('/', function () {
 Route::get('/testing',function (){
 return view('test.carsoule');
 });
-  /*  Route::get('/testing/Action/{port}/{prog}/{sous_prog}/{act}/',function ($port,$prog,$sous_prog,$act){
+    Route::get('/testing/Action/{port}/{prog}/{sous_prog}/{act}/',function ($port,$prog,$sous_prog,$act){
 
 
 
         return view('Action-in.index',compact('port','prog','sous_prog','act'));
-        });*/
+        });
        /* Route::get('/testing/S_Action/{port}/{prog}/{sous_prog}/{act}/{s_act}/',function ($port,$prog,$sous_prog,$act,$s_act){
 
 
