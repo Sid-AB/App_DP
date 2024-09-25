@@ -85,7 +85,7 @@
 var click=0;
 var changing_mist=new Object();
 var value_chng=new Array()
-function Edit()
+function Edit(tid)
 {
 $(document).ready(function () {
   var old;
@@ -107,7 +107,7 @@ $(document).ready(function () {
       input.focus();  // Focus on the input immediately
 
       // When the input loses focus, update the cell with new text
-      input.blur(function () {
+      input.blur(function (t) {
           let newText = $(this).val();  // Get new value from input
          
           if( newText != 0 && newText != '' && newText != null)
@@ -122,14 +122,46 @@ $(document).ready(function () {
             var buttons='<button class="btn btn-primary" id="changin"> appliquer</button>'}
             $('.change_app').append(buttons)
             $('#changin').on('click',function(){
-              console.log('result'+JSON.stringify(value_chng))
-          //    alert('changing success')
-              $('.change_app').empty()
               value_chng=new Array()
+              
+          //    alert('changing success')
+          $('#T-tables tbody tr').each(function(){
+            if( tid == 'T_port1' || tid == 'T1')
+            {
+              var rw={
+              code:$(this).find('td').eq(0).text(),
+              AE:$(this).find('td').eq(2).text(),
+              CP:$(this).find('td').eq(3).text(),
+            }
+          }
+          if( tid == 'T_port2' || tid == 'T2')
+            {
+              var rw={
+              code:$(this).find('td').eq(0).text(),
+              AE_overt:$(this).find('td').eq(2).text(),
+              CP_overt:$(this).find('td').eq(3).text(),
+              AE_attendu:$(this).find('td').eq(2).text(),
+              CP_attendu:$(this).find('td').eq(3).text(),
+            }
+          }
+          if( tid == 'T_port3' || tid == 'T3')
+            {
+              var rw={
+              code:$(this).find('td').eq(0).text(),
+              AE:$(this).find('td').eq(2).text(),
+              CP:$(this).find('td').eq(3).text(),
+            }
+          }
+            value_chng.push(rw);
+          })
+
+              $('.change_app').empty()
+              console.log('result'+JSON.stringify(value_chng))
               click=0;
+             
             })
           }
-          value_chng.push({'code':code.text(),'values':{'type':clickid,'chiffre':newText}})
+        //  console.log('all table'+JSON.stringify(value_chng))
           cell.text(newText);
         }
         else
@@ -323,7 +355,7 @@ $(document).ready(function(){
       data:formportinsert,
       success:function(response)
       {
-        if(response.code == 200)
+        if(response.code == 200 || response.code == 404)
         {
           alert(response.message)
           $('.font-bk').removeClass('back-bk')
@@ -352,13 +384,13 @@ $("#add-prg").on('click',function(){
   var id_prog=$('#num_prog').val();
   var nom_prog=$('#nom_prog').val();
   var date_sort_jour=$('#date_insert_portef').val();
-  var AE=$('#AE_prog').val();
-  var CP=$('#CP_prog').val();
+ /* var AE=$('#AE_prog').val();
+  var CP=$('#CP_prog').val();*/
   var formprogdata={
     num_prog:id_prog,
     nom_prog:nom_prog,
-    AE_prog:parseFloat(AE),
-    CP_prog:parseFloat(CP),
+    /*AE_prog:parseFloat(AE),
+    CP_prog:parseFloat(CP),*/
     num_portefeuil:path[0],
     date_insert_portef:date_sort_jour,
     _token: $('meta[name="csrf-token"]').attr('content'),
@@ -374,14 +406,14 @@ $("#add-prg").on('click',function(){
       '<label for="input1">Nom Sous Programme</label>'+
       '<input type="text" class="form-control" id="nom_sous_prog" placeholder="Donnee Nom Sous Programme">'+
     '</div>'+
-    '<div class="form-group">'+
+    '<!--div class="form-group">'+
       '<label for="input1">AE</label>'+
       '<input type="number" class="form-control" id="AE_sous_porg" >'+
     '</div>'+
     '<div class="form-group">'+
       '<label for="input1">CP</label>'+
       '<input type="number" class="form-control" id="CP_sous_prog">'+
-    '</div>'+
+    '</div-->'+
    ' <div class="form-group">'+
      ' <label for="inputDate">Date Journal</label>'+
       '<input type="date" class="form-control" id="date_insert_sousProg">'+
@@ -410,7 +442,7 @@ var nexthop='<div class="pinfo-handle">'+
                 data:formprogdata,
                 success:function(response)
                 {
-                  if(response.code == 200)
+                  if(response.code == 200 || response.code == 404)
                   {
                    
                   alert(response.code)
@@ -426,8 +458,8 @@ var nexthop='<div class="pinfo-handle">'+
                   $('#add-prg2').on('click',function(){
                     var sou_prog=$('#num_sous_prog').val()
                     var nom_sou_prog=$('#nom_sous_prog').val();
-                    var AE=$('#AE_sous_porg').val();
-                    var CP=$('#CP_sous_prog').val()
+                   /* var AE=$('#AE_sous_porg').val();
+                    var CP=$('#CP_sous_prog').val()*/
                     var dat_sou_prog=$('#date_insert_sousProg').val()
                     var id_prog=path[1];
                     var nexthop='<div class="pinfo-handle">'+
@@ -448,14 +480,14 @@ var nexthop='<div class="pinfo-handle">'+
                             '<label for="input1">Nom ACTION</label>'+
                             '<input type="text" class="form-control" id="nom_act" placeholder="Donnee Nom ACTION">'+
                           '</div>'+
-                          '<div class="form-group">'+
+                          '<!--div class="form-group">'+
                             '<label for="input1">AE pour Action</label>'+
                             '<input type="number" class="form-control" id="AE_act" placeholder="Donnee Nom Programme">'+
                           '</div>'+
                           '<div class="form-group">'+
                             '<label for="input1">CP pour Action</label>'+
                             '<input type="number" class="form-control" id="CP_act" placeholder="Donnee Nom Programme">'+
-                          '</div>'+
+                          '</div-->'+
                          ' <div class="form-group">'+
                            ' <label for="inputDate">Date Journal</label>'+
                             '<input type="date" class="form-control" id="date_insert_action">'+
@@ -473,8 +505,8 @@ var nexthop='<div class="pinfo-handle">'+
                           var formdatasou_prog={
                             num_sous_prog:sou_prog,
                             nom_sous_prog:nom_sou_prog,
-                            AE_sous_porg:AE,
-                            CP_sous_prog:CP,
+                           /* AE_sous_porg:AE,
+                            CP_sous_prog:CP,*/
                             date_insert_sousProg:dat_sou_prog,
                             id_program:id_prog,
                             _token: $('meta[name="csrf-token"]').attr('content'),
@@ -487,7 +519,7 @@ var nexthop='<div class="pinfo-handle">'+
                             data:formdatasou_prog,
                             success:function(response)
                             {
-                              if(response.code == 200)
+                              if(response.code == 200 || response.code == 404)
                               {
                                 alert(response.message)
                                 $('.next-handle svg').removeClass('waiting-icon')
@@ -501,15 +533,15 @@ var nexthop='<div class="pinfo-handle">'+
                                 $('#add-prg3').on('click',function(){
                                   var nom_act=$('#nom_act').val()
                                   var num_act=$('#num_act').val()
-                                  var ae=$('#AE_act').val()
-                                  var cp=$('#CP_act').val()
+                                 /* var ae=$('#AE_act').val()
+                                  var cp=$('#CP_act').val()*/
                                   var dat_inst=$('#date_insert_action').val()
                                   var id_sou_prog=path[2];
                                   var formdata_act={
                                     num_action:num_act,
                                     nom_action:nom_act,
-                                    AE_action:ae,
-                                    CP_action:cp,
+                                   /* AE_action:ae,
+                                    CP_action:cp,*/
                                     date_insert_action:dat_inst,
                                     id_sous_prog:id_sou_prog,
                                     _token: $('meta[name="csrf-token"]').attr('content'),
@@ -521,7 +553,7 @@ var nexthop='<div class="pinfo-handle">'+
                                     data:formdata_act,
                                     success:function(response)
                                     {
-                                      if(response.code == 200)
+                                      if(response.code == 200 || response.code == 404)
                                       {
                                         alert(response.message)
                                          path.push(num_act)
@@ -534,9 +566,9 @@ var nexthop='<div class="pinfo-handle">'+
                                         alert('error')
                                     }
                                   })
-                            
+                              /*********         END ACTION ********************************************** */
                              })
-                                /*********         END ACTION ********************************************** */
+                               
                               }
                             },
                             error:function(response)
@@ -544,7 +576,7 @@ var nexthop='<div class="pinfo-handle">'+
                              alert('error')
                             }
                           })
-                         
+                        
                           /**  this for Creating the T port so we gonna send it to Action handle to deal with it */
                           
                   })
@@ -566,7 +598,7 @@ var nexthop='<div class="pinfo-handle">'+
  * 
  */
 
-function T1_table()
+function T1_table(id)
 {
   console.log('data is')
     $('#Tport-handle').addClass('scale-out');
@@ -596,13 +628,13 @@ function T1_table()
 
         // Append the row to the table body
         $('#T-tables tbody').append(row);
-        Edit()
+        Edit(id)
     });
 }).fail(function () {
     console.error('Error loading JSON file.');
 });
 }
-function T2_table()
+function T2_table(id)
 {
   $('#Tport-handle').addClass('scale-out');
   setTimeout(() => {
@@ -660,7 +692,7 @@ $('#T-tables thead').append(headT)
 
                     // Append the row to the table body
                     $('#T-tables tbody').append(row);
-                    Edit()
+                    Edit(id)
                     $('#changin').on('click',function(){
                       alert('changing success')
                     })
@@ -669,7 +701,7 @@ $('#T-tables thead').append(headT)
                 console.error('Error loading JSON file.');
             });
 }
-function T3_table()
+function T3_table(id)
 {
   console.log('data is')
     $('#Tport-handle').addClass('scale-out');
@@ -710,7 +742,7 @@ function T3_table()
 
         // Append the row to the table body
         $('#T-tables tbody').append(row);
-        Edit()
+        Edit(id)
     });
 }).fail(function () {
     console.error('Error loading JSON file.');
@@ -723,14 +755,15 @@ function T4_table()
 $(document).ready(function(){
  
   $('#T1').on('click',function(){
-  T1_table()
+    var id=$(this).attr('id');
+  T1_table(id)
   })
   $('#T2').on('click',function(){
   
-    T2_table()
+    T2_table(id)
   })
   $('#T3').on('click',function(){
-    T3_table()
+    T3_table(id)
   })
   $('#T4').on('click',function(){
     
@@ -744,15 +777,15 @@ $(document).ready(function(){
     var id_tport_c=$(this).attr('id');
     if(id_tport_c == 'T_port1')
     {
-      T1_table()
+      T1_table(id_tport_c)
     }
     if(id_tport_c == 'T_port2')
     {
-      T2_table()
+      T2_table(id_tport_c)
     }
     if(id_tport_c == 'T_port3')
     {
-      T3_table()
+      T3_table(id_tport_c)
     }
     console.log('testign which port im '+id_tport_c)
   })

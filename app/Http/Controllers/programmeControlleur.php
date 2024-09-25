@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\Programme;
 use Illuminate\Http\Request;
 
 class programmeControlleur extends Controller
@@ -36,8 +36,8 @@ class programmeControlleur extends Controller
         $request->validate([
             'num_prog' => 'required',
             'nom_prog' => 'required',
-            'AE_prog' => 'required',
-            'CP_prog' => 'required',
+        /*    'AE_prog' => 'required',
+            'CP_prog' => 'required',*/
             'date_insert_portef' => 'required|date',
         ]);
       
@@ -59,8 +59,8 @@ class programmeControlleur extends Controller
         $programme->num_prog = intval($request->num_prog);
         $programme->num_portefeuil = intval($request->num_portefeuil);
         $programme->nom_prog = $request->nom_prog;
-        $programme->AE_porg =floatval($request->AE_prog);
-        $programme->CP_prog = floatval($request->CP_prog);
+        /*$programme->AE_porg =floatval($request->AE_prog);
+        $programme->CP_prog = floatval($request->CP_prog);*/
         $programme->date_insert_portef = $request->date_insert_portef;
         $programme->id_rp = 1; //periodiquement
         

@@ -119,7 +119,6 @@
     </div>
     </div>
 
-
     <!-- Third Car Card -->
     <div class="carousel-item">
     <div class="col-md-6 col-lg-4 mb-4 card-mar-right">
@@ -156,7 +155,6 @@
       </div>
     </div>
     </div>
-
 
 <!-- Fourrh Car Card -->
    <div class="carousel-item">
@@ -230,12 +228,13 @@ let arrow = document.querySelectorAll(".arrow");
   });*/
   $(document).ready(function(){
     $('.card-photo-holder').on('click',function(){
-      console.log('{{route('home.portfail')}}'+'---'+$(this).attr('id'));
+   
       if($(this).attr('id') == 'create-dir')
       {
         window.location.href='{{route('form.portfail')}}'
       }else{
-      window.location.href='{{route('home.portfail')}}'}
+        var home='/Portfail/'+12
+      window.location.href=home }
     })
   })
 </script>
