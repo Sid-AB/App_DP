@@ -34,7 +34,7 @@ class portfeuilleController extends Controller
       //  dd($request);
          // Validation des données
          $request->validate([
-            'num_portefeuil' => 'required|unique:portefeuille,num_portefeuil',
+            'num_portefeuil' => 'required|unique:portefeuilles,num_portefeuil',
             'num_journal' => 'required',
             'nom_journal' => 'required',
             'AE_portef' => 'required',
@@ -56,7 +56,7 @@ class portfeuilleController extends Controller
 
         // Créer un nouveau portefeuille
         $portefeuille = new Portefeuille();
-        $portefeuille->num_portefeuil = intval($request->num_port);
+        $portefeuille->num_portefeuil = intval($request->num_portefeuil);
         $portefeuille->nom_journal = $request->nom_journal;
         $portefeuille->num_journal = $request->num_journal;
         $portefeuille->AE_portef = $request->AE_portef;
