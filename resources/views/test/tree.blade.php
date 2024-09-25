@@ -128,7 +128,9 @@
                 <div class="row">
                   <div class="col-8">
                     <h5 class="card-title widget-card-title mb-3">Sous Programme:{{$souportf['id_sous_prog']}}</h5>
-                    <h4 class="card-subtitle text-body-secondary m-0">114,000,000 DZ</h4>
+                    <h4 class="card-subtitle text-body-secondary m-0">AE : {{$souportf['data']->AE_sous_porg}}</h4>
+                    <h4 class="card-subtitle text-body-secondary m-0">CP :{{$souportf['data']->CP_sous_prog}}</h4>
+                    <h4 class="card-subtitle text-body-secondary m-0">number :{{count($souportf['Action'])}}</h4>
                   </div>
                   <div class="col-4">
                     <div class="d-flex justify-content-end">
@@ -156,17 +158,17 @@
             </div>
           </div>
         </span>
-                </li>
-                <ul style="display:none;">
-                  @foreach($souportf['Action'] as $act)
+                
+                <ul style="display:none">
+                @foreach($souportf['Action'] as $act)
                   <li>
-                <span class="member" id="{{$souportf['id_sous_prog']}}">
+                <span class="member" id="act-{{$souportf['id_sous_prog']}}">
                 <div class="col-12 col-sm-6">
             <div class="card widget-card border-light shadow-sm">
               <div class="card-body p-4">
                 <div class="row">
                   <div class="col-8">
-                    <h5 class="card-title widget-card-title mb-3">Sous Action:</h5>
+                    <h5 class="card-title widget-card-title mb-3">Action: {{$act['num_act'] }}</h5>
                     <h4 class="card-subtitle text-body-secondary m-0">114,000,000 DZ</h4>
                   </div>
                   <div class="col-4">
@@ -264,10 +266,11 @@
     {
       path.push(id);
     }
-    console.log('-<<'+JSON.stringify(path))
-    if(id =='ACTION-002')
+    var typeact=id.split('-')
+    console.log('-<<'+JSON.stringify(path)+"-->>"+JSON.stringify(typeact))
+    if(typeact[0] =='act')
     {
-      window.location.href='/testing/Action/'+path[0]+'/'+path[1]+'/'+path[2]+'/'+path[3]+'/'
+      window.location.href='/testing/Action/'+path[0]+'/'+path[1]+'/'+path[2]+'/'+typeact[1]+'/'
     }
     if(id =='S_ACTION-002' || id =='S_ACTION-001')
     {
