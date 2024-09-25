@@ -4,17 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Portefeuille;
+use App\Models\Programme;
+use App\Models\Action;
+use App\Models\SousProgramme;
 class portfeuilleController extends Controller
 {
 
 //===================================================================================
                                 //affichage du portrefeuille
 //===================================================================================
-    function affich_portef()
+    function affich_portef($id)
     {
         // Récupérer tous les portefeuilles de la base de données
           //  $portefeuilles = Portefeuille::all();
-
+    
     // Passer les données à la vue
         return view('Portfail-in.index', /*compact('portefeuilles')*/);
     }

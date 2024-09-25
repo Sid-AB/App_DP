@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-
-use Illuminate\Http\Request;
 use App\Models\SousProgramme;
+use Illuminate\Http\Request;
 
 class sousProgrammeController extends Controller
 {
@@ -38,6 +37,8 @@ class sousProgrammeController extends Controller
         $request->validate([
             'num_sous_prog' => 'required|unique:sous_programmes,num_sous_prog',
             'nom_sous_prog' => 'required',
+         /*   'AE_sous_porg' => 'required',
+            'CP_sous_prog' => 'required',*/
             'date_insert_sousProg' => 'required|date',
         ]);
 

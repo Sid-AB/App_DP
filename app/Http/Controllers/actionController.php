@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-
-use Illuminate\Http\Request;
 use App\Models\Action;
+use Illuminate\Http\Request;
 use App\Models\SousAction;
 
 class actionController extends Controller
@@ -39,8 +38,7 @@ class actionController extends Controller
         $request->validate([
             'num_action' => 'required',
             'nom_action' => 'required',
-            //'AE_action' => 'required',
-            //'CP_action' => 'required',
+
             'date_insert_action' => 'required|date',
         ]);
 

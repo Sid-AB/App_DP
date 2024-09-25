@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\programme;
-
+use App\Models\Programme;
 use Illuminate\Http\Request;
 
 class programmeControlleur extends Controller
@@ -37,6 +36,8 @@ class programmeControlleur extends Controller
         $request->validate([
             'num_prog' => 'required|unique:programmes,num_prog',
             'nom_prog' => 'required',
+        /*    'AE_prog' => 'required',
+            'CP_prog' => 'required',*/
             'date_insert_portef' => 'required|date',
         ]);
 

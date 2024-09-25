@@ -1,9 +1,14 @@
 <?php
 
-
+use App\Http\Controllers\actionController;
 use App\Http\Controllers\portfeuilleController;
+use App\Http\Controllers\programmeControlleur;
+use App\Http\Controllers\sousProgrammeController;
+use App\Models\Portefeuille;
+use App\Models\Programme;
+use App\Models\Action;
+use App\Models\SousProgramme;
 use App\Http\Controllers\opeartionController;
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\programmeControlleur;
 use App\Http\Controllers\sousProgrammeController;
@@ -14,7 +19,8 @@ use App\Http\Controllers\OperationController;
 use App\Http\Controllers\SousOperationController;
 
 Route::get('/', function () {
-    return view('welcome');
+ $portfs =Portefeuille::get();
+    return view('welcome',compact('portfs'));
 });
 Route::get('/testing',function (){
 return view('test.carsoule');
@@ -38,7 +44,7 @@ Route::get('/testing/tree',function (){
 
 //===============ROUTE PORTEFEUILLE==============================
 Route::controller(portfeuilleController::class)->group(function(){
-    Route::get('/Portfail','affich_portef')->name('home.portfail');
+    Route::get('/Portfail/{id}','affich_portef')->name('home.portfail');
     Route::get('/Form','form_portef')->name('form.portfail'); //afficher formulaire d ajout
     Route::post('/creation','creat_portef')->name('creation.portfail');
 });
