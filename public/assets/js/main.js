@@ -176,10 +176,10 @@ $(document).ready(function () {
 
               $('.change_app').empty()
               console.log('result'+JSON.stringify(value_chng))
-              click=0;
+
 
               $.ajax({
-                url: '/route-vers-votre-controller',  // Remplacez par la route correspondant à votre contrôleur
+                url: '/testing/S_Action/{port}/{prog}/{sous_prog}/{act}/{s_act}{T}',
                 type: 'POST',
                 data: {
                     ae: data.ae,
@@ -188,15 +188,16 @@ $(document).ready(function () {
                     cp_ouvert: data.cp_ouvert,
                     ae_attendu: data.ae_attendu,
                     cp_attendu: data.cp_attendu,
-                    _token: $('meta[name="csrf-token"]').attr('content')  // Ajoute le token CSRF
+                    _token: $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(response) {
                    // console.log('Données envoyées avec succès !');
                 },
                 error: function(xhr, status, error) {
-                    console.error('Erreur lors de l\'envoi :', error);
+                    //console.error('Erreur lors de l\'envoi :', error);
                 }
             });
+            click=0;
             })
           }
         //  console.log('all table'+JSON.stringify(value_chng))

@@ -69,7 +69,7 @@ Route::controller(sousActionController::class)->group(function(){
 
 //===============ROUTE GROUPE D'OPERATIONS==============================
 Route::controller(groupOperationController::class)->group(function(){
-    Route::get('/testing/S_Action/{port}/{prog}/{sous_prog}/{act}/{s_act}', 'insertDPA');
+    Route::get('/testing/S_Action/{port}/{prog}/{sous_prog}/{act}/{s_act}{T}', 'insertDPA')->name('creation.DPA');
 });
 
 //===============ROUTE  OPERATION==============================
