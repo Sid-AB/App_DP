@@ -85,7 +85,7 @@
 var click=0;
 var changing_mist=new Object();
 var value_chng=new Array()
-function Edit(tid)
+function Edit(tid, T)
 {
 $(document).ready(function () {
   var old;
@@ -130,7 +130,7 @@ $(document).ready(function () {
             var buttons='<button class="btn btn-primary" id="changin"> appliquer</button>'}
             $('.change_app').append(buttons)
             $('#changin').on('click',function(){
-              value_chng=new Array()
+             // value_chng=new Array()
 
           //    alert('changing success')
           $('#T-tables tbody tr').each(function(){
@@ -175,11 +175,15 @@ $(document).ready(function () {
           })
 
               $('.change_app').empty()
-              console.log('result'+JSON.stringify(value_chng))
-
-
+             // console.log('path '+JSON.stringify(path))
+            //console.log('lenght '+path.length)
+              if(path.length>4){
+                var url= '/testing/Action/'+path[0]+'/'+path[1]+'/'+path[2]+'/'+path[3]+'/'+path[4]+'/'+T;
+              }else{
+                var url= '/testing/Action/'+path[0]+'/'+path[1]+'/'+path[2]+'/'+path[3]+'/'+path[3]+'/'+T;
+              }
               $.ajax({
-                url: '/testing/S_Action/{port}/{prog}/{sous_prog}/{act}/{s_act}{T}',
+                url: url,
                 type: 'POST',
                 data: {
                     ae: data.ae,
@@ -188,14 +192,23 @@ $(document).ready(function () {
                     cp_ouvert: data.cp_ouvert,
                     ae_attendu: data.ae_attendu,
                     cp_attendu: data.cp_attendu,
-                    _token: $('meta[name="csrf-token"]').attr('content')
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    _method:"POST"
                 },
                 success: function(response) {
-                   // console.log('Données envoyées avec succès !');
-                },
-                error: function(xhr, status, error) {
-                    //console.error('Erreur lors de l\'envoi :', error);
-                }
+                    if(response.code == 200 || response.code == 404)
+                        {
+                           path.push()
+                         window.location.href='testing/Action/'+path[0]+'/'+path[1]+'/'+path[2]+'/'+path[3]+'/'+path[4]+'/'+T;
+                         console.log('path'+JSON.stringify(path))
+                        }
+                      },
+                      error:function(response)
+                      {
+                          alert('error')
+                      }
+
+
             });
             click=0;
             })
@@ -649,7 +662,7 @@ var nexthop='<div class="pinfo-handle">'+
                                     _method: 'POST'
                                   }
                                   path.push(num_sous_act)
-                                  window.location.href='testing/S_Action/'+path[0]+'/'+path[1]+'/'+path[2]+'/'+path[3]+'/'+path[4]+'/'+id;
+                                  window.location.href='testing/S_Action/'+path[0]+'/'+path[1]+'/'+path[2]+'/'+path[3]+'/'+path[4]+'/'+T;
                                  /* $.ajax({
                                     url:'/creationsousAction',
                                     type:'POST',
@@ -780,7 +793,7 @@ function T1_table(id,T)
 
         // Append the row to the table body
         $('#T-tables tbody').append(row);
-        Edit(id)
+        Edit(id, T)
     });
 }).fail(function () {
     console.error('Error loading JSON file.');
@@ -845,9 +858,7 @@ $('#T-tables thead').append(headT)
                     // Append the row to the table body
                     $('#T-tables tbody').append(row);
                     Edit(id)
-                    $('#changin').on('click',function(){
-                      alert('changing success')
-                    })
+
                 });
             }).fail(function () {
                 console.error('Error loading JSON file.');

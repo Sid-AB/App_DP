@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('sous_operations', function (Blueprint $table) {
             $table->bigInteger('code_sous_operation')->primary();
             $table->string('nom_sous_operation');
-            $table->string('nom_sous_operation_ar');
+            $table->string('nom_sous_operation_ar')->nullable();
             $table->float('AE_sous_operation')->nullable(); //si t1 ou t4
             $table->float('CP_sous_operation')->nullable();//si t1 ou t4
 

@@ -4,59 +4,61 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\GroupOperation;
-
+use App\Models\operation;
+use App\Models\sousOperation;
+use Carbon\Carbon;
 class groupOperationController extends Controller
 {
 //===================================================================================
                             //insertion DPA
 //===================================================================================
-    public function insertDPA(Request $request, $T, $s_act, $act, $sous_prog,$prog, $port )
+    public function insertDPA(Request $request,$port,$prog,$sous_prog,$act, $s_act,$T )
 {
+    $currentDateTime = Carbon::now();
+
 //===================================================================================
                             //insertion T1
 //===================================================================================
-    if($t==1)
-    {
-     // Récupérer les données du formulaire
-     $aeData = $request->input('ae');
-     $cpData = $request->input('cp');
+if($T==1)
+{
+    // Récupérer les données du formulaire
+    $aeData = $request->input('ae');
+    $cpData = $request->input('cp');
 
+    // Chemin vers le fichier JSON dans public/assets/titre
+    $jsonFilePath = public_path('assets/Titre/dataT1.json');
 
-     // Chemin vers le fichier JSON dans public/titre
-$jsonFilePath = public_path('titre/dataT1.json');
+    // Lire le contenu du fichier JSON
+    if (file_exists($jsonFilePath)) {
+        $jsonData = json_decode(file_get_contents($jsonFilePath), true);
 
-// Lire le contenu du fichier JSON
-if (file_exists($jsonFilePath)) {
-    $jsonData = json_decode(file_get_contents($jsonFilePath), true);
+        // Vérification du décodage JSON
+        if ($jsonData === null) {
+            return response()->json(['error' => 'Erreur lors du décodage du fichier JSON.'], 404);
+        }
 
-
-} else {
-    // Gérer le cas où le fichier n'existe pas
-    return response()->json(['error' => 'Le fichier JSON est introuvable.'], 404);
-}
-
-
-    if (json_last_error() !== JSON_ERROR_NONE) {
-        return response()->json(['error' => 'Erreur lors du décodage du fichier JSON.'], 404);
+        // Vérifier si le JSON est un tableau associatif
+        if (!is_array($jsonData) || empty($jsonData)) {
+            return response()->json(['error' => 'Le fichier JSON est vide ou mal formaté.'], 404);
+        }
+    } else {
+        // Gérer le cas où le fichier n'existe pas
+        return response()->json(['error' => 'Le fichier JSON est introuvable.'], 404);
     }
 
-    $numRows = count($jsonData);
-    for ($i = 0; $i < $numRows; $i++) {
-        $item = $jsonData[$i];
-        $code = $item['code']?? null;
-        $nom = $item['nom'] ?? '';
+    // Boucle à travers les données JSON avec `foreach` car c'est un tableau associatif
+    foreach ($jsonData as $code => $nom) {
         $ae = $aeData[$code] ?? 0.00;
         $cp = $cpData[$code] ?? 0.00;
 
-         // Vérifier si le code est manquant
-         if (!$code) {
+        // Vérifier si le code est manquant
+        if (!$code) {
             return response()->json([
                 'success' => false,
                 'message' => 'Code manquant pour l\'élément avec nom : '.$nom,
                 'code' => 404,
             ]);
-
-          }
+        }
 
         // Vérifier si le nom est manquant
         if (!$nom) {
@@ -65,7 +67,6 @@ if (file_exists($jsonFilePath)) {
                 'message' => 'Nom manquant pour l\'élément avec code : '.$code,
                 'code' => 404,
             ]);
-
         }
 
         // Vérifier si le code représente un groupe d'opérations
@@ -73,7 +74,7 @@ if (file_exists($jsonFilePath)) {
             // Insertion dans la table groupoperation
             GroupOperation::updateOrCreate(
                 ['code_grp_operation' => $code],
-                ['nom_grp_operation' => $nom, 'num_sous_action' => $num_sous_action]
+                ['nom_grp_operation' => $nom, 'num_sous_action' => $s_act, 'date_insert_grp_operation' => $currentDateTime]
             );
         }
         // Vérifier si le code représente une opération
@@ -83,20 +84,25 @@ if (file_exists($jsonFilePath)) {
             // Insertion dans la table operation
             Operation::updateOrCreate(
                 ['code_operation' => $code],
-                ['code_grp_operation' => $codeGp, 'nom_operation' => $nom]
+                ['code_grp_operation' => $codeGp, 'nom_operation' => $nom,
+                 'date_insert_operation' => $currentDateTime]
             );
 
-              // Vérifier la ligne suivante
-            $nextItem = $jsonData[$i + 1];
-            $nextCode = $nextItem['code'] ?? null;
+            // Vérifier la ligne suivante
+            if (isset($jsonData[$code + 100])) {
+                $nextItem = $jsonData[$code + 100];
+                $nextCode = $nextItem['code'] ?? null;
 
-            // Si la ligne suivante n'est pas une sous-opération
-            if ($nextCode && ($nextCode % 100 == 0 || $nextCode % 1000 == 0)) {
-                // Insérer dans sousoperation avec un code spécifique
-                sousoperation::updateOrCreate(
-                    ['code_sous_operation' => $code . '_extra'], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
-                    ['code_operation' => $code, 'nom_sous_operation' => $nom, 'AE_sous_operation' => $ae, 'CP_sous_operation' => $cp]
-                );
+                // Si la ligne suivante n'est pas une sous-opération
+                if ($nextCode && ($nextCode % 100 == 0 || $nextCode % 1000 == 0)) {
+                    // Insérer dans sousoperation avec un code spécifique
+                    sousoperation::updateOrCreate(
+                        ['code_sous_operation' => $code . '_extra'], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
+                        ['code_operation' => $code, 'nom_sous_operation' => $nom,
+                         'AE_sous_operation' => $ae, 'CP_sous_operation' => $cp
+                         , 'date_insert_SOUSoperation' => $currentDateTime]
+                    );
+                }
             }
         }
         // Sinon, il s'agit d'une sous-opération
@@ -110,6 +116,7 @@ if (file_exists($jsonFilePath)) {
             );
         }
     }
+
     return response()->json([
         'success' => true,
         'message' => 'Données insérées avec succès !',
@@ -117,23 +124,22 @@ if (file_exists($jsonFilePath)) {
     ]);
 
 //===================================================================================
-                            // FIN insertion T1
-//===================================================================================
-
+//                            FIN insertion T1
+//==================================================================================
 }
 //===================================================================================
                             //insertion T2
 //===================================================================================
-elseif($t==2)
+elseif($T==2)
 {
     // Récupérer les données du formulaire
     $aeDataOuvert = $request->input('ae_ouvert');
     $cpDataOuvert = $request->input('cp_ouvert');
     $aeDataAttendu = $request->input('ae_attendu');
     $cpDataAttendu = $request->input('cp_attendu');
-
+    $currentDateTime = Carbon::now();
      // Chemin vers le fichier JSON dans public/titre
-$jsonFilePath = public_path('titre/dataT2.json');
+$jsonFilePath = public_path('assets/Titre/dataT2.json');
 
 // Lire le contenu du fichier JSON
 if (file_exists($jsonFilePath)) {
@@ -142,7 +148,7 @@ if (file_exists($jsonFilePath)) {
 
 } else {
     // Gérer le cas où le fichier n'existe pas
-    return response()->json(['error' => 'Le fichier JSON est introuvable.'], 404);
+    return response()->json(['error' => 'Le fichier JSON est introuvable T2.'], 404);
 }
 
 
@@ -180,10 +186,11 @@ if (file_exists($jsonFilePath)) {
         }
        // Vérifier si le code représente un groupe d'opérations
        if ($code % 1000 == 0) {
+
            // Insertion dans la table groupoperation
            GroupOperation::updateOrCreate(
                ['code_grp_operation' => $code],
-               ['nom_grp_operation' => $nom, 'num_sous_action' => $num_sous_action]
+               ['nom_grp_operation' => $nom, 'num_sous_action' => $s_act, 'date_insert_grp_operation' => $currentDateTime]
            );
        }
        // Vérifier si le code représente une opération
@@ -193,7 +200,7 @@ if (file_exists($jsonFilePath)) {
            // Insertion dans la table operation
            Operation::updateOrCreate(
                ['code_operation' => $code],
-               ['code_grp_operation' => $codeGp, 'nom_operation' => $nom]
+               ['code_grp_operation' => $codeGp, 'nom_operation' => $nom, 'date_insert_operation' => $currentDateTime]
            );
 
                          // Vérifier la ligne suivante
@@ -208,7 +215,7 @@ if (file_exists($jsonFilePath)) {
                                  ['code_operation' => $code, 'nom_sous_operation' => $nom,
                                   'AE_operation' => ($ae_attendu+$ae_ouvert),
                                     'CP_operation' => ($cp_attendu+$cp_ouvert),  'AE_atendu' => $ae_attendu,  'AE_ouvert' => $ae_ouvert,
-                                    'CP_ouvert' => $cp_ouvert,'CP_ouvert' => $cp_ouvert]
+                                    'CP_ouvert' => $cp_ouvert,'CP_ouvert' => $cp_ouvert, 'date_insert_SOUSoperation' => $currentDateTime]
                              );
                          }
        }
@@ -221,7 +228,7 @@ if (file_exists($jsonFilePath)) {
                ['code_sous_operation' => $code],
                ['code_operation' => $codeOp, 'nom_sous_operation' => $nom,'AE_sous_operation' => ($ae_attendu+$ae_ouvert),
                'CP_sous_operation' => ($cp_attendu+$cp_ouvert),  'AE_atendu' => $ae_attendu,  'AE_ouvert' => $ae_ouvert,
-                'CP_ouvert' => $cp_ouvert,'CP_ouvert' => $cp_ouvert]
+                'CP_ouvert' => $cp_ouvert,'CP_ouvert' => $cp_ouvert, 'date_insert_SOUSoperation' => $currentDateTime]
            );
        }
    }
@@ -238,7 +245,7 @@ if (file_exists($jsonFilePath)) {
 //===================================================================================
                             // insertion T3
 //===================================================================================
-elseif ($t==3) {
+elseif ($T==3) {
        // Récupérer les données du formulaire
        $aeDataReporte = $request->input('AE_reporte');
        $aeDataNotifie = $request->input('AE_notifie');
@@ -248,7 +255,7 @@ elseif ($t==3) {
        $cpDataNotifie = $request->input('CP_notifie');
        $cpDataConsome = $request->input('CP_consome');
   // Chemin vers le fichier JSON dans public/titre
-  $jsonFilePath = public_path('titre/dataT3.json');
+  $jsonFilePath = public_path('assets/Titre/dataT3.json');
 
   // Lire le contenu du fichier JSON
   if (file_exists($jsonFilePath)) {
@@ -257,7 +264,7 @@ elseif ($t==3) {
 
   } else {
       // Gérer le cas où le fichier n'existe pas
-      return response()->json(['error' => 'Le fichier JSON est introuvable.'], 404);
+      return response()->json(['error' => 'Le fichier JSON est introuvable T3.'], 404);
   }
 
 
@@ -305,7 +312,7 @@ elseif ($t==3) {
               // Insertion dans la table groupoperation
               GroupOperation::updateOrCreate(
                   ['code_grp_operation' => $code],
-                  ['nom_grp_operation' => $nom, 'num_sous_action' => $num_sous_action]
+                  ['nom_grp_operation' => $nom, 'num_sous_action' => $s_act]
               );
           }
 
@@ -357,7 +364,7 @@ $aeData = $request->input('ae');
 $cpData = $request->input('cp');
 
   // Chemin vers le fichier JSON dans public/titre
-  $jsonFilePath = public_path('titre/dataT4.json');
+  $jsonFilePath = public_path('assets/Titre/dataT4.json');
 
   // Lire le contenu du fichier JSON
   if (file_exists($jsonFilePath)) {
@@ -366,7 +373,7 @@ $cpData = $request->input('cp');
 
   } else {
       // Gérer le cas où le fichier n'existe pas
-      return response()->json(['error' => 'Le fichier JSON est introuvable.'], 404);
+      return response()->json(['error' => 'Le fichier JSON est introuvable T4.'], 404);
   }
 
 
@@ -407,7 +414,7 @@ if (!$nom) {
        // Insertion dans la table groupoperation
        GroupOperation::updateOrCreate(
            ['code_grp_operation' => $code],
-           ['nom_grp_operation' => $nom, 'num_sous_action' => $num_sous_action]
+           ['nom_grp_operation' => $nom, 'num_sous_action' => $s_act]
        );
    }
    // Vérifier si le code représente une opération
