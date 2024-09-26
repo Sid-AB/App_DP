@@ -75,12 +75,7 @@ Route::controller(groupOperationController::class)->group(function(){
 
 //===============ROUTE  OPERATION==============================
 Route::controller(opeartionController::class)->group(function(){
-<<<<<<< HEAD
     Route::get('/testing/S_Action/{port}/{prog}/{sous_prog}/{act}/{s_act}', 'calculerEtEnvoyer');
-=======
-    Route::get('/testing/Ss_Action/{port}/{prog}/{sous_prog}/{act}/{s_act}', 'calculerEtEnvoyer');
-   // Route::get('/testing/S_Action/{port}/{prog}/{sous_prog}/{act}/{s_act}/{t}', 'calculerEtEnvoyer');
->>>>>>> 091a6b83a66f4070a82a24a96df4d9a2f3336557
    // Route::get('/testing/Action/{port}/{prog}/{sous_prog}/{act}', 'calculerEtEnvoyer');
 });
 

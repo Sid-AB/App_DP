@@ -662,7 +662,7 @@ var nexthop='<div class="pinfo-handle">'+
                                     _method: 'POST'
                                   }
                                   path.push(num_sous_act)
-                                  window.location.href='testing/S_Action/'+path[0]+'/'+path[1]+'/'+path[2]+'/'+path[3]+'/'+path[4]+'/'+T;
+                                  window.location.href='testing/S_Action/'+path[0]+'/'+path[1]+'/'+path[2]+'/'+path[3]+'/'+path[4];
                                  /* $.ajax({
                                     url:'/creationsousAction',
                                     type:'POST',
@@ -720,7 +720,7 @@ var nexthop='<div class="pinfo-handle">'+
 
 
                                          path.push(num_act)
-                                       window.location.href='testing/Action/'+path[0]+'/'+path[1]+'/'+path[2]+'/'+path[3]+'/'+T;
+                                       window.location.href='testing/Action/'+path[0]+'/'+path[1]+'/'+path[2]+'/'+path[3];
                                        console.log('path'+JSON.stringify(path))
                                       }
                                     },

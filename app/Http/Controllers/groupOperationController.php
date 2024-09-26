@@ -15,7 +15,9 @@ class groupOperationController extends Controller
     public function insertDPA(Request $request,$port,$prog,$sous_prog,$act, $s_act,$T )
 {
     $currentDateTime = Carbon::now();
-
+    $year = date('Y'); // Récupérer l'année actuelle
+    $sousaction=$s_act.$act.$sous_prog.$prog.$port.$year;
+//dd($sousaction);
 //===================================================================================
                             //insertion T1
 //===================================================================================
@@ -74,7 +76,7 @@ if($T==1)
             // Insertion dans la table groupoperation
             GroupOperation::updateOrCreate(
                 ['code_grp_operation' => $code],
-                ['nom_grp_operation' => $nom, 'num_sous_action' => $s_act, 'date_insert_grp_operation' => $currentDateTime]
+                ['nom_grp_operation' => $nom, 'num_sous_action' => $sousaction, 'date_insert_grp_operation' => $currentDateTime]
             );
         }
         // Vérifier si le code représente une opération
@@ -190,7 +192,7 @@ if (file_exists($jsonFilePath)) {
            // Insertion dans la table groupoperation
            GroupOperation::updateOrCreate(
                ['code_grp_operation' => $code],
-               ['nom_grp_operation' => $nom, 'num_sous_action' => $s_act, 'date_insert_grp_operation' => $currentDateTime]
+               ['nom_grp_operation' => $nom, 'num_sous_action' => $sousaction, 'date_insert_grp_operation' => $currentDateTime]
            );
        }
        // Vérifier si le code représente une opération
@@ -312,7 +314,7 @@ elseif ($T==3) {
               // Insertion dans la table groupoperation
               GroupOperation::updateOrCreate(
                   ['code_grp_operation' => $code],
-                  ['nom_grp_operation' => $nom, 'num_sous_action' => $s_act]
+                  ['nom_grp_operation' => $nom, 'num_sous_action' => $sousaction]
               );
           }
 
