@@ -20,7 +20,7 @@ return new class extends Migration
             $table->float('CP_dpia_nv');
 
             
-            $table->integer('code_sous_operation');
+            $table->bigInteger('code_sous_operation');
             $table->foreign('code_sous_operation')->references('code_sous_operation')->on('sous_operations');
            
             
