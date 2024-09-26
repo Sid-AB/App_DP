@@ -1,18 +1,19 @@
 <?php
 
-use App\Http\Controllers\actionController;
-use App\Http\Controllers\portfeuilleController;
-use App\Http\Controllers\programmeControlleur;
-use App\Http\Controllers\sousProgrammeController;
 use App\Models\Portefeuille;
 use App\Models\Programme;
 use App\Models\Action;
 use App\Models\SousProgramme;
-use App\Http\Controllers\opeartionController;
+
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\portfeuilleController;
+use App\Http\Controllers\programmeControlleur;
+use App\Http\Controllers\sousProgrammeController;
+use App\Http\Controllers\actionController;
 use App\Http\Controllers\SousActionController;
 use App\Http\Controllers\groupOperationController;
-use App\Http\Controllers\OperationController;
+use App\Http\Controllers\opeartionController;
 use App\Http\Controllers\SousOperationController;
 
 Route::get('/', function () {
@@ -63,15 +64,17 @@ Route::controller(actionController::class)->group(function(){
 
 //===============ROUTE SOUS ACTION==============================
 Route::controller(sousActionController::class)->group(function(){
+    Route::post('/creationsousAction','create_sousaction')->name('creation.sousaction');
 });
 
 //===============ROUTE GROUPE D'OPERATIONS==============================
 Route::controller(groupOperationController::class)->group(function(){
+    Route::get('/testing/S_Action/{port}/{prog}/{sous_prog}/{act}/{s_act}{T}', 'insertDPA')->name('creation.DPA');
 });
 
 //===============ROUTE  OPERATION==============================
 Route::controller(opeartionController::class)->group(function(){
-    Route::get('/testing/S_Action/{port}/{prog}/{sous_prog}/{act}/{s_act}', 'calculerEtEnvoyer');
+    Route::get('/testing/S_Action/{port}/{prog}/{sous_prog}/{act}/{s_act}/{t}', 'calculerEtEnvoyer');
    // Route::get('/testing/Action/{port}/{prog}/{sous_prog}/{act}', 'calculerEtEnvoyer');
 });
 

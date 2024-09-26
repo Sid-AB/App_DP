@@ -89,6 +89,14 @@ function Edit(tid)
 {
 $(document).ready(function () {
   var old;
+  var data = {
+    ae: {},
+    cp: {},
+    ae_ouvert: {},
+    cp_ouvert: {},
+    ae_attendu: {},
+    cp_attendu: {}
+  };
   // Add double-click event to all cells with the class "editable"
   $('.editable').on('click',function(){
     let cell = $(this);  // Reference to the clicked cell
@@ -128,46 +136,68 @@ $(document).ready(function () {
           $('#T-tables tbody tr').each(function(){
             if( tid == 'T_port1' || tid == 'T1')
             {
-               /* var rw={
-                                           code:$(this).find('td').eq(0).text(),
-                                           AE:$(this).find('td').eq(2).text(),
-                                           CP:$(this).find('td').eq(3).text(),
-                                         }*/
 
-                                           //ab3athali haka
-                                           var code = $(this).find('td').eq(0).text();
-                                           var aeValue = $(this).find('td').eq(2).text();
-                                           var cpValue = $(this).find('td').eq(3).text();
+            var code = $(this).find('td').eq(0).text();
+            var aeValue = $(this).find('td').eq(2).text();
+            var cpValue = $(this).find('td').eq(3).text();
+            // Ajoute les valeurs dans les objets
+            data.ae[code] = aeValue;
+            data.cp[code] = cpValue;
 
-                                           // Ajoute les valeurs dans les objets
-                                           data.ae[code] = aeValue;
-                                           data.cp[code] = cpValue;
+
           }
           if( tid == 'T_port2' || tid == 'T2')
             {
-              var rw={
-              code:$(this).find('td').eq(0).text(),
-              AE_overt:$(this).find('td').eq(2).text(),
-              CP_overt:$(this).find('td').eq(3).text(),
-              AE_attendu:$(this).find('td').eq(2).text(),
-              CP_attendu:$(this).find('td').eq(3).text(),
-            }
+
+              var code = $(this).find('td').eq(0).text();
+              var aeDataOuvert = $(this).find('td').eq(2).text();
+              var cpDataOuvert = $(this).find('td').eq(3).text();
+              var aeDataAttendu = $(this).find('td').eq(4).text();
+              var cpDataAttendu = $(this).find('td').eq(5).text();
+
+              // Ajoute les valeurs dans les objets
+            data.ae_ouvert[code] = aeDataOuvert;
+            data.cp_ouvert[code] = cpDataOuvert;
+            data.ae_attendu[code] = aeDataAttendu;
+            data.cp_attendu[code] = cpDataAttendu;
+
           }
           if( tid == 'T_port3' || tid == 'T3')
             {
-              var rw={
-              code:$(this).find('td').eq(0).text(),
-              AE:$(this).find('td').eq(2).text(),
-              CP:$(this).find('td').eq(3).text(),
-            }
+              var code = $(this).find('td').eq(0).text();
+              var aeValue = $(this).find('td').eq(2).text();
+              var cpValue = $(this).find('td').eq(3).text();
+              // Ajoute les valeurs dans les objets
+              data.ae[code] = aeValue;
+              data.cp[code] = cpValue;
           }
-            value_chng.push(rw);
+           // value_chng.push(rw);
           })
 
               $('.change_app').empty()
               console.log('result'+JSON.stringify(value_chng))
-              click=0;
 
+
+              $.ajax({
+                url: '/testing/S_Action/{port}/{prog}/{sous_prog}/{act}/{s_act}{T}',
+                type: 'POST',
+                data: {
+                    ae: data.ae,
+                    cp: data.cp,
+                    ae_ouvert: data.ae_ouvert,
+                    cp_ouvert: data.cp_ouvert,
+                    ae_attendu: data.ae_attendu,
+                    cp_attendu: data.cp_attendu,
+                    _token: $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                   // console.log('Données envoyées avec succès !');
+                },
+                error: function(xhr, status, error) {
+                    //console.error('Erreur lors de l\'envoi :', error);
+                }
+            });
+            click=0;
             })
           }
         //  console.log('all table'+JSON.stringify(value_chng))
@@ -545,7 +575,7 @@ var nexthop='<div class="pinfo-handle">'+
                                 $('#add-prg3').on('click',function(){
                                   /**
                                    *  this part for chacking if he want to under_action
-                                   *  
+                                   *
                                    */
                                   let userResponse = confirm('Voulez Vous insert une sous action pour cett action?');
                                   if (userResponse) {
@@ -593,7 +623,7 @@ var nexthop='<div class="pinfo-handle">'+
                                    '<button class="btn btn-primary">Journal</button>'+
                                    '</div>'+
                                    '</div>'
-                                    
+
                                    $('.next-handle svg').removeClass('waiting-icon')
                                    $('.next-handle svg').addClass('complet-icon')
                                    $('.the-path').append(nexthop)
@@ -611,17 +641,17 @@ var nexthop='<div class="pinfo-handle">'+
                                   var formdata_act={
                                     num_sous_action:num_sous_act,
                                     nom_sous_action:nom_sous_act,
-                                    AE_sous_action:ae,
-                                    CP_sous_action:cp,
+                                   // AE_sous_action:ae,
+                                    //CP_sous_action:cp,
                                     date_insert_sous_action:dat_inst,
                                     num_act:num_act,
                                     _token: $('meta[name="csrf-token"]').attr('content'),
                                     _method: 'POST'
                                   }
                                   path.push(num_sous_act)
-                                  window.location.href='testing/S_Action/'+path[0]+'/'+path[1]+'/'+path[2]+'/'+path[3]+'/'+path[4]+'/';
+                                  window.location.href='testing/S_Action/'+path[0]+'/'+path[1]+'/'+path[2]+'/'+path[3]+'/'+path[4]+'/'+id;
                                  /* $.ajax({
-                                    url:'/creationAction',
+                                    url:'/creationsousAction',
                                     type:'POST',
                                     data:formdata_act,
                                     success:function(response)
@@ -637,15 +667,15 @@ var nexthop='<div class="pinfo-handle">'+
                                     {
                                         alert('error')
                                     }
-                                    
+
                                   })*/
                                    })
-                               } 
+                               }
                                  /**
                                      *  end section
-                                     * 
+                                     *
                                      */
-                               else 
+                               else
                                {
                                   var nom_act=$('#nom_act').val()
                                   var num_act=$('#num_act').val()
@@ -653,11 +683,12 @@ var nexthop='<div class="pinfo-handle">'+
                                   var cp=$('#CP_act').val()
                                   var dat_inst=$('#date_insert_action').val()
                                   var id_sou_prog=path[2];
+
                                   var formdata_act={
                                     num_action:num_act,
                                     nom_action:nom_act,
-                                    AE_action:ae,
-                                    CP_action:cp,
+                                    //AE_action:ae,
+                                    //CP_action:cp,
                                     date_insert_action:dat_inst,
                                     id_sous_prog:id_sou_prog,
                                     id_prog:path[1],
@@ -673,10 +704,10 @@ var nexthop='<div class="pinfo-handle">'+
                                     {
                                       if(response.code == 200 || response.code == 404)
                                       {
-                                        
-                                      
+
+
                                          path.push(num_act)
-                                       window.location.href='testing/Action/'+path[0]+'/'+path[1]+'/'+path[2]+'/'+path[3];
+                                       window.location.href='testing/Action/'+path[0]+'/'+path[1]+'/'+path[2]+'/'+path[3]+'/'+T;
                                        console.log('path'+JSON.stringify(path))
                                       }
                                     },
@@ -684,7 +715,7 @@ var nexthop='<div class="pinfo-handle">'+
                                     {
                                         alert('error')
                                     }
-                                    
+
                                   })
                                 }
                               /*********         END ACTION ********************************************** */
@@ -719,7 +750,7 @@ var nexthop='<div class="pinfo-handle">'+
  *
  */
 
-function T1_table(id)
+function T1_table(id,T)
 {
   console.log('data is')
     $('#Tport-handle').addClass('scale-out');
@@ -755,7 +786,7 @@ function T1_table(id)
     console.error('Error loading JSON file.');
 });
 }
-function T2_table(id)
+function T2_table(id,T)
 {
   $('#Tport-handle').addClass('scale-out');
   setTimeout(() => {
@@ -822,7 +853,7 @@ $('#T-tables thead').append(headT)
                 console.error('Error loading JSON file.');
             });
 }
-function T3_table(id)
+function T3_table(id,T)
 {
   console.log('data is')
     $('#Tport-handle').addClass('scale-out');
@@ -877,14 +908,17 @@ $(document).ready(function(){
 
   $('#T1').on('click',function(){
     var id=$(this).attr('id');
-  T1_table(id)
+    var T=1;
+  T1_table(id,T)
   })
   $('#T2').on('click',function(){
+    var T=2;
 
-    T2_table(id)
+    T2_table(id,T)
   })
   $('#T3').on('click',function(){
-    T3_table(id)
+    var T=3;
+    T3_table(id,T)
   })
   $('#T4').on('click',function(){
 

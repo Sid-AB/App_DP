@@ -10,12 +10,12 @@ class groupOperationController extends Controller
 //===================================================================================
                             //insertion DPA
 //===================================================================================
-    public function insertDPA(Request $request, $t1, $t2, $t3, $t4, $num_sous_action)
+    public function insertDPA(Request $request, $T, $s_act, $act, $sous_prog,$prog, $port )
 {
 //===================================================================================
                             //insertion T1
 //===================================================================================
-    if($t1==1)
+    if($t==1)
     {
      // Récupérer les données du formulaire
      $aeData = $request->input('ae');
@@ -124,7 +124,7 @@ if (file_exists($jsonFilePath)) {
 //===================================================================================
                             //insertion T2
 //===================================================================================
-elseif($t2==2)
+elseif($t==2)
 {
     // Récupérer les données du formulaire
     $aeDataOuvert = $request->input('ae_ouvert');
@@ -238,7 +238,7 @@ if (file_exists($jsonFilePath)) {
 //===================================================================================
                             // insertion T3
 //===================================================================================
-elseif ($t3==3) {
+elseif ($t==3) {
        // Récupérer les données du formulaire
        $aeDataReporte = $request->input('AE_reporte');
        $aeDataNotifie = $request->input('AE_notifie');
@@ -351,7 +351,7 @@ elseif ($t3==3) {
 //===================================================================================
                             // insertion T4
 //===================================================================================
-elseif ($t4==4) {
+else{
 // Récupérer les données du formulaire
 $aeData = $request->input('ae');
 $cpData = $request->input('cp');

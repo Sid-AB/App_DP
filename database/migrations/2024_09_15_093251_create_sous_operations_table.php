@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('sous_operations', function (Blueprint $table) {
-            $table->integer('code_sous_operation')->primary();
+            $table->bigInteger('code_sous_operation')->primary();
             $table->string('nom_sous_operation');
             $table->string('nom_sous_operation_ar');
             $table->float('AE_sous_operation')->nullable(); //si t1 ou t4
