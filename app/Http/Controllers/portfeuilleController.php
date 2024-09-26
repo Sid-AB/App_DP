@@ -17,7 +17,7 @@ class portfeuilleController extends Controller
     {
         // Récupérer tous les portefeuilles de la base de données
           //  $portefeuilles = Portefeuille::all();
-    
+
     // Passer les données à la vue
         return view('Portfail-in.index', /*compact('portefeuilles')*/);
     }
@@ -59,7 +59,7 @@ class portfeuilleController extends Controller
 
         // Créer un nouveau portefeuille
         $portefeuille = new Portefeuille();
-        $portefeuille->num_portefeuil = intval($request->num_portefeuil);
+        $portefeuille->num_portefeuil = $num;
         $portefeuille->nom_journal = $request->nom_journal;
         $portefeuille->num_journal = $request->num_journal;
         $portefeuille->AE_portef = $request->AE_portef;
