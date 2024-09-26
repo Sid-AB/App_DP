@@ -47,7 +47,7 @@ return new class extends Migration
             $table->integer('code_t4')->nullable();
             $table->foreign('code_t4')->references('code_t4')->on('t4_s');
 
-            $table->integer('code_operation');
+            $table->bigInteger('code_operation');
             $table->foreign('code_operation')->references('code_operation')->on('operations');
 
         });

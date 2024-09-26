@@ -14,7 +14,7 @@ class opeartionController extends Controller
         $this->CalculDpia = $CalculDpia;
     }
 
-    public function calculerEtEnvoyer($port, $prog, $sous_prog, $act)
+    public function calculerEtEnvoyer($port, $prog, $sous_prog, $act,$s_act)
     {
        
         //dd($port, $prog, $sous_prog, $act);
@@ -26,10 +26,10 @@ class opeartionController extends Controller
         $s_act = $request->input('s_act');
 */
         try {
-            $resultats = $this->CalculDpia->calculdpiaFromPath($port, $prog, $sous_prog, $act);
+            $resultats = $this->CalculDpia->calculdpiaFromPath($port, $prog, $sous_prog, $act,$s_act);
             dd($resultats );
                // eenvoyer les résultats en JSON
-               return view('Action-in.index',compact('port','prog','sous_prog','act','resultats'));
+               return view('Action-in.index',compact('port','prog','sous_prog','act','s_act','resultats'));
            // return response()->json($resultats);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 400);
