@@ -86,7 +86,7 @@ return new class extends Migration
             [
 
                 'id_nin' => 4,
-                'NSS' => 4,
+                'NSS' => 5,
                 'Nom_per' => 'Sidi yakhlef',
                 'Prenom_per' => 'Ayoub',
                 'Nom_ar_per' => 'سيدي يخلف',
