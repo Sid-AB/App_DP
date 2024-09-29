@@ -389,6 +389,50 @@ $(document).ready(function(){
   })
 })
 $(document).ready(function(){
+
+   //check if exist
+$('#num_port').on('change', function() {
+    var num_portefeuil = $(this).val(); // Récupérer la valeur de num_portefeuil
+
+    if (num_portefeuil) {
+        // Vérifier si le numéro de portefeuille existe dans la base de données
+        $.ajax({
+            url: '/check-portef',  // Route qui fait l'appel à la base de données
+            type: 'GET',
+            data: { num_portefeuil: num_portefeuil }, // Modifier le nom ici
+            success: function(response) {
+                if (response.exists) {
+
+                    // Afficher un message pour indiquer que le portefeuille existe
+                    alert('Le portefeuille existe déjà.'); // Message d'alerte
+
+                    // Si le portefeuille existe, remplir les champs du formulaire avec les données récupérées
+                    $('#date_crt_portf').val(response.Date_portefeuille);
+                    $('#AE_portef').val(response.AE_portef);
+                    $('#CP_portef').val(response.CP_portef);
+                    $('#nom_journ').val(response.nom_journal);
+                    $('#num_journ').val(response.num_journal);
+
+                    // Afficher le deuxième formulaire
+                    $('.card').hide();  // Masque le premier formulaire
+                    $('#progam-handle').css('display', 'block'); // Affiche le deuxième formulaire
+                }
+            },
+            error: function() {
+                alert('Erreur lors de la vérification du portefeuille');
+            }
+        });
+    } else {
+        // Si le champ est vide, vider également les autres champs
+        $('#nom_journ').val('');
+        $('#num_journ').val('');
+        $('#date_crt_portf').val('');
+        $('#AE_portef').val('');
+        $('#CP_portef').val('');
+    }
+});
+
+
   $("#add-wallet").on('click',function(){
     var num_wallet=$('#num_port').val();
     console.log('id'+num_wallet)
@@ -437,13 +481,9 @@ $("#add-prg").on('click',function(){
   var id_prog=$('#num_prog').val();
   var nom_prog=$('#nom_prog').val();
   var date_sort_jour=$('#date_insert_portef').val();
- /* var AE=$('#AE_prog').val();
-  var CP=$('#CP_prog').val();*/
   var formprogdata={
     num_prog:id_prog,
     nom_prog:nom_prog,
-    /*AE_prog:parseFloat(AE),
-    CP_prog:parseFloat(CP),*/
     num_portefeuil:path[0],
     date_insert_portef:date_sort_jour,
     _token: $('meta[name="csrf-token"]').attr('content'),
@@ -498,7 +538,7 @@ var nexthop='<div class="pinfo-handle">'+
                   if(response.code == 200 || response.code == 404)
                   {
 
-                  alert(response.code)
+                  alert(response.message)
                   path.push(id_prog);
                   $('.next-handle svg').removeClass('waiting-icon')
                   $('.next-handle svg').addClass('complet-icon')
@@ -684,7 +724,7 @@ if (userResponse) {
                 console.log('path: ' + JSON.stringify(path));
 
                 // Redirection vers la page suivante après l'ajout de la sous-action
-                window.location.href = 'testing/S_Action/' + path.join('/');
+                window.location.href = 'testing/S_action/' + path.join('/');
               }
             },
             error: function(response) {

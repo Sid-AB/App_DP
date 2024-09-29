@@ -30,6 +30,29 @@ class actionController extends Controller
 
 
 //===================================================================================
+                                //DEBUT CHECK
+//===================================================================================
+
+public function check_action(Request $request)
+    {
+        $action = Action::where('num_action', $request->num_action)->first();
+
+        if ($action) {
+            return response()->json([
+                'exists' => true,
+                'nom_action' => $action->nom_action,
+                'date_insert_action' => $action->date_insert_action
+            ]);
+        }
+
+        return response()->json(['exists' => false]);
+    }
+
+//===================================================================================
+                            //FIN CHECK
+//===================================================================================
+
+//===================================================================================
                             // creation de l'action
 //===================================================================================
     function create_action(Request $request)
@@ -62,8 +85,6 @@ class actionController extends Controller
         $action->num_action =$num;
         $action->num_sous_prog = intval($request->id_sous_prog).intval($request->id_prog).intval($request->id_porte).$year;
         $action->nom_action = $request->nom_action;
-       // $action->AE_action = floatval($request->AE_action);
-        //$action->CP_action = floatval($request->CP_action);
         $action->id_ra = 1;//periodiquement
         $action->date_insert_action = $request->date_insert_action;
 

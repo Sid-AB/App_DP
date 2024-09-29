@@ -30,6 +30,28 @@ public function affich_sous_action($num_action)
 
 
 //===================================================================================
+                                //DEBUT CHECK
+//===================================================================================
+
+public function check_action(Request $request)
+    {
+        $sousaction = Action::where('num_sous_action', $request->num_sous_action)->first();
+
+        if ($sousaction) {
+            return response()->json([
+                'exists' => true,
+                'nom_sous_action' => $sousaction->nom_sous_action,
+                'date_insert_sous_action' => $sousaction->date_insert_sous_action
+            ]);
+        }
+
+        return response()->json(['exists' => false]);
+    }
+
+//===================================================================================
+                            //FIN CHECK
+//===================================================================================
+//===================================================================================
                         // creation sous action
 //===================================================================================
 function create_sousaction(Request $request)

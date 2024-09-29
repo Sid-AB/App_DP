@@ -27,6 +27,28 @@ class programmeControlleur extends Controller
         return view('Portfail-in.index', compact('programmes'));
     }
 
+    //===================================================================================
+                                //DEBUT CHECK
+//===================================================================================
+
+    public function check_prog(Request $request)
+    {
+        $prog = programme::where('num_prog', $request->num_prog)->first();
+
+        if ($prog) {
+            return response()->json([
+                'exists' => true,
+                'nom_prog' => $request->nom_prog,
+                'date_insert_portef' => $request->date_insert_portef,
+            ]);
+        }
+
+        return response()->json(['exists' => false]);
+    }
+//===================================================================================
+                                //FIN CHECK
+//===================================================================================
+
  //===================================================================================
                                 // creation du programme
 //===================================================================================
@@ -36,8 +58,6 @@ class programmeControlleur extends Controller
         $request->validate([
             'num_prog' => 'required|unique:programmes,num_prog',
             'nom_prog' => 'required',
-        /*    'AE_prog' => 'required',
-            'CP_prog' => 'required',*/
             'date_insert_portef' => 'required|date',
         ]);
 
@@ -64,8 +84,6 @@ class programmeControlleur extends Controller
         $programme->num_prog = $num;
         $programme->num_portefeuil = intval($request->num_portefeuil).$year;
         $programme->nom_prog = $request->nom_prog;
-        //$programme->AE_porg =floatval($request->AE_prog);
-        //$programme->CP_prog = floatval($request->CP_prog);
         $programme->date_insert_portef = $request->date_insert_portef;
         $programme->id_rp = 1; //periodiquement
 
