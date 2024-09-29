@@ -654,16 +654,17 @@ var nexthop='<div class="pinfo-handle">'+
                                   var formdata_act={
                                     num_sous_action:num_sous_act,
                                     nom_sous_action:nom_sous_act,
-                                   // AE_sous_action:ae,
-                                    //CP_sous_action:cp,
                                     date_insert_sous_action:dat_inst,
                                     num_act:num_act,
+                                    id_sous_prog:path[2],
+                                    id_prog:path[1],
+                                    id_porte:path[0],
                                     _token: $('meta[name="csrf-token"]').attr('content'),
                                     _method: 'POST'
                                   }
                                   path.push(num_sous_act)
                                   window.location.href='testing/S_Action/'+path[0]+'/'+path[1]+'/'+path[2]+'/'+path[3]+'/'+path[4];
-                                 /* $.ajax({
+                                  $.ajax({
                                     url:'/creationsousAction',
                                     type:'POST',
                                     data:formdata_act,
@@ -672,7 +673,7 @@ var nexthop='<div class="pinfo-handle">'+
                                       if(response.code == 200 || response.code == 404)
                                       {
                                          path.push(num_sous_act)
-                                       window.location.href='testing/S_Action/'+path[0]+'/'+path[1]+'/'+path[2]+'/'+path[3]+'/'+path[4]+'/';
+                                       window.location.href='testing/S_Action/'+path[0]+'/'+path[1]+'/'+path[2]+'/'+path[3]+'/'+path[4];
                                        console.log('path'+JSON.stringify(path))
                                       }
                                     },
@@ -681,7 +682,7 @@ var nexthop='<div class="pinfo-handle">'+
                                         alert('error')
                                     }
 
-                                  })*/
+                                  })
                                    })
                                }
                                  /**
