@@ -56,7 +56,7 @@ class actionController extends Controller
                 'data' => $existing, // Inclure les données du portefeuille existant
             ]);
         }
-
+//dd('num=', $num);
         // Créer une nouvelle action et sous action
         $action = new Action();
         $action->num_action =$num;
@@ -71,10 +71,10 @@ class actionController extends Controller
 
         // Copie dans sousaction
         $sousaction=SousAction::create([
-            'num_sous_action' => $action->num_action,  // égal à numaction
-            'num_action' => $action->num_action,
-            'nom_sous_action' => $action->nom_action,
-            'date_insert_sous_action' => $action->date_insert_action,      // clé étrangère
+            'num_sous_action' => $num,  // égal à numaction
+            'num_action' => $num,
+            'nom_sous_action' => $request->nom_action,
+            'date_insert_sous_action' => $request->date_insert_action,      // clé étrangère
         ]);
 
       //  dd(vars: $action);

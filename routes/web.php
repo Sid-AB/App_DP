@@ -29,13 +29,13 @@ return view('test.carsoule');
 
         return view('Action-in.index',compact('port','prog','sous_prog','act'));
         });
-       /* Route::get('/testing/S_Action/{port}/{prog}/{sous_prog}/{act}/{s_act}/',function ($port,$prog,$sous_prog,$act,$s_act){
+      /*  Route::get('/testing/S_Action/{port}/{prog}/{sous_prog}/{act}/{s_act}/',function ($port,$prog,$sous_prog,$act,$s_act){
 
 
 
             return view('Action-in.index',compact('port','prog','sous_prog','act','s_act'));
-            });*/
-
+            });
+*/
 
 //===============ROUTE PORTEFEUILLE==============================
 Route::controller(portfeuilleController::class)->group(function(){
