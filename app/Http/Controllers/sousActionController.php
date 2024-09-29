@@ -31,7 +31,7 @@ public function affich_sous_action($num_action)
 //===================================================================================
                         // creation sous action
 //===================================================================================
-function create_sous_action(Request $request, $num_action)
+function create_sous_action(Request $request)
 {
     // Validation des données
     $request->validate([
@@ -42,7 +42,7 @@ function create_sous_action(Request $request, $num_action)
     ]);
 
     // Vérifier si sous action existe déjà en fonction du numéro et des dates
-    $existing = sousaction::where('num_action', $request->num_action)
+  /*  $existing = sousaction::where('num_action', $request->num_action)
                          ->whereNotNull('date_insert_sous_action')
                          ->exists(); // Vérifie s'il y a un enregistrement existant
 
@@ -53,14 +53,13 @@ function create_sous_action(Request $request, $num_action)
             'code' => 404,
         ]);
     }
+*/
 
     // Créer une nouvelle action
     $action = new SousAction();
-    $action->num_sous_action = $request->num_sous_action;
+    $action->num_sous_action = intval($request->num_sous_prog).intval($request->num_sous_prog).intval($request->id_program).intval($request->id_porte).$year;
     $action->num_action = $num_action;
     $action->nom_sous_action = $request->nom_sous_action;
-    /*$action->AE_sous_action = $request->AE_sous_action;
-    $action->CP_sous_action = $request->CP_sous_action;*/
     $action->date_insert_sous_action = $request->date_insert_sous_action;
     $action->save();
 
