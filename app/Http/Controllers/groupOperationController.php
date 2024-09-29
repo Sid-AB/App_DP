@@ -75,7 +75,7 @@ if($T==1)
         if ($code % 1000 == 0) {
             // Insertion dans la table groupoperation
             GroupOperation::updateOrCreate(
-                ['code_grp_operation' => $code],
+                ['code_grp_operation' => $code.$s_act.$act.$sous_prog.$prog.$port.$year],
                 ['nom_grp_operation' => $nom, 'num_sous_action' => $sousaction, 'date_insert_grp_operation' => $currentDateTime]
             );
         }
@@ -85,8 +85,8 @@ if($T==1)
 
             // Insertion dans la table operation
             Operation::updateOrCreate(
-                ['code_operation' => $code],
-                ['code_grp_operation' => $codeGp, 'nom_operation' => $nom,
+                ['code_operation' => $code.$codeGp.$s_act.$act.$sous_prog.$prog.$port.$year],
+                ['code_grp_operation' => $codeGp.$s_act.$act.$sous_prog.$prog.$port.$year, 'nom_operation' => $nom,
                  'date_insert_operation' => $currentDateTime]
             );
 
@@ -100,8 +100,8 @@ if($T==1)
                     // Insérer dans sousoperation avec un code spécifique
                     sousoperation::updateOrCreate(
                         ['code_sous_operation' => $code . '_extra'], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
-                        ['code_operation' => $code, 'nom_sous_operation' => $nom,
-                         'AE_sous_operation' => $ae, 'CP_sous_operation' => $cp
+                        ['code_operation' => $code.$codeGp.$s_act.$act.$sous_prog.$prog.$port.$year, 'nom_sous_operation' => $nom,
+                         'AE_sous_operation' => floatval(str_replace(',', '', $ae)), 'CP_sous_operation' => floatval(str_replace(',', '', $cp))
                          , 'date_insert_SOUSoperation' => $currentDateTime]
                     );
                 }
@@ -113,9 +113,14 @@ if($T==1)
 
             // Insertion dans la table sousoperation
             sousoperation::updateOrCreate(
-                ['code_sous_operation' => $code],
-                ['code_operation' => $codeOp, 'nom_sous_operation' => $nom, 'AE_sous_operation' => $ae, 'CP_sous_operation' => $cp]
+                ['code_sous_operation' => $code.$codeOp.$codeGp.$s_act.$act.$sous_prog.$prog.$port.$year],
+                ['code_operation' => $codeOp.$codeGp.$s_act.$act.$sous_prog.$prog.$port.$year, 'nom_sous_operation' => $nom,
+                 'AE_sous_operation' => floatval(str_replace(',', '', $ae)),
+                  'CP_sous_operation' => floatval(str_replace(',', '', $cp))
+                  , 'date_insert_SOUSoperation' => $currentDateTime]
             );
+
+            //construire DPA
         }
     }
 
