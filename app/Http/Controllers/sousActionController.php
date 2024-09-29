@@ -54,11 +54,11 @@ function create_sous_action(Request $request)
         ]);
     }
 */
-
+$year = date('Y'); // Récupérer l'année actuelle
     // Créer une nouvelle action
     $action = new SousAction();
-    $action->num_sous_action = intval($request->num_sous_prog).intval($request->num_sous_prog).intval($request->id_program).intval($request->id_porte).$year;
-    $action->num_action = $num_action;
+    $action->num_sous_action = intval($request->num_sous_action).intval($request->num_act).intval($request->id_sous_prog).intval($request->id_prog).intval($request->id_porte).$year;
+    $action->num_action = intval($request->num_act).intval($request->id_sous_prog).intval($request->id_prog).intval($request->id_porte).$year;
     $action->nom_sous_action = $request->nom_sous_action;
     $action->date_insert_sous_action = $request->date_insert_sous_action;
     $action->save();
