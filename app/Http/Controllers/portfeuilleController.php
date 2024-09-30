@@ -28,13 +28,44 @@ class portfeuilleController extends Controller
     {
         return view('Portfail-in.creation');
     }
+
+//===================================================================================
+                                //DEBUT CHECK
+//===================================================================================
+
+    public function check_portef(Request $request)
+    {
+        // Validation de la requête
+            $request->validate([
+            'num_portefeuil' => 'required', // Assurez-vous que ce champ est requis
+            ]);
+
+        $year = date('Y'); // Récupérer l'année actuelle
+        $num=$request->num_portefeuil.$year;
+        $portefeuille = Portefeuille::where('num_portefeuil', $num)->first();
+
+        if ($portefeuille) {
+            return response()->json([
+                'exists' => true,
+                'nom_journal' => $portefeuille->nom_journal,
+                'num_journal' => $portefeuille->num_journal,
+                'AE_portef' => $portefeuille->AE_portef,
+                'CP_portef' => $portefeuille->CP_portef,
+                'Date_portefeuille' => $portefeuille->Date_portefeuille,
+            ]);
+        }
+
+        return response()->json(['exists' => false]);
+    }
+//===================================================================================
+                                //FIN CHECK
+//===================================================================================
 //===================================================================================
                                 // creation du portefeuille
 //===================================================================================
     function creat_portef(Request $request)
     {
 
-        //dd($request);
          // Validation des données
          $request->validate([
             'num_portefeuil' => 'required|unique:portefeuilles,num_portefeuil',
@@ -44,20 +75,8 @@ class portfeuilleController extends Controller
             'CP_portef' => 'required',
             'Date_portefeuille' => 'required|date',
         ]);
-
-        // Vérifier si le portefeuille existe déjà
         $year = date('Y'); // Récupérer l'année actuelle
         $num=$request->num_portefeuil.$year;
-        $existing = Portefeuille::where('num_portefeuil', $num)->first();
-
-        if ($existing) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Le portefeuille avec ce numéro  existe déjà.',
-                'code' => 302, // Utiliser un code 302 pour redirection (redirection implicite)
-                'data' => $existing, // Inclure les données du portefeuille existant
-            ]);
-        }
 
         // Créer un nouveau portefeuille
         $portefeuille = new Portefeuille();

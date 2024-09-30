@@ -30,6 +30,29 @@ class actionController extends Controller
 
 
 //===================================================================================
+                                //DEBUT CHECK
+//===================================================================================
+
+public function check_action(Request $request)
+    {
+        $action = Action::where('num_action', $request->num_action)->first();
+
+        if ($action) {
+            return response()->json([
+                'exists' => true,
+                'nom_action' => $action->nom_action,
+                'date_insert_action' => $action->date_insert_action
+            ]);
+        }
+
+        return response()->json(['exists' => false]);
+    }
+
+//===================================================================================
+                            //FIN CHECK
+//===================================================================================
+
+//===================================================================================
                             // creation de l'action
 //===================================================================================
     function create_action(Request $request)
@@ -56,14 +79,12 @@ class actionController extends Controller
                 'data' => $existing, // Inclure les données du portefeuille existant
             ]);
         }
-
+//dd('num=', $num);
         // Créer une nouvelle action et sous action
         $action = new Action();
         $action->num_action =$num;
         $action->num_sous_prog = intval($request->id_sous_prog).intval($request->id_prog).intval($request->id_porte).$year;
         $action->nom_action = $request->nom_action;
-       // $action->AE_action = floatval($request->AE_action);
-        //$action->CP_action = floatval($request->CP_action);
         $action->id_ra = 1;//periodiquement
         $action->date_insert_action = $request->date_insert_action;
 
@@ -71,10 +92,10 @@ class actionController extends Controller
 
         // Copie dans sousaction
         $sousaction=SousAction::create([
-            'num_sous_action' => $action->num_action,  // égal à numaction
-            'num_action' => $action->num_action,
-            'nom_sous_action' => $action->nom_action,
-            'date_insert_sous_action' => $action->date_insert_action,      // clé étrangère
+            'num_sous_action' => $num,  // égal à numaction
+            'num_action' => $num,
+            'nom_sous_action' => $request->nom_action,
+            'date_insert_sous_action' => $request->date_insert_action,      // clé étrangère
         ]);
 
       //  dd(vars: $action);

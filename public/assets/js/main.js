@@ -389,6 +389,50 @@ $(document).ready(function(){
   })
 })
 $(document).ready(function(){
+
+   //check if exist
+$('#num_port').on('change', function() {
+    var num_portefeuil = $(this).val(); // Récupérer la valeur de num_portefeuil
+
+    if (num_portefeuil) {
+        // Vérifier si le numéro de portefeuille existe dans la base de données
+        $.ajax({
+            url: '/check-portef',  // Route qui fait l'appel à la base de données
+            type: 'GET',
+            data: { num_portefeuil: num_portefeuil }, // Modifier le nom ici
+            success: function(response) {
+                if (response.exists) {
+
+                    // Afficher un message pour indiquer que le portefeuille existe
+                    alert('Le portefeuille existe déjà.'); // Message d'alerte
+
+                    // Si le portefeuille existe, remplir les champs du formulaire avec les données récupérées
+                    $('#date_crt_portf').val(response.Date_portefeuille);
+                    $('#AE_portef').val(response.AE_portef);
+                    $('#CP_portef').val(response.CP_portef);
+                    $('#nom_journ').val(response.nom_journal);
+                    $('#num_journ').val(response.num_journal);
+
+                    // Afficher le deuxième formulaire
+                    $('.card').hide();  // Masque le premier formulaire
+                    $('#progam-handle').css('display', 'block'); // Affiche le deuxième formulaire
+                }
+            },
+            error: function() {
+                alert('Erreur lors de la vérification du portefeuille');
+            }
+        });
+    } else {
+        // Si le champ est vide, vider également les autres champs
+        $('#nom_journ').val('');
+        $('#num_journ').val('');
+        $('#date_crt_portf').val('');
+        $('#AE_portef').val('');
+        $('#CP_portef').val('');
+    }
+});
+
+
   $("#add-wallet").on('click',function(){
     var num_wallet=$('#num_port').val();
     console.log('id'+num_wallet)
@@ -433,17 +477,14 @@ $(document).ready(function(){
 
   })
 })
+
 $("#add-prg").on('click',function(){
   var id_prog=$('#num_prog').val();
   var nom_prog=$('#nom_prog').val();
   var date_sort_jour=$('#date_insert_portef').val();
- /* var AE=$('#AE_prog').val();
-  var CP=$('#CP_prog').val();*/
   var formprogdata={
     num_prog:id_prog,
     nom_prog:nom_prog,
-    /*AE_prog:parseFloat(AE),
-    CP_prog:parseFloat(CP),*/
     num_portefeuil:path[0],
     date_insert_portef:date_sort_jour,
     _token: $('meta[name="csrf-token"]').attr('content'),
@@ -498,7 +539,7 @@ var nexthop='<div class="pinfo-handle">'+
                   if(response.code == 200 || response.code == 404)
                   {
 
-                  alert(response.code)
+                  alert(response.message)
                   path.push(id_prog);
                   $('.next-handle svg').removeClass('waiting-icon')
                   $('.next-handle svg').addClass('complet-icon')
@@ -590,52 +631,14 @@ var nexthop='<div class="pinfo-handle">'+
                                    *  this part for chacking if he want to under_action
                                    *
                                    */
-                                  let userResponse = confirm('Voulez Vous insert une sous action pour cett action?');
-                                  if (userResponse) {
-                                    var num_act=$('#num_act').val()
-                                     var nom_act=$('#nom_act').val();
-                                    $('#ElAE_act').empty()
-                                    $('#ElCP_act').empty()
-                                    var nexthop='<div class="pinfo-handle">'+
-                                    '<i class="fas fa-wallet"></i>'+
-                                    '<p >Action :</p>'+
-                                    '<p>'+num_act+'</p>'+
-                                    '</div>'+
-                                    ' <div class="next-handle">'+
-                                    '<i class="fas fa-angle-double-right waiting-icon"></i>'+
-                                    '</div>'
-                                    var prg4='<div class="form-container">'+
-                                 '<form>'+
-                                   '<div class="form-group">'+
-                                     '<label for="input1">N°Sous ACTION</label>'+
-                                     '<input type="text" class="form-control" id="num_sous_act" placeholder="Donnee code Sous ACTION">'+
-                                   '</div>'+
-                                   '<div class="form-group">'+
-                                     '<label for="input1">Nom Sous ACTION</label>'+
-                                     '<input type="text" class="form-control" id="nom_sous_act" placeholder="Donnee Nom Sous ACTION">'+
-                                   '</div>'+
-                                   '<div class="form-group">'+
-                                     '<label for="input1">AE pour Sous Action</label>'+
-                                     '<input type="number" class="form-control" id="AE_sous_act">'+
-                                   '</div>'+
-                                   '<div class="form-group">'+
-                                     '<label for="input1">CP pour Sous Action</label>'+
-                                     '<input type="number" class="form-control" id="CP_sous_act">'+
-                                   '</div>'+
-                                  ' <div class="form-group">'+
-                                    ' <label for="inputDate">Date Journal</label>'+
-                                     '<input type="date" class="form-control" id="date_insert_sou_action">'+
-                                   '</div>'+
-                                  ' </form>'+
-                                  ' <br>'+
-                                   '<div id="confirm-holder_act">'+
-                                   '<button class="btn btn-primary" id="add-prg4">Ajouter</button>'+
-                                   '<hr>'+
-                                  ' <div class="file-handle">'+
-                                   '<input type="file" class="form-control" id="file">'+
-                                   '<button class="btn btn-primary">Journal</button>'+
-                                   '</div>'+
-                                   '</div>'
+                                 // Demande de confirmation pour ajouter une sous-action après l'ajout de l'action
+let userResponse = confirm('Voulez-vous ajouter une sous-action pour cette action ?');
+if (userResponse) {
+  // Récupération des informations de l'action
+  var nom_act = $('#nom_act').val();
+  var num_act = $('#num_act').val();
+  var dat_inst = $('#date_insert_action').val();
+  var id_sou_prog = path[2];
 
                                    $('.next-handle svg').removeClass('waiting-icon')
                                    $('.next-handle svg').addClass('complet-icon')
@@ -683,57 +686,140 @@ var nexthop='<div class="pinfo-handle">'+
                                     {
                                         alert('error')
                                     }
+  // Création du formData pour l'action
+  var formdata_act = {
+    num_action: num_act,
+    nom_action: nom_act,
+    date_insert_action: dat_inst,
+    id_sous_prog: id_sou_prog,
+    id_prog: path[1],
+    id_porte: path[0],
+    _token: $('meta[name="csrf-token"]').attr('content'),
+    _method: 'POST'
+  };
 
-                                  })
-                                   })
-                               }
-                                 /**
-                                     *  end section
-                                     *
-                                     */
-                               else
-                               {
-                                  var nom_act=$('#nom_act').val()
-                                  var num_act=$('#num_act').val()
-                                  var ae=$('#AE_act').val()
-                                  var cp=$('#CP_act').val()
-                                  var dat_inst=$('#date_insert_action').val()
-                                  var id_sou_prog=path[2];
+  // Envoi de l'Action via Ajax
+  $.ajax({
+    url: '/creationAction',
+    type: 'POST',
+    data: formdata_act,
+    success: function(response) {
+      if (response.code === 200 || response.code === 404) {
+        // Ajout du numéro de l'action au chemin
+        path.push(num_act);
+        console.log('A path: ' + JSON.stringify(path));
 
-                                  var formdata_act={
-                                    num_action:num_act,
-                                    nom_action:nom_act,
-                                    //AE_action:ae,
-                                    //CP_action:cp,
-                                    date_insert_action:dat_inst,
-                                    id_sous_prog:id_sou_prog,
-                                    id_prog:path[1],
-                                    id_porte:path[0],
-                                    _token: $('meta[name="csrf-token"]').attr('content'),
-                                    _method: 'POST'
-                                  }
-                                  $.ajax({
-                                    url:'/creationAction',
-                                    type:'POST',
-                                    data:formdata_act,
-                                    success:function(response)
-                                    {
-                                      if(response.code == 200 || response.code == 404)
-                                      {
+        // Création du formulaire pour la sous-action après l'ajout de l'action
+        var prg4 = `
+          <div class="form-container">
+            <form>
+              <div class="form-group">
+                <label for="num_sous_act">N°Sous ACTION</label>
+                <input type="text" class="form-control" id="num_sous_act" placeholder="Donner le code Sous ACTION">
+              </div>
+              <div class="form-group">
+                <label for="nom_sous_act">Nom Sous ACTION</label>
+                <input type="text" class="form-control" id="nom_sous_act" placeholder="Donner le Nom Sous ACTION">
+              </div>
+              <div class="form-group">
+                <label for="AE_sous_act">AE pour Sous Action</label>
+                <input type="number" class="form-control" id="AE_sous_act">
+              </div>
+              <div class="form-group">
+                <label for="CP_sous_act">CP pour Sous Action</label>
+                <input type="number" class="form-control" id="CP_sous_act">
+              </div>
+              <div class="form-group">
+                <label for="date_insert_sou_action">Date Journal</label>
+                <input type="date" class="form-control" id="date_insert_sou_action">
+              </div>
+            </form>
+            <br>
+            <button class="btn btn-primary" id="add-prg4">Ajouter Sous Action</button>
+          </div>`;
 
+        // Insertion du formulaire pour la sous-action dans le DOM
+        $('#progam-handle').append(prg4);
 
-                                         path.push(num_act)
-                                       window.location.href='testing/Action/'+path[0]+'/'+path[1]+'/'+path[2]+'/'+path[3];
-                                       console.log('path'+JSON.stringify(path))
-                                      }
-                                    },
-                                    error:function(response)
-                                    {
-                                        alert('error')
-                                    }
+        // Ajout de l'événement d'ajout pour la sous-action
+        $('#add-prg4').on('click', function() {
+          var nom_sous_act = $('#nom_sous_act').val();
+          var num_sous_act = $('#num_sous_act').val();
+          var dat_inst = $('#date_insert_sou_action').val();
 
-                                  })
-                                }
+          // Création du formData pour la sous-action
+          var formdata_sous_act = {
+            num_sous_action: num_sous_act,
+            nom_sous_action: nom_sous_act,
+            date_insert_sous_action: dat_inst,
+            num_act: path[3],
+            id_sous_prog: path[2],
+            id_prog: path[1],
+            id_porte: path[0],
+            _token: $('meta[name="csrf-token"]').attr('content'),
+            _method: 'POST'
+          };
+
+          // Envoi de la sous-action via Ajax
+          $.ajax({
+            url: '/creationsousAction',
+            type: 'POST',
+            data: formdata_sous_act,
+            success: function(response) {
+              if (response.code === 200 || response.code === 404) {
+                path.push(num_sous_act);
+                console.log('path: ' + JSON.stringify(path));
+
+                // Redirection vers la page suivante après l'ajout de la sous-action
+                window.location.href = 'testing/S_action/' + path.join('/');
+              }
+            },
+            error: function(response) {
+              alert('Erreur lors de l\'ajout de la sous-action.');
+            }
+          });
+        });
+      }
+    },
+    error: function(response) {
+      alert('Erreur lors de l\'ajout de l\'action.');
+    }
+  });
+} else {
+  // Cas où l'utilisateur n'ajoute pas de sous-action
+  var nom_act = $('#nom_act').val();
+  var num_act = $('#num_act').val();
+  var dat_inst = $('#date_insert_action').val();
+  var id_sou_prog = path[2];
+
+  var formdata_act = {
+    num_action: num_act,
+    nom_action: nom_act,
+    date_insert_action: dat_inst,
+    id_sous_prog: id_sou_prog,
+    id_prog: path[1],
+    id_porte: path[0],
+    _token: $('meta[name="csrf-token"]').attr('content'),
+    _method: 'POST'
+  };
+
+  $.ajax({
+    url: '/creationAction',
+    type: 'POST',
+    data: formdata_act,
+    success: function(response) {
+      if (response.code === 200 || response.code === 404) {
+        path.push(num_act);
+       // console.log('path: ' + JSON.stringify(path));
+        window.location.href = 'testing/Action/' + path.join('/');
+      }
+    },
+    error: function(response) {
+      alert('Erreur lors de l\'ajout de l\'action.');
+    }
+  });
+}
+
                               /*********         END ACTION ********************************************** */
                              })
 

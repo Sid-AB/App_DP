@@ -29,6 +29,28 @@ class sousProgrammeController extends Controller
     }
 
 //===================================================================================
+                                //DEBUT CHECK
+//===================================================================================
+
+public function check_sous_prog(Request $request)
+{
+    $sousprog = programme::where('num_sous_prog', $request->num_sous_prog)->first();
+
+    if ($sousprog) {
+        return response()->json([
+            'exists' => true,
+            'nom_sous_prog' => $request->nom_sous_prog,
+            'date_insert_sousProg' => $request->date_insert_sousProg,
+        ]);
+    }
+
+    return response()->json(['exists' => false]);
+}
+//===================================================================================
+                            //FIN CHECK
+//===================================================================================
+
+//===================================================================================
                             // creation du SousProgramme
 //===================================================================================
     function create_sou_prog(Request $request)
@@ -37,8 +59,6 @@ class sousProgrammeController extends Controller
         $request->validate([
             'num_sous_prog' => 'required|unique:sous_programmes,num_sous_prog',
             'nom_sous_prog' => 'required',
-         /*   'AE_sous_porg' => 'required',
-            'CP_sous_prog' => 'required',*/
             'date_insert_sousProg' => 'required|date',
         ]);
 
@@ -64,8 +84,6 @@ class sousProgrammeController extends Controller
         $SousProgramme->num_sous_prog = $num;
         $SousProgramme->num_prog = intval($request->id_program).intval($request->id_porte).$year;
         $SousProgramme->nom_sous_prog = $request->nom_sous_prog;
-        //$SousProgramme->AE_sous_prog = floatval($request->AE_sous_prog);
-        //$SousProgramme->CP_sous_prog = floatval($request->CP_sous_prog);
         $SousProgramme->date_insert_sousProg = $request->date_insert_sousProg;
 
         $SousProgramme->save();

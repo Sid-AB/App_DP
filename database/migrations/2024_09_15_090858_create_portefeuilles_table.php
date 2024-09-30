@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('portefeuilles', function (Blueprint $table) {
             $table->bigInteger('num_portefeuil')->primary();
-            $table->DateTime('Date_portefeuille');
+            $table->Date('Date_portefeuille');
             $table->string('nom_journal');
             $table->integer('num_journal');
             $table->float('AE_portef');
