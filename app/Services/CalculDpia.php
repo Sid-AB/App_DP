@@ -5,7 +5,7 @@ use App\Models\Portefeuille;
 
 class CalculDpia
 {
-    public function calculdpiaFromPath($port, $prog, $sous_prog, $act,$s_act, Request $request)
+    public function calculdpiaFromPath($port, $prog, $sous_prog, $act,$s_act)
     {
       /*  // décomposer le chemin (portefeuille, programme, sous-programme, action, sous-action)
         $chemin = explode('/', $path);
@@ -20,7 +20,7 @@ class CalculDpia
         $year= $request-> year;
        // dd($port, $prog, $sous_prog, $act);
         // récupérer le portefeuille à partir du chemin
-        $portefeuille = Portefeuille::where('num_portefeuil',$port.$year)
+        $portefeuille = Portefeuille::where('num_portefeuil',$port)
             ->with([
                 'Programme.SousProgramme.Action.SousAction.GroupOperation.Operation.SousOperation'
             ])->first();
