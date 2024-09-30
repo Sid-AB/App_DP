@@ -120,7 +120,18 @@ if($T==1)
                   , 'date_insert_SOUSoperation' => $currentDateTime]
             );
 
-            //construire DPA
+            //mettre à jour la table construire DPIA 
+            ConstruireDPIA::updateOrCreate(
+            
+                ['code_sous_operation' =>  $code.$codeOp.$codeGp.$s_act.$act.$sous_prog.$prog.$port.$year],
+               
+                [
+                    'AE_dpia_nv' => floatval(str_replace(',', '', $ae)),
+                    'CP_dpia_nv' => floatval(str_replace(',', '', $cp)),
+                    'date_modification_dpia' =>$currentDateTime,
+                ]
+            );
+
         }
     }
 
@@ -237,6 +248,21 @@ if (file_exists($jsonFilePath)) {
                'CP_sous_operation' => ($cp_attendu+$cp_ouvert),  'AE_atendu' => $ae_attendu,  'AE_ouvert' => $ae_ouvert,
                 'CP_ouvert' => $cp_ouvert,'CP_ouvert' => $cp_ouvert, 'date_insert_SOUSoperation' => $currentDateTime]
            );
+
+            //mettre à jour la table construire DPIA 
+            ConstruireDPIA::updateOrCreate(
+            
+                ['code_sous_operation' =>  $code.$codeOp.$codeGp.$s_act.$act.$sous_prog.$prog.$port.$year],
+               
+                [
+                    'AE_ouvert_dpia' => floatval(str_replace(',', '', $ae_ouvert)),
+                    'AE_atendu_dpia '=> floatval(str_replace(',', '', $ae_attendu)),
+                    'CP_ouvert_dpia' => floatval(str_replace(',', '', $cp_ouvert)),
+                    'CP_atendu_dpia '=> floatval(str_replace(',', '', $cp_attendu)),
+                   
+                    'date_modification_dpia' =>$currentDateTime,
+                ]
+            );
        }
    }
    return response()->json([
@@ -347,6 +373,7 @@ elseif ($T==3) {
                     'AE_notifie' => $ae_notifie,'AE_engage' => $ae_engage,'CP_reporte' => $cp_reporte,
                     'CP_notifie' => $cp_notifie,'CP_consome' => $cp_consome]
                 );
+                
             }
           }
 

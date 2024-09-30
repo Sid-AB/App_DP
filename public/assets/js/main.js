@@ -651,6 +651,7 @@ var nexthop='<div class="pinfo-handle">'+
                                   var cp=$('#CP_sous_act').val()
                                   var dat_inst=$('#date_insert_sous_action').val()
                                   var num_act=path[3];
+                                  var year=date('y');
                                   var formdata_act={
                                     num_sous_action:num_sous_act,
                                     nom_sous_action:nom_sous_act,
@@ -659,6 +660,7 @@ var nexthop='<div class="pinfo-handle">'+
                                     id_sous_prog:path[2],
                                     id_prog:path[1],
                                     id_porte:path[0],
+                                    year:year,
                                     _token: $('meta[name="csrf-token"]').attr('content'),
                                     _method: 'POST'
                                   }

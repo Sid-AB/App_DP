@@ -62,7 +62,7 @@ class sousProgrammeController extends Controller
         // Créer un nouveau SousProgramme
         $SousProgramme = new SousProgramme();
         $SousProgramme->num_sous_prog = $num;
-        $SousProgramme->num_prog = intval($request->id_porte).intval($request->id_program).$year;
+        $SousProgramme->num_prog = intval($request->id_program).intval($request->id_porte).$year;
         $SousProgramme->nom_sous_prog = $request->nom_sous_prog;
         //$SousProgramme->AE_sous_prog = floatval($request->AE_sous_prog);
         //$SousProgramme->CP_sous_prog = floatval($request->CP_sous_prog);
