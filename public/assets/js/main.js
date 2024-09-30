@@ -477,6 +477,7 @@ $('#num_port').on('change', function() {
 
   })
 })
+
 $("#add-prg").on('click',function(){
   var id_prog=$('#num_prog').val();
   var nom_prog=$('#nom_prog').val();
