@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('programmes', function (Blueprint $table) {
-            $table->bigInteger('num_prog')->primary();
+            $table->unsignedBigInteger('num_prog')->primary();
             $table->string('nom_prog');
             $table->string('nom_prog_ar')->nullable();
           //  $table->float('AE_porg');
@@ -25,7 +25,7 @@ return new class extends Migration
 
             $table->integer('id_rp');
             $table->foreign('id_rp')->references('id_rp')->on('respo__progs');
-            $table->bigInteger('num_portefeuil');
+            $table->unsignedBigInteger('num_portefeuil');
             $table->foreign('num_portefeuil')->references('num_portefeuil')->on('portefeuilles');
 
         });

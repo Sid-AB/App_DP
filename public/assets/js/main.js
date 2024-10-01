@@ -390,59 +390,66 @@ $(document).ready(function(){
 })
 $(document).ready(function(){
 
-   //check if exist
-$('#num_port').on('change', function() {
-    var num_portefeuil = $(this).val(); // Récupérer la valeur de num_portefeuil
 
-    if (num_portefeuil) {
-        // Vérifier si le numéro de portefeuille existe dans la base de données
+ // Vérifie l'existence du portefeuille lorsque le champ de date perd le focus
+$('#date_crt_portf').on('focusout', function() {
+    var num_portefeuil = $('#num_port').val(); // Récupérer la valeur du portefeuille
+    var Date_portefeuille = $(this).val();  // Récupérer la valeur de la date
+
+    // Vérifie que les deux champs sont remplis avant de continuer
+    if (Date_portefeuille && num_portefeuil) {
+        // Appel AJAX pour vérifier le portefeuille dans la base de données
         $.ajax({
-            url: '/check-portef',  // Route qui fait l'appel à la base de données
+            url: '/check-portef',  // Route pour vérifier l'existence du portefeuille
             type: 'GET',
-            data: { num_portefeuil: num_portefeuil }, // Modifier le nom ici
+            data: {
+                num_portefeuil: num_portefeuil,
+                Date_portefeuille: Date_portefeuille
+            },
             success: function(response) {
                 if (response.exists) {
+                    console.log(response); // Vérifiez la réponse
 
-                    // Afficher un message pour indiquer que le portefeuille existe
-                    alert('Le portefeuille existe déjà.'); // Message d'alerte
+                    // Remplir les champs du formulaire avec les données récupérées
+                    $('#date_crt_portf').val(response.Date_portefeuille).trigger('change'); // Remplir et déclencher l'événement change
+                    $('#AE_portef').val(response.AE_portef).trigger('change'); // Remplir et déclencher l'événement change
+                    $('#CP_portef').val(response.CP_portef).trigger('change'); // Remplir et déclencher l'événement change
+                    $('#nom_journ').val(response.nom_journal).trigger('change'); // Remplir et déclencher l'événement change
+                    $('#num_journ').val(response.num_journal).trigger('change'); // Remplir et déclencher l'événement change
 
-                    // Si le portefeuille existe, remplir les champs du formulaire avec les données récupérées
-                    $('#date_crt_portf').val(response.Date_portefeuille);
-                    $('#AE_portef').val(response.AE_portef);
-                    $('#CP_portef').val(response.CP_portef);
-                    $('#nom_journ').val(response.nom_journal);
-                    $('#num_journ').val(response.num_journal);
+                    alert('Le portefeuille existe déjà.');
 
                     // Afficher le deuxième formulaire
-                    $('.card').hide();  // Masque le premier formulaire
-                    $('#progam-handle').css('display', 'block'); // Affiche le deuxième formulaire
+                    $('.card').hide();
+                    $('#progam-handle').css('display', 'block');
+                } else {
+                    alert('Le portefeuille n\'existe pas.');
                 }
             },
             error: function() {
                 alert('Erreur lors de la vérification du portefeuille');
             }
         });
-    } else {
-        // Si le champ est vide, vider également les autres champs
-        $('#nom_journ').val('');
-        $('#num_journ').val('');
-        $('#date_crt_portf').val('');
-        $('#AE_portef').val('');
-        $('#CP_portef').val('');
     }
 });
 
 
+
+
   $("#add-wallet").on('click',function(){
     var num_wallet=$('#num_port').val();
-    console.log('id'+num_wallet)
+    var dateprort=$('#date_crt_portf').val();
+    var year = new Date(dateprort).getFullYear(); // Extraire l'année à partir de la date
+    var numwall_year= num_wallet + year;
+   // console.log('id'+num_wallet)
     var formportinsert={
-      'num_portefeuil':num_wallet,
+      'num_portefeuil':numwall_year,
       'Date_portefeuille':$('#date_crt_portf').val(),
       'nom_journal':$('#nom_journ').val(),
       'num_journal':parseInt($('#num_journ').val()),
       'AE_portef':parseFloat($('#AE_portef').val()),
       'CP_portef':parseFloat($('#CP_portef').val()),
+      year:year,
        _token: $('meta[name="csrf-token"]').attr('content'),
        _method: 'POST'
     }
@@ -455,6 +462,8 @@ $('#num_port').on('change', function() {
         if(response.code == 200 || response.code == 404)
         {
           alert(response.message)
+          path.push(numwall_year);
+          console.log('numwall_year path: ' + JSON.stringify(path));
           $('.font-bk').removeClass('back-bk')
           $('.wallet-path').css('display','flex')
           $('.wallet-handle').empty()
@@ -462,7 +471,6 @@ $('#num_port').on('change', function() {
           $('#progam-handle').removeClass('scale-out')
           $('#progam-handle').addClass('scale-visible')
           $('#w_id').text(num_wallet)
-          path.push(num_wallet);
         }
         else
         {
@@ -478,12 +486,59 @@ $('#num_port').on('change', function() {
   })
 })
 
+
+// Vérifie l'existence du programme lorsque le champ de programme perd le focus
+$('#date_insert_portef').on('focusout', function() {
+    var Date_program = $(this).val(); // Récupérer la valeur du programme
+     var year = new Date(Date_program).getFullYear(); // Extraire l'année à partir de la date
+    var num_prog = $('#num_prog').val(); // Récupérer la valeur de la date du programme
+    var id_port=path[0];
+    var num_program = num_prog + id_port + year; // Composer num_program
+    // Vérifie que les deux champs sont remplis avant de continuer
+    if (Date_program && num_program) {
+        // Appel AJAX pour vérifier le programme dans la base de données
+        $.ajax({
+            url: '/check-prog',  // Route pour vérifier l'existence du programme
+            type: 'GET',
+            data: {
+                num_prog: num_program,
+
+            },
+            success: function(response) {
+                if (response.exists) {
+                    console.log(response); // Vérifiez la réponse
+
+                    // Remplir les champs du formulaire avec les données récupérées
+                    $('#date_program').val(response.Date_program).trigger('change'); // Remplir et déclencher l'événement change
+                    $('#AE_program').val(response.AE_program).trigger('change'); // Remplir et déclencher l'événement change
+                    $('#CP_program').val(response.CP_program).trigger('change'); // Remplir et déclencher l'événement change
+                    $('#nom_journ_program').val(response.nom_journal).trigger('change'); // Remplir et déclencher l'événement change
+                    $('#num_journ_program').val(response.num_journal).trigger('change'); // Remplir et déclencher l'événement change
+
+                    alert('Le programme existe déjà.');
+
+                    // Afficher le deuxième formulaire
+                    $('.card').hide();
+                    $('#progam-handle').css('display', 'block');
+                } else {
+                    alert('Le programme n\'existe pas.');
+                }
+            },
+            error: function() {
+                alert('Erreur lors de la vérification du programme');
+            }
+        });
+    }
+});
+
+
 $("#add-prg").on('click',function(){
   var id_prog=$('#num_prog').val();
   var nom_prog=$('#nom_prog').val();
+  var numprog_year=id_prog + path[0];
   var date_sort_jour=$('#date_insert_portef').val();
   var formprogdata={
-    num_prog:id_prog,
+    num_prog:numprog_year,
     nom_prog:nom_prog,
     num_portefeuil:path[0],
     date_insert_portef:date_sort_jour,
@@ -540,7 +595,9 @@ var nexthop='<div class="pinfo-handle">'+
                   {
 
                   alert(response.message)
-                  path.push(id_prog);
+                  path.push(numprog_year);
+          console.log('numprog_year path: ' + JSON.stringify(path));
+
                   $('.next-handle svg').removeClass('waiting-icon')
                   $('.next-handle svg').addClass('complet-icon')
                   $('.the-path').append(nexthop)
@@ -552,8 +609,7 @@ var nexthop='<div class="pinfo-handle">'+
                   $('#add-prg2').on('click',function(){
                     var sou_prog=$('#num_sous_prog').val()
                     var nom_sou_prog=$('#nom_sous_prog').val();
-                   /* var AE=$('#AE_sous_porg').val();
-                    var CP=$('#CP_sous_prog').val()*/
+                    var numsouprog_year= sou_prog + numprog_year;
                     var dat_sou_prog=$('#date_insert_sousProg').val()
                     var id_prog=path[1];
                     var id_port=path[0];
@@ -598,10 +654,8 @@ var nexthop='<div class="pinfo-handle">'+
                           '</div>'+
                           '</div>'
                           var formdatasou_prog={
-                            num_sous_prog:sou_prog,
+                            num_sous_prog:numsouprog_year,
                             nom_sous_prog:nom_sou_prog,
-                           /* AE_sous_porg:AE,
-                            CP_sous_prog:CP,*/
                             date_insert_sousProg:dat_sou_prog,
                             id_program:id_prog,
                             id_porte:id_port,
@@ -622,7 +676,7 @@ var nexthop='<div class="pinfo-handle">'+
                                 $('.next-handle svg').addClass('complet-icon')
                                 $('.the-path').append(nexthop)
                                 $('#progam-handle').append(prg3)
-                                path.push(sou_prog);
+                                path.push(numsouprog_year);
                                 $('#confirm-holder_sprog').empty()
                                 $('#confirm-holder_sprog').append('<i class="fas fa-wrench"></i>')
                                 /******           ACTION add for under_progam                    *********** */
@@ -639,10 +693,10 @@ if (userResponse) {
   var num_act = $('#num_act').val();
   var dat_inst = $('#date_insert_action').val();
   var id_sou_prog = path[2];
-
+   var numaction_year= num_act + numsouprog_year;
   // Création du formData pour l'action
   var formdata_act = {
-    num_action: num_act,
+    num_action: numaction_year,
     nom_action: nom_act,
     date_insert_action: dat_inst,
     id_sous_prog: id_sou_prog,
@@ -660,7 +714,7 @@ if (userResponse) {
     success: function(response) {
       if (response.code === 200 || response.code === 404) {
         // Ajout du numéro de l'action au chemin
-        path.push(num_act);
+        path.push(numaction_year);
         console.log('A path: ' + JSON.stringify(path));
 
         // Création du formulaire pour la sous-action après l'ajout de l'action
@@ -700,16 +754,18 @@ if (userResponse) {
           var nom_sous_act = $('#nom_sous_act').val();
           var num_sous_act = $('#num_sous_act').val();
           var dat_inst = $('#date_insert_sou_action').val();
-
+          var year = new Date().getFullYear();
+          var numsousaction_year= num_sous_act + numaction_year;
           // Création du formData pour la sous-action
           var formdata_sous_act = {
-            num_sous_action: num_sous_act,
+            num_sous_action: numsousaction_year,
             nom_sous_action: nom_sous_act,
             date_insert_sous_action: dat_inst,
             num_act: path[3],
             id_sous_prog: path[2],
             id_prog: path[1],
             id_porte: path[0],
+            year: year,
             _token: $('meta[name="csrf-token"]').attr('content'),
             _method: 'POST'
           };
@@ -721,7 +777,7 @@ if (userResponse) {
             data: formdata_sous_act,
             success: function(response) {
               if (response.code === 200 || response.code === 404) {
-                path.push(num_sous_act);
+                path.push(numsousaction_year);
                 console.log('path: ' + JSON.stringify(path));
 
                 // Redirection vers la page suivante après l'ajout de la sous-action
@@ -744,10 +800,11 @@ if (userResponse) {
   var nom_act = $('#nom_act').val();
   var num_act = $('#num_act').val();
   var dat_inst = $('#date_insert_action').val();
+  var numaction_year= num_act + numsouprog_year;
   var id_sou_prog = path[2];
 
   var formdata_act = {
-    num_action: num_act,
+    num_action: numaction_year,
     nom_action: nom_act,
     date_insert_action: dat_inst,
     id_sous_prog: id_sou_prog,
@@ -763,7 +820,7 @@ if (userResponse) {
     data: formdata_act,
     success: function(response) {
       if (response.code === 200 || response.code === 404) {
-        path.push(num_act);
+        path.push(numaction_year);
        // console.log('path: ' + JSON.stringify(path));
         window.location.href = 'testing/Action/' + path.join('/');
       }

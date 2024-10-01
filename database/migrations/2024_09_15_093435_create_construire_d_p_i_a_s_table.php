@@ -19,18 +19,18 @@ return new class extends Migration
             $table->float('AE_dpia_nv');
             $table->float('CP_dpia_nv');
 
-            
-            $table->bigInteger('code_sous_operation');
+
+            $table->unsignedBigInteger('code_sous_operation');
             $table->foreign('code_sous_operation')->references('code_sous_operation')->on('sous_operations');
-           
-            
+
+
             $table->integer('id_rp');
             $table->foreign('id_rp')->references('id_rp')->on('respo__progs');
-           
-            
+
+
             $table->integer('id_ra');
             $table->foreign('id_ra')->references('id_ra')->on('respo__actions');
-           
+
 
         });
     }
