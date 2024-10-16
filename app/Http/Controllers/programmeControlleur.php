@@ -33,12 +33,18 @@ class programmeControlleur extends Controller
 
     public function check_prog(Request $request)
     {
+        // Validation de la requête
+    $request->validate([
+        'num_prog' => 'required',
+    ]);
+
         $prog = programme::where('num_prog', $request->num_prog)->first();
 
         if ($prog) {
             return response()->json([
                 'exists' => true,
                 'nom_prog' => $prog->nom_prog,
+                'num_prog' => $prog->num_prog,
                 'date_insert_portef' => $prog->date_insert_portef,
             ]);
         }

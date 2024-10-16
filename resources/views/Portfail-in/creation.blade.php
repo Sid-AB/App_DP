@@ -105,6 +105,7 @@
           <input type="number" class="form-control" id="CP_prog">
         </div-->
         </form>
+
         <br>
         <div id="confirm-holder">
         <button class="btn btn-primary" id="add-prg">Ajouter</button>

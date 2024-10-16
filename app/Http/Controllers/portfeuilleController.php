@@ -41,7 +41,7 @@ public function check_portef(Request $request)
     ]);
 
     // Concatenation du numéro de portefeuille avec l'année
-    $num = $request->num_portefeuil . $request->year;
+    $num = $request->num_portefeuil;
 
     // Vérification si le portefeuille existe dans la base de données
     $portefeuille = Portefeuille::where('num_portefeuil', $num)->first();

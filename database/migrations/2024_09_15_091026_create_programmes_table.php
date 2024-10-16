@@ -18,8 +18,8 @@ return new class extends Migration
           //  $table->float('AE_porg');
          //   $table->float('CP_prog');
 
-            $table->DateTime('date_insert_portef');
-            $table->DateTime('date_update_portef')->nullable();
+            $table->Date('date_insert_portef');
+            $table->Date('date_update_portef')->nullable();
           //  $table->integer('num_journ');
 
 
