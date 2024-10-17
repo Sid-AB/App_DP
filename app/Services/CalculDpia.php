@@ -17,14 +17,10 @@ class CalculDpia
         $sous_prog = intval($sous_prog);
         $act = intval($act);
         $s_act = intval($s_act);
-<<<<<<< HEAD
-        $year= $request-> year;
-=======
-        $year=$request->year;
->>>>>>> 14476adda16ddf772b6e5a455aea596d3d396444
+      
        // dd($port, $prog, $sous_prog, $act);
         // récupérer le portefeuille à partir du chemin
-        $portefeuille = Portefeuille::where('num_portefeuil',$port.$year)
+        $portefeuille = Portefeuille::where('num_portefeuil',$port)
             ->with([
                 'Programme.SousProgramme.Action.SousAction.GroupOperation.Operation.SousOperation'
             ])->first();
@@ -99,7 +95,7 @@ class CalculDpia
                             $groupeCpOuvert = 0;
                             $groupeCpAttendu = 0;
 
-                            $groupeAeReporte = 0;
+                            $groupeAeReporte = 0; 
                             $groupeAeNotife= 0;
                             $groupeAeEngage= 0;
                             $groupeCpReporte = 0;
