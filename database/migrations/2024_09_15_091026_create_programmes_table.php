@@ -12,20 +12,20 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('programmes', function (Blueprint $table) {
-            $table->bigInteger('num_prog')->primary();
+            $table->unsignedBigInteger('num_prog')->primary();
             $table->string('nom_prog');
             $table->string('nom_prog_ar')->nullable();
           //  $table->float('AE_porg');
          //   $table->float('CP_prog');
 
-            $table->DateTime('date_insert_portef');
-            $table->DateTime('date_update_portef')->nullable();
+            $table->Date('date_insert_portef');
+            $table->Date('date_update_portef')->nullable();
           //  $table->integer('num_journ');
 
 
             $table->integer('id_rp');
             $table->foreign('id_rp')->references('id_rp')->on('respo__progs');
-            $table->bigInteger('num_portefeuil');
+            $table->unsignedBigInteger('num_portefeuil');
             $table->foreign('num_portefeuil')->references('num_portefeuil')->on('portefeuilles');
 
         });

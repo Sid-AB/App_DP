@@ -33,13 +33,19 @@ class programmeControlleur extends Controller
 
     public function check_prog(Request $request)
     {
+        // Validation de la requête
+    $request->validate([
+        'num_prog' => 'required',
+    ]);
+
         $prog = programme::where('num_prog', $request->num_prog)->first();
 
         if ($prog) {
             return response()->json([
                 'exists' => true,
-                'nom_prog' => $request->nom_prog,
-                'date_insert_portef' => $request->date_insert_portef,
+                'nom_prog' => $prog->nom_prog,
+                'num_prog' => $prog->num_prog,
+                'date_insert_portef' => $prog->date_insert_portef,
             ]);
         }
 
@@ -61,28 +67,10 @@ class programmeControlleur extends Controller
             'date_insert_portef' => 'required|date',
         ]);
 
-        // Vérifier si le programme existe déjà en fonction du numéro et des dates
-        $year = date('Y'); // Récupérer l'année actuelle
-        $num=intval($request->num_prog).intval($request->num_portefeuil).$year;
-//dd($num);
-        $existing = programme::where('num_prog', $num)
-                             ->whereNotNull('date_insert_portef')
-                             ->exists(); // Vérifie s'il y a un enregistrement existant
-
-        if ($existing) {
-           // dd($ex)
-            return response()->json([
-                'success' => false,
-                'message' => 'Le programme avec ce numéro existe déjà.',
-                'code' => 302, // Utiliser un code 302 pour redirection (redirection implicite)
-                'data' => $existing, // Inclure les données du portefeuille existant
-            ]);
-        }
-
         // Créer un nouveau programme
         $programme = new Programme();
-        $programme->num_prog = $num;
-        $programme->num_portefeuil = intval($request->num_portefeuil).$year;
+        $programme->num_prog = $request->num_prog;
+        $programme->num_portefeuil = $request->num_portefeuil;
         $programme->nom_prog = $request->nom_prog;
         $programme->date_insert_portef = $request->date_insert_portef;
         $programme->id_rp = 1; //periodiquement

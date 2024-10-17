@@ -9,6 +9,7 @@ use App\Models\Action;
 use App\Models\SousProgramme;
 use App\Models\ConstruireDPIA;
 use App\Models\ConstruireDPIC;
+use Carbon\Carbon;
 class portfeuilleController extends Controller
 {
 
@@ -33,30 +34,34 @@ class portfeuilleController extends Controller
                                 //DEBUT CHECK
 //===================================================================================
 
-    public function check_portef(Request $request)
-    {
-        // Validation de la requête
-            $request->validate([
-            'num_portefeuil' => 'required', // Assurez-vous que ce champ est requis
-            ]);
+public function check_portef(Request $request)
+{
+    // Validation de la requête
+    $request->validate([
+        'num_portefeuil' => 'required',
+        'Date_portefeuille' => 'required|date'
+    ]);
 
-        $year = date('Y'); // Récupérer l'année actuelle
-        $num=$request->num_portefeuil.$year;
-        $portefeuille = Portefeuille::where('num_portefeuil', $num)->first();
+    // Concatenation du numéro de portefeuille avec l'année
+    $num = $request->num_portefeuil;
 
-        if ($portefeuille) {
-            return response()->json([
-                'exists' => true,
-                'nom_journal' => $portefeuille->nom_journal,
-                'num_journal' => $portefeuille->num_journal,
-                'AE_portef' => $portefeuille->AE_portef,
-                'CP_portef' => $portefeuille->CP_portef,
-                'Date_portefeuille' => $portefeuille->Date_portefeuille,
-            ]);
-        }
+    // Vérification si le portefeuille existe dans la base de données
+    $portefeuille = Portefeuille::where('num_portefeuil', $num)->first();
 
-        return response()->json(['exists' => false]);
+    if ($portefeuille) {
+        return response()->json([
+            'exists' => true,
+            'nom_journal' => $portefeuille->nom_journal,
+            'num_journal' => $portefeuille->num_journal,
+            'AE_portef' => $portefeuille->AE_portef,
+            'CP_portef' => $portefeuille->CP_portef,
+            'Date_portefeuille' => $portefeuille->Date_portefeuille,
+        ]);
     }
+
+    return response()->json(['exists' => false]);
+}
+
 //===================================================================================
                                 //FIN CHECK
 //===================================================================================
@@ -75,12 +80,12 @@ class portfeuilleController extends Controller
             'CP_portef' => 'required',
             'Date_portefeuille' => 'required|date',
         ]);
-        $year = date('Y'); // Récupérer l'année actuelle
-        $num=$request->num_portefeuil.$year;
+
+
 
         // Créer un nouveau portefeuille
         $portefeuille = new Portefeuille();
-        $portefeuille->num_portefeuil = $num;
+        $portefeuille->num_portefeuil = $request->num_portefeuil;
         $portefeuille->nom_journal = $request->nom_journal;
         $portefeuille->num_journal = $request->num_journal;
         $portefeuille->AE_portef = $request->AE_portef;
