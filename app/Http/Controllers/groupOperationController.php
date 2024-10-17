@@ -78,8 +78,8 @@ foreach ($jsonData as $codeStr => $nom) {
         if ($code % 1000 == 0) {
             // Insertion dans la table groupoperation
             GroupOperation::updateOrCreate(
-                ['code_grp_operation' => $code.$s_act],
-                ['nom_grp_operation' => $nom, 'num_sous_action' => $s_act,
+                ['code_grp_operation' => $code.$request->id_sous_action],
+                ['nom_grp_operation' => $nom, 'num_sous_action' => $request->id_sous_action,
                  'date_insert_grp_operation' => $currentDateTime]
             );
         }
@@ -214,8 +214,8 @@ elseif ($T == 2) {
         if ($code % 1000 == 0) {
             // Insertion dans la table groupoperation
             GroupOperation::updateOrCreate(
-                ['code_grp_operation' => $code.$s_act],
-                ['nom_grp_operation' => $nom, 'num_sous_action' => $s_act, 'date_insert_grp_operation' => $currentDateTime]
+                ['code_grp_operation' => $code.$request->id_sous_action],
+                ['nom_grp_operation' => $nom, 'num_sous_action' => $request->id_sous_action, 'date_insert_grp_operation' => $currentDateTime]
             );
 
             // Vérifier la ligne suivante
@@ -433,8 +433,8 @@ foreach ($jsonData as $codeStr => $nom) {
           if ($code % 1000 == 0) {
               // Insertion dans la table groupoperation
               GroupOperation::updateOrCreate(
-                  ['code_grp_operation' => $code.$s_act],
-                  ['nom_grp_operation' => $nom, 'num_sous_action' => $s_act,
+                  ['code_grp_operation' => $code.$request->id_sous_action],
+                  ['nom_grp_operation' => $nom, 'num_sous_action' => $request->id_sous_action,
                   'date_insert_grp_operation' => $currentDateTime]
               );
           }
@@ -579,8 +579,8 @@ if (!$nom) {
    if ($code % 1000 == 0) {
        // Insertion dans la table groupoperation
        GroupOperation::updateOrCreate(
-           ['code_grp_operation' => $code.$s_act],
-           ['nom_grp_operation' => $nom, 'num_sous_action' => $s_act]
+           ['code_grp_operation' => $code.$request->id_sous_action],
+           ['nom_grp_operation' => $nom, 'num_sous_action' => $request->id_sous_action]
        );
    }
    // Vérifier si le code représente une opération
