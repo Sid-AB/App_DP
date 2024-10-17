@@ -147,6 +147,7 @@
 <script>
   var jsonpath="{{asset('assets/Titre/dataT1.json')}}"
   var path=new Array();
+  var path3=new Array();
 </script>
 <script src="{{asset('assets/bootstrap-5.0.2/js/bootstrap.js')}}"></script>
 <script src="{{asset('assets/fontawesome-free/js/all.js')}}"></script>

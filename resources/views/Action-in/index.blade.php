@@ -224,9 +224,9 @@
   var jsonpath3="{{asset('assets/Titre/dataT3.json')}}"
   var jsonpath4="{{asset('assets/Titre/dataT4.json')}}"
   @if(isset($s_act))
-  var path=['{{$port}}','{{$prog}}','{{$sous_prog}}','{{$act}}','{{$s_act}}']
+  var path3=['{{$port}}','{{$prog}}','{{$sous_prog}}','{{$act}}','{{$s_act}}']
   @else
-  var path=['{{$port}}','{{$prog}}','{{$sous_prog}}','{{$act}}']
+  var path3=['{{$port}}','{{$prog}}','{{$sous_prog}}','{{$act}}']
   @endif
 </script>
 </html>

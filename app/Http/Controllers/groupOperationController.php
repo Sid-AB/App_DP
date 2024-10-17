@@ -14,10 +14,11 @@ class groupOperationController extends Controller
 //===================================================================================
     public function insertDPA(Request $request,$port,$prog,$sous_prog,$act, $s_act,$T )
 {
-    $currentDateTime = Carbon::now();
-    $year = date('Y'); // Récupérer l'année actuelle
-    $sousaction=$s_act.$act.$sous_prog.$prog.$port.$year;
-//dd($sousaction);
+   $currentDateTime = Carbon::now();
+    //$year = date('Y'); // Récupérer l'année actuelle
+    //$sousaction=$s_act.$act.$sous_prog.$prog.$port.$year;
+//dd($currentDateTime);
+//dd($T);
 //===================================================================================
                             //insertion T1
 //===================================================================================
@@ -48,8 +49,10 @@ if($T==1)
         return response()->json(['error' => 'Le fichier JSON est introuvable.'], 404);
     }
 
-    // Boucle à travers les données JSON avec `foreach` car c'est un tableau associatif
-    foreach ($jsonData as $code => $nom) {
+   // Parcourir les éléments du fichier JSON
+foreach ($jsonData as $codeStr => $nom) {
+    // S'assurer que le code est une chaîne de caractères
+    $code = (string) $codeStr;
         $ae = $aeData[$code] ?? 0.00;
         $cp = $cpData[$code] ?? 0.00;
 
@@ -75,8 +78,9 @@ if($T==1)
         if ($code % 1000 == 0) {
             // Insertion dans la table groupoperation
             GroupOperation::updateOrCreate(
-                ['code_grp_operation' => $code.$s_act.$act.$sous_prog.$prog.$port.$year],
-                ['nom_grp_operation' => $nom, 'num_sous_action' => $sousaction, 'date_insert_grp_operation' => $currentDateTime]
+                ['code_grp_operation' => $code.$s_act],
+                ['nom_grp_operation' => $nom, 'num_sous_action' => $s_act,
+                 'date_insert_grp_operation' => $currentDateTime]
             );
         }
         // Vérifier si le code représente une opération
@@ -85,26 +89,43 @@ if($T==1)
 
             // Insertion dans la table operation
             Operation::updateOrCreate(
-                ['code_operation' => $code.$codeGp.$s_act.$act.$sous_prog.$prog.$port.$year],
-                ['code_grp_operation' => $codeGp.$s_act.$act.$sous_prog.$prog.$port.$year, 'nom_operation' => $nom,
+                ['code_operation' => $code.$codeGp.$s_act],
+                ['code_grp_operation' => $codeGp.$s_act, 'nom_operation' => $nom,
                  'date_insert_operation' => $currentDateTime]
             );
 
-            // Vérifier la ligne suivante
-            if (isset($jsonData[$code + 100])) {
-                $nextItem = $jsonData[$code + 100];
-                $nextCode = $nextItem['code'] ?? null;
+           // Vérifier la ligne suivante
+           $keys = array_keys($jsonData);
+           $currentIndex = array_search($codeStr, $keys); // Trouver l'index du code actuel
+
+           if ($currentIndex !== false && isset($keys[$currentIndex + 1])) {
+               $nextKey = $keys[$currentIndex + 1]; // Obtenir la clé suivante
+               $nextItem = $jsonData[$nextKey]; // Obtenir l'élément suivant par sa clé
+
+               // Récupérer le code correspondant au nom suivant
+               $nextCode = $nextKey; // La clé suivante est déjà le code
+
 
                 // Si la ligne suivante n'est pas une sous-opération
                 if ($nextCode && ($nextCode % 100 == 0 || $nextCode % 1000 == 0)) {
                     // Insérer dans sousoperation avec un code spécifique
                     sousoperation::updateOrCreate(
-                        ['code_sous_operation' => $code . '_extra'], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
-                        ['code_operation' => $code.$codeGp.$s_act.$act.$sous_prog.$prog.$port.$year, 'nom_sous_operation' => $nom,
-                         'AE_sous_operation' => floatval(str_replace(',', '', $ae)), 'CP_sous_operation' => floatval(str_replace(',', '', $cp))
+                        ['code_sous_operation' => $code.$codeGp.$s_act], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
+                        ['code_operation' => $code.$codeGp.$s_act, 'nom_sous_operation' => $nom,
+                         'AE_sous_operation' => floatval(str_replace(',', '', $ae)),
+                         'CP_sous_operation' => floatval(str_replace(',', '', $cp))
                          , 'date_insert_SOUSoperation' => $currentDateTime]
                     );
                 }
+            }else{
+                // Insérer dans sousoperation avec un code spécifique
+                sousoperation::updateOrCreate(
+                    ['code_sous_operation' => $code.$codeGp.$s_act], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
+                    ['code_operation' => $code.$codeGp.$s_act, 'nom_sous_operation' => $nom,
+                     'AE_sous_operation' => floatval(str_replace(',', '', $ae)),
+                     'CP_sous_operation' => floatval(str_replace(',', '', $cp))
+                     , 'date_insert_SOUSoperation' => $currentDateTime]
+                );
             }
         }
         // Sinon, il s'agit d'une sous-opération
@@ -113,8 +134,8 @@ if($T==1)
 
             // Insertion dans la table sousoperation
             sousoperation::updateOrCreate(
-                ['code_sous_operation' => $code.$codeOp.$codeGp.$s_act.$act.$sous_prog.$prog.$port.$year],
-                ['code_operation' => $codeOp.$codeGp.$s_act.$act.$sous_prog.$prog.$port.$year, 'nom_sous_operation' => $nom,
+                ['code_sous_operation' => $code.$codeOp.$codeGp.$s_act],
+                ['code_operation' => $codeOp.$codeGp.$s_act, 'nom_sous_operation' => $nom,
                  'AE_sous_operation' => floatval(str_replace(',', '', $ae)),
                   'CP_sous_operation' => floatval(str_replace(',', '', $cp))
                   , 'date_insert_SOUSoperation' => $currentDateTime]
@@ -124,11 +145,13 @@ if($T==1)
         }
     }
 
-    return response()->json([
+    /*return response()->json([
         'success' => true,
         'message' => 'Données insérées avec succès !',
         'code' => 200,
-    ]);
+    ]);*/
+    return redirect()->back();
+
 
 //===================================================================================
 //                            FIN insertion T1
@@ -137,41 +160,38 @@ if($T==1)
 //===================================================================================
                             //insertion T2
 //===================================================================================
-elseif($T==2)
-{
+elseif ($T == 2) {
     // Récupérer les données du formulaire
     $aeDataOuvert = $request->input('ae_ouvert');
     $cpDataOuvert = $request->input('cp_ouvert');
     $aeDataAttendu = $request->input('ae_attendu');
     $cpDataAttendu = $request->input('cp_attendu');
-    $currentDateTime = Carbon::now();
-     // Chemin vers le fichier JSON dans public/titre
-$jsonFilePath = public_path('assets/Titre/dataT2.json');
+    // $currentDateTime = Carbon::now();
 
-// Lire le contenu du fichier JSON
-if (file_exists($jsonFilePath)) {
-    $jsonData = json_decode(file_get_contents($jsonFilePath), true);
+    // Chemin vers le fichier JSON dans public/titre
+    $jsonFilePath = public_path('assets/Titre/dataT2.json');
 
-
-} else {
-    // Gérer le cas où le fichier n'existe pas
-    return response()->json(['error' => 'Le fichier JSON est introuvable T2.'], 404);
-}
-
+    // Lire le contenu du fichier JSON
+    if (file_exists($jsonFilePath)) {
+        $jsonData = json_decode(file_get_contents($jsonFilePath), true);
+    } else {
+        // Gérer le cas où le fichier n'existe pas
+        return response()->json(['error' => 'Le fichier JSON est introuvable T2.'], 404);
+    }
 
     if (json_last_error() !== JSON_ERROR_NONE) {
         return response()->json(['error' => 'Erreur lors du décodage du fichier JSON.'], 404);
     }
 
-    $numRows = count($jsonData);
-    for ($i = 0; $i < $numRows; $i++) {
-        $item = $jsonData[$i];
-       $code = $item['code']?? null;
-       $nom = $item['nom'] ?? '';
-       $ae_ouvert = $aeDataOuvert[$code] ?? 0.00;
-       $cp_ouvert = $cpDataOuvert[$code] ?? 0.00;
-       $ae_attendu = $aeDataAttendu[$code] ?? 0.00;
-       $cp_attendu = $cpDataAttendu[$code] ?? 0.00;
+    // Parcourir les éléments du fichier JSON
+    foreach ($jsonData as $codeStr => $nom) {
+        // S'assurer que le code est une chaîne de caractères
+        $code = (string) $codeStr;
+        $ae_ouvert = $aeDataOuvert[$code] ?? 0.00;
+        $cp_ouvert = $cpDataOuvert[$code] ?? 0.00;
+        $ae_attendu = $aeDataAttendu[$code] ?? 0.00;
+        $cp_attendu = $cpDataAttendu[$code] ?? 0.00;
+
         // Vérifier si le code est manquant
         if (!$code) {
             return response()->json([
@@ -179,8 +199,7 @@ if (file_exists($jsonFilePath)) {
                 'message' => 'Code manquant pour l\'élément avec nom : '.$nom,
                 'code' => 404,
             ]);
-
-          }
+        }
 
         // Vérifier si le nom est manquant
         if (!$nom) {
@@ -189,66 +208,159 @@ if (file_exists($jsonFilePath)) {
                 'message' => 'Nom manquant pour l\'élément avec code : '.$code,
                 'code' => 404,
             ]);
-
         }
-       // Vérifier si le code représente un groupe d'opérations
-       if ($code % 1000 == 0) {
 
-           // Insertion dans la table groupoperation
-           GroupOperation::updateOrCreate(
-               ['code_grp_operation' => $code],
-               ['nom_grp_operation' => $nom, 'num_sous_action' => $sousaction, 'date_insert_grp_operation' => $currentDateTime]
-           );
-       }
-       // Vérifier si le code représente une opération
-       elseif ($code % 100 == 0) {
-           $codeGp = floor($code / 1000) * 1000;
+        // Vérifier si le code représente un groupe d'opérations
+        if ($code % 1000 == 0) {
+            // Insertion dans la table groupoperation
+            GroupOperation::updateOrCreate(
+                ['code_grp_operation' => $code.$s_act],
+                ['nom_grp_operation' => $nom, 'num_sous_action' => $s_act, 'date_insert_grp_operation' => $currentDateTime]
+            );
 
-           // Insertion dans la table operation
-           Operation::updateOrCreate(
-               ['code_operation' => $code],
-               ['code_grp_operation' => $codeGp, 'nom_operation' => $nom, 'date_insert_operation' => $currentDateTime]
-           );
+            // Vérifier la ligne suivante
+            $keys = array_keys($jsonData);
+            $currentIndex = array_search($codeStr, $keys); // Trouver l'index du code actuel
 
-                         // Vérifier la ligne suivante
-                         $nextItem = $jsonData[$i + 1];
-                         $nextCode = $nextItem['code'] ?? null;
+            if ($currentIndex !== false && isset($keys[$currentIndex + 1])) {
+                $nextKey = $keys[$currentIndex + 1]; // Obtenir la clé suivante
+                $nextItem = $jsonData[$nextKey]; // Obtenir l'élément suivant par sa clé
 
-                         // Si la ligne suivante n'est pas une sous-opération
-                         if ($nextCode && ($nextCode % 100 == 0 || $nextCode % 1000 == 0)) {
-                             // Insérer dans sousoperation avec un code spécifique
-                             sousoperation::updateOrCreate(
-                                 ['code_sous_operation' => $code . '_extra'], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
-                                 ['code_operation' => $code, 'nom_sous_operation' => $nom,
-                                  'AE_operation' => ($ae_attendu+$ae_ouvert),
-                                    'CP_operation' => ($cp_attendu+$cp_ouvert),  'AE_atendu' => $ae_attendu,  'AE_ouvert' => $ae_ouvert,
-                                    'CP_ouvert' => $cp_ouvert,'CP_ouvert' => $cp_ouvert, 'date_insert_SOUSoperation' => $currentDateTime]
-                             );
-                         }
-       }
-       // Sinon, il s'agit d'une sous-opération
-       else {
-           $codeOp = floor($code / 100) * 100;
+                // Récupérer le code correspondant au nom suivant
+                $nextCode = $nextKey; // La clé suivante est déjà le code
 
-           // Insertion dans la table sousoperation
-           sousoperation::updateOrCreate(
-               ['code_sous_operation' => $code],
-               ['code_operation' => $codeOp, 'nom_sous_operation' => $nom,'AE_sous_operation' => ($ae_attendu+$ae_ouvert),
-               'CP_sous_operation' => ($cp_attendu+$cp_ouvert),  'AE_atendu' => $ae_attendu,  'AE_ouvert' => $ae_ouvert,
-                'CP_ouvert' => $cp_ouvert,'CP_ouvert' => $cp_ouvert, 'date_insert_SOUSoperation' => $currentDateTime]
-           );
-       }
-   }
-   return response()->json([
-    'success' => true,
-    'message' => 'Données insérées avec succès !',
-    'code' => 200,
-]);
+                // Si la ligne suivante n'est pas une sous-opération
+                if ($nextCode && $nextCode % 1000 == 0) {
+                   // dd($nextCode, $ae_attendu, $cp_attendu);
+                    // Insérer dans sousoperation avec un code spécifique
+                    sousoperation::updateOrCreate(
+                        ['code_sous_operation' => $code.$s_act], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
+                        [
+                            'code_operation' =>  $code.$s_act,
+                            'nom_sous_operation' => $nom,
+                            'AE_sous_operation' => floatval(str_replace(',', '', $ae_attendu)) + floatval(str_replace(',', '', $ae_ouvert)),
+                            'CP_sous_operation' => floatval(str_replace(',', '', $cp_attendu)) + floatval(str_replace(',', '', $cp_ouvert)),
+                            'AE_atendu' => floatval(str_replace(',', '', $ae_attendu)),
+                            'AE_ouvert' => floatval(str_replace(',', '', $ae_ouvert)),
+                            'CP_ouvert' => floatval(str_replace(',', '', $cp_ouvert)),
+                            'CP_atendu' => floatval(str_replace(',', '', $cp_attendu)),
+                            'date_insert_SOUSoperation' => $currentDateTime
+                        ]
+                    );
+                }
+            }else{
+                // Insérer dans sousoperation avec un code spécifique
+                sousoperation::updateOrCreate(
+                    ['code_sous_operation' => $code.$s_act], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
+                    [
+                        'code_operation' =>  $code.$s_act,
+                        'nom_sous_operation' => $nom,
+                        'AE_sous_operation' => floatval(str_replace(',', '', $ae_attendu)) + floatval(str_replace(',', '', $ae_ouvert)),
+                        'CP_sous_operation' => floatval(str_replace(',', '', $cp_attendu)) + floatval(str_replace(',', '', $cp_ouvert)),
+                        'AE_atendu' => floatval(str_replace(',', '', $ae_attendu)),
+                        'AE_ouvert' => floatval(str_replace(',', '', $ae_ouvert)),
+                        'CP_ouvert' => floatval(str_replace(',', '', $cp_ouvert)),
+                        'CP_atendu' => floatval(str_replace(',', '', $cp_attendu)),
+                        'date_insert_SOUSoperation' => $currentDateTime
+                    ]
+                );
+            }
 
-//===================================================================================
-                            //FIN insertion T2
-//===================================================================================
+
+        // Vérifier si le code représente une opération
+        }elseif ($code % 100 == 0) {
+            $codeGp = floor($code / 1000) * 1000;
+
+            // Insertion dans la table operation
+            Operation::updateOrCreate(
+                ['code_operation' => $code.$codeGp.$s_act],
+                ['code_grp_operation' =>  $codeGp.$s_act, 'nom_operation' => $nom,
+                 'date_insert_operation' => $currentDateTime]
+            );
+
+            // Vérifier la ligne suivante
+            $keys = array_keys($jsonData);
+            $currentIndex = array_search($codeStr, $keys); // Trouver l'index du code actuel
+
+            if ($currentIndex !== false && isset($keys[$currentIndex + 1])) {
+                $nextKey = $keys[$currentIndex + 1]; // Obtenir la clé suivante
+                $nextItem = $jsonData[$nextKey]; // Obtenir l'élément suivant par sa clé
+
+                // Récupérer le code correspondant au nom suivant
+                $nextCode = $nextKey; // La clé suivante est déjà le code
+
+                // Si la ligne suivante n'est pas une sous-opération
+                if ($nextCode && ($nextCode % 100 == 0 || $nextCode % 1000 == 0)) {
+                   // dd($nextCode, $ae_attendu, $cp_attendu);
+                    // Insérer dans sousoperation avec un code spécifique
+                    sousoperation::updateOrCreate(
+                        ['code_sous_operation' => $code.$codeGp.$s_act], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
+                        [
+                            'code_operation' =>  $code.$codeGp.$s_act,
+                            'nom_sous_operation' => $nom,
+                            'AE_sous_operation' => floatval(str_replace(',', '', $ae_attendu)) + floatval(str_replace(',', '', $ae_ouvert)),
+                            'CP_sous_operation' => floatval(str_replace(',', '', $cp_attendu)) + floatval(str_replace(',', '', $cp_ouvert)),
+                            'AE_atendu' => floatval(str_replace(',', '', $ae_attendu)),
+                            'AE_ouvert' => floatval(str_replace(',', '', $ae_ouvert)),
+                            'CP_ouvert' => floatval(str_replace(',', '', $cp_ouvert)),
+                            'CP_atendu' => floatval(str_replace(',', '', $cp_attendu)),
+                            'date_insert_SOUSoperation' => $currentDateTime
+                        ]
+                    );
+                }
+            }else{
+                // Insérer dans sousoperation avec un code spécifique
+                sousoperation::updateOrCreate(
+                    ['code_sous_operation' => $code.$codeGp.$s_act], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
+                    [
+                        'code_operation' =>  $code.$codeGp.$s_act,
+                        'nom_sous_operation' => $nom,
+                        'AE_sous_operation' => floatval(str_replace(',', '', $ae_attendu)) + floatval(str_replace(',', '', $ae_ouvert)),
+                        'CP_sous_operation' => floatval(str_replace(',', '', $cp_attendu)) + floatval(str_replace(',', '', $cp_ouvert)),
+                        'AE_atendu' => floatval(str_replace(',', '', $ae_attendu)),
+                        'AE_ouvert' => floatval(str_replace(',', '', $ae_ouvert)),
+                        'CP_ouvert' => floatval(str_replace(',', '', $cp_ouvert)),
+                        'CP_atendu' => floatval(str_replace(',', '', $cp_attendu)),
+                        'date_insert_SOUSoperation' => $currentDateTime
+                    ]
+                );
+            }
+
+        // Sinon, il s'agit d'une sous-opération
+        }else {
+            $codeOp = floor($code / 100) * 100;
+
+            // Insertion dans la table sousoperation
+            sousoperation::updateOrCreate(
+                ['code_sous_operation' => $code.$codeOp.$codeGp.$s_act],
+                [
+                    'code_operation' =>  $code.$codeGp.$s_act,
+                    'nom_sous_operation' => $nom,
+                    'AE_sous_operation' => floatval(str_replace(',', '', $ae_attendu)) + floatval(str_replace(',', '', $ae_ouvert)),
+                    'CP_sous_operation' => floatval(str_replace(',', '', $cp_attendu)) + floatval(str_replace(',', '', $cp_ouvert)),
+                    'AE_atendu' => floatval(str_replace(',', '', $ae_attendu)),
+                    'AE_ouvert' => floatval(str_replace(',', '', $ae_ouvert)),
+                    'CP_ouvert' => floatval(str_replace(',', '', $cp_ouvert)),
+                    'CP_atendu' => floatval(str_replace(',', '', $cp_attendu)),
+                    'date_insert_SOUSoperation' => $currentDateTime
+                ]
+            );
+        }
+    } // fin boucle
+
+    dd($request);
+    return response()->json([
+        'success' => true,
+        'message' => 'Données insérées avec succès !',
+        'code' => 200,
+    ]);
+    return redirect()->back();
+
+    //===================================================================================
+    // FIN insertion T2
+    //===================================================================================
 }
+
 //===================================================================================
                             // insertion T3
 //===================================================================================
@@ -279,12 +391,15 @@ elseif ($T==3) {
           return response()->json(['error' => 'Erreur lors du décodage du fichier JSON.'], 404);
       }
 
-      $numRows = count($jsonData);
+    /*  $numRows = count($jsonData);
       for ($i = 0; $i < $numRows; $i++) {
           $item = $jsonData[$i];
           $code = $item['code']?? null;
-          $nom = $item['nom'] ?? '';
-
+          $nom = $item['nom'] ?? '';*/
+       // Parcourir les éléments du fichier JSON
+foreach ($jsonData as $codeStr => $nom) {
+    // S'assurer que le code est une chaîne de caractères
+    $code = (string) $codeStr;
 
           $ae_reporte = $aeDataReporte[$code] ?? 0.00;
           $ae_notifie = $aeDataNotifie[$code] ?? 0.00;
@@ -318,8 +433,9 @@ elseif ($T==3) {
           if ($code % 1000 == 0) {
               // Insertion dans la table groupoperation
               GroupOperation::updateOrCreate(
-                  ['code_grp_operation' => $code],
-                  ['nom_grp_operation' => $nom, 'num_sous_action' => $sousaction]
+                  ['code_grp_operation' => $code.$s_act],
+                  ['nom_grp_operation' => $nom, 'num_sous_action' => $s_act,
+                  'date_insert_grp_operation' => $currentDateTime]
               );
           }
 
@@ -329,26 +445,64 @@ elseif ($T==3) {
 
               // Insertion dans la table operation
               Operation::updateOrCreate(
-                  ['code_operation' => $code],
-                  ['code_grp_operation' => $codeGp, 'nom_operation' => $nom]
+                  ['code_operation' => $code.$codeGp.$s_act],
+                  ['code_grp_operation' => $codeGp.$s_act, 'nom_operation' => $nom,
+                  'date_insert_operation' => $currentDateTime]
               );
 
-               // Vérifier la ligne suivante
+               /*// Vérifier la ligne suivante
                $nextItem = $jsonData[$i + 1];
-               $nextCode = $nextItem['code'] ?? null;
+               $nextCode = $nextItem['code'] ?? null;*/
+             // Vérifier la ligne suivante
+             $keys = array_keys($jsonData);
+             $currentIndex = array_search($codeStr, $keys); // Trouver l'index du code actuel
 
-              // Si la ligne suivante n'est pas une sous-opération
-              if ($nextCode && ($nextCode % 100 == 0 || $nextCode % 1000 == 0)) {
-                // Insérer dans sousoperation avec un code spécifique
-                sousoperation::updateOrCreate(
-                    ['code_sous_operation' => $code . '_extra'], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
-                    ['code_operation' => $code, 'nom_sous_operation' => $nom, 'AE_operation' => ($ae_reporte+$ae_notifie+$ae_engage),
-                    'CP_operation' => ($cp_reporte+$cp_notifie+$cp_consome),  'AE_reporte' => $ae_reporte,
-                    'AE_notifie' => $ae_notifie,'AE_engage' => $ae_engage,'CP_reporte' => $cp_reporte,
-                    'CP_notifie' => $cp_notifie,'CP_consome' => $cp_consome]
-                );
-            }
+             if ($currentIndex !== false && isset($keys[$currentIndex + 1])) {
+                 $nextKey = $keys[$currentIndex + 1]; // Obtenir la clé suivante
+                 $nextItem = $jsonData[$nextKey]; // Obtenir l'élément suivant par sa clé
+
+                 // Récupérer le code correspondant au nom suivant
+                 $nextCode = $nextKey; // La clé suivante est déjà le code
+
+                    // Si la ligne suivante n'est pas une sous-opération
+                    if ($nextCode && ($nextCode % 100 == 0 || $nextCode % 1000 == 0)) {
+                      // Insérer dans sousoperation avec un code spécifique
+                      sousoperation::updateOrCreate(
+                          ['code_sous_operation' =>$code.$codeGp.$s_act], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
+                          ['code_operation' =>$code.$codeGp.$s_act,
+                          'nom_sous_operation' => $nom,
+                          'AE_sous_operation' => ($ae_reporte+$ae_notifie+$ae_engage),
+                          'CP_sous_operation' => floatval(str_replace(',', '', $cp_reporte))
+                                            +floatval(str_replace(',', '', $cp_notifie))
+                                            +floatval(str_replace(',', '', $cp_consome)),
+                          'AE_reporte' => $ae_reporte,
+                          'AE_notifie' => $ae_notifie,'AE_engage' => $ae_engage,
+                          'CP_reporte' => floatval(str_replace(',', '', $cp_reporte)),
+                          'CP_notifie' =>floatval(str_replace(',', '', $cp_notifie)),
+                          'CP_consome' => floatval(str_replace(',', '', $cp_consome))
+                          , 'date_insert_SOUSoperation' => $currentDateTime]
+                      );
+                    }
+
+          }else{
+            // Insérer dans sousoperation avec un code spécifique
+            sousoperation::updateOrCreate(
+                ['code_sous_operation' =>$code.$codeGp.$s_act], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
+                ['code_operation' =>$code.$codeGp.$s_act,
+                'nom_sous_operation' => $nom,
+                'AE_sous_operation' => ($ae_reporte+$ae_notifie+$ae_engage),
+                'CP_sous_operation' => floatval(str_replace(',', '', $cp_reporte))
+                                  +floatval(str_replace(',', '', $cp_notifie))
+                                  +floatval(str_replace(',', '', $cp_consome)),
+                'AE_reporte' => $ae_reporte,
+                'AE_notifie' => $ae_notifie,'AE_engage' => $ae_engage,
+                'CP_reporte' => floatval(str_replace(',', '', $cp_reporte)),
+                'CP_notifie' =>floatval(str_replace(',', '', $cp_notifie)),
+                'CP_consome' => floatval(str_replace(',', '', $cp_consome))
+                , 'date_insert_SOUSoperation' => $currentDateTime]
+            );
           }
+        }
 
       }
 
@@ -388,11 +542,16 @@ $cpData = $request->input('cp');
           return response()->json(['error' => 'Erreur lors du décodage du fichier JSON.'], 404);
       }
 
-      $numRows = count($jsonData);
+      /*$numRows = count($jsonData);
       for ($i = 0; $i < $numRows; $i++) {
           $item = $jsonData[$i];
    $code = $item['code']?? null;
    $nom = $item['nom'] ?? '';
+   */
+  // Parcourir les éléments du fichier JSON
+foreach ($jsonData as $codeStr => $nom) {
+    // S'assurer que le code est une chaîne de caractères
+    $code = (string) $codeStr;
    $ae = $aeData[$code] ?? 0.00;
    $cp = $cpData[$code] ?? 0.00;
 
@@ -420,7 +579,7 @@ if (!$nom) {
    if ($code % 1000 == 0) {
        // Insertion dans la table groupoperation
        GroupOperation::updateOrCreate(
-           ['code_grp_operation' => $code],
+           ['code_grp_operation' => $code.$s_act],
            ['nom_grp_operation' => $nom, 'num_sous_action' => $s_act]
        );
    }
@@ -430,8 +589,10 @@ if (!$nom) {
 
        // Insertion dans la table operation
        Operation::updateOrCreate(
-           ['code_operation' => $code],
-           ['code_grp_operation' => $codeGp, 'nom_operation' => $nom, 'AE_operation' => $ae, 'CP_operation' => $cp]
+           ['code_operation' => $code.$codeGp.$s_act],
+           ['code_grp_operation' =>  $codeGp.$s_act, 'nom_operation' => $nom,
+           'AE_operation' => $ae, 'CP_operation' => floatval(str_replace(',', '',  $cp)),
+           'date_insert_operation' => $currentDateTime]
        );
    }
    // Sinon, il s'agit d'une sous-opération
@@ -440,23 +601,47 @@ if (!$nom) {
 
        // Insertion dans la table sousoperation
        sousoperation::updateOrCreate(
-           ['code_sous_operation' => $code],
-           ['code_operation' => $codeOp, 'nom_sous_operation' => $nom]
+           ['code_sous_operation' => $code.$codeGp.$s_act],
+           ['code_operation' => $code.$codeGp.$s_act, 'nom_sous_operation' => $nom
+           , 'date_insert_SOUSoperation' => $currentDateTime]
        );
 
-        // Vérifier la ligne suivante
+       /* // Vérifier la ligne suivante
         $nextItem = $jsonData[$i + 1];
-        $nextCode = $nextItem['code'] ?? null;
+        $nextCode = $nextItem['code'] ?? null;*/
+        // Vérifier la ligne suivante
+        // Vérifier la ligne suivante
+        $keys = array_keys($jsonData);
+        $currentIndex = array_search($codeStr, $keys); // Trouver l'index du code actuel
+
+        if ($currentIndex !== false && isset($keys[$currentIndex + 1])) {
+            $nextKey = $keys[$currentIndex + 1]; // Obtenir la clé suivante
+            $nextItem = $jsonData[$nextKey]; // Obtenir l'élément suivant par sa clé
+
+            // Récupérer le code correspondant au nom suivant
+            $nextCode = $nextKey; // La clé suivante est déjà le code
 
         // Si la ligne suivante n'est pas une sous-opération
         if ($nextCode && ($nextCode % 100 == 0 || $nextCode % 1000 == 0)) {
             // Insérer dans sousoperation avec un code spécifique
             sousoperation::updateOrCreate(
-                ['code_sous_operation' => $code . '_extra'], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
-                ['code_operation' => $code, 'nom_sous_operation' => $nom, 'AE_sous_operation' => $ae, 'CP_sous_operation' => $cp]
+                ['code_sous_operation' =>  $code.$codeOp.$codeGp.$s_act], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
+                ['code_operation' => $codeOp.$codeGp.$s_act, 'nom_sous_operation' => $nom,
+                'AE_sous_operation' => $ae,
+                'CP_sous_operation' =>floatval(str_replace(',', '',  $cp))
+                , 'date_insert_SOUSoperation' => $currentDateTime]
             );
         }
+   }else{
+    sousoperation::updateOrCreate(
+        ['code_sous_operation' =>  $code.$codeOp.$codeGp.$s_act], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
+        ['code_operation' => $codeOp.$codeGp.$s_act, 'nom_sous_operation' => $nom,
+        'AE_sous_operation' => $ae,
+        'CP_sous_operation' =>floatval(str_replace(',', '',  $cp))
+        , 'date_insert_SOUSoperation' => $currentDateTime]
+    );
    }
+}
 }
 return response()->json([
     'success' => true,
