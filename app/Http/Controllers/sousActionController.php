@@ -55,29 +55,12 @@ public function check_action(Request $request)
                         // creation sous action
 //===================================================================================
 function create_sousaction(Request $request)
-{//dd($request);
-    // Validation des données
-    $request->validate([
-        'num_sous_action' => 'required',
-        'nom_sous_action' => 'required',
-        'date_insert_sous_action' => 'required|date',
-    ]);
-
-    $year = date('Y'); // Récupérer l'année actuelle
-   $num= intval($request->num_act).intval($request->id_sous_prog).intval($request->id_prog).intval($request->id_porte).$year;
-
+{   //dd($request);
  // Récupérer la ligne de la table en fonction de 'numsouaction'
- $sousAction = SousAction::where('num_sous_action', $num)->first(); // Utilisation de 'numsouaction' pour trouver l'élément
+ $sousAction = SousAction::where('num_sous_action', $request->num_act)->first(); // Utilisation de 'numsouaction' pour trouver l'élément
  if ($sousAction) {
     // Concaténation des valeurs pour num_sous_action
-
-    $sousAction->num_sous_action = $request->num_sous_action
-        . $request->num_act
-        . $request->id_sous_prog
-        . $request->id_prog
-        . $request->id_porte
-        . $year;
-
+    $sousAction->num_sous_action = $request->num_sous_action;
     // Mise à jour des autres champs
     $sousAction->nom_sous_action = $request->nom_sous_action;
     $sousAction->date_insert_sous_action = $request->date_insert_sous_action;

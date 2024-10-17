@@ -29,6 +29,8 @@ return view('test.carsoule');
 
         return view('Action-in.index',compact('port','prog','sous_prog','act'));
         });
+
+        //affiche les portes
        Route::get('/testing/S_action/{port}/{prog}/{sous_prog}/{act}/{s_act}/',function ($port,$prog,$sous_prog,$act,$s_act){
 
 
@@ -76,7 +78,7 @@ Route::controller(sousActionController::class)->group(function(){
 
 //===============ROUTE GROUPE D'OPERATIONS==============================
 Route::controller(groupOperationController::class)->group(function(){
-    Route::post('/testing/Action/{port}/{prog}/{sous_prog}/{act}/{s_act}/{T}', 'insertDPA');
+    Route::get('/testing/S_action/{port}/{prog}/{sous_prog}/{act}/{s_act}/{T}', 'insertDPA');
 
 });
 

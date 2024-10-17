@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('operations', function (Blueprint $table) {
-            $table->unsignedBigInteger('code_operation')->primary();
+            $table->string('code_operation')->primary();
             $table->string('nom_operation');
             $table->string('nom_operation_ar')->nullable();
 
@@ -23,7 +23,7 @@ return new class extends Migration
 
 
 
-            $table->unsignedBigInteger('code_grp_operation');
+            $table->string('code_grp_operation');
             $table->foreign('code_grp_operation')->references('code_grp_operation')->on('group_operations');
 
         });

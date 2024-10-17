@@ -22,7 +22,7 @@ return new class extends Migration
             $table->foreign('id_rff')->references('id_rff')->on('r_f_f_s');
 
 
-            $table->unsignedBigInteger('num_action');
+            $table->string('num_action');
             $table->foreign('num_action')->references('num_action')->on('actions');
 
         });

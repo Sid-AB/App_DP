@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('sous_actions', function (Blueprint $table) {
-            $table->unsignedBigInteger('num_sous_action')->primary();
+            $table->string('num_sous_action')->primary();
             $table->string('nom_sous_action');
             $table->string('nom_sous_action_ar')->nullable();
           /*  $table->float('AE_sous_action');
@@ -22,7 +22,7 @@ return new class extends Migration
             $table->DateTime('date_update_sous_action')->nullable();
 
 
-            $table->unsignedBigInteger('num_action');
+            $table->string('num_action');
             $table->foreign('num_action')->references('num_action')->on('actions');
 
 

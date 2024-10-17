@@ -64,26 +64,11 @@ public function check_action(Request $request)
             'date_insert_action' => 'required|date',
         ]);
 
-       // Vérifier si le SousProgramme existe déjà en fonction du numéro et des dates
-       $year = date('Y'); // Récupérer l'année actuelle
-       $num= intval($request->num_action).intval($request->id_sous_prog).intval($request->id_prog).intval($request->id_porte).$year;
-        $existing = Action::where('num_action', $num)
-                             ->whereNotNull('date_insert_action')
-                             ->exists(); // Vérifie s'il y a un enregistrement existant
 
-        if ($existing) {
-            return response()->json([
-                'success' => false,
-                'message' => 'L\'action avec ce numéro existe déjà.',
-                'code' => 302, // Utiliser un code 302 pour redirection (redirection implicite)
-                'data' => $existing, // Inclure les données du portefeuille existant
-            ]);
-        }
-//dd('num=', $num);
         // Créer une nouvelle action et sous action
         $action = new Action();
-        $action->num_action =$num;
-        $action->num_sous_prog = intval($request->id_sous_prog).intval($request->id_prog).intval($request->id_porte).$year;
+        $action->num_action =$request->num_action;
+        $action->num_sous_prog = $request->id_sous_prog;
         $action->nom_action = $request->nom_action;
         $action->id_ra = 1;//periodiquement
         $action->date_insert_action = $request->date_insert_action;
@@ -92,8 +77,8 @@ public function check_action(Request $request)
 
         // Copie dans sousaction
         $sousaction=SousAction::create([
-            'num_sous_action' => $num,  // égal à numaction
-            'num_action' => $num,
+            'num_sous_action' => $request->num_action,  // égal à numaction
+            'num_action' => $request->num_action,
             'nom_sous_action' => $request->nom_action,
             'date_insert_sous_action' => $request->date_insert_action,      // clé étrangère
         ]);

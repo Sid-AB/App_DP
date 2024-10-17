@@ -20,7 +20,7 @@ return new class extends Migration
             $table->float('AE_dpia_nv')->nullable();
             $table->float('CP_dpia_nv')->nullable();
 
-<<<<<<< HEAD
+
             
             $table->float('AE_ouvert_dpia')->nullable();
             $table->float('AE_atendu_dpia')->nullable();
@@ -36,11 +36,8 @@ return new class extends Migration
             $table->float('CP_consome_dpia')->nullable();
 
             
-            $table->bigInteger('code_sous_operation')->nullable();
-=======
-
-            $table->unsignedBigInteger('code_sous_operation');
->>>>>>> 14476adda16ddf772b6e5a455aea596d3d396444
+         
+            $table->string('code_sous_operation');
             $table->foreign('code_sous_operation')->references('code_sous_operation')->on('sous_operations');
 
 
