@@ -916,6 +916,8 @@ $("#add-prg").on('click', function () {
  */
 
 function T1_table(id, T) {
+    var current =new Array();
+    var preve = new Array();
     console.log('T is'+ T)
     $('#Tport-handle').addClass('scale-out');
     setTimeout(() => {
@@ -934,16 +936,40 @@ function T1_table(id, T) {
     $.getJSON(jsonpath1, function (data) {
         // Loop through each item in the JSON data
         $.each(data, function (key, value) {
-            // Create a table row
-            let row = '<tr>' +
-                '<td class="code">' + key + '</td>' +
+            // Create a table row 
+            let row = '<tr id="ref'+key+'">' +
+                '<td class="code" >' + key + '</td>' +
                 '<td>' + value + ' </td>' +
                 '<td class="editable" id="AE_T1">' + 0 + '</td>' +
                 '<td class="editable" id="CP_T1">' + 180 + ',000</td>' +
                 '</tr>';
 
             // Append the row to the table body
+           
             $('#T-tables tbody').append(row);
+            
+            if(current.length == 0)
+            {
+                current = key;
+                preve = current;
+            }
+            else
+            {
+                if(current.split("0")[0].length > preve.split("0")[0].length)
+                {
+                    console.log('testing editable'+key)
+                    $('#ref'+preve+' td').each(function(){
+                        $(this).removeClass('editable')
+                    })
+                    preve = current;
+                }
+                else
+                {
+                    console.log('testing '+key)
+                    preve = current;
+                }
+                current = key;
+            }
             Edit(id, T)
         });
     }).fail(function () {
@@ -951,6 +977,8 @@ function T1_table(id, T) {
     });
 }
 function T2_table(id, T) {
+    var current =new Array();
+    var preve = new Array();
     $('#Tport-handle').addClass('scale-out');
     setTimeout(() => {
         // Add the class to hide the table
@@ -994,7 +1022,7 @@ function T2_table(id, T) {
         // Loop through each item in the JSON data
         $.each(data, function (key, value) {
             // Create a table row
-            let row = '<tr>' +
+            let row = '<tr id="ref'+key+'">' +
                 '<td class="code">' + key + '</td>' +
                 '<td>' + value + ' </td>' +
                 '<td class="editable" id="AE_Over">' + 0 + '</td>' +
@@ -1007,6 +1035,30 @@ function T2_table(id, T) {
 
             // Append the row to the table body
             $('#T-tables tbody').append(row);
+
+            if(current.length == 0)
+            {
+                current = key;
+                preve = current;
+            }
+            else
+            {
+                if(current.split("0")[0].length > preve.split("0")[0].length)
+                {
+                    console.log('testing '+key)
+                    $('#ref'+preve+' td').each(function(){
+                        $(this).removeClass('editable')
+                    })
+                    preve = current;
+                }
+                else
+                {
+                    
+                    console.log('testing editable'+key)
+                    preve = current;
+                }
+                current = key;
+            }
             Edit(id, T)
 
         });
@@ -1015,6 +1067,8 @@ function T2_table(id, T) {
     });
 }
 function T3_table(id, T) {
+    var current =new Array();
+    var preve = new Array();
     console.log('data is')
     $('#Tport-handle').addClass('scale-out');
     setTimeout(() => {
@@ -1043,8 +1097,8 @@ function T3_table(id, T) {
         $.each(data, function (key, value) {
             // Create a table row
             var val = value.split('-')
-            console.log('values' + JSON.stringify(val))
-            let row = '<tr>' +
+         //   console.log('values' + JSON.stringify(val))
+            let row = '<tr id="ref'+key+'">' +
                 '<td class="code">' + key + '</td>' +
                 '<td>' + val[0] + ' </td>' +
                 '<td>' + val[1] + '</td>' +
@@ -1054,6 +1108,30 @@ function T3_table(id, T) {
 
             // Append the row to the table body
             $('#T-tables tbody').append(row);
+
+            if(current.length == 0)
+            {
+                current = key;
+                preve = current;
+            }
+            else
+            {
+                if(current.split("0")[0].length > preve.split("0")[0].length)
+                {
+                    console.log('testing '+key)
+                    $('#ref'+preve+' td').each(function(){
+                        $(this).removeClass('editable')
+                    })
+                    preve = current;
+                }
+                else
+                {
+                    
+                    console.log('testing editable'+key)
+                    preve = current;
+                }
+                current = key;
+            }
             Edit(id, T)
         });
     }).fail(function () {

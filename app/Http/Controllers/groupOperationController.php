@@ -19,7 +19,7 @@ class groupOperationController extends Controller
     //$sousaction=$s_act.$act.$sous_prog.$prog.$port.$year;
 //dd($currentDateTime);
 //dd($T);
-dd($request);
+//dd($request);
 //===================================================================================
                             //insertion T1
 //===================================================================================
