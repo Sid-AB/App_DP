@@ -1105,3 +1105,12 @@ transition-timing-function: line;
 
 
 /** ====================== End table Template*/
+
+/***-------------------- this for the button new ops ---------------------*/
+
+#add_op svg:hover 
+{
+  cursor: pointer;
+  scale: 0.9;
+}
+/**---------------------- end new ops -----------------------------------*/

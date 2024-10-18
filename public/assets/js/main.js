@@ -85,6 +85,55 @@
 var click = 0;
 var changing_mist = new Object();
 var value_chng = new Array()
+
+/**
+ * 
+ * this function for adding button et makalah -_- ;
+ */
+function add_newOPs_T1(id,descr,value)
+{
+    var row='';
+    $('#ref'+id).append()
+}
+function add_newOPs_T2(id,descr,value,key)
+{   
+    var some=value+value;
+    var row='<tr id="ref'+id+'">' +
+    '<td class="code">' + id + '</td>' +
+    '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"> <p>' + descr + '</p> </td>' +
+    '<td class="editable" id="AE_Over">' + value + '</td>' +
+    '<td class="editable" id="CP_Over">' + 180 + ',000</td>' +
+    '<td class="editable" id="AE_att">' + value + '</td>' +
+    '<td class="editable" id="CP_att">' + 180 + ',000</td>' +
+    '<td class="editable" id="AE_TT">' + some + '</td>' +
+    '<td class="editable" id="CP_TT">' + 360 + ',000</td>' +
+    '</tr>';
+    $('#ref'+key).after(row);
+    $('#ref'+key+' td').each(function(){
+    $(this).removeClass('editable');
+    })
+}
+function add_newOPs_T3(id,descr,value,key,)
+{
+  var row='<tr id="ref'+id+'">' +
+    '<td class="code">' + id + '</td>' +
+    '<td><p>' + descr + '</p> </td>' +
+    '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + descr + '</p></td>' +
+    '<td class="editable">' + value + '</td>' +
+    '<td class="editable">' + 180 + ',000</td>' +
+    '</tr>';
+    $('#ref'+key).after(row);
+    $('#ref'+key+' td').each(function(){
+    $(this).removeClass('editable');
+    })
+    
+  
+}
+/**
+ *  
+ * the end 
+ * 
+ */
 function Edit(tid, T) {
     $(document).ready(function () {
         var old;
@@ -918,6 +967,7 @@ $("#add-prg").on('click', function () {
 function T1_table(id, T) {
     var current =new Array();
     var preve = new Array();
+    var newbtn='<i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i>'
     console.log('T is'+ T)
     $('#Tport-handle').addClass('scale-out');
     setTimeout(() => {
@@ -939,7 +989,7 @@ function T1_table(id, T) {
             // Create a table row 
             let row = '<tr id="ref'+key+'">' +
                 '<td class="code" >' + key + '</td>' +
-                '<td>' + value + ' </td>' +
+                '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
                 '<td class="editable" id="AE_T1">' + 0 + '</td>' +
                 '<td class="editable" id="CP_T1">' + 180 + ',000</td>' +
                 '</tr>';
@@ -966,6 +1016,15 @@ function T1_table(id, T) {
                 else
                 {
                     console.log('testing '+key)
+                    if($('#ref'+key+' td').hasClass("editable"))
+                    {
+                    $('#ref'+key+' #add_op').append(newbtn)
+                    $('#ref'+key+' #add_op').on('click',function()
+                    {
+                        var ads=key+'1';
+                        add_newOPs_T1(ads,'testing new descr',2500,key);
+                    })
+                    }
                     preve = current;
                 }
                 current = key;
@@ -979,6 +1038,7 @@ function T1_table(id, T) {
 function T2_table(id, T) {
     var current =new Array();
     var preve = new Array();
+    var newbtn='<i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i>'
     $('#Tport-handle').addClass('scale-out');
     setTimeout(() => {
         // Add the class to hide the table
@@ -1024,7 +1084,7 @@ function T2_table(id, T) {
             // Create a table row
             let row = '<tr id="ref'+key+'">' +
                 '<td class="code">' + key + '</td>' +
-                '<td>' + value + ' </td>' +
+                '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"> <p>' + value + '</p> </td>' +
                 '<td class="editable" id="AE_Over">' + 0 + '</td>' +
                 '<td class="editable" id="CP_Over">' + 180 + ',000</td>' +
                 '<td class="editable" id="AE_att">' + 0 + '</td>' +
@@ -1055,6 +1115,15 @@ function T2_table(id, T) {
                 {
                     
                     console.log('testing editable'+key)
+                    if($('#ref'+key+' td').hasClass("editable"))
+                    {
+                    $('#ref'+key+' #add_op').append(newbtn)
+                    $('#ref'+key+' #add_op').on('click',function()
+                    {
+                        var ads=key+'1';
+                        add_newOPs_T2(ads,'testing new descr',2500,key);
+                    })
+                    }
                     preve = current;
                 }
                 current = key;
@@ -1069,6 +1138,7 @@ function T2_table(id, T) {
 function T3_table(id, T) {
     var current =new Array();
     var preve = new Array();
+    var newbtn='<i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i>'
     console.log('data is')
     $('#Tport-handle').addClass('scale-out');
     setTimeout(() => {
@@ -1100,13 +1170,14 @@ function T3_table(id, T) {
          //   console.log('values' + JSON.stringify(val))
             let row = '<tr id="ref'+key+'">' +
                 '<td class="code">' + key + '</td>' +
-                '<td>' + val[0] + ' </td>' +
-                '<td>' + val[1] + '</td>' +
+                '<td><p>' + val[0] + '</p> </td>' +
+                '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
                 '<td class="editable">' + 0 + '</td>' +
                 '<td class="editable">' + 180 + ',000</td>' +
                 '</tr>';
 
             // Append the row to the table body
+       
             $('#T-tables tbody').append(row);
 
             if(current.length == 0)
@@ -1135,10 +1206,21 @@ function T3_table(id, T) {
                 else
                 {
                     console.log('testing editable'+preve)
+                    if($('#ref'+key+' td').hasClass("editable"))
+                    {
+                    $('#ref'+key+' #add_op').append(newbtn)
+                    $('#ref'+key+' #add_op').on('click',function()
+                    {
+                        var ads=key+'1';
+                        add_newOPs_T3(ads,'testing new descr',2500,key);
+                    })
+                    }
+                 
                     preve = current;
                 }
                 current = key;
             }
+            
             Edit(id, T)
         });
     }).fail(function () {
@@ -1186,11 +1268,15 @@ $(document).ready(function () {
             T2_table(id_tport_c, T)
         }
         if (id_tport_c == 'T_port3') {
-            var T = 4;
+            var T = 3;
             T3_table(id_tport_c,T)
+            
+            
         }
         console.log('testign which port im ' + id_tport_c)
     })
+ 
+     
 })
 
 /**
