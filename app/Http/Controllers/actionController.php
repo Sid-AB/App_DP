@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Action;
 use Illuminate\Http\Request;
 
 class actionController extends Controller
@@ -30,7 +31,7 @@ class actionController extends Controller
 //===================================================================================
                             // creation de l'action
 //===================================================================================
-    function create_action(Request $request, $num_sous_prog)
+    function create_action(Request $request)
     {
         // Validation des données
         $request->validate([
@@ -40,12 +41,12 @@ class actionController extends Controller
             'CP_action' => 'required',
             'date_insert_action' => 'required|date',
         ]);
-
+       
         // Vérifier si le action existe déjà en fonction du numéro et des dates
-        $existing = action::where('num_action', $request->num_action)
+        $existing = Action::where('num_action', $request->num_action)
                              ->whereNotNull('date_insert_action')
                              ->exists(); // Vérifie s'il y a un enregistrement existant
-
+                            
         if ($existing) {
             return response()->json([
                 'success' => false,
@@ -55,16 +56,17 @@ class actionController extends Controller
         }
 
         // Créer une nouvelle action
-        $action = new action();
-        $action->num_action = $request->num_action;
-        $action->num_sous_prog = $num_sous_prog;
+        $action = new Action();
+        $action->num_action = intval($request->num_action);
+        $action->num_sous_prog = intval($request->id_sous_prog);
         $action->nom_action = $request->nom_action;
-        $action->AE_action = $request->AE_action;
-        $action->CP_action = $request->CP_action;
+        $action->AE_action = floatval($request->AE_action);
+        $action->CP_action = floatval($request->CP_action);
         $action->id_ra = 1;//periodiquement
         $action->date_insert_action = $request->date_insert_action;
+       
         $action->save();
-
+      //  dd(vars: $action);
         if ($action) {
             return response()->json([
                 'success' => true,

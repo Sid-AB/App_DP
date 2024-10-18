@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Programme;
 use Illuminate\Http\Request;
 
 class programmeControlleur extends Controller
@@ -29,7 +30,7 @@ class programmeControlleur extends Controller
  //===================================================================================
                                 // creation du programme
 //===================================================================================
-    function create_prog(Request $request, $num_port)
+    function creat_prog(Request $request)
     {
         // Validation des données
         $request->validate([
@@ -39,12 +40,12 @@ class programmeControlleur extends Controller
             'CP_prog' => 'required',
             'date_insert_portef' => 'required|date',
         ]);
-
+      
         // Vérifier si le programme existe déjà en fonction du numéro et des dates
         $existing = programme::where('num_prog', $request->num_prog)
                              ->whereNotNull('date_insert_portef')
                              ->exists(); // Vérifie s'il y a un enregistrement existant
-
+                             
         if ($existing) {
             return response()->json([
                 'success' => false,
@@ -54,16 +55,17 @@ class programmeControlleur extends Controller
         }
 
         // Créer un nouveau programme
-        $programme = new programme();
-        $programme->num_prog = $request->num_prog;
-        $programme->num_portefeuil = $num_port;
+        $programme = new Programme();
+        $programme->num_prog = intval($request->num_prog);
+        $programme->num_portefeuil = intval($request->num_portefeuil);
         $programme->nom_prog = $request->nom_prog;
-        $programme->AE_prog = $request->AE_prog;
-        $programme->CP_prog = $request->CP_prog;
+        $programme->AE_porg =floatval($request->AE_prog);
+        $programme->CP_prog = floatval($request->CP_prog);
         $programme->date_insert_portef = $request->date_insert_portef;
         $programme->id_rp = 1; //periodiquement
+        
         $programme->save();
-
+        //dd($programme);
         if ($programme) {
             return response()->json([
                 'success' => true,

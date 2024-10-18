@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\actionController;
 use App\Http\Controllers\portfeuilleController;
+use App\Http\Controllers\programmeControlleur;
+use App\Http\Controllers\sousProgrammeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -36,21 +38,21 @@ Route::controller(portfeuilleController::class)->group(function(){
 });
 
 //===============ROUTE PROGRAMME==============================
-Route::controller(programmeController::class)->group(function(){
+Route::controller( programmeControlleur::class)->group(function(){
     Route::get('/Programme','affich_prog')->name('home.programme');
-    Route::get('/creationProg','creat_prog')->name('creation.programme');
+    Route::post('/creationProg','creat_prog')->name('creation.programme');
 });
 
 //===============ROUTE SOUS PROGRAMME==============================
 Route::controller(sousProgrammeController::class)->group(function(){
     Route::get('/SousProgramme','affich_sou_prog')->name('home.sousProgramme');
-    Route::get('/creationSousProg','create_sou_prog')->name('creation.souProgramme');
+    Route::post('/creationSousProg','create_sou_prog')->name('creation.souProgramme');
 });
 
 //===============ROUTE ACTION==============================
 Route::controller(actionController::class)->group(function(){
     Route::get('/Action','affich_action')->name('action.detail');
-    Route::get('/creationProg','creat_prog')->name('creation.programme');
+    Route::post('/creationAction','create_action')->name('creation.action');
 });
 
 //===============ROUTE SOUS ACTION==============================

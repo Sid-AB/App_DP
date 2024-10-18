@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Portefeuille;
 class portfeuilleController extends Controller
 {
 
@@ -30,7 +30,7 @@ class portfeuilleController extends Controller
     {
          // Validation des données
          $request->validate([
-            'num_portefeuil' => 'required|unique:portefeuille,num_portefeuil',
+            'num_portefeuil' => 'required|unique:portefeuilles,num_portefeuil',
             'num_journal' => 'required',
             'nom_journal' => 'required',
             'AE_portef' => 'required',
@@ -51,13 +51,13 @@ class portfeuilleController extends Controller
 
         // Créer un nouveau portefeuille
         $portefeuille = new Portefeuille();
-        $portefeuille->num_portefeuil = $request->num_port;
+        $portefeuille->num_portefeuil = intval($request->num_portefeuil);
         $portefeuille->nom_journal = $request->nom_journal;
         $portefeuille->num_journal = $request->num_journal;
         $portefeuille->AE_portef = $request->AE_portef;
         $portefeuille->CP_portef = $request->CP_portef;
-        $portefeuille->Date_portefeuille = $request->date;
-        $portefeuille->id_nin =1;//periodiquement
+        $portefeuille->Date_portefeuille = $request->Date_portefeuille;
+        $portefeuille->id_min =2;//periodiquement
         $portefeuille->save();
 
         if($portefeuille)
