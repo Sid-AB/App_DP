@@ -4,13 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Portefeuille;
+use App\Models\Programme;
+use App\Models\Action;
+use App\Models\SousProgramme;
+use Carbon\Carbon;
 class portfeuilleController extends Controller
 {
 
 //===================================================================================
                                 //affichage du portrefeuille
 //===================================================================================
-    function affich_portef()
+    function affich_portef($id)
     {
         // Récupérer tous les portefeuilles de la base de données
           //  $portefeuilles = Portefeuille::all();
@@ -23,11 +27,48 @@ class portfeuilleController extends Controller
     {
         return view('Portfail-in.creation');
     }
+
+//===================================================================================
+                                //DEBUT CHECK
+//===================================================================================
+
+public function check_portef(Request $request)
+{
+    // Validation de la requête
+    $request->validate([
+        'num_portefeuil' => 'required',
+        'Date_portefeuille' => 'required|date'
+    ]);
+
+    // Concatenation du numéro de portefeuille avec l'année
+    $num = $request->num_portefeuil;
+
+    // Vérification si le portefeuille existe dans la base de données
+    $portefeuille = Portefeuille::where('num_portefeuil', $num)->first();
+
+    if ($portefeuille) {
+        return response()->json([
+            'exists' => true,
+            'nom_journal' => $portefeuille->nom_journal,
+            'num_journal' => $portefeuille->num_journal,
+            'AE_portef' => $portefeuille->AE_portef,
+            'CP_portef' => $portefeuille->CP_portef,
+            'Date_portefeuille' => $portefeuille->Date_portefeuille,
+        ]);
+    }
+
+    return response()->json(['exists' => false]);
+}
+
+//===================================================================================
+                                //FIN CHECK
+//===================================================================================
 //===================================================================================
                                 // creation du portefeuille
 //===================================================================================
     function creat_portef(Request $request)
     {
+
          // Validation des données
          $request->validate([
             'num_portefeuil' => 'required|unique:portefeuilles,num_portefeuil',
@@ -38,27 +79,19 @@ class portfeuilleController extends Controller
             'Date_portefeuille' => 'required|date',
         ]);
 
-        // Vérifier si le portefeuille existe déjà
-        $existing = Portefeuille::where('num_portefeuil', $request->num_port)->first();
 
-        if ($existing) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Le portefeuille avec ce numéro existe déjà.',
-                'code'=>404,
-            ]);
-        }
 
         // Créer un nouveau portefeuille
         $portefeuille = new Portefeuille();
-        $portefeuille->num_portefeuil = intval($request->num_portefeuil);
+        $portefeuille->num_portefeuil = $request->num_portefeuil;
         $portefeuille->nom_journal = $request->nom_journal;
         $portefeuille->num_journal = $request->num_journal;
         $portefeuille->AE_portef = $request->AE_portef;
         $portefeuille->CP_portef = $request->CP_portef;
         $portefeuille->Date_portefeuille = $request->Date_portefeuille;
-        $portefeuille->id_min =2;//periodiquement
+        $portefeuille->id_min =1;//periodiquement
         $portefeuille->save();
+       // dd($portefeuille);
 
         if($portefeuille)
         {
@@ -74,7 +107,6 @@ class portfeuilleController extends Controller
                 'code' => 500,
             ]);
         }
-
 
     }
 

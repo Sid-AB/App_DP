@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="csrf-token" content=" {{csrf_token()}}">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ACTION</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -11,9 +13,9 @@
 <link href="{{asset('assets/bootstrap-5.0.2/css/bootstrap.css')}}" rel="stylesheet"/>
 <link href="{{asset('assets/fontawesome-free/css/all.css')}}" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-<link 
-        rel="stylesheet" 
-        href="https://unpkg.com/@patternfly/patternfly/patternfly.css" 
+<link
+        rel="stylesheet"
+        href="https://unpkg.com/@patternfly/patternfly/patternfly.css"
         crossorigin="anonymous"
       >
 </head>
@@ -122,7 +124,7 @@
                 </div>
                 </div>
                 <div class="TP-handle" id="T_port4">
-               
+
                 <div class="card-T">
                   <div class="container-card bg-yellow-box">
                   <i class="fas fa-door-closed T-icon icon icon-card"></i>
@@ -221,5 +223,10 @@
   var jsonpath2="{{asset('assets/Titre/dataT2.json')}}"
   var jsonpath3="{{asset('assets/Titre/dataT3.json')}}"
   var jsonpath4="{{asset('assets/Titre/dataT4.json')}}"
+  @if(isset($s_act))
+  var path3=['{{$port}}','{{$prog}}','{{$sous_prog}}','{{$act}}','{{$s_act}}']
+  @else
+  var path3=['{{$port}}','{{$prog}}','{{$sous_prog}}','{{$act}}']
+  @endif
 </script>
 </html>

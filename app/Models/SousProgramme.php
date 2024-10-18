@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class SousProgramme extends Model
 {
     use HasFactory;
@@ -16,17 +17,17 @@ class SousProgramme extends Model
 
     protected $fillable = [
       'num_sous_prog','nom_sous_prog','nom_sous_prog_ar'
-,'AE_sous_porg','CP_sous_prog','date_insert_sousProg','date_update_sousProg','num_prog'
+,'date_insert_sousProg','date_update_sousProg','num_prog'
 ];
 
 
     public function Programme()
     {
-        return $this->belongsTo(Programme::class);
+        return $this->belongsTo(Programme::class,'num_prog','num_prog');
     }
 
     public function Action()
     {
-        return $this->hasMany(Action::class);
+        return $this->hasMany(Action::class,'num_sous_prog','num_sous_prog');
     }
 }

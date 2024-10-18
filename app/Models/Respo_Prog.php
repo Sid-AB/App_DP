@@ -20,11 +20,16 @@ class Respo_Prog extends Model
    
     public function Personne()
     {
-        return $this->belongsTo(Personne::class);
+        return $this->belongsTo(Personne::class,'id_nin','id_nin');
     }
 
     public function Programme()
     {
-        return $this->hasOne(Programme::class);
+        return $this->hasOne(Programme::class,'id_rp','id_rp');
+    }
+
+    public function ConstruireDPIC()
+    {
+        return $this->hasMany(ConstruireDPIC::class,'id_rp','id_rp');
     }
 }
