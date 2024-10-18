@@ -1116,18 +1116,25 @@ function T3_table(id, T) {
             }
             else
             {
+               
+                if(key.split("0")[0].length <= 2)
+                {
+                    $('#ref'+key+' td').each(function(){
+                        $(this).removeClass('editable')
+                    })
+                }
                 if(current.split("0")[0].length > preve.split("0")[0].length)
                 {
-                    console.log('testing '+key)
+                    console.log('testing '+preve)
                     $('#ref'+preve+' td').each(function(){
                         $(this).removeClass('editable')
                     })
                     preve = current;
+                 
                 }
                 else
                 {
-                    
-                    console.log('testing editable'+key)
+                    console.log('testing editable'+preve)
                     preve = current;
                 }
                 current = key;
