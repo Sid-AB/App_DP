@@ -925,7 +925,7 @@ $("#add-prg").on('click', function () {
                                                     path.push(numaction_year);
                                                     path3.push(num_act);
                                                     // console.log('path: ' + JSON.stringify(path));
-                                                    window.location.href = '/testing/S_action/' + path.join('/');
+                                                    window.location.href = '/testing/Action/' + path.join('/');
                                                 }
                                             },
                                             error: function (response) {
