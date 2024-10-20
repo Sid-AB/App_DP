@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\GroupOperation;
 use App\Models\operation;
 use App\Models\sousOperation;
+use App\Models\ConstruireDPIA;
+use App\Models\ConstruireDPIC;
 use Carbon\Carbon;
 class groupOperationController extends Controller
 {
@@ -17,7 +19,7 @@ class groupOperationController extends Controller
    $currentDateTime = Carbon::now();
     //$year = date('Y'); // Récupérer l'année actuelle
     //$sousaction=$s_act.$act.$sous_prog.$prog.$port.$year;
-//dd($currentDateTime);
+//dd($act);
 //dd($T);
 //===================================================================================
                             //insertion T1
@@ -142,16 +144,16 @@ foreach ($jsonData as $codeStr => $nom) {
             );
 
             //mettre à jour la table construire DPIA 
-            ConstruireDPIA::updateOrCreate(
+           /* ConstruireDPIA::updateOrCreate(
             
-                ['code_sous_operation' =>  $code.$codeOp.$codeGp.$s_act.$act.$sous_prog.$prog.$port.$year],
+                ['code_sous_operation' =>  $code.$codeOp.$codeGp.$s_act.$act.$sous_prog.$prog.$port],
                
                 [
                     'AE_dpia_nv' => floatval(str_replace(',', '', $ae)),
                     'CP_dpia_nv' => floatval(str_replace(',', '', $cp)),
                     'date_modification_dpia' =>$currentDateTime,
                 ]
-            );
+            );*/
 
         }
     }

@@ -37,7 +37,7 @@ return new class extends Migration
 
             
          
-            $table->string('code_sous_operation');
+            $table->string('code_sous_operation')->nullable();
             $table->foreign('code_sous_operation')->references('code_sous_operation')->on('sous_operations');
 
 

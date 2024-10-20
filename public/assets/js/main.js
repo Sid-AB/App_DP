@@ -982,7 +982,7 @@ $("#add-prg").on('click', function () {
                 path.push(numprog_year);
                 path3.push(id_prog);
                 console.log('numprog_year path: ' + JSON.stringify(path));
-
+                console.log('numprog path: ' + JSON.stringify(path3));
                 $('.next-handle svg').removeClass('waiting-icon')
                 $('.next-handle svg').addClass('complet-icon')
                 $('.the-path').append(nexthop)
