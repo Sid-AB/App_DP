@@ -63,28 +63,32 @@ public function check_action(Request $request)
             'nom_action' => 'required',
             'date_insert_action' => 'required|date',
         ]);
+        //dd($request);
+        // Vérifier si le action existe déjà en fonction du numéro et des dates
+        $existing = action::where('num_action', $request->num_action)
+                             ->whereNotNull('date_insert_action')
+                             ->exists(); // Vérifie s'il y a un enregistrement existant
 
+        if ($existing) {
+            return response()->json([
+                'success' => false,
+                'message' => 'L\'action avec ce numéro existe déjà.',
+                'code' => 404,
+            ]);
+        }
 
-        // Créer une nouvelle action et sous action
-        $action = new Action();
-        $action->num_action =$request->num_action;
-        $action->num_sous_prog = $request->id_sous_prog;
+        // Créer une nouvelle action
+        $action = new action();
+        $action->num_action = $request->num_action;
+        $action->num_sous_prog =$request->id_sous_prog;
         $action->nom_action = $request->nom_action;
+       /* $action->AE_action = $request->AE_action;
+        $action->CP_action = $request->CP_action;*/
         $action->id_ra = 1;//periodiquement
         $action->date_insert_action = $request->date_insert_action;
-
         $action->save();
 
-        // Copie dans sousaction
-        $sousaction=SousAction::create([
-            'num_sous_action' => $request->num_action,  // égal à numaction
-            'num_action' => $request->num_action,
-            'nom_sous_action' => $request->nom_action,
-            'date_insert_sous_action' => $request->date_insert_action,      // clé étrangère
-        ]);
-
-      //  dd(vars: $action);
-        if ($action && $sousaction) {
+        if ($action) {
             return response()->json([
                 'success' => true,
                 'message' => 'Action ajouté avec succès.',

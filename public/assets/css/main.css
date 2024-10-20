@@ -684,9 +684,10 @@ z-index: 1000;
 }
 .the-path
 {
-  display: flex;
+    display: flex;
     align-items: center;
     justify-content: flex-start;
+    flex-wrap: wrap;
     flex-direction: row;
 }
 .pinfo-handle
@@ -1104,3 +1105,12 @@ transition-timing-function: line;
 
 
 /** ====================== End table Template*/
+
+/***-------------------- this for the button new ops ---------------------*/
+
+#add_op svg:hover 
+{
+  cursor: pointer;
+  scale: 0.9;
+}
+/**---------------------- end new ops -----------------------------------*/

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\SousAction;
-
 use Illuminate\Http\Request;
 
 class sousActionController extends Controller
