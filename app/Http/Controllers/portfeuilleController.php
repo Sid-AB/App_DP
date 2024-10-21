@@ -7,6 +7,8 @@ use App\Models\Portefeuille;
 use App\Models\Programme;
 use App\Models\Action;
 use App\Models\SousProgramme;
+use App\Models\ConstruireDPIA;
+use App\Models\ConstruireDPIC;
 use Carbon\Carbon;
 class portfeuilleController extends Controller
 {
@@ -92,6 +94,50 @@ public function check_portef(Request $request)
         $portefeuille->id_min =1;//periodiquement
         $portefeuille->save();
        // dd($portefeuille);
+
+
+        // creation de la table  construireDPIA
+        $DPIA = new ConstruireDPIA();
+
+        $DPIA->date_creation_dpia = $portefeuille->Date_portefeuille; // elle prend la date de creation du portfeuille 
+        $DPIA->date_modification_dpia = $DPIA->date_creation_dpia; 
+        $DPIA->motif_dpia = 'Création de DPIA à partir du portefeuille'; 
+
+        $DPIA->AE_dpia_nv = null; 
+        $DPIA->CP_dpia_nv = null;
+
+        $DPIA->AE_ouvert_dpia = null; 
+        $DPIA->AE_atendu_dpia = null;
+        $DPIA->CP_ouvert_dpia = null; 
+        $DPIA->CP_atendu_dpia = null;
+
+        $DPIA->AE_reporte_dpia = null; 
+        $DPIA->AE_notifie_dpia = null;
+        $DPIA->AE_engage_dpia = null; 
+        $DPIA->CP_reporte_dpia = null;
+        $DPIA->CP_notifie_dpia = null; 
+        $DPIA->CP_consome_dpia = null;
+
+        $DPIA->code_sous_operation = null; 
+        $DPIA->id_rp = 1; 
+        $DPIA->id_ra = 1; 
+        $DPIA->save();
+ 
+        //dd( $DPIA);
+
+        //creation de la table  construireDPic
+        $DPIC = new ConstruireDPIC();
+
+        $DPIC->date_creation_dpic = $portefeuille->Date_portefeuille; // elle prend la date de creation du portfeuille 
+
+        $DPIC->AE_dpic_nv = null; 
+        $DPIC->CP_dpic_nv = null;
+
+        $DPIC->id_rff = 1; //apres elle sera avec auth:user il prend le compte qui est deja authentifié
+        $DPIC->id_rp = 1; 
+        $DPIC->save();
+ 
+        //dd( $DPIC);
 
         if($portefeuille)
         {
