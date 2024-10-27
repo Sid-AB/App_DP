@@ -90,10 +90,18 @@ var value_chng = new Array()
  * 
  * this function for adding button et makalah -_- ;
  */
-function add_newOPs_T1(id,descr,value)
+function add_newOPs_T1(id,descr,value,key,)
 {
-    var row='';
-    $('#ref'+id).append()
+    var row='<tr id="ref'+id+'">' +
+                '<td class="code" >' + id + '</td>' +
+                '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + descr + '</p></td>' +
+                '<td class="editable" id="AE_T1">' + value + '</td>' +
+                '<td class="editable" id="CP_T1">' + 180 + ',000</td>' +
+                '</tr>';
+    $('#ref'+key).after(row);
+    $('#ref'+key+' td').each(function()
+    {
+    $(this).removeClass('editable');})
 }
 function add_newOPs_T2(id,descr,value,key)
 {   
@@ -997,7 +1005,7 @@ function T1_table(id, T) {
             // Append the row to the table body
            
             $('#T-tables tbody').append(row);
-            
+            Edit(id, T)
             if(current.length == 0)
             {
                 current = key;
@@ -1023,13 +1031,14 @@ function T1_table(id, T) {
                     {
                         var ads=key+'1';
                         add_newOPs_T1(ads,'testing new descr',2500,key);
+                        Edit(id, T)
                     })
                     }
                     preve = current;
                 }
                 current = key;
             }
-            Edit(id, T)
+            
         });
     }).fail(function () {
         console.error('Error loading JSON file.');
@@ -1095,7 +1104,7 @@ function T2_table(id, T) {
 
             // Append the row to the table body
             $('#T-tables tbody').append(row);
-
+            Edit(id, T)
             if(current.length == 0)
             {
                 current = key;
@@ -1122,14 +1131,13 @@ function T2_table(id, T) {
                     {
                         var ads=key+'1';
                         add_newOPs_T2(ads,'testing new descr',2500,key);
+                        Edit(id, T)
                     })
                     }
                     preve = current;
                 }
                 current = key;
             }
-            Edit(id, T)
-
         });
     }).fail(function () {
         console.error('Error loading JSON file.');
@@ -1151,12 +1159,16 @@ function T3_table(id, T) {
     var headT = '<tr>' +
         '<th><h1>code</h1></th>' +
         '<th colspan="2"><h1>T Description</h1></th>' +
-        '<th colspan="2">' +
+        '<th colspan="6" style="padding:0px">' +
         '<div class="fusion-father">' +
         '<h1>MONTANT ANNEE (N)</h1>' +
         '<div class="fusion-child">' +
-        ' <h1 style="width:40px;">AE</h1>' +
-        '<h1>CP</h1>' +
+        ' <h1 style="border-top: 1px solid;padding:5px 2px 0px 2px; border-left:1px solid;border-right:1px solid">AE_Report</h1>' +
+        ' <h1 style="border-top: 1px solid;padding:5px 2px 0px 2px; border-left:1px solid;border-right:1px solid">AE_Notifie</h1>' +
+        ' <h1 style="border-top: 1px solid;padding:5px 2px 0px 2px; border-left:1px solid;border-right:1px solid">AE_Engage</h1>' +
+        '<h1 style="border-top: 1px solid;padding:5px 2px 0px 2px; border-left:1px solid;border-right:1px solid">CP_Report</h1>' +
+        '<h1 style="border-top: 1px solid;padding:5px 2px 0px 2px; border-left:1px solid;border-right:1px solid">CP_Notifie</h1>' +
+        '<h1 style="border-top: 1px solid;padding:5px 2px 0px 2px; border-left:1px solid;border-right:1px solid">CP_Engage</h1>' +
         '</div>' +
         '</div>    ' +
         '</th>' +
@@ -1172,14 +1184,18 @@ function T3_table(id, T) {
                 '<td class="code">' + key + '</td>' +
                 '<td><p>' + val[0] + '</p> </td>' +
                 '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
-                '<td class="editable">' + 0 + '</td>' +
-                '<td class="editable">' + 180 + ',000</td>' +
+                '<td class="editable" id="AE-RE" style="width:80px">' + 0 + '</td>' +
+                '<td class="editable" id="AE_NO" style="width:80px">' + 180 + ',000</td>' +
+                '<td class="editable" id="AE_EN" style="width:80px">' + 0 + '</td>' +
+                '<td class="editable" id="CP-RE" style="width:80px">' + 180 + ',000</td>' +
+                '<td class="editable" id="CP-RE" style="width:80px">' + 0 + '</td>' +
+                '<td class="editable" id="CP_EN" style="width:80px">' + 180 + ',000</td>' +
                 '</tr>';
 
             // Append the row to the table body
        
             $('#T-tables tbody').append(row);
-
+            Edit(id, T)
             if(current.length == 0)
             {
                 current = key;
@@ -1213,6 +1229,7 @@ function T3_table(id, T) {
                     {
                         var ads=key+'1';
                         add_newOPs_T3(ads,'testing new descr',2500,key);
+                        Edit(id, T)
                     })
                     }
                  
@@ -1220,8 +1237,7 @@ function T3_table(id, T) {
                 }
                 current = key;
             }
-            
-            Edit(id, T)
+
         });
     }).fail(function () {
         console.error('Error loading JSON file.');

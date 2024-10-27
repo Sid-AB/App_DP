@@ -15,6 +15,7 @@ class actionController extends Controller
     {
         // Récupérer les action qui ont le même num_sous_prog
         $action = action::where('num_sous_prog', $num_sous_prog)->get();
+        dd($action);
 
     // Vérifier si des action existent
         if ($action->isEmpty()) {

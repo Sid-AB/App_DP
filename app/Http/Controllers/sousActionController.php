@@ -14,7 +14,7 @@ public function affich_sous_action($num_action)
 {
     // Récupérer les action qui ont le même num_action
     $SousAction = SousAction::where('num_action', $num_action)->get();
-
+    dd($SousAction);
 // Vérifier si des action existent
     if ($SousAction->isEmpty()) {
          return response()->json([

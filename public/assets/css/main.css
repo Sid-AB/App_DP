@@ -696,7 +696,7 @@ z-index: 1000;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  width: 250px;
+  /*width: 250px;*/
   background-color: #FFC107;
   height: 40px;
   border-radius: 40%;
@@ -940,6 +940,7 @@ padding: 0 0 8em 0;
   
   display: flex;
   flex-direction: column;
+  align-items: center;
 
 }
 .container-T td:first-child { 

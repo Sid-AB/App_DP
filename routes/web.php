@@ -66,6 +66,7 @@ Route::controller(sousProgrammeController::class)->group(function(){
 //===============ROUTE ACTION==============================
 Route::controller(actionController::class)->group(function(){
     Route::get('/Action','affich_action')->name('action.detail');
+    Route::get('/Action/{id}','affich_action')->name('actikon');
     Route::post('/creationAction','create_action')->name('creation.action');
     Route::get('/check-action','check_action')->name('check.action');
 
