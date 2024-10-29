@@ -87,7 +87,7 @@ var changing_mist = new Object();
 var value_chng = new Array()
 
 /**
- * 
+ *
  * this function for adding button et makalah -_- ;
  */
 function add_newOPs_T1(id,descr,value)
@@ -96,7 +96,7 @@ function add_newOPs_T1(id,descr,value)
     $('#ref'+id).append()
 }
 function add_newOPs_T2(id,descr,value,key)
-{   
+{
     var some=value+value;
     var row='<tr id="ref'+id+'">' +
     '<td class="code">' + id + '</td>' +
@@ -126,13 +126,13 @@ function add_newOPs_T3(id,descr,value,key,)
     $('#ref'+key+' td').each(function(){
     $(this).removeClass('editable');
     })
-    
-  
+
+
 }
 /**
- *  
- * the end 
- * 
+ *
+ * the end
+ *
  */
 function Edit(tid, T) {
     $(document).ready(function () {
@@ -965,6 +965,7 @@ $("#add-prg").on('click', function () {
  */
 
 function T1_table(id, T) {
+
     var current =new Array();
     var preve = new Array();
     var newbtn='<i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i>'
@@ -978,7 +979,8 @@ function T1_table(id, T) {
         $('.T-handle').css('display', 'flex')
     }, 500)
     var headT = '<tr>' +
-        '<th colspan="2"><h1>T Description</h1></th>' +
+        '<th ><h1>Code</h1></th>' +
+        '<th ><h1>T Description</h1></th>' +
         '<th><h1>AE</h1></th>' +
         '<th><h1>CP</h1></th>' +
         '</tr>';
@@ -986,7 +988,7 @@ function T1_table(id, T) {
     $.getJSON(jsonpath1, function (data) {
         // Loop through each item in the JSON data
         $.each(data, function (key, value) {
-            // Create a table row 
+            // Create a table row
             let row = '<tr id="ref'+key+'">' +
                 '<td class="code" >' + key + '</td>' +
                 '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
@@ -995,9 +997,9 @@ function T1_table(id, T) {
                 '</tr>';
 
             // Append the row to the table body
-           
+
             $('#T-tables tbody').append(row);
-            
+
             if(current.length == 0)
             {
                 current = key;
@@ -1113,7 +1115,7 @@ function T2_table(id, T) {
                 }
                 else
                 {
-                    
+
                     console.log('testing editable'+key)
                     if($('#ref'+key+' td').hasClass("editable"))
                     {
@@ -1151,7 +1153,7 @@ function T3_table(id, T) {
     var headT = '<tr>' +
         '<th><h1>code</h1></th>' +
         '<th colspan="2"><h1>T Description</h1></th>' +
-        '<th colspan="2">' +
+        '<th colspan="2"><h1>INTITULE DE L'OPERATION D'INVESTISSEMENT PUBLIC</h1></th>' +
         '<div class="fusion-father">' +
         '<h1>MONTANT ANNEE (N)</h1>' +
         '<div class="fusion-child">' +
@@ -1177,7 +1179,7 @@ function T3_table(id, T) {
                 '</tr>';
 
             // Append the row to the table body
-       
+
             $('#T-tables tbody').append(row);
 
             if(current.length == 0)
@@ -1187,7 +1189,7 @@ function T3_table(id, T) {
             }
             else
             {
-               
+
                 if(key.split("0")[0].length <= 2)
                 {
                     $('#ref'+key+' td').each(function(){
@@ -1201,7 +1203,7 @@ function T3_table(id, T) {
                         $(this).removeClass('editable')
                     })
                     preve = current;
-                 
+
                 }
                 else
                 {
@@ -1215,12 +1217,12 @@ function T3_table(id, T) {
                         add_newOPs_T3(ads,'testing new descr',2500,key);
                     })
                     }
-                 
+
                     preve = current;
                 }
                 current = key;
             }
-            
+
             Edit(id, T)
         });
     }).fail(function () {
@@ -1270,13 +1272,13 @@ $(document).ready(function () {
         if (id_tport_c == 'T_port3') {
             var T = 3;
             T3_table(id_tport_c,T)
-            
-            
+
+
         }
         console.log('testign which port im ' + id_tport_c)
     })
- 
-     
+
+
 })
 
 /**
