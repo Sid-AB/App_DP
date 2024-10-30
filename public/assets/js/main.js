@@ -798,11 +798,21 @@ $("#add-prg").on('click', function () {
                                     let userResponse = confirm('Voulez-vous ajouter une sous-action pour cette action ?');
                                     if (userResponse) {
                                         // Récupération des informations de l'action
+                                        $('#confirm-holder_act').empty()
+                                        $('#confirm-holder_act').append('<i class="fas fa-wrench"></i>')
                                         var nom_act = $('#nom_act').val();
                                         var num_act = $('#num_act').val();
                                         var dat_inst = $('#date_insert_action').val();
                                         var id_sou_prog = path[2];
                                         var numaction_year = num_act + id_sou_prog;
+                                        var nexthop = '<div class="pinfo-handle">' +
+                                         '<i class="fas fa-wallet"></i>' +
+                                         '<p >Action :</p>' +
+                                          '<p>' + num_act + '</p>' +
+                                           '</div>' +
+                                          ' <div class="next-handle">' +
+                                          '<i class="fas fa-angle-double-right waiting-icon"></i>' +
+                                          '</div>'
                                         // Création du formData pour l'action
                                         var formdata_act = {
                                             num_action: numaction_year,
@@ -825,8 +835,10 @@ $("#add-prg").on('click', function () {
                                                     // Ajout du numéro de l'action au chemin
                                                     path.push(numaction_year);
                                                     path3.push(num_act);
+                                                  
                                                     console.log('A path: ' + JSON.stringify(path));
-
+                                                    $('#confirm-holder_act').empty()
+                                                    $('#confirm-holder_act').append('<i class="fas fa-wrench"></i>')
                                                     // Création du formulaire pour la sous-action après l'ajout de l'action
                                                     var prg4 = `<div class="form-container">
                                                            <form>
@@ -856,10 +868,12 @@ $("#add-prg").on('click', function () {
                                                                </div>`;
 
                                                     // Insertion du formulaire pour la sous-action dans le DOM
+                                                    $('.the-path').append(nexthop)
                                                     $('#progam-handle').append(prg4);
 
                                                     // Ajout de l'événement d'ajout pour la sous-action
                                                     $('#add-prg4').on('click', function () {
+                                                        console.log('inside sous_action')
                                                         var nom_sous_act = $('#nom_sous_act').val();
                                                         var num_sous_act = $('#num_sous_act').val();
                                                         var dat_inst = $('#date_insert_sou_action').val();
@@ -891,6 +905,7 @@ $("#add-prg").on('click', function () {
                                                                     console.log('path: ' + JSON.stringify(path));
 
                                                                     // Redirection vers la page suivante après l'ajout de la sous-action
+                                                                    alert('testing')
                                                                     window.location.href = 'testing/S_action/' + path.join('/');
                                                                 }
                                                             },
@@ -986,7 +1001,8 @@ function T1_table(id, T) {
         $('.T-handle').css('display', 'flex')
     }, 500)
     var headT = '<tr>' +
-        '<th colspan="2"><h1>T Description</h1></th>' +
+        '<th><h1>T</h1></th>' +
+        '<th><h1>Description</h1></th>' +
         '<th><h1>AE</h1></th>' +
         '<th><h1>CP</h1></th>' +
         '</tr>';
@@ -1170,7 +1186,7 @@ function T3_table(id, T) {
         '<h1 style="border-top: 1px solid;padding:5px 2px 0px 2px; border-left:1px solid;border-right:1px solid">CP_Notifie</h1>' +
         '<h1 style="border-top: 1px solid;padding:5px 2px 0px 2px; border-left:1px solid;border-right:1px solid">CP_Engage</h1>' +
         '</div>' +
-        '</div>    ' +
+        '</div>' +
         '</th>' +
         '</tr>';
     $('#T-tables thead').append(headT)
