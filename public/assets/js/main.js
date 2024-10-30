@@ -1259,7 +1259,7 @@ function T4_table(id, T) {
         '<div class="fusion-father">' +
         '<h1>MONTANT ANNEE (N)</h1>' +
         '<div class="fusion-child">' +
-        ' <h1 style="width:40px;">AE</h1>' +
+        '<h1>AE</h1>' +
         '<h1>CP</h1>' +
         '</div>' +
         '</div>    ' +
@@ -1275,6 +1275,7 @@ function T4_table(id, T) {
             let row = '<tr id="ref'+key+'">' +
                 '<td class="code">' + key + '</td>' +
                 '<td><p>' + val[0] + '</p> </td>' +
+
                 '<td class="editable">' + 0 + '</td>' +
                 '<td class="editable">' + 180 + ',000</td>' +
                 '</tr>';
