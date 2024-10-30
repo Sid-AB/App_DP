@@ -1152,13 +1152,18 @@ function T3_table(id, T) {
     }, 500)
     var headT = '<tr>' +
         '<th><h1>code</h1></th>' +
-        '<th colspan="2"><h1>T Description</h1></th>' +
-        '<th colspan="2"><h1>INTITULE DE L'OPERATION D'INVESTISSEMENT PUBLIC</h1></th>' +
+        '<th><h1>T Description</h1></th>' +
+        '<th><h1>Intitule de L`Operation</h1></th>' +
+        '<th colspan="6">' +
         '<div class="fusion-father">' +
         '<h1>MONTANT ANNEE (N)</h1>' +
         '<div class="fusion-child">' +
-        ' <h1 style="width:40px;">AE</h1>' +
-        '<h1>CP</h1>' +
+        '<h1>AE Reportee</h1>' +
+        '<h1>AE Notifiee</h1>' +
+        '<h1>AE Engagée</h1>' +
+        '<h1>CP Reportee</h1>' +
+        '<h1>CP Notifiée</h1>' +
+        '<h1>CP Engagée</h1>' +
         '</div>' +
         '</div>    ' +
         '</th>' +
@@ -1174,6 +1179,10 @@ function T3_table(id, T) {
                 '<td class="code">' + key + '</td>' +
                 '<td><p>' + val[0] + '</p> </td>' +
                 '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
+                '<td class="editable">' + 0 + '</td>' +
+                '<td class="editable">' + 180 + ',000</td>' +
+                '<td class="editable">' + 0 + '</td>' +
+                '<td class="editable">' + 180 + ',000</td>' +
                 '<td class="editable">' + 0 + '</td>' +
                 '<td class="editable">' + 180 + ',000</td>' +
                 '</tr>';
@@ -1229,8 +1238,97 @@ function T3_table(id, T) {
         console.error('Error loading JSON file.');
     });
 }
-function T4_table() {
+function T4_table(id, T) {
+    var current =new Array();
+    var preve = new Array();
+    var newbtn='<i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i>'
+    console.log('data is')
+    $('#Tport-handle').addClass('scale-out');
+    setTimeout(() => {
+        // Add the class to hide the table
+        $('#Tport-handle').addClass('scale-hidden');
+        // Optionally remove the scaling out class after hiding
+        $('#Tport-handle').removeClass('scale-out');
+        $('.T-handle').css('display', 'flex')
+    }, 500)
+    var headT = '<tr>' +
+        '<th><h1>Code</h1></th>' +
+        '<th><h1>DEPENSES DE TRANSFERT</h1></th>' +
+        '<th>' +
+        '<th colspan="2">' +
+        '<div class="fusion-father">' +
+        '<h1>MONTANT ANNEE (N)</h1>' +
+        '<div class="fusion-child">' +
+        ' <h1 style="width:40px;">AE</h1>' +
+        '<h1>CP</h1>' +
+        '</div>' +
+        '</div>    ' +
+        '</th>' +
+        '</tr>';
+    $('#T-tables thead').append(headT)
+    $.getJSON(jsonpath4, function (data) {
+        // Loop through each item in the JSON data
+        $.each(data, function (key, value) {
+            // Create a table row
+            var val = value.split('-')
+         //   console.log('values' + JSON.stringify(val))
+            let row = '<tr id="ref'+key+'">' +
+                '<td class="code">' + key + '</td>' +
+                '<td><p>' + val[0] + '</p> </td>' +
+                '<td class="editable">' + 0 + '</td>' +
+                '<td class="editable">' + 180 + ',000</td>' +
+                '</tr>';
 
+            // Append the row to the table body
+
+            $('#T-tables tbody').append(row);
+
+            if(current.length == 0)
+            {
+                current = key;
+                preve = current;
+            }
+            else
+            {
+
+                if(key.split("0")[0].length <= 2)
+                {
+                    $('#ref'+key+' td').each(function(){
+                        $(this).removeClass('editable')
+                    })
+                }
+                if(current.split("0")[0].length > preve.split("0")[0].length)
+                {
+                    console.log('testing '+preve)
+                    $('#ref'+preve+' td').each(function(){
+                        $(this).removeClass('editable')
+                    })
+                    preve = current;
+
+                }
+                else
+                {
+                    console.log('testing editable'+preve)
+                    if($('#ref'+key+' td').hasClass("editable"))
+                    {
+                    $('#ref'+key+' #add_op').append(newbtn)
+                    $('#ref'+key+' #add_op').on('click',function()
+                    {
+                        var ads=key+'1';
+                        add_newOPs_T3(ads,'testing new descr',2500,key);
+                    })
+                    }
+
+                    preve = current;
+                }
+                current = key;
+            }
+
+            Edit(id, T)
+        });
+    }).fail(function () {
+        console.error('Error loading JSON file.');
+    });
 }
 $(document).ready(function () {
 
@@ -1272,6 +1370,12 @@ $(document).ready(function () {
         if (id_tport_c == 'T_port3') {
             var T = 3;
             T3_table(id_tport_c,T)
+
+
+        }
+        if (id_tport_c == 'T_port4') {
+            var T = 4;
+            T4_table(id_tport_c,T)
 
 
         }
