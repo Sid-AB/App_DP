@@ -34,7 +34,7 @@ public function affich_sous_action($num_action)
 
 public function check_action(Request $request)
     {
-        $sousaction = Action::where('num_sous_action', $request->num_sous_action)->first();
+        $sousaction = sousAction::where('num_sous_action', $request->num_sous_action)->first();
 
         if ($sousaction) {
             return response()->json([
@@ -54,9 +54,10 @@ public function check_action(Request $request)
                         // creation sous action
 //===================================================================================
 function create_sousaction(Request $request)
-{   //dd($request);
+{
  // Récupérer la ligne de la table en fonction de 'numsouaction'
  $sousAction = SousAction::where('num_sous_action', $request->num_act)->first(); // Utilisation de 'numsouaction' pour trouver l'élément
+ //dd($sousAction);
  if ($sousAction) {
     // Concaténation des valeurs pour num_sous_action
     $sousAction->num_sous_action = $request->num_sous_action;
