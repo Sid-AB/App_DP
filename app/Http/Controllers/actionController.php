@@ -79,8 +79,7 @@ public function check_action(Request $request)
          $sousaction->num_action = $request->num_action;
          $sousaction->num_sous_action = $request->num_action;
          $sousaction->nom_sous_action = $request->nom_action;
-         $sousaction->id_ra = 1;//periodiquement
-         $sousaction->date_insert_sous_action = $request->date_insert_sous_action;
+         $sousaction->date_insert_sous_action = $request->date_insert_action;
          $sousaction->save();
 
         if ($action && $sousaction) {
