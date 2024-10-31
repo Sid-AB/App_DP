@@ -299,7 +299,23 @@
         </div>
                  @endif
 
+<script src="{{asset('assets/bootstrap-5.0.2/js/bootstrap.js')}}"></script>
+<script src="{{asset('assets/fontawesome-free/js/all.js')}}"></script>
+<script src="{{asset('assets/js/jquery-3.7.1.min.js')}}"></script>
+<script>
 
+$(document).ready(function(){
+    $('.btn-primary').on('click',function(){
+        id=$(this).attr('id')
+        console.log('this is '+id);
+    })
+    if(id == "add-prg3")
+    {
+        
+    }
+})
 
+</script>
  </body>
+
 </html>
