@@ -1114,4 +1114,18 @@ transition-timing-function: line;
   cursor: pointer;
   scale: 0.9;
 }
+.add-btn
+{
+    border-radius: 20%;
+    border: 1px dotted gold;
+}
+.mem-add
+{
+    display: inline-block;
+    padding: 5px;
+    cursor: pointer;
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+}
 /**---------------------- end new ops -----------------------------------*/

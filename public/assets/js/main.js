@@ -87,7 +87,7 @@ var changing_mist = new Object();
 var value_chng = new Array()
 
 /**
- * 
+ *
  * this function for adding button et makalah -_- ;
  */
 function add_newOPs_T1(id,descr,value,key,)
@@ -104,7 +104,7 @@ function add_newOPs_T1(id,descr,value,key,)
     $(this).removeClass('editable');})
 }
 function add_newOPs_T2(id,descr,value,key)
-{   
+{
     var some=value+value;
     var row='<tr id="ref'+id+'">' +
     '<td class="code">' + id + '</td>' +
@@ -134,13 +134,13 @@ function add_newOPs_T3(id,descr,value,key,)
     $('#ref'+key+' td').each(function(){
     $(this).removeClass('editable');
     })
-    
-  
+
+
 }
 /**
- *  
- * the end 
- * 
+ *
+ * the end
+ *
  */
 function Edit(tid, T) {
     $(document).ready(function () {
@@ -584,6 +584,12 @@ $("#add-prg").on('click', function () {
         ' <label for="inputDate">Date Journal</label>' +
         '<input type="date" class="form-control" id="date_insert_sousProg">' +
         '</div>' +
+        ' <div class="form-group">' +
+        ' <label for="inputDate">AE</label>' +
+        '<input type="number" class="form-control" id="AE_sousProg">' +
+        ' <label for="inputDate">CP</label>' +
+        '<input type="number" class="form-control" id="CP_sousProg">' +
+        '</div>' +
         ' </form>' +
         ' <br>' +
         '<div id="confirm-holder_sprog">' +
@@ -988,6 +994,7 @@ $("#add-prg").on('click', function () {
  */
 
 function T1_table(id, T) {
+
     var current =new Array();
     var preve = new Array();
     var newbtn='<i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i>'
@@ -1001,8 +1008,8 @@ function T1_table(id, T) {
         $('.T-handle').css('display', 'flex')
     }, 500)
     var headT = '<tr>' +
-        '<th><h1>T</h1></th>' +
-        '<th><h1>Description</h1></th>' +
+        '<th ><h1>Code</h1></th>' +
+        '<th ><h1>T Description</h1></th>' +
         '<th><h1>AE</h1></th>' +
         '<th><h1>CP</h1></th>' +
         '</tr>';
@@ -1010,7 +1017,7 @@ function T1_table(id, T) {
     $.getJSON(jsonpath1, function (data) {
         // Loop through each item in the JSON data
         $.each(data, function (key, value) {
-            // Create a table row 
+            // Create a table row
             let row = '<tr id="ref'+key+'">' +
                 '<td class="code" >' + key + '</td>' +
                 '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
@@ -1019,7 +1026,7 @@ function T1_table(id, T) {
                 '</tr>';
 
             // Append the row to the table body
-           
+
             $('#T-tables tbody').append(row);
             Edit(id, T)
             if(current.length == 0)
@@ -1138,7 +1145,7 @@ function T2_table(id, T) {
                 }
                 else
                 {
-                    
+
                     console.log('testing editable'+key)
                     if($('#ref'+key+' td').hasClass("editable"))
                     {
@@ -1174,18 +1181,18 @@ function T3_table(id, T) {
     }, 500)
     var headT = '<tr>' +
         '<th><h1>code</h1></th>' +
-        '<th colspan="2"><h1>T Description</h1></th>' +
-        '<th colspan="6" style="padding:0px">' +
+        '<th><h1>T Description</h1></th>' +
+        '<th><h1>Intitule de L`Operation</h1></th>' +
+        '<th colspan="6">' +
         '<div class="fusion-father">' +
         '<h1>MONTANT ANNEE (N)</h1>' +
         '<div class="fusion-child">' +
-        ' <h1 style="border-top: 1px solid;padding:5px 2px 0px 2px; border-left:1px solid;border-right:1px solid">AE_Report</h1>' +
-        ' <h1 style="border-top: 1px solid;padding:5px 2px 0px 2px; border-left:1px solid;border-right:1px solid">AE_Notifie</h1>' +
-        ' <h1 style="border-top: 1px solid;padding:5px 2px 0px 2px; border-left:1px solid;border-right:1px solid">AE_Engage</h1>' +
-        '<h1 style="border-top: 1px solid;padding:5px 2px 0px 2px; border-left:1px solid;border-right:1px solid">CP_Report</h1>' +
-        '<h1 style="border-top: 1px solid;padding:5px 2px 0px 2px; border-left:1px solid;border-right:1px solid">CP_Notifie</h1>' +
-        '<h1 style="border-top: 1px solid;padding:5px 2px 0px 2px; border-left:1px solid;border-right:1px solid">CP_Engage</h1>' +
-        '</div>' +
+        '<h1>AE Reportee</h1>' +
+        '<h1>AE Notifiee</h1>' +
+        '<h1>AE Engagée</h1>' +
+        '<h1>CP Reportee</h1>' +
+        '<h1>CP Notifiée</h1>' +
+        '<h1>CP Engagée</h1>' +
         '</div>' +
         '</th>' +
         '</tr>';
@@ -1200,16 +1207,16 @@ function T3_table(id, T) {
                 '<td class="code">' + key + '</td>' +
                 '<td><p>' + val[0] + '</p> </td>' +
                 '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
-                '<td class="editable" id="AE-RE" style="width:80px">' + 0 + '</td>' +
-                '<td class="editable" id="AE_NO" style="width:80px">' + 180 + ',000</td>' +
-                '<td class="editable" id="AE_EN" style="width:80px">' + 0 + '</td>' +
-                '<td class="editable" id="CP-RE" style="width:80px">' + 180 + ',000</td>' +
-                '<td class="editable" id="CP-RE" style="width:80px">' + 0 + '</td>' +
-                '<td class="editable" id="CP_EN" style="width:80px">' + 180 + ',000</td>' +
+                '<td class="editable">' + 0 + '</td>' +
+                '<td class="editable">' + 180 + ',000</td>' +
+                '<td class="editable">' + 0 + '</td>' +
+                '<td class="editable">' + 180 + ',000</td>' +
+                '<td class="editable">' + 0 + '</td>' +
+                '<td class="editable">' + 180 + ',000</td>' +
                 '</tr>';
 
             // Append the row to the table body
-       
+
             $('#T-tables tbody').append(row);
             Edit(id, T)
             if(current.length == 0)
@@ -1219,7 +1226,7 @@ function T3_table(id, T) {
             }
             else
             {
-               
+
                 if(key.split("0")[0].length <= 2)
                 {
                     $('#ref'+key+' td').each(function(){
@@ -1233,7 +1240,7 @@ function T3_table(id, T) {
                         $(this).removeClass('editable')
                     })
                     preve = current;
-                 
+
                 }
                 else
                 {
@@ -1248,19 +1255,110 @@ function T3_table(id, T) {
                         Edit(id, T)
                     })
                     }
-                 
+
                     preve = current;
                 }
                 current = key;
             }
 
+            Edit(id, T)
         });
     }).fail(function () {
         console.error('Error loading JSON file.');
     });
 }
-function T4_table() {
+function T4_table(id, T) {
+    var current =new Array();
+    var preve = new Array();
+    var newbtn='<i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i>'
+    console.log('data is')
+    $('#Tport-handle').addClass('scale-out');
+    setTimeout(() => {
+        // Add the class to hide the table
+        $('#Tport-handle').addClass('scale-hidden');
+        // Optionally remove the scaling out class after hiding
+        $('#Tport-handle').removeClass('scale-out');
+        $('.T-handle').css('display', 'flex')
+    }, 500)
+    var headT = '<tr>' +
+        '<th><h1>Code</h1></th>' +
+        '<th><h1>DEPENSES DE TRANSFERT</h1></th>' +
+        '<th>' +
+        '<th colspan="2">' +
+        '<div class="fusion-father">' +
+        '<h1>MONTANT ANNEE (N)</h1>' +
+        '<div class="fusion-child">' +
+        '<h1>AE</h1>' +
+        '<h1>CP</h1>' +
+        '</div>' +
+        '</div>    ' +
+        '</th>' +
+        '</tr>';
+    $('#T-tables thead').append(headT)
+    $.getJSON(jsonpath4, function (data) {
+        // Loop through each item in the JSON data
+        $.each(data, function (key, value) {
+            // Create a table row
+            var val = value.split('-')
+         //   console.log('values' + JSON.stringify(val))
+            let row = '<tr id="ref'+key+'">' +
+                '<td class="code">' + key + '</td>' +
+                '<td><p>' + val[0] + '</p> </td>' +
 
+                '<td class="editable">' + 0 + '</td>' +
+                '<td class="editable">' + 180 + ',000</td>' +
+                '</tr>';
+
+            // Append the row to the table body
+
+            $('#T-tables tbody').append(row);
+
+            if(current.length == 0)
+            {
+                current = key;
+                preve = current;
+            }
+            else
+            {
+
+                if(key.split("0")[0].length <= 2)
+                {
+                    $('#ref'+key+' td').each(function(){
+                        $(this).removeClass('editable')
+                    })
+                }
+                if(current.split("0")[0].length > preve.split("0")[0].length)
+                {
+                    console.log('testing '+preve)
+                    $('#ref'+preve+' td').each(function(){
+                        $(this).removeClass('editable')
+                    })
+                    preve = current;
+
+                }
+                else
+                {
+                    console.log('testing editable'+preve)
+                    if($('#ref'+key+' td').hasClass("editable"))
+                    {
+                    $('#ref'+key+' #add_op').append(newbtn)
+                    $('#ref'+key+' #add_op').on('click',function()
+                    {
+                        var ads=key+'1';
+                        add_newOPs_T3(ads,'testing new descr',2500,key);
+                    })
+                    }
+
+                    preve = current;
+                }
+                current = key;
+            }
+
+            Edit(id, T)
+        });
+    }).fail(function () {
+        console.error('Error loading JSON file.');
+    });
 }
 $(document).ready(function () {
 
@@ -1302,15 +1400,34 @@ $(document).ready(function () {
         if (id_tport_c == 'T_port3') {
             var T = 3;
             T3_table(id_tport_c,T)
-            
-            
+
+
+        }
+        if (id_tport_c == 'T_port4') {
+            var T = 4;
+            T4_table(id_tport_c,T)
+
+
         }
         console.log('testign which port im ' + id_tport_c)
     })
- 
-     
+
+
 })
 
+/**
+ * 
+ *  this js for creation from the index
+ */
+
+
+  
+
+/**
+ * 
+ * 
+ * 
+ */
 /**
  *
  *  end

@@ -155,5 +155,13 @@ public function check_portef(Request $request)
         }
 
     }
+    function show_prsuiv(Request $request)
+    {
+
+      //  dd($request);
+        $path=$request->all();
+        $leng=count($path);
+        return view('Portfail-in.prsuiv',compact('path','leng'));
+    }
 
 }
