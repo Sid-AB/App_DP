@@ -87,16 +87,24 @@ var changing_mist = new Object();
 var value_chng = new Array()
 
 /**
- * 
+ *
  * this function for adding button et makalah -_- ;
  */
-function add_newOPs_T1(id,descr,value)
+function add_newOPs_T1(id,descr,value,key,)
 {
-    var row='';
-    $('#ref'+id).append()
+    var row='<tr id="ref'+id+'">' +
+                '<td class="code" >' + id + '</td>' +
+                '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + descr + '</p></td>' +
+                '<td class="editable" id="AE_T1">' + value + '</td>' +
+                '<td class="editable" id="CP_T1">' + 180 + ',000</td>' +
+                '</tr>';
+    $('#ref'+key).after(row);
+    $('#ref'+key+' td').each(function()
+    {
+    $(this).removeClass('editable');})
 }
 function add_newOPs_T2(id,descr,value,key)
-{   
+{
     var some=value+value;
     var row='<tr id="ref'+id+'">' +
     '<td class="code">' + id + '</td>' +
@@ -126,13 +134,13 @@ function add_newOPs_T3(id,descr,value,key,)
     $('#ref'+key+' td').each(function(){
     $(this).removeClass('editable');
     })
-    
-  
+
+
 }
 /**
- *  
- * the end 
- * 
+ *
+ * the end
+ *
  */
 function Edit(tid, T) {
     $(document).ready(function () {
@@ -576,6 +584,12 @@ $("#add-prg").on('click', function () {
         ' <label for="inputDate">Date Journal</label>' +
         '<input type="date" class="form-control" id="date_insert_sousProg">' +
         '</div>' +
+        ' <div class="form-group">' +
+        ' <label for="inputDate">AE</label>' +
+        '<input type="number" class="form-control" id="AE_sousProg">' +
+        ' <label for="inputDate">CP</label>' +
+        '<input type="number" class="form-control" id="CP_sousProg">' +
+        '</div>' +
         ' </form>' +
         ' <br>' +
         '<div id="confirm-holder_sprog">' +
@@ -790,11 +804,21 @@ $("#add-prg").on('click', function () {
                                     let userResponse = confirm('Voulez-vous ajouter une sous-action pour cette action ?');
                                     if (userResponse) {
                                         // Récupération des informations de l'action
+                                        $('#confirm-holder_act').empty()
+                                        $('#confirm-holder_act').append('<i class="fas fa-wrench"></i>')
                                         var nom_act = $('#nom_act').val();
                                         var num_act = $('#num_act').val();
                                         var dat_inst = $('#date_insert_action').val();
                                         var id_sou_prog = path[2];
                                         var numaction_year = num_act + id_sou_prog;
+                                        var nexthop = '<div class="pinfo-handle">' +
+                                         '<i class="fas fa-wallet"></i>' +
+                                         '<p >Action :</p>' +
+                                          '<p>' + num_act + '</p>' +
+                                           '</div>' +
+                                          ' <div class="next-handle">' +
+                                          '<i class="fas fa-angle-double-right waiting-icon"></i>' +
+                                          '</div>'
                                         // Création du formData pour l'action
                                         var formdata_act = {
                                             num_action: numaction_year,
@@ -817,8 +841,10 @@ $("#add-prg").on('click', function () {
                                                     // Ajout du numéro de l'action au chemin
                                                     path.push(numaction_year);
                                                     path3.push(num_act);
+                                                  
                                                     console.log('A path: ' + JSON.stringify(path));
-
+                                                    $('#confirm-holder_act').empty()
+                                                    $('#confirm-holder_act').append('<i class="fas fa-wrench"></i>')
                                                     // Création du formulaire pour la sous-action après l'ajout de l'action
                                                     var prg4 = `<div class="form-container">
                                                            <form>
@@ -848,10 +874,12 @@ $("#add-prg").on('click', function () {
                                                                </div>`;
 
                                                     // Insertion du formulaire pour la sous-action dans le DOM
+                                                    $('.the-path').append(nexthop)
                                                     $('#progam-handle').append(prg4);
 
                                                     // Ajout de l'événement d'ajout pour la sous-action
                                                     $('#add-prg4').on('click', function () {
+                                                        console.log('inside sous_action')
                                                         var nom_sous_act = $('#nom_sous_act').val();
                                                         var num_sous_act = $('#num_sous_act').val();
                                                         var dat_inst = $('#date_insert_sou_action').val();
@@ -883,6 +911,7 @@ $("#add-prg").on('click', function () {
                                                                     console.log('path: ' + JSON.stringify(path));
 
                                                                     // Redirection vers la page suivante après l'ajout de la sous-action
+                                                                    alert('testing')
                                                                     window.location.href = 'testing/S_action/' + path.join('/');
                                                                 }
                                                             },
@@ -965,6 +994,7 @@ $("#add-prg").on('click', function () {
  */
 
 function T1_table(id, T) {
+
     var current =new Array();
     var preve = new Array();
     var newbtn='<i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i>'
@@ -978,7 +1008,8 @@ function T1_table(id, T) {
         $('.T-handle').css('display', 'flex')
     }, 500)
     var headT = '<tr>' +
-        '<th colspan="2"><h1>T Description</h1></th>' +
+        '<th ><h1>Code</h1></th>' +
+        '<th ><h1>T Description</h1></th>' +
         '<th><h1>AE</h1></th>' +
         '<th><h1>CP</h1></th>' +
         '</tr>';
@@ -986,7 +1017,7 @@ function T1_table(id, T) {
     $.getJSON(jsonpath1, function (data) {
         // Loop through each item in the JSON data
         $.each(data, function (key, value) {
-            // Create a table row 
+            // Create a table row
             let row = '<tr id="ref'+key+'">' +
                 '<td class="code" >' + key + '</td>' +
                 '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
@@ -995,9 +1026,9 @@ function T1_table(id, T) {
                 '</tr>';
 
             // Append the row to the table body
-           
+
             $('#T-tables tbody').append(row);
-            
+            Edit(id, T)
             if(current.length == 0)
             {
                 current = key;
@@ -1023,13 +1054,14 @@ function T1_table(id, T) {
                     {
                         var ads=key+'1';
                         add_newOPs_T1(ads,'testing new descr',2500,key);
+                        Edit(id, T)
                     })
                     }
                     preve = current;
                 }
                 current = key;
             }
-            Edit(id, T)
+            
         });
     }).fail(function () {
         console.error('Error loading JSON file.');
@@ -1095,7 +1127,7 @@ function T2_table(id, T) {
 
             // Append the row to the table body
             $('#T-tables tbody').append(row);
-
+            Edit(id, T)
             if(current.length == 0)
             {
                 current = key;
@@ -1113,7 +1145,7 @@ function T2_table(id, T) {
                 }
                 else
                 {
-                    
+
                     console.log('testing editable'+key)
                     if($('#ref'+key+' td').hasClass("editable"))
                     {
@@ -1122,14 +1154,13 @@ function T2_table(id, T) {
                     {
                         var ads=key+'1';
                         add_newOPs_T2(ads,'testing new descr',2500,key);
+                        Edit(id, T)
                     })
                     }
                     preve = current;
                 }
                 current = key;
             }
-            Edit(id, T)
-
         });
     }).fail(function () {
         console.error('Error loading JSON file.');
@@ -1150,15 +1181,19 @@ function T3_table(id, T) {
     }, 500)
     var headT = '<tr>' +
         '<th><h1>code</h1></th>' +
-        '<th colspan="2"><h1>T Description</h1></th>' +
-        '<th colspan="2">' +
+        '<th><h1>T Description</h1></th>' +
+        '<th><h1>Intitule de L`Operation</h1></th>' +
+        '<th colspan="6">' +
         '<div class="fusion-father">' +
         '<h1>MONTANT ANNEE (N)</h1>' +
         '<div class="fusion-child">' +
-        ' <h1 style="width:40px;">AE</h1>' +
-        '<h1>CP</h1>' +
+        '<h1>AE Reportee</h1>' +
+        '<h1>AE Notifiee</h1>' +
+        '<h1>AE Engagée</h1>' +
+        '<h1>CP Reportee</h1>' +
+        '<h1>CP Notifiée</h1>' +
+        '<h1>CP Engagée</h1>' +
         '</div>' +
-        '</div>    ' +
         '</th>' +
         '</tr>';
     $('#T-tables thead').append(headT)
@@ -1174,12 +1209,16 @@ function T3_table(id, T) {
                 '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
                 '<td class="editable">' + 0 + '</td>' +
                 '<td class="editable">' + 180 + ',000</td>' +
+                '<td class="editable">' + 0 + '</td>' +
+                '<td class="editable">' + 180 + ',000</td>' +
+                '<td class="editable">' + 0 + '</td>' +
+                '<td class="editable">' + 180 + ',000</td>' +
                 '</tr>';
 
             // Append the row to the table body
-       
-            $('#T-tables tbody').append(row);
 
+            $('#T-tables tbody').append(row);
+            Edit(id, T)
             if(current.length == 0)
             {
                 current = key;
@@ -1187,7 +1226,7 @@ function T3_table(id, T) {
             }
             else
             {
-               
+
                 if(key.split("0")[0].length <= 2)
                 {
                     $('#ref'+key+' td').each(function(){
@@ -1201,7 +1240,101 @@ function T3_table(id, T) {
                         $(this).removeClass('editable')
                     })
                     preve = current;
-                 
+
+                }
+                else
+                {
+                    console.log('testing editable'+preve)
+                    if($('#ref'+key+' td').hasClass("editable"))
+                    {
+                    $('#ref'+key+' #add_op').append(newbtn)
+                    $('#ref'+key+' #add_op').on('click',function()
+                    {
+                        var ads=key+'1';
+                        add_newOPs_T3(ads,'testing new descr',2500,key);
+                        Edit(id, T)
+                    })
+                    }
+
+                    preve = current;
+                }
+                current = key;
+            }
+
+            Edit(id, T)
+        });
+    }).fail(function () {
+        console.error('Error loading JSON file.');
+    });
+}
+function T4_table(id, T) {
+    var current =new Array();
+    var preve = new Array();
+    var newbtn='<i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i>'
+    console.log('data is')
+    $('#Tport-handle').addClass('scale-out');
+    setTimeout(() => {
+        // Add the class to hide the table
+        $('#Tport-handle').addClass('scale-hidden');
+        // Optionally remove the scaling out class after hiding
+        $('#Tport-handle').removeClass('scale-out');
+        $('.T-handle').css('display', 'flex')
+    }, 500)
+    var headT = '<tr>' +
+        '<th><h1>Code</h1></th>' +
+        '<th><h1>DEPENSES DE TRANSFERT</h1></th>' +
+        '<th>' +
+        '<th colspan="2">' +
+        '<div class="fusion-father">' +
+        '<h1>MONTANT ANNEE (N)</h1>' +
+        '<div class="fusion-child">' +
+        '<h1>AE</h1>' +
+        '<h1>CP</h1>' +
+        '</div>' +
+        '</div>    ' +
+        '</th>' +
+        '</tr>';
+    $('#T-tables thead').append(headT)
+    $.getJSON(jsonpath4, function (data) {
+        // Loop through each item in the JSON data
+        $.each(data, function (key, value) {
+            // Create a table row
+            var val = value.split('-')
+         //   console.log('values' + JSON.stringify(val))
+            let row = '<tr id="ref'+key+'">' +
+                '<td class="code">' + key + '</td>' +
+                '<td><p>' + val[0] + '</p> </td>' +
+
+                '<td class="editable">' + 0 + '</td>' +
+                '<td class="editable">' + 180 + ',000</td>' +
+                '</tr>';
+
+            // Append the row to the table body
+
+            $('#T-tables tbody').append(row);
+
+            if(current.length == 0)
+            {
+                current = key;
+                preve = current;
+            }
+            else
+            {
+
+                if(key.split("0")[0].length <= 2)
+                {
+                    $('#ref'+key+' td').each(function(){
+                        $(this).removeClass('editable')
+                    })
+                }
+                if(current.split("0")[0].length > preve.split("0")[0].length)
+                {
+                    console.log('testing '+preve)
+                    $('#ref'+preve+' td').each(function(){
+                        $(this).removeClass('editable')
+                    })
+                    preve = current;
+
                 }
                 else
                 {
@@ -1215,20 +1348,17 @@ function T3_table(id, T) {
                         add_newOPs_T3(ads,'testing new descr',2500,key);
                     })
                     }
-                 
+
                     preve = current;
                 }
                 current = key;
             }
-            
+
             Edit(id, T)
         });
     }).fail(function () {
         console.error('Error loading JSON file.');
     });
-}
-function T4_table() {
-
 }
 $(document).ready(function () {
 
@@ -1270,15 +1400,34 @@ $(document).ready(function () {
         if (id_tport_c == 'T_port3') {
             var T = 3;
             T3_table(id_tport_c,T)
-            
-            
+
+
+        }
+        if (id_tport_c == 'T_port4') {
+            var T = 4;
+            T4_table(id_tport_c,T)
+
+
         }
         console.log('testign which port im ' + id_tport_c)
     })
- 
-     
+
+
 })
 
+/**
+ * 
+ *  this js for creation from the index
+ */
+
+
+  
+
+/**
+ * 
+ * 
+ * 
+ */
 /**
  *
  *  end

@@ -81,8 +81,8 @@ foreach ($jsonData as $codeStr => $nom) {
         if ($code % 1000 == 0) {
             // Insertion dans la table groupoperation
             GroupOperation::updateOrCreate(
-                ['code_grp_operation' => $code.$request->id_sous_action],
-                ['nom_grp_operation' => $nom, 'num_sous_action' => $request->s_act,
+                ['code_grp_operation' => $code.$s_act],
+                ['nom_grp_operation' => $nom, 'num_sous_action' => $s_act,
                  'date_insert_grp_operation' => $currentDateTime]
             );
         }
@@ -144,11 +144,11 @@ foreach ($jsonData as $codeStr => $nom) {
                   , 'date_insert_SOUSoperation' => $currentDateTime]
             );
 
-            //mettre à jour la table construire DPIA 
+            //mettre à jour la table construire DPIA
            /* ConstruireDPIA::updateOrCreate(
-            
+
                 ['code_sous_operation' =>  $code.$codeOp.$codeGp.$s_act.$act.$sous_prog.$prog.$port],
-               
+
                 [
                     'AE_dpia_nv' => floatval(str_replace(',', '', $ae)),
                     'CP_dpia_nv' => floatval(str_replace(',', '', $cp)),
@@ -228,8 +228,8 @@ elseif ($T == 2) {
         if ($code % 1000 == 0) {
             // Insertion dans la table groupoperation
             GroupOperation::updateOrCreate(
-                ['code_grp_operation' => $code.$request->id_sous_action],
-                ['nom_grp_operation' => $nom, 'num_sous_action' => $request->id_sous_action, 'date_insert_grp_operation' => $currentDateTime]
+                ['code_grp_operation' => $code.$s_act],
+                ['nom_grp_operation' => $nom, 'num_sous_action' => $s_act, 'date_insert_grp_operation' => $currentDateTime]
             );
 
             // Vérifier la ligne suivante
@@ -362,7 +362,7 @@ elseif ($T == 2) {
         }
     } // fin boucle
 
-    dd($request);
+    //dd($request);
     return response()->json([
         'success' => true,
         'message' => 'Données insérées avec succès !',
@@ -447,8 +447,8 @@ foreach ($jsonData as $codeStr => $nom) {
           if ($code % 1000 == 0) {
               // Insertion dans la table groupoperation
               GroupOperation::updateOrCreate(
-                  ['code_grp_operation' => $code.$request->id_sous_action],
-                  ['nom_grp_operation' => $nom, 'num_sous_action' => $request->id_sous_action,
+                  ['code_grp_operation' => $code.$s_act],
+                  ['nom_grp_operation' => $nom, 'num_sous_action' => $s_act,
                   'date_insert_grp_operation' => $currentDateTime]
               );
           }
@@ -593,8 +593,8 @@ if (!$nom) {
    if ($code % 1000 == 0) {
        // Insertion dans la table groupoperation
        GroupOperation::updateOrCreate(
-           ['code_grp_operation' => $code.$request->id_sous_action],
-           ['nom_grp_operation' => $nom, 'num_sous_action' => $request->id_sous_action]
+           ['code_grp_operation' => $code.$s_act],
+           ['nom_grp_operation' => $nom, 'num_sous_action' => $s_act]
        );
    }
    // Vérifier si le code représente une opération

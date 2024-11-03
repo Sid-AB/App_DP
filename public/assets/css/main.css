@@ -696,7 +696,7 @@ z-index: 1000;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  width: 250px;
+  /*width: 250px;*/
   background-color: #FFC107;
   height: 40px;
   border-radius: 40%;
@@ -940,6 +940,7 @@ padding: 0 0 8em 0;
   
   display: flex;
   flex-direction: column;
+  align-items: center;
 
 }
 .container-T td:first-child { 
@@ -1112,5 +1113,19 @@ transition-timing-function: line;
 {
   cursor: pointer;
   scale: 0.9;
+}
+.add-btn
+{
+    border-radius: 20%;
+    border: 1px dotted gold;
+}
+.mem-add
+{
+    display: inline-block;
+    padding: 5px;
+    cursor: pointer;
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
 }
 /**---------------------- end new ops -----------------------------------*/

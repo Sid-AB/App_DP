@@ -44,6 +44,7 @@ Route::controller(portfeuilleController::class)->group(function(){
     Route::get('/Portfail/{id}','affich_portef')->name('home.portfail');
     Route::get('/Form','form_portef')->name('form.portfail'); //afficher formulaire d ajout
     Route::post('/creation','creat_portef')->name('creation.portfail');
+    Route::get('/creation/from','show_prsuiv')->name('creation.show_prsuiv');
     Route::get('/check-portef','check_portef')->name('check.portfail');
 });
 
@@ -66,6 +67,7 @@ Route::controller(sousProgrammeController::class)->group(function(){
 //===============ROUTE ACTION==============================
 Route::controller(actionController::class)->group(function(){
     Route::get('/Action','affich_action')->name('action.detail');
+    Route::get('/Action/{id}','affich_action')->name('actikon');
     Route::post('/creationAction','create_action')->name('creation.action');
     Route::get('/check-action','check_action')->name('check.action');
 

@@ -96,14 +96,14 @@
           <label for="input2">Date insertion :</label>
           <input type="date" class="form-control" id="date_insert_portef">
         </div>
-        <!--div class="form-group">
+        <div class="form-group">
           <label for="inputDate">AE</label>
           <input type="number" class="form-control" id="AE_prog">
         </div>
         <div class="form-group">
           <label for="inputDate">CP</label>
           <input type="number" class="form-control" id="CP_prog">
-        </div-->
+        </div>
         </form>
 
         <br>

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="csrf-token" content=" {{csrf_token()}}">
     <title>Portfail</title>
 
 <!-- Fonts -->
@@ -107,9 +108,9 @@
                 <ul style="display: none;">
                 <li>
                 <span class="member">
-                  <a href="{{route('creation.portfail')}}">
+                  <button class="add-btn">
                    <i class="fas fa-plus-circle icon-car" style='font-size:100px; color:#0dcaf0;'></i>
-                  </a>
+                  </button>
                 </span>
           </li>
                   <li>
@@ -367,10 +368,10 @@
                         </span>
                         </li>
                         <li>
-                <span class="member">
-                  <a href="{{route('creation.portfail')}}">
+                <span class="mem-add">
+                  <button class="add-btn" id="1">
                    <i class="fas fa-plus-circle icon-car" style='font-size:100px; color:#0dcaf0;'></i>
-                  </a>
+                  </button>
                   </span>
                   </li>
                       </ul>
@@ -412,28 +413,28 @@
                         </span>
                       </li>
                       <li>
-                <span class="member">
-                  <a href="{{route('creation.portfail')}}">
+                <span class="mem-add">
+                  <button class="add-btn" id="2">
                    <i class="fas fa-plus-circle icon-car" style='font-size:100px; color:#0dcaf0;'></i>
-                  </a>
+                  </button>
                 </span>
           </li>
                     </ul>
                     <li>
-                <span class="member">
-                  <a href="{{route('creation.portfail')}}">
+                <span class="mem-add">
+                  <button class="add-btn" id="3">
                    <i class="fas fa-plus-circle icon-car" style='font-size:100px; color:#0dcaf0;'></i>
-                  </a>
+                  </button>
                 </span>
           </li>
                  </li>
                 </ul>
               </li>
               <li>
-                <span class="member">
-                  <a href="{{route('creation.portfail')}}">
+                <span class="mem-add">
+                  <button class="add-btn" id="4">
                    <i class="fas fa-plus-circle icon-car" style='font-size:100px; color:#0dcaf0;'></i>
-                  </a>
+                  </button>
                 </span>
           </li>
             </ul>
@@ -487,10 +488,48 @@
     }
     if(id =='S_ACTION-002' || id =='S_ACTION-001')
     {
-       window.location.href='/testing/S_Action/'+path[0]+'/'+path[1]+'/'+path[2]+'/'+path[3]+'/'+path[4]+'/'
+       window.location.href='/testing/S_action/'+path[0]+'/'+path[1]+'/'+path[2]+'/'+path[3]+'/'+path[4]+'/'
     }
   })
+  $('.add-btn').on('click',function(){
+            var id = $(this).attr("id");
+            var indice=id ;
+            console.log('i m the level '+indice)
+            var  news;
+            switch(true)
+            {
+              case id=="4":
+                indice=id-4
+                var formapath={"portiel code":path[indice]}
+                console.log('add new programe for portail avec '+typeof(indice)+' eest'+JSON.stringify(formapath))
+                  news=new URLSearchParams(formapath).toString();
+                window.location.href='/creation/from?'+news;
+                break;
+                case id=="3":
+                indice=id-2
+                var formapath={"portiel code":path[0],"Programme":path[indice]}
+                console.log('add new sous_ programe for portailavec '+indice+' eest'+JSON.stringify(formapath))
+                  news=new URLSearchParams(formapath).toString();
+               window.location.href='/creation/from?'+news;
+                break;
+                case id=="2":
+                indice=id
+                var formapath={"portiel code":path[0],"Programme":path[1],"Sous Programme":path[indice]}
+                console.log('add new action for portailavec '+indice+' eest'+JSON.stringify(formapath))
+                  news=new URLSearchParams(formapath).toString();
+                window.location.href='/creation/from?'+news;
+                break;
+                case id == "1":
+                indice=parseInt(id)+2
+                var formapath={"portiel code":path[0],"Programme":path[1],"Sous Programme":path[2],"Action":path[indice]}
+                console.log('add new sous_action for portailavec '+indice+' eest'+formapath.Programme)
+                  news=new URLSearchParams(formapath).toString();
+                window.location.href='/creation/from?'+news;
+                break;
+                default:
+                console.log("No level is select");
+            }
+        })
 })
-
 </script>
 </html>
