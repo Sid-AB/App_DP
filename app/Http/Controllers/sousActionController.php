@@ -56,7 +56,7 @@ public function check_action(Request $request)
 function create_sousaction(Request $request)
 {   //dd($request);
  // Récupérer la ligne de la table en fonction de 'numsouaction'
- $sousAction = SousAction::where('num_sous_action', $request->num_act)->first(); // Utilisation de 'numsouaction' pour trouver l'élément
+ $sousAction = SousAction::where('num_sous_ action', $request->num_act)->first(); // Utilisation de 'numsouaction' pour trouver l'élément
  if ($sousAction) {
     // Concaténation des valeurs pour num_sous_action
     $sousAction->num_sous_action = $request->num_sous_action;
