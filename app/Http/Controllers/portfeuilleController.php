@@ -90,6 +90,19 @@ public function check_portef(Request $request)
         $portefeuille->Date_portefeuille = $request->Date_portefeuille;
         $portefeuille->id_min =1;//periodiquement
         $portefeuille->save();
+
+        // Enregistrer le fichier et le lier au portefeuille
+    if ($request->hasFile('file')) {
+        $path = $request->file('file')->store('public/files');
+        $filePath = Storage::url($path);
+
+        // Créer un nouvel enregistrement dans multi_media avec le chemin du fichier et l'ID du portefeuille
+        $media = new MultiMedia();
+        $media->portefeuille_id = $portefeuille->id;
+        $media->file_path = $filePath;
+        $media->save();
+    }
+
     }else{
 
 
@@ -103,7 +116,18 @@ public function check_portef(Request $request)
         $portefeuille->Date_portefeuille = $request->Date_portefeuille;
         $portefeuille->id_min =1;//periodiquement
         $portefeuille->save();
-       // dd($portefeuille);
+
+        // Enregistrer le fichier et le lier au portefeuille
+        if ($request->hasFile('file')) {
+            $path = $request->file('file')->store('public/files');
+            $filePath = Storage::url($path);
+
+            // Créer un nouvel enregistrement dans multi_media avec le chemin du fichier et l'ID du portefeuille
+            $media = new MultiMedia();
+            $media->portefeuille_id = $portefeuille->id;
+            $media->file_path = $filePath;
+            $media->save();
+        }
 
     }
 
