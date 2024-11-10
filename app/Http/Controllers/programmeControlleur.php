@@ -66,7 +66,7 @@ class programmeControlleur extends Controller
             'nom_prog' => 'required',
             'date_insert_portef' => 'required|date',
         ]);
-
+     //  dd($request);
         // Créer un nouveau programme
         $programme = new Programme();
         $programme->num_prog = $request->num_prog;
