@@ -440,113 +440,111 @@ $(document).ready(function () {
 $(document).ready(function () {
 
 
-    // Vérifie l'existence du portefeuille lorsque le champ de date perd le focus
-    $('#date_crt_portf').on('focusout', function () {
-        var num_portefeuil = $('#num_port').val(); // Récupérer la valeur du portefeuille
-        var Date_portefeuille = $(this).val();  // Récupérer la valeur de la date
+   // Vérifie l'existence du portefeuille lorsque le champ de date perd le focus
+   $('#date_crt_portf').on('focusout', function () {
+       var num_portefeuil = $('#num_port').val(); // Récupérer la valeur du portefeuille
+       var Date_portefeuille = $(this).val();  // Récupérer la valeur de la date
 
-        var year = new Date(Date_portefeuille).getFullYear(); // Extraire l'année à partir de la date
-        var numwall_year = num_portefeuil + year;
-
-
-        // Vérifie que les deux champs sont remplis avant de continuer
-        if (Date_portefeuille && num_portefeuil) {
-            // Appel AJAX pour vérifier le portefeuille dans la base de données
-            $.ajax({
-                url: '/check-portef',  // Route pour vérifier l'existence du portefeuille
-                type: 'GET',
-                data: {
-                    num_portefeuil: numwall_year,
-                    Date_portefeuille: Date_portefeuille
-                },
-                success: function (response) {
-                    if (response.exists) {
-                        console.log(response); // Vérifiez la réponse
-                        path.push(numwall_year);
-                        path3.push(num_portefeuil);
-
-                        console.log('numwall_year path3: ' + JSON.stringify(path3));
-
-                        // Remplir les champs du formulaire avec les données récupérées
-                        $('#date_crt_portf').val(response.Date_portefeuille).trigger('change'); // Remplir et déclencher l'événement change
-                        $('#AE_portef').val(response.AE_portef).trigger('change'); // Remplir et déclencher l'événement change
-                        $('#CP_portef').val(response.CP_portef).trigger('change'); // Remplir et déclencher l'événement change
-                        $('#nom_journ').val(response.nom_journal).trigger('change'); // Remplir et déclencher l'événement change
-                        $('#num_journ').val(response.num_journal).trigger('change'); // Remplir et déclencher l'événement change
-
-                        alert('Le portefeuille existe déjà.');
-
-                        // Afficher le deuxième formulaire
-                        //$('.card').hide();
-                        //$('#progam-handle').css('display', 'block');
-                        $('.font-bk').removeClass('back-bk')
-                        $('.wallet-path').css('display', 'flex')
-                        $('.wallet-handle').empty()
-                        $('#progam-handle').css('display', 'block')
-                        $('#progam-handle').removeClass('scale-out')
-                        $('#progam-handle').addClass('scale-visible')
-                        $('#w_id').text(num_portefeuil)
-                    } else {
-                        //alert('Le portefeuille n\'existe pas.');
-                    }
-                },
-                error: function () {
-                    alert('Erreur lors de la vérification du portefeuille');
-                }
-            });
-        }
-    });
+       var year = new Date(Date_portefeuille).getFullYear(); // Extraire l'année à partir de la date
+       var numwall_year = num_portefeuil + year;
 
 
+       // Vérifie que les deux champs sont remplis avant de continuer
+       if (Date_portefeuille && num_portefeuil) {
+           // Appel AJAX pour vérifier le portefeuille dans la base de données
+           $.ajax({
+               url: '/check-portef',  // Route pour vérifier l'existence du portefeuille
+               type: 'GET',
+               data: {
+                   num_portefeuil: numwall_year,
+                   Date_portefeuille: Date_portefeuille
+               },
+               success: function (response) {
+                   if (response.exists) {
+                       console.log(response); // Vérifiez la réponse
+                       path.push(numwall_year);
+                       path3.push(num_portefeuil);
+
+                       console.log('numwall_year path3: ' + JSON.stringify(path3));
+
+                       // Remplir les champs du formulaire avec les données récupérées
+                       $('#date_crt_portf').val(response.Date_portefeuille).trigger('change'); // Remplir et déclencher l'événement change
+                       $('#AE_portef').val(response.AE_portef).trigger('change'); // Remplir et déclencher l'événement change
+                       $('#CP_portef').val(response.CP_portef).trigger('change'); // Remplir et déclencher l'événement change
+                       $('#nom_journ').val(response.nom_journal).trigger('change'); // Remplir et déclencher l'événement change
+                       $('#num_journ').val(response.num_journal).trigger('change'); // Remplir et déclencher l'événement change
+
+                       alert('Le portefeuille existe déjà.');
+
+                      //$('.font-bk').removeClass('back-bk')
+                      //$('.wallet-path').css('display', 'flex')
+                      //$('.wallet-handle').empty()
+                      //$('#progam-handle').css('display', 'block')
+                      //$('#progam-handle').removeClass('scale-out')
+                      //$('#progam-handle').addClass('scale-visible')
+                      //$('#w_id').text(num_portefeuil)
+                   } else {
+                       //alert('Le portefeuille n\'existe pas.');
+                   }
+               },
+               error: function () {
+                   alert('Erreur lors de la vérification du portefeuille');
+               }
+           });
+       }
+   });
 
 
-    $("#add-wallet").on('click', function () {
-        var num_wallet = $('#num_port').val();
-        var dateprort = $('#date_crt_portf').val();
-        var year = new Date(dateprort).getFullYear(); // Extraire l'année à partir de la date
-        var numwall_year = num_wallet + year;
-        // console.log('id'+num_wallet)
-        var formportinsert = {
-            'num_portefeuil': numwall_year,
-            'Date_portefeuille': $('#date_crt_portf').val(),
-            'nom_journal': $('#nom_journ').val(),
-            'num_journal': parseInt($('#num_journ').val()),
-            'AE_portef': parseFloat($('#AE_portef').val()),
-            'CP_portef': parseFloat($('#CP_portef').val()),
-            //year: year,
-            _token: $('meta[name="csrf-token"]').attr('content'),
-            _method: 'POST'
-        }
-        $.ajax({
-            url: "/creation",
-            type: "POST",
-            data: formportinsert,
-            success: function (response) {
-                if (response.code == 200 || response.code == 404) {
-                    alert(response.message)
-                    path.push(numwall_year);
-                    path3.push(num_wallet);
+   $("#add-wallet").on('click', function () {
+       var num_wallet = $('#num_port').val();
+       var dateprort = $('#date_crt_portf').val();
+       var year = new Date(dateprort).getFullYear(); // Extraire l'année à partir de la date
+       var numwall_year = num_wallet + year;
+       // console.log('id'+num_wallet)
+       var formportinsert = {
+           'num_portefeuil': numwall_year,
+           'Date_portefeuille': $('#date_crt_portf').val(),
+           'nom_journal': $('#nom_journ').val(),
+           'num_journal': parseInt($('#num_journ').val()),
+           'AE_portef': parseFloat($('#AE_portef').val()),
+           'CP_portef': parseFloat($('#CP_portef').val()),
+           //year: year,
+           _token: $('meta[name="csrf-token"]').attr('content'),
+           _method: 'POST'
+       }
+       $.ajax({
+           url: "/creation",
+           type: "POST",
+           data: formportinsert,
+           success: function (response) {
+               if (response.code == 200 || response.code == 404) {
+                   alert(response.message)
+                   path.push(numwall_year);
+                   path3.push(num_wallet);
 
-                    console.log('numwall_year path: ' + JSON.stringify(path));
+                   console.log('numwall_year path: ' + JSON.stringify(path));
 
-                    $('.font-bk').removeClass('back-bk')
-                    $('.wallet-path').css('display', 'flex')
-                    $('.wallet-handle').empty()
-                    $('#progam-handle').css('display', 'block')
-                    $('#progam-handle').removeClass('scale-out')
-                    $('#progam-handle').addClass('scale-visible')
-                    $('#w_id').text(num_wallet)
-                }
-                else {
-                    alert(response.message)
-                }
-            },
-            error: function () {
-                alert('error');
-            }
-        })
+                   $('.font-bk').removeClass('back-bk')
+                   $('.wallet-path').css('display', 'flex')
+                   $('.wallet-handle').empty()
+                   $('#progam-handle').css('display', 'block')
+                   $('#progam-handle').removeClass('scale-out')
+                   $('#progam-handle').addClass('scale-visible')
+                   $('#w_id').text(num_wallet)
+               }
+               else {
+                   alert(response.message)
+               }
+           },
+           error: function () {
+               alert('error');
+           }
+       })
 
-    })
+   })
+
+
+
 });
 
 $("#add-prg").on('click', function () {
@@ -841,7 +839,7 @@ $("#add-prg").on('click', function () {
                                                     // Ajout du numéro de l'action au chemin
                                                     path.push(numaction_year);
                                                     path3.push(num_act);
-                                                  
+
                                                     console.log('A path: ' + JSON.stringify(path));
                                                     $('#confirm-holder_act').empty()
                                                     $('#confirm-holder_act').append('<i class="fas fa-wrench"></i>')
@@ -1061,7 +1059,7 @@ function T1_table(id, T) {
                 }
                 current = key;
             }
-            
+
         });
     }).fail(function () {
         console.error('Error loading JSON file.');
@@ -1416,17 +1414,17 @@ $(document).ready(function () {
 })
 
 /**
- * 
+ *
  *  this js for creation from the index
  */
 
 
-  
+
 
 /**
- * 
- * 
- * 
+ *
+ *
+ *
  */
 /**
  *
