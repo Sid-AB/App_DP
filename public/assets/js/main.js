@@ -550,11 +550,15 @@ $(document).ready(function () {
 $("#add-prg").on('click', function () {
     var id_prog = $('#num_prog').val();
     var nom_prog = $('#nom_prog').val();
+    var CP_prog = $('#CP_prog').val();
+    var AE_prog = $('#AE_prog').val();
     var numprog_year = id_prog + path[0];
     var date_sort_jour = $('#date_insert_portef').val();
     var formprogdata = {
         num_prog: numprog_year,
         nom_prog: nom_prog,
+        CP_prog: CP_prog,
+        AE_prog: AE_prog,
         num_portefeuil: path[0],
         date_insert_portef: date_sort_jour,
         _token: $('meta[name="csrf-token"]').attr('content'),

@@ -15,9 +15,8 @@ return new class extends Migration
             $table->string('num_prog')->primary();
             $table->string('nom_prog');
             $table->string('nom_prog_ar')->nullable();
-          //  $table->float('AE_porg');
-         //   $table->float('CP_prog');
-
+            $table->float('CP_prog');
+            $table->float('AE_prog');
             $table->Date('date_insert_portef');
             $table->Date('date_update_portef')->nullable();
           //  $table->integer('num_journ');
