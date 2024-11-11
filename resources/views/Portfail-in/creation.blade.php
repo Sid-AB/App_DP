@@ -39,7 +39,7 @@
   </div>
     <div class="wallet-handle">
     <div class="card">
-            <div class="card-body">
+            <div class="card-body"  id="creati-prog">
                 <h5 class="card-title">
                     <i class="fas fa-file-alt"></i> Upload your document
                 </h5>
@@ -82,7 +82,7 @@
         </div>
     </div>
     <div id="progam-handle" style="display:none;">
-    <div class="form-container">
+    <div class="form-container" id="creati-prog">
       <form >
         <div class="form-group">
           <label for="input1">Code_Programme</label>

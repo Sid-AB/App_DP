@@ -203,7 +203,7 @@ Object.entries(paths).forEach(([code,value])=>{
 
                  @if($leng == 1)
 
-                 <div class="form-container">
+                 <div class="form-container" id="creati-prog">
 
                  <form>
                         <div class="form-group">
@@ -272,7 +272,7 @@ Object.entries(paths).forEach(([code,value])=>{
                         </div>
                         </div>
     </div>                    
-    <div class="form-container"id="creati-act" style="display:none">
+    <div class="form-container" id="creati-act" style="display:none">
                         <form >
                         <div class="form-group">
                         <label for="input1">N° ACTION</label>
@@ -313,9 +313,36 @@ Object.entries(paths).forEach(([code,value])=>{
 <script>
 console.log('testing'+JSON.stringify(path))
 $(document).ready(function(){
-    $('.btn-primary').on('click',function(){
+    $('.btn-primary').on('click',function(event){
+        event.preventDefault(); // Prevents default button behavior
         id=$(this).attr('id')
-        console.log('this is '+id);
+        var indice=0;
+        var isEmpty=false
+        var formId = $(this).parents('.form-container').attr('id');
+        console.log('this is '+id+'and form id'+formId);
+        $('#' + formId+' form').find('input').each(function(){
+            console.log('before the loop')
+            var inputValue = $(this).val();
+
+            // Check if the input is not empty
+            if (inputValue.trim() === "") 
+             {
+                isEmpty = true;
+                indice++;
+             }
+       
+
+        if (isEmpty) {
+            if(indice < 2)
+            {
+            alert("Please fill in all required fields.");
+            }
+            $(this).css('box-shadow','0 0 0 0.25rem rgb(255 0 0 / 47%)')
+        }
+    });
+      
+
+
     if(id == "add-prg3")
     {
       
@@ -495,7 +522,7 @@ $(document).ready(function(){
                     var nexthop = '<div class="pinfo-handle">' +
                         '<i class="fas fa-wallet"></i>' +
                         '<p >S_Program :</p>' +
-                        '<p>' + num_sou_prog + '</p>' +
+                        '<p>' + sou_prog + '</p>' +
                         '</div>' +
                         ' <div class="next-handle">' +
                         '<i class="fas fa-angle-double-right waiting-icon"></i>' +
@@ -523,7 +550,6 @@ $(document).ready(function(){
                              parent.empty();
                              parent.append('<i class="fas fa-wrench"></i>')
                               document.getElementById("creati-act").style.display="block";
-                              $('.the-path').append(nexthop)
                             // path3.push(id_prog);
                               }
     }

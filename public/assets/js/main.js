@@ -90,6 +90,41 @@ var value_chng = new Array()
  *
  * this function for adding button et makalah -_- ;
  */
+function focus_()
+{
+    $('input').focus(function() {
+        $(this).removeAttr('style');
+        console.log($(this).attr('name') || $(this).attr('id') || 'Input' + ' is focused');
+        // Additional actions can go here
+    });
+}
+function check_ifnull(button)
+{
+    var indice=0;
+    var isEmpty=false
+    var formId = $(button).parents('.form-container').attr('id');
+    console.log('and form id'+formId);
+    $('#' + formId+' form').find('input').each(function(){
+        console.log('before the loop')
+        var inputValue = $(this).val();
+
+        // Check if the input is not empty
+        if (inputValue.trim() === "") 
+         {
+            isEmpty = true;
+            indice++;
+         }
+   
+
+    if (isEmpty) {
+        if(indice < 2)
+        {
+        alert("Please fill in all required fields.");
+        }
+        $(this).css('box-shadow','0 0 0 0.25rem rgb(255 0 0 / 47%)')
+    }
+});
+}
 function add_newOPs_T1(id,descr,value,key,)
 {
     var row='<tr id="ref'+id+'">' +
@@ -500,6 +535,30 @@ $(document).ready(function () {
        var dateprort = $('#date_crt_portf').val();
        var year = new Date(dateprort).getFullYear(); // Extraire l'année à partir de la date
        var numwall_year = num_wallet + year;
+       var indice=0;
+       var isEmpty=false
+       var formId = $(this).parents('.card-body').attr('id');
+       console.log('and form id'+formId);
+       $('#' + formId+' form').find('input').each(function(){
+           console.log('before the loop')
+           var inputValue = $(this).val();
+   
+           // Check if the input is not empty
+           if (inputValue.trim() === "") 
+            {
+               isEmpty = true;
+               indice++;
+            }
+      
+   
+       if (isEmpty) {
+           if(indice < 2)
+           {
+           alert("Please fill in all required fields.");
+           }
+           $(this).css('box-shadow','0 0 0 0.25rem rgb(255 0 0 / 47%)')
+       }
+   });
        // console.log('id'+num_wallet)
        var formportinsert = {
            'num_portefeuil': numwall_year,
@@ -546,12 +605,13 @@ $(document).ready(function () {
 
 
 });
-
+focus_()
 $("#add-prg").on('click', function () {
     var id_prog = $('#num_prog').val();
     var nom_prog = $('#nom_prog').val();
     var numprog_year = id_prog + path[0];
     var date_sort_jour = $('#date_insert_portef').val();
+    check_ifnull(this)
     var formprogdata = {
         num_prog: numprog_year,
         nom_prog: nom_prog,
@@ -560,7 +620,7 @@ $("#add-prg").on('click', function () {
         _token: $('meta[name="csrf-token"]').attr('content'),
         _method: 'POST'
     }
-    var prg2 = '<div class="form-container">' +
+    var prg2 = '<div class="form-container" id="creati-sous_prog">' +
         '<form>' +
         '<div class="form-group">' +
         '<label for="input1">N° Sous Programme</label>' +
@@ -642,7 +702,7 @@ $("#add-prg").on('click', function () {
                         ' <div class="next-handle">' +
                         '<i class="fas fa-angle-double-right waiting-icon"></i>' +
                         '</div>'
-                    var prg3 = '<div class="form-container">' +
+                    var prg3 = '<div class="form-container" id="creati-act">' +
                         '<form>' +
                         '<div class="form-group">' +
                         '<label for="input1">N° ACTION</label>' +
@@ -717,6 +777,7 @@ $("#add-prg").on('click', function () {
                         });
                     }
                 });
+                focus_()
                 /**  sous prog insert */
                 $('#add-prg2').on('click', function () {
                     var sou_prog = $('#num_sous_prog').val()
@@ -724,6 +785,7 @@ $("#add-prg").on('click', function () {
                     var dat_sou_prog = $('#date_insert_sousProg').val()
                     var id_prog = path[1];
                     var numsouprog_year = sou_prog + id_prog;
+                    check_ifnull('#add-prg2')
                     //var id_port = path[0];
                     var nexthop = '<div class="pinfo-handle">' +
                         '<i class="fas fa-wallet"></i>' +
@@ -733,7 +795,7 @@ $("#add-prg").on('click', function () {
                         ' <div class="next-handle">' +
                         '<i class="fas fa-angle-double-right waiting-icon"></i>' +
                         '</div>'
-                    var prg3 = '<div class="form-container">' +
+                    var prg3 = '<div class="form-container" id="creati-act">' +
                         '<form>' +
                         '<div class="form-group">' +
                         '<label for="input1">N° ACTION</label>' +
@@ -792,6 +854,7 @@ $("#add-prg").on('click', function () {
                                 $('#progam-handle').append(prg3)
                                 $('#confirm-holder_sprog').empty()
                                 $('#confirm-holder_sprog').append('<i class="fas fa-wrench"></i>')
+                                focus_()
                                 /******           ACTION add for under_progam                    *********** */
                                 $('#add-prg3').on('click', function () {
                                     /**
@@ -808,6 +871,7 @@ $("#add-prg").on('click', function () {
                                         var num_act = $('#num_act').val();
                                         var dat_inst = $('#date_insert_action').val();
                                         var id_sou_prog = path[2];
+                                        check_ifnull('#add-prg3')
                                         var numaction_year = num_act + id_sou_prog;
                                         var nexthop = '<div class="pinfo-handle">' +
                                          '<i class="fas fa-wallet"></i>' +
@@ -844,7 +908,7 @@ $("#add-prg").on('click', function () {
                                                     $('#confirm-holder_act').empty()
                                                     $('#confirm-holder_act').append('<i class="fas fa-wrench"></i>')
                                                     // Création du formulaire pour la sous-action après l'ajout de l'action
-                                                    var prg4 = `<div class="form-container">
+                                                    var prg4 = `<div class="form-container" id="creati-act">
                                                            <form>
                                                             <div class="form-group">
                                                             <label for="num_sous_act">N°Sous ACTION</label>
@@ -874,6 +938,7 @@ $("#add-prg").on('click', function () {
                                                     // Insertion du formulaire pour la sous-action dans le DOM
                                                     $('.the-path').append(nexthop)
                                                     $('#progam-handle').append(prg4);
+                                                    focus_()
 
                                                     // Ajout de l'événement d'ajout pour la sous-action
                                                     $('#add-prg4').on('click', function () {
@@ -881,6 +946,7 @@ $("#add-prg").on('click', function () {
                                                         var nom_sous_act = $('#nom_sous_act').val();
                                                         var num_sous_act = $('#num_sous_act').val();
                                                         var dat_inst = $('#date_insert_sou_action').val();
+                                                        check_ifnull('#add-prg4')
                                                         var numaction_year = path[3];
                                                         var numsousaction_year = num_sous_act + numaction_year;
                                                         // Création du formData pour la sous-action
