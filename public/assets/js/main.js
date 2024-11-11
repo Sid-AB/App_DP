@@ -693,8 +693,7 @@ $("#add-prg").on('click', function () {
                     var Date_sou_program = $(this).val(); // Récupérer la valeur du programme
                     //var year = new Date(Date_sou_program).getFullYear(); // Extraire l'année à partir de la date
                     var num_sou_prog = $('#num_sous_prog').val(); // Récupérer la valeur de la date du programme
-                    var AE_sous_prog=$('#AE_sous_prog').val();
-                    var CP_sous_prog=$('#CP_sous_prog').val()
+                 
                     var id_prpg = path[1];
                     var num_sou_program = num_sou_prog + id_prpg; // Composer num_program
 

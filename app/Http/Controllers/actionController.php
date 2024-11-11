@@ -82,8 +82,8 @@ public function check_action(Request $request)
          $sousaction->num_action = $request->num_action;
          $sousaction->num_sous_action = $request->num_action;
          $sousaction->nom_sous_action = $request->nom_action;
-         $sousaction->AE_sous_action=$request->floatval($request->AE_act);
-         $sousaction->CP_sous_action=$request->floatval($request->CP_act);
+         $sousaction->AE_sous_action=floatval($request->AE_act);
+         $sousaction->CP_sous_action=floatval($request->CP_act);
          $sousaction->date_insert_sous_action = $request->date_insert_action;
          $sousaction->save();
 

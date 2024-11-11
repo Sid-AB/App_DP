@@ -63,8 +63,8 @@ function create_sousaction(Request $request)
     // Mise à jour des autres champs
     $sousAction->num_sous_action = $request->num_sous_action;
     $sousAction->nom_sous_action = $request->nom_sous_action;
-    $sousAction->AE_sous_act=floatval($request->AE_sous_act);
-    $sousAction->CP_sous_act=floatval($request->CP_sous_act);
+    $sousAction->AE_sous_action=floatval($request->AE_sous_act);
+    $sousAction->CP_sous_action=floatval($request->CP_sous_act);
     $sousAction->num_action = $request->num_act;
     $sousAction->date_insert_sous_action = $request->date_insert_sous_action;
 
