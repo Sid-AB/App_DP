@@ -66,12 +66,15 @@ class programmeControlleur extends Controller
             'nom_prog' => 'required',
             'date_insert_portef' => 'required|date',
         ]);
+        //dd(floatval($request->ae_prog));
      //  dd($request);
         // Créer un nouveau programme
         $programme = new Programme();
         $programme->num_prog = $request->num_prog;
         $programme->num_portefeuil = $request->num_portefeuil;
         $programme->nom_prog = $request->nom_prog;
+        $programme->AE_prog=floatval($request->ae_prog);
+        $programme->CP_prog=floatval($request->cp_prog);
         $programme->date_insert_portef = $request->date_insert_portef;
         $programme->id_rp = 1; //periodiquement
 
