@@ -60,13 +60,14 @@ function create_sousaction(Request $request)
  //dd($sousAction);
  if ($sousAction) {
     // Concaténation des valeurs pour num_sous_action
-    $sousAction=new SousAction();
-    $sousAction->num_sous_action = $request->num_sous_action;
     // Mise à jour des autres champs
+    $sousAction->num_sous_action = $request->num_sous_action;
     $sousAction->nom_sous_action = $request->nom_sous_action;
+    $sousAction->AE_sous_action=floatval($request->AE_sous_act);
+    $sousAction->CP_sous_action=floatval($request->CP_sous_act);
     $sousAction->num_action = $request->num_act;
     $sousAction->date_insert_sous_action = $request->date_insert_sous_action;
-    
+
     // Enregistrer les modifications dans la base de données
     if($sousAction->save())
    {
@@ -84,7 +85,7 @@ function create_sousaction(Request $request)
             'code' => 500,
         ]);
     }
-} 
+}
 else {
     // Gérer le cas où la sous-action n'est pas trouvée
     return response()->json([

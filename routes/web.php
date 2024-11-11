@@ -46,6 +46,7 @@ Route::controller(portfeuilleController::class)->group(function(){
     Route::post('/creation','creat_portef')->name('creation.portfail');
     Route::get('/creation/from','show_prsuiv')->name('creation.show_prsuiv');
     Route::get('/check-portef','check_portef')->name('check.portfail');
+    Route::get('/update-portef','update_portef')->name('update.portfail');
 });
 
 //===============ROUTE PROGRAMME==============================
