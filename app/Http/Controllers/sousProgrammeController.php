@@ -61,12 +61,14 @@ public function check_sous_prog(Request $request)
             'nom_sous_prog' => 'required',
             'date_insert_sousProg' => 'required|date',
         ]);
-//dd($request);
+      //  dd($request);
         // Créer un nouveau SousProgramme
         $SousProgramme = new SousProgramme();
         $SousProgramme->num_sous_prog = $request->num_sous_prog;
         $SousProgramme->num_prog = $request->id_program;
         $SousProgramme->nom_sous_prog = $request->nom_sous_prog;
+        $SousProgramme->AE_sous_prog=floatval($request->AE_sous_prog);
+        $SousProgramme->CP_sous_prog=floatval($request->CP_sous_prog);
         $SousProgramme->date_insert_sousProg = $request->date_insert_sousProg;
 
         $SousProgramme->save();

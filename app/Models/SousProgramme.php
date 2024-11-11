@@ -16,7 +16,7 @@ class SousProgramme extends Model
     public $timestamps = false;
 
     protected $fillable = [
-      'num_sous_prog','nom_sous_prog','nom_sous_prog_ar'
+      'num_sous_prog','nom_sous_prog','nom_sous_prog_ar','AE_sous_prog','CP_sous_prog'
 ,'date_insert_sousProg','date_update_sousProg','num_prog'
 ];
 
