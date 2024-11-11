@@ -94,9 +94,7 @@ function focus_()
 {
     $('input').focus(function() {
         $(this).removeAttr('style');
-        console.log($(this).attr('name') || $(this).attr('id') || 'Input' + ' is focused');
-        // Additional actions can go here
-    });
+        });
 }
 function check_ifnull(button)
 {
@@ -119,7 +117,7 @@ function check_ifnull(button)
     if (isEmpty) {
         if(indice < 2)
         {
-        alert("Please fill in all required fields.");
+        alert("Veuillez remplir tous les champs obligatoires.");
         }
         $(this).css('box-shadow','0 0 0 0.25rem rgb(255 0 0 / 47%)')
     }
