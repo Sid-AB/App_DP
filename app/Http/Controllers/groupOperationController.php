@@ -111,24 +111,47 @@ foreach ($jsonData as $codeStr => $nom) {
 
                 // Si la ligne suivante n'est pas une sous-opération
                 if ($nextCode && ($nextCode % 100 == 0 || $nextCode % 1000 == 0)) {
-                    // Insérer dans sousoperation avec un code spécifique
-                    sousoperation::updateOrCreate(
-                        ['code_sous_operation' => $code.$codeGp.$s_act], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
-                        ['code_operation' => $code.$codeGp.$s_act, 'nom_sous_operation' => $nom,
-                         'AE_sous_operation' => floatval(str_replace(',', '', $ae)),
-                         'CP_sous_operation' => floatval(str_replace(',', '', $cp))
-                         , 'date_insert_SOUSoperation' => $currentDateTime]
+                    // Insérer ou mettre à jour dans sousoperation
+                    $sousOp = sousoperation::updateOrCreate(
+                        ['code_sous_operation' => $code . $codeGp . $s_act],
+                        [
+                            'code_operation' => $code . $codeGp . $s_act,
+                            'nom_sous_operation' => $nom,
+                            'AE_sous_operation' => floatval(str_replace(',', '', $ae)),
+                            'CP_sous_operation' => floatval(str_replace(',', '', $cp)),
+                            'date_insert_SOUSoperation' => $currentDateTime
+                        ]
                     );
-                }
+                
+                    // mettre à jour dans ConstruireDPIA
+                    
+        }
+
+         // Mise à jour conditionnelle dans ConstruireDPIA
+       /*  ConstruireDPIA::updateOrCreate(
+            ['code_sous_operation' => $sousOp->code_sous_operation],
+            [
+                'AE_dpia_nv' => $sousOp->AE_sous_operation ?? ConstruireDPIA::where('code_sous_operation', $sousOp->code_sous_operation)->value('AE_dpia_nv'),
+                'CP_dpia_nv' => $sousOp->CP_sous_operation ?? ConstruireDPIA::where('code_sous_operation', $sousOp->code_sous_operation)->value('CP_dpia_nv')
+            ]
+        );*/
             }else{
                 // Insérer dans sousoperation avec un code spécifique
-                sousoperation::updateOrCreate(
+                $sousOp =sousoperation::updateOrCreate(
                     ['code_sous_operation' => $code.$codeGp.$s_act], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
                     ['code_operation' => $code.$codeGp.$s_act, 'nom_sous_operation' => $nom,
                      'AE_sous_operation' => floatval(str_replace(',', '', $ae)),
                      'CP_sous_operation' => floatval(str_replace(',', '', $cp))
                      , 'date_insert_SOUSoperation' => $currentDateTime]
                 );
+                  // mettre à jour dans ConstruireDPIA
+                 /* ConstruireDPIA::updateOrCreate(
+                    ['code_sous_operation' => $sousOp -> code_sous_operation],
+                    [
+                        'AE_dpia_nv' =>$sousOp -> AE_sous_operation,
+                        'CP_dpia_nv' =>$sousOp -> CP_sous_operation,
+                    ]
+                );*/
             }
         }
         // Sinon, il s'agit d'une sous-opération
@@ -136,7 +159,7 @@ foreach ($jsonData as $codeStr => $nom) {
             $codeOp = floor($code / 100) * 100;
 
             // Insertion dans la table sousoperation
-            sousoperation::updateOrCreate(
+            $sousOp =sousoperation::updateOrCreate(
                 ['code_sous_operation' => $code.$codeOp.$codeGp.$s_act],
                 ['code_operation' => $codeOp.$codeGp.$s_act, 'nom_sous_operation' => $nom,
                  'AE_sous_operation' => floatval(str_replace(',', '', $ae)),
@@ -144,15 +167,13 @@ foreach ($jsonData as $codeStr => $nom) {
                   , 'date_insert_SOUSoperation' => $currentDateTime]
             );
 
-            //mettre à jour la table construire DPIA
+          
+            // mettre à jour dans ConstruireDPIA
            /* ConstruireDPIA::updateOrCreate(
-
-                ['code_sous_operation' =>  $code.$codeOp.$codeGp.$s_act.$act.$sous_prog.$prog.$port],
-
+                ['code_sous_operation' => $sousOp -> code_sous_operation],
                 [
-                    'AE_dpia_nv' => floatval(str_replace(',', '', $ae)),
-                    'CP_dpia_nv' => floatval(str_replace(',', '', $cp)),
-                    'date_modification_dpia' =>$currentDateTime,
+                    'AE_dpia_nv' =>$sousOp -> AE_sous_operation,
+                    'CP_dpia_nv' =>$sousOp -> CP_sous_operation,
                 ]
             );*/
 
