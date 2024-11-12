@@ -107,12 +107,12 @@ function check_ifnull(button)
         var inputValue = $(this).val();
 
         // Check if the input is not empty
-        if (inputValue.trim() === "") 
+        if (inputValue.trim() === "")
          {
             isEmpty = true;
             indice++;
          }
-   
+
 
     if (isEmpty) {
         if(indice < 2)
@@ -540,15 +540,15 @@ $(document).ready(function () {
        $('#' + formId+' form').find('input').each(function(){
            console.log('before the loop')
            var inputValue = $(this).val();
-   
+
            // Check if the input is not empty
-           if (inputValue.trim() === "") 
+           if (inputValue.trim() === "")
             {
                isEmpty = true;
                indice++;
             }
-      
-   
+
+
        if (isEmpty) {
            if(indice < 2)
            {
@@ -693,7 +693,7 @@ $("#add-prg").on('click', function () {
                     var Date_sou_program = $(this).val(); // Récupérer la valeur du programme
                     //var year = new Date(Date_sou_program).getFullYear(); // Extraire l'année à partir de la date
                     var num_sou_prog = $('#num_sous_prog').val(); // Récupérer la valeur de la date du programme
-                 
+
                     var id_prpg = path[1];
                     var num_sou_program = num_sou_prog + id_prpg; // Composer num_program
 

@@ -139,7 +139,7 @@ foreach ($jsonData as $codeStr => $nom) {
                 // Insérer dans sousoperation avec un code spécifique
                 $sousOp =sousoperation::updateOrCreate(
                     ['code_sous_operation' => $code.$codeGp.$s_act], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
-                    ['code_operation' => $code.$codeGp.$s_act, 'nom_sous_operation' => $nom,
+                    ['code_operation' => $code.$codeGp.$s_act, 'nom_sous_operation' => $nom,'code_t1' => $T,
                      'AE_sous_operation' => floatval(str_replace(',', '', $ae)),
                      'CP_sous_operation' => floatval(str_replace(',', '', $cp))
                      , 'date_insert_SOUSoperation' => $currentDateTime]
@@ -161,7 +161,7 @@ foreach ($jsonData as $codeStr => $nom) {
             // Insertion dans la table sousoperation
             $sousOp =sousoperation::updateOrCreate(
                 ['code_sous_operation' => $code.$codeOp.$codeGp.$s_act],
-                ['code_operation' => $codeOp.$codeGp.$s_act, 'nom_sous_operation' => $nom,
+                ['code_operation' => $codeOp.$codeGp.$s_act, 'nom_sous_operation' => $nom,'code_t1' => $T,
                  'AE_sous_operation' => floatval(str_replace(',', '', $ae)),
                   'CP_sous_operation' => floatval(str_replace(',', '', $cp))
                   , 'date_insert_SOUSoperation' => $currentDateTime]
@@ -273,6 +273,7 @@ elseif ($T == 2) {
                         [
                             'code_operation' =>  $code.$s_act,
                             'nom_sous_operation' => $nom,
+                            'code_t2' => $T,
                             'AE_sous_operation' => floatval(str_replace(',', '', $ae_attendu)) + floatval(str_replace(',', '', $ae_ouvert)),
                             'CP_sous_operation' => floatval(str_replace(',', '', $cp_attendu)) + floatval(str_replace(',', '', $cp_ouvert)),
                             'AE_atendu' => floatval(str_replace(',', '', $ae_attendu)),
@@ -290,6 +291,7 @@ elseif ($T == 2) {
                     [
                         'code_operation' =>  $code.$s_act,
                         'nom_sous_operation' => $nom,
+                        'code_t2' => $T,
                         'AE_sous_operation' => floatval(str_replace(',', '', $ae_attendu)) + floatval(str_replace(',', '', $ae_ouvert)),
                         'CP_sous_operation' => floatval(str_replace(',', '', $cp_attendu)) + floatval(str_replace(',', '', $cp_ouvert)),
                         'AE_atendu' => floatval(str_replace(',', '', $ae_attendu)),
@@ -333,6 +335,7 @@ elseif ($T == 2) {
                         [
                             'code_operation' =>  $code.$codeGp.$s_act,
                             'nom_sous_operation' => $nom,
+                            'code_t2' => $T,
                             'AE_sous_operation' => floatval(str_replace(',', '', $ae_attendu)) + floatval(str_replace(',', '', $ae_ouvert)),
                             'CP_sous_operation' => floatval(str_replace(',', '', $cp_attendu)) + floatval(str_replace(',', '', $cp_ouvert)),
                             'AE_atendu' => floatval(str_replace(',', '', $ae_attendu)),
@@ -350,6 +353,7 @@ elseif ($T == 2) {
                     [
                         'code_operation' =>  $code.$codeGp.$s_act,
                         'nom_sous_operation' => $nom,
+                        'code_t2' => $T,
                         'AE_sous_operation' => floatval(str_replace(',', '', $ae_attendu)) + floatval(str_replace(',', '', $ae_ouvert)),
                         'CP_sous_operation' => floatval(str_replace(',', '', $cp_attendu)) + floatval(str_replace(',', '', $cp_ouvert)),
                         'AE_atendu' => floatval(str_replace(',', '', $ae_attendu)),
@@ -371,6 +375,7 @@ elseif ($T == 2) {
                 [
                     'code_operation' =>  $code.$codeGp.$s_act,
                     'nom_sous_operation' => $nom,
+                    'code_t2' => $T,
                     'AE_sous_operation' => floatval(str_replace(',', '', $ae_attendu)) + floatval(str_replace(',', '', $ae_ouvert)),
                     'CP_sous_operation' => floatval(str_replace(',', '', $cp_attendu)) + floatval(str_replace(',', '', $cp_ouvert)),
                     'AE_atendu' => floatval(str_replace(',', '', $ae_attendu)),
@@ -506,6 +511,7 @@ foreach ($jsonData as $codeStr => $nom) {
                           ['code_sous_operation' =>$code.$codeGp.$s_act], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
                           ['code_operation' =>$code.$codeGp.$s_act,
                           'nom_sous_operation' => $nom,
+                          'code_t3' => $T,
                           'AE_sous_operation' => ($ae_reporte+$ae_notifie+$ae_engage),
                           'CP_sous_operation' => floatval(str_replace(',', '', $cp_reporte))
                                             +floatval(str_replace(',', '', $cp_notifie))
@@ -525,6 +531,7 @@ foreach ($jsonData as $codeStr => $nom) {
                 ['code_sous_operation' =>$code.$codeGp.$s_act], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
                 ['code_operation' =>$code.$codeGp.$s_act,
                 'nom_sous_operation' => $nom,
+                'code_t3' => $T,
                 'AE_sous_operation' => ($ae_reporte+$ae_notifie+$ae_engage),
                 'CP_sous_operation' => floatval(str_replace(',', '', $cp_reporte))
                                   +floatval(str_replace(',', '', $cp_notifie))
@@ -638,7 +645,7 @@ if (!$nom) {
        sousoperation::updateOrCreate(
            ['code_sous_operation' => $code.$codeGp.$s_act],
            ['code_operation' => $code.$codeGp.$s_act, 'nom_sous_operation' => $nom
-           , 'date_insert_SOUSoperation' => $currentDateTime]
+           ,'code_t4' => $T, 'date_insert_SOUSoperation' => $currentDateTime]
        );
 
        /* // Vérifier la ligne suivante
@@ -663,6 +670,7 @@ if (!$nom) {
                 ['code_sous_operation' =>  $code.$codeOp.$codeGp.$s_act], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
                 ['code_operation' => $codeOp.$codeGp.$s_act, 'nom_sous_operation' => $nom,
                 'AE_sous_operation' => $ae,
+                'code_t4' => $T,
                 'CP_sous_operation' =>floatval(str_replace(',', '',  $cp))
                 , 'date_insert_SOUSoperation' => $currentDateTime]
             );
@@ -672,6 +680,7 @@ if (!$nom) {
         ['code_sous_operation' =>  $code.$codeOp.$codeGp.$s_act], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
         ['code_operation' => $codeOp.$codeGp.$s_act, 'nom_sous_operation' => $nom,
         'AE_sous_operation' => $ae,
+        'code_t4' => $T,
         'CP_sous_operation' =>floatval(str_replace(',', '',  $cp))
         , 'date_insert_SOUSoperation' => $currentDateTime]
     );

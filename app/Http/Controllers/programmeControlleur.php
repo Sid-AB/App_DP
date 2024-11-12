@@ -19,7 +19,7 @@ class programmeControlleur extends Controller
     if ($programmes->isEmpty()) {
         return response()->json([
             'success' => false,
-            'message' => 'Aucun programme trouvé pour ce portefeuille.',
+            'message' => 'Aucun programme trouvé pour ce programme.',
         ]);
     }
 
@@ -62,15 +62,26 @@ class programmeControlleur extends Controller
     {
         // Validation des données
         $request->validate([
-            'num_prog' => 'required|unique:programmes,num_prog',
             'nom_prog' => 'required',
             'date_insert_portef' => 'required|date',
         ]);
-        //dd(floatval($request->ae_prog));
-     //  dd($request);
+
+          //si le portefeuiille existe donc le modifier
+    $programme = Programme::where('num_prog', $request->num_prog)->first();
+    if ($programme) {
+        $programme->nom_prog = $request->nom_prog;
+        $programme->CP_prog = $request->CP_prog;
+        $programme->AE_prog = $request->AE_prog;
+        $programme->date_insert_portef = $request->date_insert_portef;
+        $programme->id_rp = 1; //periodiquement
+        $programme->save();
+    }
+        else{
         // Créer un nouveau programme
         $programme = new Programme();
         $programme->num_prog = $request->num_prog;
+        $programme->CP_prog = $request->CP_prog;
+        $programme->AE_prog = $request->AE_prog;
         $programme->num_portefeuil = $request->num_portefeuil;
         $programme->nom_prog = $request->nom_prog;
         $programme->AE_prog=floatval($request->ae_prog);
@@ -79,6 +90,7 @@ class programmeControlleur extends Controller
         $programme->id_rp = 1; //periodiquement
 
         $programme->save();
+    }
         //dd($programme);
         if ($programme) {
             return response()->json([
