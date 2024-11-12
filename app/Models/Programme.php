@@ -34,4 +34,9 @@ class Programme extends Model
     {
         return $this->hasMany(SousProgramme::class ,'num_prog','num_prog');
     }
+
+    public function multimedias()
+    {
+        return $this->morphMany(Multimedia::class, 'related');
+    }
 }

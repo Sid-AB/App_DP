@@ -30,4 +30,9 @@ class SousProgramme extends Model
     {
         return $this->hasMany(Action::class,'num_sous_prog','num_sous_prog');
     }
+
+    public function multimedias()
+    {
+        return $this->morphMany(Multimedia::class, 'related');
+    }
 }

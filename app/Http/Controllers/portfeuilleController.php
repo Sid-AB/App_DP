@@ -73,13 +73,14 @@ public function check_portef(Request $request)
 
          // Validation des données
          $request->validate([
+           // 'inputFile' => 'required|file|mimes:jpg,png,pdf|max:2048', // Validation du fichier
             'num_journal' => 'required',
             'nom_journal' => 'required',
             'AE_portef' => 'required',
             'CP_portef' => 'required',
             'Date_portefeuille' => 'required|date',
         ]);
-
+//dd($request);
         //si le portefeuiille existe donc le modifier
     $portefeuille = Portefeuille::where('num_portefeuil', $request->num_portefeuil)->first();
     if ($portefeuille) {
@@ -91,17 +92,43 @@ public function check_portef(Request $request)
         $portefeuille->id_min =1;//periodiquement
         $portefeuille->save();
 
-        // Enregistrer le fichier et le lier au portefeuille
-    if ($request->hasFile('file')) {
-        $path = $request->file('file')->store('public/files');
-        $filePath = Storage::url($path);
+// Enregistrer le fichier et le lier au portefeuille
+//if ($request->hasFile('inputFile')) {
+//    // Vérifier si le fichier est valide
+//    if ($request->file('inputFile')->isValid()) {
+//        // Stocker le fichier dans le dossier `public/files/portefeuilles` et obtenir le chemin
+//        $path = $request->file('inputFile')->store('public/files/portefeuilles');
+//        $filePath = Storage::url($path);
+//
+//        // Récupérer les informations du fichier
+//        $nomFichier = $request->file('inputFile')->getClientOriginalName();
+//        $fileType = $request->file('inputFile')->getClientOriginalExtension();
+//        $fileSize = $request->file('inputFile')->getSize();
+//
+//        // Créer un nouvel enregistrement dans `multimedia`
+//        $media = new Multimedia();
+//        $media->nom_fichier = $nomFichier;
+//        $media->filepath = $filePath;
+//        $media->filetype = $fileType;
+//        $media->size = $fileSize;
+//        $media->description = $request->input('description', ''); // Ajoutez une description si fournie
+//        //$media->uploaded_by = auth()->id(); // ID de l'utilisateur connecté
+//        $media->uploaded_by = 1; // ID de l'utilisateur connecté, ou utilisez `auth()->id()` si disponible
+//        $media->related_id = $portefeuille->num_portefeuil; // Lier l'ID du portefeuille
+//        $media->related_name = "portefeuille"; // pour distinguer les fichiers liés
+//
+//        // Sauvegarder le fichier dans la base de données
+//        $media->save();
+//
+//        return response()->json(['message' => 'Fichier enregistré avec succès.']);
+//    } else {
+//        return response()->json(['error' => 'Le fichier téléchargé est invalide.'], 400);
+//    }
+//} else {
+//    return response()->json(['error' => 'Aucun fichier n\'a été téléchargé.'], 400);
+//}
 
-        // Créer un nouvel enregistrement dans multi_media avec le chemin du fichier et l'ID du portefeuille
-        $media = new MultiMedia();
-        $media->portefeuille_id = $portefeuille->id;
-        $media->file_path = $filePath;
-        $media->save();
-    }
+
 
     }else{
 
@@ -117,17 +144,37 @@ public function check_portef(Request $request)
         $portefeuille->id_min =1;//periodiquement
         $portefeuille->save();
 
-        // Enregistrer le fichier et le lier au portefeuille
-        if ($request->hasFile('file')) {
-            $path = $request->file('file')->store('public/files');
-            $filePath = Storage::url($path);
+          // Enregistrer le fichier et le lier au portefeuille
+    if ($request->hasFile('inputFile')) {
+        // Stocker le fichier dans le dossier `public/files` et obtenir le chemin
+        $path = $request->file('inputFile')->store('public/files/portefeuilles');
+        $filePath = Storage::url($path);
 
-            // Créer un nouvel enregistrement dans multi_media avec le chemin du fichier et l'ID du portefeuille
-            $media = new MultiMedia();
-            $media->portefeuille_id = $portefeuille->id;
-            $media->file_path = $filePath;
-            $media->save();
-        }
+        // Récupérer les informations du fichier
+        $nomFichier = $request->file('inputFile')->getClientOriginalName();
+        $fileType = $request->file('inputFile')->getClientOriginalExtension();
+        $fileSize = $request->file('inputFile')->getSize();
+
+        // Créer un nouvel enregistrement dans `multimedia`
+        $media = new Multimedia();
+        $media->nom_fichier = $nomFichier;
+        $media->filepath = $filePath;
+        $media->filetype = $fileType;
+        $media->size = $fileSize;
+        $media->description = $request->input('description', ''); // Ajoutez une description si fournie
+        //$media->uploaded_by = auth()->id(); // ID de l'utilisateur connecté
+        $media->uploaded_by = 1; // ID de l'utilisateur connecté
+        $media->related_id = $portefeuille->num_portefeuil; // Lier l'ID du portefeuille
+        $media->related_name = "portefeuille"; // pour distinguer
+
+        // Sauvegarder le fichier dans la base de données
+        $media->save();
+
+        return response()->json(['message' => 'Fichier enregistré avec succès.']);
+    }else{
+
+        return response()->json(['error' => 'Aucun fichier n\'a été téléchargé.'], 400);
+    }
 
     }
 

@@ -66,30 +66,55 @@ class programmeControlleur extends Controller
             'date_insert_portef' => 'required|date',
         ]);
 
-          //si le portefeuiille existe donc le modifier
+          //si le PROG existe donc le modifier
     $programme = Programme::where('num_prog', $request->num_prog)->first();
     if ($programme) {
         $programme->nom_prog = $request->nom_prog;
-        $programme->CP_prog = $request->CP_prog;
-        $programme->AE_prog = $request->AE_prog;
+        $programme->cp_prog = $request->cp_prog;
+        $programme->ae_prog = $request->ae_prog;
         $programme->date_insert_portef = $request->date_insert_portef;
         $programme->id_rp = 1; //periodiquement
         $programme->save();
+
+
+        // Enregistrer le fichier et le lier au portefeuille
+    if ($request->hasFile('file')) {
+        $path = $request->file('file')->store('public/files');
+        $filePath = Storage::url($path);
+
+        // Créer un nouvel enregistrement dans multi_media avec le chemin du fichier et l'ID du portefeuille
+        $media = new MultiMedia();
+        $media->prog_id = $prog_id->id;
+        $media->file_path = $filePath;
+        $media->save();
+    }
     }
         else{
         // Créer un nouveau programme
         $programme = new Programme();
         $programme->num_prog = $request->num_prog;
-        $programme->CP_prog = $request->CP_prog;
-        $programme->AE_prog = $request->AE_prog;
+        $programme->cp_prog = $request->cp_prog;
+        $programme->ae_prog = $request->ae_prog;
         $programme->num_portefeuil = $request->num_portefeuil;
         $programme->nom_prog = $request->nom_prog;
-        $programme->AE_prog=floatval($request->ae_prog);
-        $programme->CP_prog=floatval($request->cp_prog);
+        $programme->ae_prog=floatval($request->ae_prog);
+        $programme->cp_prog=floatval($request->cp_prog);
         $programme->date_insert_portef = $request->date_insert_portef;
         $programme->id_rp = 1; //periodiquement
 
         $programme->save();
+
+        // Enregistrer le fichier et le lier au portefeuille
+    if ($request->hasFile('file')) {
+        $path = $request->file('file')->store('public/files');
+        $filePath = Storage::url($path);
+
+        // Créer un nouvel enregistrement dans multi_media avec le chemin du fichier et l'ID du portefeuille
+        $media = new MultiMedia();
+        $media->prog_id = $prog_id->id;
+        $media->file_path = $filePath;
+        $media->save();
+    }
     }
         //dd($programme);
         if ($programme) {

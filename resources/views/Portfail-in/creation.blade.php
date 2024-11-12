@@ -70,7 +70,7 @@
                     </div>
                     <div class="form-group">
                         <label for="inputFile">Journal scanner</label>
-                        <input type="file" class="form-control-file" id="inputFile">
+                        <input type="file" class="form-control-file" id="inputFile" >
                     </div>
                 </form>
                 <button type="submit" class="btn btn-primary" id="add-wallet">
