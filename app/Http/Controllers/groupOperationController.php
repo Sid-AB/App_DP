@@ -20,7 +20,7 @@ class groupOperationController extends Controller
     //$year = date('Y'); // Récupérer l'année actuelle
     //$sousaction=$s_act.$act.$sous_prog.$prog.$port.$year;
 //dd($act);
-dd($T);
+//dd($T);
 //dd($request);
 //===================================================================================
                             //insertion T1
