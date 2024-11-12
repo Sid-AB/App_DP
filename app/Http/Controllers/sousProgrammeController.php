@@ -61,7 +61,31 @@ public function check_sous_prog(Request $request)
             'nom_sous_prog' => 'required',
             'date_insert_sousProg' => 'required|date',
         ]);
-      //  dd($request);
+       // dd($request);
+            //si le sous PROG existe donc le modifier
+    $SousProgramme = SousProgramme::where('num_sous_prog', $request->num_sous_prog)->first();
+    if ($SousProgramme) {
+        $SousProgramme->num_prog = $request->id_program;
+        $SousProgramme->nom_sous_prog = $request->nom_sous_prog;
+        $SousProgramme->AE_sous_prog=floatval($request->AE_sous_prog);
+        $SousProgramme->CP_sous_prog=floatval($request->CP_sous_prog);
+        $SousProgramme->date_insert_sousProg = $request->date_insert_sousProg;
+        $SousProgramme->save();
+
+
+        // Enregistrer le fichier et le lier au portefeuille
+    if ($request->hasFile('file')) {
+        $path = $request->file('file')->store('public/files/');
+        $filePath = Storage::url($path);
+
+        // Créer un nouvel enregistrement dans multi_media avec le chemin du fichier et l'ID du portefeuille
+        $media = new MultiMedia();
+        $media->sous_prog_id = $sous_prog_id->id;
+        $media->file_path = $filePath;
+        $media->save();
+    }
+    }
+        else{
         // Créer un nouveau SousProgramme
         $SousProgramme = new SousProgramme();
         $SousProgramme->num_sous_prog = $request->num_sous_prog;
@@ -72,6 +96,19 @@ public function check_sous_prog(Request $request)
         $SousProgramme->date_insert_sousProg = $request->date_insert_sousProg;
 
         $SousProgramme->save();
+
+        // Enregistrer le fichier et le lier au portefeuille
+    if ($request->hasFile('file')) {
+        $path = $request->file('file')->store('public/files/');
+        $filePath = Storage::url($path);
+
+        // Créer un nouvel enregistrement dans multi_media avec le chemin du fichier et l'ID du portefeuille
+        $media = new MultiMedia();
+        $media->sous_prog_id = $sous_prog_id->id;
+        $media->file_path = $filePath;
+        $media->save();
+    }
+        }
       //  dd($SousProgramme);
         if ($SousProgramme) {
             return response()->json([
