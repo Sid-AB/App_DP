@@ -15,7 +15,7 @@ class actionController extends Controller
     {
         // Récupérer les action qui ont le même num_action
         $action = action::where('num_action', $num_action)->get();
-        dd($action);
+    //    dd($action);
 
     // Vérifier si des action existent
         if ($action->isEmpty()) {
