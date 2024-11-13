@@ -81,13 +81,16 @@ Route::controller(sousActionController::class)->group(function(){
 
 //===============ROUTE GROUPE D'OPERATIONS==============================
 Route::controller(groupOperationController::class)->group(function(){
-    Route::get('/testing/S_action/{port}/{prog}/{sous_prog}/{act}/{s_act}/{T}', 'insertDPA');
+   Route::get('/testing/S_action/{port}/{prog}/{sous_prog}/{act}/{s_act}/{T}', 'insertDPA');
 
 });
 
 //===============ROUTE  OPERATION==============================
 Route::controller(opeartionController::class)->group(function(){
     Route::get('/testing/S_Action/{port}/{prog}/{sous_prog}/{act}/{s_act}', 'calculerEtEnvoyer');
+    Route::get('/testing/S_action/{s_act}/{T}', 'afficherDPIA');
+
+  
    // Route::get('/testing/Action/{port}/{prog}/{sous_prog}/{act}', 'calculerEtEnvoyer');
 });
 

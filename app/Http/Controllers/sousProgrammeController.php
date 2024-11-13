@@ -86,6 +86,19 @@ public function check_sous_prog(Request $request)
         $SousProgramme->date_insert_sousProg = $request->date_insert_sousProg;
 
         $SousProgramme->save();
+
+        // Enregistrer le fichier et le lier au portefeuille
+    if ($request->hasFile('file')) {
+        $path = $request->file('file')->store('public/files/');
+        $filePath = Storage::url($path);
+
+        // Créer un nouvel enregistrement dans multi_media avec le chemin du fichier et l'ID du portefeuille
+        $media = new MultiMedia();
+        $media->sous_prog_id = $sous_prog_id->id;
+        $media->file_path = $filePath;
+        $media->save();
+    }
+        
       //  dd($SousProgramme);
         if ($SousProgramme) {
             return response()->json([

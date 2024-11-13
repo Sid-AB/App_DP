@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('group_operations', function (Blueprint $table) {
             $table->string('code_grp_operation')->primary();
-            $table->string('nom_grp_operation');
-            $table->string('nom_grp_operation_ar')->nullable();
+            $table->longText('nom_grp_operation');
+            $table->longText('nom_grp_operation_ar')->nullable();
 
 
             $table->DateTime('date_insert_grp_operation');
