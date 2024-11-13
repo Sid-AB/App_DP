@@ -112,13 +112,30 @@ foreach ($jsonData as $codeStr => $nom) {
                 // Si la ligne suivante n'est pas une sous-opération
                 if ($nextCode && ($nextCode % 100 == 0 || $nextCode % 1000 == 0)) {
                     // Insérer dans sousoperation avec un code spécifique
-                    sousoperation::updateOrCreate(
+                    $sousoperation = sousoperation::updateOrCreate(
                         ['code_sous_operation' => $code.$codeGp.$s_act], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
                         ['code_operation' => $code.$codeGp.$s_act, 'nom_sous_operation' => $nom,'code_t1' =>10000,
                          'AE_sous_operation' => floatval(str_replace(',', '', $ae)),
                          'CP_sous_operation' => floatval(str_replace(',', '', $cp))
                          , 'date_insert_SOUSoperation' => $currentDateTime]
                     );
+
+
+                // Mettre à jour ConstruireDPIA avec les données de la sous-opération
+                $DPIA = ConstruireDPIA::where('code_sous_operation', null) // Assurez-vous de sélectionner les enregistrements pertinents
+                ->firstOrFail(); // Ou récupérez la collection si plusieurs enregistrements sont attendus
+
+                // Vérifiez si les champs sont nuls et mettez à jour avec les valeurs de sousoperation si nécessaire
+                $DPIA->update([
+                'AE_dpia_nv' => $DPIA->AE_dpia_nv ?? $sousoperation->AE_sous_operation,
+                'CP_dpia_nv' => $DPIA->CP_dpia_nv ?? $sousoperation->CP_sous_operation,
+                'AE_ouvert_dpia' => $DPIA->AE_ouvert_dpia ?? $sousoperation->AE_sous_operation,
+                'CP_ouvert_dpia' => $DPIA->CP_ouvert_dpia ?? $sousoperation->CP_sous_operation,
+                // Ajoutez les autres champs que vous souhaitez mettre à jour
+                ]);
+
+                // Assurez-vous de sauvegarder les modifications
+                $DPIA->save();
                 }
             }else{
                 // Insérer dans sousoperation avec un code spécifique
@@ -601,7 +618,8 @@ if (!$nom) {
        // Insertion dans la table groupoperation
        GroupOperation::updateOrCreate(
            ['code_grp_operation' => $code.$s_act],
-           ['nom_grp_operation' => $nom, 'num_sous_action' => $s_act]
+           ['nom_grp_operation' => $nom, 'num_sous_action' => $s_act,
+           'date_insert_grp_operation' => $currentDateTime]
        );
    }
    // Vérifier si le code représente une opération
