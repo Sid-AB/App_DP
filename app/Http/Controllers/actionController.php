@@ -42,7 +42,9 @@ public function check_action(Request $request)
             return response()->json([
                 'exists' => true,
                 'nom_action' => $action->nom_action,
-                'date_insert_action' => $action->date_insert_action
+                'date_insert_action' => $action->date_insert_action,
+                'AE_act'=>$action->AE_action,
+                'CP_act'=>$action->CP_action,
             ]);
         }
 

@@ -184,7 +184,13 @@ function Edit(tid, T) {
             ae_ouvert: {},
             cp_ouvert: {},
             ae_attendu: {},
-            cp_attendu: {}
+            cp_attendu: {},
+            ae_reporte: {},
+            ae_notifie: {},
+            ae_engage: {},
+            cp_reporte: {},
+            cp_notifie: {},
+            cp_consome: {}
         };
         // Add double-click event to all cells with the class "editable"
         $('.editable').on('click', function () {
@@ -222,6 +228,7 @@ function Edit(tid, T) {
 
                             //    alert('changing success')
                             $('#T-tables tbody tr').each(function () {
+
                                 if (tid == 'T_port1' || tid == 'T1') {
 
                                     var code = $(this).find('td').eq(0).text();
@@ -248,13 +255,26 @@ function Edit(tid, T) {
                                     data.cp_attendu[code] = cpDataAttendu;
 
                                 }
-                                if (tid == 'T_port3' || tid == 'T3') {
+                                if (tid == 'T_port3' || tid == 'T3' || T==3) {
+
                                     var code = $(this).find('td').eq(0).text();
-                                    var aeValue = $(this).find('td').eq(2).text();
-                                    var cpValue = $(this).find('td').eq(3).text();
+                                    var aeDataReporte = $(this).find('td').eq(3).text();
+                                    var aeDataNotifie = $(this).find('td').eq(4).text();
+                                    var aeDataEngage = $(this).find('td').eq(5).text();
+
+                                    var cpDataReporte = $(this).find('td').eq(6).text();
+                                    var cpDataNotifie = $(this).find('td').eq(7).text();
+                                    var cpDataEngage = $(this).find('td').eq(8).text();
+
                                     // Ajoute les valeurs dans les objets
-                                    data.ae[code] = aeValue;
-                                    data.cp[code] = cpValue;
+                                    console.log("ddcss");
+                                    data.ae_reporte[code] = aeDataReporte;
+                                    data.ae_notifie[code] = aeDataNotifie;
+                                    data.ae_engage[code] = aeDataEngage;
+
+                                    data.cp_reporte[code] = cpDataReporte;
+                                    data.cp_notifie[code] = cpDataNotifie;
+                                    data.cp_consome[code] = cpDataEngage;
                                 }
                                 // value_chng.push(rw);
                             })
@@ -278,10 +298,18 @@ function Edit(tid, T) {
                                 data: {
                                     ae: data.ae,
                                     cp: data.cp,
+
                                     ae_ouvert: data.ae_ouvert,
                                     cp_ouvert: data.cp_ouvert,
                                     ae_attendu: data.ae_attendu,
                                     cp_attendu: data.cp_attendu,
+
+                                    ae_reporte:data.ae_reporte,
+                                    ae_notifie:data.ae_notifie,
+                                    ae_engage:data.ae_engage,
+                                    cp_reporte:data.cp_reporte,
+                                    cp_notifie:data.cp_notifie,
+                                    cp_consome:data.cp_consome,
                                     //id_sous_action: id_sous_action,
                                     _token: $('meta[name="csrf-token"]').attr('content'),
                                     _method: "GET"
@@ -611,6 +639,65 @@ $(document).ready(function () {
 
 });
 focus_()
+$("#date_insert_portef").on('focusout',function()
+{
+    var num_prog = $('#num_prog').val(); // Récupérer la valeur du portefeuille
+    var Date_prog = $(this).val();  // Récupérer la valeur de la date
+
+    var year = new Date(Date_prog).getFullYear(); // Extraire l'année à partir de la date
+    var numprog_year = num_prog+path[0];
+
+
+    // Vérifie que les deux champs sont remplis avant de continuer
+    if (Date_prog && num_prog) {
+        // Appel AJAX pour vérifier le portefeuille dans la base de données
+
+        console.log('data'+numprog_year)
+        $.ajax({
+            url: '/check-prog',  // Route pour vérifier l'existence du portefeuille
+            type: 'GET',
+            data: {
+                num_portefeuil:path[0],
+                num_prog: numprog_year,
+                Date_prog: Date_prog
+            },
+            success: function (response) {
+                if (response.exists) {
+                    console.log(response); // Vérifiez la réponse
+                    path.push(numprog_year);
+                    path3.push(num_prog);
+
+                    console.log('numwall_year path3: ' + JSON.stringify(path3));
+
+                    // Remplir les champs du formulaire avec les données récupérées
+                    console.log('response.AE_prog'+response.AE_prog)
+                    $('#date_insert_portef').val(response.date_insert_portef).trigger('change');
+                    $('#nom_prog').val(response.nom_prog).trigger('change'); // Remplir et déclencher l'événement change
+                    $('#AE_prog').val(response.AE_prog).trigger('change'); // Remplir et déclencher l'événement change
+                    $('#CP_prog').val(response.AE_prog).trigger('change'); // Remplir et déclencher l'événement change
+                    $('#nom_journ').val(response.nom_journal).trigger('change'); // Remplir et déclencher l'événement change
+                    $('#num_journ').val(response.num_journal).trigger('change'); // Remplir et déclencher l'événement change
+
+
+                    alert('Le portefeuille existe déjà.');
+
+                   //$('.font-bk').removeClass('back-bk')
+                   //$('.wallet-path').css('display', 'flex')
+                   //$('.wallet-handle').empty()
+                   //$('#progam-handle').css('display', 'block')
+                   //$('#progam-handle').removeClass('scale-out')
+                   //$('#progam-handle').addClass('scale-visible')
+                   //$('#w_id').text(num_portefeuil)
+                } else {
+                    //alert('Le portefeuille n\'existe pas.');
+                }
+            },
+            error: function () {
+                alert('Erreur lors de la vérification du portefeuille');
+            }
+        });
+    }
+});
 $("#add-prg").on('click', function () {
     var id_prog = $('#num_prog').val();
     var nom_prog = $('#nom_prog').val();
@@ -700,92 +787,41 @@ $("#add-prg").on('click', function () {
                     var Date_sou_program = $(this).val(); // Récupérer la valeur du programme
                     //var year = new Date(Date_sou_program).getFullYear(); // Extraire l'année à partir de la date
                     var num_sou_prog = $('#num_sous_prog').val(); // Récupérer la valeur de la date du programme
+                    // Vérifie que les deux champs sont remplis avant de continuer
+                    var num_sou_program=num_sou_prog + path[3];
+                    if (Date_sou_program && num_sou_prog) {
+                        // Appel AJAX pour vérifier le programme dans la base de données
+                        $.ajax({
+                            url: '/check-sousprog',  // Route pour vérifier l'existence du programme
+                            type: 'GET',
+                            data: {
+                                num_sous_prog: num_sou_program,
+                            },
+                            success: function (response) {
+                                if (response.exists) {
+                                    console.log(response); // Vérifiez la réponse
+                                    path.push(num_sou_program);
+                                    path3.push(num_sou_prog);
+                                    console.log('num_sou_program path: ' + JSON.stringify(path));
 
-                    var id_prpg = path[1];
-                    var num_sou_program = num_sou_prog + id_prpg; // Composer num_program
+                                    // Remplir les champs du formulaire avec les données récupérées
+                                    $('#nom_sous_prog').val(response.nom_sous_prog).trigger('change'); // Remplir et déclencher l'événement change
+                                   // $('#date_insert_sousProg').val(response.date_insert_sousProg).trigger('change'); // Remplir et déclencher l'événement change
+                                    $('#AE_sous_prog').val(response.AE_sous_prog).trigger('change'); // Remplir et déclencher l'événement change
+                                    $('#CP_sous_prog').val(response.CP_sous_prog).trigger('change'); // Remplir et déclencher l'événement change
+                                    //   $('#num_journ_program').val(response.num_journal).trigger('change'); // Remplir et déclencher l'événement change
 
-                    var nexthop = '<div class="pinfo-handle">' +
-                        '<i class="fas fa-wallet"></i>' +
-                        '<p >S_Program :</p>' +
-                        '<p>' + num_sou_prog + '</p>' +
-                        '</div>' +
-                        ' <div class="next-handle">' +
-                        '<i class="fas fa-angle-double-right waiting-icon"></i>' +
-                        '</div>'
-                    var prg3 = '<div class="form-container" id="creati-act">' +
-                        '<form>' +
-                        '<div class="form-group">' +
-                        '<label for="input1">N° ACTION</label>' +
-                        '<input type="text" class="form-control" id="num_act" placeholder="Donnee Nom ACTION">' +
-                        '</div>' +
-                        '<div class="form-group">' +
-                        '<label for="input1">Nom ACTION</label>' +
-                        '<input type="number" class="form-control" id="nom_act" placeholder="Donnee Nom ACTION">' +
-                        '</div>' +
-                        '<div class="form-group" id="ElAE_act">' +
-                        '<label for="input1">AE pour Action</label>' +
-                        '<input type="number" class="form-control" id="AE_act" placeholder="Donnee Nom Programme">' +
-                        '</div>' +
-                        '<div class="form-group" id="ElCP_act">' +
-                        '<label for="input1">CP pour Action</label>' +
-                        '<input type="number" class="form-control" id="CP_act" placeholder="Donnee Nom Programme">' +
-                        '</div>' +
-                        ' <div class="form-group">' +
-                        ' <label for="inputDate">Date Journal</label>' +
-                        '<input type="date" class="form-control" id="date_insert_action">' +
-                        '</div>' +
-                        ' </form>' +
-                        ' <br>' +
-                        '<div id="confirm-holder_act">' +
-                        '<button class="btn btn-primary" id="add-prg3">Ajouter</button>' +
-                        '<hr>' +
-                        ' <div class="file-handle">' +
-                        '<input type="file" class="form-control" id="file">' +
-                        '<button class="btn btn-primary">Journal</button>' +
-                        '</div>' +
-                        '</div>';
+                                    alert('Le sous programme existe déjà.');
 
-                    //// Vérifie que les deux champs sont remplis avant de continuer
-                    //if (Date_sou_program && num_sou_prog) {
-                    //    // Appel AJAX pour vérifier le programme dans la base de données
-                    //    $.ajax({
-                    //        url: '/check-sousprog',  // Route pour vérifier l'existence du programme
-                    //        type: 'GET',
-                    //        data: {
-                    //            num_sous_prog: num_sou_program,
-//
-                    //        },
-                    //        success: function (response) {
-                    //            if (response.exists) {
-                    //                console.log(response); // Vérifiez la réponse
-                    //                path.push(num_sou_program);
-                    //                path3.push(num_sou_prog);
-                    //                console.log('num_sou_program path: ' + JSON.stringify(path));
-//
-                    //                // Remplir les champs du formulaire avec les données récupérées
-                    //                $('#nom_sous_prog').val(response.nom_sous_prog).trigger('change'); // Remplir et déclencher l'événement change
-                    //                $('#date_insert_sousProg').val(response.date_insert_sousProg).trigger('change'); // Remplir et déclencher l'événement change
-                    //                //$('#CP_program').val(response.CP_program).trigger('change'); // Remplir et déclencher l'événement change
-                    //                //$('#nom_journ_program').val(response.nom_journal).trigger('change'); // Remplir et déclencher l'événement change
-                    //                //$('#num_journ_program').val(response.num_journal).trigger('change'); // Remplir et déclencher l'événement change
-//
-                    //                alert('Le sous programme existe déjà.');
-//
-                    //                $('.next-handle svg').removeClass('waiting-icon')
-                    //                $('.next-handle svg').addClass('complet-icon')
-                    //                $('.the-path').append(nexthop)
-                    //                $('#progam-handle').append(prg3)
-                    //                $('#confirm-holder_sprog').empty()
-                    //                $('#confirm-holder_sprog').append('<i class="fas fa-wrench"></i>')
-                    //            } else {
-                    //                // alert('Le programme n\'existe pas.');
-                    //            }
-                    //        },
-                    //        error: function () {
-                    //            alert('Erreur lors de la vérification du programme');
-                    //        }
-                    //    });
-                    //}
+                                } else {
+                                    // alert('Le programme n\'existe pas.');
+                                }
+                            },
+                            error: function () {
+                                alert('Erreur lors de la vérification du programme');
+                            }
+                        });
+                    }
                 });
                 focus_()
                 /**  sous prog insert */
@@ -869,7 +905,49 @@ $("#add-prg").on('click', function () {
                                 $('#confirm-holder_sprog').empty()
                                 $('#confirm-holder_sprog').append('<i class="fas fa-wrench"></i>')
                                 focus_()
+
+
+
+                                $('#date_insert_action').on('focusout',function()
+                                {
+                                    alert('out')
+                                   var date_act=$(this).val();
+                                   var num_act=$('#num_act').val();
+                                 //  var date_act=  new Date(date_act).getFullYear();
+                                   var numact_year = num_act+path[4];
+                                   console.log('the new id'+numact_year+' with '+JSON.stringify(path))
+                                   if(date_act && num_act)
+                                   {
+                                    $.ajax({
+                                        url: '/check-action',  // Route pour vérifier l'existence du programme
+                                        type: 'GET',
+                                        data: {
+                                        num_action: numact_year,
+                                        },
+                                        success:function(response)
+                                        {
+                                            if(response.exists)
+                                            {
+                                                $('#nom_act').val(response.nom_action).trigger('change'); // Remplir et déclencher l'événement change
+                                               // $('#date_insert_action').val(response.date_insert_action).trigger('change'); // Remplir et déclencher l'événement change
+                                                $('#AE_act').val(response.AE_act).trigger('change'); // Remplir et déclencher l'événement change
+                                                $('#CP_act').val(response.CP_act).trigger('change'); // Remplir et déclencher l'événement change
+                                                alert('Le Action existe déjà.');
+
+                                            }
+                                            else
+                                            {
+                                                alert('Error d`Operation');
+
+                                            }
+                                        }
+                                    })
+                                   }
+                                })
+
                                 /******           ACTION add for under_progam                    *********** */
+
+
                                 $('#add-prg3').on('click', function () {
                                     /**
                                      *  this part for chacking if he want to under_action
