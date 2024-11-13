@@ -184,7 +184,13 @@ function Edit(tid, T) {
             ae_ouvert: {},
             cp_ouvert: {},
             ae_attendu: {},
-            cp_attendu: {}
+            cp_attendu: {},
+            ae_reporte: {},
+            ae_notifie: {},
+            ae_engage: {},
+            cp_reporte: {},
+            cp_notifie: {},
+            cp_consome: {}
         };
         // Add double-click event to all cells with the class "editable"
         $('.editable').on('click', function () {
@@ -222,6 +228,7 @@ function Edit(tid, T) {
 
                             //    alert('changing success')
                             $('#T-tables tbody tr').each(function () {
+
                                 if (tid == 'T_port1' || tid == 'T1') {
 
                                     var code = $(this).find('td').eq(0).text();
@@ -249,6 +256,7 @@ function Edit(tid, T) {
 
                                 }
                                 if (tid == 'T_port3' || tid == 'T3' || T==3) {
+
                                     var code = $(this).find('td').eq(0).text();
                                     var aeDataReporte = $(this).find('td').eq(3).text();
                                     var aeDataNotifie = $(this).find('td').eq(4).text();
@@ -259,6 +267,7 @@ function Edit(tid, T) {
                                     var cpDataEngage = $(this).find('td').eq(8).text();
 
                                     // Ajoute les valeurs dans les objets
+                                    console.log("ddcss");
                                     data.ae_reporte[code] = aeDataReporte;
                                     data.ae_notifie[code] = aeDataNotifie;
                                     data.ae_engage[code] = aeDataEngage;
@@ -266,7 +275,6 @@ function Edit(tid, T) {
                                     data.cp_reporte[code] = cpDataReporte;
                                     data.cp_notifie[code] = cpDataNotifie;
                                     data.cp_consome[code] = cpDataEngage;
-                                    console.log("ddss", cpDataReporte);
                                 }
                                 // value_chng.push(rw);
                             })
@@ -290,10 +298,18 @@ function Edit(tid, T) {
                                 data: {
                                     ae: data.ae,
                                     cp: data.cp,
+
                                     ae_ouvert: data.ae_ouvert,
                                     cp_ouvert: data.cp_ouvert,
                                     ae_attendu: data.ae_attendu,
                                     cp_attendu: data.cp_attendu,
+
+                                    ae_reporte:data.ae_reporte,
+                                    ae_notifie:data.ae_notifie,
+                                    ae_engage:data.ae_engage,
+                                    cp_reporte:data.cp_reporte,
+                                    cp_notifie:data.cp_notifie,
+                                    cp_consome:data.cp_consome,
                                     //id_sous_action: id_sous_action,
                                     _token: $('meta[name="csrf-token"]').attr('content'),
                                     _method: "GET"
@@ -636,7 +652,7 @@ $("#date_insert_portef").on('focusout',function()
     if (Date_prog && num_prog) {
         // Appel AJAX pour vérifier le portefeuille dans la base de données
 
-        console.log('data'+numprog_year)    
+        console.log('data'+numprog_year)
         $.ajax({
             url: '/check-prog',  // Route pour vérifier l'existence du portefeuille
             type: 'GET',
@@ -650,7 +666,7 @@ $("#date_insert_portef").on('focusout',function()
                     console.log(response); // Vérifiez la réponse
                     path.push(numprog_year);
                     path3.push(num_prog);
-                    
+
                     console.log('numwall_year path3: ' + JSON.stringify(path3));
 
                     // Remplir les champs du formulaire avec les données récupérées
@@ -897,7 +913,7 @@ $("#add-prg").on('click', function () {
                                     alert('out')
                                    var date_act=$(this).val();
                                    var num_act=$('#num_act').val();
-                                 //  var date_act=  new Date(date_act).getFullYear(); 
+                                 //  var date_act=  new Date(date_act).getFullYear();
                                    var numact_year = num_act+path[4];
                                    console.log('the new id'+numact_year+' with '+JSON.stringify(path))
                                    if(date_act && num_act)
@@ -931,7 +947,7 @@ $("#add-prg").on('click', function () {
 
                                 /******           ACTION add for under_progam                    *********** */
 
-                              
+
                                 $('#add-prg3').on('click', function () {
                                     /**
                                      *  this part for chacking if he want to under_action

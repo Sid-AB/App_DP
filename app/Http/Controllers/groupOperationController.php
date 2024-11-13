@@ -384,7 +384,7 @@ elseif ($T == 2) {
                             // insertion T3
 //===================================================================================
 elseif ($T==3) {
-    dd($request);
+    //dd($request);
        // Récupérer les données du formulaire
        $aeDataReporte = $request->input('ae_reporte');
        $aeDataNotifie = $request->input('ae_notifie');
@@ -492,12 +492,11 @@ foreach ($jsonData as $codeStr => $nom) {
                           ['code_operation' =>$code.$codeGp.$s_act,
                           'nom_sous_operation' => $nom,
                           'code_t3' => 30000,
-                          //'AE_sous_operation' => ($ae_reporte+$ae_notifie+$ae_engage),
-                          //'CP_sous_operation' => floatval(str_replace(',', '', $cp_reporte))
-                                            +floatval(str_replace(',', '', $cp_notifie))
-                                            +floatval(str_replace(',', '', $cp_consome)),
-                          'AE_reporte' => $ae_reporte,
-                          'AE_notifie' => $ae_notifie,'AE_engage' => $ae_engage,
+
+                          'AE_reporte' => floatval(str_replace(',', '', $ae_reporte)),
+                          'AE_notifie' =>floatval(str_replace(',', '', $ae_notifie)) ,
+                          'AE_engage' => floatval(str_replace(',', '', $ae_engage)),
+
                           'CP_reporte' => floatval(str_replace(',', '', $cp_reporte)),
                           'CP_notifie' =>floatval(str_replace(',', '', $cp_notifie)),
                           'CP_consome' => floatval(str_replace(',', '', $cp_consome))
@@ -512,12 +511,11 @@ foreach ($jsonData as $codeStr => $nom) {
                 ['code_operation' =>$code.$codeGp.$s_act,
                 'nom_sous_operation' => $nom,
                 'code_t3' => 30000,
-                //'AE_sous_operation' => ($ae_reporte+$ae_notifie+$ae_engage),
-                //'CP_sous_operation' => floatval(str_replace(',', '', $cp_reporte))
-                                  +floatval(str_replace(',', '', $cp_notifie))
-                                  +floatval(str_replace(',', '', $cp_consome)),
-                'AE_reporte' => $ae_reporte,
-                'AE_notifie' => $ae_notifie,'AE_engage' => $ae_engage,
+
+                'AE_reporte' => floatval(str_replace(',', '', $ae_reporte)),
+                'AE_notifie' =>floatval(str_replace(',', '', $ae_notifie)) ,
+                'AE_engage' => floatval(str_replace(',', '', $ae_engage)),
+
                 'CP_reporte' => floatval(str_replace(',', '', $cp_reporte)),
                 'CP_notifie' =>floatval(str_replace(',', '', $cp_notifie)),
                 'CP_consome' => floatval(str_replace(',', '', $cp_consome))
