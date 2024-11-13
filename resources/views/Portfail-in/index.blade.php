@@ -465,6 +465,13 @@
         }
       } else {
         children.style.display = 'flex';
+        if(children.id === 'father2')
+        {
+      console.log('id fterh in')
+      $('#father2').css('display','none')
+      $('#father3').css('display','none')
+      $('#father4').css('display','none')
+      }
       }
     }
   });
@@ -481,6 +488,12 @@
     {
       path.push(id);
     }
+    if(id === 'father2')
+        {
+      document.querySelectorAll('#father2').forEach(function(element) {
+    element.style.display = 'none';
+});
+      }
     console.log('-<<'+JSON.stringify(path))
     if(id =='ACTION-002')
     {
