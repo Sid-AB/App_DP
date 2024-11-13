@@ -248,13 +248,25 @@ function Edit(tid, T) {
                                     data.cp_attendu[code] = cpDataAttendu;
 
                                 }
-                                if (tid == 'T_port3' || tid == 'T3') {
+                                if (tid == 'T_port3' || tid == 'T3' || T==3) {
                                     var code = $(this).find('td').eq(0).text();
-                                    var aeValue = $(this).find('td').eq(2).text();
-                                    var cpValue = $(this).find('td').eq(3).text();
+                                    var aeDataReporte = $(this).find('td').eq(3).text();
+                                    var aeDataNotifie = $(this).find('td').eq(4).text();
+                                    var aeDataEngage = $(this).find('td').eq(5).text();
+
+                                    var cpDataReporte = $(this).find('td').eq(6).text();
+                                    var cpDataNotifie = $(this).find('td').eq(7).text();
+                                    var cpDataEngage = $(this).find('td').eq(8).text();
+
                                     // Ajoute les valeurs dans les objets
-                                    data.ae[code] = aeValue;
-                                    data.cp[code] = cpValue;
+                                    data.ae_reporte[code] = aeDataReporte;
+                                    data.ae_notifie[code] = aeDataNotifie;
+                                    data.ae_engage[code] = aeDataEngage;
+
+                                    data.cp_reporte[code] = cpDataReporte;
+                                    data.cp_notifie[code] = cpDataNotifie;
+                                    data.cp_consome[code] = cpDataEngage;
+                                    console.log("ddss", cpDataReporte);
                                 }
                                 // value_chng.push(rw);
                             })

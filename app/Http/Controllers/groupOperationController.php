@@ -384,14 +384,15 @@ elseif ($T == 2) {
                             // insertion T3
 //===================================================================================
 elseif ($T==3) {
+    dd($request);
        // Récupérer les données du formulaire
-       $aeDataReporte = $request->input('AE_reporte');
-       $aeDataNotifie = $request->input('AE_notifie');
-       $aeDataEngage = $request->input('AE_engage');
+       $aeDataReporte = $request->input('ae_reporte');
+       $aeDataNotifie = $request->input('ae_notifie');
+       $aeDataEngage = $request->input('ae_engage');
 
-       $cpDataReporte = $request->input('CP_reporte');
-       $cpDataNotifie = $request->input('CP_notifie');
-       $cpDataConsome = $request->input('CP_consome');
+       $cpDataReporte = $request->input('cp_reporte');
+       $cpDataNotifie = $request->input('cp_notifie');
+       $cpDataConsome = $request->input('cp_consome');
   // Chemin vers le fichier JSON dans public/titre
   $jsonFilePath = public_path('assets/Titre/dataT3.json');
 
@@ -601,7 +602,8 @@ if (!$nom) {
        // Insertion dans la table groupoperation
        GroupOperation::updateOrCreate(
            ['code_grp_operation' => $code.$s_act],
-           ['nom_grp_operation' => $nom, 'num_sous_action' => $s_act]
+           ['nom_grp_operation' => $nom, 'num_sous_action' => $s_act,
+           'date_insert_grp_operation' => $currentDateTime]
        );
    }
    // Vérifier si le code représente une opération
