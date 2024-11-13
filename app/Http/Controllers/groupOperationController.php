@@ -384,14 +384,15 @@ elseif ($T == 2) {
                             // insertion T3
 //===================================================================================
 elseif ($T==3) {
+    //dd($request);
        // Récupérer les données du formulaire
-       $aeDataReporte = $request->input('AE_reporte');
-       $aeDataNotifie = $request->input('AE_notifie');
-       $aeDataEngage = $request->input('AE_engage');
+       $aeDataReporte = $request->input('ae_reporte');
+       $aeDataNotifie = $request->input('ae_notifie');
+       $aeDataEngage = $request->input('ae_engage');
 
-       $cpDataReporte = $request->input('CP_reporte');
-       $cpDataNotifie = $request->input('CP_notifie');
-       $cpDataConsome = $request->input('CP_consome');
+       $cpDataReporte = $request->input('cp_reporte');
+       $cpDataNotifie = $request->input('cp_notifie');
+       $cpDataConsome = $request->input('cp_consome');
   // Chemin vers le fichier JSON dans public/titre
   $jsonFilePath = public_path('assets/Titre/dataT3.json');
 
@@ -491,12 +492,11 @@ foreach ($jsonData as $codeStr => $nom) {
                           ['code_operation' =>$code.$codeGp.$s_act,
                           'nom_sous_operation' => $nom,
                           'code_t3' => 30000,
-                          //'AE_sous_operation' => ($ae_reporte+$ae_notifie+$ae_engage),
-                          //'CP_sous_operation' => floatval(str_replace(',', '', $cp_reporte))
-                                            +floatval(str_replace(',', '', $cp_notifie))
-                                            +floatval(str_replace(',', '', $cp_consome)),
-                          'AE_reporte' => $ae_reporte,
-                          'AE_notifie' => $ae_notifie,'AE_engage' => $ae_engage,
+
+                          'AE_reporte' => floatval(str_replace(',', '', $ae_reporte)),
+                          'AE_notifie' =>floatval(str_replace(',', '', $ae_notifie)) ,
+                          'AE_engage' => floatval(str_replace(',', '', $ae_engage)),
+
                           'CP_reporte' => floatval(str_replace(',', '', $cp_reporte)),
                           'CP_notifie' =>floatval(str_replace(',', '', $cp_notifie)),
                           'CP_consome' => floatval(str_replace(',', '', $cp_consome))
@@ -511,12 +511,11 @@ foreach ($jsonData as $codeStr => $nom) {
                 ['code_operation' =>$code.$codeGp.$s_act,
                 'nom_sous_operation' => $nom,
                 'code_t3' => 30000,
-                //'AE_sous_operation' => ($ae_reporte+$ae_notifie+$ae_engage),
-                //'CP_sous_operation' => floatval(str_replace(',', '', $cp_reporte))
-                                  +floatval(str_replace(',', '', $cp_notifie))
-                                  +floatval(str_replace(',', '', $cp_consome)),
-                'AE_reporte' => $ae_reporte,
-                'AE_notifie' => $ae_notifie,'AE_engage' => $ae_engage,
+
+                'AE_reporte' => floatval(str_replace(',', '', $ae_reporte)),
+                'AE_notifie' =>floatval(str_replace(',', '', $ae_notifie)) ,
+                'AE_engage' => floatval(str_replace(',', '', $ae_engage)),
+
                 'CP_reporte' => floatval(str_replace(',', '', $cp_reporte)),
                 'CP_notifie' =>floatval(str_replace(',', '', $cp_notifie)),
                 'CP_consome' => floatval(str_replace(',', '', $cp_consome))
@@ -601,7 +600,8 @@ if (!$nom) {
        // Insertion dans la table groupoperation
        GroupOperation::updateOrCreate(
            ['code_grp_operation' => $code.$s_act],
-           ['nom_grp_operation' => $nom, 'num_sous_action' => $s_act]
+           ['nom_grp_operation' => $nom, 'num_sous_action' => $s_act,
+           'date_insert_grp_operation' => $currentDateTime]
        );
    }
    // Vérifier si le code représente une opération
