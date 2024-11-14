@@ -1103,8 +1103,20 @@ transition-timing-function: line;
   font-size: 16px;
   max-width: 470px;
 }
+.Port-info-holder
+{
+  display: flex;
 
-
+}
+.T-holder
+{
+  border-right: 1px dotted;
+  margin-right: 5px ;
+}
+.T-holder p
+{
+  border-bottom: 1px dotted;
+}
 /** ====================== End table Template*/
 
 /***-------------------- this for the button new ops ---------------------*/
