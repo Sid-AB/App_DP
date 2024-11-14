@@ -12,23 +12,23 @@ class CalculDpia
         if (count($chemin) < 1) {
             throw new \Exception("Le chemin n'est pas valide");
         }*/
-        $port = intval($port);
-        $prog = intval($prog);
-        $sous_prog = intval($sous_prog);
-        $act = intval($act);
-        $s_act = intval($s_act);
+        $port = $port;
+        $prog = $prog;
+        $sous_prog = $sous_prog;
+        $act = $act;
+        $s_act = $s_act;
       
-     //  dd($port, $prog, $sous_prog, $act);
+       dd($port, $prog, $sous_prog, $act);
         // récupérer le portefeuille à partir du chemin
         $portefeuille = Portefeuille::where('num_portefeuil',$port)
             ->with([
                 'Programme.SousProgramme.Action.SousAction.GroupOperation.Operation.SousOperation'
             ])->first();
-       // dd( $portefeuille);
+      
         if (!$portefeuille) {
             throw new \Exception("Portefeuille introuvable");
         }
-
+       //  dd( $portefeuille);
         $totalAeT2 = 0;
         $totalCpT2 = 0;
 
@@ -89,7 +89,7 @@ class CalculDpia
                     foreach ($action->SousAction as $sousAction) {
                        // dd($sousAction);
                         foreach ($sousAction->GroupOperation as $groupe) {
-                           // dd($groupe);
+                            dd($groupe);
                             $groupeAeOuvert = 0;
                             $groupeAeAttendu = 0;
                             $groupeCpOuvert = 0;
@@ -423,7 +423,7 @@ class CalculDpia
                         }
                     }
                 }
-                //dd(   $groupT);
+                dd($groupT);
                  // dd($totalAe,$totalCp);
                $totalt2[] = [
                     "values" => [
