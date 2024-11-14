@@ -121,39 +121,58 @@ foreach ($jsonData as $codeStr => $nom) {
                     );
 
 
-                // Mettre à jour ConstruireDPIA avec les données de la sous-opération
-                $DPIA = ConstruireDPIA::where('code_sous_operation', null) // Assurez-vous de sélectionner les enregistrements pertinents
-                ->firstOrFail(); // Ou récupérez la collection si plusieurs enregistrements sont attendus
+               // mettre à jour ConstruireDPIA 
+             $DPIA = ConstruireDPIA::whereNull('code_sous_operation')->first();  
 
-                // Vérifiez si les champs sont nuls et mettez à jour avec les valeurs de sousoperation si nécessaire
-                $DPIA->update([
-                'AE_dpia_nv' => $DPIA->AE_dpia_nv ?? $sousoperation->AE_sous_operation,
-                'CP_dpia_nv' => $DPIA->CP_dpia_nv ?? $sousoperation->CP_sous_operation,
-                'AE_ouvert_dpia' => $DPIA->AE_ouvert_dpia ?? $sousoperation->AE_sous_operation,
-                'CP_ouvert_dpia' => $DPIA->CP_ouvert_dpia ?? $sousoperation->CP_sous_operation,
-                // Ajoutez les autres champs que vous souhaitez mettre à jour
-                ]);
-
-                // Assurez-vous de sauvegarder les modifications
-                $DPIA->save();
+             if ($DPIA) { 
+                 
+                 $DPIA->update([
+                    'code_sous_operation' => $sousoperation->code_sous_operation, 
+                     'AE_dpia_nv' => $sousoperation->AE_sous_operation, 
+                     'CP_dpia_nv' => $sousoperation->CP_sous_operation, 
+                     'date_modification_dpia' => now(),  
+                 ]);
+             
+             
+             $DPIA->save();
+             
+                }
                 }
             }else{
                 // Insérer dans sousoperation avec un code spécifique
-                sousoperation::updateOrCreate(
+                $sousoperation=sousoperation::updateOrCreate(
                     ['code_sous_operation' => $code.$codeGp.$s_act], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
                     ['code_operation' => $code.$codeGp.$s_act, 'nom_sous_operation' => $nom,'code_t1' =>10000,
                      'AE_sous_operation' => floatval(str_replace(',', '', $ae)),
                      'CP_sous_operation' => floatval(str_replace(',', '', $cp))
                      , 'date_insert_SOUSoperation' => $currentDateTime]
                 );
+
+           // mettre à jour ConstruireDPIA 
+           $DPIA = ConstruireDPIA::whereNull('code_sous_operation')->first();  
+
+           if ($DPIA) { 
+               
+               $DPIA->update([
+                  'code_sous_operation' => $sousoperation->code_sous_operation, 
+                   'AE_dpia_nv' => $sousoperation->AE_sous_operation, 
+                   'CP_dpia_nv' => $sousoperation->CP_sous_operation, 
+                   'date_modification_dpia' => now(),  
+               ]);
+           
+           
+           $DPIA->save();
+           
+              }
+                 }
             }
-        }
+        
         // Sinon, il s'agit d'une sous-opération
         else {
             $codeOp = floor($code / 100) * 100;
 
             // Insertion dans la table sousoperation
-            sousoperation::updateOrCreate(
+            $sousoperation= sousoperation::updateOrCreate(
                 ['code_sous_operation' => $code.$codeOp.$codeGp.$s_act],
                 ['code_operation' => $codeOp.$codeGp.$s_act, 'nom_sous_operation' => $nom,'code_t1' =>10000,
                  'AE_sous_operation' => floatval(str_replace(',', '', $ae)),
@@ -161,18 +180,22 @@ foreach ($jsonData as $codeStr => $nom) {
                   , 'date_insert_SOUSoperation' => $currentDateTime]
             );
 
-            //mettre à jour la table construire DPIA
-           /* ConstruireDPIA::updateOrCreate(
+             // mettre à jour ConstruireDPIA 
+             $DPIA = ConstruireDPIA::whereNull('code_sous_operation')->first();  
 
-                ['code_sous_operation' =>  $code.$codeOp.$codeGp.$s_act.$act.$sous_prog.$prog.$port],
-
-                [
-                    'AE_dpia_nv' => floatval(str_replace(',', '', $ae)),
-                    'CP_dpia_nv' => floatval(str_replace(',', '', $cp)),
-                    'date_modification_dpia' =>$currentDateTime,
-                ]
-            );*/
-
+             if ($DPIA) { 
+                 
+                 $DPIA->update([
+                    'code_sous_operation' => $sousoperation->code_sous_operation, 
+                     'AE_dpia_nv' => $sousoperation->AE_sous_operation, 
+                     'CP_dpia_nv' => $sousoperation->CP_sous_operation, 
+                     'date_modification_dpia' => now(),  
+                 ]);
+             
+             
+             $DPIA->save();
+             
+                }
         }
     }
 
@@ -264,7 +287,7 @@ elseif ($T == 2) {
                 if ($nextCode && $nextCode % 1000 == 0) {
                    // dd($nextCode, $ae_attendu, $cp_attendu);
                     // Insérer dans sousoperation avec un code spécifique
-                    sousoperation::updateOrCreate(
+                    $sousoperation=sousoperation::updateOrCreate(
                         ['code_sous_operation' => $code.$s_act], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
                         [
                             'code_operation' =>  $code.$s_act,
@@ -279,10 +302,25 @@ elseif ($T == 2) {
                             'date_insert_SOUSoperation' => $currentDateTime
                         ]
                     );
+
+                     // mettre à jour ConstruireDPIA 
+                     $DPIA = ConstruireDPIA::whereNull('code_sous_operation')->firstOrFail();
+                // vérifiez si les champs sont nuls et update 
+                $DPIA->update([
+                'code_sous_operation'=>$DPIA->code_sous_operation ?? $sousoperation->code_sous_operation,
+                'AE_ouvert_dpia' => $DPIA->AE_ouvert_dpia ?? $sousoperation->AE_ouvert,
+                'AE_atendu_dpia' => $DPIA->AE_atendu_dpia ?? $sousoperation->AE_atendu,
+                'CP_ouvert_dpia' => $DPIA->CP_ouvert_dpia ?? $sousoperation->CP_ouvert,
+                'CP_atendu_dpia' => $DPIA->CP_atendu_dpia ?? $sousoperation->CP_atendu,
+                ]);
+                
+                $DPIA->save();
                 }
+            
+                
             }else{
                 // Insérer dans sousoperation avec un code spécifique
-                sousoperation::updateOrCreate(
+                $sousoperation=sousoperation::updateOrCreate(
                     ['code_sous_operation' => $code.$s_act], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
                     [
                         'code_operation' =>  $code.$s_act,
@@ -297,6 +335,18 @@ elseif ($T == 2) {
                         'date_insert_SOUSoperation' => $currentDateTime
                     ]
                 );
+                   // mettre à jour ConstruireDPIA 
+                   $DPIA = ConstruireDPIA::whereNull('code_sous_operation')->firstOrFail();
+                   // vérifiez si les champs sont nuls et update 
+                   $DPIA->update([
+                   'code_sous_operation'=>$DPIA->code_sous_operation ?? $sousoperation->code_sous_operation,
+                   'AE_ouvert_dpia' => $DPIA->AE_ouvert_dpia ?? $sousoperation->AE_ouvert,
+                   'AE_atendu_dpia' => $DPIA->AE_atendu_dpia ?? $sousoperation->AE_atendu,
+                   'CP_ouvert_dpia' => $DPIA->CP_ouvert_dpia ?? $sousoperation->CP_ouvert,
+                   'CP_atendu_dpia' => $DPIA->CP_atendu_dpia ?? $sousoperation->CP_atendu,
+                   ]);
+                   
+                   $DPIA->save();
             }
 
 
@@ -326,7 +376,7 @@ elseif ($T == 2) {
                 if ($nextCode && ($nextCode % 100 == 0 || $nextCode % 1000 == 0)) {
                    // dd($nextCode, $ae_attendu, $cp_attendu);
                     // Insérer dans sousoperation avec un code spécifique
-                    sousoperation::updateOrCreate(
+                    $sousoperation=sousoperation::updateOrCreate(
                         ['code_sous_operation' => $code.$codeGp.$s_act], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
                         [
                             'code_operation' =>  $code.$codeGp.$s_act,
@@ -341,10 +391,23 @@ elseif ($T == 2) {
                             'date_insert_SOUSoperation' => $currentDateTime
                         ]
                     );
+                       // mettre à jour ConstruireDPIA 
+                       $DPIA = ConstruireDPIA::whereNull('code_sous_operation')->firstOrFail();
+                // vérifiez si les champs sont nuls et update 
+                $DPIA->update([
+                'code_sous_operation'=>$DPIA->code_sous_operation ?? $sousoperation->code_sous_operation,
+                'AE_ouvert_dpia' => $DPIA->AE_ouvert_dpia ?? $sousoperation->AE_ouvert,
+                'AE_atendu_dpia' => $DPIA->AE_atendu_dpia ?? $sousoperation->AE_atendu,
+                'CP_ouvert_dpia' => $DPIA->CP_ouvert_dpia ?? $sousoperation->CP_ouvert,
+                'CP_atendu_dpia' => $DPIA->CP_atendu_dpia ?? $sousoperation->CP_atendu,
+                ]);
+                
+                $DPIA->save();
+
                 }
             }else{
                 // Insérer dans sousoperation avec un code spécifique
-                sousoperation::updateOrCreate(
+                $sousoperation=sousoperation::updateOrCreate(
                     ['code_sous_operation' => $code.$codeGp.$s_act], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
                     [
                         'code_operation' =>  $code.$codeGp.$s_act,
@@ -359,6 +422,18 @@ elseif ($T == 2) {
                         'date_insert_SOUSoperation' => $currentDateTime
                     ]
                 );
+                   // mettre à jour ConstruireDPIA 
+                   $DPIA = ConstruireDPIA::whereNull('code_sous_operation')->firstOrFail();
+                   // vérifiez si les champs sont nuls et update 
+                   $DPIA->update([
+                   'code_sous_operation'=>$DPIA->code_sous_operation ?? $sousoperation->code_sous_operation,
+                   'AE_ouvert_dpia' => $DPIA->AE_ouvert_dpia ?? $sousoperation->AE_ouvert,
+                   'AE_atendu_dpia' => $DPIA->AE_atendu_dpia ?? $sousoperation->AE_atendu,
+                   'CP_ouvert_dpia' => $DPIA->CP_ouvert_dpia ?? $sousoperation->CP_ouvert,
+                   'CP_atendu_dpia' => $DPIA->CP_atendu_dpia ?? $sousoperation->CP_atendu,
+                   ]);
+                   
+                   $DPIA->save();
             }
 
         // Sinon, il s'agit d'une sous-opération
@@ -366,7 +441,7 @@ elseif ($T == 2) {
             $codeOp = floor($code / 100) * 100;
 
             // Insertion dans la table sousoperation
-            sousoperation::updateOrCreate(
+            $sousoperation= sousoperation::updateOrCreate(
                 ['code_sous_operation' => $code.$codeOp.$codeGp.$s_act],
                 [
                     'code_operation' =>  $code.$codeGp.$s_act,
@@ -381,6 +456,18 @@ elseif ($T == 2) {
                     'date_insert_SOUSoperation' => $currentDateTime
                 ]
             );
+             // mettre à jour ConstruireDPIA 
+             $DPIA = ConstruireDPIA::whereNull('code_sous_operation')->firstOrFail();
+             // vérifiez si les champs sont nuls et update 
+             $DPIA->update([
+            'code_sous_operation'=>$DPIA->code_sous_operation ?? $sousoperation->code_sous_operation,
+             'AE_ouvert_dpia' => $DPIA->AE_ouvert_dpia ?? $sousoperation->AE_ouvert,
+             'AE_atendu_dpia' => $DPIA->AE_atendu_dpia ?? $sousoperation->AE_atendu,
+             'CP_ouvert_dpia' => $DPIA->CP_ouvert_dpia ?? $sousoperation->CP_ouvert,
+             'CP_atendu_dpia' => $DPIA->CP_atendu_dpia ?? $sousoperation->CP_atendu,
+             ]);
+             
+             $DPIA->save();
         }
     } // fin boucle
 
