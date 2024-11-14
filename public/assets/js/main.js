@@ -352,6 +352,7 @@ function Edit(tid, T) {
         });
 
     });
+
 }
 
 function add_T1() {
@@ -652,7 +653,7 @@ $("#date_insert_portef").on('focusout',function()
     if (Date_prog && num_prog) {
         // Appel AJAX pour vérifier le portefeuille dans la base de données
 
-        console.log('data'+numprog_year)
+        console.log('data'+numprog_year)    
         $.ajax({
             url: '/check-prog',  // Route pour vérifier l'existence du portefeuille
             type: 'GET',
@@ -666,7 +667,7 @@ $("#date_insert_portef").on('focusout',function()
                     console.log(response); // Vérifiez la réponse
                     path.push(numprog_year);
                     path3.push(num_prog);
-
+                    
                     console.log('numwall_year path3: ' + JSON.stringify(path3));
 
                     // Remplir les champs du formulaire avec les données récupérées
@@ -806,7 +807,7 @@ $("#add-prg").on('click', function () {
 
                                     // Remplir les champs du formulaire avec les données récupérées
                                     $('#nom_sous_prog').val(response.nom_sous_prog).trigger('change'); // Remplir et déclencher l'événement change
-                                   // $('#date_insert_sousProg').val(response.date_insert_sousProg).trigger('change'); // Remplir et déclencher l'événement change
+                                   //    $('#date_insert_sousProg').val(response.date_insert_sousProg).trigger('change'); // Remplir et déclencher l'événement change
                                     $('#AE_sous_prog').val(response.AE_sous_prog).trigger('change'); // Remplir et déclencher l'événement change
                                     $('#CP_sous_prog').val(response.CP_sous_prog).trigger('change'); // Remplir et déclencher l'événement change
                                     //   $('#num_journ_program').val(response.num_journal).trigger('change'); // Remplir et déclencher l'événement change
@@ -913,7 +914,7 @@ $("#add-prg").on('click', function () {
                                     alert('out')
                                    var date_act=$(this).val();
                                    var num_act=$('#num_act').val();
-                                 //  var date_act=  new Date(date_act).getFullYear();
+                                 //  var date_act=  new Date(date_act).getFullYear(); 
                                    var numact_year = num_act+path[4];
                                    console.log('the new id'+numact_year+' with '+JSON.stringify(path))
                                    if(date_act && num_act)
@@ -947,7 +948,7 @@ $("#add-prg").on('click', function () {
 
                                 /******           ACTION add for under_progam                    *********** */
 
-
+                              
                                 $('#add-prg3').on('click', function () {
                                     /**
                                      *  this part for chacking if he want to under_action
@@ -1122,7 +1123,7 @@ $("#add-prg").on('click', function () {
                                                     path.push(numaction_year);
                                                     path3.push(num_act);
                                                     // console.log('path: ' + JSON.stringify(path));
-                                                    window.location.href = 'testing/S_action/' + path.join('/');
+                                                    window.location.href = 'testing/Action/' + path.join('/');
                                                 }
                                             },
                                             error: function (response) {
