@@ -65,7 +65,8 @@ public function check_sous_prog(Request $request)
         ]);
       //  dd($request);
       $sprog=SousProgramme::where('num_sous_prog',$request->num_sous_prog)->first();
-      if(!isset($sprog))
+     // dd($sprog);
+      if(isset($sprog))
       {
         return response()->json([
             'success' => true,
@@ -84,9 +85,9 @@ public function check_sous_prog(Request $request)
         $SousProgramme->AE_sous_prog=floatval($request->AE_sous_prog);
         $SousProgramme->CP_sous_prog=floatval($request->CP_sous_prog);
         $SousProgramme->date_insert_sousProg = $request->date_insert_sousProg;
-
+       // dd($SousProgramme);
         $SousProgramme->save();
-
+    // dd($SousProgramme);
         // Enregistrer le fichier et le lier au portefeuille
     if ($request->hasFile('file')) {
         $path = $request->file('file')->store('public/files/');

@@ -825,7 +825,7 @@ $("#add-prg").on('click', function () {
                     var dat_sou_prog = $('#date_insert_sousProg').val()
                     var AE_sous_prog=$('#AE_sous_prog').val()
                     var CP_sous_prog=$('#CP_sous_prog').val()
-                    var id_prog = path[1];
+                    var id_prog = path[3];
                     var numsouprog_year = sou_prog + id_prog;
                     check_ifnull('#add-prg2')
                     //var id_port = path[0];
@@ -958,7 +958,7 @@ $("#add-prg").on('click', function () {
                                         var AE_act=$('#AE_act').val()
                                         var CP_act=$('#CP_act').val()
                                         var dat_inst = $('#date_insert_action').val();
-                                        var id_sou_prog = path[2];
+                                        var id_sou_prog = path[4];
                                         check_ifnull('#add-prg3')
                                         var numaction_year = num_act + id_sou_prog;
                                         var nexthop = '<div class="pinfo-handle">' +
@@ -976,7 +976,7 @@ $("#add-prg").on('click', function () {
                                             AE_act:AE_act,
                                             CP_act:CP_act,
                                             date_insert_action: dat_inst,
-                                            id_sous_prog: path[2],
+                                            id_sous_prog: path[5],
                                             //id_prog: path[1],
                                             //id_porte: path[0],
                                             _token: $('meta[name="csrf-token"]').attr('content'),
@@ -1048,7 +1048,7 @@ $("#add-prg").on('click', function () {
                                                             AE_sous_act:AE_sous_act,
                                                             CP_sous_act:CP_sous_act,
                                                             date_insert_sous_action: dat_inst,
-                                                            num_act: path[3],
+                                                            num_act: path[4],
                                                             //id_sous_act: path[2],
                                                             //id_prog: path[1],
                                                            // id_porte: path[0],
@@ -1070,7 +1070,7 @@ $("#add-prg").on('click', function () {
 
                                                                     // Redirection vers la page suivante après l'ajout de la sous-action
                                                                     alert('testing')
-                                                                    window.location.href = 'testing/S_action/' + path.join('/');
+                                                                    window.location.href = 'testing/S_action/'+ path[0]+'/'+path[3]+'/'+path[5]+'/'+path[6]+'/'+path[7];
                                                                 }
                                                             },
                                                             error: function (response) {
@@ -1091,7 +1091,7 @@ $("#add-prg").on('click', function () {
                                         var AE_act=$('#AE_act').val()
                                         var CP_act=$('#CP_act').val()
                                         var dat_inst = $('#date_insert_action').val();
-                                        var id_sou_prog = path[2];
+                                        var id_sou_prog = path[4];
                                         var numaction_year = num_act + id_sou_prog;
 
                                         var formdata_act = {
@@ -1116,7 +1116,7 @@ $("#add-prg").on('click', function () {
                                                     path.push(numaction_year);
                                                     path3.push(num_act);
                                                     // console.log('path: ' + JSON.stringify(path));
-                                                    window.location.href = 'testing/Action/' + path.join('/');
+                                                    window.location.href = 'testing/Action/'+ path[0]+'/'+path[3]+'/'+path[5]+'/'+path[6];
                                                 }
                                             },
                                             error: function (response) {
