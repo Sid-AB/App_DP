@@ -612,7 +612,8 @@ if (!$nom) {
        Operation::updateOrCreate(
            ['code_operation' => $code.$codeGp.$s_act],
            ['code_grp_operation' =>  $codeGp.$s_act, 'nom_operation' => $nom,
-           'AE_operation' => $ae, 'CP_operation' => floatval(str_replace(',', '',  $cp)),
+           //'AE_operation' => floatval(str_replace(',', '',  $ae)),
+           //'CP_operation' => floatval(str_replace(',', '',  $cp)),
            'date_insert_operation' => $currentDateTime]
        );
    }
@@ -623,8 +624,12 @@ if (!$nom) {
        // Insertion dans la table sousoperation
        sousoperation::updateOrCreate(
            ['code_sous_operation' => $code.$codeGp.$s_act],
-           ['code_operation' => $code.$codeGp.$s_act, 'nom_sous_operation' => $nom
-           ,'code_t4' => 40000, 'date_insert_SOUSoperation' => $currentDateTime]
+           ['code_operation' => $code.$codeGp.$s_act,
+           'nom_sous_operation' => $nom,
+           'AE_operation' => floatval(str_replace(',', '',  $ae)),
+           'CP_operation' => floatval(str_replace(',', '',  $cp)),
+           'code_t4' => 40000,
+           'date_insert_SOUSoperation' => $currentDateTime]
        );
 
        /* // Vérifier la ligne suivante

@@ -185,12 +185,12 @@ function Edit(tid, T) {
             cp_ouvert: {},
             ae_attendu: {},
             cp_attendu: {},
-            ae_reporte: {},
-            ae_notifie: {},
-            ae_engage: {},
-            cp_reporte: {},
-            cp_notifie: {},
-            cp_consome: {}
+             ae_reporte: {},
+    ae_notifie: {},
+    ae_engage: {},
+    cp_reporte: {},
+    cp_notifie: {},
+    cp_consome: {},
         };
         // Add double-click event to all cells with the class "editable"
         $('.editable').on('click', function () {
@@ -557,82 +557,75 @@ $(document).ready(function () {
 
 
  $("#add-wallet").on("click", function () {
-      var num_wallet = $("#num_port").val();
-      var dateprort = $("#date_crt_portf").val();
-      var year = new Date(dateprort).getFullYear(); // Extraire l'année à partir de la date
-      var numwall_year = num_wallet + year;
-      var indice = 0;
-      var isEmpty = false;
-      var formId = $(this).parents(".card-body").attr("id");
-      console.log("and form id" + formId);
-      $("#" + formId + " form")
-          .find("input")
-          .each(function () {
-              console.log("before the loop");
-              var inputValue = $(this).val();
+     var num_wallet = $("#num_port").val();
+     var dateprort = $("#date_crt_portf").val();
+     var year = new Date(dateprort).getFullYear(); // Extraire l'année à partir de la date
+     var numwall_year = num_wallet + year;
+     var indice = 0;
+     var isEmpty = false;
+     var formId = $(this).parents(".card-body").attr("id");
+     console.log("and form id" + formId);
+     $("#" + formId + " form")
+         .find("input")
+         .each(function () {
+             console.log("before the loop");
+             var inputValue = $(this).val();
 
-              // Check if the input is not empty
-              if (inputValue.trim() === "") {
-                  isEmpty = true;
-                  indice++;
-              }
+             // Check if the input is not empty
+             if (inputValue.trim() === "") {
+                 isEmpty = true;
+                 indice++;
+             }
 
-              if (isEmpty) {
-                  if (indice < 2) {
-                      alert("Please fill in all required fields.");
-                  }
-                  $(this).css(
-                      "box-shadow",
-                      "0 0 0 0.25rem rgb(255 0 0 / 47%)"
-                  );
-              }
-          });
-      // console.log('id'+num_wallet)
-      var formportinsert = {
-          num_portefeuil: numwall_year,
-          Date_portefeuille: $("#date_crt_portf").val(),
-          nom_journal: $("#nom_journ").val(),
-          num_journal: parseInt($("#num_journ").val()),
-          AE_portef: parseFloat($("#AE_portef").val()),
-          CP_portef: parseFloat($("#CP_portef").val()),
-          //year: year,
-          _token: $('meta[name="csrf-token"]').attr("content"),
-          _method: "POST",
-      };
+             if (isEmpty) {
+                 if (indice < 2) {
+                     alert("Please fill in all required fields.");
+                 }
+                 $(this).css("box-shadow", "0 0 0 0.25rem rgb(255 0 0 / 47%)");
+             }
+         });
+     // console.log('id'+num_wallet)
+        var formportinsert = {
+            num_portefeuil: numwall_year,
+            Date_portefeuille: $("#date_crt_portf").val(),
+            nom_journal: $("#nom_journ").val(),
+            num_journal: parseInt($("#num_journ").val()),
+            AE_portef: parseFloat($("#AE_portef").val()),
+            CP_portef: parseFloat($("#CP_portef").val()),
+            //year: year,
+            _token: $('meta[name="csrf-token"]').attr("content"),
+            _method: "POST",
+        }
 
-           // Ajouter le fichier s'il est sélectionné HOUDAA
-       var fileInput = $("#inputFile")[0]; // Assurez-vous que l'input de fichier a l'ID `file`
-       if (fileInput && fileInput.files.length > 0) {
-           formportinsert.append("inputFile", fileInput.files[0]);
-       }
-      $.ajax({
-          url: "/creation",
-          type: "POST",
-          data: formportinsert,
-          success: function (response) {
-              if (response.code == 200 || response.code == 404) {
-                  alert(response.message);
-                  path.push(numwall_year);
-                  path3.push(num_wallet);
 
-                  console.log("numwall_year path: " + JSON.stringify(path));
+     $.ajax({
+         url: "/creation",
+         type: "POST",
+         data: formportinsert,
+         success: function (response) {
+             if (response.code == 200 || response.code == 404) {
+                 alert(response.message);
+                 path.push(numwall_year);
+                 path3.push(num_wallet);
 
-                  $(".font-bk").removeClass("back-bk");
-                  $(".wallet-path").css("display", "flex");
-                  $(".wallet-handle").empty();
-                  $("#progam-handle").css("display", "block");
-                  $("#progam-handle").removeClass("scale-out");
-                  $("#progam-handle").addClass("scale-visible");
-                  $("#w_id").text(num_wallet);
-              } else {
-                  alert(response.message);
-              }
-          },
-          error: function () {
-              alert("error");
-          },
-      });
-  });
+                 console.log("numwall_year path: " + JSON.stringify(path));
+
+                 $(".font-bk").removeClass("back-bk");
+                 $(".wallet-path").css("display", "flex");
+                 $(".wallet-handle").empty();
+                 $("#progam-handle").css("display", "block");
+                 $("#progam-handle").removeClass("scale-out");
+                 $("#progam-handle").addClass("scale-visible");
+                 $("#w_id").text(num_wallet);
+             } else {
+                 alert(response.message);
+             }
+         },
+         error: function () {
+             alert("error");
+         },
+     });
+ });
 
 
 
