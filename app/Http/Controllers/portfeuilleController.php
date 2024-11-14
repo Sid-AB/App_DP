@@ -344,34 +344,6 @@ public function check_portef(Request $request)
 
     }
 
-        // creation de la table  construireDPIA
-        $DPIA = new ConstruireDPIA();
-
-        $DPIA->date_creation_dpia = $portefeuille->Date_portefeuille; // elle prend la date de creation du portfeuille
-        $DPIA->date_modification_dpia = $DPIA->date_creation_dpia;
-        $DPIA->motif_dpia = 'Création de DPIA à partir du portefeuille';
-
-        $DPIA->AE_dpia_nv = null;
-        $DPIA->CP_dpia_nv = null;
-
-        $DPIA->AE_ouvert_dpia = null;
-        $DPIA->AE_atendu_dpia = null;
-        $DPIA->CP_ouvert_dpia = null;
-        $DPIA->CP_atendu_dpia = null;
-
-        $DPIA->AE_reporte_dpia = null;
-        $DPIA->AE_notifie_dpia = null;
-        $DPIA->AE_engage_dpia = null;
-        $DPIA->CP_reporte_dpia = null;
-        $DPIA->CP_notifie_dpia = null;
-        $DPIA->CP_consome_dpia = null;
-
-        $DPIA->code_sous_operation = null;
-        $DPIA->id_rp = 1;
-        $DPIA->id_ra = 1;
-        $DPIA->save();
-
-        //dd( $DPIA);
 
         //creation de la table  construireDPic
         $DPIC = new ConstruireDPIC();
