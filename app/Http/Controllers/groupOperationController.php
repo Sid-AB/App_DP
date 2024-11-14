@@ -122,7 +122,7 @@ foreach ($jsonData as $codeStr => $nom) {
 
 
                // mettre à jour ConstruireDPIA 
-             $DPIA = ConstruireDPIA::whereNull('code_sous_operation')->first();  
+             /*$DPIA = ConstruireDPIA::whereNull('code_sous_operation')->first();  
 
              if ($DPIA) { 
                  
@@ -136,7 +136,7 @@ foreach ($jsonData as $codeStr => $nom) {
              
              $DPIA->save();
              
-                }
+                }*/
                 }
             }else{
                 // Insérer dans sousoperation avec un code spécifique
@@ -149,7 +149,7 @@ foreach ($jsonData as $codeStr => $nom) {
                 );
 
            // mettre à jour ConstruireDPIA 
-           $DPIA = ConstruireDPIA::whereNull('code_sous_operation')->first();  
+          /* $DPIA = ConstruireDPIA::whereNull('code_sous_operation')->first();  
 
            if ($DPIA) { 
                
@@ -163,7 +163,7 @@ foreach ($jsonData as $codeStr => $nom) {
            
            $DPIA->save();
            
-              }
+              }*/
                  }
             }
         
@@ -179,9 +179,9 @@ foreach ($jsonData as $codeStr => $nom) {
                   'CP_sous_operation' => floatval(str_replace(',', '', $cp))
                   , 'date_insert_SOUSoperation' => $currentDateTime]
             );
-
+            
              // mettre à jour ConstruireDPIA 
-             $DPIA = ConstruireDPIA::whereNull('code_sous_operation')->first();  
+            /* $DPIA = ConstruireDPIA::whereNull('code_sous_operation')->first();  
 
              if ($DPIA) { 
                  
@@ -195,7 +195,7 @@ foreach ($jsonData as $codeStr => $nom) {
              
              $DPIA->save();
              
-                }
+                }*/
         }
     }
 
@@ -304,7 +304,7 @@ elseif ($T == 2) {
                     );
 
                      // mettre à jour ConstruireDPIA 
-                     $DPIA = ConstruireDPIA::whereNull('code_sous_operation')->firstOrFail();
+                    /* $DPIA = ConstruireDPIA::whereNull('code_sous_operation')->firstOrFail();
                 // vérifiez si les champs sont nuls et update 
                 $DPIA->update([
                 'code_sous_operation'=>$DPIA->code_sous_operation ?? $sousoperation->code_sous_operation,
@@ -314,7 +314,7 @@ elseif ($T == 2) {
                 'CP_atendu_dpia' => $DPIA->CP_atendu_dpia ?? $sousoperation->CP_atendu,
                 ]);
                 
-                $DPIA->save();
+                $DPIA->save();*/
                 }
             
                 
@@ -336,7 +336,7 @@ elseif ($T == 2) {
                     ]
                 );
                    // mettre à jour ConstruireDPIA 
-                   $DPIA = ConstruireDPIA::whereNull('code_sous_operation')->firstOrFail();
+                  /* $DPIA = ConstruireDPIA::whereNull('code_sous_operation')->firstOrFail();
                    // vérifiez si les champs sont nuls et update 
                    $DPIA->update([
                    'code_sous_operation'=>$DPIA->code_sous_operation ?? $sousoperation->code_sous_operation,
@@ -346,7 +346,7 @@ elseif ($T == 2) {
                    'CP_atendu_dpia' => $DPIA->CP_atendu_dpia ?? $sousoperation->CP_atendu,
                    ]);
                    
-                   $DPIA->save();
+                   $DPIA->save();*/
             }
 
 
@@ -394,7 +394,7 @@ elseif ($T == 2) {
                        // mettre à jour ConstruireDPIA 
                        $DPIA = ConstruireDPIA::whereNull('code_sous_operation')->firstOrFail();
                 // vérifiez si les champs sont nuls et update 
-                $DPIA->update([
+              /*  $DPIA->update([
                 'code_sous_operation'=>$DPIA->code_sous_operation ?? $sousoperation->code_sous_operation,
                 'AE_ouvert_dpia' => $DPIA->AE_ouvert_dpia ?? $sousoperation->AE_ouvert,
                 'AE_atendu_dpia' => $DPIA->AE_atendu_dpia ?? $sousoperation->AE_atendu,
@@ -402,7 +402,7 @@ elseif ($T == 2) {
                 'CP_atendu_dpia' => $DPIA->CP_atendu_dpia ?? $sousoperation->CP_atendu,
                 ]);
                 
-                $DPIA->save();
+                $DPIA->save();*/
 
                 }
             }else{
@@ -423,7 +423,7 @@ elseif ($T == 2) {
                     ]
                 );
                    // mettre à jour ConstruireDPIA 
-                   $DPIA = ConstruireDPIA::whereNull('code_sous_operation')->firstOrFail();
+                  /* $DPIA = ConstruireDPIA::whereNull('code_sous_operation')->firstOrFail();
                    // vérifiez si les champs sont nuls et update 
                    $DPIA->update([
                    'code_sous_operation'=>$DPIA->code_sous_operation ?? $sousoperation->code_sous_operation,
@@ -433,7 +433,7 @@ elseif ($T == 2) {
                    'CP_atendu_dpia' => $DPIA->CP_atendu_dpia ?? $sousoperation->CP_atendu,
                    ]);
                    
-                   $DPIA->save();
+                   $DPIA->save();*/
             }
 
         // Sinon, il s'agit d'une sous-opération
@@ -457,7 +457,7 @@ elseif ($T == 2) {
                 ]
             );
              // mettre à jour ConstruireDPIA 
-             $DPIA = ConstruireDPIA::whereNull('code_sous_operation')->firstOrFail();
+            /* $DPIA = ConstruireDPIA::whereNull('code_sous_operation')->firstOrFail();
              // vérifiez si les champs sont nuls et update 
              $DPIA->update([
             'code_sous_operation'=>$DPIA->code_sous_operation ?? $sousoperation->code_sous_operation,
@@ -467,7 +467,7 @@ elseif ($T == 2) {
              'CP_atendu_dpia' => $DPIA->CP_atendu_dpia ?? $sousoperation->CP_atendu,
              ]);
              
-             $DPIA->save();
+             $DPIA->save();*/
         }
     } // fin boucle
 
