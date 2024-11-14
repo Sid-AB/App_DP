@@ -184,7 +184,7 @@ class portfeuilleController extends Controller
           ];
          //     dd($allport);
       // Passer les données à la vue
-      return view('test.tree', compact('allport'));
+      return view('Portfail-in.index', compact('allport'));
 
 
     // Passer les données à la vue

@@ -210,7 +210,7 @@
                        @else
                        @foreach($sous_act['Tports'] as $key=>$values)
                        <div class="T-holder"> 
-                        <p class="fs-7 mb-0">{{$key}} </p>
+                        <p class="fs-7 mb-0"> {{$key}} </p>
                         <div class="TotalT-holder">
                           <p>AE : {{$values['total'][0]['values']['totalAE']}} </p>
                           <p>CP : {{$values['total'][0]['values']['totalCP']}} </p>
@@ -394,7 +394,7 @@ listItemsWithNestedUl.each(function(){
   $('.add-btn').on('click',function(){
             var id = $(this).attr("id");
             var indice=id ;
-            console.log('i m the level '+indice)
+            console.log('i m the level '+indice)  
             window.location.href='/creation/from/'+id;
             var  news;
         })
