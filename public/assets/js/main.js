@@ -146,8 +146,8 @@ function add_newOPs_T2(id,descr,value,key)
     '<td class="editable" id="CP_Over">' + 180 + ',000</td>' +
     '<td class="editable" id="AE_att">' + value + '</td>' +
     '<td class="editable" id="CP_att">' + 180 + ',000</td>' +
-    '<td class="editable" id="AE_TT">' + some + '</td>' +
-    '<td class="editable" id="CP_TT">' + 360 + ',000</td>' +
+    '<td class="editable" id="AE_TT" diseabled>' + some + '</td>' +
+    '<td class="editable" id="CP_TT" diseabled>' + 360 + ',000</td>' +
     '</tr>';
     $('#ref'+key).after(row);
     $('#ref'+key+' td').each(function(){
@@ -205,8 +205,9 @@ function Edit(tid, T) {
             var currentText = cell.text();  // Get current text
             console.log('odl ' + code.text())
             // Create an input element and set its value
-            let input = $('<input type="number" step="0.01" class="form-control" />').val(currentText);
+            let input = $('<input type="number" step="0.01" class="form-control"/>').val(currentText);
             cell.html(input);  // Replace the cell content with the input
+
             input.focus();  // Focus on the input immediately
 
             // When the input loses focus, update the cell with new text
@@ -247,7 +248,10 @@ function Edit(tid, T) {
                                     var cpDataOuvert = $(this).find('td').eq(3).text();
                                     var aeDataAttendu = $(this).find('td').eq(4).text();
                                     var cpDataAttendu = $(this).find('td').eq(5).text();
-
+                                    var someae= aeDataOuvert + aeDataAttendu ;
+                                    var somecp= cpDataOuvert + cpDataAttendu;
+                                    $('.someae').text(someae)
+                                    $('.somecp').text(somecp)
                                     // Ajoute les valeurs dans les objets
                                     data.ae_ouvert[code] = aeDataOuvert;
                                     data.cp_ouvert[code] = cpDataOuvert;
@@ -266,6 +270,7 @@ function Edit(tid, T) {
                                     var cpDataNotifie = $(this).find('td').eq(7).text();
                                     var cpDataEngage = $(this).find('td').eq(8).text();
 
+
                                     // Ajoute les valeurs dans les objets
                                     console.log("ddcss");
                                     data.ae_reporte[code] = aeDataReporte;
@@ -275,6 +280,8 @@ function Edit(tid, T) {
                                     data.cp_reporte[code] = cpDataReporte;
                                     data.cp_notifie[code] = cpDataNotifie;
                                     data.cp_consome[code] = cpDataEngage;
+
+
                                 }
                                 // value_chng.push(rw);
                             })
@@ -1290,8 +1297,8 @@ function T2_table(id, T) {
                 '<td class="editable" id="CP_Over">' + 180 + ',000</td>' +
                 '<td class="editable" id="AE_att">' + 0 + '</td>' +
                 '<td class="editable" id="CP_att">' + 180 + ',000</td>' +
-                '<td class="editable" id="AE_TT">' + 0 + '</td>' +
-                '<td class="editable" id="CP_TT">' + 360 + ',000</td>' +
+                '<td  class="someae" id="AE_TT">' + 0 + '</td>' +
+                '<td  class="somecp" id="CP_TT">' + 360 + ',000</td>' +
                 '</tr>';
 
             // Append the row to the table body
