@@ -444,7 +444,7 @@ class CalculDpia
                         }
                     }
                 }
-                dd($groupT);
+               // dd($groupT);
                  // dd($totalAe,$totalCp);
                $totalt2[] = [
                     "values" => [

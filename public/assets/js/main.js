@@ -146,8 +146,8 @@ function add_newOPs_T2(id,descr,value,key)
     '<td class="editable" id="CP_Over">' + 180 + ',000</td>' +
     '<td class="editable" id="AE_att">' + value + '</td>' +
     '<td class="editable" id="CP_att">' + 180 + ',000</td>' +
-    '<td class="editable" id="AE_TT" diseabled>' + some + '</td>' +
-    '<td class="editable" id="CP_TT" diseabled>' + 360 + ',000</td>' +
+    '<td  id="AE_TT" diseabled>' + some + '</td>' +
+    '<td  id="CP_TT" diseabled>' + 360 + ',000</td>' +
     '</tr>';
     $('#ref'+key).after(row);
     $('#ref'+key+' td').each(function(){
@@ -160,8 +160,12 @@ function add_newOPs_T3(id,descr,value,key,)
     '<td class="code">' + id + '</td>' +
     '<td><p>' + descr + '</p> </td>' +
     '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + descr + '</p></td>' +
-    '<td class="editable">' + value + '</td>' +
-    '<td class="editable">' + 180 + ',000</td>' +
+    '<td class="editable" id="AE_rpor">' + value + '</td>' +
+    '<td class="editable" id="AE_not">' + 180 + ',000</td>' +
+    '<td class="editable" id="AE_enga">' + value + '</td>' +
+    '<td class="editable" id="AE_rpor">' + 180 + ',000</td>' +
+    '<td class="editable" id="AE_not">' + value + '</td>' +
+    '<td class="editable" id="AE_enga">' + 180 + ',000</td>' +
     '</tr>';
     $('#ref'+key).after(row);
     $('#ref'+key+' td').each(function(){
@@ -169,6 +173,20 @@ function add_newOPs_T3(id,descr,value,key,)
     })
 
 
+}
+
+function add_newOPs_T4(id,descr,value,key,)
+{
+    var row='<tr id="ref'+id+'">' +
+                '<td class="code" >' + id + '</td>' +
+                '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + descr + '</p></td>' +
+                '<td class="editable" id="AE_T4">' + value + '</td>' +
+                '<td class="editable" id="CP_T4">' + 180 + ',000</td>' +
+                '</tr>';
+    $('#ref'+key).after(row);
+    $('#ref'+key+' td').each(function()
+    {
+    $(this).removeClass('editable');})
 }
 /**
  *
@@ -213,7 +231,41 @@ function Edit(tid, T) {
             // When the input loses focus, update the cell with new text
             input.blur(function (t) {
                 let newText = $(this).val();  // Get new value from input
-
+                    
+                    if (tid == 'T_port2' || tid == 'T2')
+                    {       var testcpattendu=clickedRow.find('td').eq(5).text();//cpattendu
+                            var testaeattendu=clickedRow.find('td').eq(4).text();//aeattendu
+                            var testcpover=clickedRow.find('td').eq(3).text();//cpovert
+                            var testaeover=clickedRow.find('td').eq(2).text();//aeovert
+                            var someae=0;
+                            var somecp=0;
+                            if(newText != 0 && newText != '' && newText != null)
+                            {
+                                var wit=$(this).parent().attr('id');
+                                console.log('ae -> '+testaeover+'cp ->'+testcpover+' ae ett -> '+testaeattendu+' cp ett ->'+testcpattendu+'value change ->'+JSON.stringify(wit))
+                                if(wit == 'CP_att')
+                                {
+                                    testcpattendu=newText
+                                }
+                                if(wit == 'AE_att')
+                                {
+                                    testaeattendu=newText
+                                }
+                                if(wit =='AE_Over')
+                                {
+                                    testaeover=newText
+                                }
+                                if(wit == 'CP_Over')
+                                {
+                                    testcpover=newText
+                                }
+                                somecp=parseFloat(testcpattendu)+parseFloat(testcpover)
+                                someae=parseFloat(testaeattendu)+parseFloat(testaeover);
+                                console.log('ae'+someae +' cp '+somecp)
+                                clickedRow.find('td').eq(6).text(someae);
+                                clickedRow.find('td').eq(7).text(somecp);
+                            }
+                    }
                 if (newText != 0 && newText != '' && newText != null) {
                     mount_chang = true
 
@@ -248,10 +300,8 @@ function Edit(tid, T) {
                                     var cpDataOuvert = $(this).find('td').eq(3).text();
                                     var aeDataAttendu = $(this).find('td').eq(4).text();
                                     var cpDataAttendu = $(this).find('td').eq(5).text();
-                                    var someae= aeDataOuvert + aeDataAttendu ;
-                                    var somecp= cpDataOuvert + cpDataAttendu;
-                                    $('.someae').text(someae)
-                                    $('.somecp').text(somecp)
+                                    var someae= parseFloat(aeDataOuvert) + parseFloat(aeDataAttendu) ;
+                                    var somecp= parseFloat(cpDataOuvert) + parseFloat(cpDataAttendu);
                                     // Ajoute les valeurs dans les objets
                                     data.ae_ouvert[code] = aeDataOuvert;
                                     data.cp_ouvert[code] = cpDataOuvert;
@@ -1288,6 +1338,7 @@ function T2_table(id, T) {
     $('#T-tables thead').append(headT)
     $.getJSON(jsonpath2, function (data) {
         // Loop through each item in the JSON data
+        current='';
         $.each(data, function (key, value) {
             // Create a table row
             let row = '<tr id="ref'+key+'">' +
@@ -1311,30 +1362,33 @@ function T2_table(id, T) {
             }
             else
             {
-                if(current.split("0")[0].length > preve.split("0")[0].length)
+                current = key;
+                console.log('cuureent'+current.split("0")[0]+' prev'+ preve.split("0")[0])
+                if(key.split("0")[0].length > preve.split("0")[0].length)
                 {
-                    console.log('testing '+key)
+                    console.log('testing not adding'+preve)
                     $('#ref'+preve+' td').each(function(){
                         $(this).removeClass('editable')
                     })
-                    preve = current;
+                  
                 }
                 else
                 {
 
-                    console.log('testing editable'+key)
-                    if($('#ref'+key+' td').hasClass("editable"))
+                    console.log('testing adding '+preve)
+                    if($('#ref'+preve+' td').hasClass("editable"))
                     {
-                    $('#ref'+key+' #add_op').append(newbtn)
-                    $('#ref'+key+' #add_op').on('click',function()
+                    $('#ref'+preve+' #add_op').append(newbtn)
+                    $('#ref'+preve+' #add_op').on('click',function()
                     {
                         var ads=key+'1';
                         add_newOPs_T2(ads,'testing new descr',2500,key);
                         Edit(id, T)
                     })
                     }
-                    preve = current;
+                  
                 }
+                preve = current;
                 current = key;
             }
         });
@@ -1383,12 +1437,12 @@ function T3_table(id, T) {
                 '<td class="code">' + key + '</td>' +
                 '<td><p>' + val[0] + '</p> </td>' +
                 '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
-                '<td class="editable">' + 0 + '</td>' +
-                '<td class="editable">' + 180 + ',000</td>' +
-                '<td class="editable">' + 0 + '</td>' +
-                '<td class="editable">' + 180 + ',000</td>' +
-                '<td class="editable">' + 0 + '</td>' +
-                '<td class="editable">' + 180 + ',000</td>' +
+                '<td class="editable" id="AE_rpor">' + 0 + '</td>' +
+                '<td class="editable" id="AE_not">' + 180 + ',000</td>' +
+                '<td class="editable" id="AE_enga">' + 0 + '</td>' +
+                '<td class="editable" id="AE_rpor">' + 180 + ',000</td>' +
+                '<td class="editable" id="AE_not">' + 0 + '</td>' +
+                '<td class="editable" id="AE_enga">' + 180 + ',000</td>' +
                 '</tr>';
 
             // Append the row to the table body
@@ -1399,10 +1453,11 @@ function T3_table(id, T) {
             {
                 current = key;
                 preve = current;
+                console.log('ffirst coorect'+current.split("0")[0]);
             }
             else
             {
-
+                console.log('for coorect'+key.split("0")[0]);
                 if(key.split("0")[0].length <= 2)
                 {
                     $('#ref'+key+' td').each(function(){
@@ -1521,7 +1576,7 @@ function T4_table(id, T) {
                     $('#ref'+key+' #add_op').on('click',function()
                     {
                         var ads=key+'1';
-                        add_newOPs_T3(ads,'testing new descr',2500,key);
+                        add_newOPs_T4(ads,'testing new descr',2500,key);
                     })
                     }
 
