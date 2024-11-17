@@ -23,22 +23,6 @@ Route::get('/', function () {
 Route::get('/testing',function (){
 return view('test.carsoule');
 });
-    Route::get('/testing/Action/{port}/{prog}/{sous_prog}/{act}/',function ($port,$prog,$sous_prog,$act){
-
-
-
-        return view('Action-in.index',compact('port','prog','sous_prog','act'));
-        });
-
-        //affiche les portes
-       Route::get('/testing/S_action/{port}/{prog}/{sous_prog}/{act}/{s_act}/',function ($port,$prog,$sous_prog,$act,$s_act){
-
-
-
-            return view('Action-in.index',compact('port','prog','sous_prog','act','s_act'));
-            });
-
-
 //===============ROUTE PORTEFEUILLE==============================
 Route::controller(portfeuilleController::class)->group(function(){
     Route::get('/Portfail/{id}','affich_portef')->name('home.portfail');
@@ -96,4 +80,23 @@ Route::controller(opeartionController::class)->group(function(){
 
 //===============ROUTE SOUS OPERATION==============================
 Route::controller(sousOperationController::class)->group(function(){
+    Route::get('/testing/Action/{port}/{prog}/{sous_prog}/{act}','AffichePortsAction');
+    Route::get('/testing/S_action/{port}/{prog}/{sous_prog}/{act}/{s_act}','AffichePortsSousAct');
 });
+
+
+/*Route::get('/testing/Action/{port}/{prog}/{sous_prog}/{act}/',function ($port,$prog,$sous_prog,$act){
+
+
+
+        return view('Action-in.index',compact('port','prog','sous_prog','act'));
+        });
+
+        //affiche les portes
+       Route::get('/testing/S_action/{port}/{prog}/{sous_prog}/{act}/{s_act}/',function ($port,$prog,$sous_prog,$act,$s_act){
+
+
+
+            return view('Action-in.index',compact('port','prog','sous_prog','act','s_act'));
+            });
+*/
