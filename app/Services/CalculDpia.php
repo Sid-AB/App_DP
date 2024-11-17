@@ -2,7 +2,7 @@
 namespace App\Services;
 
 use App\Models\Portefeuille;
-
+use Illuminate\Support\Facades\DB;  
 class CalculDpia
 {
     public function calculdpiaFromPath($port, $prog, $sous_prog, $act,$s_act)
@@ -12,7 +12,9 @@ class CalculDpia
         if (count($chemin) < 1) {
             throw new \Exception("Le chemin n'est pas valide");
         }*/
+       // dd($port);
         $port = intval($port);
+       // dd($port);
         $prog = intval($prog);
         $sous_prog = intval($sous_prog);
         $act = intval($act);
@@ -20,15 +22,30 @@ class CalculDpia
       
      //  dd($port, $prog, $sous_prog, $act);
         // récupérer le portefeuille à partir du chemin
-        $portefeuille = Portefeuille::where('num_portefeuil',$port)
-            ->with([
-                'Programme.SousProgramme.Action.SousAction.GroupOperation.Operation.SousOperation'
-            ])->first();
-       // dd( $portefeuille);
+        $portefeuille = Portefeuille::where('num_portefeuil', $port)
+        ->with([
+            'Programme.SousProgramme.Action.SousAction',
+            'Programme.SousProgramme.Action.SousAction.GroupOperation',
+            'Programme.SousProgramme.Action.SousAction.GroupOperation.Operation'
+        ])
+        ->first();
+           /*$portefeuille = DB::table('portefeuilles as p')
+    ->join('programmes as pr', 'pr.num_portefeuil', '=', 'p.num_portefeuil')
+    ->join('sous_programmes as sp', 'sp.num_prog', '=', 'pr.num_prog')
+    ->join('actions as a', 'a.num_sous_prog', '=', 'sp.num_sous_prog')
+    ->join('sous_actions as sa', 'sa.num_action', '=', 'a.num_action')
+    ->join('group_operations as go', 'go.num_sous_action', '=', 'sa.num_sous_action')
+    ->join('operations as o', 'o.code_grp_operation', '=', 'go.code_grp_operation')
+    ->join('sous_operations as so', 'so.code_operation', '=', 'o.code_operation')
+    ->where('p.num_portefeuil', $port)
+    ->first(); // Pour récupérer un seul résultat*/
+
+        //dd($portefeuille->Programme->get()->SousProgramme->get()->Action->get()->SousAction->get()->GroupOperation->get()); 
+      // dd( $portefeuille);
         if (!$portefeuille) {
             throw new \Exception("Portefeuille introuvable");
         }
-
+         //dd( $portefeuille);
         $totalAeT2 = 0;
         $totalCpT2 = 0;
 
@@ -89,7 +106,7 @@ class CalculDpia
                     foreach ($action->SousAction as $sousAction) {
                        // dd($sousAction);
                         foreach ($sousAction->GroupOperation as $groupe) {
-                           // dd($groupe);
+                           //    dd($groupe);
                             $groupeAeOuvert = 0;
                             $groupeAeAttendu = 0;
                             $groupeCpOuvert = 0;
@@ -109,7 +126,7 @@ class CalculDpia
                             $groupeAet4 = 0;
                             $groupeCpt4 = 0;
                             foreach ($groupe->Operation as $operation) {
-                              //  dd($operation);
+                              // dd($operation);
                                 $operationAeOuvert = 0;
                                 $operationAeAttendu = 0;
                                 $operationCPOuvert = 0;
@@ -130,7 +147,7 @@ class CalculDpia
                                 $operationCPt4 = 0;
                                     // calculer la somme de chaque sous op
                                     foreach ($operation->SousOperation as $sousOperation) {
-                                        //dd($sousOperation);
+                                      //  dd($sousOperation);
                      /***************************************** T2 ********************************************************** */
                                         $sousopAeouvert= $sousOperation->AE_ouvert;
                                         $sousopAeattendu= $sousOperation->AE_atendu;
@@ -152,7 +169,7 @@ class CalculDpia
 
                                       $totalOPAeGlobal = $operationAeOuvert + $operationAeAttendu; // AE_ouvert + AE_attendu global ligne(horizontale)
                                       $totalOPCpGlobal = $operationCPOuvert + $operationCPAttendu;
-
+                                     
                                       if($sousOperation->code_t2==20000) {
                                         $sousOperationT2[] = [
                                             "code" => $sousOperation->code_sous_operation,
@@ -330,7 +347,7 @@ class CalculDpia
 
                                     }
 
-                                    if($sousOperation->code_t2==20000) {
+                                    if(isset($sousOperation) && $sousOperation->code_t2==20000) {
                                     $groupT2[] = [
                                         "code" => $groupe->code_grp_operation,
                                          "values" => [
@@ -356,7 +373,7 @@ class CalculDpia
                                     //dd($totalAeT2,$totalCpT2); //total de sous action
 
          /*************************************************T3*********************************************************************** */
-                                     if($sousOperation->code_t3==30000) {
+                                     if(isset($sousOperation) && $sousOperation->code_t3==30000) {
                                         $groupT3[] = [
                                             "code" => $groupe->code_grp_operation,
                                             "values" => [
@@ -369,7 +386,6 @@ class CalculDpia
 
                                         ]
                                     ]; }
-
 
                                     // calculer le total ae et cp par colonne
                                     $totalAeReporteGlobal += $groupeAeReporte;
@@ -385,7 +401,7 @@ class CalculDpia
                                     //dd($totalAeT3,$totalCpT3); //total de sous action
 
         /*********************************************************************T1***************************************************** ********/
-                                        if($sousOperation->code_t1==10000) {
+                                        if(isset($sousOperation) && $sousOperation->code_t1==10000) {
                                             $groupT[] = [
                                                 "code" => $groupe->code_grp_operation,
                                                 "values" => [
@@ -400,7 +416,8 @@ class CalculDpia
                                         //dd($totalAe,$totalCp);
 
      /*********************************************************************T1/T4***************************************************** ********/
-                                        if($sousOperation->code_t4==40000) {
+                                        if(isset($sousOperation) && $sousOperation->code_t4==40000)
+                                         {
                                             $groupT4[] = [
                                                 "code" => $groupe->code_grp_operation,
                                                 "values" => [
@@ -413,16 +430,21 @@ class CalculDpia
 
                                         // calculer le total ae et cp par colonne
                                         $totalAet4 += $groupeAet4;
-                                        $totalCpt4 += $groupeCpt4;}
+                                        $totalCpt4 += $groupeCpt4;
+                                    }
                                         //dd($totalAe,$totalCp);
 
 
 
                                 }
+
+
+
                             }
                         }
                     }
                 }
+            
                 //dd(   $groupT);
                  // dd($totalAe,$totalCp);
                $totalt2[] = [

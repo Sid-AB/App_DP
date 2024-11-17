@@ -105,7 +105,12 @@ class portfeuilleController extends Controller
            $CP_All_sous_prog=0;
            $AE_All_prog=0;
            $CP_All_prog=0;
+<<<<<<< HEAD
 
+=======
+           // $tesitng = SousAction::with(['GroupOperation.Operation'])->get();
+          //  dd($tesitng);
+>>>>>>> 52f2e4d55a96d98ccc01d86131a028261a6ad21c
           foreach($progms as $progm)
           {
               $sousprog=SousProgramme::where('num_prog',$progm->num_prog)->get();
@@ -126,8 +131,13 @@ class portfeuilleController extends Controller
 
                                   if(isset($listsousact))
                                   {
+<<<<<<< HEAD
                                      // $resultats = $this->CalculDpia->calculdpiaFromPath($id, $progm->num_prog, $sprog->num_sous_prog, $listact->num_action,$listsousact->num_sous_action);
 
+=======
+                                     //$resultats = $this->CalculDpia->calculdpiaFromPath($id, $progm->num_prog, $sprog->num_sous_prog, $listact->num_action,$listsousact->num_sous_action);
+                                    // dd($resultats);
+>>>>>>> 52f2e4d55a96d98ccc01d86131a028261a6ad21c
                                       try {
                                           $resultats = $this->CalculDpia->calculdpiaFromPath($id, $progm->num_prog, $sprog->num_sous_prog, $listact->num_action,$listsousact->num_sous_action);
                                       } catch (\Exception $e) {
@@ -346,34 +356,6 @@ public function check_portef(Request $request)
 
     }
 
-        // creation de la table  construireDPIA
-        $DPIA = new ConstruireDPIA();
-
-        $DPIA->date_creation_dpia = $portefeuille->Date_portefeuille; // elle prend la date de creation du portfeuille
-        $DPIA->date_modification_dpia = $DPIA->date_creation_dpia;
-        $DPIA->motif_dpia = 'Création de DPIA à partir du portefeuille';
-
-        $DPIA->AE_dpia_nv = null;
-        $DPIA->CP_dpia_nv = null;
-
-        $DPIA->AE_ouvert_dpia = null;
-        $DPIA->AE_atendu_dpia = null;
-        $DPIA->CP_ouvert_dpia = null;
-        $DPIA->CP_atendu_dpia = null;
-
-        $DPIA->AE_reporte_dpia = null;
-        $DPIA->AE_notifie_dpia = null;
-        $DPIA->AE_engage_dpia = null;
-        $DPIA->CP_reporte_dpia = null;
-        $DPIA->CP_notifie_dpia = null;
-        $DPIA->CP_consome_dpia = null;
-
-        $DPIA->code_sous_operation = null;
-        $DPIA->id_rp = 1;
-        $DPIA->id_ra = 1;
-        $DPIA->save();
-
-        //dd( $DPIA);
 
         //creation de la table  construireDPic
         $DPIC = new ConstruireDPIC();

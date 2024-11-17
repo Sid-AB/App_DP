@@ -146,8 +146,8 @@ function add_newOPs_T2(id,descr,value,key)
     '<td class="editable" id="CP_Over">' + 180 + ',000</td>' +
     '<td class="editable" id="AE_att">' + value + '</td>' +
     '<td class="editable" id="CP_att">' + 180 + ',000</td>' +
-    '<td class="editable" id="AE_TT">' + some + '</td>' +
-    '<td class="editable" id="CP_TT">' + 360 + ',000</td>' +
+    '<td  id="AE_TT" diseabled>' + some + '</td>' +
+    '<td  id="CP_TT" diseabled>' + 360 + ',000</td>' +
     '</tr>';
     $('#ref'+key).after(row);
     $('#ref'+key+' td').each(function(){
@@ -160,8 +160,12 @@ function add_newOPs_T3(id,descr,value,key,)
     '<td class="code">' + id + '</td>' +
     '<td><p>' + descr + '</p> </td>' +
     '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + descr + '</p></td>' +
-    '<td class="editable">' + value + '</td>' +
-    '<td class="editable">' + 180 + ',000</td>' +
+    '<td class="editable" id="AE_rpor">' + value + '</td>' +
+    '<td class="editable" id="AE_not">' + 180 + ',000</td>' +
+    '<td class="editable" id="AE_enga">' + value + '</td>' +
+    '<td class="editable" id="AE_rpor">' + 180 + ',000</td>' +
+    '<td class="editable" id="AE_not">' + value + '</td>' +
+    '<td class="editable" id="AE_enga">' + 180 + ',000</td>' +
     '</tr>';
     $('#ref'+key).after(row);
     $('#ref'+key+' td').each(function(){
@@ -169,6 +173,20 @@ function add_newOPs_T3(id,descr,value,key,)
     })
 
 
+}
+
+function add_newOPs_T4(id,descr,value,key,)
+{
+    var row='<tr id="ref'+id+'">' +
+                '<td class="code" >' + id + '</td>' +
+                '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + descr + '</p></td>' +
+                '<td class="editable" id="AE_T4">' + value + '</td>' +
+                '<td class="editable" id="CP_T4">' + 180 + ',000</td>' +
+                '</tr>';
+    $('#ref'+key).after(row);
+    $('#ref'+key+' td').each(function()
+    {
+    $(this).removeClass('editable');})
 }
 /**
  *
@@ -205,14 +223,49 @@ function Edit(tid, T) {
             var currentText = cell.text();  // Get current text
             console.log('odl ' + code.text())
             // Create an input element and set its value
-            let input = $('<input type="number" step="0.01" class="form-control" />').val(currentText);
+            let input = $('<input type="number" step="0.01" class="form-control"/>').val(currentText);
             cell.html(input);  // Replace the cell content with the input
+
             input.focus();  // Focus on the input immediately
 
             // When the input loses focus, update the cell with new text
             input.blur(function (t) {
                 let newText = $(this).val();  // Get new value from input
-
+                    
+                    if (tid == 'T_port2' || tid == 'T2')
+                    {       var testcpattendu=clickedRow.find('td').eq(5).text();//cpattendu
+                            var testaeattendu=clickedRow.find('td').eq(4).text();//aeattendu
+                            var testcpover=clickedRow.find('td').eq(3).text();//cpovert
+                            var testaeover=clickedRow.find('td').eq(2).text();//aeovert
+                            var someae=0;
+                            var somecp=0;
+                            if(newText != 0 && newText != '' && newText != null)
+                            {
+                                var wit=$(this).parent().attr('id');
+                                console.log('ae -> '+testaeover+'cp ->'+testcpover+' ae ett -> '+testaeattendu+' cp ett ->'+testcpattendu+'value change ->'+JSON.stringify(wit))
+                                if(wit == 'CP_att')
+                                {
+                                    testcpattendu=newText
+                                }
+                                if(wit == 'AE_att')
+                                {
+                                    testaeattendu=newText
+                                }
+                                if(wit =='AE_Over')
+                                {
+                                    testaeover=newText
+                                }
+                                if(wit == 'CP_Over')
+                                {
+                                    testcpover=newText
+                                }
+                                somecp=parseFloat(testcpattendu)+parseFloat(testcpover)
+                                someae=parseFloat(testaeattendu)+parseFloat(testaeover);
+                                console.log('ae'+someae +' cp '+somecp)
+                                clickedRow.find('td').eq(6).text(someae);
+                                clickedRow.find('td').eq(7).text(somecp);
+                            }
+                    }
                 if (newText != 0 && newText != '' && newText != null) {
                     mount_chang = true
 
@@ -247,7 +300,8 @@ function Edit(tid, T) {
                                     var cpDataOuvert = $(this).find('td').eq(3).text();
                                     var aeDataAttendu = $(this).find('td').eq(4).text();
                                     var cpDataAttendu = $(this).find('td').eq(5).text();
-
+                                    var someae= parseFloat(aeDataOuvert) + parseFloat(aeDataAttendu) ;
+                                    var somecp= parseFloat(cpDataOuvert) + parseFloat(cpDataAttendu);
                                     // Ajoute les valeurs dans les objets
                                     data.ae_ouvert[code] = aeDataOuvert;
                                     data.cp_ouvert[code] = cpDataOuvert;
@@ -266,6 +320,7 @@ function Edit(tid, T) {
                                     var cpDataNotifie = $(this).find('td').eq(7).text();
                                     var cpDataEngage = $(this).find('td').eq(8).text();
 
+
                                     // Ajoute les valeurs dans les objets
                                     console.log("ddcss");
                                     data.ae_reporte[code] = aeDataReporte;
@@ -275,6 +330,8 @@ function Edit(tid, T) {
                                     data.cp_reporte[code] = cpDataReporte;
                                     data.cp_notifie[code] = cpDataNotifie;
                                     data.cp_consome[code] = cpDataEngage;
+
+
                                 }
                                 // value_chng.push(rw);
                             })
@@ -727,14 +784,6 @@ $("#add-prg").on('click', function () {
         '<label for="input1">Nom Sous Programme</label>' +
         '<input type="text" class="form-control" id="nom_sous_prog" placeholder="Donnee Nom Sous Programme">' +
         '</div>' +
-        '<!--div class="form-group">' +
-        '<label for="input1">AE</label>' +
-        '<input type="number" class="form-control" id="AE_sous_prog" >' +
-        '</div>' +
-        '<div class="form-group">' +
-        '<label for="input1">CP</label>' +
-        '<input type="number" class="form-control" id="CP_sous_prog">' +
-        '</div-->' +
         ' <div class="form-group">' +
         ' <label for="inputDate">Date Journal</label>' +
         '<input type="date" class="form-control" id="date_insert_sousProg">' +
@@ -832,7 +881,7 @@ $("#add-prg").on('click', function () {
                     var dat_sou_prog = $('#date_insert_sousProg').val()
                     var AE_sous_prog=$('#AE_sous_prog').val()
                     var CP_sous_prog=$('#CP_sous_prog').val()
-                    var id_prog = path[1];
+                    var id_prog = path[3];
                     var numsouprog_year = sou_prog + id_prog;
                     check_ifnull('#add-prg2')
                     //var id_port = path[0];
@@ -965,7 +1014,7 @@ $("#add-prg").on('click', function () {
                                         var AE_act=$('#AE_act').val()
                                         var CP_act=$('#CP_act').val()
                                         var dat_inst = $('#date_insert_action').val();
-                                        var id_sou_prog = path[2];
+                                        var id_sou_prog = path[4];
                                         check_ifnull('#add-prg3')
                                         var numaction_year = num_act + id_sou_prog;
                                         var nexthop = '<div class="pinfo-handle">' +
@@ -983,7 +1032,7 @@ $("#add-prg").on('click', function () {
                                             AE_act:AE_act,
                                             CP_act:CP_act,
                                             date_insert_action: dat_inst,
-                                            id_sous_prog: path[2],
+                                            id_sous_prog: path[5],
                                             //id_prog: path[1],
                                             //id_porte: path[0],
                                             _token: $('meta[name="csrf-token"]').attr('content'),
@@ -1055,7 +1104,7 @@ $("#add-prg").on('click', function () {
                                                             AE_sous_act:AE_sous_act,
                                                             CP_sous_act:CP_sous_act,
                                                             date_insert_sous_action: dat_inst,
-                                                            num_act: path[3],
+                                                            num_act: path[4],
                                                             //id_sous_act: path[2],
                                                             //id_prog: path[1],
                                                            // id_porte: path[0],
@@ -1077,7 +1126,7 @@ $("#add-prg").on('click', function () {
 
                                                                     // Redirection vers la page suivante après l'ajout de la sous-action
                                                                     alert('testing')
-                                                                    window.location.href = 'testing/S_action/' + path.join('/');
+                                                                    window.location.href = 'testing/S_action/'+ path[0]+'/'+path[3]+'/'+path[5]+'/'+path[6]+'/'+path[7];
                                                                 }
                                                             },
                                                             error: function (response) {
@@ -1098,7 +1147,7 @@ $("#add-prg").on('click', function () {
                                         var AE_act=$('#AE_act').val()
                                         var CP_act=$('#CP_act').val()
                                         var dat_inst = $('#date_insert_action').val();
-                                        var id_sou_prog = path[2];
+                                        var id_sou_prog = path[4];
                                         var numaction_year = num_act + id_sou_prog;
 
                                         var formdata_act = {
@@ -1123,7 +1172,7 @@ $("#add-prg").on('click', function () {
                                                     path.push(numaction_year);
                                                     path3.push(num_act);
                                                     // console.log('path: ' + JSON.stringify(path));
-                                                    window.location.href = 'testing/Action/' + path.join('/');
+                                                    window.location.href = 'testing/Action/'+ path[0]+'/'+path[3]+'/'+path[5]+'/'+path[6];
                                                 }
                                             },
                                             error: function (response) {
@@ -1185,19 +1234,37 @@ function T1_table(id, T) {
     $('#T-tables thead').append(headT)
     $.getJSON(jsonpath1, function (data) {
         // Loop through each item in the JSON data
+        var lengT =Object.keys(data).length
+        var i = 0;
         $.each(data, function (key, value) {
             // Create a table row
             let row = '<tr id="ref'+key+'">' +
                 '<td class="code" >' + key + '</td>' +
                 '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
                 '<td class="editable" id="AE_T1">' + 0 + '</td>' +
-                '<td class="editable" id="CP_T1">' + 180 + ',000</td>' +
+                '<td class="editable" id="CP_T1">' + 0 + '</td>' +
                 '</tr>';
 
             // Append the row to the table body
 
             $('#T-tables tbody').append(row);
             Edit(id, T)
+            i++
+            console.log('the lengh'+lengT+'and the pas'+i)
+            if(i == lengT)
+            {
+                if($('#ref'+key+' td').hasClass("editable"))
+                    {
+                    $('#ref'+key+' #add_op').append(newbtn)
+                    $('#ref'+key+' #add_op').on('click',function()
+                    {
+                        var ads=key+'1';
+                        add_newOPs_T3(ads,'testing new descr',2500,key);
+                        Edit(id, T)
+                    })
+                    }
+            }
+
             if(current.length == 0)
             {
                 current = key;
@@ -1205,6 +1272,7 @@ function T1_table(id, T) {
             }
             else
             {
+                current = key;
                 if(current.split("0")[0].length > preve.split("0")[0].length)
                 {
                     console.log('testing editable'+key)
@@ -1216,10 +1284,10 @@ function T1_table(id, T) {
                 else
                 {
                     console.log('testing '+key)
-                    if($('#ref'+key+' td').hasClass("editable"))
+                    if($('#ref'+preve+' td').hasClass("editable"))
                     {
-                    $('#ref'+key+' #add_op').append(newbtn)
-                    $('#ref'+key+' #add_op').on('click',function()
+                    $('#ref'+preve+' #add_op').append(newbtn)
+                    $('#ref'+preve+' #add_op').on('click',function()
                     {
                         var ads=key+'1';
                         add_newOPs_T1(ads,'testing new descr',2500,key);
@@ -1231,6 +1299,7 @@ function T1_table(id, T) {
                 current = key;
             }
 
+           
         });
     }).fail(function () {
         console.error('Error loading JSON file.');
@@ -1281,17 +1350,19 @@ function T2_table(id, T) {
     $('#T-tables thead').append(headT)
     $.getJSON(jsonpath2, function (data) {
         // Loop through each item in the JSON data
-        $.each(data, function (key, value) {
+        var lengT =Object.keys(data).length
+        var i = 0;
+                $.each(data, function (key, value) {
             // Create a table row
             let row = '<tr id="ref'+key+'">' +
                 '<td class="code">' + key + '</td>' +
                 '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"> <p>' + value + '</p> </td>' +
                 '<td class="editable" id="AE_Over">' + 0 + '</td>' +
-                '<td class="editable" id="CP_Over">' + 180 + ',000</td>' +
+                '<td class="editable" id="CP_Over">' + 0 + '</td>' +
                 '<td class="editable" id="AE_att">' + 0 + '</td>' +
-                '<td class="editable" id="CP_att">' + 180 + ',000</td>' +
-                '<td class="editable" id="AE_TT">' + 0 + '</td>' +
-                '<td class="editable" id="CP_TT">' + 360 + ',000</td>' +
+                '<td class="editable" id="CP_att">' + 0 + '</td>' +
+                '<td  class="someae" id="AE_TT">' + 0 + '</td>' +
+                '<td  class="somecp" id="CP_TT">' + 0 + '</td>' +
                 '</tr>';
 
             // Append the row to the table body
@@ -1304,31 +1375,48 @@ function T2_table(id, T) {
             }
             else
             {
-                if(current.split("0")[0].length > preve.split("0")[0].length)
+                current = key;
+                console.log('cuureent'+current.split("0")[0]+' prev'+ preve.split("0")[0])
+                if(key.split("0")[0].length > preve.split("0")[0].length)
                 {
-                    console.log('testing '+key)
+                    console.log('testing not adding'+preve)
                     $('#ref'+preve+' td').each(function(){
                         $(this).removeClass('editable')
                     })
-                    preve = current;
+                  
                 }
                 else
                 {
 
-                    console.log('testing editable'+key)
-                    if($('#ref'+key+' td').hasClass("editable"))
+                    console.log('testing adding '+preve)
+                    if($('#ref'+preve+' td').hasClass("editable"))
                     {
-                    $('#ref'+key+' #add_op').append(newbtn)
-                    $('#ref'+key+' #add_op').on('click',function()
+                    $('#ref'+preve+' #add_op').append(newbtn)
+                    $('#ref'+preve+' #add_op').on('click',function()
                     {
                         var ads=key+'1';
                         add_newOPs_T2(ads,'testing new descr',2500,key);
                         Edit(id, T)
                     })
                     }
-                    preve = current;
+                  
                 }
+                preve = current;
                 current = key;
+            }
+            i++
+            if(i == lengT)
+            {
+                if($('#ref'+key+' td').hasClass("editable"))
+                    {
+                    $('#ref'+key+' #add_op').append(newbtn)
+                    $('#ref'+key+' #add_op').on('click',function()
+                    {
+                        var ads=key+'1';
+                        add_newOPs_T3(ads,'testing new descr',2500,key);
+                        Edit(id, T)
+                    })
+                    }
             }
         });
     }).fail(function () {
@@ -1368,20 +1456,23 @@ function T3_table(id, T) {
     $('#T-tables thead').append(headT)
     $.getJSON(jsonpath3, function (data) {
         // Loop through each item in the JSON data
+        var lengT =Object.keys(data).length
+        var i = 0;
         $.each(data, function (key, value) {
             // Create a table row
             var val = value.split('-')
+           
          //   console.log('values' + JSON.stringify(val))
             let row = '<tr id="ref'+key+'">' +
                 '<td class="code">' + key + '</td>' +
                 '<td><p>' + val[0] + '</p> </td>' +
                 '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
-                '<td class="editable">' + 0 + '</td>' +
-                '<td class="editable">' + 180 + ',000</td>' +
-                '<td class="editable">' + 0 + '</td>' +
-                '<td class="editable">' + 180 + ',000</td>' +
-                '<td class="editable">' + 0 + '</td>' +
-                '<td class="editable">' + 180 + ',000</td>' +
+                '<td class="editable" id="AE_rpor">' + 0 + '</td>' +
+                '<td class="editable" id="AE_not">' + 0 + ',000</td>' +
+                '<td class="editable" id="AE_enga">' + 0 + '</td>' +
+                '<td class="editable" id="AE_rpor">' + 0 + ',000</td>' +
+                '<td class="editable" id="AE_not">' + 0 + '</td>' +
+                '<td class="editable" id="AE_enga">' + 0 + ',000</td>' +
                 '</tr>';
 
             // Append the row to the table body
@@ -1395,7 +1486,7 @@ function T3_table(id, T) {
             }
             else
             {
-
+                current = key;
                 if(key.split("0")[0].length <= 2)
                 {
                     $('#ref'+key+' td').each(function(){
@@ -1414,10 +1505,10 @@ function T3_table(id, T) {
                 else
                 {
                     console.log('testing editable'+preve)
-                    if($('#ref'+key+' td').hasClass("editable"))
+                    if($('#ref'+preve+' td').hasClass("editable"))
                     {
-                    $('#ref'+key+' #add_op').append(newbtn)
-                    $('#ref'+key+' #add_op').on('click',function()
+                    $('#ref'+preve+' #add_op').append(newbtn)
+                    $('#ref'+preve+' #add_op').on('click',function()
                     {
                         var ads=key+'1';
                         add_newOPs_T3(ads,'testing new descr',2500,key);
@@ -1429,7 +1520,20 @@ function T3_table(id, T) {
                 }
                 current = key;
             }
-
+            i++
+            if(i == lengT)
+            {
+                if($('#ref'+key+' td').hasClass("editable"))
+                    {
+                    $('#ref'+key+' #add_op').append(newbtn)
+                    $('#ref'+key+' #add_op').on('click',function()
+                    {
+                        var ads=key+'1';
+                        add_newOPs_T3(ads,'testing new descr',2500,key);
+                        Edit(id, T)
+                    })
+                    }
+            }
             Edit(id, T)
         });
     }).fail(function () {
@@ -1472,10 +1576,9 @@ function T4_table(id, T) {
          //   console.log('values' + JSON.stringify(val))
             let row = '<tr id="ref'+key+'">' +
                 '<td class="code">' + key + '</td>' +
-                '<td><p>' + val[0] + '</p> </td>' +
-
+                '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
                 '<td class="editable">' + 0 + '</td>' +
-                '<td class="editable">' + 180 + ',000</td>' +
+                '<td class="editable">' + 0 + '</td>' +
                 '</tr>';
 
             // Append the row to the table body
@@ -1514,7 +1617,7 @@ function T4_table(id, T) {
                     $('#ref'+key+' #add_op').on('click',function()
                     {
                         var ads=key+'1';
-                        add_newOPs_T3(ads,'testing new descr',2500,key);
+                        add_newOPs_T4(ads,'testing new descr',2500,key);
                     })
                     }
 
