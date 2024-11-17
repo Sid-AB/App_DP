@@ -2,7 +2,7 @@
 namespace App\Services;
 
 use App\Models\Portefeuille;
-
+use Illuminate\Support\Facades\DB;  
 class CalculDpia
 {
     public function calculdpiaFromPath($port, $prog, $sous_prog, $act,$s_act)
@@ -12,19 +12,36 @@ class CalculDpia
         if (count($chemin) < 1) {
             throw new \Exception("Le chemin n'est pas valide");
         }*/
-        $port = $port;
-        $prog = $prog;
-        $sous_prog = $sous_prog;
-        $act = $act;
-        $s_act = $s_act;
+       // dd($port);
+        $port = intval($port);
+       // dd($port);
+        $prog = intval($prog);
+        $sous_prog = intval($sous_prog);
+        $act = intval($act);
+        $s_act = intval($s_act);
       
      //  dd($port, $prog, $sous_prog, $act);
         // récupérer le portefeuille à partir du chemin
-        $portefeuille = Portefeuille::where('num_portefeuil',$port)
-            ->with([
-                'Programme.SousProgramme.Action.SousAction.GroupOperation.Operation.SousOperation'
-            ])->first();
-      
+        $portefeuille = Portefeuille::where('num_portefeuil', $port)
+        ->with([
+            'Programme.SousProgramme.Action.SousAction',
+            'Programme.SousProgramme.Action.SousAction.GroupOperation',
+            'Programme.SousProgramme.Action.SousAction.GroupOperation.Operation'
+        ])
+        ->first();
+           /*$portefeuille = DB::table('portefeuilles as p')
+    ->join('programmes as pr', 'pr.num_portefeuil', '=', 'p.num_portefeuil')
+    ->join('sous_programmes as sp', 'sp.num_prog', '=', 'pr.num_prog')
+    ->join('actions as a', 'a.num_sous_prog', '=', 'sp.num_sous_prog')
+    ->join('sous_actions as sa', 'sa.num_action', '=', 'a.num_action')
+    ->join('group_operations as go', 'go.num_sous_action', '=', 'sa.num_sous_action')
+    ->join('operations as o', 'o.code_grp_operation', '=', 'go.code_grp_operation')
+    ->join('sous_operations as so', 'so.code_operation', '=', 'o.code_operation')
+    ->where('p.num_portefeuil', $port)
+    ->first(); // Pour récupérer un seul résultat*/
+
+        //dd($portefeuille->Programme->get()->SousProgramme->get()->Action->get()->SousAction->get()->GroupOperation->get()); 
+      // dd( $portefeuille);
         if (!$portefeuille) {
             throw new \Exception("Portefeuille introuvable");
         }
@@ -109,7 +126,7 @@ class CalculDpia
                             $groupeAet4 = 0;
                             $groupeCpt4 = 0;
                             foreach ($groupe->Operation as $operation) {
-                                dd($operation);
+                              // dd($operation);
                                 $operationAeOuvert = 0;
                                 $operationAeAttendu = 0;
                                 $operationCPOuvert = 0;
@@ -192,7 +209,7 @@ class CalculDpia
                                        //dd($operationAeReporte,$operationAeNotife, $operationAeEngage,$operationCPReporte,$operationCPNotife,$operationCPConsome);
 
                                        if($sousOperation->code_t3==30000) {
-                                       $sousOperationT3[] = [
+                                       $sousOperation[] = [
                                            "code" => $sousOperation->code_sous_operation,
                                            "values" => [
                                                'ae_reportesousop' => $sousopAereporte,
@@ -369,7 +386,6 @@ class CalculDpia
 
                                         ]
                                     ]; }
-
 
                                     // calculer le total ae et cp par colonne
                                     $totalAeReporteGlobal += $groupeAeReporte;
