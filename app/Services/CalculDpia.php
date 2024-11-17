@@ -169,7 +169,7 @@ class CalculDpia
 
                                       $totalOPAeGlobal = $operationAeOuvert + $operationAeAttendu; // AE_ouvert + AE_attendu global ligne(horizontale)
                                       $totalOPCpGlobal = $operationCPOuvert + $operationCPAttendu;
-
+                                     
                                       if($sousOperation->code_t2==20000) {
                                         $sousOperationT2[] = [
                                             "code" => $sousOperation->code_sous_operation,
@@ -209,7 +209,7 @@ class CalculDpia
                                        //dd($operationAeReporte,$operationAeNotife, $operationAeEngage,$operationCPReporte,$operationCPNotife,$operationCPConsome);
 
                                        if($sousOperation->code_t3==30000) {
-                                       $sousOperation[] = [
+                                       $sousOperationT3[] = [
                                            "code" => $sousOperation->code_sous_operation,
                                            "values" => [
                                                'ae_reportesousop' => $sousopAereporte,
@@ -439,6 +439,7 @@ class CalculDpia
                         }
                     }
                 }
+            
                 //dd(   $groupT);
                  // dd($totalAe,$totalCp);
                $totalt2[] = [
