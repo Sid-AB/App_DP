@@ -45,7 +45,7 @@ class CalculDpia
         if (!$portefeuille) {
             throw new \Exception("Portefeuille introuvable");
         }
-
+         //dd( $portefeuille);
         $totalAeT2 = 0;
         $totalCpT2 = 0;
 
@@ -106,7 +106,7 @@ class CalculDpia
                     foreach ($action->SousAction as $sousAction) {
                        // dd($sousAction);
                         foreach ($sousAction->GroupOperation as $groupe) {
-                           // dd($groupe);
+                           //    dd($groupe);
                             $groupeAeOuvert = 0;
                             $groupeAeAttendu = 0;
                             $groupeCpOuvert = 0;
@@ -147,7 +147,7 @@ class CalculDpia
                                 $operationCPt4 = 0;
                                     // calculer la somme de chaque sous op
                                     foreach ($operation->SousOperation as $sousOperation) {
-                                        //dd($sousOperation);
+                                      //  dd($sousOperation);
                      /***************************************** T2 ********************************************************** */
                                         $sousopAeouvert= $sousOperation->AE_ouvert;
                                         $sousopAeattendu= $sousOperation->AE_atendu;
@@ -347,7 +347,7 @@ class CalculDpia
 
                                     }
 
-                                    if($sousOperation->code_t2==20000) {
+                                    if(isset($sousOperation) && $sousOperation->code_t2==20000) {
                                     $groupT2[] = [
                                         "code" => $groupe->code_grp_operation,
                                          "values" => [
@@ -373,7 +373,7 @@ class CalculDpia
                                     //dd($totalAeT2,$totalCpT2); //total de sous action
 
          /*************************************************T3*********************************************************************** */
-                                     if($sousOperation->code_t3==30000) {
+                                     if(isset($sousOperation) && $sousOperation->code_t3==30000) {
                                         $groupT3[] = [
                                             "code" => $groupe->code_grp_operation,
                                             "values" => [
@@ -401,7 +401,7 @@ class CalculDpia
                                     //dd($totalAeT3,$totalCpT3); //total de sous action
 
         /*********************************************************************T1***************************************************** ********/
-                                        if($sousOperation->code_t1==10000) {
+                                        if(isset($sousOperation) && $sousOperation->code_t1==10000) {
                                             $groupT[] = [
                                                 "code" => $groupe->code_grp_operation,
                                                 "values" => [
@@ -416,7 +416,8 @@ class CalculDpia
                                         //dd($totalAe,$totalCp);
 
      /*********************************************************************T1/T4***************************************************** ********/
-                                        if($sousOperation->code_t4==40000) {
+                                        if(isset($sousOperation) && $sousOperation->code_t4==40000)
+                                         {
                                             $groupT4[] = [
                                                 "code" => $groupe->code_grp_operation,
                                                 "values" => [
@@ -429,12 +430,16 @@ class CalculDpia
 
                                         // calculer le total ae et cp par colonne
                                         $totalAet4 += $groupeAet4;
-                                        $totalCpt4 += $groupeCpt4;}
-                                        //dd($totalAe,$totalCp);
+                                        $totalCpt4 += $groupeCpt4;
+                                    }
+                                     //   dd($totalAe,$totalCp);
 
 
 
                                 }
+
+
+
                             }
                         }
                     }

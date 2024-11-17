@@ -102,7 +102,7 @@ class portfeuilleController extends Controller
            $CP_All_sous_prog=0;
            $AE_All_prog=0;
            $CP_All_prog=0;
-            $tesitng = SousAction::with(['GroupOperation.Operation'])->get();
+           // $tesitng = SousAction::with(['GroupOperation.Operation'])->get();
           //  dd($tesitng);
           foreach($progms as $progm)
           {
@@ -183,7 +183,7 @@ class portfeuilleController extends Controller
               'TotalCP'=>$por->CP_portef,
               'prgrammes'=>$allprogram,
           ];
-         //     dd($allport);
+          //   dd($allport);
       // Passer les données à la vue
       return view('Portfail-in.index', compact('allport'));
 
