@@ -47,6 +47,7 @@ Route::controller(portfeuilleController::class)->group(function(){
     Route::get('/creation/from','show_prsuiv')->name('creation.show_prsuiv');
     Route::get('/check-portef','check_portef')->name('check.portfail');
     Route::get('/update-portef','update_portef')->name('update.portfail');
+    Route::post('/upload-pdf', 'uploadPDF')->name('upload.pdf');
 });
 
 //===============ROUTE PROGRAMME==============================
@@ -90,7 +91,7 @@ Route::controller(opeartionController::class)->group(function(){
     Route::get('/testing/S_Action/{port}/{prog}/{sous_prog}/{act}/{s_act}', 'calculerEtEnvoyer');
     Route::get('/testing/S_action/{s_act}/{T}', 'afficherDPIA');
 
-  
+
    // Route::get('/testing/Action/{port}/{prog}/{sous_prog}/{act}', 'calculerEtEnvoyer');
 });
 

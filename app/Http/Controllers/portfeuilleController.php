@@ -6,11 +6,14 @@ use Illuminate\Http\Request;
 use App\Models\Portefeuille;
 use App\Models\Programme;
 use App\Models\Action;
+use App\Models\Multimedia;
 use App\Models\SousAction;
 use App\Models\SousProgramme;
 use App\Models\ConstruireDPIA;
 use App\Models\ConstruireDPIC;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 use App\Services\CalculDpia;
 class portfeuilleController extends Controller
@@ -28,19 +31,19 @@ class portfeuilleController extends Controller
     function show_prsuiv($path)
     {
         //$path=$request->all();
-       
+
         $id=explode('-',$path);
-        $num=$id[0];    
+        $num=$id[0];
         $cat=$id[1];
        // dd($id);
         $paths=[];
         if($cat == "all")
         {
-            
+
             $por=Portefeuille::findOrFail($num);
-           
+
             $paths=['code_port'=>$por->num_portefeuil];
-           
+
         }
        if($cat == 'prog' )
        {
@@ -49,7 +52,7 @@ class portfeuilleController extends Controller
         $paths=['code_port'=>$progms[0]->num_portefeuil,'programme'=>$progms[0]->num_prog];
        // dd($paths);
        }
-       
+
         if($cat == 'sprog')
         {
                 $sprog=SousProgramme::where('num_sous_prog',intval($num))->first();
@@ -58,7 +61,7 @@ class portfeuilleController extends Controller
              //    dd($paths);
         }
         if($cat == 'act' )
-        {   
+        {
             $act=Action::where('num_action',intval($num))->first();
             $sprog=SousProgramme::where('num_sous_prog',$act->num_sous_prog)->first();
             $progms=Programme::where('num_prog',$sprog->num_prog)->first();
@@ -85,7 +88,7 @@ class portfeuilleController extends Controller
     {
         // Récupérer tous les portefeuilles de la base de données
           //  $portefeuilles = Portefeuille::all();
-         
+
           $por=Portefeuille::findOrFail($id);
           $progms=Programme::where('num_portefeuil',$id)->get();
           $allprogram=[];
@@ -102,14 +105,14 @@ class portfeuilleController extends Controller
            $CP_All_sous_prog=0;
            $AE_All_prog=0;
            $CP_All_prog=0;
-  
+
           foreach($progms as $progm)
           {
               $sousprog=SousProgramme::where('num_prog',$progm->num_prog)->get();
               foreach($sousprog as $sprog)
               {
-                  
-                 
+
+
                       $act=Action::where('num_sous_prog',$sprog->num_sous_prog)->get();
                   //    dd($act);
                       foreach($act as $listact)
@@ -120,15 +123,15 @@ class portfeuilleController extends Controller
                               //dd($sous_act);
                               foreach($sous_act as $listsousact)
                               {
-                               
+
                                   if(isset($listsousact))
                                   {
                                      // $resultats = $this->CalculDpia->calculdpiaFromPath($id, $progm->num_prog, $sprog->num_sous_prog, $listact->num_action,$listsousact->num_sous_action);
-                                     
+
                                       try {
                                           $resultats = $this->CalculDpia->calculdpiaFromPath($id, $progm->num_prog, $sprog->num_sous_prog, $listact->num_action,$listsousact->num_sous_action);
                                       } catch (\Exception $e) {
-                                         
+
                                           $resultats="null";
                                       }
                                       if($resultats != "null")
@@ -140,12 +143,12 @@ class portfeuilleController extends Controller
                                         }
                                       }
                                       //dd($resultats);
-                                    
+
                                       array_push($allsous_action,['num_act'=>$listsousact->num_sous_action,'init_AE'=>$listsousact->AE_sous_action,'init_CP'=>$listsousact->CP_sous_action,'TotalAE'=>$AE_All_sous_act,'TotalCP'=>$CP_All_sous_act,'data'=>$listsousact,'Tports'=>$resultats]);
-                                    
+
                                   }
-                                 
-                              } 
+
+                              }
                               foreach($allsous_action as $sact)
                               {
                                 $AE_All_act+=$sact['TotalAE'];
@@ -159,14 +162,14 @@ class portfeuilleController extends Controller
                               {
                                 $AE_All_sous_prog+=$sact['TotalAE'];
                                 $CP_All_sous_prog+=$sact['TotalCP'];
-                                
+
                               }
-                              
+
                       array_push($allsous_prog,['id_sous_prog'=>$sprog->num_sous_prog,'init_AE'=>$sprog->AE_sous_prog,'init_CP'=>$sprog->CP_sous_prog,'TotalAE'=>$AE_All_sous_prog,'TotalCP'=>$CP_All_sous_prog,'data'=>$sprog,'Action'=>$allaction]);
                //      dd($allsous_prog);
                       $allaction=[];
-              }  
-              
+              }
+
               foreach($allsous_prog as $sact)
                               {
                                 $AE_All_prog+=$sact['TotalAE'];
@@ -188,7 +191,7 @@ class portfeuilleController extends Controller
 
 
     // Passer les données à la vue
-     
+
     }
     //affichage formulaire
     function form_portef()
@@ -450,8 +453,63 @@ function update_portef(Request $request)
         }
 }
 //======================================================================================
-                                // FIN Modification du portefeuille
+                                // FIN Modification du portefeuille/ upload fille pdf
 //===================================================================================
+public function uploadPDF(Request $request)
+{
+    try {
+        // Valider le fichier PDF
+        $request->validate([
+            'pdf_file' => 'required|mimes:pdf|max:2048', // Limite à 2 MB
+            'related_id' => 'required'
+
+        ]);
+        $file = $request->file('pdf_file');
+        $path = $file->store('pdf_files', 'public'); // Enregistre dans storage/app/public/pdf_files
+
+        // Insérer les détails dans la base de données (table multimedia)
+        $media= DB::table('multimedia')->insert([
+            'nom_fichie' => $file->getClientOriginalName(),
+            'filepath' => $path,
+            'filetype' => $file->getClientMimeType(),
+            'size' => $file->getSize(),
+            'uploaded_by' => auth()->id(), // Assurez-vous que l'utilisateur est connecté
+            'related_id' => $request->input('related_id'),
+
+        ]);
+        dd($media);
+
+        // Enregistrer le fichier PDF
+        if ($request->hasFile('pdf_file')) {
+
+
+           if( $media)
+           {
+            dd($media);
+            return response()->json(['message' => 'Fichier téléchargé avec succès.']);
+
+           }
+           else
+           {
+            dd($media);
+            return response()->json(['message' => 'Aucun fichier sélectionné.'], 400);
+
+           }
+
+
+
+        } else {
+            return response()->json(['message' => 'Aucun fichier sélectionné.'], 400);
+        }
+    } catch (\Exception $e) {
+        // En cas d'erreur, enregistre-la dans les logs de Laravel
+        \Log::error('Erreur de téléchargement PDF : ' . $e->getMessage());
 
 
 }
+}
+
+}
+
+
+
