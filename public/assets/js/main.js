@@ -1250,7 +1250,7 @@ function T1_table(id, T) {
                 '<td class="code" >' + key + '</td>' +
                 '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
                 '<td class="editable" id="AE_T1">' + 0 + '</td>' +
-                '<td class="editable" id="CP_T1">' + 180 + ',000</td>' +
+                '<td class="editable" id="CP_T1">' + 0 + '</td>' +
                 '</tr>';
 
             // Append the row to the table body
@@ -1366,11 +1366,11 @@ function T2_table(id, T) {
                 '<td class="code">' + key + '</td>' +
                 '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"> <p>' + value + '</p> </td>' +
                 '<td class="editable" id="AE_Over">' + 0 + '</td>' +
-                '<td class="editable" id="CP_Over">' + 180 + ',000</td>' +
+                '<td class="editable" id="CP_Over">' + 180 + '</td>' +
                 '<td class="editable" id="AE_att">' + 0 + '</td>' +
-                '<td class="editable" id="CP_att">' + 180 + ',000</td>' +
+                '<td class="editable" id="CP_att">' + 180 + '</td>' +
                 '<td  class="someae" id="AE_TT">' + 0 + '</td>' +
-                '<td  class="somecp" id="CP_TT">' + 360 + ',000</td>' +
+                '<td  class="somecp" id="CP_TT">' + 0 + '</td>' +
                 '</tr>';
 
             // Append the row to the table body
@@ -1476,11 +1476,11 @@ function T3_table(id, T) {
                 '<td><p>' + val[0] + '</p> </td>' +
                 '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
                 '<td class="editable" id="AE_rpor">' + 0 + '</td>' +
-                '<td class="editable" id="AE_not">' + 180 + ',000</td>' +
+                '<td class="editable" id="AE_not">' + 0 + ',000</td>' +
                 '<td class="editable" id="AE_enga">' + 0 + '</td>' +
-                '<td class="editable" id="AE_rpor">' + 180 + ',000</td>' +
+                '<td class="editable" id="AE_rpor">' + 0 + ',000</td>' +
                 '<td class="editable" id="AE_not">' + 0 + '</td>' +
-                '<td class="editable" id="AE_enga">' + 180 + ',000</td>' +
+                '<td class="editable" id="AE_enga">' + 0 + ',000</td>' +
                 '</tr>';
 
             // Append the row to the table body
@@ -1587,7 +1587,7 @@ function T4_table(id, T) {
                 '<td><p>' + val[0] + '</p> </td>' +
 
                 '<td class="editable">' + 0 + '</td>' +
-                '<td class="editable">' + 180 + ',000</td>' +
+                '<td class="editable">' + 0 + '</td>' +
                 '</tr>';
 
             // Append the row to the table body
