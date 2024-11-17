@@ -106,7 +106,7 @@ class CalculDpia
                     foreach ($action->SousAction as $sousAction) {
                        // dd($sousAction);
                         foreach ($sousAction->GroupOperation as $groupe) {
-                            dd($groupe);
+                           //    dd($groupe);
                             $groupeAeOuvert = 0;
                             $groupeAeAttendu = 0;
                             $groupeCpOuvert = 0;
@@ -147,7 +147,7 @@ class CalculDpia
                                 $operationCPt4 = 0;
                                     // calculer la somme de chaque sous op
                                     foreach ($operation->SousOperation as $sousOperation) {
-                                        dd($sousOperation);
+                                      //  dd($sousOperation);
                      /***************************************** T2 ********************************************************** */
                                         $sousopAeouvert= $sousOperation->AE_ouvert;
                                         $sousopAeattendu= $sousOperation->AE_atendu;

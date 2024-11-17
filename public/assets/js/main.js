@@ -784,14 +784,6 @@ $("#add-prg").on('click', function () {
         '<label for="input1">Nom Sous Programme</label>' +
         '<input type="text" class="form-control" id="nom_sous_prog" placeholder="Donnee Nom Sous Programme">' +
         '</div>' +
-        '<!--div class="form-group">' +
-        '<label for="input1">AE</label>' +
-        '<input type="number" class="form-control" id="AE_sous_prog" >' +
-        '</div>' +
-        '<div class="form-group">' +
-        '<label for="input1">CP</label>' +
-        '<input type="number" class="form-control" id="CP_sous_prog">' +
-        '</div-->' +
         ' <div class="form-group">' +
         ' <label for="inputDate">Date Journal</label>' +
         '<input type="date" class="form-control" id="date_insert_sousProg">' +
@@ -1584,7 +1576,7 @@ function T4_table(id, T) {
          //   console.log('values' + JSON.stringify(val))
             let row = '<tr id="ref'+key+'">' +
                 '<td class="code">' + key + '</td>' +
-                '<td><p>' + val[0] + '</p> </td>' +
+                '<td><p>' + value + '</p> </td>' +
 
                 '<td class="editable">' + 0 + '</td>' +
                 '<td class="editable">' + 0 + '</td>' +
