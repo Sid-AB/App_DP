@@ -1262,7 +1262,7 @@ if (!$nom) {
         'CP_sous_operation' =>floatval(str_replace(',', '',  $cp))
         , 'date_insert_SOUSoperation' => $currentDateTime]
     );
-    
+
      // creation de la table  construireDPIA
      $portefeuille = Portefeuille::where('num_portefeuil', $port)->first();  
      // dd($portefeuille);  
@@ -1301,7 +1301,7 @@ if (!$nom) {
       } else {
           // si le portefeuille n'existe pas
           dd('Portefeuille non trouvé');
-      }
+      } 
       // dd( $DPIA);
    }
 }
