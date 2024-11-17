@@ -117,7 +117,7 @@ function check_ifnull(button)
     if (isEmpty) {
         if(indice < 2)
         {
-        alert("Veuillez remplir tous les champs obligatoires.");
+        alert("Veuillez remplir tous les champs obligatoires");
         }
         $(this).css('box-shadow','0 0 0 0.25rem rgb(255 0 0 / 47%)')
     }
@@ -272,7 +272,7 @@ function Edit(tid, T) {
 
 
                                     // Ajoute les valeurs dans les objets
-                                    console.log("ddcss");
+                                    //console.log("ddcss");
                                     data.ae_reporte[code] = aeDataReporte;
                                     data.ae_notifie[code] = aeDataNotifie;
                                     data.ae_engage[code] = aeDataEngage;
@@ -543,7 +543,7 @@ $(document).ready(function () {
                        $('#nom_journ').val(response.nom_journal).trigger('change'); // Remplir et déclencher l'événement change
                        $('#num_journ').val(response.num_journal).trigger('change'); // Remplir et déclencher l'événement change
 
-                       alert('Le portefeuille existe déjà.');
+                       alert('Le portefeuille existe déjà');
 
                       //$('.font-bk').removeClass('back-bk')
                       //$('.wallet-path').css('display', 'flex')
@@ -587,7 +587,7 @@ $(document).ready(function () {
 
               if (isEmpty) {
                   if (indice < 2) {
-                      alert("Please fill in all required fields.");
+                      alert("Veuillez remplir tous les champs obligatoires");
                   }
                   $(this).css(
                       "box-shadow",
@@ -687,7 +687,7 @@ $("#date_insert_portef").on('focusout',function()
                     $('#num_journ').val(response.num_journal).trigger('change'); // Remplir et déclencher l'événement change
 
 
-                    alert('Le portefeuille existe déjà.');
+                    alert('Le portefeuille existe déjà');
 
                    //$('.font-bk').removeClass('back-bk')
                    //$('.wallet-path').css('display', 'flex')
@@ -727,31 +727,31 @@ $("#add-prg").on('click', function () {
     var prg2 = '<div class="form-container" id="creati-sous_prog">' +
         '<form>' +
         '<div class="form-group">' +
-        '<label for="input1">N° Sous Programme</label>' +
-        '<input type="text" class="form-control" id="num_sous_prog" placeholder="Donnee Nom Sous Programme">' +
+        '<label for="input1">Code du Sous Programme</label>' +
+        '<input type="text" class="form-control" id="num_sous_prog" placeholder="Donner le  Code du Sous Programme">' +
         '</div>' +
-        '<div class="form-group">' +
-        '<label for="input1">Nom Sous Programme</label>' +
-        '<input type="text" class="form-control" id="nom_sous_prog" placeholder="Donnee Nom Sous Programme">' +
-        '</div>' +
-        '<!--div class="form-group">' +
-        '<label for="input1">AE</label>' +
-        '<input type="number" class="form-control" id="AE_sous_prog" >' +
-        '</div>' +
-        '<div class="form-group">' +
-        '<label for="input1">CP</label>' +
-        '<input type="number" class="form-control" id="CP_sous_prog">' +
-        '</div-->' +
         ' <div class="form-group">' +
-        ' <label for="inputDate">Date Journal</label>' +
+        ' <label for="inputDate">Date du Journal</label>' +
         '<input type="date" class="form-control" id="date_insert_sousProg">' +
         '</div>' +
-        ' <div class="form-group">' +
+        '<div class="form-group">' +
+        '<label for="input1">Nom du Sous Programme</label>' +
+        '<input type="text" class="form-control" id="nom_sous_prog" placeholder="Donner le Nom du Sous Programme">' +
+        '</div>' +
+        '<div class="form-group">' +
+        '<label for="input1">AE pour Sous Programme</label>' +
+        '<input type="number" class="form-control" id="AE_sous_prog"   placeholder="AE">' +
+        '</div>' +
+        '<div class="form-group">' +
+        '<label for="input1">CP pour Sous Programme</label>' +
+        '<input type="number" class="form-control" id="CP_sous_prog"  placeholder="CP">' +
+        '</div>' +
+        ' <!--div class="form-group">' +
         ' <label for="inputDate">AE</label>' +
         '<input type="number" class="form-control" id="AE_sous_prog">' +
         ' <label for="inputDate">CP</label>' +
         '<input type="number" class="form-control" id="CP_sous_prog">' +
-        '</div>' +
+        '</div-->' +
         ' </form>' +
         ' <br>' +
         '<div id="confirm-holder_sprog">' +
@@ -759,7 +759,7 @@ $("#add-prg").on('click', function () {
         '<hr>' +
         ' <div class="file-handle">' +
         '<input type="file" class="form-control" id="file">' +
-        '<button class="btn btn-primary">Journal</button>' +
+        '<button class="btn btn-primary">Ajouter le Journal</button>' +
         '</div>' +
         '</div>'
     var nexthop = '<div class="pinfo-handle">' +
@@ -819,7 +819,7 @@ $("#add-prg").on('click', function () {
                                     $('#CP_sous_prog').val(response.CP_sous_prog).trigger('change'); // Remplir et déclencher l'événement change
                                     //   $('#num_journ_program').val(response.num_journal).trigger('change'); // Remplir et déclencher l'événement change
 
-                                    alert('Le sous programme existe déjà.');
+                                    alert('Le sous programme existe déjà');
 
                                 } else {
                                     // alert('Le programme n\'existe pas.');
@@ -854,24 +854,24 @@ $("#add-prg").on('click', function () {
                     var prg3 = '<div class="form-container" id="creati-act">' +
                         '<form>' +
                         '<div class="form-group">' +
-                        '<label for="input1">N° ACTION</label>' +
-                        '<input type="text" class="form-control" id="num_act" placeholder="Donnee Nom ACTION">' +
+                        '<label for="input1">Code  d\'ACTION</label>' +
+                        '<input type="text" class="form-control" id="num_act" placeholder="Donner le Code  d\'ACTION">' +
+                        '</div>' +
+                        ' <div class="form-group">' +
+                        ' <label for="inputDate">Date du Journal</label>' +
+                        '<input type="date" class="form-control" id="date_insert_action">' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="input1">Nom ACTION</label>' +
-                        '<input type="text" class="form-control" id="nom_act" placeholder="Donnee Nom ACTION">' +
+                        '<label for="input1">Nom  d\'ACTION</label>' +
+                        '<input type="text" class="form-control" id="nom_act" placeholder="Donner le Nom  d\'ACTION">' +
                         '</div>' +
                         '<div class="form-group" id="ElAE_act">' +
                         '<label for="input1">AE pour Action</label>' +
-                        '<input type="number" class="form-control" id="AE_act" placeholder="Donnee Nom Programme">' +
+                        '<input type="number" class="form-control" id="AE_act" placeholder="AE">' +
                         '</div>' +
                         '<div class="form-group" id="ElCP_act">' +
                         '<label for="input1">CP pour Action</label>' +
-                        '<input type="number" class="form-control" id="CP_act" placeholder="Donnee Nom Programme">' +
-                        '</div>' +
-                        ' <div class="form-group">' +
-                        ' <label for="inputDate">Date Journal</label>' +
-                        '<input type="date" class="form-control" id="date_insert_action">' +
+                        '<input type="number" class="form-control" id="CP_act" placeholder="CP">' +
                         '</div>' +
                         ' </form>' +
                         ' <br>' +
@@ -880,7 +880,7 @@ $("#add-prg").on('click', function () {
                         '<hr>' +
                         ' <div class="file-handle">' +
                         '<input type="file" class="form-control" id="file">' +
-                        '<button class="btn btn-primary">Journal</button>' +
+                        '<button class="btn btn-primary">Ajouter le Journal</button>' +
                         '</div>' +
                         '</div>'
                     var formdatasou_prog = {
@@ -940,12 +940,12 @@ $("#add-prg").on('click', function () {
                                                // $('#date_insert_action').val(response.date_insert_action).trigger('change'); // Remplir et déclencher l'événement change
                                                 $('#AE_act').val(response.AE_act).trigger('change'); // Remplir et déclencher l'événement change
                                                 $('#CP_act').val(response.CP_act).trigger('change'); // Remplir et déclencher l'événement change
-                                                alert('Le Action existe déjà.');
+                                                alert('L`Action existe déjà');
 
                                             }
                                             else
                                             {
-                                                alert('Error d`Operation');
+                                                alert('Erreur d`Opération');
 
                                             }
                                         }
@@ -1015,25 +1015,26 @@ $("#add-prg").on('click', function () {
                                                     var prg4 = `<div class="form-container" id="creati-act">
                                                            <form>
                                                             <div class="form-group">
-                                                            <label for="num_sous_act">N°Sous ACTION</label>
-                                                            <input type="text" class="form-control" id="num_sous_act" placeholder="Donner le code Sous ACTION">
+                                                            <label for="num_sous_act">Code de Sous ACTION</label>
+                                                            <input type="text" class="form-control" id="num_sous_act" placeholder="Donner le Code d'ACTION">
                                                            </div>
                                                             <div class="form-group">
-                                                                <label for="nom_sous_act">Nom Sous ACTION</label>
-                                                            <input type="text" class="form-control" id="nom_sous_act" placeholder="Donner le Nom Sous ACTION">
+                                                                 <label for="date_insert_sou_action">Date du Journal</label>
+                                                                 <input type="date" class="form-control" id="date_insert_sou_action">
+                                                               </div>
+                                                            <div class="form-group">
+                                                                <label for="nom_sous_act">Nom de  Sous ACTION</label>
+                                                            <input type="text" class="form-control" id="nom_sous_act" placeholder=Donner le Nom d'ACTION">
                                                             </div>
                                                                <div class="form-group">
                                                                 <label for="AE_sous_act">AE pour Sous Action</label>
-                                                                <input type="number" class="form-control" id="AE_sous_act">
+                                                                <input type="number" class="form-control" id="AE_sous_act" placeholder="AE">
                                                             </div>
                                                             <div class="form-group">
                                                               <label for="CP_sous_act">CP pour Sous Action</label>
-                                                            <input type="number" class="form-control" id="CP_sous_act">
+                                                            <input type="number" class="form-control" id="CP_sous_act" placeholder="CP">
                                                                </div>
-                                                               <div class="form-group">
-                                                                 <label for="date_insert_sou_action">Date Journal</label>
-                                                                 <input type="date" class="form-control" id="date_insert_sou_action">
-                                                               </div>
+                                                               
                                                                </form>
                                                                <br>
                                                                <button class="btn btn-primary" id="add-prg4">Ajouter Sous Action</button>
