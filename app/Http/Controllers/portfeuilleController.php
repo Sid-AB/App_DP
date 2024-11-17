@@ -183,7 +183,7 @@ class portfeuilleController extends Controller
               'TotalCP'=>$por->CP_portef,
               'prgrammes'=>$allprogram,
           ];
-         //     dd($allport);
+          //   dd($allport);
       // Passer les données à la vue
       return view('Portfail-in.index', compact('allport'));
 

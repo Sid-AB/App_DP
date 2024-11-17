@@ -432,7 +432,7 @@ class CalculDpia
                                         $totalAet4 += $groupeAet4;
                                         $totalCpt4 += $groupeCpt4;
                                     }
-                                        //dd($totalAe,$totalCp);
+                                     //   dd($totalAe,$totalCp);
 
 
 

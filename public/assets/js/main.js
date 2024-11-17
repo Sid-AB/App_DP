@@ -333,6 +333,17 @@ function Edit(tid, T) {
 
 
                                 }
+                                if (tid == 'T_port4' || tid == 'T4') {
+
+                                    var code = $(this).find('td').eq(0).text();
+                                    var aeValue = $(this).find('td').eq(2).text();
+                                    var cpValue = $(this).find('td').eq(3).text();
+                                    // Ajoute les valeurs dans les objets
+                                    data.ae[code] = aeValue;
+                                    data.cp[code] = cpValue;
+
+
+                                }
                                 // value_chng.push(rw);
                             })
 
@@ -1576,7 +1587,7 @@ function T4_table(id, T) {
          //   console.log('values' + JSON.stringify(val))
             let row = '<tr id="ref'+key+'">' +
                 '<td class="code">' + key + '</td>' +
-                '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
+                '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' + 
                 '<td class="editable">' + 0 + '</td>' +
                 '<td class="editable">' + 0 + '</td>' +
                 '</tr>';
