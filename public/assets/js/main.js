@@ -1242,6 +1242,8 @@ function T1_table(id, T) {
     $('#T-tables thead').append(headT)
     $.getJSON(jsonpath1, function (data) {
         // Loop through each item in the JSON data
+        var lengT =Object.keys(data).length
+        var i = 0;
         $.each(data, function (key, value) {
             // Create a table row
             let row = '<tr id="ref'+key+'">' +
@@ -1255,6 +1257,22 @@ function T1_table(id, T) {
 
             $('#T-tables tbody').append(row);
             Edit(id, T)
+            i++
+            console.log('the lengh'+lengT+'and the pas'+i)
+            if(i == lengT)
+            {
+                if($('#ref'+key+' td').hasClass("editable"))
+                    {
+                    $('#ref'+key+' #add_op').append(newbtn)
+                    $('#ref'+key+' #add_op').on('click',function()
+                    {
+                        var ads=key+'1';
+                        add_newOPs_T3(ads,'testing new descr',2500,key);
+                        Edit(id, T)
+                    })
+                    }
+            }
+
             if(current.length == 0)
             {
                 current = key;
@@ -1262,6 +1280,7 @@ function T1_table(id, T) {
             }
             else
             {
+                current = key;
                 if(current.split("0")[0].length > preve.split("0")[0].length)
                 {
                     console.log('testing editable'+key)
@@ -1273,10 +1292,10 @@ function T1_table(id, T) {
                 else
                 {
                     console.log('testing '+key)
-                    if($('#ref'+key+' td').hasClass("editable"))
+                    if($('#ref'+preve+' td').hasClass("editable"))
                     {
-                    $('#ref'+key+' #add_op').append(newbtn)
-                    $('#ref'+key+' #add_op').on('click',function()
+                    $('#ref'+preve+' #add_op').append(newbtn)
+                    $('#ref'+preve+' #add_op').on('click',function()
                     {
                         var ads=key+'1';
                         add_newOPs_T1(ads,'testing new descr',2500,key);
@@ -1288,6 +1307,7 @@ function T1_table(id, T) {
                 current = key;
             }
 
+           
         });
     }).fail(function () {
         console.error('Error loading JSON file.');
@@ -1338,8 +1358,9 @@ function T2_table(id, T) {
     $('#T-tables thead').append(headT)
     $.getJSON(jsonpath2, function (data) {
         // Loop through each item in the JSON data
-        current='';
-        $.each(data, function (key, value) {
+        var lengT =Object.keys(data).length
+        var i = 0;
+                $.each(data, function (key, value) {
             // Create a table row
             let row = '<tr id="ref'+key+'">' +
                 '<td class="code">' + key + '</td>' +
@@ -1391,6 +1412,20 @@ function T2_table(id, T) {
                 preve = current;
                 current = key;
             }
+            i++
+            if(i == lengT)
+            {
+                if($('#ref'+key+' td').hasClass("editable"))
+                    {
+                    $('#ref'+key+' #add_op').append(newbtn)
+                    $('#ref'+key+' #add_op').on('click',function()
+                    {
+                        var ads=key+'1';
+                        add_newOPs_T3(ads,'testing new descr',2500,key);
+                        Edit(id, T)
+                    })
+                    }
+            }
         });
     }).fail(function () {
         console.error('Error loading JSON file.');
@@ -1429,9 +1464,12 @@ function T3_table(id, T) {
     $('#T-tables thead').append(headT)
     $.getJSON(jsonpath3, function (data) {
         // Loop through each item in the JSON data
+        var lengT =Object.keys(data).length
+        var i = 0;
         $.each(data, function (key, value) {
             // Create a table row
             var val = value.split('-')
+           
          //   console.log('values' + JSON.stringify(val))
             let row = '<tr id="ref'+key+'">' +
                 '<td class="code">' + key + '</td>' +
@@ -1453,11 +1491,10 @@ function T3_table(id, T) {
             {
                 current = key;
                 preve = current;
-                console.log('ffirst coorect'+current.split("0")[0]);
             }
             else
             {
-                console.log('for coorect'+key.split("0")[0]);
+                current = key;
                 if(key.split("0")[0].length <= 2)
                 {
                     $('#ref'+key+' td').each(function(){
@@ -1476,10 +1513,10 @@ function T3_table(id, T) {
                 else
                 {
                     console.log('testing editable'+preve)
-                    if($('#ref'+key+' td').hasClass("editable"))
+                    if($('#ref'+preve+' td').hasClass("editable"))
                     {
-                    $('#ref'+key+' #add_op').append(newbtn)
-                    $('#ref'+key+' #add_op').on('click',function()
+                    $('#ref'+preve+' #add_op').append(newbtn)
+                    $('#ref'+preve+' #add_op').on('click',function()
                     {
                         var ads=key+'1';
                         add_newOPs_T3(ads,'testing new descr',2500,key);
@@ -1491,7 +1528,20 @@ function T3_table(id, T) {
                 }
                 current = key;
             }
-
+            i++
+            if(i == lengT)
+            {
+                if($('#ref'+key+' td').hasClass("editable"))
+                    {
+                    $('#ref'+key+' #add_op').append(newbtn)
+                    $('#ref'+key+' #add_op').on('click',function()
+                    {
+                        var ads=key+'1';
+                        add_newOPs_T3(ads,'testing new descr',2500,key);
+                        Edit(id, T)
+                    })
+                    }
+            }
             Edit(id, T)
         });
     }).fail(function () {
