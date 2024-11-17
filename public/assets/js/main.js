@@ -1358,9 +1358,9 @@ function T2_table(id, T) {
                 '<td class="code">' + key + '</td>' +
                 '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"> <p>' + value + '</p> </td>' +
                 '<td class="editable" id="AE_Over">' + 0 + '</td>' +
-                '<td class="editable" id="CP_Over">' + 180 + '</td>' +
+                '<td class="editable" id="CP_Over">' + 0 + '</td>' +
                 '<td class="editable" id="AE_att">' + 0 + '</td>' +
-                '<td class="editable" id="CP_att">' + 180 + '</td>' +
+                '<td class="editable" id="CP_att">' + 0 + '</td>' +
                 '<td  class="someae" id="AE_TT">' + 0 + '</td>' +
                 '<td  class="somecp" id="CP_TT">' + 0 + '</td>' +
                 '</tr>';
@@ -1576,8 +1576,7 @@ function T4_table(id, T) {
          //   console.log('values' + JSON.stringify(val))
             let row = '<tr id="ref'+key+'">' +
                 '<td class="code">' + key + '</td>' +
-                '<td><p>' + value + '</p> </td>' +
-
+                '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
                 '<td class="editable">' + 0 + '</td>' +
                 '<td class="editable">' + 0 + '</td>' +
                 '</tr>';
