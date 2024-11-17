@@ -322,7 +322,7 @@ function Edit(tid, T) {
 
 
                                     // Ajoute les valeurs dans les objets
-                                    console.log("ddcss");
+                                  //  console.log("ddcss");
                                     data.ae_reporte[code] = aeDataReporte;
                                     data.ae_notifie[code] = aeDataNotifie;
                                     data.ae_engage[code] = aeDataEngage;
@@ -330,7 +330,6 @@ function Edit(tid, T) {
                                     data.cp_reporte[code] = cpDataReporte;
                                     data.cp_notifie[code] = cpDataNotifie;
                                     data.cp_consome[code] = cpDataEngage;
-
 
                                 }
                                 if (tid == 'T_port4' || tid == 'T4') {
