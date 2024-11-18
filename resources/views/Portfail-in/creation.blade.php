@@ -76,7 +76,7 @@
                         <input type="file" name="pdf_file" id="pdf_file" accept="application/pdf" required>
 
                     </div>
-                    <button type="submit">Télécharger</button>
+
                 </form>
                 <div id="message"></div>
 
@@ -176,7 +176,7 @@
 
 
 
-        fetch( route"{{('upload.pdf') }}", {
+        fetch( route"{{('creation.portfail') }}", {
 
             method: 'POST',
             body: formData

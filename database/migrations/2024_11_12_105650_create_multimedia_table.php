@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('description');
             $table->integer('size');
             $table->unsignedBigInteger('uploaded_by'); // user id
-            $table->unsignedBigInteger('related_id'); // port || prog || sousProg|| action
+            $table->string('related_id'); // port || prog || sousProg|| action
             //$table->string('num_portefeuil');
             //$table->string('num_prog');
             //$table->string('num_sous_prog');
