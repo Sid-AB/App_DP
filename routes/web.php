@@ -78,8 +78,12 @@ Route::controller(opeartionController::class)->group(function(){
 
 
     Route::get('/testing/S_action/{s_act}', 'afficherDPIAWithoutT');
+<<<<<<< HEAD
 
 
+=======
+    Route::get('/testing/codeSousOperation/{s_act}', 'checkSousOperationExist');
+>>>>>>> 7d102cd9470d82776974d35f789a40bdb1bd9f89
    // Route::get('/testing/Action/{port}/{prog}/{sous_prog}/{act}', 'calculerEtEnvoyer');
 });
 

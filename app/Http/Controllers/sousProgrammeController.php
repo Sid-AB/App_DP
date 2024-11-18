@@ -85,7 +85,7 @@ public function check_sous_prog(Request $request)
         $SousProgramme->AE_sous_prog=floatval($request->AE_sous_prog);
         $SousProgramme->CP_sous_prog=floatval($request->CP_sous_prog);
         $SousProgramme->date_insert_sousProg = $request->date_insert_sousProg;
-       // dd($SousProgramme);
+       //dd($SousProgramme);
         $SousProgramme->save();
     // dd($SousProgramme);
         // Enregistrer le fichier et le lier au portefeuille
@@ -99,7 +99,7 @@ public function check_sous_prog(Request $request)
         $media->file_path = $filePath;
         $media->save();
     }
-        
+
       //  dd($SousProgramme);
         if ($SousProgramme) {
             return response()->json([

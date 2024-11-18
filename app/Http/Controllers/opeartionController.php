@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Services\CalculDpia;
 use App\Models\GroupOperation;
+use App\Models\ConstruireDPIA;
 use Illuminate\Support\Facades\DB;  
 use Illuminate\Http\Request;
 
@@ -47,6 +48,7 @@ class opeartionController extends Controller
             ->leftJoin('operations as o', 'go.code_grp_operation', '=', 'o.code_grp_operation')
             ->leftJoin('sous_operations as so', 'o.code_operation', '=', 'so.code_operation')
             ->select('go.*', 'o.*', 'so.*')
+            ->where('go.num_sous_action',$s_act)
             ->get();
          //   dd($groupOperations);
 
@@ -137,6 +139,7 @@ class opeartionController extends Controller
             ->leftJoin('operations as o', 'go.code_grp_operation', '=', 'o.code_grp_operation')
             ->leftJoin('sous_operations as so', 'o.code_operation', '=', 'so.code_operation')
             ->select('go.*', 'o.*', 'so.*')
+            ->where('go.num_sous_action',$s_act)
             ->get();
          //   dd($groupOperations);
 
@@ -216,6 +219,39 @@ class opeartionController extends Controller
                 ], 500); // 500 pour erreur serveur interne (not found)
             }
         
+        }
+
+        //fonction check pour verifier si sous operation existe dans construire dpia ou nn 
+        public function checkSousOperationExist($s_act)
+        {
+            try {
+                
+                $exists = DB::table('sous_actions as sa')
+                    ->join('group_operations as go', 'sa.num_sous_action', '=', 'go.num_sous_action')
+                    ->join('operations as o', 'go.code_grp_operation', '=', 'o.code_grp_operation')
+                    ->join('sous_operations as so', 'so.code_operation', '=', 'o.code_operation')
+                    ->join('construire_d_p_i_a_s as cdp', 'cdp.code_sous_operation', '=', 'so.code_sous_operation')
+                    ->where('sa.num_sous_action', $s_act)
+                    ->whereNotNull('cdp.code_sous_operation') 
+                    ->exists();
+                    //dd($exists);
+                if ($exists) {
+                    return response()->json([
+                        'code' => 200,
+                      
+                    ]);
+                } else {
+                    return response()->json([
+                        'code' => 500,
+                      
+                    ]);
+                }
+            } catch (\Exception $e) {
+                return response()->json([
+                    'code' => 500,
+                    'message' => 'Une erreur est survenue : ' . $e->getMessage(),
+                ], 500);
+            }
         }
     }
     
