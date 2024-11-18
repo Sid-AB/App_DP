@@ -96,8 +96,8 @@
                     <i class="fas fa-door-closed T-icon icon icon-card"></i>
                     <i class="fas fa-door-open hover-icon icon icon-card"></i>
                     <p class="card-title-T">Titre Port 1</p>
-                    <p class="card-description-T">AE 190,000 DZ.</p>
-                    <p class="card-description-T">CP 100,000 DZ.</p>
+                    <p class="card-description-T">AE : {{$someall['T1AE']}}</p>
+                    <p class="card-description-T">CP : {{$someall['T1CP']}}</p>
                   </div>
                 </div>
                 </div>

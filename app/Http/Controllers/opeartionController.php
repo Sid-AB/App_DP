@@ -149,7 +149,8 @@ class opeartionController extends Controller
                 'T3' => [],
                 'T4' => []
             ];
-          
+            
+            
             //parcourir les resultats 
             foreach ($groupOperations as $grpoperation) {
                 //initialiser t pour dire quel t appartient les ae et cp
@@ -157,16 +158,20 @@ class opeartionController extends Controller
 
                 if ($grpoperation->code_t1==10000) {
                     $t = 'T1';
+                    $someT1AE+=$grpoperation->AE_sous_operation;
+                    $someT1CP+=$grpoperation->CP_sous_operation;
                 } elseif ($grpoperation->code_t2==20000) {
                     $t = 'T2';
+                   
                 } elseif ($grpoperation->code_t3==30000) {
                     $t = 'T3';
+                   
                 } elseif ($grpoperation->code_t4==40000) {
                     $t = 'T4';
+                    
                 }else{ $t = 'Non défini';}
 
-                if ($t  ) {
-               
+                if ($t) {
                 $data = [
                     'AE_sous_operation' => $grpoperation->AE_sous_operation,
                     'CP_sous_operation' => $grpoperation->CP_sous_operation,
@@ -179,8 +184,8 @@ class opeartionController extends Controller
                     'AE_engage' => $grpoperation->AE_engage,
                     'CP_reporte' => $grpoperation->CP_reporte,
                     'CP_notifie' => $grpoperation->CP_notifie,
-                    'CP_consomme' => $grpoperation->CP_consome
-                    
+                    'CP_consomme' => $grpoperation->CP_consome,
+                   
                 ];
 
                 // supprimer les champs avec des valeurs null pour eviter t1 avec d'autres ae et  cp 
