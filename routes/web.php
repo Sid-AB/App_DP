@@ -74,7 +74,7 @@ Route::controller(opeartionController::class)->group(function(){
     Route::get('/testing/Ss_Action/{port}/{prog}/{sous_prog}/{act}/{s_act}', 'calculerEtEnvoyer');
     Route::get('/testing/S_action/{s_act}/{T}', 'afficherDPIA');
     Route::get('/testing/S_action/{s_act}', 'afficherDPIAWithoutT');
-  
+    Route::get('/testing/codeSousOperation/{s_act}', 'checkSousOperationExist');
    // Route::get('/testing/Action/{port}/{prog}/{sous_prog}/{act}', 'calculerEtEnvoyer');
 });
 
