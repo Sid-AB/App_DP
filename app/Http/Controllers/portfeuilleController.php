@@ -124,15 +124,15 @@ class portfeuilleController extends Controller
                                
                                   if(isset($listsousact))
                                   {
-                                     //$resultats = $this->CalculDpia->calculdpiaFromPath($id, $progm->num_prog, $sprog->num_sous_prog, $listact->num_action,$listsousact->num_sous_action);
+                                     $resultats = $this->CalculDpia->calculdpiaFromPath($id, $progm->num_prog, $sprog->num_sous_prog, $listact->num_action,$listsousact->num_sous_action);
                                     // dd($resultats);
-                                      try {
+                                      /*try {
                                           $resultats = $this->CalculDpia->calculdpiaFromPath($id, $progm->num_prog, $sprog->num_sous_prog, $listact->num_action,$listsousact->num_sous_action);
                                       } catch (\Exception $e) {
                                          
                                           $resultats="null";
-                                      }
-                                      if($resultats != "null")
+                                      }*/
+                                      if(isset($resultats))
                                       {
                                         foreach($resultats as $Tresult)
                                         {
@@ -140,7 +140,12 @@ class portfeuilleController extends Controller
                                             $AE_All_sous_act+=$Tresult['total'][0]['values']['totalAE'];
                                             $CP_All_sous_act+=$Tresult['total'][0]['values']['totalCP'];
                                         }
+                                        
                                       }
+                                      else
+                                        {
+                                            $resultats=[];
+                                        }
                                      // dd($resultats);
                                     
                                       array_push($allsous_action,['num_act'=>$listsousact->num_sous_action,'init_AE'=>$listsousact->AE_sous_action,'init_CP'=>$listsousact->CP_sous_action,'TotalAE'=>$AE_All_sous_act,'TotalCP'=>$CP_All_sous_act,'data'=>$listsousact,'Tports'=>$resultats]);
@@ -161,7 +166,7 @@ class portfeuilleController extends Controller
                               {
                                 $AE_All_sous_prog+=$sact['TotalAE'];
                                 $CP_All_sous_prog+=$sact['TotalCP'];
-                                
+         
                               }
                               
                       array_push($allsous_prog,['id_sous_prog'=>$sprog->num_sous_prog,'init_AE'=>$sprog->AE_sous_prog,'init_CP'=>$sprog->CP_sous_prog,'TotalAE'=>$AE_All_sous_prog,'TotalCP'=>$CP_All_sous_prog,'data'=>$sprog,'Action'=>$allaction]);

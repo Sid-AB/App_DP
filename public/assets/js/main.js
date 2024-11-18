@@ -591,8 +591,6 @@ $(document).ready(function () {
                success: function (response) {
                    if (response.exists) {
                        console.log(response); // Vérifiez la réponse
-                       path.push(numwall_year);
-                       path3.push(num_portefeuil);
 
                        console.log('numwall_year path3: ' + JSON.stringify(path3));
 
@@ -732,9 +730,6 @@ $("#date_insert_portef").on('focusout',function()
             success: function (response) {
                 if (response.exists) {
                     console.log(response); // Vérifiez la réponse
-                    path.push(numprog_year);
-                    path3.push(num_prog);
-                    
                     console.log('numwall_year path3: ' + JSON.stringify(path3));
 
                     // Remplir les champs du formulaire avec les données récupérées
@@ -868,8 +863,6 @@ $("#add-prg").on('click', function () {
                             success: function (response) {
                                 if (response.exists) {
                                     console.log(response); // Vérifiez la réponse
-                                    path.push(num_sou_program);
-                                    path3.push(num_sou_prog);
                                     console.log('num_sou_program path: ' + JSON.stringify(path));
 
                                     // Remplir les champs du formulaire avec les données récupérées
