@@ -74,10 +74,14 @@
                         <label for="inputFile">Journal scanner</label>
                         <label for="pdf_file">Choisissez un fichier PDF :</label>
                         <input type="file" name="pdf_file" id="pdf_file" accept="application/pdf" required>
+                        <button id="pdf-upload-form" data-id="1">Télécharger le PDF</button>
 
                     </div>
 
                 </form>
+                <button type="submit" class="btn btn-primary" id="add-wallet">
+                    <i class="fas fa-plus"></i> Ajouter
+                </button>
                 <div id="message"></div>
 
 
@@ -160,36 +164,44 @@
 <script src="{{asset('assets/js/jquery-3.7.1.min.js')}}"></script>
 
 <script>
-    document.getElementById('pdf-upload-form').addEventListener('submit', function(event) {
-        event.preventDefault();
+   document.getElementById('pdf-upload-form').addEventListener('submit', function(event) {
+    event.preventDefault();
 
-        var formData = new FormData();
-        var pdfFile = document.getElementById('pdf_file').files[0];
-        var relatedId = document.getElementById('num_portefeuil').value;
+    // Récupérer les éléments du formulaire
+    var formData = new FormData();
+    var pdfFile = document.getElementById('pdf_file').files[0];
+    var relatedId = document.getElementById('num_portefeuil').value;
 
-        formData.append('pdf_file', pdfFile);
-        formData.append('related_id', relatedId);
-        formData.append('_token', document.querySelector('meta[name="csrf-token"]')?.content);
-        console.log(document.querySelector('meta[name="csrf-token"]')?.content);
+    // Ajouter les données au FormData
+    formData.append('pdf_file', pdfFile);
+    formData.append('related_id', relatedId);
+    formData.append('_token', document.querySelector('meta[name="csrf-token"]').content);
 
+    // URL de l'action, correctement définie
+    var url = "{{ route('upload.pdf') }}";
 
-
-
-        fetch( route"{{('creation.portfail') }}", {
-
-            method: 'POST',
-            body: formData
+    // Envoi via fetch
+    fetch(url, {
+        method: 'POST',
+        body: formData
+    })
+        .then(response => {
+            // Vérifier si la réponse est OK (status 200-299)
+            if (!response.ok) {
+                throw new Error("Erreur réseau : " + response.status);
+            }
+            return response.json();
         })
-
-        .then(response => response.json())
         .then(data => {
-            document.getElementById('message').textContent = data.message;
+            // Afficher le message de succès
+            document.getElementById('message').textContent = data.message || 'Téléchargement réussi.';
         })
         .catch(error => {
-            document.getElementById('message').textContent = data.message;
+            // Afficher le message d'erreur
+            console.error(error);
+            document.getElementById('message').textContent = "Erreur lors du téléchargement.";
         });
-    })
-
+});
 </script>
 
 

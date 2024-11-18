@@ -270,55 +270,6 @@ public function check_portef(Request $request)
         $portefeuille->Date_portefeuille = $request->Date_portefeuille;
         $portefeuille->id_min =1;//periodiquement
         $portefeuille->save();
-        try {
-            // Valider le fichier PDF
-            $request->validate([
-                'pdf_file' => 'required|mimes:pdf|max:2048', // Limite à 2 MB
-                'related_id' => 'required'
-
-            ]);
-            $file = $request->file('pdf_file');
-            $path = $file->store('pdf_files', 'public'); // Enregistre dans storage/app/public/pdf_files
-
-            // Insérer les détails dans la base de données (table multimedia)
-            $media= DB::table('multimedia')->insert([
-                'nom_fichie' => $file->getClientOriginalName(),
-                'filepath' => $path,
-                'filetype' => $file->getClientMimeType(),
-                'size' => $file->getSize(),
-                'uploaded_by' => auth()->id(), // Assurez-vous que l'utilisateur est connecté
-                'related_id' => $request->input('related_id'),
-
-            ]);
-            dd($media);
-
-            // Enregistrer le fichier PDF
-            if ($request->hasFile('pdf_file')) {
-
-
-               if( $media)
-               {
-                dd($media);
-                return response()->json(['message' => 'Fichier téléchargé avec succès.']);
-
-               }
-               else
-               {
-                dd($media);
-                return response()->json(['message' => 'Aucun fichier sélectionné.'], 400);
-
-               }
-
-
-
-            } else {
-                return response()->json(['message' => 'Aucun fichier sélectionné.'], 400);
-            }
-        } catch (\Exception $e) {
-            // En cas d'erreur, enregistre-la dans les logs de Laravel
-            \Log::error('Erreur de téléchargement PDF : ' . $e->getMessage());
-
-
     }
 
 
@@ -359,8 +310,6 @@ public function check_portef(Request $request)
 //}
 
 
-
-    }else{
 
 
         // Créer un nouveau portefeuille
@@ -406,7 +355,7 @@ public function check_portef(Request $request)
         return response()->json(['error' => 'Aucun fichier n\'a été téléchargé.'], 400);
     }
 
-    }
+
 
 
         //creation de la table  construireDPic
@@ -493,57 +442,61 @@ public function uploadPDF(Request $request)
 {
     try {
         // Valider le fichier PDF
-        $request->validate([
-            'pdf_file' => 'required|mimes:pdf|max:2048', // Limite à 2 MB
-            'related_id' => 'required'
 
-        ]);
-        $file = $request->file('pdf_file');
-        $path = $file->store('pdf_files', 'public'); // Enregistre dans storage/app/public/pdf_files
+          $request->validate([
+              'pdf_file' => 'required|mimes:pdf|max:2048', // Limite à 2 MB
+              'related_id' => 'required'
 
-        // Insérer les détails dans la base de données (table multimedia)
-        $media= DB::table('multimedia')->insert([
-            'nom_fichie' => $file->getClientOriginalName(),
-            'filepath' => $path,
-            'filetype' => $file->getClientMimeType(),
-            'size' => $file->getSize(),
-            'uploaded_by' => auth()->id(), // Assurez-vous que l'utilisateur est connecté
-            'related_id' => $request->input('related_id'),
+           ]);
+           $file = $request->file('pdf_file');
+           $path = $file->store('pdf_files', 'public'); // Enregistre dans storage/app/public/pdf_files
 
-        ]);
-        dd($media);
+          // Insérer les détails dans la base de données (table multimedia)
+          $media= DB::table('multimedia')->insert([
+              'nom_fichie' => $file->getClientOriginalName(),
+              'filepath' => $path,
+              'filetype' => $file->getClientMimeType(),
+              'size' => $file->getSize(),
+              'uploaded_by' => auth()->id(), // Assurez-vous que l'utilisateur est connecté
+              'related_id' => $request->input('related_id'),
 
-        // Enregistrer le fichier PDF
-        if ($request->hasFile('pdf_file')) {
+          ]);
+          dd($media);
+
+          // Enregistrer le fichier PDF
+          if ($request->hasFile('pdf_file')) {
 
 
-           if( $media)
-           {
+             if( $media)
+             {
+              dd($media);
+              return response()->json(['message' => 'Fichier téléchargé avec succès.']);
+             }
+            else
+             {
             dd($media);
-            return response()->json(['message' => 'Fichier téléchargé avec succès.']);
+             return response()->json(['message' => 'Aucun fichier sélectionné.'], 400);
 
-           }
-           else
-           {
-            dd($media);
+             }
+
+
+
+       } else {
             return response()->json(['message' => 'Aucun fichier sélectionné.'], 400);
-
-           }
-
-
-
-        } else {
-            return response()->json(['message' => 'Aucun fichier sélectionné.'], 400);
-        }
-    } catch (\Exception $e) {
-        // En cas d'erreur, enregistre-la dans les logs de Laravel
-        \Log::error('Erreur de téléchargement PDF : ' . $e->getMessage());
+          }
+      } catch (\Exception $e) {
+          // En cas d'erreur, enregistre-la dans les logs de Laravel
+         \Log::error('Erreur de téléchargement PDF : ' . $e->getMessage());
+         return response()->json(['message' => 'Fichier téléchargé avec succès.']);
 
 
-}
-}
+  }
 
-}
+
+} }
+
+
+
 
 
 
