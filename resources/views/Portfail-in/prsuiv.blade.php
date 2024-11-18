@@ -60,6 +60,7 @@ Object.entries(paths).forEach(([code,value])=>{
    
     </div>
   </div>
+  <div id="progam-handle">
   @if($leng == 4)
   <div class="form-container" id="creati-sous_act">
                         <form >
@@ -304,7 +305,7 @@ Object.entries(paths).forEach(([code,value])=>{
                         </div>
                         </div>
                  @endif
-
+                 </div>
                  <script>var path3=Array()</script>
 <script src="{{asset('assets/bootstrap-5.0.2/js/bootstrap.js')}}"></script>
 <script src="{{asset('assets/fontawesome-free/js/all.js')}}"></script>
