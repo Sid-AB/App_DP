@@ -151,13 +151,10 @@ class portfeuilleController extends Controller
                                             $CP_All_sous_act+=$Tresult['total'][0]['values']['totalCP'];
                                         }
                                       }
-<<<<<<< HEAD
                                       //dd($resultats);
 
-=======
                                      // dd($resultats);
-                                    
->>>>>>> 7634c6068dfd980924fe73dc4e977cf1976b71e8
+
                                       array_push($allsous_action,['num_act'=>$listsousact->num_sous_action,'init_AE'=>$listsousact->AE_sous_action,'init_CP'=>$listsousact->CP_sous_action,'TotalAE'=>$AE_All_sous_act,'TotalCP'=>$CP_All_sous_act,'data'=>$listsousact,'Tports'=>$resultats]);
 
                                   }

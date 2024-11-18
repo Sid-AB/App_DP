@@ -74,13 +74,12 @@ Route::controller(groupOperationController::class)->group(function(){
 Route::controller(opeartionController::class)->group(function(){
     Route::get('/testing/Ss_Action/{port}/{prog}/{sous_prog}/{act}/{s_act}', 'calculerEtEnvoyer');
     Route::get('/testing/S_action/{s_act}/{T}', 'afficherDPIA');
-<<<<<<< HEAD
 
 
-=======
+
     Route::get('/testing/S_action/{s_act}', 'afficherDPIAWithoutT');
-  
->>>>>>> 807f58f0fc38a52e2864037b7d0004bc228279c9
+
+
    // Route::get('/testing/Action/{port}/{prog}/{sous_prog}/{act}', 'calculerEtEnvoyer');
 });
 

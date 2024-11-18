@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="csrf-token" content=" {{csrf_token()}}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Création Portefeuille</title>
+    <title>Creation Portfail</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
      <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 <link href="{{asset('assets/css/main.css')}}" rel="stylesheet"/>
@@ -41,7 +41,7 @@
     <div class="card">
             <div class="card-body"  id="creati-prog">
                 <h5 class="card-title">
-                    <i class="fas fa-file-alt"></i> Téléchargez votre document
+                    <i class="fas fa-file-alt"></i> Upload your document
                 </h5>
                 <form id="pdf-upload-form" enctype="multipart/form-data">
                     @csrf
@@ -71,28 +71,17 @@
                         <input type="number" class="form-control" id="CP_portef" placeholder="CP">
                     </div>
                     <div class="form-group">
-<<<<<<< HEAD
                         <label for="inputFile">Journal scanner</label>
                         <label for="pdf_file">Choisissez un fichier PDF :</label>
                         <input type="file" name="pdf_file" id="pdf_file" accept="application/pdf" required>
 
-=======
-                        <label for="inputFile">Ajouter le journal</label>
-                        <input type="file" class="form-control-file" id="inputFile" >
->>>>>>> 7634c6068dfd980924fe73dc4e977cf1976b71e8
                     </div>
 
                 </form>
-<<<<<<< HEAD
                 <div id="message"></div>
 
-              <button type="submit" class="btn btn-primary" id="add-wallet">
-                    <i class="fas fa-plus"></i> Add
-=======
-                <button type="submit" class="btn btn-primary" id="add-wallet">
-                    <i class="fas fa-plus"></i> Ajouter
->>>>>>> 7634c6068dfd980924fe73dc4e977cf1976b71e8
-                </button>
+
+
 
 
             </div>
@@ -102,24 +91,24 @@
     <div class="form-container" id="creati-prog">
       <form >
         <div class="form-group">
-          <label for="input1">Code du Programme</label>
-          <input type="text" class="form-control" id="num_prog" placeholder="Donner le Code du  Programme">
+          <label for="input1">Code_Programme</label>
+          <input type="text" class="form-control" id="num_prog" placeholder="Donnee Code Programme">
         </div>
         <div class="form-group">
-          <label for="input2">Date insertion du Programme:</label>
+          <label for="input1">Programme</label>
+          <input type="text" class="form-control" id="nom_prog" placeholder="Donnee Nom Programme">
+        </div>
+        <div class="form-group">
+          <label for="input2">Date insertion :</label>
           <input type="date" class="form-control" id="date_insert_portef">
         </div>
         <div class="form-group">
-          <label for="input1">Nom du Programme</label>
-          <input type="text" class="form-control" id="nom_prog" placeholder="Donner le Nom du Programme">
-        </div>
-        <div class="form-group">
           <label for="inputDate">AE</label>
-          <input type="number" class="form-control" id="AE_prog"  placeholder="AE">
+          <input type="number" class="form-control" id="AE_prog">
         </div>
         <div class="form-group">
           <label for="inputDate">CP</label>
-          <input type="number" class="form-control" id="CP_prog" placeholder="CP">
+          <input type="number" class="form-control" id="CP_prog">
         </div>
         </form>
 
@@ -129,7 +118,7 @@
         <hr>
         <div class="file-handle">
         <input type="file" class="form-control" id="file">
-        <button class="btn btn-primary">Ajouter le Journal</button>
+        <button class="btn btn-primary">Journal</button>
         </div>
         </div>
 
