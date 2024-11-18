@@ -77,6 +77,7 @@ public function check_action(Request $request)
         $action->id_ra = 1;//periodiquement
         $action->date_insert_action = $request->date_insert_action;
         $action->save();
+       
 
           // Créer une nouvelle sous action
           $sousaction = new sousAction();
@@ -135,7 +136,7 @@ public function check_action(Request $request)
             $media->save();
         }
     }
-
+        
         if ( $sousaction) {
             return response()->json([
                 'success' => true,
