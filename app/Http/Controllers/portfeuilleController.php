@@ -123,7 +123,7 @@ class portfeuilleController extends Controller
                           if(isset($listact))
                           {
                               $sous_act=SousAction::where('num_action',$listact->num_action)->get();
-                              //dd($sous_act);
+                            //  dd($sous_act);
                               foreach($sous_act as $listsousact)
                               {
 
@@ -146,12 +146,18 @@ class portfeuilleController extends Controller
                                       {
                                         foreach($resultats as $Tresult)
                                         {
+                                           // dd($Tresult);
                                             $AE_All_sous_act+=$Tresult['total'][0]['values']['totalAE'];
                                             $CP_All_sous_act+=$Tresult['total'][0]['values']['totalCP'];
                                         }
                                       }
+<<<<<<< HEAD
                                       //dd($resultats);
 
+=======
+                                     // dd($resultats);
+                                    
+>>>>>>> 7634c6068dfd980924fe73dc4e977cf1976b71e8
                                       array_push($allsous_action,['num_act'=>$listsousact->num_sous_action,'init_AE'=>$listsousact->AE_sous_action,'init_CP'=>$listsousact->CP_sous_action,'TotalAE'=>$AE_All_sous_act,'TotalCP'=>$CP_All_sous_act,'data'=>$listsousact,'Tports'=>$resultats]);
 
                                   }
@@ -193,7 +199,7 @@ class portfeuilleController extends Controller
               'TotalCP'=>$por->CP_portef,
               'prgrammes'=>$allprogram,
           ];
-         //     dd($allport);
+         //    dd($allprogram[1]['sous_program'][2]);
       // Passer les données à la vue
       return view('Portfail-in.index', compact('allport'));
 

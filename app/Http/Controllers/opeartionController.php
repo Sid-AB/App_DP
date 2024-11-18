@@ -28,7 +28,7 @@ class opeartionController extends Controller
 */
         try {
             $resultats = $this->CalculDpia->calculdpiaFromPath($port, $prog, $sous_prog, $act,$s_act);
-            dd($resultats );
+          //  dd($resultats );
                // eenvoyer les résultats en JSON
                return view('Action-in.index',compact('port','prog','sous_prog','act','s_act','resultats'));
            // return response()->json($resultats);
@@ -104,7 +104,7 @@ class opeartionController extends Controller
                         'AE_CP' => $data
                     ];
                 }
-            }
+            } 
             }
                 //retourner results
                 return response()->json([

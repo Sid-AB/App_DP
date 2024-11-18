@@ -1059,6 +1059,7 @@ foreach ($jsonData as $codeStr => $nom) {
 //===================================================================================
 else{
 // Récupérer les données du formulaire
+//dd($request);
 $aeData = $request->input('ae');
 $cpData = $request->input('cp');
 
@@ -1141,7 +1142,9 @@ if (!$nom) {
        // Insertion dans la table sousoperation
        $sousoperation=sousoperation::updateOrCreate(
            ['code_sous_operation' => $code.$codeGp.$s_act],
-           ['code_operation' => $code.$codeGp.$s_act, 'nom_sous_operation' => $nom
+           ['code_operation' => $code.$codeGp.$s_act, 'nom_sous_operation' => $nom,
+           'AE_sous_operation' => floatval(str_replace(',', '', $ae)),
+           'CP_sous_operation' => floatval(str_replace(',', '', $cp))
            ,'code_t4' => 40000, 'date_insert_SOUSoperation' => $currentDateTime]
        );
               // creation de la table  construireDPIA
