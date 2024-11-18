@@ -899,7 +899,7 @@ $("#add-prg").on('click', function () {
                     var dat_sou_prog = $('#date_insert_sousProg').val()
                     var AE_sous_prog=$('#AE_sous_prog').val()
                     var CP_sous_prog=$('#CP_sous_prog').val()
-                    var id_prog = path[3];
+                    var id_prog = path[2];
                     var numsouprog_year = sou_prog + id_prog;
                     check_ifnull('#add-prg2')
                     //var id_port = path[0];
