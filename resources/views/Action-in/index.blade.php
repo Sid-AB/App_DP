@@ -157,7 +157,7 @@
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Titre 1</h5>
-                    <p class="card-text">Description pour Titre 1.</p>
+                    <p class="card-text"> DEPENSES  DE PERSONNEL</p>
                     <button class="btn btn-primary" id="T1">Vers Tableau Operation</button>
                 </div>
             </div>
@@ -172,7 +172,7 @@
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Titre 2</h5>
-                    <p class="card-text">Description pour Titre 2.</p>
+                    <p class="card-text">DEPENSES DE FONCTIONNEMENT DES SERVICES </p>
                     <button class="btn btn-primary" id="T2">Vers Tableau Operation</button>
                 </div>
             </div>
@@ -187,7 +187,7 @@
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Titre 3</h5>
-                    <p class="card-text">Description pour Titre 3.</p>
+                    <p class="card-text">DEPENSES D'INVESTISSEMENT </p>
                     <button class="btn btn-primary" id="T3" >Vers Tableau Operation</button>
                 </div>
             </div>
@@ -202,7 +202,7 @@
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Titre 4</h5>
-                    <p class="card-text">Description pour Titre 4.</p>
+                    <p class="card-text"> DEPENSES DE TRANSFERT  </p>
                     <button class="btn btn-primary" id="T4">Vers Les Operation</button>
                 </div>
             </div>

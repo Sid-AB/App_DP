@@ -1871,6 +1871,8 @@ $(document).ready(function () {
     })
     $('#T2').on('click', function () {
         var indic = path3.length - 1
+        var T=2
+        var id = $(this).attr('id');
         console.log('len' + path3.length + ' act ' + indic)
         $.ajax({
             url: '/testing/codeSousOperation/' + path3[indic],
