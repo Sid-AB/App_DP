@@ -1215,7 +1215,7 @@ $("#add-prg").on('click', function () {
  *
  */
 
-function T1_table(id, T, id_s_act, port) {
+function T1_table(id, T, id_s_act, port,code) {
 
     var current = new Array();
     var preve = new Array();
@@ -1230,6 +1230,8 @@ function T1_table(id, T, id_s_act, port) {
         $('#Tport-handle').removeClass('scale-out');
         $('.T-handle').css('display', 'flex')
     }, 500)
+    if(code == 200)
+        {
     $.ajax({
         url: '/testing/S_action/' + port + '/' + id_s_act + '/T1',
         type: 'GET',
@@ -1243,6 +1245,8 @@ function T1_table(id, T, id_s_act, port) {
             }
         }
     })
+}
+
     var headT = '<tr>' +
         '<th ><h1>Code</h1></th>' +
         '<th ><h1>T Description</h1></th>' +
@@ -1257,7 +1261,7 @@ function T1_table(id, T, id_s_act, port) {
         var ig = 0;
         var io = 0;
         var iso = 0;
-        console.log('testing split function' + splitcode(data_T_port.group[0].code, 5)[0].substring)
+      //  console.log('testing split function' + splitcode(data_T_port.group[0].code, 5)[0].substring)
         $.each(data, function (key, value) {
             // Create a table row
             let row = '<tr id="ref' + key + '">' +
@@ -1266,6 +1270,7 @@ function T1_table(id, T, id_s_act, port) {
                 '<td class="editable" id="AE_T1">' + 1 + '</td>' +
                 '<td class="editable" id="CP_T1">' + 1 + '</td>' +
                 '</tr>';
+                if(Object.keys(data_T_port).length > 0 ){
             if (data_T_port.group.length > 0 && data_T_port.group.length > ig) {
                 if (key == splitcode(data_T_port.group[ig].code, 5)[0].substring) {
                     row = '<tr id="ref' + key + '">' +
@@ -1299,7 +1304,7 @@ function T1_table(id, T, id_s_act, port) {
                     iso++;
                 }
             }
-
+}
             // Append the row to the table body
 
             $('#T-tables tbody').append(row);
@@ -1351,7 +1356,7 @@ function T1_table(id, T, id_s_act, port) {
         console.error('Error loading JSON file.');
     });
 }
-function T2_table(id, T, id_s_act, port) {
+function T2_table(id, T, id_s_act, port,code) {
     var current = new Array();
     var preve = new Array();
     var data_T_port = new Array();
@@ -1364,7 +1369,8 @@ function T2_table(id, T, id_s_act, port) {
         $('#Tport-handle').removeClass('scale-out');
         $('.T-handle').css('display', 'flex')
     }, 500)
-
+if(code == 200)
+    {
     $.ajax({
         url: '/testing/S_action/' + port + '/' + id_s_act + '/T2',
         type: 'GET',
@@ -1378,6 +1384,7 @@ function T2_table(id, T, id_s_act, port) {
             }
         }
     })
+}
 
     var headT = '<tr>' +
         '<th colspan="2"><h1>T Description</h1></th>' +
@@ -1432,6 +1439,7 @@ function T2_table(id, T, id_s_act, port) {
             var codegr = data_T_port.group;
             var codeop = data_T_port.operation;
             var codesop = data_T_port.sousOperation;
+            if(Object.keys(data_T_port).length > 0){
             if (codegr.length > 0 && data_T_port.group.length > ig) {
                 if (key == splitcode(data_T_port.group[ig].code, 5)[0].substring) {
                     row = '<tr id="ref' + key + '">' +
@@ -1477,7 +1485,7 @@ function T2_table(id, T, id_s_act, port) {
                     iso++
                 }
             }
-
+}
             // Append the row to the table body
             $('#T-tables tbody').append(row);
             Edit(id, T)
@@ -1527,7 +1535,7 @@ function T2_table(id, T, id_s_act, port) {
         console.error('Error loading JSON file.');
     });
 }
-function T3_table(id, T, id_s_act, port) {
+function T3_table(id, T, id_s_act, port,code) {
     var current = new Array();
     var preve = new Array();
     var data_T_port = new Array();
@@ -1541,7 +1549,7 @@ function T3_table(id, T, id_s_act, port) {
         $('#Tport-handle').removeClass('scale-out');
         $('.T-handle').css('display', 'flex')
     }, 500)
-
+if(code == 200){
     $.ajax({
         url: '/testing/S_action/' + port + '/' + id_s_act + '/T3',
         type: 'GET',
@@ -1554,7 +1562,7 @@ function T3_table(id, T, id_s_act, port) {
                 alert(response.message);
             }
         }
-    })
+    })}
 
     var headT = '<tr>' +
         '<th><h1>code</h1></th>' +
@@ -1597,6 +1605,7 @@ function T3_table(id, T, id_s_act, port) {
                 '<td class="editable" id="AE_not">' + 0 + '</td>' +
                 '<td class="editable" id="AE_enga">' + 0 + '</td>' +
                 '</tr>';
+            if(Object.keys(data_T_port).length > 0){
             if (data_T_port.group.length > 0 && data_T_port.group.length > ig) {
                 console.log('code T3 ' + splitcode(data_T_port.group[ig].code, 5)[0].substring);
                 if (key == splitcode(data_T_port.group[ig].code, 5)[0].substring) {
@@ -1645,6 +1654,7 @@ function T3_table(id, T, id_s_act, port) {
                         '</tr>';
                     iso++;
                 }
+            }
             }
             // Append the row to the table body
 
@@ -1701,7 +1711,7 @@ function T3_table(id, T, id_s_act, port) {
         console.error('Error loading JSON file.');
     });
 }
-function T4_table(id, T, id_s_act, port) {
+function T4_table(id, T, id_s_act, port,code) {
     var current = new Array();
     var preve = new Array();
     var data_T_port = new Array();
@@ -1715,7 +1725,7 @@ function T4_table(id, T, id_s_act, port) {
         $('#Tport-handle').removeClass('scale-out');
         $('.T-handle').css('display', 'flex')
     }, 500)
-
+    if(code === 200){
     $.ajax({
         url: '/testing/S_action/' + port + '/' + id_s_act + '/T4',
         type: 'GET',
@@ -1728,7 +1738,7 @@ function T4_table(id, T, id_s_act, port) {
                 alert(response.message);
             }
         }
-    })
+    })}
 
     var headT = '<tr>' +
         '<th><h1>Code</h1></th>' +
@@ -1757,7 +1767,7 @@ function T4_table(id, T, id_s_act, port) {
                 '<td class="editable" id="AE_T4">' + 0 + ',00</td>' +
                 '<td class="editable" id="CP_T4">' + 0 + ',00</td>' +
                 '</tr>';
-
+            if(Object.keys(data_T_port).length > 0){
             if (data_T_port.group.length > 0 && data_T_port.group.length > ig) {
                 if (key == splitcode(data_T_port.group[ig].code, 5)[0].substring) {
                     row = '<tr id="ref' + key + '">' +
@@ -1790,7 +1800,7 @@ function T4_table(id, T, id_s_act, port) {
                         '</tr>';
                     iso++;
                 }
-            }
+            }}
             // Append the row to the table body
 
             $('#T-tables tbody').append(row);
@@ -1848,13 +1858,13 @@ $(document).ready(function () {
                     alert('Exist')
                     var id = $(this).attr('id');
                     var T = 1;
-                    T1_table(id, T, path3[indic], path3[0])
+                    T1_table(id, T, path3[indic], path3[0],response.code)
                 }
                 else {
                     alert('New')
                     var id = $(this).attr('id');
                     var T = 1;
-                    T1_table(id, T, path3[indic], path3[0])
+                    T1_table(id, T, path3[indic], path3[0],response.code)
                 }
             }
         })
@@ -1870,13 +1880,13 @@ $(document).ready(function () {
                     alert('Exist')
 
 
-                    T2_table(id, T, path3[indic], path3[0])
+                    T2_table(id, T, path3[indic], path3[0],response.code)
                 }
                 else {
                     alert('New')
 
 
-                    T2_table(id, T, path3[indic], path3[0])
+                    T2_table(id, T, path3[indic], path3[0],response.code)
                 }
             }
         })
@@ -1895,12 +1905,12 @@ $(document).ready(function () {
                 if (response.code == 200) {
                     alert('Exist')
 
-                    T3_table(id, T, path3[indic], path3[0])
+                    T3_table(id, T, path3[indic], path3[0],response.code)
                 }
                 else {
                     alert('New')
 
-                    T3_table(id, T, path3[indic], path3[0])
+                    T3_table(id, T, path3[indic], path3[0],response.code)
                 }
             }
         })
@@ -1918,12 +1928,12 @@ $(document).ready(function () {
                 if (response.code == 200) {
                     alert('Exist')
 
-                    T4_table(id, T, path3[indic], path3[0])
+                    T4_table(id, T, path3[indic], path3[0],response.code)
                 }
                 else {
                     alert('New')
 
-                    T4_table(id, T, path3[indic], path3[0])
+                    T4_table(id, T, path3[indic], path3[0],response.code)
                 }
             }
         })
@@ -1944,13 +1954,13 @@ $(document).ready(function () {
                         alert('Exist')
                         var id = $(this).attr('id');
                         var T = 1;
-                        T1_table(id, T, path3[indic], path3[0])
+                        T1_table(id, T, path3[indic], path3[0],response.code)
                     }
                     else {
                         alert('New')
                         var id = $(this).attr('id');
                         var T = 1;
-                        T1_table(id, T, path3[indic], path3[0])
+                        T1_table(id, T, path3[indic], path3[0],response.code)
                     }
                 }
             })
@@ -1965,13 +1975,13 @@ $(document).ready(function () {
                         alert('Exist')
                         var id = $(this).attr('id');
                         var T = 1;
-                        T2_table(id, T, path3[indic], path3[0])
+                        T2_table(id, T, path3[indic], path3[0],response.code)
                     }
                     else {
                         alert('New')
                         var id = $(this).attr('id');
                         var T = 1;
-                        T2_table(id, T, path3[indic], path3[0])
+                        T2_table(id, T, path3[indic], path3[0],response.code)
                     }
                 }
             })
@@ -1985,13 +1995,13 @@ $(document).ready(function () {
                         alert('Exist')
                         var id = $(this).attr('id');
                         var T = 1;
-                        T3_table(id, T, path3[indic], path3[0])
+                        T3_table(id, T, path3[indic], path3[0],response.code)
                     }
                     else {
                         alert('New')
                         var id = $(this).attr('id');
                         var T = 1;
-                        T3_table(id, T, path3[indic], path3[0])
+                        T3_table(id, T, path3[indic], path3[0],response.code)
                     }
                 }
             })
@@ -2008,13 +2018,13 @@ $(document).ready(function () {
                         alert('Exist')
                         var id = $(this).attr('id');
                         var T = 1;
-                        T4_table(id, T, path3[indic], path3[0])
+                        T4_table(id, T, path3[indic], path3[0],response.code)
                     }
                     else {
                         alert('New')
                         var id = $(this).attr('id');
                         var T = 1;
-                        T4_table(id, T, path3[indic], path3[0])
+                        T4_table(id, T, path3[indic], path3[0],response.code)
                     }
                 }
             })
