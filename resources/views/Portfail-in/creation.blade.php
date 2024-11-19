@@ -43,10 +43,12 @@
                 <h5 class="card-title">
                     <i class="fas fa-file-alt"></i> Upload your document
                 </h5>
-                <form>
+                <form id="pdf-upload-form" enctype="multipart/form-data">
+                    @csrf
                     <div class="form-group">
                         <label for="num_port">Code du portefeuille</label>
-                        <input type="text" class="form-control" id="num_port" placeholder="Code du portefeuille">
+                        <input type="text" class="form-control" id="num_portefeuil" placeholder="Code du portefeuille">
+
                     </div>
                     <div class="form-group">
                         <label for="date_crt_portf">Date de sortie du portefeuille</label>
@@ -70,12 +72,20 @@
                     </div>
                     <div class="form-group">
                         <label for="inputFile">Journal scanner</label>
-                        <input type="file" class="form-control-file" id="inputFile" >
+                        <label for="pdf_file">Choisissez un fichier PDF :</label>
+                        <input type="file" name="pdf_file" id="pdf_file" accept="application/pdf" required>
+                        <button id="pdf-upload-form" data-id="1">Télécharger le PDF</button>
+
                     </div>
+
                 </form>
                 <button type="submit" class="btn btn-primary" id="add-wallet">
-                    <i class="fas fa-plus"></i> Add
+                    <i class="fas fa-plus"></i> Ajouter
                 </button>
+                <div id="message"></div>
+
+
+
 
 
             </div>
@@ -152,7 +162,128 @@
 <script src="{{asset('assets/bootstrap-5.0.2/js/bootstrap.js')}}"></script>
 <script src="{{asset('assets/fontawesome-free/js/all.js')}}"></script>
 <script src="{{asset('assets/js/jquery-3.7.1.min.js')}}"></script>
-<script src="{{asset('assets/js/main.js')}}"></script>
+
+<script>
+   document.getElementById('pdf-upload-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    // Récupérer les éléments du formulaire
+    var formData = new FormData();
+    var pdfFile = document.getElementById('pdf_file').files[0];
+    var relatedId = document.getElementById('num_portefeuil').value;
+
+    // Ajouter les données au FormData
+    formData.append('pdf_file', pdfFile);
+    formData.append('related_id', relatedId);
+    formData.append('_token', document.querySelector('meta[name="csrf-token"]').content);
+
+    // URL de l'action, correctement définie
+    var url = "{{ route('upload.pdf') }}";
+
+    // Envoi via fetch
+    fetch(url, {
+        method: 'POST',
+        body: formData
+    })
+        .then(response => {
+            // Vérifier si la réponse est OK (status 200-299)
+            if (!response.ok) {
+                throw new Error("Erreur réseau : " + response.status);
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Afficher le message de succès
+            document.getElementById('message').textContent = data.message || 'Téléchargement réussi.';
+        })
+        .catch(error => {
+            // Afficher le message d'erreur
+            console.error(error);
+            document.getElementById('message').textContent = "Erreur lors du téléchargement.";
+        });
+});
+</script>
+
+
+<script>
+    $("#add-wallet").on("click", function () {
+      var num_wallet = $("#num_port").val();
+      var dateprort = $("#date_crt_portf").val();
+      var year = new Date(dateprort).getFullYear(); // Extraire l'année à partir de la date
+      var numwall_year = num_wallet + year;
+      var indice = 0;
+      var isEmpty = false;
+      var formId = $(this).parents(".card-body").attr("id");
+      console.log("and form id" + formId);
+      $("#" + formId + " form")
+          .find("input")
+          .each(function () {
+              console.log("before the loop");
+              var inputValue = $(this).val();
+
+              // Check if the input is not empty
+              if (inputValue.trim() === "") {
+                  isEmpty = true;
+                  indice++;
+              }
+
+              if (isEmpty) {
+                  if (indice < 2) {
+                      alert("Please fill in all required fields.");
+                  }
+                  $(this).css(
+                      "box-shadow",
+                      "0 0 0 0.25rem rgb(255 0 0 / 47%)"
+                  );
+              }
+          });
+      // console.log('id'+num_wallet)
+      var formportinsert = {
+          num_portefeuil: numwall_year,
+          Date_portefeuille: $("#date_crt_portf").val(),
+          nom_journal: $("#nom_journ").val(),
+          num_journal: parseInt($("#num_journ").val()),
+          AE_portef: parseFloat($("#AE_portef").val()),
+          CP_portef: parseFloat($("#CP_portef").val()),
+          //year: year,
+          _token: $('meta[name="csrf-token"]').attr("content"),
+          _method: "POST",
+      };
+
+           // Ajouter le fichier s'il est sélectionné HOUDAA
+       var fileInput = $("#inputFile")[0]; // Assurez-vous que l'input de fichier a l'ID `file`
+       if (fileInput && fileInput.files.length > 0) {
+           formportinsert.append("inputFile", fileInput.files[0]);
+       }
+      $.ajax({
+          url: "/creation",
+          type: "POST",
+          data: formportinsert,
+          success: function (response) {
+              if (response.code == 200 || response.code == 404) {
+                  alert(response.message);
+                  path.push(numwall_year);
+                  path3.push(num_wallet);
+
+                  console.log("numwall_year path: " + JSON.stringify(path));
+
+                  $(".font-bk").removeClass("back-bk");
+                  $(".wallet-path").css("display", "flex");
+                  $(".wallet-handle").empty();
+                  $("#progam-handle").css("display", "block");
+                  $("#progam-handle").removeClass("scale-out");
+                  $("#progam-handle").addClass("scale-visible");
+                  $("#w_id").text(num_wallet);
+              } else {
+                  alert(response.message);
+              }
+          },
+          error: function () {
+              alert("error");
+          },
+      });
+  });
+</script>
 
 </body>
 </html>

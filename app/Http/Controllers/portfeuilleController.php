@@ -6,11 +6,14 @@ use Illuminate\Http\Request;
 use App\Models\Portefeuille;
 use App\Models\Programme;
 use App\Models\Action;
+use App\Models\Multimedia;
 use App\Models\SousAction;
 use App\Models\SousProgramme;
 use App\Models\ConstruireDPIA;
 use App\Models\ConstruireDPIC;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 use App\Services\CalculDpia;
 class portfeuilleController extends Controller
@@ -103,6 +106,9 @@ class portfeuilleController extends Controller
            $AE_All_prog=0;
            $CP_All_prog=0;
 
+           // $tesitng = SousAction::with(['GroupOperation.Operation'])->get();
+          //  dd($tesitng);
+
           foreach($progms as $progm)
           {
               $sousprog=SousProgramme::where('num_prog',$progm->num_prog)->get();
@@ -117,29 +123,35 @@ class portfeuilleController extends Controller
                           if(isset($listact))
                           {
                               $sous_act=SousAction::where('num_action',$listact->num_action)->get();
-                              //dd($sous_act);
+                            //  dd($sous_act);
                               foreach($sous_act as $listsousact)
                               {
 
                                   if(isset($listsousact))
                                   {
-                                     // $resultats = $this->CalculDpia->calculdpiaFromPath($id, $progm->num_prog, $sprog->num_sous_prog, $listact->num_action,$listsousact->num_sous_action);
-
-                                      try {
+                                     $resultats = $this->CalculDpia->calculdpiaFromPath($id, $progm->num_prog, $sprog->num_sous_prog, $listact->num_action,$listsousact->num_sous_action);
+                                    // dd($resultats);
+                                      /*try {
                                           $resultats = $this->CalculDpia->calculdpiaFromPath($id, $progm->num_prog, $sprog->num_sous_prog, $listact->num_action,$listsousact->num_sous_action);
                                       } catch (\Exception $e) {
 
                                           $resultats="null";
-                                      }
-                                      if($resultats != "null")
+                                      }*/
+                                      if(isset($resultats))
                                       {
                                         foreach($resultats as $Tresult)
                                         {
+                                           // dd($Tresult);
                                             $AE_All_sous_act+=$Tresult['total'][0]['values']['totalAE'];
                                             $CP_All_sous_act+=$Tresult['total'][0]['values']['totalCP'];
                                         }
+
                                       }
-                                      //dd($resultats);
+                                      else
+                                        {
+                                            $resultats=[];
+                                        }
+                                     // dd($resultats);
 
                                       array_push($allsous_action,['num_act'=>$listsousact->num_sous_action,'init_AE'=>$listsousact->AE_sous_action,'init_CP'=>$listsousact->CP_sous_action,'TotalAE'=>$AE_All_sous_act,'TotalCP'=>$CP_All_sous_act,'data'=>$listsousact,'Tports'=>$resultats]);
 
@@ -182,7 +194,7 @@ class portfeuilleController extends Controller
               'TotalCP'=>$por->CP_portef,
               'prgrammes'=>$allprogram,
           ];
-         //     dd($allport);
+         //    dd($allprogram[1]['sous_program'][2]);
       // Passer les données à la vue
       return view('Portfail-in.index', compact('allport'));
 
@@ -256,7 +268,9 @@ public function check_portef(Request $request)
         $portefeuille->Date_portefeuille = $request->Date_portefeuille;
         $portefeuille->id_min =1;//periodiquement
         $portefeuille->save();
-/*
+    }
+
+
 // Enregistrer le fichier et le lier au portefeuille
 if ($request->hasFile('file')) {
     dd($request);
@@ -294,8 +308,6 @@ if ($request->hasFile('file')) {
     return response()->json(['error' => 'Aucun fichier n\'a été téléchargé.'], 400);
 }
 */
-
-    }else{
 
 
         // Créer un nouveau portefeuille
@@ -341,36 +353,8 @@ if ($request->hasFile('file')) {
         return response()->json(['error' => 'Aucun fichier n\'a été téléchargé.'], 400);
     }
 
-    }
 
-        // creation de la table  construireDPIA
-        $DPIA = new ConstruireDPIA();
 
-        $DPIA->date_creation_dpia = $portefeuille->Date_portefeuille; // elle prend la date de creation du portfeuille
-        $DPIA->date_modification_dpia = $DPIA->date_creation_dpia;
-        $DPIA->motif_dpia = 'Création de DPIA à partir du portefeuille';
-
-        $DPIA->AE_dpia_nv = null;
-        $DPIA->CP_dpia_nv = null;
-
-        $DPIA->AE_ouvert_dpia = null;
-        $DPIA->AE_atendu_dpia = null;
-        $DPIA->CP_ouvert_dpia = null;
-        $DPIA->CP_atendu_dpia = null;
-
-        $DPIA->AE_reporte_dpia = null;
-        $DPIA->AE_notifie_dpia = null;
-        $DPIA->AE_engage_dpia = null;
-        $DPIA->CP_reporte_dpia = null;
-        $DPIA->CP_notifie_dpia = null;
-        $DPIA->CP_consome_dpia = null;
-
-        $DPIA->code_sous_operation = null;
-        $DPIA->id_rp = 1;
-        $DPIA->id_ra = 1;
-        $DPIA->save();
-
-        //dd( $DPIA);
 
         //creation de la table  construireDPic
         $DPIC = new ConstruireDPIC();
@@ -450,8 +434,67 @@ function update_portef(Request $request)
         }
 }
 //======================================================================================
-                                // FIN Modification du portefeuille
+                                // FIN Modification du portefeuille/ upload fille pdf
 //===================================================================================
+public function uploadPDF(Request $request)
+{
+    try {
+        // Valider le fichier PDF
+
+          $request->validate([
+              'pdf_file' => 'required|mimes:pdf|max:2048', // Limite à 2 MB
+              'related_id' => 'required'
+
+           ]);
+           $file = $request->file('pdf_file');
+           $path = $file->store('pdf_files', 'public'); // Enregistre dans storage/app/public/pdf_files
+
+          // Insérer les détails dans la base de données (table multimedia)
+          $media= DB::table('multimedia')->insert([
+              'nom_fichie' => $file->getClientOriginalName(),
+              'filepath' => $path,
+              'filetype' => $file->getClientMimeType(),
+              'size' => $file->getSize(),
+              'uploaded_by' => auth()->id(), // Assurez-vous que l'utilisateur est connecté
+              'related_id' => $request->input('related_id'),
+
+          ]);
+          dd($media);
+
+          // Enregistrer le fichier PDF
+          if ($request->hasFile('pdf_file')) {
 
 
-}
+             if( $media)
+             {
+              dd($media);
+              return response()->json(['message' => 'Fichier téléchargé avec succès.']);
+             }
+            else
+             {
+            dd($media);
+             return response()->json(['message' => 'Aucun fichier sélectionné.'], 400);
+
+             }
+
+
+
+       } else {
+            return response()->json(['message' => 'Aucun fichier sélectionné.'], 400);
+          }
+      } catch (\Exception $e) {
+          // En cas d'erreur, enregistre-la dans les logs de Laravel
+         \Log::error('Erreur de téléchargement PDF : ' . $e->getMessage());
+         return response()->json(['message' => 'Fichier téléchargé avec succès.']);
+
+
+  }
+
+
+} }
+
+
+
+
+
+

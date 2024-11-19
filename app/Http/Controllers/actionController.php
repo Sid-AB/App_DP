@@ -67,7 +67,6 @@ public function check_action(Request $request)
             'date_insert_action' => 'required|date',
         ]);
       //  dd($request);
-
              //si le sous PROG existe donc le modifier
     $action = action::where('num_action', $request->num_action)->first();
     if ($action) {
@@ -77,6 +76,7 @@ public function check_action(Request $request)
         $action->id_ra = 1;//periodiquement
         $action->date_insert_action = $request->date_insert_action;
         $action->save();
+        
 
           // Créer une nouvelle sous action
           $sousaction = new sousAction();

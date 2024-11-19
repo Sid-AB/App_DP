@@ -554,6 +554,10 @@ html, body {
   display: none;
   opacity: 0;
 }
+.card .card-body {
+  flex: 1 1 auto;
+  padding: 1.5rem 1.5rem;
+}
 .card-body button:hover
 {
   background-color: #FFA000;
@@ -699,7 +703,7 @@ z-index: 1000;
   /*width: 250px;*/
   background-color: #FFC107;
   height: 40px;
-  border-radius: 40%;
+  border-radius: 10px;
   margin: 5px;
 }
 .pinfo-handle p
@@ -1103,8 +1107,20 @@ transition-timing-function: line;
   font-size: 16px;
   max-width: 470px;
 }
+.Port-info-holder
+{
+  display: flex;
 
-
+}
+.T-holder
+{
+  border-right: 1px dotted;
+  margin-right: 5px ;
+}
+.T-holder p
+{
+  border-bottom: 1px dotted;
+}
 /** ====================== End table Template*/
 
 /***-------------------- this for the button new ops ---------------------*/
@@ -1127,5 +1143,13 @@ transition-timing-function: line;
     background: #fff;
     border: 1px solid #dee2e6;
     border-radius: 4px;
+}
+#AE_T4
+{
+  width: 100px;
+}
+#AE_T1
+{
+  width: 100px;
 }
 /**---------------------- end new ops -----------------------------------*/

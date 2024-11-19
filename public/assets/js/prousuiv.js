@@ -25,7 +25,7 @@ $(document).ready(function(){
         if (isEmpty) {
             if(indice < 2)
             {
-            alert("Veuillez remplir tous les champs obligatoires.");
+            alert("Veuillez remplir tous les champs obligatoires");
             }
             $(this).css('box-shadow','0 0 0 0.25rem rgb(255 0 0 / 47%)')
         }
@@ -83,25 +83,25 @@ $(document).ready(function(){
                                                     // Création du formulaire pour la sous-action après l'ajout de l'action
                                                     var prg4 = `<div class="form-container">
                                                            <form>
-                                                            <div class="form-group">
-                                                            <label for="num_sous_act">N°Sous ACTION</label>
-                                                            <input type="text" class="form-control" id="num_sous_act" placeholder="Donner le code Sous ACTION">
+                                                             <div class="form-group">
+                                                            <label for="num_sous_act">Code de Sous ACTION</label>
+                                                            <input type="text" class="form-control" id="num_sous_act" placeholder="Donner le Code d'ACTION">
                                                            </div>
                                                             <div class="form-group">
-                                                                <label for="nom_sous_act">Nom Sous ACTION</label>
-                                                            <input type="text" class="form-control" id="nom_sous_act" placeholder="Donner le Nom Sous ACTION">
+                                                                 <label for="date_insert_sou_action">Date du Journal</label>
+                                                                 <input type="date" class="form-control" id="date_insert_sou_action">
+                                                               </div>
+                                                            <div class="form-group">
+                                                                <label for="nom_sous_act">Nom de  Sous ACTION</label>
+                                                            <input type="text" class="form-control" id="nom_sous_act" placeholder=Donner le Nom d'ACTION">
                                                             </div>
                                                                <div class="form-group">
                                                                 <label for="AE_sous_act">AE pour Sous Action</label>
-                                                                <input type="number" class="form-control" id="AE_sous_act">
+                                                                <input type="number" class="form-control" id="AE_sous_act" placeholder="AE">
                                                             </div>
                                                             <div class="form-group">
                                                               <label for="CP_sous_act">CP pour Sous Action</label>
-                                                            <input type="number" class="form-control" id="CP_sous_act">
-                                                               </div>
-                                                               <div class="form-group">
-                                                                 <label for="date_insert_sou_action">Date Journal</label>
-                                                                 <input type="date" class="form-control" id="date_insert_sou_action">
+                                                            <input type="number" class="form-control" id="CP_sous_act" placeholder="CP">
                                                                </div>
                                                                </form>
                                                                <br>
@@ -151,14 +151,14 @@ $(document).ready(function(){
                                                                 }
                                                             },
                                                             error: function (response) {
-                                                                alert('Erreur lors de l\'ajout de la sous-action.');
+                                                                alert('Erreur lors de l\'ajout de la sous-action');
                                                             }
                                                         });
                                                     });
                                                 }
                                             },
                                             error: function (response) {
-                                                alert('Erreur lors de l\'ajout de l\'action.');
+                                                alert('Erreur lors de l\'ajout de l\'action');
                                             }
                                         });
                                     } else {
@@ -193,7 +193,7 @@ $(document).ready(function(){
                                                 }
                                             },
                                             error: function (response) {
-                                                alert('Erreur lors de l\'ajout de l\'action.');
+                                                alert('Erreur lors de l\'ajout de l\'action');
                                             }
                                         });
                                     }
