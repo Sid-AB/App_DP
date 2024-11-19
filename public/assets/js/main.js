@@ -90,103 +90,106 @@ var value_chng = new Array()
  *
  * this function for adding button et makalah -_- ;
  */
-function focus_()
-{
-    $('input').focus(function() {
+function focus_() {
+    $('input').focus(function () {
         $(this).removeAttr('style');
-        });
+    });
 }
-function check_ifnull(button)
-{
-    var indice=0;
-    var isEmpty=false
+function check_ifnull(button) {
+    var indice = 0;
+    var isEmpty = false
     var formId = $(button).parents('.form-container').attr('id');
-    console.log('and form id'+formId);
-    $('#' + formId+' form').find('input').each(function(){
+    console.log('and form id' + formId);
+    $('#' + formId + ' form').find('input').each(function () {
         console.log('before the loop')
         var inputValue = $(this).val();
 
         // Check if the input is not empty
-        if (inputValue.trim() === "")
-         {
+        if (inputValue.trim() === "") {
             isEmpty = true;
             indice++;
-         }
-
-
-    if (isEmpty) {
-        if(indice < 2)
-        {
-        alert("Veuillez remplir tous les champs obligatoires");
         }
-        $(this).css('box-shadow','0 0 0 0.25rem rgb(255 0 0 / 47%)')
+
+
+        if (isEmpty) {
+            if (indice < 2) {
+                alert("Veuillez remplir tous les champs obligatoires");
+            }
+            $(this).css('box-shadow', '0 0 0 0.25rem rgb(255 0 0 / 47%)')
+        }
+    });
+}
+
+function splitcode(str, length) {
+    let result = [];
+    for (let i = 0; i < str.length; i += length) {
+        let chunk = str.substring(i, i + length);
+        result.push({ substring: chunk, length: chunk.length });
     }
-});
+    return result;
 }
-function add_newOPs_T1(id,descr,value,key,)
-{
-    var row='<tr id="ref'+id+'">' +
-                '<td class="code" >' + id + '</td>' +
-                '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + descr + '</p></td>' +
-                '<td class="editable" id="AE_T1">' + value + '</td>' +
-                '<td class="editable" id="CP_T1">' + 180 + ',000</td>' +
-                '</tr>';
-    $('#ref'+key).after(row);
-    $('#ref'+key+' td').each(function()
-    {
-    $(this).removeClass('editable');})
-}
-function add_newOPs_T2(id,descr,value,key)
-{
-    var some=value+value;
-    var row='<tr id="ref'+id+'">' +
-    '<td class="code">' + id + '</td>' +
-    '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"> <p>' + descr + '</p> </td>' +
-    '<td class="editable" id="AE_Over">' + value + '</td>' +
-    '<td class="editable" id="CP_Over">' + 180 + ',000</td>' +
-    '<td class="editable" id="AE_att">' + value + '</td>' +
-    '<td class="editable" id="CP_att">' + 180 + ',000</td>' +
-    '<td  id="AE_TT" diseabled>' + some + '</td>' +
-    '<td  id="CP_TT" diseabled>' + 360 + ',000</td>' +
-    '</tr>';
-    $('#ref'+key).after(row);
-    $('#ref'+key+' td').each(function(){
-    $(this).removeClass('editable');
+
+
+function add_newOPs_T1(id, descr, value, key,) {
+    var row = '<tr id="ref' + id + '">' +
+        '<td class="code" >' + id + '</td>' +
+        '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + descr + '</p></td>' +
+        '<td class="editable" id="AE_T1">' + value + '</td>' +
+        '<td class="editable" id="CP_T1">' + 180 + ',000</td>' +
+        '</tr>';
+    $('#ref' + key).after(row);
+    $('#ref' + key + ' td').each(function () {
+        $(this).removeClass('editable');
     })
 }
-function add_newOPs_T3(id,descr,value,key,)
-{
-  var row='<tr id="ref'+id+'">' +
-    '<td class="code">' + id + '</td>' +
-    '<td><p>' + descr + '</p> </td>' +
-    '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + descr + '</p></td>' +
-    '<td class="editable" id="AE_rpor">' + value + '</td>' +
-    '<td class="editable" id="AE_not">' + 180 + ',000</td>' +
-    '<td class="editable" id="AE_enga">' + value + '</td>' +
-    '<td class="editable" id="AE_rpor">' + 180 + ',000</td>' +
-    '<td class="editable" id="AE_not">' + value + '</td>' +
-    '<td class="editable" id="AE_enga">' + 180 + ',000</td>' +
-    '</tr>';
-    $('#ref'+key).after(row);
-    $('#ref'+key+' td').each(function(){
-    $(this).removeClass('editable');
+function add_newOPs_T2(id, descr, value, key) {
+    var some = value + value;
+    var row = '<tr id="ref' + id + '">' +
+        '<td class="code">' + id + '</td>' +
+        '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"> <p>' + descr + '</p> </td>' +
+        '<td class="editable" id="AE_Over">' + value + '</td>' +
+        '<td class="editable" id="CP_Over">' + 180 + ',000</td>' +
+        '<td class="editable" id="AE_att">' + value + '</td>' +
+        '<td class="editable" id="CP_att">' + 180 + ',000</td>' +
+        '<td  id="AE_TT" diseabled>' + some + '</td>' +
+        '<td  id="CP_TT" diseabled>' + 360 + ',000</td>' +
+        '</tr>';
+    $('#ref' + key).after(row);
+    $('#ref' + key + ' td').each(function () {
+        $(this).removeClass('editable');
+    })
+}
+function add_newOPs_T3(id, descr, value, key,) {
+    var row = '<tr id="ref' + id + '">' +
+        '<td class="code">' + id + '</td>' +
+        '<td><p>' + descr + '</p> </td>' +
+        '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + descr + '</p></td>' +
+        '<td class="editable" id="AE_rpor">' + value + '</td>' +
+        '<td class="editable" id="AE_not">' + 180 + ',000</td>' +
+        '<td class="editable" id="AE_enga">' + value + '</td>' +
+        '<td class="editable" id="AE_rpor">' + 180 + ',000</td>' +
+        '<td class="editable" id="AE_not">' + value + '</td>' +
+        '<td class="editable" id="AE_enga">' + 180 + ',000</td>' +
+        '</tr>';
+    $('#ref' + key).after(row);
+    $('#ref' + key + ' td').each(function () {
+        $(this).removeClass('editable');
     })
 
 
 }
 
-function add_newOPs_T4(id,descr,value,key,)
-{
-    var row='<tr id="ref'+id+'">' +
-                '<td class="code" >' + id + '</td>' +
-                '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + descr + '</p></td>' +
-                '<td class="editable" id="AE_T4">' + value + '</td>' +
-                '<td class="editable" id="CP_T4">' + 180 + ',000</td>' +
-                '</tr>';
-    $('#ref'+key).after(row);
-    $('#ref'+key+' td').each(function()
-    {
-    $(this).removeClass('editable');})
+function add_newOPs_T4(id, descr, value, key,) {
+    var row = '<tr id="ref' + id + '">' +
+        '<td class="code" >' + id + '</td>' +
+        '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + descr + '</p></td>' +
+        '<td class="editable" id="AE_T4">' + value + '</td>' +
+        '<td class="editable" id="CP_T4">' + 180 + ',000</td>' +
+        '</tr>';
+    $('#ref' + key).after(row);
+    $('#ref' + key + ' td').each(function () {
+        $(this).removeClass('editable');
+    })
 }
 /**
  *
@@ -231,41 +234,36 @@ function Edit(tid, T) {
             // When the input loses focus, update the cell with new text
             input.blur(function (t) {
                 let newText = $(this).val();  // Get new value from input
-                    
-                    if (tid == 'T_port2' || tid == 'T2')
-                    {       var testcpattendu=clickedRow.find('td').eq(5).text();//cpattendu
-                            var testaeattendu=clickedRow.find('td').eq(4).text();//aeattendu
-                            var testcpover=clickedRow.find('td').eq(3).text();//cpovert
-                            var testaeover=clickedRow.find('td').eq(2).text();//aeovert
-                            var someae=0;
-                            var somecp=0;
-                            if(newText != 0 && newText != '' && newText != null)
-                            {
-                                var wit=$(this).parent().attr('id');
-                                console.log('ae -> '+testaeover+'cp ->'+testcpover+' ae ett -> '+testaeattendu+' cp ett ->'+testcpattendu+'value change ->'+JSON.stringify(wit))
-                                if(wit == 'CP_att')
-                                {
-                                    testcpattendu=newText
-                                }
-                                if(wit == 'AE_att')
-                                {
-                                    testaeattendu=newText
-                                }
-                                if(wit =='AE_Over')
-                                {
-                                    testaeover=newText
-                                }
-                                if(wit == 'CP_Over')
-                                {
-                                    testcpover=newText
-                                }
-                                somecp=parseFloat(testcpattendu)+parseFloat(testcpover)
-                                someae=parseFloat(testaeattendu)+parseFloat(testaeover);
-                                console.log('ae'+someae +' cp '+somecp)
-                                clickedRow.find('td').eq(6).text(someae);
-                                clickedRow.find('td').eq(7).text(somecp);
-                            }
+
+                if (tid == 'T_port2' || tid == 'T2') {
+                    var testcpattendu = clickedRow.find('td').eq(5).text();//cpattendu
+                    var testaeattendu = clickedRow.find('td').eq(4).text();//aeattendu
+                    var testcpover = clickedRow.find('td').eq(3).text();//cpovert
+                    var testaeover = clickedRow.find('td').eq(2).text();//aeovert
+                    var someae = 0;
+                    var somecp = 0;
+                    if (newText != 0 && newText != '' && newText != null) {
+                        var wit = $(this).parent().attr('id');
+                        console.log('ae -> ' + testaeover + 'cp ->' + testcpover + ' ae ett -> ' + testaeattendu + ' cp ett ->' + testcpattendu + 'value change ->' + JSON.stringify(wit))
+                        if (wit == 'CP_att') {
+                            testcpattendu = newText
+                        }
+                        if (wit == 'AE_att') {
+                            testaeattendu = newText
+                        }
+                        if (wit == 'AE_Over') {
+                            testaeover = newText
+                        }
+                        if (wit == 'CP_Over') {
+                            testcpover = newText
+                        }
+                        somecp = parseFloat(testcpattendu) + parseFloat(testcpover)
+                        someae = parseFloat(testaeattendu) + parseFloat(testaeover);
+                        console.log('ae' + someae + ' cp ' + somecp)
+                        clickedRow.find('td').eq(6).text(someae);
+                        clickedRow.find('td').eq(7).text(somecp);
                     }
+                }
                 if (newText != 0 && newText != '' && newText != null) {
                     mount_chang = true
 
@@ -300,8 +298,8 @@ function Edit(tid, T) {
                                     var cpDataOuvert = $(this).find('td').eq(3).text();
                                     var aeDataAttendu = $(this).find('td').eq(4).text();
                                     var cpDataAttendu = $(this).find('td').eq(5).text();
-                                    var someae= parseFloat(aeDataOuvert) + parseFloat(aeDataAttendu) ;
-                                    var somecp= parseFloat(cpDataOuvert) + parseFloat(cpDataAttendu);
+                                    var someae = parseFloat(aeDataOuvert) + parseFloat(aeDataAttendu);
+                                    var somecp = parseFloat(cpDataOuvert) + parseFloat(cpDataAttendu);
                                     // Ajoute les valeurs dans les objets
                                     data.ae_ouvert[code] = aeDataOuvert;
                                     data.cp_ouvert[code] = cpDataOuvert;
@@ -309,7 +307,7 @@ function Edit(tid, T) {
                                     data.cp_attendu[code] = cpDataAttendu;
 
                                 }
-                                if (tid == 'T_port3' || tid == 'T3' || T==3) {
+                                if (tid == 'T_port3' || tid == 'T3' || T == 3) {
 
                                     var code = $(this).find('td').eq(0).text();
                                     var aeDataReporte = $(this).find('td').eq(3).text();
@@ -350,15 +348,15 @@ function Edit(tid, T) {
                             //  console.log('path' + JSON.stringify(path))
                             //console.log('path' + JSON.stringify(path3))
                             //var url=   '/testing/Action/' + path.join('/');
-                            console.log(" eat "+path3.length)
+                            console.log(" eat " + path3.length)
                             if (path3.length > 4) {
                                 var url = '/testing/S_action/' + path3[0] + '/' + path3[1] + '/' + path3[2] + '/' + path3[3] + '/' + path3[4] + '/' + T;
                                 //var id_sous_action= path[4];
                             } else {
-                               // var id_sous_action= path[3];
+                                // var id_sous_action= path[3];
                                 var url = '/testing/S_action/' + path3[0] + '/' + path3[1] + '/' + path3[2] + '/' + path3[3] + '/' + path3[3] + '/' + T;
                             }
-                            console.log('URL '+url)
+                            console.log('URL ' + url)
                             $.ajax({
                                 url: url,
                                 type: 'GET',
@@ -371,12 +369,12 @@ function Edit(tid, T) {
                                     ae_attendu: data.ae_attendu,
                                     cp_attendu: data.cp_attendu,
 
-                                    ae_reporte:data.ae_reporte,
-                                    ae_notifie:data.ae_notifie,
-                                    ae_engage:data.ae_engage,
-                                    cp_reporte:data.cp_reporte,
-                                    cp_notifie:data.cp_notifie,
-                                    cp_consome:data.cp_consome,
+                                    ae_reporte: data.ae_reporte,
+                                    ae_notifie: data.ae_notifie,
+                                    ae_engage: data.ae_engage,
+                                    cp_reporte: data.cp_reporte,
+                                    cp_notifie: data.cp_notifie,
+                                    cp_consome: data.cp_consome,
                                     //id_sous_action: id_sous_action,
                                     _token: $('meta[name="csrf-token"]').attr('content'),
                                     _method: "GET"
@@ -386,7 +384,7 @@ function Edit(tid, T) {
                                         path.push();
                                         path3.push();
 
-                                       // window.location.href = ' testing/Action/'+ ;
+                                        // window.location.href = ' testing/Action/'+ ;
                                         console.log('path' + JSON.stringify(path))
 
                                     }
@@ -569,161 +567,160 @@ $(document).ready(function () {
 $(document).ready(function () {
 
 
-   // Vérifie l'existence du portefeuille lorsque le champ de date perd le focus
-   $('#date_crt_portf').on('focusout', function () {
-       var num_portefeuil = $('#num_port').val(); // Récupérer la valeur du portefeuille
-       var Date_portefeuille = $(this).val();  // Récupérer la valeur de la date
+    // Vérifie l'existence du portefeuille lorsque le champ de date perd le focus
+    $('#date_crt_portf').on('focusout', function () {
+        var num_portefeuil = $('#num_port').val(); // Récupérer la valeur du portefeuille
+        var Date_portefeuille = $(this).val();  // Récupérer la valeur de la date
 
-       var year = new Date(Date_portefeuille).getFullYear(); // Extraire l'année à partir de la date
-       var numwall_year = num_portefeuil + year;
-
-
-       // Vérifie que les deux champs sont remplis avant de continuer
-       if (Date_portefeuille && num_portefeuil) {
-           // Appel AJAX pour vérifier le portefeuille dans la base de données
-           $.ajax({
-               url: '/check-portef',  // Route pour vérifier l'existence du portefeuille
-               type: 'GET',
-               data: {
-                   num_portefeuil: numwall_year,
-                   Date_portefeuille: Date_portefeuille
-               },
-               success: function (response) {
-                   if (response.exists) {
-                       console.log(response); // Vérifiez la réponse
-
-                       console.log('numwall_year path3: ' + JSON.stringify(path3));
-
-                       // Remplir les champs du formulaire avec les données récupérées
-                       $('#date_crt_portf').val(response.Date_portefeuille).trigger('change'); // Remplir et déclencher l'événement change
-                       $('#AE_portef').val(response.AE_portef).trigger('change'); // Remplir et déclencher l'événement change
-                       $('#CP_portef').val(response.CP_portef).trigger('change'); // Remplir et déclencher l'événement change
-                       $('#nom_journ').val(response.nom_journal).trigger('change'); // Remplir et déclencher l'événement change
-                       $('#num_journ').val(response.num_journal).trigger('change'); // Remplir et déclencher l'événement change
-
-                       alert('Le portefeuille existe déjà');
-
-                      //$('.font-bk').removeClass('back-bk')
-                      //$('.wallet-path').css('display', 'flex')
-                      //$('.wallet-handle').empty()
-                      //$('#progam-handle').css('display', 'block')
-                      //$('#progam-handle').removeClass('scale-out')
-                      //$('#progam-handle').addClass('scale-visible')
-                      //$('#w_id').text(num_portefeuil)
-                   } else {
-                       //alert('Le portefeuille n\'existe pas.');
-                   }
-               },
-               error: function () {
-                   alert('Erreur lors de la vérification du portefeuille');
-               }
-           });
-       }
-   });
+        var year = new Date(Date_portefeuille).getFullYear(); // Extraire l'année à partir de la date
+        var numwall_year = num_portefeuil + year;
 
 
- $("#add-wallet").on("click", function () {
-      var num_wallet = $("#num_port").val();
-      var dateprort = $("#date_crt_portf").val();
-      var year = new Date(dateprort).getFullYear(); // Extraire l'année à partir de la date
-      var numwall_year = num_wallet + year;
-      var indice = 0;
-      var isEmpty = false;
-      var formId = $(this).parents(".card-body").attr("id");
-      console.log("and form id" + formId);
-      $("#" + formId + " form")
-          .find("input")
-          .each(function () {
-              console.log("before the loop");
-              var inputValue = $(this).val();
+        // Vérifie que les deux champs sont remplis avant de continuer
+        if (Date_portefeuille && num_portefeuil) {
+            // Appel AJAX pour vérifier le portefeuille dans la base de données
+            $.ajax({
+                url: '/check-portef',  // Route pour vérifier l'existence du portefeuille
+                type: 'GET',
+                data: {
+                    num_portefeuil: numwall_year,
+                    Date_portefeuille: Date_portefeuille
+                },
+                success: function (response) {
+                    if (response.exists) {
+                        console.log(response); // Vérifiez la réponse
 
-              // Check if the input is not empty
-              if (inputValue.trim() === "") {
-                  isEmpty = true;
-                  indice++;
-              }
+                        console.log('numwall_year path3: ' + JSON.stringify(path3));
 
-              if (isEmpty) {
-                  if (indice < 2) {
-                      alert("Veuillez remplir tous les champs obligatoires");
-                  }
-                  $(this).css(
-                      "box-shadow",
-                      "0 0 0 0.25rem rgb(255 0 0 / 47%)"
-                  );
-              }
-          });
-      // console.log('id'+num_wallet)
-      var formportinsert = {
-          num_portefeuil: numwall_year,
-          Date_portefeuille: $("#date_crt_portf").val(),
-          nom_journal: $("#nom_journ").val(),
-          num_journal: parseInt($("#num_journ").val()),
-          AE_portef: parseFloat($("#AE_portef").val()),
-          CP_portef: parseFloat($("#CP_portef").val()),
-          //year: year,
-          _token: $('meta[name="csrf-token"]').attr("content"),
-          _method: "POST",
-      };
+                        // Remplir les champs du formulaire avec les données récupérées
+                        $('#date_crt_portf').val(response.Date_portefeuille).trigger('change'); // Remplir et déclencher l'événement change
+                        $('#AE_portef').val(response.AE_portef).trigger('change'); // Remplir et déclencher l'événement change
+                        $('#CP_portef').val(response.CP_portef).trigger('change'); // Remplir et déclencher l'événement change
+                        $('#nom_journ').val(response.nom_journal).trigger('change'); // Remplir et déclencher l'événement change
+                        $('#num_journ').val(response.num_journal).trigger('change'); // Remplir et déclencher l'événement change
 
-           // Ajouter le fichier s'il est sélectionné HOUDAA
-       var fileInput = $("#inputFile")[0]; // Assurez-vous que l'input de fichier a l'ID `file`
-       if (fileInput && fileInput.files.length > 0) {
-           formportinsert.append("inputFile", fileInput.files[0]);
-       }
-      $.ajax({
-          url: "/creation",
-          type: "POST",
-          data: formportinsert,
-          success: function (response) {
-              if (response.code == 200 || response.code == 404) {
-                  alert(response.message);
-                  path.push(numwall_year);
-                  path3.push(num_wallet);
+                        alert('Le portefeuille existe déjà');
 
-                  console.log("numwall_year path: " + JSON.stringify(path));
+                        //$('.font-bk').removeClass('back-bk')
+                        //$('.wallet-path').css('display', 'flex')
+                        //$('.wallet-handle').empty()
+                        //$('#progam-handle').css('display', 'block')
+                        //$('#progam-handle').removeClass('scale-out')
+                        //$('#progam-handle').addClass('scale-visible')
+                        //$('#w_id').text(num_portefeuil)
+                    } else {
+                        //alert('Le portefeuille n\'existe pas.');
+                    }
+                },
+                error: function () {
+                    alert('Erreur lors de la vérification du portefeuille');
+                }
+            });
+        }
+    });
 
-                  $(".font-bk").removeClass("back-bk");
-                  $(".wallet-path").css("display", "flex");
-                  $(".wallet-handle").empty();
-                  $("#progam-handle").css("display", "block");
-                  $("#progam-handle").removeClass("scale-out");
-                  $("#progam-handle").addClass("scale-visible");
-                  $("#w_id").text(num_wallet);
-              } else {
-                  alert(response.message);
-              }
-          },
-          error: function () {
-              alert("error");
-          },
-      });
-  });
+
+    $("#add-wallet").on("click", function () {
+        var num_wallet = $("#num_port").val();
+        var dateprort = $("#date_crt_portf").val();
+        var year = new Date(dateprort).getFullYear(); // Extraire l'année à partir de la date
+        var numwall_year = num_wallet + year;
+        var indice = 0;
+        var isEmpty = false;
+        var formId = $(this).parents(".card-body").attr("id");
+        console.log("and form id" + formId);
+        $("#" + formId + " form")
+            .find("input")
+            .each(function () {
+                console.log("before the loop");
+                var inputValue = $(this).val();
+
+                // Check if the input is not empty
+                if (inputValue.trim() === "") {
+                    isEmpty = true;
+                    indice++;
+                }
+
+                if (isEmpty) {
+                    if (indice < 2) {
+                        alert("Veuillez remplir tous les champs obligatoires");
+                    }
+                    $(this).css(
+                        "box-shadow",
+                        "0 0 0 0.25rem rgb(255 0 0 / 47%)"
+                    );
+                }
+            });
+        // console.log('id'+num_wallet)
+        var formportinsert = {
+            num_portefeuil: numwall_year,
+            Date_portefeuille: $("#date_crt_portf").val(),
+            nom_journal: $("#nom_journ").val(),
+            num_journal: parseInt($("#num_journ").val()),
+            AE_portef: parseFloat($("#AE_portef").val()),
+            CP_portef: parseFloat($("#CP_portef").val()),
+            //year: year,
+            _token: $('meta[name="csrf-token"]').attr("content"),
+            _method: "POST",
+        };
+
+        // Ajouter le fichier s'il est sélectionné HOUDAA
+        var fileInput = $("#inputFile")[0]; // Assurez-vous que l'input de fichier a l'ID `file`
+        if (fileInput && fileInput.files.length > 0) {
+            formportinsert.append("inputFile", fileInput.files[0]);
+        }
+        $.ajax({
+            url: "/creation",
+            type: "POST",
+            data: formportinsert,
+            success: function (response) {
+                if (response.code == 200 || response.code == 404) {
+                    alert(response.message);
+                    path.push(numwall_year);
+                    path3.push(num_wallet);
+
+                    console.log("numwall_year path: " + JSON.stringify(path));
+
+                    $(".font-bk").removeClass("back-bk");
+                    $(".wallet-path").css("display", "flex");
+                    $(".wallet-handle").empty();
+                    $("#progam-handle").css("display", "block");
+                    $("#progam-handle").removeClass("scale-out");
+                    $("#progam-handle").addClass("scale-visible");
+                    $("#w_id").text(num_wallet);
+                } else {
+                    alert(response.message);
+                }
+            },
+            error: function () {
+                alert("error");
+            },
+        });
+    });
 
 
 
 
 });
 focus_()
-$("#date_insert_portef").on('focusout',function()
-{
+$("#date_insert_portef").on('focusout', function () {
     var num_prog = $('#num_prog').val(); // Récupérer la valeur du portefeuille
     var Date_prog = $(this).val();  // Récupérer la valeur de la date
 
     var year = new Date(Date_prog).getFullYear(); // Extraire l'année à partir de la date
-    var numprog_year = num_prog+path[0];
+    var numprog_year = num_prog + path[0];
 
 
     // Vérifie que les deux champs sont remplis avant de continuer
     if (Date_prog && num_prog) {
         // Appel AJAX pour vérifier le portefeuille dans la base de données
 
-        console.log('data'+numprog_year)    
+        console.log('data' + numprog_year)
         $.ajax({
             url: '/check-prog',  // Route pour vérifier l'existence du portefeuille
             type: 'GET',
             data: {
-                num_portefeuil:path[0],
+                num_portefeuil: path[0],
                 num_prog: numprog_year,
                 Date_prog: Date_prog
             },
@@ -733,7 +730,7 @@ $("#date_insert_portef").on('focusout',function()
                     console.log('numwall_year path3: ' + JSON.stringify(path3));
 
                     // Remplir les champs du formulaire avec les données récupérées
-                    console.log('response.AE_prog'+response.AE_prog)
+                    console.log('response.AE_prog' + response.AE_prog)
                     $('#date_insert_portef').val(response.date_insert_portef).trigger('change');
                     $('#nom_prog').val(response.nom_prog).trigger('change'); // Remplir et déclencher l'événement change
                     $('#AE_prog').val(response.AE_prog).trigger('change'); // Remplir et déclencher l'événement change
@@ -744,13 +741,13 @@ $("#date_insert_portef").on('focusout',function()
 
                     alert('Le portefeuille existe déjà');
 
-                   //$('.font-bk').removeClass('back-bk')
-                   //$('.wallet-path').css('display', 'flex')
-                   //$('.wallet-handle').empty()
-                   //$('#progam-handle').css('display', 'block')
-                   //$('#progam-handle').removeClass('scale-out')
-                   //$('#progam-handle').addClass('scale-visible')
-                   //$('#w_id').text(num_portefeuil)
+                    //$('.font-bk').removeClass('back-bk')
+                    //$('.wallet-path').css('display', 'flex')
+                    //$('.wallet-handle').empty()
+                    //$('#progam-handle').css('display', 'block')
+                    //$('#progam-handle').removeClass('scale-out')
+                    //$('#progam-handle').addClass('scale-visible')
+                    //$('#w_id').text(num_portefeuil)
                 } else {
                     //alert('Le portefeuille n\'existe pas.');
                 }
@@ -764,16 +761,16 @@ $("#date_insert_portef").on('focusout',function()
 $("#add-prg").on('click', function () {
     var id_prog = $('#num_prog').val();
     var nom_prog = $('#nom_prog').val();
-    var ae_prog =parseFloat($('#AE_prog').val())
-    var cp_prog =parseFloat($('#CP_prog').val())
+    var ae_prog = parseFloat($('#AE_prog').val())
+    var cp_prog = parseFloat($('#CP_prog').val())
     var numprog_year = id_prog + path[0];
     var date_sort_jour = $('#date_insert_portef').val();
     check_ifnull(this)
     var formprogdata = {
         num_prog: numprog_year,
         nom_prog: nom_prog,
-        ae_prog:parseFloat(ae_prog),
-        cp_prog:parseFloat(cp_prog),
+        ae_prog: parseFloat(ae_prog),
+        cp_prog: parseFloat(cp_prog),
         num_portefeuil: path[0],
         date_insert_portef: date_sort_jour,
         _token: $('meta[name="csrf-token"]').attr('content'),
@@ -851,7 +848,7 @@ $("#add-prg").on('click', function () {
                     //var year = new Date(Date_sou_program).getFullYear(); // Extraire l'année à partir de la date
                     var num_sou_prog = $('#num_sous_prog').val(); // Récupérer la valeur de la date du programme
                     // Vérifie que les deux champs sont remplis avant de continuer
-                    var num_sou_program=num_sou_prog + path[3];
+                    var num_sou_program = num_sou_prog + path[3];
                     if (Date_sou_program && num_sou_prog) {
                         // Appel AJAX pour vérifier le programme dans la base de données
                         $.ajax({
@@ -867,7 +864,7 @@ $("#add-prg").on('click', function () {
 
                                     // Remplir les champs du formulaire avec les données récupérées
                                     $('#nom_sous_prog').val(response.nom_sous_prog).trigger('change'); // Remplir et déclencher l'événement change
-                                   //    $('#date_insert_sousProg').val(response.date_insert_sousProg).trigger('change'); // Remplir et déclencher l'événement change
+                                    //    $('#date_insert_sousProg').val(response.date_insert_sousProg).trigger('change'); // Remplir et déclencher l'événement change
                                     $('#AE_sous_prog').val(response.AE_sous_prog).trigger('change'); // Remplir et déclencher l'événement change
                                     $('#CP_sous_prog').val(response.CP_sous_prog).trigger('change'); // Remplir et déclencher l'événement change
                                     //   $('#num_journ_program').val(response.num_journal).trigger('change'); // Remplir et déclencher l'événement change
@@ -890,8 +887,8 @@ $("#add-prg").on('click', function () {
                     var sou_prog = $('#num_sous_prog').val()
                     var nom_sou_prog = $('#nom_sous_prog').val();
                     var dat_sou_prog = $('#date_insert_sousProg').val()
-                    var AE_sous_prog=$('#AE_sous_prog').val()
-                    var CP_sous_prog=$('#CP_sous_prog').val()
+                    var AE_sous_prog = $('#AE_sous_prog').val()
+                    var CP_sous_prog = $('#CP_sous_prog').val()
                     var id_prog = path[2];
                     var numsouprog_year = sou_prog + id_prog;
                     check_ifnull('#add-prg2')
@@ -939,8 +936,8 @@ $("#add-prg").on('click', function () {
                     var formdatasou_prog = {
                         num_sous_prog: numsouprog_year,
                         nom_sous_prog: nom_sou_prog,
-                        AE_sous_prog:AE_sous_prog,
-                        CP_sous_prog:CP_sous_prog,
+                        AE_sous_prog: AE_sous_prog,
+                        CP_sous_prog: CP_sous_prog,
                         date_insert_sousProg: dat_sou_prog,
                         id_program: id_prog,
                         //id_porte: id_port,
@@ -969,46 +966,41 @@ $("#add-prg").on('click', function () {
 
 
 
-                                $('#date_insert_action').on('focusout',function()
-                                {
+                                $('#date_insert_action').on('focusout', function () {
                                     alert('out')
-                                   var date_act=$(this).val();
-                                   var num_act=$('#num_act').val();
-                                 //  var date_act=  new Date(date_act).getFullYear(); 
-                                   var numact_year = num_act+path[4];
-                                   console.log('the new id'+numact_year+' with '+JSON.stringify(path))
-                                   if(date_act && num_act)
-                                   {
-                                    $.ajax({
-                                        url: '/check-action',  // Route pour vérifier l'existence du programme
-                                        type: 'GET',
-                                        data: {
-                                        num_action: numact_year,
-                                        },
-                                        success:function(response)
-                                        {
-                                            if(response.exists)
-                                            {
-                                                $('#nom_act').val(response.nom_action).trigger('change'); // Remplir et déclencher l'événement change
-                                               // $('#date_insert_action').val(response.date_insert_action).trigger('change'); // Remplir et déclencher l'événement change
-                                                $('#AE_act').val(response.AE_act).trigger('change'); // Remplir et déclencher l'événement change
-                                                $('#CP_act').val(response.CP_act).trigger('change'); // Remplir et déclencher l'événement change
-                                                alert('L`Action existe déjà');
+                                    var date_act = $(this).val();
+                                    var num_act = $('#num_act').val();
+                                    //  var date_act=  new Date(date_act).getFullYear(); 
+                                    var numact_year = num_act + path[4];
+                                    console.log('the new id' + numact_year + ' with ' + JSON.stringify(path))
+                                    if (date_act && num_act) {
+                                        $.ajax({
+                                            url: '/check-action',  // Route pour vérifier l'existence du programme
+                                            type: 'GET',
+                                            data: {
+                                                num_action: numact_year,
+                                            },
+                                            success: function (response) {
+                                                if (response.exists) {
+                                                    $('#nom_act').val(response.nom_action).trigger('change'); // Remplir et déclencher l'événement change
+                                                    // $('#date_insert_action').val(response.date_insert_action).trigger('change'); // Remplir et déclencher l'événement change
+                                                    $('#AE_act').val(response.AE_act).trigger('change'); // Remplir et déclencher l'événement change
+                                                    $('#CP_act').val(response.CP_act).trigger('change'); // Remplir et déclencher l'événement change
+                                                    alert('L`Action existe déjà');
 
-                                            }
-                                            else
-                                            {
-                                                alert('Erreur d`Opération');
+                                                }
+                                                else {
+                                                    alert('Erreur d`Opération');
 
+                                                }
                                             }
-                                        }
-                                    })
-                                   }
+                                        })
+                                    }
                                 })
 
                                 /******           ACTION add for under_progam                    *********** */
 
-                              
+
                                 $('#add-prg3').on('click', function () {
                                     /**
                                      *  this part for chacking if he want to under_action
@@ -1022,26 +1014,26 @@ $("#add-prg").on('click', function () {
                                         $('#confirm-holder_act').append('<i class="fas fa-wrench"></i>')
                                         var nom_act = $('#nom_act').val();
                                         var num_act = $('#num_act').val();
-                                        var AE_act=$('#AE_act').val()
-                                        var CP_act=$('#CP_act').val()
+                                        var AE_act = $('#AE_act').val()
+                                        var CP_act = $('#CP_act').val()
                                         var dat_inst = $('#date_insert_action').val();
                                         var id_sou_prog = path[4];
                                         check_ifnull('#add-prg3')
                                         var numaction_year = num_act + id_sou_prog;
                                         var nexthop = '<div class="pinfo-handle">' +
-                                         '<i class="fas fa-wallet"></i>' +
-                                         '<p >Action :</p>' +
-                                          '<p>' + num_act + '</p>' +
-                                           '</div>' +
-                                          ' <div class="next-handle">' +
-                                          '<i class="fas fa-angle-double-right waiting-icon"></i>' +
-                                          '</div>'
+                                            '<i class="fas fa-wallet"></i>' +
+                                            '<p >Action :</p>' +
+                                            '<p>' + num_act + '</p>' +
+                                            '</div>' +
+                                            ' <div class="next-handle">' +
+                                            '<i class="fas fa-angle-double-right waiting-icon"></i>' +
+                                            '</div>'
                                         // Création du formData pour l'action
                                         var formdata_act = {
                                             num_action: numaction_year,
                                             nom_action: nom_act,
-                                            AE_act:AE_act,
-                                            CP_act:CP_act,
+                                            AE_act: AE_act,
+                                            CP_act: CP_act,
                                             date_insert_action: dat_inst,
                                             id_sous_prog: path[5],
                                             //id_prog: path[1],
@@ -1103,8 +1095,8 @@ $("#add-prg").on('click', function () {
                                                         console.log('inside sous_action')
                                                         var nom_sous_act = $('#nom_sous_act').val();
                                                         var num_sous_act = $('#num_sous_act').val();
-                                                        var AE_sous_act=$('#AE_sous_act').val()
-                                                        var CP_sous_act=$('#CP_sous_act').val()
+                                                        var AE_sous_act = $('#AE_sous_act').val()
+                                                        var CP_sous_act = $('#CP_sous_act').val()
                                                         var dat_inst = $('#date_insert_sou_action').val();
                                                         check_ifnull('#add-prg4')
                                                         var numaction_year = path[3];
@@ -1113,13 +1105,13 @@ $("#add-prg").on('click', function () {
                                                         var formdata_sous_act = {
                                                             num_sous_action: numsousaction_year,
                                                             nom_sous_action: nom_sous_act,
-                                                            AE_sous_act:AE_sous_act,
-                                                            CP_sous_act:CP_sous_act,
+                                                            AE_sous_act: AE_sous_act,
+                                                            CP_sous_act: CP_sous_act,
                                                             date_insert_sous_action: dat_inst,
                                                             num_act: path[4],
                                                             //id_sous_act: path[2],
                                                             //id_prog: path[1],
-                                                           // id_porte: path[0],
+                                                            // id_porte: path[0],
                                                             //year: year,
                                                             _token: $('meta[name="csrf-token"]').attr('content'),
                                                             _method: 'POST'
@@ -1138,7 +1130,7 @@ $("#add-prg").on('click', function () {
 
                                                                     // Redirection vers la page suivante après l'ajout de la sous-action
                                                                     alert('testing')
-                                                                    window.location.href = 'testing/S_action/'+ path[0]+'/'+path[3]+'/'+path[5]+'/'+path[6]+'/'+path[7];
+                                                                    window.location.href = 'testing/S_action/' + path[0] + '/' + path[3] + '/' + path[5] + '/' + path[6] + '/' + path[7];
                                                                 }
                                                             },
                                                             error: function (response) {
@@ -1156,8 +1148,8 @@ $("#add-prg").on('click', function () {
                                         // Cas où l'utilisateur n'ajoute pas de sous-action
                                         var nom_act = $('#nom_act').val();
                                         var num_act = $('#num_act').val();
-                                        var AE_act=$('#AE_act').val()
-                                        var CP_act=$('#CP_act').val()
+                                        var AE_act = $('#AE_act').val()
+                                        var CP_act = $('#CP_act').val()
                                         var dat_inst = $('#date_insert_action').val();
                                         var id_sou_prog = path[4];
                                         var numaction_year = num_act + id_sou_prog;
@@ -1165,8 +1157,8 @@ $("#add-prg").on('click', function () {
                                         var formdata_act = {
                                             num_action: numaction_year,
                                             nom_action: nom_act,
-                                            AE_act:AE_act,
-                                            CP_act:CP_act,
+                                            AE_act: AE_act,
+                                            CP_act: CP_act,
                                             date_insert_action: dat_inst,
                                             id_sous_prog: id_sou_prog,
                                             //id_prog: path[1],
@@ -1184,7 +1176,7 @@ $("#add-prg").on('click', function () {
                                                     path.push(numaction_year);
                                                     path3.push(num_act);
                                                     // console.log('path: ' + JSON.stringify(path));
-                                                    window.location.href = 'testing/Action/'+ path[0]+'/'+path[3]+'/'+path[5]+'/'+path[6];
+                                                    window.location.href = 'testing/Action/' + path[0] + '/' + path[3] + '/' + path[5] + '/' + path[6];
                                                 }
                                             },
                                             error: function (response) {
@@ -1223,13 +1215,13 @@ $("#add-prg").on('click', function () {
  *
  */
 
-function T1_table(id, T,id_s_act) {
+function T1_table(id, T, id_s_act, port) {
 
-    var current =new Array();
+    var current = new Array();
     var preve = new Array();
-    var newbtn='<i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i>'
-    var data_T_port=new Array();
-    console.log('T is'+ T)
+    var newbtn = '<i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i>'
+    var data_T_port = new Array();
+    console.log('T is' + T)
     $('#Tport-handle').addClass('scale-out');
     setTimeout(() => {
         // Add the class to hide the table
@@ -1239,16 +1231,14 @@ function T1_table(id, T,id_s_act) {
         $('.T-handle').css('display', 'flex')
     }, 500)
     $.ajax({
-        url:'/testing/S_action/'+id_s_act+'/T1',
-        type:'GET',
-        success:function(response){
-            if(response.code === 200)
-            {
-                console.log('data'+JSON.stringify(response.results.T1[24]['code_grp_operation']))
-                data_T_port=response.results.T1;
+        url: '/testing/S_action/' + port + '/' + id_s_act + '/T1',
+        type: 'GET',
+        success: function (response) {
+            if (response.code === 200) {
+                console.log('data' + JSON.stringify(Object.keys(response.results)).length)
+                data_T_port = response.results;
             }
-            else
-            {
+            else {
                 alert(response.message);
             }
         }
@@ -1262,81 +1252,110 @@ function T1_table(id, T,id_s_act) {
     $('#T-tables thead').append(headT)
     $.getJSON(jsonpath1, function (data) {
         // Loop through each item in the JSON data
-        var lengT =Object.keys(data).length
+        var lengT = Object.keys(data).length
         var i = 0;
+        var ig = 0;
+        var io = 0;
+        var iso = 0;
+        console.log('testing split function' + splitcode(data_T_port.group[0].code, 5)[0].substring)
         $.each(data, function (key, value) {
             // Create a table row
-            let row = '<tr id="ref'+key+'">' +
+            let row = '<tr id="ref' + key + '">' +
                 '<td class="code" >' + key + '</td>' +
                 '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
-                '<td class="editable" id="AE_T1">' + 0 + '</td>' +
-                '<td class="editable" id="CP_T1">' + 0 + '</td>' +
+                '<td class="editable" id="AE_T1">' + 1 + '</td>' +
+                '<td class="editable" id="CP_T1">' + 1 + '</td>' +
                 '</tr>';
+            if (data_T_port.group.length > 0 && data_T_port.group.length > ig) {
+                if (key == splitcode(data_T_port.group[ig].code, 5)[0].substring) {
+                    row = '<tr id="ref' + key + '">' +
+                        '<td class="code" >' + key + '</td>' +
+                        '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
+                        '<td class="editable" id="AE_T1">' + data_T_port.group[ig].values.ae_grpop + '</td>' +
+                        '<td class="editable" id="CP_T1">' + data_T_port.group[ig].values.cp_grpop + '</td>' +
+                        '</tr>';
+                    ig++;
+                }
+            }
+            if (data_T_port.operation.length > 0 && data_T_port.operation.length > io) {
+                if (key == splitcode(data_T_port.operation[io].code, 5)[0].substring) {
+                    row = '<tr id="ref' + key + '">' +
+                        '<td class="code" >' + key + '</td>' +
+                        '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
+                        '<td class="editable" id="AE_T1">' + data_T_port.operation[io].values.ae_op + '</td>' +
+                        '<td class="editable" id="CP_T1">' + data_T_port.operation[io].values.cp_op + '</td>' +
+                        '</tr>';
+                    io++;
+                }
+            }
+            if (data_T_port.sousOperation.length > 0 && data_T_port.sousOperation.length > iso) {
+                if (key == splitcode(data_T_port.sousOperation[iso].code, 5)[0].substring) {
+                    row = '<tr id="ref' + key + '">' +
+                        '<td class="code" >' + key + '</td>' +
+                        '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
+                        '<td class="editable" id="AE_T1">' + data_T_port.sousOperation[iso].values.ae_sousop + '</td>' +
+                        '<td class="editable" id="CP_T1">' + data_T_port.sousOperation[iso].values.cp_sousuop + '</td>' +
+                        '</tr>';
+                    iso++;
+                }
+            }
 
             // Append the row to the table body
 
             $('#T-tables tbody').append(row);
             Edit(id, T)
             i++
-            console.log('the lengh'+lengT+'and the pas'+i)
-            if(i == lengT)
-            {
-                if($('#ref'+key+' td').hasClass("editable"))
-                    {
-                    $('#ref'+key+' #add_op').append(newbtn)
-                    $('#ref'+key+' #add_op').on('click',function()
-                    {
-                        var ads=key+'1';
-                        add_newOPs_T3(ads,'testing new descr',2500,key);
+            console.log('the lengh' + lengT + 'and the pas' + i)
+            if (i == lengT) {
+                if ($('#ref' + key + ' td').hasClass("editable")) {
+                    $('#ref' + key + ' #add_op').append(newbtn)
+                    $('#ref' + key + ' #add_op').on('click', function () {
+                        var ads = key + '1';
+                        add_newOPs_T3(ads, 'testing new descr', 2500, key);
                         Edit(id, T)
                     })
-                    }
+                }
             }
 
-            if(current.length == 0)
-            {
+            if (current.length == 0) {
                 current = key;
                 preve = current;
             }
-            else
-            {
+            else {
                 current = key;
-                if(current.split("0")[0].length > preve.split("0")[0].length)
-                {
+                if (current.split("0")[0].length > preve.split("0")[0].length) {
                     //console.log('testing editable'+key)
-                    $('#ref'+preve+' td').each(function(){
+                    $('#ref' + preve + ' td').each(function () {
                         $(this).removeClass('editable')
                     })
                     preve = current;
                 }
-                else
-                {
-                 //   console.log('testing '+key)
-                    if($('#ref'+preve+' td').hasClass("editable"))
-                    {
-                    $('#ref'+preve+' #add_op').append(newbtn)
-                    $('#ref'+preve+' #add_op').on('click',function()
-                    {
-                        var ads=key+'1';
-                        add_newOPs_T1(ads,'testing new descr',2500,key);
-                        Edit(id, T)
-                    })
+                else {
+                    //   console.log('testing '+key)
+                    if ($('#ref' + preve + ' td').hasClass("editable")) {
+                        $('#ref' + preve + ' #add_op').append(newbtn)
+                        $('#ref' + preve + ' #add_op').on('click', function () {
+                            var ads = key + '1';
+                            add_newOPs_T1(ads, 'testing new descr', 2500, key);
+                            Edit(id, T)
+                        })
                     }
                     preve = current;
                 }
                 current = key;
             }
 
-           
+
         });
     }).fail(function () {
         console.error('Error loading JSON file.');
     });
 }
-function T2_table(id, T) {
-    var current =new Array();
+function T2_table(id, T, id_s_act, port) {
+    var current = new Array();
     var preve = new Array();
-    var newbtn='<i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i>'
+    var data_T_port = new Array();
+    var newbtn = '<i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i>'
     $('#Tport-handle').addClass('scale-out');
     setTimeout(() => {
         // Add the class to hide the table
@@ -1345,6 +1364,21 @@ function T2_table(id, T) {
         $('#Tport-handle').removeClass('scale-out');
         $('.T-handle').css('display', 'flex')
     }, 500)
+
+    $.ajax({
+        url: '/testing/S_action/' + port + '/' + id_s_act + '/T2',
+        type: 'GET',
+        success: function (response) {
+            if (response.code === 200) {
+                console.log('data' + JSON.stringify(Object.keys(response.results)).length)
+                data_T_port = response.results;
+            }
+            else {
+                alert(response.message);
+            }
+        }
+    })
+
     var headT = '<tr>' +
         '<th colspan="2"><h1>T Description</h1></th>' +
         ' <th colspan="2">' +
@@ -1378,83 +1412,126 @@ function T2_table(id, T) {
     $('#T-tables thead').append(headT)
     $.getJSON(jsonpath2, function (data) {
         // Loop through each item in the JSON data
-        var lengT =Object.keys(data).length
+        var lengT = Object.keys(data).length
         var i = 0;
-                $.each(data, function (key, value) {
+        var ig = 0;
+        var io = 0;
+        var iso = 0;
+        $.each(data, function (key, value) {
             // Create a table row
-            let row = '<tr id="ref'+key+'">' +
+            let row = '<tr id="ref' + key + '">' +
                 '<td class="code">' + key + '</td>' +
                 '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"> <p>' + value + '</p> </td>' +
-                '<td class="editable" id="AE_Over">' + 0 + '</td>' +
-                '<td class="editable" id="CP_Over">' + 0 + '</td>' +
-                '<td class="editable" id="AE_att">' + 0 + '</td>' +
-                '<td class="editable" id="CP_att">' + 0 + '</td>' +
-                '<td  class="someae" id="AE_TT">' + 0 + '</td>' +
-                '<td  class="somecp" id="CP_TT">' + 0 + '</td>' +
+                '<td class="editable" id="AE_Over">' + 1 + '</td>' +
+                '<td class="editable" id="CP_Over">' + 1 + '</td>' +
+                '<td class="editable" id="AE_att">' + 1 + '</td>' +
+                '<td class="editable" id="CP_att">' + 1 + '</td>' +
+                '<td  class="someae" id="AE_TT">' + 1 + '</td>' +
+                '<td  class="somecp" id="CP_TT">' + 1 + '</td>' +
                 '</tr>';
+            var codegr = data_T_port.group;
+            var codeop = data_T_port.operation;
+            var codesop = data_T_port.sousOperation;
+            if (codegr.length > 0 && data_T_port.group.length > ig) {
+                if (key == splitcode(data_T_port.group[ig].code, 5)[0].substring) {
+                    row = '<tr id="ref' + key + '">' +
+                        '<td class="code">' + key + '</td>' +
+                        '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"> <p>' + value + '</p> </td>' +
+                        '<td class="editable" id="AE_Over">' + data_T_port.group[ig].values.ae_ouvertgrpop + '</td>' +
+                        '<td class="editable" id="CP_Over">' + data_T_port.group[ig].values.cp_ouvertgrpop + '</td>' +
+                        '<td class="editable" id="AE_att">' + data_T_port.group[ig].values.ae_attendugrpop + '</td>' +
+                        '<td class="editable" id="CP_att">' + data_T_port.group[ig].values.cp_attendugrpop + '</td>' +
+                        '<td  class="someae" id="AE_TT">' + data_T_port.group[ig].values.totalAEgrpop + '</td>' +
+                        '<td  class="somecp" id="CP_TT">' + data_T_port.group[ig].values.totalCPgrpop + '</td>' +
+                        '</tr>';
+                    ig++
+                }
+            }
+            if (codeop.length > 0 && data_T_port.operation.length > io) {
+                if (key == splitcode(data_T_port.operation[io].code, 5)[0].substring) {
+                    row = '<tr id="ref' + key + '">' +
+                        '<td class="code">' + key + '</td>' +
+                        '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"> <p>' + value + '</p> </td>' +
+                        '<td class="editable" id="AE_Over">' + data_T_port.operation[io].values.ae_ouvertop + '</td>' +
+                        '<td class="editable" id="CP_Over">' + data_T_port.operation[io].values.cp_ouvertop + '</td>' +
+                        '<td class="editable" id="AE_att">' + data_T_port.operation[io].values.ae_attenduop + '</td>' +
+                        '<td class="editable" id="CP_att">' + data_T_port.operation[io].values.cp_attenduop + '</td>' +
+                        '<td  class="someae" id="AE_TT">' + data_T_port.operation[io].values.totalAEop + '</td>' +
+                        '<td  class="somecp" id="CP_TT">' + data_T_port.operation[io].values.totalCPop + '</td>' +
+                        '</tr>';
+                    io++
+                }
+            }
+            if (codesop.length > 0 && data_T_port.sousOperation.length > iso) {
+                if (key == splitcode(data_T_port.sousOperation[iso].code, 5)[0].substring) {
+                    row = '<tr id="ref' + key + '">' +
+                        '<td class="code">' + key + '</td>' +
+                        '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"> <p>' + value + '</p> </td>' +
+                        '<td class="editable" id="AE_Over">' + data_T_port.sousOperation[iso].values.ae_ouvertsousop + '</td>' +
+                        '<td class="editable" id="CP_Over">' + data_T_port.sousOperation[iso].values.cp_ouvertsousop + '</td>' +
+                        '<td class="editable" id="AE_att">' + data_T_port.sousOperation[iso].values.ae_attendusousop + '</td>' +
+                        '<td class="editable" id="CP_att">' + data_T_port.sousOperation[iso].values.cp_attendsousuop + '</td>' +
+                        '<td  class="someae" id="AE_TT">' + data_T_port.sousOperation[iso].values.totalAEsousop + '</td>' +
+                        '<td  class="somecp" id="CP_TT">' + data_T_port.sousOperation[iso].values.totalCPsousop + '</td>' +
+                        '</tr>';
+                    iso++
+                }
+            }
 
             // Append the row to the table body
             $('#T-tables tbody').append(row);
             Edit(id, T)
-            if(current.length == 0)
-            {
+            if (current.length == 0) {
                 current = key;
                 preve = current;
             }
-            else
-            {
+            else {
                 current = key;
-                console.log('cuureent'+current.split("0")[0]+' prev'+ preve.split("0")[0])
-                if(key.split("0")[0].length > preve.split("0")[0].length)
-                {
-                    console.log('testing not adding'+preve)
-                    $('#ref'+preve+' td').each(function(){
+                console.log('cuureent' + current.split("0")[0] + ' prev' + preve.split("0")[0])
+                if (key.split("0")[0].length > preve.split("0")[0].length) {
+                    console.log('testing not adding' + preve)
+                    $('#ref' + preve + ' td').each(function () {
                         $(this).removeClass('editable')
                     })
-                  
-                }
-                else
-                {
 
-                    console.log('testing adding '+preve)
-                    if($('#ref'+preve+' td').hasClass("editable"))
-                    {
-                    $('#ref'+preve+' #add_op').append(newbtn)
-                    $('#ref'+preve+' #add_op').on('click',function()
-                    {
-                        var ads=key+'1';
-                        add_newOPs_T2(ads,'testing new descr',2500,key);
-                        Edit(id, T)
-                    })
+                }
+                else {
+
+                    console.log('testing adding ' + preve)
+                    if ($('#ref' + preve + ' td').hasClass("editable")) {
+                        $('#ref' + preve + ' #add_op').append(newbtn)
+                        $('#ref' + preve + ' #add_op').on('click', function () {
+                            var ads = key + '1';
+                            add_newOPs_T2(ads, 'testing new descr', 2500, key);
+                            Edit(id, T)
+                        })
                     }
-                  
+
                 }
                 preve = current;
                 current = key;
             }
             i++
-            if(i == lengT)
-            {
-                if($('#ref'+key+' td').hasClass("editable"))
-                    {
-                    $('#ref'+key+' #add_op').append(newbtn)
-                    $('#ref'+key+' #add_op').on('click',function()
-                    {
-                        var ads=key+'1';
-                        add_newOPs_T3(ads,'testing new descr',2500,key);
+            if (i == lengT) {
+                if ($('#ref' + key + ' td').hasClass("editable")) {
+                    $('#ref' + key + ' #add_op').append(newbtn)
+                    $('#ref' + key + ' #add_op').on('click', function () {
+                        var ads = key + '1';
+                        add_newOPs_T3(ads, 'testing new descr', 2500, key);
                         Edit(id, T)
                     })
-                    }
+                }
             }
         });
     }).fail(function () {
         console.error('Error loading JSON file.');
     });
 }
-function T3_table(id, T) {
-    var current =new Array();
+function T3_table(id, T, id_s_act, port) {
+    var current = new Array();
     var preve = new Array();
-    var newbtn='<i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i>'
+    var data_T_port = new Array();
+    var newbtn = '<i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i>'
     console.log('data is')
     $('#Tport-handle').addClass('scale-out');
     setTimeout(() => {
@@ -1464,6 +1541,21 @@ function T3_table(id, T) {
         $('#Tport-handle').removeClass('scale-out');
         $('.T-handle').css('display', 'flex')
     }, 500)
+
+    $.ajax({
+        url: '/testing/S_action/' + port + '/' + id_s_act + '/T3',
+        type: 'GET',
+        success: function (response) {
+            if (response.code === 200) {
+                console.log('data' + JSON.stringify(Object.keys(response.results)).length)
+                data_T_port = response.results;
+            }
+            else {
+                alert(response.message);
+            }
+        }
+    })
+
     var headT = '<tr>' +
         '<th><h1>code</h1></th>' +
         '<th><h1>T Description</h1></th>' +
@@ -1484,64 +1576,108 @@ function T3_table(id, T) {
     $('#T-tables thead').append(headT)
     $.getJSON(jsonpath3, function (data) {
         // Loop through each item in the JSON data
-        var lengT =Object.keys(data).length
+        var lengT = Object.keys(data).length
         var i = 0;
+        var ig = 0;
+        var io = 0;
+        var iso = 0;
         $.each(data, function (key, value) {
             // Create a table row
             var val = value.split('-')
-           
-         //   console.log('values' + JSON.stringify(val))
-            let row = '<tr id="ref'+key+'">' +
+
+            //   console.log('values' + JSON.stringify(val))
+            let row = '<tr id="ref' + key + '">' +
                 '<td class="code">' + key + '</td>' +
                 '<td><p>' + val[0] + '</p> </td>' +
                 '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
                 '<td class="editable" id="AE_rpor">' + 0 + '</td>' +
-                '<td class="editable" id="AE_not">' + 0 + ',000</td>' +
-                '<td class="editable" id="AE_enga">' + 0 + '</td>' +
-                '<td class="editable" id="AE_rpor">' + 0 + ',000</td>' +
                 '<td class="editable" id="AE_not">' + 0 + '</td>' +
-                '<td class="editable" id="AE_enga">' + 0 + ',000</td>' +
+                '<td class="editable" id="AE_enga">' + 0 + '</td>' +
+                '<td class="editable" id="AE_rpor">' + 0 + '</td>' +
+                '<td class="editable" id="AE_not">' + 0 + '</td>' +
+                '<td class="editable" id="AE_enga">' + 0 + '</td>' +
                 '</tr>';
-
+            if (data_T_port.group.length > 0 && data_T_port.group.length > ig) {
+                console.log('code T3 ' + splitcode(data_T_port.group[ig].code, 5)[0].substring);
+                if (key == splitcode(data_T_port.group[ig].code, 5)[0].substring) {
+                    row = '<tr id="ref' + key + '">' +
+                        '<td class="code">' + key + '</td>' +
+                        '<td><p>' + val[0] + '</p> </td>' +
+                        '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
+                        '<td class="editable" id="AE_rpor">' + data_T_port.group[ig].values.ae_reportegrpop + '</td>' +
+                        '<td class="editable" id="AE_not">' + data_T_port.group[ig].values.ae_notifiegrpop + ',000</td>' +
+                        '<td class="editable" id="AE_enga">' + data_T_port.group[ig].values.ae_engagegrpop + '</td>' +
+                        '<td class="editable" id="AE_rpor">' + data_T_port.group[ig].values.cp_reportegrpop + ',000</td>' +
+                        '<td class="editable" id="AE_not">' + data_T_port.group[ig].values.cp_notifiegrpop + '</td>' +
+                        '<td class="editable" id="AE_enga">' + data_T_port.group[ig].values.cp_consomegrpop + ',000</td>' +
+                        '</tr>';
+                    ig++;
+                }
+            }
+            if (data_T_port.operation.length > 0 && data_T_port.operation.length > io) {
+                if (key == splitcode(data_T_port.operation[io].code, 5)[0].substring) {
+                    row = '<tr id="ref' + key + '">' +
+                        '<td class="code">' + key + '</td>' +
+                        '<td><p>' + val[0] + '</p> </td>' +
+                        '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
+                        '<td class="editable" id="AE_rpor">' + data_T_port.operation[io].values.ae_reporteop + '</td>' +
+                        '<td class="editable" id="AE_not">' + data_T_port.operation[io].values.ae_notifieop + ',000</td>' +
+                        '<td class="editable" id="AE_enga">' + data_T_port.operation[io].values.ae_engageop + '</td>' +
+                        '<td class="editable" id="AE_rpor">' + data_T_port.operation[io].values.cp_reporteop + ',000</td>' +
+                        '<td class="editable" id="AE_not">' + data_T_port.operation[io].values.cp_notifieop + '</td>' +
+                        '<td class="editable" id="AE_enga">' + data_T_port.operation[io].values.cp_consomeop + ',000</td>' +
+                        '</tr>';
+                    io++;
+                }
+            }
+            if (data_T_port.sousOperation.length > 0 && data_T_port.sousOperation.length > iso) {
+                if (key == splitcode(data_T_port.sousOperation[iso].code, 5)[0].substring) {
+                    row = '<tr id="ref' + key + '">' +
+                        '<td class="code">' + key + '</td>' +
+                        '<td><p>' + val[0] + '</p> </td>' +
+                        '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
+                        '<td class="editable" id="AE_rpor">' + data_T_port.sousOperation[iso].values.ae_reportesousop + '</td>' +
+                        '<td class="editable" id="AE_not">' + data_T_port.sousOperation[iso].values.ae_notifiesousop + ',000</td>' +
+                        '<td class="editable" id="AE_enga">' + data_T_port.sousOperation[iso].values.ae_engagesousop + '</td>' +
+                        '<td class="editable" id="AE_rpor">' + data_T_port.sousOperation[iso].values.cp_reportesousuop + ',000</td>' +
+                        '<td class="editable" id="AE_not">' + data_T_port.sousOperation[iso].values.cp_notifiesousop + '</td>' +
+                        '<td class="editable" id="AE_enga">' + data_T_port.sousOperation[iso].values.cp_consomesousop + ',000</td>' +
+                        '</tr>';
+                    iso++;
+                }
+            }
             // Append the row to the table body
 
             $('#T-tables tbody').append(row);
             Edit(id, T)
-            if(current.length == 0)
-            {
+            if (current.length == 0) {
                 current = key;
                 preve = current;
             }
-            else
-            {
+            else {
                 current = key;
-                if(key.split("0")[0].length <= 2)
-                {
-                    $('#ref'+key+' td').each(function(){
+                if (key.split("0")[0].length <= 2) {
+                    $('#ref' + key + ' td').each(function () {
                         $(this).removeClass('editable')
                     })
                 }
-                if(current.split("0")[0].length > preve.split("0")[0].length)
-                {
-                    console.log('testing '+preve)
-                    $('#ref'+preve+' td').each(function(){
+                if (current.split("0")[0].length > preve.split("0")[0].length) {
+                    console.log('testing ' + preve)
+                    $('#ref' + preve + ' td').each(function () {
                         $(this).removeClass('editable')
                     })
                     preve = current;
 
                 }
-                else
-                {
+                else {
                     //console.log('testing editable'+preve)
-                    if($('#ref'+preve+' td').hasClass("editable"))
-                    {
-                    $('#ref'+preve+' #add_op').append(newbtn)
-                    $('#ref'+preve+' #add_op').on('click',function()
-                    {
-                        var ads=key+'1';
-                        add_newOPs_T3(ads,'testing new descr',2500,key);
-                        Edit(id, T)
-                    })
+                    if ($('#ref' + preve + ' td').hasClass("editable")) {
+                        $('#ref' + preve + ' #add_op').append(newbtn)
+                        $('#ref' + preve + ' #add_op').on('click', function () {
+                            var ads = key + '1';
+                            add_newOPs_T3(ads, 'testing new descr', 2500, key);
+                            Edit(id, T)
+                        })
                     }
 
                     preve = current;
@@ -1549,18 +1685,15 @@ function T3_table(id, T) {
                 current = key;
             }
             i++
-            if(i == lengT)
-            {
-                if($('#ref'+key+' td').hasClass("editable"))
-                    {
-                    $('#ref'+key+' #add_op').append(newbtn)
-                    $('#ref'+key+' #add_op').on('click',function()
-                    {
-                        var ads=key+'1';
-                        add_newOPs_T3(ads,'testing new descr',2500,key);
+            if (i == lengT) {
+                if ($('#ref' + key + ' td').hasClass("editable")) {
+                    $('#ref' + key + ' #add_op').append(newbtn)
+                    $('#ref' + key + ' #add_op').on('click', function () {
+                        var ads = key + '1';
+                        add_newOPs_T3(ads, 'testing new descr', 2500, key);
                         Edit(id, T)
                     })
-                    }
+                }
             }
             Edit(id, T)
         });
@@ -1568,10 +1701,11 @@ function T3_table(id, T) {
         console.error('Error loading JSON file.');
     });
 }
-function T4_table(id, T) {
-    var current =new Array();
+function T4_table(id, T, id_s_act, port) {
+    var current = new Array();
     var preve = new Array();
-    var newbtn='<i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i>'
+    var data_T_port = new Array();
+    var newbtn = '<i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i>'
     console.log('data is')
     $('#Tport-handle').addClass('scale-out');
     setTimeout(() => {
@@ -1581,6 +1715,21 @@ function T4_table(id, T) {
         $('#Tport-handle').removeClass('scale-out');
         $('.T-handle').css('display', 'flex')
     }, 500)
+
+    $.ajax({
+        url: '/testing/S_action/' + port + '/' + id_s_act + '/T4',
+        type: 'GET',
+        success: function (response) {
+            if (response.code === 200) {
+                console.log('data' + JSON.stringify(Object.keys(response.results)).length)
+                data_T_port = response.results;
+            }
+            else {
+                alert(response.message);
+            }
+        }
+    })
+
     var headT = '<tr>' +
         '<th><h1>Code</h1></th>' +
         '<th><h1>DEPENSES DE TRANSFERT</h1></th>' +
@@ -1601,52 +1750,78 @@ function T4_table(id, T) {
         $.each(data, function (key, value) {
             // Create a table row
             var val = value.split('-')
-         //   console.log('values' + JSON.stringify(val))
-            let row = '<tr id="ref'+key+'">' +
+            //   console.log('values' + JSON.stringify(val))
+            let row = '<tr id="ref' + key + '">' +
                 '<td class="code">' + key + '</td>' +
-                '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' + 
-                '<td class="editable">' + 0 + '</td>' +
-                '<td class="editable">' + 0 + '</td>' +
+                '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
+                '<td class="editable" id="AE_T4">' + 0 + ',00</td>' +
+                '<td class="editable" id="CP_T4">' + 0 + ',00</td>' +
                 '</tr>';
 
+            if (data_T_port.group.length > 0 && data_T_port.group.length > ig) {
+                if (key == splitcode(data_T_port.group[ig].code, 5)[0].substring) {
+                    row = '<tr id="ref' + key + '">' +
+                        '<td class="code" >' + key + '</td>' +
+                        '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
+                        '<td class="editable" id="AE_T4">' + data_T_port.group[ig].values.ae_grpop + '</td>' +
+                        '<td class="editable" id="CP_T4">' + data_T_port.group[ig].values.cp_grpop + '</td>' +
+                        '</tr>';
+                    ig++;
+                }
+            }
+            if (data_T_port.operation.length > 0 && data_T_port.operation.length > io) {
+                if (key == splitcode(data_T_port.operation[io].code, 5)[0].substring) {
+                    row = '<tr id="ref' + key + '">' +
+                        '<td class="code" >' + key + '</td>' +
+                        '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
+                        '<td class="editable" id="AE_T4">' + data_T_port.operation[io].values.ae_op + '</td>' +
+                        '<td class="editable" id="CP_T4">' + data_T_port.operation[io].values.cp_op + '</td>' +
+                        '</tr>';
+                    io++;
+                }
+            }
+            if (data_T_port.sousOperation.length > 0 && data_T_port.sousOperation.length > iso) {
+                if (key == splitcode(data_T_port.sousOperation[iso].code, 5)[0].substring) {
+                    row = '<tr id="ref' + key + '">' +
+                        '<td class="code" >' + key + '</td>' +
+                        '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
+                        '<td class="editable" id="AE_T4">' + data_T_port.sousOperation[iso].values.ae_sousop + '</td>' +
+                        '<td class="editable" id="CP_T4">' + data_T_port.sousOperation[iso].values.cp_sousuop + '</td>' +
+                        '</tr>';
+                    iso++;
+                }
+            }
             // Append the row to the table body
 
             $('#T-tables tbody').append(row);
 
-            if(current.length == 0)
-            {
+            if (current.length == 0) {
                 current = key;
                 preve = current;
             }
-            else
-            {
+            else {
 
-                if(key.split("0")[0].length <= 2)
-                {
-                    $('#ref'+key+' td').each(function(){
+                if (key.split("0")[0].length <= 2) {
+                    $('#ref' + key + ' td').each(function () {
                         $(this).removeClass('editable')
                     })
                 }
-                if(current.split("0")[0].length > preve.split("0")[0].length)
-                {
-                    console.log('testing '+preve)
-                    $('#ref'+preve+' td').each(function(){
+                if (current.split("0")[0].length > preve.split("0")[0].length) {
+                    console.log('testing ' + preve)
+                    $('#ref' + preve + ' td').each(function () {
                         $(this).removeClass('editable')
                     })
                     preve = current;
 
                 }
-                else
-                {
+                else {
                     //console.log('testing editable'+preve)
-                    if($('#ref'+key+' td').hasClass("editable"))
-                    {
-                    $('#ref'+key+' #add_op').append(newbtn)
-                    $('#ref'+key+' #add_op').on('click',function()
-                    {
-                        var ads=key+'1';
-                        add_newOPs_T4(ads,'testing new descr',2500,key);
-                    })
+                    if ($('#ref' + key + ' td').hasClass("editable")) {
+                        $('#ref' + key + ' #add_op').append(newbtn)
+                        $('#ref' + key + ' #add_op').on('click', function () {
+                            var ads = key + '1';
+                            add_newOPs_T4(ads, 'testing new descr', 2500, key);
+                        })
                     }
 
                     preve = current;
@@ -1663,90 +1838,186 @@ function T4_table(id, T) {
 $(document).ready(function () {
 
     $('#T1').on('click', function () {
-        var indic=path3.length-1
-        console.log('len'+path3.length+' act '+indic)
+        var indic = path3.length - 1
+        console.log('len' + path3.length + ' act ' + indic)
         $.ajax({
-            url:'/testing/codeSousOperation/'+path3[indic],
-            type:'GET',
-            success:function(response)
-            {
-                if(response.code == 200)
-                {
+            url: '/testing/codeSousOperation/' + path3[indic],
+            type: 'GET',
+            success: function (response) {
+                if (response.code == 200) {
                     alert('Exist')
                     var id = $(this).attr('id');
                     var T = 1;
-                    T1_table(id, T,path3[indic])
+                    T1_table(id, T, path3[indic], path3[0])
                 }
-                else
-                {
+                else {
                     alert('New')
                     var id = $(this).attr('id');
                     var T = 1;
-                    T1_table(id, T,path3[indic])
+                    T1_table(id, T, path3[indic], path3[0])
                 }
             }
         })
     })
     $('#T2').on('click', function () {
-        var T = 2;
-        var id = $(this).attr('id');
-        console.log("t: "+T)
-        T2_table(id, T)
+        var indic = path3.length - 1
+        console.log('len' + path3.length + ' act ' + indic)
+        $.ajax({
+            url: '/testing/codeSousOperation/' + path3[indic],
+            type: 'GET',
+            success: function (response) {
+                if (response.code == 200) {
+                    alert('Exist')
+
+
+                    T2_table(id, T, path3[indic], path3[0])
+                }
+                else {
+                    alert('New')
+
+
+                    T2_table(id, T, path3[indic], path3[0])
+                }
+            }
+        })
+        //  T2_table(id, T)
     })
 
     $('#T3').on('click', function () {
+        var indic = path3.length - 1
+        console.log('len' + path3.length + ' act ' + indic)
         var id = $(this).attr('id');
         var T = 3;
-        T3_table(id, T)
+        $.ajax({
+            url: '/testing/codeSousOperation/' + path3[indic],
+            type: 'GET',
+            success: function (response) {
+                if (response.code == 200) {
+                    alert('Exist')
+
+                    T3_table(id, T, path3[indic], path3[0])
+                }
+                else {
+                    alert('New')
+
+                    T3_table(id, T, path3[indic], path3[0])
+                }
+            }
+        })
+        //T3_table(id, T)
     })
     $('#T4').on('click', function () {
+        var indic = path3.length - 1
+        console.log('len' + path3.length + ' act ' + indic)
         var id = $(this).attr('id');
         var T = 4;
-        T4_table(id, T)
+        $.ajax({
+            url: '/testing/codeSousOperation/' + path3[indic],
+            type: 'GET',
+            success: function (response) {
+                if (response.code == 200) {
+                    alert('Exist')
+
+                    T4_table(id, T, path3[indic], path3[0])
+                }
+                else {
+                    alert('New')
+
+                    T4_table(id, T, path3[indic], path3[0])
+                }
+            }
+        })
     })
     $(".TP-handle").on('click', function () {
         $('#T-tables thead').empty()
         $('#T-tables tbody').empty()
-
+        var indic = path3.length - 1
         var id_tport_c = $(this).attr('id');
         if (id_tport_c == 'T_port1') {
-            var indic=path3.length-1
-        console.log('len'+path3.length+' act '+indic)
-        $.ajax({
-            url:'/testing/codeSousOperation/'+path3[indic],
-            type:'GET',
-            success:function(response)
-            {
-                if(response.code == 200)
-                {
-                    alert('Exist')
-                    var id = $(this).attr('id');
-                    var T = 1;
-                    T1_table(id, T,path3[indic])
+            //var indic = path3.length - 1
+            console.log('len' + path3.length + ' act ' + indic)
+            $.ajax({
+                url: '/testing/codeSousOperation/' + path3[indic],
+                type: 'GET',
+                success: function (response) {
+                    if (response.code == 200) {
+                        alert('Exist')
+                        var id = $(this).attr('id');
+                        var T = 1;
+                        T1_table(id, T, path3[indic], path3[0])
+                    }
+                    else {
+                        alert('New')
+                        var id = $(this).attr('id');
+                        var T = 1;
+                        T1_table(id, T, path3[indic], path3[0])
+                    }
                 }
-                else
-                {
-                    alert('New')
-                    var id = $(this).attr('id');
-                    var T = 1;
-                    T1_table(id, T,path3[indic])
-                }
-            }
-        })
+            })
         }
         if (id_tport_c == 'T_port2') {
-            var T = 2;
-            T2_table(id_tport_c, T)
+           
+            $.ajax({
+                url: '/testing/codeSousOperation/' + path3[indic],
+                type: 'GET',
+                success: function (response) {
+                    if (response.code == 200) {
+                        alert('Exist')
+                        var id = $(this).attr('id');
+                        var T = 1;
+                        T2_table(id, T, path3[indic], path3[0])
+                    }
+                    else {
+                        alert('New')
+                        var id = $(this).attr('id');
+                        var T = 1;
+                        T2_table(id, T, path3[indic], path3[0])
+                    }
+                }
+            })
         }
         if (id_tport_c == 'T_port3') {
-            var T = 3;
-            T3_table(id_tport_c,T)
+            $.ajax({
+                url: '/testing/codeSousOperation/' + path3[indic],
+                type: 'GET',
+                success: function (response) {
+                    if (response.code == 200) {
+                        alert('Exist')
+                        var id = $(this).attr('id');
+                        var T = 1;
+                        T3_table(id, T, path3[indic], path3[0])
+                    }
+                    else {
+                        alert('New')
+                        var id = $(this).attr('id');
+                        var T = 1;
+                        T3_table(id, T, path3[indic], path3[0])
+                    }
+                }
+            })
 
 
         }
         if (id_tport_c == 'T_port4') {
             var T = 4;
-            T4_table(id_tport_c,T)
+            $.ajax({
+                url: '/testing/codeSousOperation/' + path3[indic],
+                type: 'GET',
+                success: function (response) {
+                    if (response.code == 200) {
+                        alert('Exist')
+                        var id = $(this).attr('id');
+                        var T = 1;
+                        T4_table(id, T, path3[indic], path3[0])
+                    }
+                    else {
+                        alert('New')
+                        var id = $(this).attr('id');
+                        var T = 1;
+                        T4_table(id, T, path3[indic], path3[0])
+                    }
+                }
+            })
 
 
         }

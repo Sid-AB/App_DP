@@ -39,12 +39,19 @@ class opeartionController extends Controller
         }
 
 
-        public function afficherDPIA($s_act,$T)
+        public function afficherDPIA($port,$s_act,$T)
         {
+            $prog=0;
+            $sous_prog=0;
+            $act=0;
+
+            
+           // dd($resultats[$T]);
             try {
+                $resultats = $this->CalculDpia->calculdpiaFromPath($port, $prog, $sous_prog, $act,$s_act);
                  // dd($s_act, $T);
             //get toutes les données des 3 tables 
-            $groupOperations = DB::table('group_operations as go')
+          /*  $groupOperations = DB::table('group_operations as go')
             ->leftJoin('operations as o', 'go.code_grp_operation', '=', 'o.code_grp_operation')
             ->leftJoin('sous_operations as so', 'o.code_operation', '=', 'so.code_operation')
             ->select('go.*', 'o.*', 'so.*')
@@ -110,13 +117,13 @@ class opeartionController extends Controller
                 
                 }
                    
-            } 
             }
+            }*/
                 //retourner results
                 return response()->json([
                     'code' =>200, //success
                     'message' => 'Données récupérées avec succès.',
-                    'results' => $results  ,
+                    'results' => $resultats[$T]  ,
                  
                 ]);
         

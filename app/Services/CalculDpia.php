@@ -260,7 +260,7 @@ if (!empty($portefeuille)) {
                                                "values" => [
                                                    'ae_reportesousop' => $sousopAereporte,
                                                    'ae_notifiesousop' => $sousopAenotifie,
-                                                   'cp_engagesousop' => $sousopAeengage,
+                                                   'ae_engagesousop' => $sousopAeengage,
                                                    'cp_reportesousuop' => $operationCPReporte,
                                                    'cp_notifiesousop' => $operationCPNotife,
                                                    'cp_consomesousop' => $operationCPConsome,

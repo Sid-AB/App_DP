@@ -73,7 +73,7 @@ Route::controller(groupOperationController::class)->group(function(){
 //===============ROUTE  OPERATION==============================
 Route::controller(opeartionController::class)->group(function(){
     Route::get('/testing/Ss_Action/{port}/{prog}/{sous_prog}/{act}/{s_act}', 'calculerEtEnvoyer');
-    Route::get('/testing/S_action/{s_act}/{T}', 'afficherDPIA');
+    Route::get('/testing/S_action/{port}/{s_act}/{T}', 'afficherDPIA');
 
 
 
