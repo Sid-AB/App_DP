@@ -260,7 +260,7 @@ public function check_portef(Request $request)
 //dd($request);
         //si le portefeuiille existe donc le modifier
     $portefeuille = Portefeuille::where('num_portefeuil', $request->num_portefeuil)->first();
-    if ($portefeuille) {
+    if (!$portefeuille) {
         $portefeuille->nom_journal = $request->nom_journal;
         $portefeuille->num_journal = $request->num_journal;
         $portefeuille->AE_portef = $request->AE_portef;
@@ -268,6 +268,14 @@ public function check_portef(Request $request)
         $portefeuille->Date_portefeuille = $request->Date_portefeuille;
         $portefeuille->id_min =1;//periodiquement
         $portefeuille->save();
+    }
+    else
+    {
+        return response()->json([
+            'success' => true,
+            'message' => 'Portefeuille ajouté ou modifié avec succès.',
+            'code' => 404,
+        ]);
     }
 
 
