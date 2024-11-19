@@ -19,6 +19,7 @@ class sousOperationController extends Controller
        ->leftJoin('operations as o', 'go.code_grp_operation', '=', 'o.code_grp_operation')
        ->leftJoin('sous_operations as so', 'o.code_operation', '=', 'so.code_operation')
        ->select('go.*', 'o.*', 'so.*')
+       ->where('go.num_sous_action',$act)
        ->get();
     //   dd($groupOperations);
 
@@ -138,6 +139,7 @@ class sousOperationController extends Controller
        ->leftJoin('operations as o', 'go.code_grp_operation', '=', 'o.code_grp_operation')
        ->leftJoin('sous_operations as so', 'o.code_operation', '=', 'so.code_operation')
        ->select('go.*', 'o.*', 'so.*')
+       ->where('go.num_sous_action',$s_act)
        ->get();
     //   dd($groupOperations);
 

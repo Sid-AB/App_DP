@@ -99,7 +99,7 @@ public function check_sous_prog(Request $request)
         $media->file_path = $filePath;
         $media->save();
     }
-        
+
       //  dd($SousProgramme);
         if ($SousProgramme) {
             return response()->json([

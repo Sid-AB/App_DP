@@ -1223,11 +1223,12 @@ $("#add-prg").on('click', function () {
  *
  */
 
-function T1_table(id, T) {
+function T1_table(id, T,id_s_act) {
 
     var current =new Array();
     var preve = new Array();
     var newbtn='<i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i>'
+    var data_T_port=new Array();
     console.log('T is'+ T)
     $('#Tport-handle').addClass('scale-out');
     setTimeout(() => {
@@ -1237,6 +1238,21 @@ function T1_table(id, T) {
         $('#Tport-handle').removeClass('scale-out');
         $('.T-handle').css('display', 'flex')
     }, 500)
+    $.ajax({
+        url:'/testing/S_action/'+id_s_act+'/T1',
+        type:'GET',
+        success:function(response){
+            if(response.code === 200)
+            {
+                console.log('data'+JSON.stringify(response.results.T1[24]['code_grp_operation']))
+                data_T_port=response.results.T1;
+            }
+            else
+            {
+                alert(response.message);
+            }
+        }
+    })
     var headT = '<tr>' +
         '<th ><h1>Code</h1></th>' +
         '<th ><h1>T Description</h1></th>' +
@@ -1287,7 +1303,7 @@ function T1_table(id, T) {
                 current = key;
                 if(current.split("0")[0].length > preve.split("0")[0].length)
                 {
-                    console.log('testing editable'+key)
+                    //console.log('testing editable'+key)
                     $('#ref'+preve+' td').each(function(){
                         $(this).removeClass('editable')
                     })
@@ -1295,7 +1311,7 @@ function T1_table(id, T) {
                 }
                 else
                 {
-                    console.log('testing '+key)
+                 //   console.log('testing '+key)
                     if($('#ref'+preve+' td').hasClass("editable"))
                     {
                     $('#ref'+preve+' #add_op').append(newbtn)
@@ -1516,7 +1532,7 @@ function T3_table(id, T) {
                 }
                 else
                 {
-                    console.log('testing editable'+preve)
+                    //console.log('testing editable'+preve)
                     if($('#ref'+preve+' td').hasClass("editable"))
                     {
                     $('#ref'+preve+' #add_op').append(newbtn)
@@ -1622,7 +1638,7 @@ function T4_table(id, T) {
                 }
                 else
                 {
-                    console.log('testing editable'+preve)
+                    //console.log('testing editable'+preve)
                     if($('#ref'+key+' td').hasClass("editable"))
                     {
                     $('#ref'+key+' #add_op').append(newbtn)
@@ -1647,9 +1663,29 @@ function T4_table(id, T) {
 $(document).ready(function () {
 
     $('#T1').on('click', function () {
-        var id = $(this).attr('id');
-        var T = 1;
-        T1_table(id, T)
+        var indic=path3.length-1
+        console.log('len'+path3.length+' act '+indic)
+        $.ajax({
+            url:'/testing/codeSousOperation/'+path3[indic],
+            type:'GET',
+            success:function(response)
+            {
+                if(response.code == 200)
+                {
+                    alert('Exist')
+                    var id = $(this).attr('id');
+                    var T = 1;
+                    T1_table(id, T,path3[indic])
+                }
+                else
+                {
+                    alert('New')
+                    var id = $(this).attr('id');
+                    var T = 1;
+                    T1_table(id, T,path3[indic])
+                }
+            }
+        })
     })
     $('#T2').on('click', function () {
         var T = 2;
@@ -1674,8 +1710,29 @@ $(document).ready(function () {
 
         var id_tport_c = $(this).attr('id');
         if (id_tport_c == 'T_port1') {
-            var T = 1;
-            T1_table(id_tport_c, T)
+            var indic=path3.length-1
+        console.log('len'+path3.length+' act '+indic)
+        $.ajax({
+            url:'/testing/codeSousOperation/'+path3[indic],
+            type:'GET',
+            success:function(response)
+            {
+                if(response.code == 200)
+                {
+                    alert('Exist')
+                    var id = $(this).attr('id');
+                    var T = 1;
+                    T1_table(id, T,path3[indic])
+                }
+                else
+                {
+                    alert('New')
+                    var id = $(this).attr('id');
+                    var T = 1;
+                    T1_table(id, T,path3[indic])
+                }
+            }
+        })
         }
         if (id_tport_c == 'T_port2') {
             var T = 2;

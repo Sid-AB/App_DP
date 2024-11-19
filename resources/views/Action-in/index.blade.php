@@ -96,8 +96,8 @@
                     <i class="fas fa-door-closed T-icon icon icon-card"></i>
                     <i class="fas fa-door-open hover-icon icon icon-card"></i>
                     <p class="card-title-T">Titre Port 1</p>
-                    <p class="card-description-T">AE : {{$someall['T1AE']}}</p>
-                    <p class="card-description-T">CP : {{$someall['T1CP']}}</p>
+                    <p class="card-description-T">AE : {{$someall['T1AE']}} DZ</p>
+                    <p class="card-description-T">CP : {{$someall['T1CP']}} DZ</p>
                   </div>
                 </div>
                 </div>
@@ -107,8 +107,8 @@
                   <i class="fas fa-door-closed T-icon icon icon-card"></i>
                   <i class="fas fa-door-open hover-icon icon icon-card"></i>
                     <p class="card-title-T">Titre Port 2</p>
-                    <p class="card-description-T">AE 220,000 DZ.</p>
-                    <p class="card-description-T">CP 180,000 DZ.</p>
+                    <p class="card-description-T">AE : {{$someall['T2AE']}} DZ</p>
+                    <p class="card-description-T">CP : {{$someall['T2CP']}} DZ</p>
                   </div>
                 </div>
                 </div>
@@ -118,8 +118,8 @@
                   <i class="fas fa-door-closed T-icon icon icon-card"></i>
                   <i class="fas fa-door-open hover-icon icon icon-card"></i>
                     <p class="card-title-T">Titre Port 3</p>
-                    <p class="card-description-T">AE 150,000 DZ.</p>
-                    <p class="card-description-T">CP 100,000 DZ.</p>
+                    <p class="card-description-T">AE : {{$someall['T3AE']}} DZ</p>
+                    <p class="card-description-T">CP : {{$someall['T3CP']}} DZ</p>
                   </div>
                 </div>
                 </div>
@@ -130,8 +130,8 @@
                   <i class="fas fa-door-closed T-icon icon icon-card"></i>
                   <i class="fas fa-door-open hover-icon icon icon-card"></i>
                     <p class="card-title-T">Titre Port 4</p>
-                    <p class="card-description-T">AE 180,000 DZ.</p>
-                    <p class="card-description-T">CP 180,000 DZ.</p>
+                    <p class="card-description-T">AE : {{$someall['T4AE']}} DZ</p>
+                    <p class="card-description-T">CP : {{$someall['T4CP']}} DZ</p>
                   </div>
                 </div>
                 </div>
