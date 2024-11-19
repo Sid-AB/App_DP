@@ -69,7 +69,7 @@ class programmeControlleur extends Controller
             'date_insert_portef' => 'required|date',
         ]);
         //dd(floatval($request->ae_prog));
-  //     dd($request);
+     //dd($request);
         // Créer un nouveau programme
         $prog=Programme::where('num_prog',intval($request->num_prog))->first();
       //  dd($prog);
@@ -106,7 +106,7 @@ class programmeControlleur extends Controller
         $media->file_path = $filePath;
         $media->save();
     }
-    
+
         //dd($programme);
         if ($programme) {
             return response()->json([

@@ -63,20 +63,7 @@ public function check_sous_prog(Request $request)
             'nom_sous_prog' => 'required',
             'date_insert_sousProg' => 'required|date',
         ]);
-      //  dd($request);
-      $sprog=SousProgramme::where('num_sous_prog',$request->num_sous_prog)->first();
-     // dd($sprog);
-      if(isset($sprog))
-      {
-        return response()->json([
-            'success' => true,
-            'message' => 'Sous Programme exist',
-            'code' => 200,
-        ]);
-      }
-        // Créer un nouveau SousProgramme
-        else
-        {
+        dd($request->num_sous_prog);
 
         $SousProgramme = new SousProgramme();
         $SousProgramme->num_sous_prog = $request->num_sous_prog;
@@ -99,7 +86,7 @@ public function check_sous_prog(Request $request)
         $media->file_path = $filePath;
         $media->save();
     }
-        
+
       //  dd($SousProgramme);
         if ($SousProgramme) {
             return response()->json([
@@ -114,7 +101,7 @@ public function check_sous_prog(Request $request)
                 'code' => 500,
             ]);
         }
-    }
+
 
 }
 }

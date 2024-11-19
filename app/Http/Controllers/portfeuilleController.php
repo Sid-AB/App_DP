@@ -28,19 +28,19 @@ class portfeuilleController extends Controller
     function show_prsuiv($path)
     {
         //$path=$request->all();
-       
+
         $id=explode('-',$path);
-        $num=$id[0];    
+        $num=$id[0];
         $cat=$id[1];
        // dd($id);
         $paths=[];
         if($cat == "all")
         {
-            
+
             $por=Portefeuille::findOrFail($num);
-           
+
             $paths=['code_port'=>$por->num_portefeuil];
-           
+
         }
        if($cat == 'prog' )
        {
@@ -49,7 +49,7 @@ class portfeuilleController extends Controller
         $paths=['code_port'=>$progms[0]->num_portefeuil,'programme'=>$progms[0]->num_prog];
        // dd($paths);
        }
-       
+
         if($cat == 'sprog')
         {
                 $sprog=SousProgramme::where('num_sous_prog',intval($num))->first();
@@ -58,7 +58,7 @@ class portfeuilleController extends Controller
              //    dd($paths);
         }
         if($cat == 'act' )
-        {   
+        {
             $act=Action::where('num_action',intval($num))->first();
             $sprog=SousProgramme::where('num_sous_prog',$act->num_sous_prog)->first();
             $progms=Programme::where('num_prog',$sprog->num_prog)->first();
@@ -85,7 +85,7 @@ class portfeuilleController extends Controller
     {
         // Récupérer tous les portefeuilles de la base de données
           //  $portefeuilles = Portefeuille::all();
-         
+
           $por=Portefeuille::findOrFail($id);
           $progms=Programme::where('num_portefeuil',$id)->get();
           $allprogram=[];
@@ -102,14 +102,14 @@ class portfeuilleController extends Controller
            $CP_All_sous_prog=0;
            $AE_All_prog=0;
            $CP_All_prog=0;
-  
+
           foreach($progms as $progm)
           {
               $sousprog=SousProgramme::where('num_prog',$progm->num_prog)->get();
               foreach($sousprog as $sprog)
               {
-                  
-                 
+
+
                       $act=Action::where('num_sous_prog',$sprog->num_sous_prog)->get();
                   //    dd($act);
                       foreach($act as $listact)
@@ -120,15 +120,15 @@ class portfeuilleController extends Controller
                               //dd($sous_act);
                               foreach($sous_act as $listsousact)
                               {
-                               
+
                                   if(isset($listsousact))
                                   {
                                      // $resultats = $this->CalculDpia->calculdpiaFromPath($id, $progm->num_prog, $sprog->num_sous_prog, $listact->num_action,$listsousact->num_sous_action);
-                                     
+
                                       try {
                                           $resultats = $this->CalculDpia->calculdpiaFromPath($id, $progm->num_prog, $sprog->num_sous_prog, $listact->num_action,$listsousact->num_sous_action);
                                       } catch (\Exception $e) {
-                                         
+
                                           $resultats="null";
                                       }
                                       if($resultats != "null")
@@ -140,12 +140,12 @@ class portfeuilleController extends Controller
                                         }
                                       }
                                       //dd($resultats);
-                                    
+
                                       array_push($allsous_action,['num_act'=>$listsousact->num_sous_action,'init_AE'=>$listsousact->AE_sous_action,'init_CP'=>$listsousact->CP_sous_action,'TotalAE'=>$AE_All_sous_act,'TotalCP'=>$CP_All_sous_act,'data'=>$listsousact,'Tports'=>$resultats]);
-                                    
+
                                   }
-                                 
-                              } 
+
+                              }
                               foreach($allsous_action as $sact)
                               {
                                 $AE_All_act+=$sact['TotalAE'];
@@ -159,14 +159,14 @@ class portfeuilleController extends Controller
                               {
                                 $AE_All_sous_prog+=$sact['TotalAE'];
                                 $CP_All_sous_prog+=$sact['TotalCP'];
-                                
+
                               }
-                              
+
                       array_push($allsous_prog,['id_sous_prog'=>$sprog->num_sous_prog,'init_AE'=>$sprog->AE_sous_prog,'init_CP'=>$sprog->CP_sous_prog,'TotalAE'=>$AE_All_sous_prog,'TotalCP'=>$CP_All_sous_prog,'data'=>$sprog,'Action'=>$allaction]);
                //      dd($allsous_prog);
                       $allaction=[];
-              }  
-              
+              }
+
               foreach($allsous_prog as $sact)
                               {
                                 $AE_All_prog+=$sact['TotalAE'];
@@ -188,7 +188,7 @@ class portfeuilleController extends Controller
 
 
     // Passer les données à la vue
-     
+
     }
     //affichage formulaire
     function form_portef()
@@ -238,7 +238,7 @@ public function check_portef(Request $request)
 
          // Validation des données
          $request->validate([
-            'file' => 'required|file|mimes:jpg,png,pdf|max:2048', // Validation du fichier
+            //'file' => 'required|file|mimes:jpg,png,pdf|max:2048', // Validation du fichier
             'num_journal' => 'required',
             'nom_journal' => 'required',
             'AE_portef' => 'required',
