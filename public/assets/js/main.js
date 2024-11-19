@@ -1267,8 +1267,8 @@ function T1_table(id, T, id_s_act, port,code) {
             let row = '<tr id="ref' + key + '">' +
                 '<td class="code" >' + key + '</td>' +
                 '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
-                '<td class="editable" id="AE_T1">' + 1 + '</td>' +
-                '<td class="editable" id="CP_T1">' + 1 + '</td>' +
+                '<td class="editable" id="AE_T1">' + 0 + '</td>' +
+                '<td class="editable" id="CP_T1">' + 0 + '</td>' +
                 '</tr>';
                 if(Object.keys(data_T_port).length > 0 ){
             if (data_T_port.group.length > 0 && data_T_port.group.length > ig) {
@@ -1429,12 +1429,12 @@ if(code == 200)
             let row = '<tr id="ref' + key + '">' +
                 '<td class="code">' + key + '</td>' +
                 '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"> <p>' + value + '</p> </td>' +
-                '<td class="editable" id="AE_Over">' + 1 + '</td>' +
-                '<td class="editable" id="CP_Over">' + 1 + '</td>' +
-                '<td class="editable" id="AE_att">' + 1 + '</td>' +
-                '<td class="editable" id="CP_att">' + 1 + '</td>' +
-                '<td  class="someae" id="AE_TT">' + 1 + '</td>' +
-                '<td  class="somecp" id="CP_TT">' + 1 + '</td>' +
+                '<td class="editable" id="AE_Over">' + 0 + '</td>' +
+                '<td class="editable" id="CP_Over">' + 0 + '</td>' +
+                '<td class="editable" id="AE_att">' + 0 + '</td>' +
+                '<td class="editable" id="CP_att">' + 0 + '</td>' +
+                '<td  class="someae" id="AE_TT">' + 0 + '</td>' +
+                '<td  class="somecp" id="CP_TT">' + 0 + '</td>' +
                 '</tr>';
             var codegr = data_T_port.group;
             var codeop = data_T_port.operation;
