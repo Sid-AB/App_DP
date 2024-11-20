@@ -66,7 +66,7 @@ public function check_action(Request $request)
             'nom_action' => 'required',
             'date_insert_action' => 'required|date',
         ]);
-      //  dd($request);
+       // dd($request);
              //si le sous PROG existe donc le modifier
     $action = action::where('num_action', $request->num_action)->first();
     if ($action) {

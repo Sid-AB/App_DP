@@ -298,8 +298,9 @@ function Edit(tid, T) {
                                     var cpDataOuvert = $(this).find('td').eq(3).text();
                                     var aeDataAttendu = $(this).find('td').eq(4).text();
                                     var cpDataAttendu = $(this).find('td').eq(5).text();
-                                    var someae = parseFloat(aeDataOuvert) + parseFloat(aeDataAttendu);
+                                 /* var someae = parseFloat(aeDataOuvert) + parseFloat(aeDataAttendu);
                                     var somecp = parseFloat(cpDataOuvert) + parseFloat(cpDataAttendu);
+                                    */
                                     // Ajoute les valeurs dans les objets
                                     data.ae_ouvert[code] = aeDataOuvert;
                                     data.cp_ouvert[code] = cpDataOuvert;
@@ -848,7 +849,7 @@ $("#add-prg").on('click', function () {
                     //var year = new Date(Date_sou_program).getFullYear(); // Extraire l'année à partir de la date
                     var num_sou_prog = $('#num_sous_prog').val(); // Récupérer la valeur de la date du programme
                     // Vérifie que les deux champs sont remplis avant de continuer
-                    var num_sou_program = num_sou_prog + path[3];
+                    var num_sou_program = num_sou_prog + path[1];
                     if (Date_sou_program && num_sou_prog) {
                         // Appel AJAX pour vérifier le programme dans la base de données
                         $.ajax({
@@ -889,7 +890,7 @@ $("#add-prg").on('click', function () {
                     var dat_sou_prog = $('#date_insert_sousProg').val()
                     var AE_sous_prog = $('#AE_sous_prog').val()
                     var CP_sous_prog = $('#CP_sous_prog').val()
-                    var id_prog = path[2];
+                    var id_prog = path[1];
                     var numsouprog_year = sou_prog + id_prog;
                     check_ifnull('#add-prg2')
                     //var id_port = path[0];
@@ -971,7 +972,7 @@ $("#add-prg").on('click', function () {
                                     var date_act = $(this).val();
                                     var num_act = $('#num_act').val();
                                     //  var date_act=  new Date(date_act).getFullYear(); 
-                                    var numact_year = num_act + path[4];
+                                    var numact_year = num_act + path[2];
                                     console.log('the new id' + numact_year + ' with ' + JSON.stringify(path))
                                     if (date_act && num_act) {
                                         $.ajax({
@@ -1008,18 +1009,14 @@ $("#add-prg").on('click', function () {
                                      */
                                     // Demande de confirmation pour ajouter une sous-action après l'ajout de l'action
                                     let userResponse = confirm('Voulez-vous ajouter une sous-action pour cette action ?');
-                                    if (userResponse) {
-                                        // Récupération des informations de l'action
-                                        $('#confirm-holder_act').empty()
-                                        $('#confirm-holder_act').append('<i class="fas fa-wrench"></i>')
-                                        var nom_act = $('#nom_act').val();
-                                        var num_act = $('#num_act').val();
-                                        var AE_act = $('#AE_act').val()
-                                        var CP_act = $('#CP_act').val()
-                                        var dat_inst = $('#date_insert_action').val();
-                                        var id_sou_prog = path[4];
-                                        check_ifnull('#add-prg3')
-                                        var numaction_year = num_act + id_sou_prog;
+                                    var nom_act = $('#nom_act').val();
+                                    var num_act = $('#num_act').val();
+                                    var AE_act = $('#AE_act').val()
+                                    var CP_act = $('#CP_act').val()
+                                    var dat_inst = $('#date_insert_action').val();
+                                    var id_sou_prog = path[2];
+                                    check_ifnull('#add-prg3')
+                                    var numaction_year = num_act + id_sou_prog;
                                         var nexthop = '<div class="pinfo-handle">' +
                                             '<i class="fas fa-wallet"></i>' +
                                             '<p >Action :</p>' +
@@ -1029,19 +1026,22 @@ $("#add-prg").on('click', function () {
                                             '<i class="fas fa-angle-double-right waiting-icon"></i>' +
                                             '</div>'
                                         // Création du formData pour l'action
+                                        console.log('action sous prog '+path[2])
                                         var formdata_act = {
                                             num_action: numaction_year,
                                             nom_action: nom_act,
                                             AE_act: AE_act,
                                             CP_act: CP_act,
                                             date_insert_action: dat_inst,
-                                            id_sous_prog: path[5],
-                                            //id_prog: path[1],
-                                            //id_porte: path[0],
+                                            id_sous_prog: path[2],
                                             _token: $('meta[name="csrf-token"]').attr('content'),
                                             _method: 'POST'
                                         };
 
+                                    if (userResponse) {
+                                        // Récupération des informations de l'action
+                            
+                                        
                                         // Envoi de l'Action via Ajax
                                         $.ajax({
                                             url: '/creationAction',
@@ -1052,7 +1052,8 @@ $("#add-prg").on('click', function () {
                                                     // Ajout du numéro de l'action au chemin
                                                     path.push(numaction_year);
                                                     path3.push(num_act);
-
+                                                    $('#confirm-holder_act').empty()
+                                                    $('#confirm-holder_act').append('<i class="fas fa-wrench"></i>')
                                                     console.log('A path: ' + JSON.stringify(path));
                                                     $('#confirm-holder_act').empty()
                                                     $('#confirm-holder_act').append('<i class="fas fa-wrench"></i>')
@@ -1130,7 +1131,7 @@ $("#add-prg").on('click', function () {
 
                                                                     // Redirection vers la page suivante après l'ajout de la sous-action
                                                                     alert('testing')
-                                                                    window.location.href = 'testing/S_action/' + path[0] + '/' + path[3] + '/' + path[5] + '/' + path[6] + '/' + path[7];
+                                                                    window.location.href = 'testing/S_action/' + path[0] + '/' + path[1] + '/' + path[2] + '/' + path[3] + '/' + path[4];
                                                                 }
                                                             },
                                                             error: function (response) {
@@ -1151,7 +1152,7 @@ $("#add-prg").on('click', function () {
                                         var AE_act = $('#AE_act').val()
                                         var CP_act = $('#CP_act').val()
                                         var dat_inst = $('#date_insert_action').val();
-                                        var id_sou_prog = path[4];
+                                        var id_sou_prog = path[2];
                                         var numaction_year = num_act + id_sou_prog;
 
                                         var formdata_act = {
@@ -1176,7 +1177,7 @@ $("#add-prg").on('click', function () {
                                                     path.push(numaction_year);
                                                     path3.push(num_act);
                                                     // console.log('path: ' + JSON.stringify(path));
-                                                    window.location.href = 'testing/Action/' + path[0] + '/' + path[3] + '/' + path[5] + '/' + path[6];
+                                                    window.location.href = 'testing/Action/' + path[0] + '/' + path[1] + '/' + path[2] + '/' + path[3];
                                                 }
                                             },
                                             error: function (response) {

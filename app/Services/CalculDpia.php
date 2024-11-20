@@ -21,7 +21,7 @@ class CalculDpia
         $act = intval($act);
         $s_act = intval($s_act);
       
-     //  dd($port, $prog, $sous_prog, $act);
+      // dd($port, $prog, $sous_prog, $act);
       
       $portefeuille = Portefeuille::where('num_portefeuil', $port)
         ->whereHas('Programme.SousProgramme.Action.SousAction', function ($query) use ($s_act) {
@@ -31,7 +31,7 @@ class CalculDpia
             'Programme.SousProgramme.Action.SousAction.GroupOperation.Operation'
         ])
         ->first();
-    
+   // dd($portefeuille);
     //dd($portefeuille);
         // récupérer le portefeuille à partir du chemin
     /*  $portefeuille = Portefeuille::where('num_portefeuil', $port)
