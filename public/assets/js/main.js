@@ -90,6 +90,41 @@
                           *
                           * this function for adding button et makalah -_- ;
                           */
+
+                         /**
+                          * 
+                          * upload file function
+                          * 
+                          */
+                         function upload_file(id_file,id_relat)
+                         {
+                            
+                            let formDataFa = new FormData();
+                            formDataFa.append('pdf_file', $('#'+id_file)[0].files[0]);
+                            formDataFa.append('related_id',id_relat);
+                            $.ajax({
+                                url:'/upload-pdf',
+                                type:'POST',
+                                data:formDataFa,
+                                processData: false,
+                                contentType: false,
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token
+                                },
+                                success:function(response)
+                                {
+                                    if(response.code)
+                                    {
+                                   return response.code
+                                  }
+                                    else
+                                    {
+                                        return response.message;
+                                    }
+                                }
+                            })
+                         
+                         }
                          function focus_() {
                              $('input').focus(function () {
                                  $(this).removeAttr('style');
@@ -382,10 +417,7 @@
                                                          },
                                                          success: function (response) {
                                                              if (response.code == 200 || response.code == 404) {
-                                                                 path.push();
-                                                                 path3.push();
-
-                                                                 // window.location.href = ' testing/Action/'+ ;
+                                                                 window.location.reload();
                                                                  console.log('path' + JSON.stringify(path))
 
                                                              }
@@ -592,7 +624,7 @@
                                                  console.log(response); // Vérifiez la réponse
 
                                                  console.log('numwall_year path3: ' + JSON.stringify(path3));
-
+                                                  $('#file_holder').empty() 
                                                  // Remplir les champs du formulaire avec les données récupérées
                                                  $('#date_crt_portf').val(response.Date_portefeuille).trigger('change'); // Remplir et déclencher l'événement change
                                                  $('#AE_portef').val(response.AE_portef).trigger('change'); // Remplir et déclencher l'événement change
@@ -675,21 +707,57 @@
                                      type: "POST",
                                      data: formportinsert,
                                      success: function (response) {
-                                         if (response.code == 200 || response.code == 404) {
-                                             alert(response.message);
-                                             path.push(numwall_year);
-                                             path3.push(num_wallet);
+                                         if (response.code == 200 ) {
+                                            let formDataFa = new FormData();
+                                            formDataFa.append('pdf_file', $('#pdf_file')[0].files[0]);
+                                            formDataFa.append('related_id',num_wallet);
+                                            $.ajax({
+                                                url:'/upload-pdf',
+                                                type:'POST',
+                                                data:formDataFa,
+                                                processData: false,
+                                                contentType: false,
+                                                headers: {
+                                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token
+                                                },
+                                                success:function(response)
+                                                {
+                                                    if(response.code){
+                                                    alert(response.message);
+                                                    path.push(numwall_year);
+                                                    path3.push(num_wallet);
+       
+                                                    console.log("numwall_year path: " + JSON.stringify(path));
+       
+                                                    $(".font-bk").removeClass("back-bk");
+                                                    $(".wallet-path").css("display", "flex");
+                                                    $(".wallet-handle").empty();
+                                                    $("#progam-handle").css("display", "block");
+                                                    $("#progam-handle").removeClass("scale-out");
+                                                    $("#progam-handle").addClass("scale-visible");
+                                                    $("#w_id").text(num_wallet);}
+                                                    else
+                                                    {
+                                                        alert(response.message);
+                                                    }
+                                                }
+                                            })
+                                         } else if( response.code == 404) {
+                                            
+                                            alert(response.message);
+                                            path.push(numwall_year);
+                                            path3.push(num_wallet);
 
-                                             console.log("numwall_year path: " + JSON.stringify(path));
-
-                                             $(".font-bk").removeClass("back-bk");
-                                             $(".wallet-path").css("display", "flex");
-                                             $(".wallet-handle").empty();
-                                             $("#progam-handle").css("display", "block");
-                                             $("#progam-handle").removeClass("scale-out");
-                                             $("#progam-handle").addClass("scale-visible");
-                                             $("#w_id").text(num_wallet);
-                                         } else {
+                                            console.log("numwall_year path: " + JSON.stringify(path));
+                                            $(".font-bk").removeClass("back-bk");
+                                            $(".wallet-path").css("display", "flex");
+                                            $(".wallet-handle").empty();
+                                            $("#progam-handle").css("display", "block");
+                                            $("#progam-handle").removeClass("scale-out");
+                                            $("#progam-handle").addClass("scale-visible");
+                                            $("#w_id").text(num_wallet);
+                                        }
+                                            else{
                                              alert(response.message);
                                          }
                                      },
@@ -830,7 +898,10 @@
                                  success: function (response) {
                                      if (response.code == 200 || response.code == 404) {
 
-                                         alert(response.message)
+                                        if(upload_file('file',id_prog) == 200)
+                                        {
+                                            alert(response.message)
+                                        }
                                          path.push(numprog_year);
                                          path3.push(id_prog);
                                          console.log('numprog_year path: ' + JSON.stringify(path));
@@ -1099,6 +1170,8 @@
                                                                                  var AE_sous_act = $('#AE_sous_act').val()
                                                                                  var CP_sous_act = $('#CP_sous_act').val()
                                                                                  var dat_inst = $('#date_insert_sou_action').val();
+                                                                                 console.log("ae= ",AE_sous_act,"      " );
+                                                                                 console.log("cp= ",CP_sous_act );
                                                                                  check_ifnull('#add-prg4')
                                                                                  var numaction_year = path[3];
                                                                                  var numsousaction_year = num_sous_act + numaction_year;
@@ -1154,7 +1227,6 @@
                                                                  var dat_inst = $('#date_insert_action').val();
                                                                  var id_sou_prog = path[2];
                                                                  var numaction_year = num_act + id_sou_prog;
-
                                                                  var formdata_act = {
                                                                      num_action: numaction_year,
                                                                      nom_action: nom_act,

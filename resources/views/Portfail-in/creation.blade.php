@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="csrf-token" content=" {{csrf_token()}}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creation du Portefeuille</title>
+    <title>Création du Portfeuille</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
      <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 <link href="{{asset('assets/css/main.css')}}" rel="stylesheet"/>
@@ -62,22 +62,21 @@
                         <input type="text" class="form-control" id="num_journ" placeholder="Entrer le numéro de l'édition">
                     </div>
                     <div class="form-group">
-                        <label for="AE_portef">AE pour portefeuille</label>
-                        <input type="text" class="form-control" id="AE_portef" placeholder="Entrer AE  portefeuille">
+                        <label for="AE_portef">AE pour Portefeuille</label>
+                        <input type="text" class="form-control" id="AE_portef" placeholder="Entrer AE Portefeuille">
                     </div>
                     <div class="form-group">
-                        <label for="CP_portef">CP pour portefeuille</label>
-                        <input type="number" class="form-control" id="CP_portef" placeholder=" Entrer CP  portefeuille">
+                        <label for="CP_portef">CP pour Portefeuille</label>
+                        <input type="number" class="form-control" id="CP_portef" placeholder="Entrer CP Portefeuille">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" id="file_holder">
                         <!--label for="inputFile">Journal scanner</label-->
                         <label for="pdf_file">Choisissez un fichier PDF :</label>
-                        <input type="file" name="pdf_file" id="pdf_file" accept="application/pdf" required>
-                        <button id="pdf-upload-form" data-id="1">Télécharger le PDF</button>
-
+                        <input type="file" name="pdf_file" id="pdf_file" accept=".pdf, .jpg, .jpeg, .png">
                     </div>
 
                 </form>
+                <br>
                 <button type="submit" class="btn btn-primary" id="add-wallet">
                     <i class="fas fa-plus"></i> Ajouter
                 </button>
@@ -92,40 +91,35 @@
     </div>
     <div id="progam-handle" style="display:none;">
     <div class="form-container" id="creati-prog">
-      <form >
+      <form enctype="multipart/form-data">
         <div class="form-group">
           <label for="input1">Code du Programme</label>
-          <input type="text" class="form-control" id="num_prog" placeholder="Entrer le  Code du Programme">
-        </div>
-        <div class="form-group">
-          <label for="input2">Date insertion :</label>
-          <input type="date" class="form-control" id="date_insert_portef">
+          <input type="text" class="form-control" id="num_prog" placeholder="Entrer le Code du Programme">
         </div>
         <div class="form-group">
           <label for="input1">Nom du Programme</label>
           <input type="text" class="form-control" id="nom_prog" placeholder="Entrer le Nom du Programme">
         </div>
-      
+        <div class="form-group">
+          <label for="input2">Date insertion Programme :</label>
+          <input type="date" class="form-control" id="date_insert_portef">
+        </div>
         <div class="form-group">
           <label for="inputDate">AE pour Programme</label>
           <input type="number" class="form-control" id="AE_prog" placeholder="Entrer AE Programme">
         </div>
         <div class="form-group">
-          <label for="inputDate">CP</label>
+          <label for="inputDate">CP pour Programme</label>
           <input type="number" class="form-control" id="CP_prog" placeholder="Entrer CP Programme">
         </div>
         </form>
 
         <br>
         <div id="confirm-holder">
-        <button class="btn btn-primary" id="add-prg">Ajouter</button>
+        <input type="file" class="form-control" id="file" accept=".pdf, .jpg, .jpeg, .png">
         <hr>
-        <div class="file-handle">
-        <input type="file" class="form-control" id="file">
-        <button class="btn btn-primary">Ajouter Journal</button>
+        <button class="btn btn-primary" id="add-prg">Ajouter</button>
         </div>
-        </div>
-
     </div>
     </div>
     <div id="sous_prog-handle">

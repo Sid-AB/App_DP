@@ -40,7 +40,7 @@ class sousOperationController extends Controller
      // dd($resultats);
         try{
             $resultats = $this->CalculDpia->calculdpiaFromPath($port, $prog, $sous_prog, $act,$s_act);
-               return view('Action-in.index',compact('port','prog','sous_prog','act','resultats'));
+               return view('Action-in.index',compact('port','prog','sous_prog','act','s_act','resultats'));
            } catch (\Exception $e) {
                // en cas d'erreur retourner un message d'erreur 
                return response()->view('errors.not_found', [], 404);
