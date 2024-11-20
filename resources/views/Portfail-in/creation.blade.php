@@ -72,7 +72,7 @@
                     <div class="form-group">
                         <label for="inputFile">Journal scanner</label>
                         <label for="pdf_file">Choisissez un fichier PDF :</label>
-                        <input type="file" name="pdf_file" id="pdf_file" accept="application/pdf" required>
+                        <input type="file" name="pdf_file" id="pdf_file" accept=".pdf, .jpg, .jpeg, .png">
                         <button id="pdf-upload-form" data-id="1">Télécharger le PDF</button>
 
                     </div>
