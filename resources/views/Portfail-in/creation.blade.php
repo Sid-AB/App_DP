@@ -69,7 +69,7 @@
                         <label for="CP_portef">CP</label>
                         <input type="number" class="form-control" id="CP_portef" placeholder="CP">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" id="file_holder">
                         <label for="inputFile">Journal scanner</label>
                         <label for="pdf_file">Choisissez un fichier PDF :</label>
                         <input type="file" name="pdf_file" id="pdf_file" accept=".pdf, .jpg, .jpeg, .png">
@@ -91,7 +91,7 @@
     </div>
     <div id="progam-handle" style="display:none;">
     <div class="form-container" id="creati-prog">
-      <form >
+      <form enctype="multipart/form-data">
         <div class="form-group">
           <label for="input1">Code_Programme</label>
           <input type="text" class="form-control" id="num_prog" placeholder="Donnee Code Programme">
@@ -116,14 +116,10 @@
 
         <br>
         <div id="confirm-holder">
-        <button class="btn btn-primary" id="add-prg">Ajouter</button>
+        <input type="file" class="form-control" id="file" accept=".pdf, .jpg, .jpeg, .png">
         <hr>
-        <div class="file-handle">
-        <input type="file" class="form-control" id="file">
-        <button class="btn btn-primary">Journal</button>
+        <button class="btn btn-primary" id="add-prg">Ajouter</button>
         </div>
-        </div>
-
     </div>
     </div>
     <div id="sous_prog-handle">

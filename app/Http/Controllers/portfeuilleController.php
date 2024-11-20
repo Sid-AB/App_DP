@@ -309,7 +309,11 @@ if ($request->hasFile('file')) {
 */
 
 
-
+return response()->json([
+    'success' => true,
+    'message' => 'Portefeuille ajouté ou modifié avec succès.',
+    'code' => 404,
+]);
 
 }else{
     //dd($request);
@@ -440,7 +444,7 @@ function update_portef(Request $request)
 public function uploadPDF(Request $request)
 {
     $request->validate([
-        'pdf_file' => 'required|mimes:pdf,jpg,jpeg,png|max:2048', // Limite à 2 MB
+        'pdf_file' => 'mimes:pdf,jpg,jpeg,png|max:2048', // Limite à 2 MB
         'related_id' => 'required'
      ]); 
 

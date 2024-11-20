@@ -90,6 +90,41 @@
                           *
                           * this function for adding button et makalah -_- ;
                           */
+
+                         /**
+                          * 
+                          * upload file function
+                          * 
+                          */
+                         function upload_file(id_file,id_relat)
+                         {
+                            
+                            let formDataFa = new FormData();
+                            formDataFa.append('pdf_file', $('#'+id_file)[0].files[0]);
+                            formDataFa.append('related_id',id_relat);
+                            $.ajax({
+                                url:'/upload-pdf',
+                                type:'POST',
+                                data:formDataFa,
+                                processData: false,
+                                contentType: false,
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token
+                                },
+                                success:function(response)
+                                {
+                                    if(response.code)
+                                    {
+                                   return response.code
+                                  }
+                                    else
+                                    {
+                                        return response.message;
+                                    }
+                                }
+                            })
+                         
+                         }
                          function focus_() {
                              $('input').focus(function () {
                                  $(this).removeAttr('style');
@@ -589,7 +624,7 @@
                                                  console.log(response); // Vérifiez la réponse
 
                                                  console.log('numwall_year path3: ' + JSON.stringify(path3));
-
+                                                  $('#file_holder').empty() 
                                                  // Remplir les champs du formulaire avec les données récupérées
                                                  $('#date_crt_portf').val(response.Date_portefeuille).trigger('change'); // Remplir et déclencher l'événement change
                                                  $('#AE_portef').val(response.AE_portef).trigger('change'); // Remplir et déclencher l'événement change
@@ -714,7 +749,6 @@
                                             path3.push(num_wallet);
 
                                             console.log("numwall_year path: " + JSON.stringify(path));
-
                                             $(".font-bk").removeClass("back-bk");
                                             $(".wallet-path").css("display", "flex");
                                             $(".wallet-handle").empty();
@@ -864,7 +898,10 @@
                                  success: function (response) {
                                      if (response.code == 200 || response.code == 404) {
 
-                                         alert(response.message)
+                                        if(upload_file('file',id_prog) == 200)
+                                        {
+                                            alert(response.message)
+                                        }
                                          path.push(numprog_year);
                                          path3.push(id_prog);
                                          console.log('numprog_year path: ' + JSON.stringify(path));
