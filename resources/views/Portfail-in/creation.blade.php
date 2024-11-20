@@ -97,12 +97,12 @@
           <input type="text" class="form-control" id="num_prog" placeholder="Entrer le Code du Programme">
         </div>
         <div class="form-group">
-          <label for="input1">Nom du Programme</label>
-          <input type="text" class="form-control" id="nom_prog" placeholder="Entrer le Nom du Programme">
-        </div>
-        <div class="form-group">
           <label for="input2">Date insertion Programme :</label>
           <input type="date" class="form-control" id="date_insert_portef">
+        </div>
+        <div class="form-group">
+          <label for="input1">Nom du Programme</label>
+          <input type="text" class="form-control" id="nom_prog" placeholder="Entrer le Nom du Programme">
         </div>
         <div class="form-group">
           <label for="inputDate">AE pour Programme</label>
