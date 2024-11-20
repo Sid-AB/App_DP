@@ -1170,6 +1170,8 @@
                                                                                  var AE_sous_act = $('#AE_sous_act').val()
                                                                                  var CP_sous_act = $('#CP_sous_act').val()
                                                                                  var dat_inst = $('#date_insert_sou_action').val();
+                                                                                 console.log("ae= ",AE_sous_act,"      " );
+                                                                                 console.log("cp= ",CP_sous_act );
                                                                                  check_ifnull('#add-prg4')
                                                                                  var numaction_year = path[3];
                                                                                  var numsousaction_year = num_sous_act + numaction_year;
@@ -1225,7 +1227,6 @@
                                                                  var dat_inst = $('#date_insert_action').val();
                                                                  var id_sou_prog = path[2];
                                                                  var numaction_year = num_act + id_sou_prog;
-
                                                                  var formdata_act = {
                                                                      num_action: numaction_year,
                                                                      nom_action: nom_act,
