@@ -260,7 +260,7 @@ public function check_portef(Request $request)
 //dd($request);
         //si le portefeuiille existe donc le modifier
     $portefeuille = Portefeuille::where('num_portefeuil', $request->num_portefeuil)->first();
-    if (!$portefeuille) {
+    if ($portefeuille) {
         $portefeuille->nom_journal = $request->nom_journal;
         $portefeuille->num_journal = $request->num_journal;
         $portefeuille->AE_portef = $request->AE_portef;
@@ -268,16 +268,9 @@ public function check_portef(Request $request)
         $portefeuille->Date_portefeuille = $request->Date_portefeuille;
         $portefeuille->id_min =1;//periodiquement
         $portefeuille->save();
-    }
-    else
-    {
-        return response()->json([
-            'success' => true,
-            'message' => 'Portefeuille ajouté ou modifié avec succès.',
-            'code' => 404,
-        ]);
-    }
 
+
+/*
 
 // Enregistrer le fichier et le lier au portefeuille
 if ($request->hasFile('file')) {
@@ -312,12 +305,12 @@ if ($request->hasFile('file')) {
     } else {
         return response()->json(['error' => 'Le fichier téléchargé est invalide.'], 400);
     }
-} else {
+} else
     return response()->json(['error' => 'Aucun fichier n\'a été téléchargé.'], 400);
+*/
+
+
 }
-
-
-
         // Créer un nouveau portefeuille
         $portefeuille = new Portefeuille();
         $portefeuille->num_portefeuil = $request->num_portefeuil;
@@ -329,6 +322,7 @@ if ($request->hasFile('file')) {
         $portefeuille->id_min =1;//periodiquement
         $portefeuille->save();
 
+  /*
           // Enregistrer le fichier et le lier au portefeuille
     if ($request->hasFile('file')) {
         // Stocker le fichier dans le dossier `public/files` et obtenir le chemin
@@ -356,10 +350,9 @@ if ($request->hasFile('file')) {
         $media->save();
 
         return response()->json(['message' => 'Fichier enregistré avec succès.']);
-    }else{
-
+    }else
         return response()->json(['error' => 'Aucun fichier n\'a été téléchargé.'], 400);
-    }
+    */
 
 
 

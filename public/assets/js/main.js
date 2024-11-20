@@ -301,7 +301,7 @@
                                                           /* var someae = parseFloat(aeDataOuvert) + parseFloat(aeDataAttendu);
                                                              var somecp = parseFloat(cpDataOuvert) + parseFloat(cpDataAttendu);
                                                              */
-                                    // Ajoute les valeurs dans les objets
+                                                             // Ajoute les valeurs dans les objets
                                                              data.ae_ouvert[code] = aeDataOuvert;
                                                              data.cp_ouvert[code] = cpDataOuvert;
                                                              data.ae_attendu[code] = aeDataAttendu;
@@ -843,25 +843,25 @@
                                          $('#confirm-holder').append('<i class="fas fa-wrench"></i>')
 
 
-                // Vérifie l'existence du programme lorsque le champ de programme perd le focus
-                $('#date_insert_sousProg').on('focusout', function () {
-                    var Date_sou_program = $(this).val(); // Récupérer la valeur du programme
-                    //var year = new Date(Date_sou_program).getFullYear(); // Extraire l'année à partir de la date
-                    var num_sou_prog = $('#num_sous_prog').val(); // Récupérer la valeur de la date du programme
-                    // Vérifie que les deux champs sont remplis avant de continuer
-                    var num_sou_program = num_sou_prog + path[1];
-                    if (Date_sou_program && num_sou_prog) {
-                        // Appel AJAX pour vérifier le programme dans la base de données
-                        $.ajax({
-                            url: '/check-sousprog',  // Route pour vérifier l'existence du programme
-                            type: 'GET',
-                            data: {
-                                num_sous_prog: num_sou_program,
-                            },
-                            success: function (response) {
-                                if (response.exists) {
-                                    console.log(response); // Vérifiez la réponse
-                                    console.log('num_sou_program path: ' + JSON.stringify(path));
+                                         // Vérifie l'existence du programme lorsque le champ de programme perd le focus
+                                         $('#date_insert_sousProg').on('focusout', function () {
+                                             var Date_sou_program = $(this).val(); // Récupérer la valeur du programme
+                                             //var year = new Date(Date_sou_program).getFullYear(); // Extraire l'année à partir de la date
+                                             var num_sou_prog = $('#num_sous_prog').val(); // Récupérer la valeur de la date du programme
+                                             // Vérifie que les deux champs sont remplis avant de continuer
+                                             var num_sou_program = num_sou_prog + path[1];
+                                             if (Date_sou_program && num_sou_prog) {
+                                                 // Appel AJAX pour vérifier le programme dans la base de données
+                                                 $.ajax({
+                                                     url: '/check-sousprog',  // Route pour vérifier l'existence du programme
+                                                     type: 'GET',
+                                                     data: {
+                                                         num_sous_prog: num_sou_program,
+                                                     },
+                                                     success: function (response) {
+                                                         if (response.exists) {
+                                                             console.log(response); // Vérifiez la réponse
+                                                             console.log('num_sou_program path: ' + JSON.stringify(path));
 
                                                              // Remplir les champs du formulaire avec les données récupérées
                                                              $('#nom_sous_prog').val(response.nom_sous_prog).trigger('change'); // Remplir et déclencher l'événement change
@@ -872,90 +872,90 @@
 
                                                              alert('Le sous programme existe déjà');
 
-                                } else {
-                                    // alert('Le programme n\'existe pas.');
-                                }
-                            },
-                            error: function () {
-                                alert('Erreur lors de la vérification du programme');
-                            }
-                        });
-                    }
-                });
-                focus_()
-                /**  sous prog insert */
-                $('#add-prg2').on('click', function () {
-                    var sou_prog = $('#num_sous_prog').val()
-                    var nom_sou_prog = $('#nom_sous_prog').val();
-                    var dat_sou_prog = $('#date_insert_sousProg').val()
-                    var AE_sous_prog = $('#AE_sous_prog').val()
-                    var CP_sous_prog = $('#CP_sous_prog').val()
-                    var id_prog = path[2];
-                    var numsouprog_year = sou_prog + id_prog;
-                    check_ifnull('#add-prg2')
-                    //var id_port = path[0];
-                    var nexthop = '<div class="pinfo-handle">' +
-                        '<i class="fas fa-wallet"></i>' +
-                        '<p >S_Program :</p>' +
-                        '<p>' + sou_prog + '</p>' +
-                        '</div>' +
-                        ' <div class="next-handle">' +
-                        '<i class="fas fa-angle-double-right waiting-icon"></i>' +
-                        '</div>'
-                    var prg3 = '<div class="form-container" id="creati-act">' +
-                        '<form>' +
-                        '<div class="form-group">' +
-                        '<label for="input1">Code  d\'ACTION</label>' +
-                        '<input type="text" class="form-control" id="num_act" placeholder="Donner le Code  d\'ACTION">' +
-                        '</div>' +
-                        ' <div class="form-group">' +
-                        ' <label for="inputDate">Date du Journal</label>' +
-                        '<input type="date" class="form-control" id="date_insert_action">' +
-                        '</div>' +
-                        '<div class="form-group">' +
-                        '<label for="input1">Nom  d\'ACTION</label>' +
-                        '<input type="text" class="form-control" id="nom_act" placeholder="Donner le Nom  d\'ACTION">' +
-                        '</div>' +
-                        '<div class="form-group" id="ElAE_act">' +
-                        '<label for="input1">AE pour Action</label>' +
-                        '<input type="number" class="form-control" id="AE_act" placeholder="AE">' +
-                        '</div>' +
-                        '<div class="form-group" id="ElCP_act">' +
-                        '<label for="input1">CP pour Action</label>' +
-                        '<input type="number" class="form-control" id="CP_act" placeholder="CP">' +
-                        '</div>' +
-                        ' </form>' +
-                        ' <br>' +
-                        '<div id="confirm-holder_act">' +
-                        '<button class="btn btn-primary" id="add-prg3">Ajouter</button>' +
-                        '<hr>' +
-                        ' <div class="file-handle">' +
-                        '<input type="file" class="form-control" id="file">' +
-                        '<button class="btn btn-primary">Ajouter le Journal</button>' +
-                        '</div>' +
-                        '</div>'
-                    var formdatasou_prog = {
-                        num_sous_prog: numsouprog_year,
-                        nom_sous_prog: nom_sou_prog,
-                        AE_sous_prog: AE_sous_prog,
-                        CP_sous_prog: CP_sous_prog,
-                        date_insert_sousProg: dat_sou_prog,
-                        id_program: id_prog,
-                        //id_porte: id_port,
-                        _token: $('meta[name="csrf-token"]').attr('content'),
-                        _method: 'POST'
-                    }
-                    console.log('data' + JSON.stringify(formdatasou_prog))
-                    $.ajax({
-                        url: '/creationSousProg',
-                        type: "POST",
-                        data: formdatasou_prog,
-                        success: function (response) {
-                            if (response.code == 200 || response.code == 404) {
-                                alert(response.message)
-                                path.push(numsouprog_year);
-                                path3.push(sou_prog);
-                                console.log('num_sou_program path: ' + JSON.stringify(path));
+                                                         } else {
+                                                             // alert('Le programme n\'existe pas.');
+                                                         }
+                                                     },
+                                                     error: function () {
+                                                         alert('Erreur lors de la vérification du programme');
+                                                     }
+                                                 });
+                                             }
+                                         });
+                                         focus_()
+                                         /**  sous prog insert */
+                                         $('#add-prg2').on('click', function () {
+                                             var sou_prog = $('#num_sous_prog').val()
+                                             var nom_sou_prog = $('#nom_sous_prog').val();
+                                             var dat_sou_prog = $('#date_insert_sousProg').val()
+                                             var AE_sous_prog = $('#AE_sous_prog').val()
+                                             var CP_sous_prog = $('#CP_sous_prog').val()
+                                             var id_prog = path[1];
+                                             var numsouprog_year = sou_prog + id_prog;
+                                             check_ifnull('#add-prg2')
+                                             //var id_port = path[0];
+                                             var nexthop = '<div class="pinfo-handle">' +
+                                                 '<i class="fas fa-wallet"></i>' +
+                                                 '<p >S_Program :</p>' +
+                                                 '<p>' + sou_prog + '</p>' +
+                                                 '</div>' +
+                                                 ' <div class="next-handle">' +
+                                                 '<i class="fas fa-angle-double-right waiting-icon"></i>' +
+                                                 '</div>'
+                                             var prg3 = '<div class="form-container" id="creati-act">' +
+                                                 '<form>' +
+                                                 '<div class="form-group">' +
+                                                 '<label for="input1">Code  d\'ACTION</label>' +
+                                                 '<input type="text" class="form-control" id="num_act" placeholder="Donner le Code  d\'ACTION">' +
+                                                 '</div>' +
+                                                 ' <div class="form-group">' +
+                                                 ' <label for="inputDate">Date du Journal</label>' +
+                                                 '<input type="date" class="form-control" id="date_insert_action">' +
+                                                 '</div>' +
+                                                 '<div class="form-group">' +
+                                                 '<label for="input1">Nom  d\'ACTION</label>' +
+                                                 '<input type="text" class="form-control" id="nom_act" placeholder="Donner le Nom  d\'ACTION">' +
+                                                 '</div>' +
+                                                 '<div class="form-group" id="ElAE_act">' +
+                                                 '<label for="input1">AE pour Action</label>' +
+                                                 '<input type="number" class="form-control" id="AE_act" placeholder="AE">' +
+                                                 '</div>' +
+                                                 '<div class="form-group" id="ElCP_act">' +
+                                                 '<label for="input1">CP pour Action</label>' +
+                                                 '<input type="number" class="form-control" id="CP_act" placeholder="CP">' +
+                                                 '</div>' +
+                                                 ' </form>' +
+                                                 ' <br>' +
+                                                 '<div id="confirm-holder_act">' +
+                                                 '<button class="btn btn-primary" id="add-prg3">Ajouter</button>' +
+                                                 '<hr>' +
+                                                 ' <div class="file-handle">' +
+                                                 '<input type="file" class="form-control" id="file">' +
+                                                 '<button class="btn btn-primary">Ajouter le Journal</button>' +
+                                                 '</div>' +
+                                                 '</div>'
+                                             var formdatasou_prog = {
+                                                 num_sous_prog: numsouprog_year,
+                                                 nom_sous_prog: nom_sou_prog,
+                                                 AE_sous_prog: AE_sous_prog,
+                                                 CP_sous_prog: CP_sous_prog,
+                                                 date_insert_sousProg: dat_sou_prog,
+                                                 id_program: id_prog,
+                                                 //id_porte: id_port,
+                                                 _token: $('meta[name="csrf-token"]').attr('content'),
+                                                 _method: 'POST'
+                                             }
+                                             console.log('data' + JSON.stringify(formdatasou_prog))
+                                             $.ajax({
+                                                 url: '/creationSousProg',
+                                                 type: "POST",
+                                                 data: formdatasou_prog,
+                                                 success: function (response) {
+                                                     if (response.code == 200 || response.code == 404) {
+                                                         alert(response.message)
+                                                         path.push(numsouprog_year);
+                                                         path3.push(sou_prog);
+                                                         console.log('num_sou_program path: ' + JSON.stringify(path));
 
                                                          $('.next-handle svg').removeClass('waiting-icon')
                                                          $('.next-handle svg').addClass('complet-icon')
@@ -967,27 +967,27 @@
 
 
 
-                                $('#date_insert_action').on('focusout', function () {
-                                    alert('out')
-                                    var date_act = $(this).val();
-                                    var num_act = $('#num_act').val();
-                                    //  var date_act=  new Date(date_act).getFullYear();
-                                    var numact_year = num_act + path[2];
-                                    console.log('the new id' + numact_year + ' with ' + JSON.stringify(path))
-                                    if (date_act && num_act) {
-                                        $.ajax({
-                                            url: '/check-action',  // Route pour vérifier l'existence du programme
-                                            type: 'GET',
-                                            data: {
-                                                num_action: numact_year,
-                                            },
-                                            success: function (response) {
-                                                if (response.exists) {
-                                                    $('#nom_act').val(response.nom_action).trigger('change'); // Remplir et déclencher l'événement change
-                                                    // $('#date_insert_action').val(response.date_insert_action).trigger('change'); // Remplir et déclencher l'événement change
-                                                    $('#AE_act').val(response.AE_act).trigger('change'); // Remplir et déclencher l'événement change
-                                                    $('#CP_act').val(response.CP_act).trigger('change'); // Remplir et déclencher l'événement change
-                                                    alert('L`Action existe déjà');
+                                                         $('#date_insert_action').on('focusout', function () {
+                                                             alert('out')
+                                                             var date_act = $(this).val();
+                                                             var num_act = $('#num_act').val();
+                                                             //  var date_act=  new Date(date_act).getFullYear();
+                                                             var numact_year = num_act + path[2];
+                                                             console.log('the new id' + numact_year + ' with ' + JSON.stringify(path))
+                                                             if (date_act && num_act) {
+                                                                 $.ajax({
+                                                                     url: '/check-action',  // Route pour vérifier l'existence du programme
+                                                                     type: 'GET',
+                                                                     data: {
+                                                                         num_action: numact_year,
+                                                                     },
+                                                                     success: function (response) {
+                                                                         if (response.exists) {
+                                                                             $('#nom_act').val(response.nom_action).trigger('change'); // Remplir et déclencher l'événement change
+                                                                             // $('#date_insert_action').val(response.date_insert_action).trigger('change'); // Remplir et déclencher l'événement change
+                                                                             $('#AE_act').val(response.AE_act).trigger('change'); // Remplir et déclencher l'événement change
+                                                                             $('#CP_act').val(response.CP_act).trigger('change'); // Remplir et déclencher l'événement change
+                                                                             alert('L`Action existe déjà');
 
                                                                          }
                                                                          else {
@@ -1002,89 +1002,89 @@
                                                          /******           ACTION add for under_progam                    *********** */
 
 
-                                $('#add-prg3').on('click', function () {
-                                    /**
-                                     *  this part for chacking if he want to under_action
-                                     *
-                                     */
-                                    // Demande de confirmation pour ajouter une sous-action après l'ajout de l'action
-                                    let userResponse = confirm('Voulez-vous ajouter une sous-action pour cette action ?');
-                                    var nom_act = $('#nom_act').val();
-                                    var num_act = $('#num_act').val();
-                                    var AE_act = $('#AE_act').val()
-                                    var CP_act = $('#CP_act').val()
-                                    var dat_inst = $('#date_insert_action').val();
-                                    var id_sou_prog = path[2];
-                                    check_ifnull('#add-prg3')
-                                    var numaction_year = num_act + id_sou_prog;
-                                        var nexthop = '<div class="pinfo-handle">' +
-                                            '<i class="fas fa-wallet"></i>' +
-                                            '<p >Action :</p>' +
-                                            '<p>' + num_act + '</p>' +
-                                            '</div>' +
-                                            ' <div class="next-handle">' +
-                                            '<i class="fas fa-angle-double-right waiting-icon"></i>' +
-                                            '</div>'
-                                        // Création du formData pour l'action
-                                        console.log('action sous prog '+path[2])
-                                        var formdata_act = {
-                                            num_action: numaction_year,
-                                            nom_action: nom_act,
-                                            AE_act: AE_act,
-                                            CP_act: CP_act,
-                                            date_insert_action: dat_inst,
-                                            id_sous_prog: path[2],
-                                            _token: $('meta[name="csrf-token"]').attr('content'),
-                                            _method: 'POST'
-                                        };
+                                                         $('#add-prg3').on('click', function () {
+                                                             /**
+                                                              *  this part for chacking if he want to under_action
+                                                              *
+                                                              */
+                                                             // Demande de confirmation pour ajouter une sous-action après l'ajout de l'action
+                                                             let userResponse = confirm('Voulez-vous ajouter une sous-action pour cette action ?');
+                                                             var nom_act = $('#nom_act').val();
+                                                             var num_act = $('#num_act').val();
+                                                             var AE_act = $('#AE_act').val()
+                                                             var CP_act = $('#CP_act').val()
+                                                             var dat_inst = $('#date_insert_action').val();
+                                                             var id_sou_prog = path[2];
+                                                             check_ifnull('#add-prg3')
+                                                             var numaction_year = num_act + id_sou_prog;
+                                                                 var nexthop = '<div class="pinfo-handle">' +
+                                                                     '<i class="fas fa-wallet"></i>' +
+                                                                     '<p >Action :</p>' +
+                                                                     '<p>' + num_act + '</p>' +
+                                                                     '</div>' +
+                                                                     ' <div class="next-handle">' +
+                                                                     '<i class="fas fa-angle-double-right waiting-icon"></i>' +
+                                                                     '</div>'
+                                                                 // Création du formData pour l'action
+                                                                 console.log('action sous prog '+path[2])
+                                                                 var formdata_act = {
+                                                                     num_action: numaction_year,
+                                                                     nom_action: nom_act,
+                                                                     AE_act: AE_act,
+                                                                     CP_act: CP_act,
+                                                                     date_insert_action: dat_inst,
+                                                                     id_sous_prog: path[2],
+                                                                     _token: $('meta[name="csrf-token"]').attr('content'),
+                                                                     _method: 'POST'
+                                                                 };
 
-                                    if (userResponse) {
-                                        // Récupération des informations de l'action
+                                                             if (userResponse) {
+                                                                 // Récupération des informations de l'action
 
 
-                                        // Envoi de l'Action via Ajax
-                                        $.ajax({
-                                            url: '/creationAction',
-                                            type: 'POST',
-                                            data: formdata_act,
-                                            success: function (response) {
-                                                if (response.code === 200 || response.code === 404) {
-                                                    // Ajout du numéro de l'action au chemin
-                                                    path.push(numaction_year);
-                                                    path3.push(num_act);
-                                                    $('#confirm-holder_act').empty()
-                                                    $('#confirm-holder_act').append('<i class="fas fa-wrench"></i>')
-                                                    console.log('A path: ' + JSON.stringify(path));
-                                                    $('#confirm-holder_act').empty()
-                                                    $('#confirm-holder_act').append('<i class="fas fa-wrench"></i>')
-                                                    // Création du formulaire pour la sous-action après l'ajout de l'action
-                                                    var prg4 = `<div class="form-container" id="creati-act">
-                                                           <form>
-                                                            <div class="form-group">
-                                                            <label for="num_sous_act">Code de Sous ACTION</label>
-                                                            <input type="text" class="form-control" id="num_sous_act" placeholder="Donner le Code d'ACTION">
-                                                           </div>
-                                                            <div class="form-group">
-                                                                 <label for="date_insert_sou_action">Date du Journal</label>
-                                                                 <input type="date" class="form-control" id="date_insert_sou_action">
-                                                               </div>
-                                                            <div class="form-group">
-                                                                <label for="nom_sous_act">Nom de  Sous ACTION</label>
-                                                            <input type="text" class="form-control" id="nom_sous_act" placeholder=Donner le Nom d'ACTION">
-                                                            </div>
-                                                               <div class="form-group">
-                                                                <label for="AE_sous_act">AE pour Sous Action</label>
-                                                                <input type="number" class="form-control" id="AE_sous_act" placeholder="AE">
-                                                            </div>
-                                                            <div class="form-group">
-                                                              <label for="CP_sous_act">CP pour Sous Action</label>
-                                                            <input type="number" class="form-control" id="CP_sous_act" placeholder="CP">
-                                                               </div>
+                                                                 // Envoi de l'Action via Ajax
+                                                                 $.ajax({
+                                                                     url: '/creationAction',
+                                                                     type: 'POST',
+                                                                     data: formdata_act,
+                                                                     success: function (response) {
+                                                                         if (response.code === 200 || response.code === 404) {
+                                                                             // Ajout du numéro de l'action au chemin
+                                                                             path.push(numaction_year);
+                                                                             path3.push(num_act);
+                                                                             $('#confirm-holder_act').empty()
+                                                                             $('#confirm-holder_act').append('<i class="fas fa-wrench"></i>')
+                                                                             console.log('A path: ' + JSON.stringify(path));
+                                                                             $('#confirm-holder_act').empty()
+                                                                             $('#confirm-holder_act').append('<i class="fas fa-wrench"></i>')
+                                                                             // Création du formulaire pour la sous-action après l'ajout de l'action
+                                                                             var prg4 = `<div class="form-container" id="creati-act">
+                                                                                    <form>
+                                                                                     <div class="form-group">
+                                                                                     <label for="num_sous_act">Code de Sous ACTION</label>
+                                                                                     <input type="text" class="form-control" id="num_sous_act" placeholder="Donner le Code d'ACTION">
+                                                                                    </div>
+                                                                                     <div class="form-group">
+                                                                                          <label for="date_insert_sou_action">Date du Journal</label>
+                                                                                          <input type="date" class="form-control" id="date_insert_sou_action">
+                                                                                        </div>
+                                                                                     <div class="form-group">
+                                                                                         <label for="nom_sous_act">Nom de  Sous ACTION</label>
+                                                                                     <input type="text" class="form-control" id="nom_sous_act" placeholder=Donner le Nom d'ACTION">
+                                                                                     </div>
+                                                                                        <div class="form-group">
+                                                                                         <label for="AE_sous_act">AE pour Sous Action</label>
+                                                                                         <input type="number" class="form-control" id="AE_sous_act" placeholder="AE">
+                                                                                     </div>
+                                                                                     <div class="form-group">
+                                                                                       <label for="CP_sous_act">CP pour Sous Action</label>
+                                                                                     <input type="number" class="form-control" id="CP_sous_act" placeholder="CP">
+                                                                                        </div>
 
-                                                               </form>
-                                                               <br>
-                                                               <button class="btn btn-primary" id="add-prg4">Ajouter Sous Action</button>
-                                                               </div>`;
+                                                                                        </form>
+                                                                                        <br>
+                                                                                        <button class="btn btn-primary" id="add-prg4">Ajouter Sous Action</button>
+                                                                                        </div>`;
 
                                                                              // Insertion du formulaire pour la sous-action dans le DOM
                                                                              $('.the-path').append(nexthop)
@@ -1100,7 +1100,7 @@
                                                                                  var CP_sous_act = $('#CP_sous_act').val()
                                                                                  var dat_inst = $('#date_insert_sou_action').val();
                                                                                  check_ifnull('#add-prg4')
-                                                                                 var numaction_year = path[4];
+                                                                                 var numaction_year = path[3];
                                                                                  var numsousaction_year = num_sous_act + numaction_year;
                                                                                  // Création du formData pour la sous-action
                                                                                  var formdata_sous_act = {
@@ -1109,7 +1109,7 @@
                                                                                      AE_sous_act: AE_sous_act,
                                                                                      CP_sous_act: CP_sous_act,
                                                                                      date_insert_sous_action: dat_inst,
-                                                                                     num_act: path[4],
+                                                                                     num_act: path[3],
                                                                                      //id_sous_act: path[2],
                                                                                      //id_prog: path[1],
                                                                                      // id_porte: path[0],
@@ -1129,31 +1129,31 @@
                                                                                              path3.push(num_sous_act);
                                                                                              console.log('path: ' + JSON.stringify(path));
 
-                                                                    // Redirection vers la page suivante après l'ajout de la sous-action
-                                                                    alert('testing')
-                                                                    window.location.href = 'testing/S_action/' + path[0] + '/' + path[1] + '/' + path[2] + '/' + path[3] + '/' + path[4];
-                                                                }
-                                                            },
-                                                            error: function (response) {
-                                                                alert('Erreur lors de l\'ajout de la sous-action.');
-                                                            }
-                                                        });
-                                                    });
-                                                }
-                                            },
-                                            error: function (response) {
-                                                alert('Erreur lors de l\'ajout de l\'action.');
-                                            }
-                                        });
-                                    } else {
-                                        // Cas où l'utilisateur n'ajoute pas de sous-action
-                                        var nom_act = $('#nom_act').val();
-                                        var num_act = $('#num_act').val();
-                                        var AE_act = $('#AE_act').val()
-                                        var CP_act = $('#CP_act').val()
-                                        var dat_inst = $('#date_insert_action').val();
-                                        var id_sou_prog = path[2];
-                                        var numaction_year = num_act + id_sou_prog;
+                                                                                             // Redirection vers la page suivante après l'ajout de la sous-action
+                                                                                             alert('testing')
+                                                                                             window.location.href = 'testing/S_action/' + path[0] + '/' + path[1] + '/' + path[2] + '/' + path[3] + '/' + path[4];
+                                                                                         }
+                                                                                     },
+                                                                                     error: function (response) {
+                                                                                         alert('Erreur lors de l\'ajout de la sous-action.');
+                                                                                     }
+                                                                                 });
+                                                                             });
+                                                                         }
+                                                                     },
+                                                                     error: function (response) {
+                                                                         alert('Erreur lors de l\'ajout de l\'action.');
+                                                                     }
+                                                                 });
+                                                             } else {
+                                                                 // Cas où l'utilisateur n'ajoute pas de sous-action
+                                                                 var nom_act = $('#nom_act').val();
+                                                                 var num_act = $('#num_act').val();
+                                                                 var AE_act = $('#AE_act').val()
+                                                                 var CP_act = $('#CP_act').val()
+                                                                 var dat_inst = $('#date_insert_action').val();
+                                                                 var id_sou_prog = path[2];
+                                                                 var numaction_year = num_act + id_sou_prog;
 
                                                                  var formdata_act = {
                                                                      num_action: numaction_year,
@@ -1168,23 +1168,23 @@
                                                                      _method: 'POST'
                                                                  };
 
-                                        $.ajax({
-                                            url: '/creationAction',
-                                            type: 'POST',
-                                            data: formdata_act,
-                                            success: function (response) {
-                                                if (response.code === 200 || response.code === 404) {
-                                                    path.push(numaction_year);
-                                                    path3.push(num_act);
-                                                    // console.log('path: ' + JSON.stringify(path));
-                                                    window.location.href = 'testing/Action/' + path[0] + '/' + path[3] + '/' + path[5] + '/' + path[6];
-                                                }
-                                            },
-                                            error: function (response) {
-                                                alert('Erreur lors de l\'ajout de l\'action.');
-                                            }
-                                        });
-                                    }
+                                                                 $.ajax({
+                                                                     url: '/creationAction',
+                                                                     type: 'POST',
+                                                                     data: formdata_act,
+                                                                     success: function (response) {
+                                                                         if (response.code === 200 || response.code === 404) {
+                                                                             path.push(numaction_year);
+                                                                             path3.push(num_act);
+                                                                             // console.log('path: ' + JSON.stringify(path));
+                                                                             window.location.href = 'testing/Action/' + path[0] + '/' + path[1] + '/' + path[2] + '/' + path[3];
+                                                                         }
+                                                                     },
+                                                                     error: function (response) {
+                                                                         alert('Erreur lors de l\'ajout de l\'action.');
+                                                                     }
+                                                                 });
+                                                             }
 
                                                              /*********         END ACTION ********************************************** */
                                                          })
@@ -1848,39 +1848,39 @@
                          }
                          $(document).ready(function () {
 
-    $('#T1').on('click', function () {
-        var indic = path3.length - 1
-        console.log('len' + path3.length + ' act ' + indic)
-        $.ajax({
-            url: '/testing/codeSousOperation/' + path3[indic],
-            type: 'GET',
-            success: function (response) {
-                if (response.code == 200) {
-                    alert('Exist')
-                    var id = $(this).attr('id');
-                    var T = 1;
-                    T1_table(id, T, path3[indic], path3[0],response.code)
-                }
-                else {
-                    alert('New')
-                    var id = $(this).attr('id');
-                    var T = 1;
-                    T1_table(id, T, path3[indic], path3[0],response.code)
-                }
-            }
-        })
-    })
-    $('#T2').on('click', function () {
-        var indic = path3.length - 1
-        var T=2
-        var id = $(this).attr('id');
-        console.log('len' + path3.length + ' act ' + indic)
-        $.ajax({
-            url: '/testing/codeSousOperation/' + path3[indic],
-            type: 'GET',
-            success: function (response) {
-                if (response.code == 200) {
-                    alert('Exist')
+                             $('#T1').on('click', function () {
+                                 var indic = path3.length - 1
+                                 console.log('len' + path3.length + ' act ' + indic)
+                                 $.ajax({
+                                     url: '/testing/codeSousOperation/' + path3[indic],
+                                     type: 'GET',
+                                     success: function (response) {
+                                         if (response.code == 200) {
+                                             alert('Exist')
+                                             var id = $(this).attr('id');
+                                             var T = 1;
+                                             T1_table(id, T, path3[indic], path3[0],response.code)
+                                         }
+                                         else {
+                                             alert('New')
+                                             var id = $(this).attr('id');
+                                             var T = 1;
+                                             T1_table(id, T, path3[indic], path3[0],response.code)
+                                         }
+                                     }
+                                 })
+                             })
+                             $('#T2').on('click', function () {
+                                 var indic = path3.length - 1
+                                 var T=2
+                                 var id = $(this).attr('id');
+                                 console.log('len' + path3.length + ' act ' + indic)
+                                 $.ajax({
+                                     url: '/testing/codeSousOperation/' + path3[indic],
+                                     type: 'GET',
+                                     success: function (response) {
+                                         if (response.code == 200) {
+                                             alert('Exist')
 
 
                                              T2_table(id, T, path3[indic], path3[0],response.code)
