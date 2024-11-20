@@ -383,9 +383,9 @@ listItemsWithNestedUl.each(function(){
       })
     
     }
-    if(typeact[0] =='s_act')
+    if(typeact[0] == 's_act')
     {
-      $(this).on('click',function(){
+    $(this).on('click',function(){
      window.location.href='/testing/S_action/'+path[0]+'/'+path[1]+'/'+path[2]+'/'+path[3]+'/'+typeact[1]+'/'
       })
    

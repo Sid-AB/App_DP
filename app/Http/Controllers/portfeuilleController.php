@@ -438,43 +438,47 @@ function update_portef(Request $request)
                                 // FIN Modification du portefeuille/ upload fille pdf
 //===================================================================================
 public function uploadPDF(Request $request)
-{/*
-    try {
+{
+    $request->validate([
+        'pdf_file' => 'required|mimes:pdf,jpg,jpeg,png|max:2048', // Limite à 2 MB
+        'related_id' => 'required'
+     ]); 
+
+
         // Valider le fichier PDF
-
-          $request->validate([
-              'pdf_file' => 'required|mimes:pdf|max:2048', // Limite à 2 MB
-              'related_id' => 'required'
-
-           ]);
+       
+          
+           
            $file = $request->file('pdf_file');
            $path = $file->store('pdf_files', 'public'); // Enregistre dans storage/app/public/pdf_files
-
+        //  dd($file);
           // Insérer les détails dans la base de données (table multimedia)
           $media= DB::table('multimedia')->insert([
-              'nom_fichie' => $file->getClientOriginalName(),
+              'nom_fichier' => $file->getClientOriginalName(),
               'filepath' => $path,
               'filetype' => $file->getClientMimeType(),
               'size' => $file->getSize(),
-              'uploaded_by' => auth()->id(), // Assurez-vous que l'utilisateur est connecté
+              'uploaded_by' => 1, // Assurez-vous que l'utilisateur est connecté
               'related_id' => $request->input('related_id'),
 
           ]);
-          dd($media);
+          //dd($media);
 
           // Enregistrer le fichier PDF
           if ($request->hasFile('pdf_file')) {
 
 
-             if( $media)
+             if($media)
              {
-              dd($media);
-              return response()->json(['message' => 'Fichier téléchargé avec succès.']);
+             // dd($media);
+              return response()->json([
+                'code'=>200,
+                'message' => 'Fichier téléchargé avec succès.']);
              }
             else
              {
-            dd($media);
-             return response()->json(['message' => 'Aucun fichier sélectionné.'], 400);
+          //  dd($media);
+             return response()->json(['message' => 'Aucun fichier sélectionné.','code'=>400], 400);
 
              }
 
@@ -483,16 +487,7 @@ public function uploadPDF(Request $request)
        } else {
             return response()->json(['message' => 'Aucun fichier sélectionné.'], 400);
           }
-      } catch (\Exception $e) {
-          // En cas d'erreur, enregistre-la dans les logs de Laravel
-         \Log::error('Erreur de téléchargement PDF : ' . $e->getMessage());
-         return response()->json(['message' => 'Fichier téléchargé avec succès.']);
-
-
-  }
-
-
-  */
+     
 }
 }
 

@@ -674,7 +674,7 @@ height: 100%;
   position: fixed;
 top: 25%;
 left: 35%;
-width: 25%;
+width: 30%;
 z-index: 1000;
 }
 .wallet-path
@@ -1151,5 +1151,19 @@ transition-timing-function: line;
 #AE_T1
 {
   width: 100px;
+}
+.grid-container .card-body
+{
+  display: flex
+;
+    flex-direction: column;
+    height: 190px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 0px 5px 10px;
+}
+.carousel-inner .card-body
+{
+  height: 150px;
 }
 /**---------------------- end new ops -----------------------------------*/

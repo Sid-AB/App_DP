@@ -382,10 +382,7 @@
                                                          },
                                                          success: function (response) {
                                                              if (response.code == 200 || response.code == 404) {
-                                                                 path.push();
-                                                                 path3.push();
-
-                                                                 // window.location.href = ' testing/Action/'+ ;
+                                                                 window.location.reload();
                                                                  console.log('path' + JSON.stringify(path))
 
                                                              }
@@ -675,21 +672,58 @@
                                      type: "POST",
                                      data: formportinsert,
                                      success: function (response) {
-                                         if (response.code == 200 || response.code == 404) {
-                                             alert(response.message);
-                                             path.push(numwall_year);
-                                             path3.push(num_wallet);
+                                         if (response.code == 200 ) {
+                                            let formDataFa = new FormData();
+                                            formDataFa.append('pdf_file', $('#pdf_file')[0].files[0]);
+                                            formDataFa.append('related_id',num_wallet);
+                                            $.ajax({
+                                                url:'/upload-pdf',
+                                                type:'POST',
+                                                data:formDataFa,
+                                                processData: false,
+                                                contentType: false,
+                                                headers: {
+                                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token
+                                                },
+                                                success:function(response)
+                                                {
+                                                    if(response.code){
+                                                    alert(response.message);
+                                                    path.push(numwall_year);
+                                                    path3.push(num_wallet);
+       
+                                                    console.log("numwall_year path: " + JSON.stringify(path));
+       
+                                                    $(".font-bk").removeClass("back-bk");
+                                                    $(".wallet-path").css("display", "flex");
+                                                    $(".wallet-handle").empty();
+                                                    $("#progam-handle").css("display", "block");
+                                                    $("#progam-handle").removeClass("scale-out");
+                                                    $("#progam-handle").addClass("scale-visible");
+                                                    $("#w_id").text(num_wallet);}
+                                                    else
+                                                    {
+                                                        alert(response.message);
+                                                    }
+                                                }
+                                            })
+                                         } else if( response.code == 404) {
+                                            
+                                            alert(response.message);
+                                            path.push(numwall_year);
+                                            path3.push(num_wallet);
 
-                                             console.log("numwall_year path: " + JSON.stringify(path));
+                                            console.log("numwall_year path: " + JSON.stringify(path));
 
-                                             $(".font-bk").removeClass("back-bk");
-                                             $(".wallet-path").css("display", "flex");
-                                             $(".wallet-handle").empty();
-                                             $("#progam-handle").css("display", "block");
-                                             $("#progam-handle").removeClass("scale-out");
-                                             $("#progam-handle").addClass("scale-visible");
-                                             $("#w_id").text(num_wallet);
-                                         } else {
+                                            $(".font-bk").removeClass("back-bk");
+                                            $(".wallet-path").css("display", "flex");
+                                            $(".wallet-handle").empty();
+                                            $("#progam-handle").css("display", "block");
+                                            $("#progam-handle").removeClass("scale-out");
+                                            $("#progam-handle").addClass("scale-visible");
+                                            $("#w_id").text(num_wallet);
+                                        }
+                                            else{
                                              alert(response.message);
                                          }
                                      },
