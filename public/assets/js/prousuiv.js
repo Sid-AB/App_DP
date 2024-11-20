@@ -199,6 +199,52 @@ $(document).ready(function(){
                                     }
 
     }
+    if(id == "add-prg4")
+    {
+    
+        console.log('inside sous_action')
+        var nom_sous_act = $('#nom_s_act').val();
+        var num_sous_act = $('#num_s_act').val();
+        var dat_inst = $('#date_insert_action').val();
+        var numaction_year = path[3];
+        var numsousaction_year = num_sous_act + numaction_year;
+        console.log('this '+numaction_year+'new pa'+numsousaction_year)
+        // Création du formData pour la sous-action
+        var formdata_sous_act = {
+            num_sous_action: numsousaction_year,
+            nom_sous_action: nom_sous_act,
+            date_insert_sous_action: dat_inst,
+            num_act: path[3],
+            //id_sous_act: path[2],
+            //id_prog: path[1],
+           // id_porte: path[0],
+            //year: year,
+            _token: $('meta[name="csrf-token"]').attr('content'),
+            _method: 'POST'
+        };
+
+        // Envoi de la sous-action via Ajax
+        $.ajax({
+            url: '/creationsousAction',
+            type: 'POST',
+            data: formdata_sous_act,
+            success: function (response) {
+                if (response.code === 200 || response.code === 404) {
+                    path.push(numsousaction_year);
+                    path3.push(num_sous_act);
+                    console.log('path: ' + JSON.stringify(path));
+
+                    // Redirection vers la page suivante après l'ajout de la sous-action
+                    alert('testing')
+                    window.location.href = '/testing/S_action/' + path.join('/');
+                }
+            },
+            error: function (response) {
+                alert('Erreur lors de l\'ajout de la sous-action');
+            }
+        });
+
+    }
     if(id == "add-prg2")
     {
       var parent=$(this).parent() 
