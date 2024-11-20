@@ -69,6 +69,7 @@ public function check_action(Request $request)
        // dd($request);
              //si le sous PROG existe donc le modifier
     $action = action::where('num_action', $request->num_action)->first();
+    //dd($action);
     if ($action) {
         $action->nom_action = $request->nom_action;
         $action->AE_action=floatval($request->AE_act);

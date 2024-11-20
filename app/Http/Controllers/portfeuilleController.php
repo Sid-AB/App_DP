@@ -260,7 +260,7 @@ public function check_portef(Request $request)
 //dd($request);
         //si le portefeuiille existe donc le modifier
     $portefeuille = Portefeuille::where('num_portefeuil', $request->num_portefeuil)->first();
-    if (!$portefeuille) {
+    if ($portefeuille) {
         $portefeuille->nom_journal = $request->nom_journal;
         $portefeuille->num_journal = $request->num_journal;
         $portefeuille->AE_portef = $request->AE_portef;
