@@ -68,20 +68,8 @@ class programmeControlleur extends Controller
             'nom_prog' => 'required',
             'date_insert_portef' => 'required|date',
         ]);
-        //dd(floatval($request->ae_prog));
      //dd($request);
-        // Créer un nouveau programme
-        $prog=Programme::where('num_prog',intval($request->num_prog))->first();
-      //  dd($prog);
-        if(isset($prog))
-        {
-            return response()->json([
-                'success' => true,
-                'message' => 'Exist programme .',
-                'code' => 200,
-            ]);
-        }
-        else{
+
         $programme = new Programme();
         $programme->num_prog = $request->num_prog;
         $programme->cp_prog = $request->cp_prog;
@@ -121,7 +109,7 @@ class programmeControlleur extends Controller
                 'code' => 500,
             ]);
         }
-    }
+
     }
 
 }

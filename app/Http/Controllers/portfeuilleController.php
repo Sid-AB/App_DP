@@ -307,7 +307,7 @@ if ($request->hasFile('file')) {
 } else {
     return response()->json(['error' => 'Aucun fichier n\'a été téléchargé.'], 400);
 }
-*/
+
 
 
         // Créer un nouveau portefeuille

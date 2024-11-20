@@ -54,7 +54,8 @@ public function check_action(Request $request)
                         // creation sous action
 //===================================================================================
 function create_sousaction(Request $request)
-{ dd($request);
+{
+    //dd($request);
  // Récupérer la ligne de la table en fonction de 'numsouaction'
  $sousAction = SousAction::where('num_sous_action', $request->num_act)->first(); // Utilisation de 'numsouaction' pour trouver l'élément
  //dd($sousAction);

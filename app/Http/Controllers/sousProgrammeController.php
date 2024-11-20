@@ -63,7 +63,7 @@ public function check_sous_prog(Request $request)
             'nom_sous_prog' => 'required',
             'date_insert_sousProg' => 'required|date',
         ]);
-        dd($request->num_sous_prog);
+        //dd($request->num_sous_prog);
 
         $SousProgramme = new SousProgramme();
         $SousProgramme->num_sous_prog = $request->num_sous_prog;
