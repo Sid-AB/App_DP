@@ -147,7 +147,7 @@ $(document).ready(function(){
 
                                                                     // Redirection vers la page suivante après l'ajout de la sous-action
                                                                     alert('testing')
-                                                                    window.location.href = 'testing/S_action/' + path.join('/');
+                                                                    window.location.href = '/testing/S_action/' + path.join('/');
                                                                 }
                                                             },
                                                             error: function (response) {
