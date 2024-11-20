@@ -85,7 +85,7 @@ $(document).ready(function(){
                                                            <form>
                                                              <div class="form-group">
                                                             <label for="num_sous_act">Code de Sous ACTION</label>
-                                                            <input type="text" class="form-control" id="num_sous_act" placeholder="Donner le Code d'ACTION">
+                                                            <input type="text" class="form-control" id="num_sous_act" placeholder="Entrer le Code  de Sous ACTION">
                                                            </div>
                                                             <div class="form-group">
                                                                  <label for="date_insert_sou_action">Date du Journal</label>
@@ -93,19 +93,19 @@ $(document).ready(function(){
                                                                </div>
                                                             <div class="form-group">
                                                                 <label for="nom_sous_act">Nom de  Sous ACTION</label>
-                                                            <input type="text" class="form-control" id="nom_sous_act" placeholder=Donner le Nom d'ACTION">
+                                                            <input type="text" class="form-control" id="nom_sous_act" placeholder=Entrer le Nom  de Sous ACTION">
                                                             </div>
                                                                <div class="form-group">
                                                                 <label for="AE_sous_act">AE pour Sous Action</label>
-                                                                <input type="number" class="form-control" id="AE_sous_act" placeholder="AE">
+                                                                <input type="number" class="form-control" id="AE_sous_act" placeholder=" Entrer AE  Sous Action">
                                                             </div>
                                                             <div class="form-group">
                                                               <label for="CP_sous_act">CP pour Sous Action</label>
-                                                            <input type="number" class="form-control" id="CP_sous_act" placeholder="CP">
+                                                            <input type="number" class="form-control" id="CP_sous_act" placeholder="Entrer CP  Sous Action">
                                                                </div>
                                                                </form>
                                                                <br>
-                                                               <button class="btn btn-primary" id="add-prg4">Ajouter Sous Action</button>
+                                                               <button class="btn btn-primary" id="add-prg4">Ajouter </button>
                                                                </div>`;
 
                                                     // Insertion du formulaire pour la sous-action dans le DOM

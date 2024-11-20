@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="csrf-token" content=" {{csrf_token()}}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creation Portfail</title>
+    <title>Creation du Portefeuille</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
      <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 <link href="{{asset('assets/css/main.css')}}" rel="stylesheet"/>
@@ -41,17 +41,17 @@
     <div class="card">
             <div class="card-body"  id="creati-prog">
                 <h5 class="card-title">
-                    <i class="fas fa-file-alt"></i> Upload your document
+                    <i class="fas fa-file-alt"></i> Télécharger votre Document
                 </h5>
                 <form id="pdf-upload-form" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="num_port">Code du portefeuille</label>
-                        <input type="text" class="form-control" id="num_port" placeholder="Code du portefeuille">
+                        <input type="text" class="form-control" id="num_port" placeholder="Entrer le Code du portefeuille">
 
                     </div>
                     <div class="form-group">
                         <label for="date_crt_portf">Date de sortie du portefeuille</label>
-                        <input type="date" class="form-control" id="date_crt_portf" placeholder="Date de sortie">
+                        <input type="date" class="form-control" id="date_crt_portf" placeholder="Entrer la Date de sortie du portefeuille">
                     </div>
                     <div class="form-group">
                         <label for="nom_journ">Nom du Journal</label>
@@ -62,15 +62,15 @@
                         <input type="text" class="form-control" id="num_journ" placeholder="Entrer le numéro de l'édition">
                     </div>
                     <div class="form-group">
-                        <label for="AE_portef">AE</label>
-                        <input type="text" class="form-control" id="AE_portef" placeholder="AE">
+                        <label for="AE_portef">AE pour portefeuille</label>
+                        <input type="text" class="form-control" id="AE_portef" placeholder="Entrer AE  portefeuille">
                     </div>
                     <div class="form-group">
-                        <label for="CP_portef">CP</label>
-                        <input type="number" class="form-control" id="CP_portef" placeholder="CP">
+                        <label for="CP_portef">CP pour portefeuille</label>
+                        <input type="number" class="form-control" id="CP_portef" placeholder=" Entrer CP  portefeuille">
                     </div>
                     <div class="form-group">
-                        <label for="inputFile">Journal scanner</label>
+                        <!--label for="inputFile">Journal scanner</label-->
                         <label for="pdf_file">Choisissez un fichier PDF :</label>
                         <input type="file" name="pdf_file" id="pdf_file" accept="application/pdf" required>
                         <button id="pdf-upload-form" data-id="1">Télécharger le PDF</button>
@@ -94,24 +94,25 @@
     <div class="form-container" id="creati-prog">
       <form >
         <div class="form-group">
-          <label for="input1">Code_Programme</label>
-          <input type="text" class="form-control" id="num_prog" placeholder="Donnee Code Programme">
-        </div>
-        <div class="form-group">
-          <label for="input1">Programme</label>
-          <input type="text" class="form-control" id="nom_prog" placeholder="Donnee Nom Programme">
+          <label for="input1">Code du Programme</label>
+          <input type="text" class="form-control" id="num_prog" placeholder="Entrer le  Code du Programme">
         </div>
         <div class="form-group">
           <label for="input2">Date insertion :</label>
           <input type="date" class="form-control" id="date_insert_portef">
         </div>
         <div class="form-group">
-          <label for="inputDate">AE</label>
-          <input type="number" class="form-control" id="AE_prog">
+          <label for="input1">Nom du Programme</label>
+          <input type="text" class="form-control" id="nom_prog" placeholder="Entrer le Nom du Programme">
+        </div>
+      
+        <div class="form-group">
+          <label for="inputDate">AE pour Programme</label>
+          <input type="number" class="form-control" id="AE_prog" placeholder="Entrer AE Programme">
         </div>
         <div class="form-group">
           <label for="inputDate">CP</label>
-          <input type="number" class="form-control" id="CP_prog">
+          <input type="number" class="form-control" id="CP_prog" placeholder="Entrer CP Programme">
         </div>
         </form>
 
@@ -121,7 +122,7 @@
         <hr>
         <div class="file-handle">
         <input type="file" class="form-control" id="file">
-        <button class="btn btn-primary">Journal</button>
+        <button class="btn btn-primary">Ajouter Journal</button>
         </div>
         </div>
 
