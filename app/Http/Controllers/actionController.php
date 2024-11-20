@@ -86,7 +86,7 @@ public function check_action(Request $request)
             return response()->json([
                 'success' => true,
                 'message' => 'Action ajouté avec succès.',
-                'code' => 200,
+                'code' => 404,
             ]);
         } else {
             return response()->json([

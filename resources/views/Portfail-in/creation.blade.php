@@ -116,7 +116,9 @@
 
         <br>
         <div id="confirm-holder">
+        <div id="file_holder_prog">
         <input type="file" class="form-control" id="file" accept=".pdf, .jpg, .jpeg, .png">
+        </div>
         <hr>
         <button class="btn btn-primary" id="add-prg">Ajouter</button>
         </div>

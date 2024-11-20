@@ -72,7 +72,11 @@ public function check_sous_prog(Request $request)
         $SousProgramme->CP_sous_prog=floatval($request->CP_sous_prog);
         $SousProgramme->date_insert_sousProg = $request->date_insert_sousProg;
         $SousProgramme->save();
-
+        return response()->json([
+            'success' => true,
+            'message' => 'Sous programme ajouté avec succès.',
+            'code' => 404,
+        ]);
 }
 else{
         $SousProgramme = new SousProgramme();

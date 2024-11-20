@@ -77,6 +77,11 @@ class programmeControlleur extends Controller
             $programme->date_insert_portef = $request->date_insert_portef;
             $programme->save();
             //dd($programme);
+            return response()->json([
+                'success' => true,
+                'message' => 'Programme ajouté avec succès.',
+                'code' => 404,
+            ]);
 
    }
    else{

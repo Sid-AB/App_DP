@@ -624,7 +624,7 @@
                                                  console.log(response); // Vérifiez la réponse
 
                                                  console.log('numwall_year path3: ' + JSON.stringify(path3));
-                                                  $('#file_holder').empty() 
+                                                  $('#file_holder   ').empty() 
                                                  // Remplir les champs du formulaire avec les données récupérées
                                                  $('#date_crt_portf').val(response.Date_portefeuille).trigger('change'); // Remplir et déclencher l'événement change
                                                  $('#AE_portef').val(response.AE_portef).trigger('change'); // Remplir et déclencher l'événement change
@@ -797,7 +797,7 @@
                                          if (response.exists) {
                                              console.log(response); // Vérifiez la réponse
                                              console.log('numwall_year path3: ' + JSON.stringify(path3));
-
+                                             $("#file_holder_prog").empty();
                                              // Remplir les champs du formulaire avec les données récupérées
                                              console.log('response.AE_prog' + response.AE_prog)
                                              $('#date_insert_portef').val(response.date_insert_portef).trigger('change');
@@ -846,7 +846,7 @@
                                  _method: 'POST'
                              }
                              var prg2 = '<div class="form-container" id="creati-sous_prog">' +
-                                 '<form>' +
+                                 '<form enctype="multipart/form-data">' +
                                  '<div class="form-group">' +
                                  '<label for="input1">Code du Sous Programme</label>' +
                                  '<input type="text" class="form-control" id="num_sous_prog" placeholder="Donner le  Code du Sous Programme">' +
@@ -867,21 +867,14 @@
                                  '<label for="input1">CP pour Sous Programme</label>' +
                                  '<input type="number" class="form-control" id="CP_sous_prog"  placeholder="CP">' +
                                  '</div>' +
-                                 ' <!--div class="form-group">' +
-                                 ' <label for="inputDate">AE</label>' +
-                                 '<input type="number" class="form-control" id="AE_sous_prog">' +
-                                 ' <label for="inputDate">CP</label>' +
-                                 '<input type="number" class="form-control" id="CP_sous_prog">' +
-                                 '</div-->' +
                                  ' </form>' +
                                  ' <br>' +
                                  '<div id="confirm-holder_sprog">' +
-                                 '<button class="btn btn-primary" id="add-prg2">Ajouter</button>' +
-                                 '<hr>' +
-                                 ' <div class="file-handle">' +
-                                 '<input type="file" class="form-control" id="file">' +
-                                 '<button class="btn btn-primary">Ajouter le Journal</button>' +
+                                 ' <div class="file-handle" id="file_holder">' +
+                                 '<input type="file" class="form-control" id="file" accept=".pdf, .jpg, .jpeg, .png">' +
                                  '</div>' +
+                                  '<hr>' +
+                                 '<button class="btn btn-primary" id="add-prg2">Ajouter</button>' +
                                  '</div>'
                              var nexthop = '<div class="pinfo-handle">' +
                                  '<i class="fas fa-wallet"></i>' +
@@ -898,10 +891,11 @@
                                  success: function (response) {
                                      if (response.code == 200 || response.code == 404) {
 
+                                        if(response.code == 200){
                                         if(upload_file('file',id_prog) == 200)
                                         {
                                             alert(response.message)
-                                        }
+                                        }}
                                          path.push(numprog_year);
                                          path3.push(id_prog);
                                          console.log('numprog_year path: ' + JSON.stringify(path));
@@ -933,7 +927,7 @@
                                                          if (response.exists) {
                                                              console.log(response); // Vérifiez la réponse
                                                              console.log('num_sou_program path: ' + JSON.stringify(path));
-
+                                                            $("#file_holder").empty();
                                                              // Remplir les champs du formulaire avec les données récupérées
                                                              $('#nom_sous_prog').val(response.nom_sous_prog).trigger('change'); // Remplir et déclencher l'événement change
                                                              //    $('#date_insert_sousProg').val(response.date_insert_sousProg).trigger('change'); // Remplir et déclencher l'événement change
@@ -997,13 +991,13 @@
                                                  '</div>' +
                                                  ' </form>' +
                                                  ' <br>' +
+                                                 '<div id="confirm-holder_sprog">' +
+                                                 ' <div class="file-handle" id="file_holder">' +
+                                                 '<input type="file" class="form-control" id="file" accept=".pdf, .jpg, .jpeg, .png">' +
+                                                 '</div>' +
+                                                 '<hr>' +
                                                  '<div id="confirm-holder_act">' +
                                                  '<button class="btn btn-primary" id="add-prg3">Ajouter</button>' +
-                                                 '<hr>' +
-                                                 ' <div class="file-handle">' +
-                                                 '<input type="file" class="form-control" id="file">' +
-                                                 '<button class="btn btn-primary">Ajouter le Journal</button>' +
-                                                 '</div>' +
                                                  '</div>'
                                              var formdatasou_prog = {
                                                  num_sous_prog: numsouprog_year,
@@ -1023,6 +1017,12 @@
                                                  data: formdatasou_prog,
                                                  success: function (response) {
                                                      if (response.code == 200 || response.code == 404) {
+                                                        if(response.code == 200){
+                                                            if(upload_file('file',sou_prog) == 200)
+                                                            {
+                                                                alert(response.message)
+                                                            }
+                                                        }
                                                          alert(response.message)
                                                          path.push(numsouprog_year);
                                                          path3.push(sou_prog);
@@ -1121,6 +1121,13 @@
                                                                      success: function (response) {
                                                                          if (response.code === 200 || response.code === 404) {
                                                                              // Ajout du numéro de l'action au chemin
+
+                                                                             if(response.code == 200){
+                                                                                if(upload_file('file',num_act) == 200)
+                                                                                {
+                                                                                    alert(response.message)
+                                                                                }
+                                                                            }
                                                                              path.push(numaction_year);
                                                                              path3.push(num_act);
                                                                              $('#confirm-holder_act').empty()
@@ -1246,6 +1253,12 @@
                                                                      data: formdata_act,
                                                                      success: function (response) {
                                                                          if (response.code === 200 || response.code === 404) {
+                                                                            if(response.code == 200){
+                                                                                if(upload_file('file',num_act) == 200)
+                                                                                {
+                                                                                    alert(response.message)
+                                                                                }
+                                                                            }
                                                                              path.push(numaction_year);
                                                                              path3.push(num_act);
                                                                              // console.log('path: ' + JSON.stringify(path));
