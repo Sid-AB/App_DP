@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Programme;
 use Illuminate\Http\Request;
+use App\Models\Portefeuille;
 
 class programmeControlleur extends Controller
 {

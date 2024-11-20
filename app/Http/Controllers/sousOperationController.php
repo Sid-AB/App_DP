@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;  
 use App\Services\CalculDpia;
+use App\Models\SousOperation;
+use Barryvdh\DomPDF\Facade\pdf;
 class sousOperationController extends Controller
 {
 
@@ -43,8 +45,21 @@ class sousOperationController extends Controller
                // en cas d'erreur retourner un message d'erreur 
                return response()->view('errors.not_found', [], 404);
            }
+
+
        
    }
+
+   public function impressionpdf()
+   {
+    $sousopera=SousOperation::all();
+    $sousopera=SousOperation::where('code_t1',10000)->get();
+    // dd($sousopera);
+   
+    $pdf=pdf::loadView('impression.liste_impression', compact('sousopera'));
+    return $pdf->download('liste_impression.pdf');
+   }
+
 
         
    

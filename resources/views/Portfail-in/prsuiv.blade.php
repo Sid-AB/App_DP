@@ -66,23 +66,23 @@ Object.entries(paths).forEach(([code,value])=>{
                         <form >
                         <div class="form-group">
                         <label for="input1">Code de Sous ACTION</label>
-                        <input type="text" class="form-control" id="num_s_act" placeholder="Donner le Code d'ACTION">
+                        <input type="text" class="form-control" id="num_s_act" placeholder="Entrer le Code de sous ACTION">
                         </div>
                         <div class="form-group">
                         <label for="inputDate">Date du Journal</label>
                         <input type="date" class="form-control" id="date_insert_action">
                         </div>
                         <div class="form-group">
-                        <label for="input1">Nom de  Sous ACTION</label>
-                        <input type="text" class="form-control" id="nom_s_act" placeholder="Donner le Nom d'ACTION">
+                        <label for="input1">Nom de Sous ACTION</label>
+                        <input type="text" class="form-control" id="nom_s_act" placeholder="Entrer le Nom de sous ACTION">
                         </div>
                         <div class="form-group" id="ElAE_act">
                         <label for="input1">AE pour Sous ACTION</label>
-                        <input type="number" class="form-control" id="AE_s_act" placeholder="AE">
+                        <input type="number" class="form-control" id="AE_s_act" placeholder="Entrer AE sous Action ">
                         </div>
                         <div class="form-group" id="ElCP_act">
                         <label for="input1">CP pour Sous_ACTION</label>
-                        <input type="number" class="form-control" id="CP_s_act" placeholder="CP">
+                        <input type="number" class="form-control" id="CP_s_act" placeholder="Entrer CP sous Action">
                         </div>
                         </form>
                         <br>
@@ -101,7 +101,7 @@ Object.entries(paths).forEach(([code,value])=>{
                         <form >
                         <div class="form-group">
                         <label for="input1">Code d'ACTION</label>
-                        <input type="text" class="form-control" id="num_act" placeholder="Donner le Code d'ACTION">
+                        <input type="text" class="form-control" id="num_act" placeholder="Entrer le Code d'ACTION">
                         </div>
                         <div class="form-group">
                         <label for="inputDate">Date du Journal</label>
@@ -109,15 +109,15 @@ Object.entries(paths).forEach(([code,value])=>{
                         </div>
                         <div class="form-group">
                         <label for="input1">Nom d'ACTION</label>
-                        <input type="text" class="form-control" id="nom_act" placeholder="Donner le Nom d'ACTION">
+                        <input type="text" class="form-control" id="nom_act" placeholder="Entrer le Nom d'ACTION">
                         </div>
                         <div class="form-group" id="ElAE_act">
                         <label for="input1">AE pour Action</label>
-                        <input type="number" class="form-control" id="AE_act" placeholder="AE">
+                        <input type="number" class="form-control" id="AE_act" placeholder="Entrer AE Action">
                         </div>
                         <div class="form-group" id="ElCP_act">
                         <label for="input1">CP pour Action</label>
-                        <input type="number" class="form-control" id="CP_act" placeholder="CP">
+                        <input type="number" class="form-control" id="CP_act" placeholder="Entrer CP Action">
                         </div>
                         </form>
                         <br>
@@ -137,7 +137,7 @@ Object.entries(paths).forEach(([code,value])=>{
                  <form >
                         <div class="form-group">
                         <label for="input1">Code du Sous Programme</label>
-                        <input type="text" class="form-control" id="num_sousProg" placeholder="Donner le  Code du Sous Programme">
+                        <input type="text" class="form-control" id="num_sousProg" placeholder="Entrer le  Code du Sous Programme">
                         </div>
                         <div class="form-group">
                         <label for="inputDate">Date du Journal</label>
@@ -145,15 +145,15 @@ Object.entries(paths).forEach(([code,value])=>{
                         </div>
                         <div class="form-group">
                         <label for="input1">Nom du Sous Programme</label>
-                        <input type="text" class="form-control" id="nom_sousProg" placeholder="Donner le Nom du Sous Programme">
+                        <input type="text" class="form-control" id="nom_sousProg" placeholder="Entrer le Nom du Sous Programme">
                         </div>
                         <div class="form-group" id="ElAE_act">
                         <label for="input1">AE pour Sous Programme</label>
-                        <input type="number" class="form-control" id="AE_sousProg" placeholder="AE">
+                        <input type="number" class="form-control" id="AE_sousProg" placeholder="Entrer AE sous Programme">
                         </div>
                         <div class="form-group" id="ElCP_act">
                         <label for="input1">CP pour Sous Programme</label>
-                        <input type="number" class="form-control" id="CP_sousProg" placeholder="CP">
+                        <input type="number" class="form-control" id="CP_sousProg" placeholder="Entrer CP sous Programme">
                         </div>
                         </form>
                         <br>
@@ -170,7 +170,7 @@ Object.entries(paths).forEach(([code,value])=>{
     <form >
                         <div class="form-group">
                         <label for="input1">Code d'ACTION</label>
-                        <input type="text" class="form-control" id="num_act" placeholder="Donner le Code d'ACTION">
+                        <input type="text" class="form-control" id="num_act" placeholder="Entrer le Code d'ACTION">
                         </div>
                         <div class="form-group">
                         <label for="inputDate">Date du Journal</label>
@@ -178,15 +178,15 @@ Object.entries(paths).forEach(([code,value])=>{
                         </div>
                         <div class="form-group">
                         <label for="input1">Nom d'ACTION</label>
-                        <input type="text" class="form-control" id="nom_act" placeholder="Donner le Nom d'ACTION">
+                        <input type="text" class="form-control" id="nom_act" placeholder="Entrer le Nom d'ACTION">
                         </div>
                         <div class="form-group" id="ElAE_act">
                         <label for="input1">AE pour Action</label>
-                        <input type="number" class="form-control" id="AE_act" placeholder="AE">
+                        <input type="number" class="form-control" id="AE_act" placeholder="Entrer AE Action">
                         </div>
                         <div class="form-group" id="ElCP_act">
                         <label for="input1">CP pour Action</label>
-                        <input type="number" class="form-control" id="CP_act" placeholder="CP">
+                        <input type="number" class="form-control" id="CP_act" placeholder="Entrer CP Action">
                         </div>
                         </form>
                         <br>
@@ -208,7 +208,7 @@ Object.entries(paths).forEach(([code,value])=>{
                  <form>
                         <div class="form-group">
                         <label for="input1">Code du Programme</label>
-                        <input type="text" class="form-control" id="num_prog" placeholder="Donner le Code du Programme">
+                        <input type="text" class="form-control" id="num_prog" placeholder="Entrer le Code du Programme">
                         </div>
                         <div class="form-group">
                         <label for="inputDate">Date du Journal</label>
@@ -216,15 +216,15 @@ Object.entries(paths).forEach(([code,value])=>{
                         </div>
                         <div class="form-group">
                         <label for="input1">Nom du Programme</label>
-                        <input type="text" class="form-control" id="nom_prog" placeholder="Donner le Nom du Programme">
+                        <input type="text" class="form-control" id="nom_prog" placeholder="Entrer le Nom du Programme">
                         </div>
                         <div class="form-group" id="ElAE_act">
                         <label for="input1">AE pour le Programme</label>
-                        <input type="number" class="form-control" id="AE_prog" placeholder="AE">
+                        <input type="number" class="form-control" id="AE_prog" placeholder="Entrer AE sous Programme">
                         </div>
                         <div class="form-group" id="ElCP_act">
                         <label for="input1">CP pour le Programme</label>
-                        <input type="number" class="form-control" id="AE_prog" placeholder="CP">
+                        <input type="number" class="form-control" id="AE_prog" placeholder="Entrer CP sous Programme">
                         </div>
                         </form>
                         <br>
@@ -243,7 +243,7 @@ Object.entries(paths).forEach(([code,value])=>{
   <form >
                         <div class="form-group">
                         <label for="input1">Code du Sous Programme</label>
-                        <input type="text" class="form-control" id="num_sousProg" placeholder="Donner le  Code du Sous Programme">
+                        <input type="text" class="form-control" id="num_sousProg" placeholder="Entrer le  Code du Sous Programme">
                         </div>
                         <div class="form-group">
                         <label for="inputDate">Date du Journal</label>
@@ -251,15 +251,15 @@ Object.entries(paths).forEach(([code,value])=>{
                         </div>
                         <div class="form-group">
                         <label for="input1">Nom du Sous Programme</label>
-                        <input type="text" class="form-control" id="nom_sousProg" placeholder="Donner le Nom du Sous Programme">
+                        <input type="text" class="form-control" id="nom_sousProg" placeholder="Entrer le Nom du Sous Programme">
                         </div>
                         <div class="form-group" id="ElAE_act">
                         <label for="input1">AE pour Sous Programme</label>
-                        <input type="number" class="form-control" id="AE_sousProg" placeholder="AE">
+                        <input type="number" class="form-control" id="AE_sousProg" placeholder="Entrer AE sous Programme">
                         </div>
                         <div class="form-group" id="ElCP_act">
                         <label for="input1">CP pour Sous Programme</label>
-                        <input type="number" class="form-control" id="CP_sousProg" placeholder="CP">
+                        <input type="number" class="form-control" id="CP_sousProg" placeholder="Entrer CP sous Programme">
                         </div>
                         </form>
                         <br>
@@ -276,7 +276,7 @@ Object.entries(paths).forEach(([code,value])=>{
                         <form >
                         <div class="form-group">
                         <label for="input1">Code d'ACTION</label>
-                        <input type="text" class="form-control" id="num_act" placeholder="Donner le Code d'ACTION">
+                        <input type="text" class="form-control" id="num_act" placeholder="Entrer le Code d'ACTION">
                         </div>
                         <div class="form-group">
                         <label for="inputDate">Date du Journal</label>
@@ -284,15 +284,15 @@ Object.entries(paths).forEach(([code,value])=>{
                         </div>
                         <div class="form-group">
                         <label for="input1">Nom d'ACTION</label>
-                        <input type="text" class="form-control" id="nom_act" placeholder="Donner le Nom d'ACTION">
+                        <input type="text" class="form-control" id="nom_act" placeholder="Entrer le Nom d'ACTION">
                         </div>
                         <div class="form-group" id="ElAE_act">
                         <label for="input1">AE pour Action</label>
-                        <input type="number" class="form-control" id="AE_act" placeholder="AE">
+                        <input type="number" class="form-control" id="AE_act" placeholder="Entrer AE Action">
                         </div>
                         <div class="form-group" id="ElCP_act">
                         <label for="input1">CP pour Action</label>
-                        <input type="number" class="form-control" id="CP_act" placeholder="CP">
+                        <input type="number" class="form-control" id="CP_act" placeholder="Entrer CP Action">
                         </div>
                         </form>
                         <br>

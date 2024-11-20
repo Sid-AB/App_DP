@@ -849,7 +849,7 @@
                                  '<form enctype="multipart/form-data">' +
                                  '<div class="form-group">' +
                                  '<label for="input1">Code du Sous Programme</label>' +
-                                 '<input type="text" class="form-control" id="num_sous_prog" placeholder="Donner le  Code du Sous Programme">' +
+                                 '<input type="text" class="form-control" id="num_sous_prog" placeholder="Entrer le  Code du Sous Programme">' +
                                  '</div>' +
                                  ' <div class="form-group">' +
                                  ' <label for="inputDate">Date du Journal</label>' +
@@ -857,15 +857,15 @@
                                  '</div>' +
                                  '<div class="form-group">' +
                                  '<label for="input1">Nom du Sous Programme</label>' +
-                                 '<input type="text" class="form-control" id="nom_sous_prog" placeholder="Donner le Nom du Sous Programme">' +
+                                 '<input type="text" class="form-control" id="nom_sous_prog" placeholder="Entrer le Nom du Sous Programme">' +
                                  '</div>' +
                                  '<div class="form-group">' +
                                  '<label for="input1">AE pour Sous Programme</label>' +
-                                 '<input type="number" class="form-control" id="AE_sous_prog"   placeholder="AE">' +
+                                 '<input type="number" class="form-control" id="AE_sous_prog"   placeholder="Entrer AE Sous Programme">' +
                                  '</div>' +
                                  '<div class="form-group">' +
                                  '<label for="input1">CP pour Sous Programme</label>' +
-                                 '<input type="number" class="form-control" id="CP_sous_prog"  placeholder="CP">' +
+                                 '<input type="number" class="form-control" id="CP_sous_prog"  placeholder=" Entrer CP Sous Programme">' +
                                  '</div>' +
                                  ' </form>' +
                                  ' <br>' +
@@ -971,7 +971,7 @@
                                                  '<form>' +
                                                  '<div class="form-group">' +
                                                  '<label for="input1">Code  d\'ACTION</label>' +
-                                                 '<input type="text" class="form-control" id="num_act" placeholder="Donner le Code  d\'ACTION">' +
+                                                 '<input type="text" class="form-control" id="num_act" placeholder="Entrer le Code  d\'ACTION">' +
                                                  '</div>' +
                                                  ' <div class="form-group">' +
                                                  ' <label for="inputDate">Date du Journal</label>' +
@@ -979,15 +979,15 @@
                                                  '</div>' +
                                                  '<div class="form-group">' +
                                                  '<label for="input1">Nom  d\'ACTION</label>' +
-                                                 '<input type="text" class="form-control" id="nom_act" placeholder="Donner le Nom  d\'ACTION">' +
+                                                 '<input type="text" class="form-control" id="nom_act" placeholder="Entrer le Nom  d\'ACTION">' +
                                                  '</div>' +
                                                  '<div class="form-group" id="ElAE_act">' +
                                                  '<label for="input1">AE pour Action</label>' +
-                                                 '<input type="number" class="form-control" id="AE_act" placeholder="AE">' +
+                                                 '<input type="number" class="form-control" id="AE_act" placeholder="Entrer AE Action">' +
                                                  '</div>' +
                                                  '<div class="form-group" id="ElCP_act">' +
                                                  '<label for="input1">CP pour Action</label>' +
-                                                 '<input type="number" class="form-control" id="CP_act" placeholder="CP">' +
+                                                 '<input type="number" class="form-control" id="CP_act" placeholder="Entrer CP Action">' +
                                                  '</div>' +
                                                  ' </form>' +
                                                  ' <br>' +
@@ -1140,7 +1140,7 @@
                                                                                     <form>
                                                                                      <div class="form-group">
                                                                                      <label for="num_sous_act">Code de Sous ACTION</label>
-                                                                                     <input type="text" class="form-control" id="num_sous_act" placeholder="Donner le Code d'ACTION">
+                                                                                     <input type="text" class="form-control" id="num_sous_act" placeholder="Entrer le Code de sous ACTION">
                                                                                     </div>
                                                                                      <div class="form-group">
                                                                                           <label for="date_insert_sou_action">Date du Journal</label>
@@ -1148,15 +1148,15 @@
                                                                                         </div>
                                                                                      <div class="form-group">
                                                                                          <label for="nom_sous_act">Nom de  Sous ACTION</label>
-                                                                                     <input type="text" class="form-control" id="nom_sous_act" placeholder=Donner le Nom d'ACTION">
+                                                                                     <input type="text" class="form-control" id="nom_sous_act" placeholder=Entrer le Nom de sous ACTION">
                                                                                      </div>
                                                                                         <div class="form-group">
                                                                                          <label for="AE_sous_act">AE pour Sous Action</label>
-                                                                                         <input type="number" class="form-control" id="AE_sous_act" placeholder="AE">
+                                                                                         <input type="number" class="form-control" id="AE_sous_act" placeholder="Entrer AE Sous Action">
                                                                                      </div>
                                                                                      <div class="form-group">
                                                                                        <label for="CP_sous_act">CP pour Sous Action</label>
-                                                                                     <input type="number" class="form-control" id="CP_sous_act" placeholder="CP">
+                                                                                     <input type="number" class="form-control" id="CP_sous_act" placeholder="Entrer CP Sous Action">
                                                                                         </div>
 
                                                                                         </form>

@@ -494,9 +494,3 @@ public function uploadPDF(Request $request)
      
 }
 }
-
-
-
-
-
-
