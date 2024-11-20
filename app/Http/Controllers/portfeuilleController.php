@@ -312,7 +312,7 @@ if ($request->hasFile('file')) {
 
 
 }else{
-    dd($request);
+    //dd($request);
 
         // Créer un nouveau portefeuille
         $portefeuille = new Portefeuille();
@@ -495,9 +495,3 @@ public function uploadPDF(Request $request)
   */
 }
 }
-
-
-
-
-
-

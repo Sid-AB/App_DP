@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;  
 use App\Services\CalculDpia;
+
+use Barryvdh\DomPDF\Facade\pdf;
 class sousOperationController extends Controller
 {
 
@@ -43,8 +45,16 @@ class sousOperationController extends Controller
                // en cas d'erreur retourner un message d'erreur 
                return response()->view('errors.not_found', [], 404);
            }
+
+
        
    }
+
+   public function impressionpdf()
+   {
+    
+   }
+
 
         
    
