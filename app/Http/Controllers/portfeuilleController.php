@@ -257,10 +257,9 @@ public function check_portef(Request $request)
             'CP_portef' => 'required',
             'Date_portefeuille' => 'required|date',
         ]);
-//dd($request);
         //si le portefeuiille existe donc le modifier
-    $portefeuille = Portefeuille::where('num_portefeuil', $request->num_portefeuil)->first();
-    if ($portefeuille) {
+        $portefeuille = Portefeuille::where('num_portefeuil', $request->num_portefeuil)->first();
+        if ($portefeuille) {
         $portefeuille->nom_journal = $request->nom_journal;
         $portefeuille->num_journal = $request->num_journal;
         $portefeuille->AE_portef = $request->AE_portef;
@@ -310,7 +309,11 @@ if ($request->hasFile('file')) {
 */
 
 
-}
+
+
+}else{
+    dd($request);
+
         // Créer un nouveau portefeuille
         $portefeuille = new Portefeuille();
         $portefeuille->num_portefeuil = $request->num_portefeuil;
@@ -354,9 +357,6 @@ if ($request->hasFile('file')) {
         return response()->json(['error' => 'Aucun fichier n\'a été téléchargé.'], 400);
     */
 
-
-
-
         //creation de la table  construireDPic
         $DPIC = new ConstruireDPIC();
 
@@ -370,7 +370,7 @@ if ($request->hasFile('file')) {
         $DPIC->save();
 
         //dd( $DPIC);
-
+    }
         if($portefeuille)
         {
             return response()->json([
@@ -438,7 +438,7 @@ function update_portef(Request $request)
                                 // FIN Modification du portefeuille/ upload fille pdf
 //===================================================================================
 public function uploadPDF(Request $request)
-{
+{/*
     try {
         // Valider le fichier PDF
 
@@ -492,7 +492,9 @@ public function uploadPDF(Request $request)
   }
 
 
-} }
+  */
+}
+}
 
 
 
