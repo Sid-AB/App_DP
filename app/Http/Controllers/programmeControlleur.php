@@ -69,15 +69,15 @@ class programmeControlleur extends Controller
             'nom_prog' => 'required',
             'date_insert_portef' => 'required|date',
         ]);
-     //dd($request);
-   //si le portefeuiille existe donc le modifier
-   $programme = Portefeuille::where('num_prog', $request->num_prog)->first();
-   if ($programme) {
-    $programme->cp_prog = $request->cp_prog;
-    $programme->ae_prog = $request->ae_prog;
-    $programme->ae_prog=floatval($request->ae_prog);
-    $programme->cp_prog=floatval($request->cp_prog);
-    $programme->date_insert_portef = $request->date_insert_portef;
+        //si le portefeuiille existe donc le modifier
+        $programme = Programme::where('num_prog', $request->num_prog)->first();
+        if ($programme) {
+            $programme->nom_prog = $request->nom_prog;
+            $programme->AE_prog=floatval($request->ae_prog);
+            $programme->CP_prog=floatval($request->cp_prog);
+            $programme->date_insert_portef = $request->date_insert_portef;
+            $programme->save();
+            //dd($programme);
 
    }
    else{
