@@ -312,7 +312,8 @@ if ($request->hasFile('file')) {
 
 
 }else{
-  
+    //dd($request);
+
         // Créer un nouveau portefeuille
         $portefeuille = new Portefeuille();
         $portefeuille->num_portefeuil = $request->num_portefeuil;
