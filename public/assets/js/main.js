@@ -1109,7 +1109,7 @@ $("#add-prg").on('click', function () {
                                                             AE_sous_act: AE_sous_act,
                                                             CP_sous_act: CP_sous_act,
                                                             date_insert_sous_action: dat_inst,
-                                                            num_act: path[4],
+                                                            num_act: path[3],
                                                             //id_sous_act: path[2],
                                                             //id_prog: path[1],
                                                             // id_porte: path[0],
