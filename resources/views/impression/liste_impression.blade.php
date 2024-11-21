@@ -19,24 +19,53 @@
     </style>
 </head>
 <body>
-    <h1>Liste </h1>
+    <h1>LES CREDITS DES DEPENSES DE PERSONNEL : </h1>
 
     <table>
         <thead>
             <tr>
-                <th>Code Sous-Operation</th>
-                <th>Code T1</th>
+                <th>Code</th>
+                <th>T1. DEPENSES DE PERSONNEL</th>
+                <th colspan="2">Code 'num_sous_prog' + nom_sous_prog</th>
+            </tr>
+            <tr>
+                <th></th>
+                <th></th>
                 <th>AE Sous-Operation</th>
                 <th>CP Sous-Operation</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($sousopera as $sousopera)
+            @foreach ($resultats as $resultats)
                 <tr>
-                    <td>{{$sousopera->code_sous_operation}}</td>
-                    <td>{{$sousopera->code_t1}}</td>
-                    <td>{{$sousopera->AE_sous_operation}}</td>
-                    <td>{{$sousopera->CP_sous_operation}}</td>
+                @if (isset($resultats['group']))
+                    <!-- afficher chaque groupe -->
+                    @foreach ($resultats['group'] as $group)
+                        <tr>
+                            <td>{{ $group['code'] }}</td>
+                            <!--td>Nom du Groupe</td-->
+                            <td>{{ $group['values']['ae_grpop'] }}</td>
+                            <td>{{ $group['values']['cp_grpop'] }}</td>
+                        </tr>
+                        
+                        <!-- afficher les sous-opérations liées -->
+                        @if (isset($resultats['sousOperation']))
+                            @foreach ($resultats['sousOperation'] as $sousOperation)
+                                <tr>
+                                    <td>{{ $sousOperation['code'] }}</td>
+                                    <!--td>Nom Sous Operation</td-->
+                                    <td>{{ $sousOperation['values']['ae_sousop'] }}</td>
+                                    <td>{{ $sousOperation['values']['cp_sousuop'] }}</td>
+                                </tr>
+                            @endforeach
+                        @endif
+                    @endforeach
+                @endif
+               
+                    <td>{{$resultats->num_sous_prog}}</td>
+                    <td>{{$resultats->nom_sous_progr}}</td>
+                   
+                    
                 </tr>
             @endforeach
         </tbody>

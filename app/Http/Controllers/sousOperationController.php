@@ -49,18 +49,28 @@ class sousOperationController extends Controller
 
        
    }
+ 
 
-   public function impressionpdf()
-   {
-    $sousopera=SousOperation::all();
-    $sousopera=SousOperation::where('code_t1',10000)->get();
-    // dd($sousopera);
    
-    $pdf=pdf::loadView('impression.liste_impression', compact('sousopera'));
-    return $pdf->download('liste_impression.pdf');
+
+   public function impressionpdf($port, $prog, $sous_prog, $act,$s_act)
+   {
+        try {
+            $resultats = $this->CalculDpia->calculdpiaFromPath($port, $prog, $sous_prog, $act,$s_act);
+           //dd($resultats );
+               // envoyer les résultats en JSON
+               $pdf=pdf::loadView('impression.liste_impression', compact('resultats'));
+               return $pdf->download('liste_impression.pdf');
+           // return response()->json($resultats);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
+        }
+   
+ 
    }
 
 
         
    
-}
+
