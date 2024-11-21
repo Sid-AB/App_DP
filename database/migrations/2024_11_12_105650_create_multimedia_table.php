@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('multimedia', function (Blueprint $table) {
-            $table->integer('id_multi')->primary();
+            $table->integer('id_multi')->primary()->autoIncrement();
             $table->string('nom_fichier');
             $table->string('filepath');// chemin
             $table->string('filetype');// pdf || word
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->integer('size');
             $table->unsignedBigInteger('uploaded_by'); // user id
             $table->string('related_id'); // port || prog || sousProg|| action
