@@ -386,13 +386,16 @@
                                                      //var url=   '/testing/Action/' + path.join('/');
                                                      console.log(" eat " + path3.length)
                                                      if (path3.length > 4) {
+                                                        console.log('URL plus' + url)
                                                          var url = '/testing/S_action/' + path3[0] + '/' + path3[1] + '/' + path3[2] + '/' + path3[3] + '/' + path3[4] + '/' + T;
                                                          //var id_sous_action= path[4];
                                                      } else {
+                                                       
                                                          // var id_sous_action= path[3];
                                                          var url = '/testing/S_action/' + path3[0] + '/' + path3[1] + '/' + path3[2] + '/' + path3[3] + '/' + path3[3] + '/' + T;
+                                                         console.log('URL less' + url)
                                                      }
-                                                     console.log('URL ' + url)
+                                                    
                                                      $.ajax({
                                                          url: url,
                                                          type: 'GET',
@@ -420,6 +423,10 @@
                                                                  window.location.reload();
                                                                  console.log('path' + JSON.stringify(path))
 
+                                                             }
+                                                             else
+                                                             {
+                                                                alert(response.message)
                                                              }
                                                          },
                                                          error: function (response) {
