@@ -781,6 +781,29 @@ z-index: 1000;
     opacity: 0; /* Green */
 }
 }
+@keyframes alerting {
+
+  0%{
+    box-shadow: 3px 3px 15px 5px rgb(237 11 11);
+  }
+  25%{
+    box-shadow: 3px 3px 5px rgb(237 11 11 / 90%);
+  }
+  50%{
+    box-shadow: 3px 3px 5px rgb(237 11 11/ 60%);
+  }
+  75%
+  {
+    box-shadow: 3px 3px 5px rgb(237 11 11/ 80%);
+  }
+  100%
+  {
+    box-shadow: 3px 3px 5px rgb(237 11 11);
+  }
+}
+.alert_func{
+  animation: alerting 1s linear infinite;
+}
 .grid-T{
   width: 500px;
   display: grid;

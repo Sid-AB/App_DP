@@ -85,7 +85,7 @@
                 @if($portf['TotalAE'] == $portf['init_AE'] && $portf['TotalCP'] ==  $portf['init_AE'])
               <span class="member" id="{{$portf['id_prog']}}">
                 @else
-                <span class="member" id="{{$portf['id_prog']}}" style="border: 1px solid red;">
+                <span class="member alert_func" id="{{$portf['id_prog']}}">
               @endif
                 <div class="col-12 col-sm-6">
             <div class="card widget-card border-light shadow-sm">
@@ -137,7 +137,7 @@
                 @if($souportf['TotalAE'] == $souportf['init_AE'] && $souportf['TotalCP'] == $souportf['init_CP'])
                 <span class="member" id="{{$souportf['id_sous_prog']}}">
                 @else
-                <span class="member" id="{{$souportf['id_sous_prog']}}" style="border: 1px solid red;">
+                <span class="member alert_func" id="{{$souportf['id_sous_prog']}}">
                 @endif
                 <div class="col-12 col-sm-6">
             <div class="card widget-card border-light shadow-sm">
