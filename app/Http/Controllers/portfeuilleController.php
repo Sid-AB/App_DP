@@ -362,21 +362,22 @@ return response()->json([
     */
 
         //creation de la table  construireDPic
-        $DPIC = new ConstruireDPIC();
-
-        $DPIC->date_creation_dpic = $portefeuille->Date_portefeuille; // elle prend la date de creation du portfeuille
-
-        $DPIC->AE_dpic_nv = null;
-        $DPIC->CP_dpic_nv = null;
-
-        $DPIC->id_rff = 1; //apres elle sera avec auth:user il prend le compte qui est deja authentifié
-        $DPIC->id_rp = 1;
-        $DPIC->save();
+      
 
         //dd( $DPIC);
     }
         if($portefeuille)
         {
+            $DPIC = new ConstruireDPIC();
+
+            $DPIC->date_creation_dpic = $portefeuille->Date_portefeuille; // elle prend la date de creation du portfeuille
+    
+            $DPIC->AE_dpic_nv = $portefeuille->AE_portef;
+            $DPIC->CP_dpic_nv = $portefeuille->CP_portef;
+    
+            $DPIC->id_rff = 1; //apres elle sera avec auth:user il prend le compte qui est deja authentifié
+            $DPIC->id_rp = 1;
+            $DPIC->save();
             return response()->json([
                 'success' => true,
                 'message' => 'Portefeuille ajouté ou modifié avec succès.',
