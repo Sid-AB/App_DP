@@ -82,7 +82,7 @@
             <ul id="father1" style="display:none;">
             @foreach($allport['prgrammes'] as $portf)
               <li>
-                @if($portf['TotalAE'] == $portf['init_AE'] && $portf['TotalCP'] ==  $portf['init_AE'])
+                @if($portf['TotalAE'] == $portf['init_AE'] && $portf['TotalCP'] ==  $portf['init_CP'])
               <span class="member" id="{{$portf['id_prog']}}">
                 @else
                 <span class="member alert_func" id="{{$portf['id_prog']}}">

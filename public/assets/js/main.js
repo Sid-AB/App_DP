@@ -1148,7 +1148,7 @@
                                                                                         </div>
                                                                                      <div class="form-group">
                                                                                          <label for="nom_sous_act">Nom de  Sous ACTION</label>
-                                                                                     <input type="text" class="form-control" id="nom_sous_act" placeholder=Entrer le Nom de sous ACTION">
+                                                                                     <input type="text" class="form-control" id="nom_sous_act" placeholder="Entrer le Nom de sous ACTION">
                                                                                      </div>
                                                                                         <div class="form-group">
                                                                                          <label for="AE_sous_act">AE pour Sous Action</label>
