@@ -121,7 +121,6 @@
                       @endforeach
                       @else
                       <p class="fs-7 mb-0">aucun Sous_Progamme</p>
-                      <br>
                       @endif
                       </div>
                     </div>
@@ -326,7 +325,13 @@
   </div>
  </div>
 
-
+ <div class="float-export">
+    <div class="folder-box">
+    <a href="#">
+    <i class="fas fa-print"></i>
+    </a>
+    </div>
+</div>
 
 </body>
 <script src="{{asset('assets/bootstrap-5.0.2/js/bootstrap.js')}}"></script>

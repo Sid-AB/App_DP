@@ -323,6 +323,7 @@
                                                              // Ajoute les valeurs dans les objets
                                                              data.ae[code] = aeValue;
                                                              data.cp[code] = cpValue;
+                                                             console.log('Data of T1'+JSON.stringify(data));
 
 
                                                          }
@@ -386,13 +387,16 @@
                                                      //var url=   '/testing/Action/' + path.join('/');
                                                      console.log(" eat " + path3.length)
                                                      if (path3.length > 4) {
+                                                        console.log('URL plus' + url)
                                                          var url = '/testing/S_action/' + path3[0] + '/' + path3[1] + '/' + path3[2] + '/' + path3[3] + '/' + path3[4] + '/' + T;
                                                          //var id_sous_action= path[4];
                                                      } else {
+                                                       
                                                          // var id_sous_action= path[3];
                                                          var url = '/testing/S_action/' + path3[0] + '/' + path3[1] + '/' + path3[2] + '/' + path3[3] + '/' + path3[3] + '/' + T;
+                                                         console.log('URL less' + url)
                                                      }
-                                                     console.log('URL ' + url)
+                                                    
                                                      $.ajax({
                                                          url: url,
                                                          type: 'GET',
@@ -420,6 +424,10 @@
                                                                  window.location.reload();
                                                                  console.log('path' + JSON.stringify(path))
 
+                                                             }
+                                                             else
+                                                             {
+                                                                alert(response.message)
                                                              }
                                                          },
                                                          error: function (response) {
@@ -1935,6 +1943,8 @@
 
                              $('#T1').on('click', function () {
                                  var indic = path3.length - 1
+                                 var id = $(this).attr('id');
+                                 var T = 1;
                                  console.log('len' + path3.length + ' act ' + indic)
                                  $.ajax({
                                      url: '/testing/codeSousOperation/' + path3[indic],
@@ -1942,14 +1952,10 @@
                                      success: function (response) {
                                          if (response.code == 200) {
                                              alert('Exist')
-                                             var id = $(this).attr('id');
-                                             var T = 1;
                                              T1_table(id, T, path3[indic], path3[0],response.code)
                                          }
                                          else {
                                              alert('New')
-                                             var id = $(this).attr('id');
-                                             var T = 1;
                                              T1_table(id, T, path3[indic], path3[0],response.code)
                                          }
                                      }
@@ -2031,8 +2037,11 @@
                                  $('#T-tables tbody').empty()
                                  var indic = path3.length - 1
                                  var id_tport_c = $(this).attr('id');
+                                 
                                  if (id_tport_c == 'T_port1') {
                                      //var indic = path3.length - 1
+                                     var id = $(this).attr('id');
+                                     var T = 1;
                                      console.log('len' + path3.length + ' act ' + indic)
                                      $.ajax({
                                          url: '/testing/codeSousOperation/' + path3[indic],
@@ -2040,55 +2049,52 @@
                                          success: function (response) {
                                              if (response.code == 200) {
                                                  alert('Exist')
-                                                 var id = $(this).attr('id');
-                                                 var T = 1;
+                                             
                                                  T1_table(id, T, path3[indic], path3[0],response.code)
                                              }
                                              else {
                                                  alert('New')
-                                                 var id = $(this).attr('id');
-                                                 var T = 1;
+                                        
                                                  T1_table(id, T, path3[indic], path3[0],response.code)
                                              }
                                          }
                                      })
                                  }
                                  if (id_tport_c == 'T_port2') {
-
+                                    var id = $(this).attr('id');
+                                    var T = 2;
                                      $.ajax({
                                          url: '/testing/codeSousOperation/' + path3[indic],
                                          type: 'GET',
                                          success: function (response) {
                                              if (response.code == 200) {
                                                  alert('Exist')
-                                                 var id = $(this).attr('id');
-                                                 var T = 1;
+                                               
                                                  T2_table(id, T, path3[indic], path3[0],response.code)
                                              }
                                              else {
                                                  alert('New')
-                                                 var id = $(this).attr('id');
-                                                 var T = 1;
+                                              
                                                  T2_table(id, T, path3[indic], path3[0],response.code)
                                              }
                                          }
                                      })
                                  }
                                  if (id_tport_c == 'T_port3') {
+                                    var id = $(this).attr('id');
+                                    var T = 3;
                                      $.ajax({
                                          url: '/testing/codeSousOperation/' + path3[indic],
                                          type: 'GET',
                                          success: function (response) {
                                              if (response.code == 200) {
                                                  alert('Exist')
-                                                 var id = $(this).attr('id');
-                                                 var T = 1;
+                                              
                                                  T3_table(id, T, path3[indic], path3[0],response.code)
                                              }
                                              else {
                                                  alert('New')
-                                                 var id = $(this).attr('id');
-                                                 var T = 1;
+                                               
                                                  T3_table(id, T, path3[indic], path3[0],response.code)
                                              }
                                          }
@@ -2097,21 +2103,20 @@
 
                                  }
                                  if (id_tport_c == 'T_port4') {
-                                     var T = 4;
+                                    var id = $(this).attr('id');
+                                    var T = 4;
                                      $.ajax({
                                          url: '/testing/codeSousOperation/' + path3[indic],
                                          type: 'GET',
                                          success: function (response) {
                                              if (response.code == 200) {
                                                  alert('Exist')
-                                                 var id = $(this).attr('id');
-                                                 var T = 1;
+                                               
                                                  T4_table(id, T, path3[indic], path3[0],response.code)
                                              }
                                              else {
                                                  alert('New')
-                                                 var id = $(this).attr('id');
-                                                 var T = 1;
+                                            
                                                  T4_table(id, T, path3[indic], path3[0],response.code)
                                              }
                                          }

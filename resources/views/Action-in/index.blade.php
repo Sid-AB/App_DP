@@ -172,7 +172,7 @@
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Titre 2</h5>
-                    <p class="card-text">DEPENSES DE FONCTIONNEMENT DES SERVICES </p>
+                    <p class="card-text" style="text-align:center;">DEPENSES DE FONCTIONNEMENT DES SERVICES </p>
                     <button class="btn btn-primary" id="T2">Vers Tableau Operation</button>
                 </div>
             </div>
