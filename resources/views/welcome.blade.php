@@ -41,7 +41,7 @@
     <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
     @for($i=2 ; $i < count($portfs) ; $i+=3)
 
-    <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="{{$j}}" aria-label="Slide {{$i}}"></button>
+    <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="{{$j}}" aria-label="Slide {{$j}}"></button>
     @php
     $j++;
     @endphp
