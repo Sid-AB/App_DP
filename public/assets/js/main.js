@@ -427,11 +427,11 @@
                                                              }
                                                              else
                                                              {
-                                                                alert(response.message)
+                                                                console.log(response.message)
                                                              }
                                                          },
                                                          error: function (response) {
-                                                             alert('error')
+                                                             console.log('error')
                                                          }
 
 

@@ -37,7 +37,7 @@ class sousOperationController extends Controller
 
     function AffichePortsSousAct ($port,$prog,$sous_prog,$act,$s_act)
     {
-      //  dd($port,$prog,$sous_prog,$act,$s_act);
+      //dd($port,$prog,$sous_prog,$act,$s_act);
       //$resultats = $this->CalculDpia->calculdpiaFromPath($port, $prog, $sous_prog, $act,$s_act);
      // dd($resultats);
         try{
@@ -63,14 +63,16 @@ class sousOperationController extends Controller
           //dd($resultats );
 
           // Chargement du fichier JSON
-        $jsonData = Storage::get('dataT1.json'); // Assurez-vous que data.json est dans storage/app
-        $operations = json_decode($jsonData, true); // Décoder en tableau associatif
-          //envoyer le sousprogramme dans compact avec son code  
+        $jsonData = file_get_contents(public_path('assets/titre/dataT1.json')); //la fonction file_get_contents() lire directement depuis le système de fichiers :
+      //  dd($jsonData);  
+        $operations = json_decode($jsonData, true); // décoder en tableau 
+       // dd($operations);  
+        //envoyer le sousprogramme dans compact avec son code  
            $sousProgramme = SousProgramme::where('num_sous_prog', $sous_prog)->first();
            //dd($sousProgramme );
            // vérifier si le sous programme existe
            if (!$sousProgramme) {
-            throw new \Exception("Sous-programme introuvable.");
+            throw new \Exception("Sous programme introuvable");
         }
                // envoyer les résultats en JSON
                $pdf=pdf::loadView('impression.liste_impression', compact('resultats','sousProgramme','operations'));
