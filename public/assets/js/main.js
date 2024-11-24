@@ -172,8 +172,9 @@
                                  '<td class="editable" id="AE_T1">' + value + '</td>' +
                                  '<td class="editable" id="CP_T1">' + 180 + ',000</td>' +
                                  '</tr>';
-                             $('#ref' + key).after(row);
-                             $('#ref' + key + ' td').each(function () {
+                                
+                             $('#' + key).after(row);
+                             $('#' + key + ' td').each(function () {
                                  $(this).removeClass('editable');
                              })
                          }
@@ -189,8 +190,8 @@
                                  '<td  id="AE_TT" diseabled>' + some + '</td>' +
                                  '<td  id="CP_TT" diseabled>' + 360 + ',000</td>' +
                                  '</tr>';
-                             $('#ref' + key).after(row);
-                             $('#ref' + key + ' td').each(function () {
+                             $('#' + key).after(row);
+                             $('#' + key + ' td').each(function () {
                                  $(this).removeClass('editable');
                              })
                          }
@@ -206,8 +207,8 @@
                                  '<td class="editable" id="AE_not">' + value + '</td>' +
                                  '<td class="editable" id="AE_enga">' + 180 + ',000</td>' +
                                  '</tr>';
-                             $('#ref' + key).after(row);
-                             $('#ref' + key + ' td').each(function () {
+                             $('#' + key).after(row);
+                             $('#' + key + ' td').each(function () {
                                  $(this).removeClass('editable');
                              })
 
@@ -221,8 +222,8 @@
                                  '<td class="editable" id="AE_T4">' + value + '</td>' +
                                  '<td class="editable" id="CP_T4">' + 180 + ',000</td>' +
                                  '</tr>';
-                             $('#ref' + key).after(row);
-                             $('#ref' + key + ' td').each(function () {
+                             $('#' + key).after(row);
+                             $('#' + key + ' td').each(function () {
                                  $(this).removeClass('editable');
                              })
                          }
@@ -1410,7 +1411,7 @@
                                              $('#ref' + key + ' #add_op').append(newbtn)
                                              $('#ref' + key + ' #add_op').on('click', function () {
                                                  var ads = key + '1';
-                                                 add_newOPs_T3(ads, 'testing new descr', 2500, key);
+                                                 add_newOPs_T1(ads, 'testing new descr', 2500, key);
                                                  Edit(id, T)
                                              })
                                          }
@@ -1434,8 +1435,9 @@
                                              if ($('#ref' + preve + ' td').hasClass("editable")) {
                                                  $('#ref' + preve + ' #add_op').append(newbtn)
                                                  $('#ref' + preve + ' #add_op').on('click', function () {
-                                                     var ads = key + '1';
-                                                     add_newOPs_T1(ads, 'testing new descr', 2500, key);
+                                                    var newKey=$(this).parent().attr('id');
+                                                     var ads = newKey.split('ref')[1] + '1';
+                                                     add_newOPs_T1(ads, 'testing new descr', 2500, newKey);
                                                      Edit(id, T)
                                                  })
                                              }
@@ -1603,8 +1605,9 @@
                                              if ($('#ref' + preve + ' td').hasClass("editable")) {
                                                  $('#ref' + preve + ' #add_op').append(newbtn)
                                                  $('#ref' + preve + ' #add_op').on('click', function () {
-                                                     var ads = key + '1';
-                                                     add_newOPs_T2(ads, 'testing new descr', 2500, key);
+                                                    var newKey=$(this).parent().attr('id');
+                                                    var ads = newKey.split('ref')[1] + '1';
+                                                     add_newOPs_T2(ads, 'testing new descr', 2500, newKey);
                                                      Edit(id, T)
                                                  })
                                              }
@@ -1619,7 +1622,7 @@
                                              $('#ref' + key + ' #add_op').append(newbtn)
                                              $('#ref' + key + ' #add_op').on('click', function () {
                                                  var ads = key + '1';
-                                                 add_newOPs_T3(ads, 'testing new descr', 2500, key);
+                                                 add_newOPs_T2(ads, 'testing new descr', 2500, key);
                                                  Edit(id, T)
                                              })
                                          }
@@ -1778,8 +1781,9 @@
                                              if ($('#ref' + preve + ' td').hasClass("editable")) {
                                                  $('#ref' + preve + ' #add_op').append(newbtn)
                                                  $('#ref' + preve + ' #add_op').on('click', function () {
-                                                     var ads = key + '1';
-                                                     add_newOPs_T3(ads, 'testing new descr', 2500, key);
+                                                    var newKey=$(this).parent().attr('id');
+                                                    var ads = newKey.split('ref')[1] + '1';
+                                                     add_newOPs_T3(ads, 'testing new descr', 2500, newKey);
                                                      Edit(id, T)
                                                  })
                                              }
@@ -1793,8 +1797,9 @@
                                          if ($('#ref' + key + ' td').hasClass("editable")) {
                                              $('#ref' + key + ' #add_op').append(newbtn)
                                              $('#ref' + key + ' #add_op').on('click', function () {
-                                                 var ads = key + '1';
-                                                 add_newOPs_T3(ads, 'testing new descr', 2500, key);
+                                                var newKey=$(this).parent().attr('id');
+                                                var ads = newKey.split('ref')[1] + '1';
+                                                 add_newOPs_T3(ads, 'testing new descr', 2500, preve);
                                                  Edit(id, T)
                                              })
                                          }
@@ -1923,8 +1928,9 @@
                                              if ($('#ref' + key + ' td').hasClass("editable")) {
                                                  $('#ref' + key + ' #add_op').append(newbtn)
                                                  $('#ref' + key + ' #add_op').on('click', function () {
-                                                     var ads = key + '1';
-                                                     add_newOPs_T4(ads, 'testing new descr', 2500, key);
+                                                    var newKey=$(this).parent().attr('id');
+                                                    var ads = newKey.split('ref')[1] + '1';
+                                                     add_newOPs_T4(ads, 'testing new descr', 2500, newKey);
                                                  })
                                              }
 
