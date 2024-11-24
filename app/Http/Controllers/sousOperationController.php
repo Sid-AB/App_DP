@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;  
 use App\Services\CalculDpia;
 use App\Models\SousOperation;
+use App\Models\SousProgramme;
 use Barryvdh\DomPDF\Facade\pdf;
+use Illuminate\Support\Facades\Storage;
 class sousOperationController extends Controller
 {
 
@@ -56,10 +58,22 @@ class sousOperationController extends Controller
    public function impressionpdf($port, $prog, $sous_prog, $act,$s_act)
    {
         try {
+            //dd($port, $prog, $sous_prog, $act,$s_act);
             $resultats = $this->CalculDpia->calculdpiaFromPath($port, $prog, $sous_prog, $act,$s_act);
-           //dd($resultats );
+          //dd($resultats );
+
+          // Chargement du fichier JSON
+        $jsonData = Storage::get('dataT1.json'); // Assurez-vous que data.json est dans storage/app
+        $operations = json_decode($jsonData, true); // Décoder en tableau associatif
+          //envoyer le sousprogramme dans compact avec son code  
+           $sousProgramme = SousProgramme::where('num_sous_prog', $sous_prog)->first();
+           //dd($sousProgramme );
+           // vérifier si le sous programme existe
+           if (!$sousProgramme) {
+            throw new \Exception("Sous-programme introuvable.");
+        }
                // envoyer les résultats en JSON
-               $pdf=pdf::loadView('impression.liste_impression', compact('resultats'));
+               $pdf=pdf::loadView('impression.liste_impression', compact('resultats','sousProgramme','operations'));
                return $pdf->download('liste_impression.pdf');
            // return response()->json($resultats);
         } catch (\Exception $e) {

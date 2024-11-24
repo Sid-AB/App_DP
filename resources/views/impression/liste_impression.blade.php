@@ -26,7 +26,7 @@
             <tr>
                 <th>Code</th>
                 <th>T1. DEPENSES DE PERSONNEL</th>
-                <th colspan="2">Code 'num_sous_prog' + nom_sous_prog</th>
+                <th colspan="2">Code '{{ $sousProgramme->num_sous_prog }}' + '{{ $sousProgramme->nom_sous_prog }}'</th>
             </tr>
             <tr>
                 <th></th>
@@ -36,7 +36,10 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($resultats as $resultats)
+        @foreach (['T1', 'T2', 'T3', 'T4'] as $t)
+                @if (isset($resultats[$t]))
+                    @foreach ($resultats[$t] as $resultats)
+
                 <tr>
                 @if (isset($resultats['group']))
                     <!-- afficher chaque groupe -->
@@ -44,6 +47,7 @@
                         <tr>
                             <td>{{ $group['code'] }}</td>
                             <!--td>Nom du Groupe</td-->
+                            <td>{{ $operations[$group['code']] ?? 'Nom introuvable' }}</td>
                             <td>{{ $group['values']['ae_grpop'] }}</td>
                             <td>{{ $group['values']['cp_grpop'] }}</td>
                         </tr>
@@ -54,6 +58,7 @@
                                 <tr>
                                     <td>{{ $sousOperation['code'] }}</td>
                                     <!--td>Nom Sous Operation</td-->
+                                    <td>{{ $operations[$sousOperation['code']] ?? 'Nom introuvable' }}</td>
                                     <td>{{ $sousOperation['values']['ae_sousop'] }}</td>
                                     <td>{{ $sousOperation['values']['cp_sousuop'] }}</td>
                                 </tr>
