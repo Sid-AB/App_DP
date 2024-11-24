@@ -323,6 +323,7 @@
                                                              // Ajoute les valeurs dans les objets
                                                              data.ae[code] = aeValue;
                                                              data.cp[code] = cpValue;
+                                                             console.log('Data of T1'+JSON.stringify(data));
 
 
                                                          }
@@ -1942,6 +1943,8 @@
 
                              $('#T1').on('click', function () {
                                  var indic = path3.length - 1
+                                 var id = $(this).attr('id');
+                                 var T = 1;
                                  console.log('len' + path3.length + ' act ' + indic)
                                  $.ajax({
                                      url: '/testing/codeSousOperation/' + path3[indic],
@@ -1949,14 +1952,10 @@
                                      success: function (response) {
                                          if (response.code == 200) {
                                              alert('Exist')
-                                             var id = $(this).attr('id');
-                                             var T = 1;
                                              T1_table(id, T, path3[indic], path3[0],response.code)
                                          }
                                          else {
                                              alert('New')
-                                             var id = $(this).attr('id');
-                                             var T = 1;
                                              T1_table(id, T, path3[indic], path3[0],response.code)
                                          }
                                      }
@@ -2038,8 +2037,11 @@
                                  $('#T-tables tbody').empty()
                                  var indic = path3.length - 1
                                  var id_tport_c = $(this).attr('id');
+                                 
                                  if (id_tport_c == 'T_port1') {
                                      //var indic = path3.length - 1
+                                     var id = $(this).attr('id');
+                                     var T = 1;
                                      console.log('len' + path3.length + ' act ' + indic)
                                      $.ajax({
                                          url: '/testing/codeSousOperation/' + path3[indic],
@@ -2047,55 +2049,52 @@
                                          success: function (response) {
                                              if (response.code == 200) {
                                                  alert('Exist')
-                                                 var id = $(this).attr('id');
-                                                 var T = 1;
+                                             
                                                  T1_table(id, T, path3[indic], path3[0],response.code)
                                              }
                                              else {
                                                  alert('New')
-                                                 var id = $(this).attr('id');
-                                                 var T = 1;
+                                        
                                                  T1_table(id, T, path3[indic], path3[0],response.code)
                                              }
                                          }
                                      })
                                  }
                                  if (id_tport_c == 'T_port2') {
-
+                                    var id = $(this).attr('id');
+                                    var T = 2;
                                      $.ajax({
                                          url: '/testing/codeSousOperation/' + path3[indic],
                                          type: 'GET',
                                          success: function (response) {
                                              if (response.code == 200) {
                                                  alert('Exist')
-                                                 var id = $(this).attr('id');
-                                                 var T = 1;
+                                               
                                                  T2_table(id, T, path3[indic], path3[0],response.code)
                                              }
                                              else {
                                                  alert('New')
-                                                 var id = $(this).attr('id');
-                                                 var T = 1;
+                                              
                                                  T2_table(id, T, path3[indic], path3[0],response.code)
                                              }
                                          }
                                      })
                                  }
                                  if (id_tport_c == 'T_port3') {
+                                    var id = $(this).attr('id');
+                                    var T = 3;
                                      $.ajax({
                                          url: '/testing/codeSousOperation/' + path3[indic],
                                          type: 'GET',
                                          success: function (response) {
                                              if (response.code == 200) {
                                                  alert('Exist')
-                                                 var id = $(this).attr('id');
-                                                 var T = 1;
+                                              
                                                  T3_table(id, T, path3[indic], path3[0],response.code)
                                              }
                                              else {
                                                  alert('New')
-                                                 var id = $(this).attr('id');
-                                                 var T = 1;
+                                               
                                                  T3_table(id, T, path3[indic], path3[0],response.code)
                                              }
                                          }
@@ -2104,21 +2103,20 @@
 
                                  }
                                  if (id_tport_c == 'T_port4') {
-                                     var T = 4;
+                                    var id = $(this).attr('id');
+                                    var T = 4;
                                      $.ajax({
                                          url: '/testing/codeSousOperation/' + path3[indic],
                                          type: 'GET',
                                          success: function (response) {
                                              if (response.code == 200) {
                                                  alert('Exist')
-                                                 var id = $(this).attr('id');
-                                                 var T = 1;
+                                               
                                                  T4_table(id, T, path3[indic], path3[0],response.code)
                                              }
                                              else {
                                                  alert('New')
-                                                 var id = $(this).attr('id');
-                                                 var T = 1;
+                                            
                                                  T4_table(id, T, path3[indic], path3[0],response.code)
                                              }
                                          }
