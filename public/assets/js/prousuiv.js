@@ -36,6 +36,7 @@ $(document).ready(function(){
     if(id == "add-prg3")
     {
 
+        console.log($('#AE_act').val()+ 'fdyudg');
       let userResponse = confirm('Voulez-vous ajouter une sous-action pour cette action ?');
                                     if (userResponse) {
                                         // Récupération des informations de l'action
@@ -207,7 +208,7 @@ $(document).ready(function(){
     }
     if(id == "add-prg4")
     {
-
+        console.log($('#AE_sous_act').val()+ 'fdyudg');
         console.log('inside sous_action')
         var nom_sous_act = $('#nom_s_act').val();
         var num_sous_act = $('#num_s_act').val();
