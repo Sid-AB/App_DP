@@ -12,11 +12,17 @@
     "11300": "Rémunération des membres du Gouvernement et du Parlement",
     "11400": "Traitements du personnel contractuel exerçant à l'étranger",
     "11500": "Traitements du personnel coopérant",
-    
+
     "12000": "Primes, indemnités",
 
     "12100": "Primes et indemnités des fonctionnaires et agents publics",
+    
+   " 12110":  "Primes et indemnités des fonctionnaires",
+    "12120":	"Primes et indemnités des agents publics",
+
+
     "12200": "Primes et indemnités du personnel contractuel",
+
     "12210":	"Primes et indemnités du personnel contractuel à temps plein",
    " 12220":	"Primes et indemnités du personnel contractuel à temps partiel",
 
