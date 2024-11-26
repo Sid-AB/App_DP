@@ -35,4 +35,9 @@ class SousProgramme extends Model
     {
         return $this->morphMany(Multimedia::class, 'related');
     }
+
+    public function InitPorts()
+    {
+        return $this->hasMany(initPort::class,'num_sous_prog','num_sous_prog');
+    }
 }
