@@ -92,13 +92,13 @@
                           */
 
                          /**
-                          * 
+                          *
                           * upload file function
-                          * 
+                          *
                           */
                          function upload_file(id_file,id_relat)
                          {
-                            
+
                             let formDataFa = new FormData();
                             formDataFa.append('pdf_file', $('#'+id_file)[0].files[0]);
                             formDataFa.append('related_id',id_relat);
@@ -123,7 +123,7 @@
                                     }
                                 }
                             })
-                         
+
                          }
                          function focus_() {
                              $('input').focus(function () {
@@ -172,7 +172,7 @@
                                  '<td class="editable" id="AE_T1">' + value + '</td>' +
                                  '<td class="editable" id="CP_T1">' + 180 + ',000</td>' +
                                  '</tr>';
-                                
+
                              $('#' + key).after(row);
                              $('#' + key + ' td').each(function () {
                                  $(this).removeClass('editable');
@@ -392,12 +392,12 @@
                                                          var url = '/testing/S_action/' + path3[0] + '/' + path3[1] + '/' + path3[2] + '/' + path3[3] + '/' + path3[4] + '/' + T;
                                                          //var id_sous_action= path[4];
                                                      } else {
-                                                       
+
                                                          // var id_sous_action= path[3];
                                                          var url = '/testing/S_action/' + path3[0] + '/' + path3[1] + '/' + path3[2] + '/' + path3[3] + '/' + path3[3] + '/' + T;
                                                          console.log('URL less' + url)
                                                      }
-                                                    
+
                                                      $.ajax({
                                                          url: url,
                                                          type: 'GET',
@@ -615,7 +615,7 @@
                                  var Date_portefeuille = $(this).val();  // Récupérer la valeur de la date
 
                                  var year = new Date(Date_portefeuille).getFullYear(); // Extraire l'année à partir de la date
-                                 var numwall_year = num_portefeuil + year;
+                                 var numwall_year = num_portefeuil +'-'+ year;
 
 
                                  // Vérifie que les deux champs sont remplis avant de continuer
@@ -633,7 +633,7 @@
                                                  console.log(response); // Vérifiez la réponse
 
                                                  console.log('numwall_year path3: ' + JSON.stringify(path3));
-                                                  $('#file_holder   ').empty() 
+                                                  $('#file_holder   ').empty()
                                                  // Remplir les champs du formulaire avec les données récupérées
                                                  $('#date_crt_portf').val(response.Date_portefeuille).trigger('change'); // Remplir et déclencher l'événement change
                                                  $('#AE_portef').val(response.AE_portef).trigger('change'); // Remplir et déclencher l'événement change
@@ -666,7 +666,7 @@
                                  var num_wallet = $("#num_port").val();
                                  var dateprort = $("#date_crt_portf").val();
                                  var year = new Date(dateprort).getFullYear(); // Extraire l'année à partir de la date
-                                 var numwall_year = num_wallet + year;
+                                 var numwall_year = num_wallet + '-'+ year;
                                  var indice = 0;
                                  var isEmpty = false;
                                  var formId = $(this).parents(".card-body").attr("id");
@@ -735,9 +735,9 @@
                                                     alert(response.message);
                                                     path.push(numwall_year);
                                                     path3.push(num_wallet);
-       
+
                                                     console.log("numwall_year path: " + JSON.stringify(path));
-       
+
                                                     $(".font-bk").removeClass("back-bk");
                                                     $(".wallet-path").css("display", "flex");
                                                     $(".wallet-handle").empty();
@@ -752,7 +752,7 @@
                                                 }
                                             })
                                          } else if( response.code == 404) {
-                                            
+
                                             alert(response.message);
                                             path.push(numwall_year);
                                             path3.push(num_wallet);
@@ -786,7 +786,7 @@
                              var Date_prog = $(this).val();  // Récupérer la valeur de la date
 
                              var year = new Date(Date_prog).getFullYear(); // Extraire l'année à partir de la date
-                             var numprog_year = num_prog + path[0];
+                             var numprog_year = path[0] +'-'+num_prog;
 
 
                              // Vérifie que les deux champs sont remplis avant de continuer
@@ -841,7 +841,10 @@
                              var nom_prog = $('#nom_prog').val();
                              var ae_prog = parseFloat($('#AE_prog').val())
                              var cp_prog = parseFloat($('#CP_prog').val())
-                             var numprog_year = id_prog + path[0];
+                             var numprog_year =path[0] +'-'+ id_prog;
+                             console.log("path[0]",path[0] );
+                             console.log("id_prog",id_prog );
+                             console.log("prog",numprog_year );
                              var date_sort_jour = $('#date_insert_portef').val();
                              check_ifnull(this)
                              var formprogdata = {
@@ -923,7 +926,7 @@
                                              //var year = new Date(Date_sou_program).getFullYear(); // Extraire l'année à partir de la date
                                              var num_sou_prog = $('#num_sous_prog').val(); // Récupérer la valeur de la date du programme
                                              // Vérifie que les deux champs sont remplis avant de continuer
-                                             var num_sou_program = num_sou_prog + path[1];
+                                             var num_sou_program = path[1] +'-'+ num_sou_prog;
                                              if (Date_sou_program && num_sou_prog) {
                                                  // Appel AJAX pour vérifier le programme dans la base de données
                                                  $.ajax({
@@ -965,7 +968,7 @@
                                              var AE_sous_prog = $('#AE_sous_prog').val()
                                              var CP_sous_prog = $('#CP_sous_prog').val()
                                              var id_prog = path[1];
-                                             var numsouprog_year = sou_prog + id_prog;
+                                             var numsouprog_year = id_prog +'-'+sou_prog ;
                                              check_ifnull('#add-prg2')
                                              //var id_port = path[0];
                                              var nexthop = '<div class="pinfo-handle">' +
@@ -1052,7 +1055,7 @@
                                                              var date_act = $(this).val();
                                                              var num_act = $('#num_act').val();
                                                              //  var date_act=  new Date(date_act).getFullYear();
-                                                             var numact_year = num_act + path[2];
+                                                             var numact_year = path[2] +'-'+num_act ;
                                                              console.log('the new id' + numact_year + ' with ' + JSON.stringify(path))
                                                              if (date_act && num_act) {
                                                                  $.ajax({
@@ -1096,7 +1099,7 @@
                                                              var dat_inst = $('#date_insert_action').val();
                                                              var id_sou_prog = path[2];
                                                              check_ifnull('#add-prg3')
-                                                             var numaction_year = num_act + id_sou_prog;
+                                                             var numaction_year = id_sou_prog +'-'+num_act ;
                                                                  var nexthop = '<div class="pinfo-handle">' +
                                                                      '<i class="fas fa-wallet"></i>' +
                                                                      '<p >Action :</p>' +
@@ -1190,7 +1193,7 @@
                                                                                  console.log("cp= ",CP_sous_act );
                                                                                  check_ifnull('#add-prg4')
                                                                                  var numaction_year = path[3];
-                                                                                 var numsousaction_year = num_sous_act + numaction_year;
+                                                                                 var numsousaction_year = numaction_year +'-'+num_sous_act ;
                                                                                  // Création du formData pour la sous-action
                                                                                  var formdata_sous_act = {
                                                                                      num_sous_action: numsousaction_year,
@@ -1242,7 +1245,7 @@
                                                                  var CP_act = $('#CP_act').val()
                                                                  var dat_inst = $('#date_insert_action').val();
                                                                  var id_sou_prog = path[2];
-                                                                 var numaction_year = num_act + id_sou_prog;
+                                                                 var numaction_year = id_sou_prog +'-'+num_act ;
                                                                  var formdata_act = {
                                                                      num_action: numaction_year,
                                                                      nom_action: nom_act,
@@ -2043,7 +2046,7 @@
                                  $('#T-tables tbody').empty()
                                  var indic = path3.length - 1
                                  var id_tport_c = $(this).attr('id');
-                                 
+
                                  if (id_tport_c == 'T_port1') {
                                      //var indic = path3.length - 1
                                      var id = $(this).attr('id');
@@ -2055,12 +2058,12 @@
                                          success: function (response) {
                                              if (response.code == 200) {
                                                  alert('Exist')
-                                             
+
                                                  T1_table(id, T, path3[indic], path3[0],response.code)
                                              }
                                              else {
                                                  alert('New')
-                                        
+
                                                  T1_table(id, T, path3[indic], path3[0],response.code)
                                              }
                                          }
@@ -2075,12 +2078,12 @@
                                          success: function (response) {
                                              if (response.code == 200) {
                                                  alert('Exist')
-                                               
+
                                                  T2_table(id, T, path3[indic], path3[0],response.code)
                                              }
                                              else {
                                                  alert('New')
-                                              
+
                                                  T2_table(id, T, path3[indic], path3[0],response.code)
                                              }
                                          }
@@ -2095,12 +2098,12 @@
                                          success: function (response) {
                                              if (response.code == 200) {
                                                  alert('Exist')
-                                              
+
                                                  T3_table(id, T, path3[indic], path3[0],response.code)
                                              }
                                              else {
                                                  alert('New')
-                                               
+
                                                  T3_table(id, T, path3[indic], path3[0],response.code)
                                              }
                                          }
@@ -2117,12 +2120,12 @@
                                          success: function (response) {
                                              if (response.code == 200) {
                                                  alert('Exist')
-                                               
+
                                                  T4_table(id, T, path3[indic], path3[0],response.code)
                                              }
                                              else {
                                                  alert('New')
-                                            
+
                                                  T4_table(id, T, path3[indic], path3[0],response.code)
                                              }
                                          }

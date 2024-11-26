@@ -48,7 +48,7 @@ $(document).ready(function(){
                                         var AE_act = $('#AE_act').val()
                                         var CP_act = $('#CP_act').val()
                                         var id_sou_prog = path[2];
-                                        var numaction_year = num_act + id_sou_prog;
+                                        var numaction_year = id_sou_prog +'-'+num_act ;
                                         var nexthop = '<div class="pinfo-handle">' +
                                          '<i class="fas fa-wallet"></i>' +
                                          '<p >Action :</p>' +
@@ -126,7 +126,7 @@ $(document).ready(function(){
                                                         var AE_sous_act = $('#AE_sous_act').val()
                                                         var CP_sous_act = $('#CP_sous_act').val()
                                                         var numaction_year = path[3];
-                                                        var numsousaction_year = num_sous_act + numaction_year;
+                                                        var numsousaction_year = numaction_year +'-'+num_sous_act ;
                                                         // Création du formData pour la sous-action
                                                         var formdata_sous_act = {
                                                             num_sous_action: numsousaction_year,
@@ -174,7 +174,7 @@ $(document).ready(function(){
                                         var AE_act = $('#AE_act').val()
                                         var CP_act = $('#CP_act').val()
                                         var id_sou_prog = path[2];
-                                        var numaction_year = num_act + id_sou_prog;
+                                        var numaction_year = id_sou_prog +'-'+num_act ;
 
                                         var formdata_act = {
                                             num_action: numaction_year,
@@ -216,7 +216,7 @@ $(document).ready(function(){
         var AE_sous_act = $('#AE_sous_act').val()
         var CP_sous_act = $('#CP_sous_act').val()
         var numaction_year = path[3];
-        var numsousaction_year = num_sous_act + numaction_year;
+        var numsousaction_year = numaction_year +'-'+num_sous_act ;
         console.log('this '+numaction_year+'new pa'+numsousaction_year)
         // Création du formData pour la sous-action
         var formdata_sous_act = {
@@ -261,7 +261,7 @@ $(document).ready(function(){
                     var ae_sou_prog = $('#AE_sousProg').val();
                     var cp_sou_prog = $('#CP_sousProg').val();
                     var id_prog = path[1];
-                    var numsouprog_year = sou_prog + id_prog;
+                    var numsouprog_year = id_prog +'-'+sou_prog ;
                     var nexthop = '<div class="pinfo-handle">' +
                         '<i class="fas fa-wallet"></i>' +
                         '<p >S_Program :</p>' +
@@ -305,7 +305,7 @@ $(document).ready(function(){
     var nom_prog = $('#nom_prog').val();
     var Ae_prog = $('#AE_prog').val();
     var Cp_prog = $('#CP_prog').val();
-    var numprog_year = id_prog + path[0];
+    var numprog_year = path[0] +'-'+id_prog ;
     var nexthop = '<div class="pinfo-handle">' +
         '<i class="fas fa-wallet"></i>' +
         '<p >Programm :</p>' +
