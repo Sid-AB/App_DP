@@ -42,7 +42,7 @@ return new class extends Migration
             $table->foreign('code_t4')->references('code_t4')->on('t4_s');
 
 
-            $table->integer('num_sous_prog')->nullable();
+            $table->string('num_sous_prog')->nullable();
             $table->foreign('num_sous_prog')->references('num_sous_prog')->on('sous_programmes');
 
 
