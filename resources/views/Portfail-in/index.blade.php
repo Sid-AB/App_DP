@@ -43,7 +43,7 @@
 
                 <div class="col-12 col-sm-6">
             <div class="card widget-card border-light shadow-sm">
-              <div class="card-body p-4">
+              <div class="card-body p-1">
                 <div class="row">
                   <div class="col-8">
                     <h5 class="card-title widget-card-title mb-3">Portefeuille</h5>
@@ -89,10 +89,10 @@
               @endif
                 <div class="col-12 col-sm-6">
             <div class="card widget-card border-light shadow-sm">
-              <div class="card-body p-4">
+              <div class="card-body p-1">
                 <div class="row">
                   <div class="col-8">
-                    <h5 class="card-title widget-card-title mb-3">Programme :{{$portf['id_prog']}}</h5>
+                    <h5 class="card-title widget-card-title mb-3">{{$portf['data']['nom_prog']}}</h5>
                     <h4 class="card-subtitle text-body-secondary m-0"> AE :{{$portf['TotalAE']}}</h4>
                     <h4 class="card-subtitle text-body-secondary m-0"> CP :{{$portf['TotalCP']}}</h4>
                   </div>
@@ -140,10 +140,10 @@
                 @endif
                 <div class="col-12 col-sm-6">
             <div class="card widget-card border-light shadow-sm">
-              <div class="card-body p-4">
+              <div class="card-body p-1">
                 <div class="row">
                   <div class="col-8">
-                    <h5 class="card-title widget-card-title mb-3">Sous Programme:{{$souportf['id_sous_prog']}}</h5>
+                    <h5 class="card-title widget-card-title mb-3">{{$souportf['data']['nom_sous_prog']}}</h5>
                     <h4 class="card-subtitle text-body-secondary m-0">AE : {{$souportf['TotalAE']}}</h4>
                     <h4 class="card-subtitle text-body-secondary m-0">CP :{{$souportf['TotalCP']}}</h4>
                   </div>
@@ -188,7 +188,7 @@
                   @endif
                 <div class="col-12 col-sm-6">
             <div class="card widget-card border-light shadow-sm">
-              <div class="card-body p-4">
+              <div class="card-body p-1">
                 <div class="row">
                   <div class="col-8">
                     <h5 class="card-title widget-card-title mb-3">Action: {{$act['num_act'] }}</h5>
@@ -242,7 +242,7 @@
                 <span class="member" id="s_act-{{$sous_act['num_act']}}">
                 <div class="col-12 col-sm-6">
             <div class="card widget-card border-light shadow-sm">
-              <div class="card-body p-4">
+              <div class="card-body p-1">
                 <div class="row">
                   <div class="col-8">
                     <h5 class="card-title widget-card-title mb-3">Sous Action: {{$sous_act['num_act'] }}</h5>
