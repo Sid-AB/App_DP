@@ -351,6 +351,7 @@
             <option id="6" >REF°39-Verment</option>
           </select>
         </div>
+        <hr>
         <div class="form-group">
         <fieldset>
         <legend>Choisir Les Port</legend>
@@ -403,12 +404,32 @@
         </fieldset>
        
         </div>
+        <hr>
+
+
+        <div class="Radio-ids">
+        <div>
+        <label for="Tports">Interieur</label>
+         <input type="radio" class="form-check-input" id="intr" name="type_modif" value="inter" />
+        </div>
+        <div>
+        <label for="Tports">Exterieur</label>
+         <input type="radio" class="form-check-input" id="extr" name="type_modif" value="exter" />
+        </div>
+        </div>
+
+        <hr>
+
+        <div class="add-envoi">
+
+        </div>
+
         <div class="form-group">
         <label for="input1">Action a modifier</label>
           <select type="text" class="form-control" id="id" placeholder="Entrer le Nom du Programme">
            <option id="0" >Selectionner Article</option>
-            <option id="1" >REF°39</option>
-            <option id="2" >REF°30</option>
+            <option id="1" >Action 01</option>
+            <option id="2" >Action 01</option>
           </select>
         </div>
       </div>
@@ -541,7 +562,7 @@ $(document).ready(function(){
                                       } else {
                                      // Checkbox is unchecked
                                console.log($(this).val() + " is unchecked.");
-                               $('#T2-inpt-handle').css('display','flex')
+                               $('#T2-inpt-handle').css('display','none')
                                    }
                                  });
                                  $('#T3').click(function(){
@@ -552,7 +573,7 @@ $(document).ready(function(){
                                       } else {
                                      // Checkbox is unchecked
                                console.log($(this).val() + " is unchecked.");
-                               $('#T3-inpt-handle').css('display','flex')
+                               $('#T3-inpt-handle').css('display','none')
                                    }
                                  });
                                  $('#T4').click(function(){
@@ -563,13 +584,64 @@ $(document).ready(function(){
                                       } else {
                                      // Checkbox is unchecked
                                console.log($(this).val() + " is unchecked.");
-                               $('#T4-inpt-handle').css('display','flex')
+                               $('#T4-inpt-handle').css('display','none')
                                    }
                                  });
+                              $('input[name="type_modif"]').change(function () {
+                                 const selectedHobby = $('input[name="type_modif"]:checked').val();
+                               if (selectedHobby === "inter") {
+                                console.log('testing radio'+selectedHobby);
+                                var chose ='<div class="form-group">'+
+                                ' <label for="input1">Action a Reterie montant</label>'+
+                                '<select type="text" class="form-control" id="id-retire" placeholder="Entrer le Nom du Programme">'+
+                                '<option id="0" >Selectionner Article</option>'+
+                                '<option id="1" >Action 01</option>'+
+                                '<option id="2" >Action 01</option>'+
+                                '</select>'+
+                                '</div>';
+                                $('.add-envoi').append(chose);
+                                  let selectedret = $('#id-retire').val();
+                                  if (selectedret != '0') {
+                                    $('.add-envoi').append('<hr>');
+                                    var choseT ='<div class="form-group">'+
+                                ' <label for="input1">Tport Reterie montant</label>'+
+                                '<select type="text" class="form-control" id="id-T-retire" placeholder="Entrer le Nom du Programme">'+
+                                '<option id="T0" >Selectionner TPort</option>'+
+                                '<option id="T1" >Port 01</option>'+
+                                '<option id="T2" >Port 02</option>'+
+                                '<option id="T3" >Port 03</option>'+
+                                '<option id="T4" >Port 04</option>'+
+                                '</select>'+
+                                '</div>';
+                                $('.add-envoi').append('choseT');
+                                let selectTret =$('#id-T-retire').val();
+                                if(selectTret !== 'T0')
+                                {
+                                  let ipnst='<div id="T4-inpt-handle" >'+
+                                             '<label for="Tports">AE</label>'+
+                                             '<input type="number" class="form-control" id="AE_T4" name="interest" />'+
+                                              '<label for="number">CP</label>'+
+                                              '<input type="number" class="form-control" id="CP_T4" name="interest" />'+
+                                              '</div>';
+                                $('.add-envoi').append('<hr>');
+                                $('.add-envoi').append(ipnst);
+                                }
+                                else
+                                {
+
+                                }
+                                  } else {
+                                    
+                                  $('#output').text('No hobby selected. Please choose one.');
+                                  }
+                                 } else {
+                                 $('#output').text('No hobby selected. Please choose one.');
+                                 $('.add-envoi').empty();
+                                }
+
                             })
                                 })
-                            
-                            
+                              })
                             })
 </script>
 </html>

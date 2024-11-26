@@ -292,13 +292,21 @@ align-items: flex-end;
 }
 .modif-handler
 {
+  overflow: auto;
   position: fixed;
     top: 25%;
     left: 25%;
     width: 45%;
+    height: 66%;
     background-color: aliceblue;
     padding: 15px;
     border-radius: 30px;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE 10+ */
+}
+
+.modif-handler::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
 }
 
 .Tchecks
