@@ -17,17 +17,17 @@ return new class extends Migration
             $table->Date('date_init');
         
 
-            $table->float('AE_init_t1');
-            $table->float('CP_init_t1');
+            $table->float('AE_init_t1')->default(0.0);
+            $table->float('CP_init_t1')->default(0.0);
 
-            $table->float('AE_init_t2');
-            $table->float('CP_init_t2');
+            $table->float('AE_init_t2')->default(0.0);
+            $table->float('CP_init_t2')->default(0.0);
 
-            $table->float('AE_init_t3');
-            $table->float('CP_init_t3');
+            $table->float('AE_init_t3')->default(0.0);
+            $table->float('CP_init_t3')->default(0.0);
 
-            $table->float('AE_init_t4');
-            $table->float('CP_init_t4');
+            $table->float('AE_init_t4')->default(0.0);
+            $table->float('CP_init_t4')->default(0.0);
 
             $table->integer('code_t1')->nullable();
             $table->foreign('code_t1')->references('code_t1')->on('t1_s');

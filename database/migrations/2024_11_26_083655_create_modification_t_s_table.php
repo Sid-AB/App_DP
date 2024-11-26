@@ -12,22 +12,40 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('modification_t_s', function (Blueprint $table) {
+            
             $table->integer('id_modif')->primary()->autoIncrement();
 
             $table->Date('date_modif');
         
 
-            $table->float('AE_modif_t1');
-            $table->float('CP_modif_t1');
+            $table->float('AE_envoi_t1')->default(0.0);
+            $table->float('CP_envoi_t1')->default(0.0);
 
-            $table->float('AE_modif_t2');
-            $table->float('CP_modif_t2');
+            $table->float('AE_envoi_t2')->default(0.0);
+            $table->float('CP_envoi_t2')->default(0.0);
 
-            $table->float('AE_modif_t3');
-            $table->float('CP_modif_t3');
+            $table->float('AE_envoi_t3')->default(0.0);
+            $table->float('CP_envoi_t3')->default(0.0);
 
-            $table->float('AE_modif_t4');
-            $table->float('CP_modif_t4');
+            $table->float('AE_envoi_t4')->default(0.0);
+            $table->float('CP_envoi_t4')->default(0.0);
+
+            
+            $table->float('AE_recoit_t1')->default(0.0);
+            $table->float('CP_recoit_t1')->default(0.0);
+
+            $table->float('AE_recoit_t2')->default(0.0);
+            $table->float('CP_recoit_t2')->default(0.0);
+
+            $table->float('AE_recoit_t3')->default(0.0);
+            $table->float('CP_recoit_t3')->default(0.0);
+
+            $table->float('AE_recoit_t4')->default(0.0);
+            $table->float('CP_recoit_t4')->default(0.0);
+
+            $table->boolean('situation_modif'); //incomplète ou complète (concernant dpia ou juste sous prog)
+            $table->string('type_modif'); //modif interieure entre les t ou exterieurs hors par ex du ministere à cndpi=exter et entre t1 t2 ex =inter
+
 
             $table->integer('code_t1')->nullable();
             $table->foreign('code_t1')->references('code_t1')->on('t1_s');
