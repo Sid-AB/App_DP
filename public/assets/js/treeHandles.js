@@ -35,11 +35,12 @@ $(document).ready(function(){
       $('.member .update-handl').css('color','black')
       $('.float-export').css('display','block');
     })
-    /*$('.modif-contiant').on('click',function(){
+    $('.modif-contiant').on('click',function(){
       $(this).removeClass('setit-insert');
       $('.member .update-handl').css('color','black')
+      $('.modif-handler').css('display','none')
       $('.float-export').css('display','block');
-    })*/
+    })
     $('.button-70').on('click',function(){
   $('.float-export').css('display','block'); 
   $('.modif-contiant').addClass('setit-insert');

@@ -345,6 +345,7 @@ align-items: flex-end;
 {
     display: block;
     background-color: #0000003d;
+    z-index: 0;
 }
 .edit-zone
 {
@@ -352,4 +353,8 @@ align-items: flex-end;
     z-index: 10000;
     width: 110px;
     display: contents;
+}
+.hr-vert
+{
+  width: 2px; height: 100px; background-color: black; margin: 0 10px;
 }

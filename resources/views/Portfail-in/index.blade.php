@@ -336,6 +336,7 @@
 </div>
 
 <div class="modif-contiant">
+</div>
 <div class="modif-handler" style="display:none;">
   <div>
     <p> Modfication : <p id="id_sprog_modif"></p></p>
@@ -366,7 +367,10 @@
          <input type="number" class="form-control" id="CP_T1" name="interest" />
          </div>
          </div>
-       
+          
+         <div class="hr-vert"></div>
+
+
         <div class="Tfields" >
         <label for="Tports">T2</label>
          <input type="checkbox" class="form-check-input" id="T2" name="interest" value="T2" />
@@ -378,6 +382,8 @@
          </div>
          </div>
          
+         <div class="hr-vert"></div>
+
          <div class="Tfields" >
         <label for="Tports">T3</label>
          <input type="checkbox" class="form-check-input" id="T3" name="interest" value="T3" />
@@ -389,6 +395,8 @@
          </div>
          </div>
          
+         <div class="hr-vert"></div>
+
          <div class="Tfields" >
         <label for="Tports">T4</label>
          <input type="checkbox" class="form-check-input" id="T4" name="interest" value="T4" />
@@ -400,9 +408,7 @@
          </div>
          </div>
          </div>
-      
         </fieldset>
-       
         </div>
         <hr>
 
@@ -437,7 +443,7 @@
     <button class="button-70" role="button">modifier</button></div>
   </div>
  </div>
-</div>
+
 
 <div class="confirm-justfie">
  
