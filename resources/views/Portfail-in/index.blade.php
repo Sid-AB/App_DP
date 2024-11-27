@@ -184,7 +184,7 @@
                   @if($sous_act['num_act'] != $act['num_act'])
                   <span class="member" id="{{$act['num_act']}}">
                   @else
-                  <span class="member" id="act-{{$act['num_act']}}">
+                  <span class="member" id="act_{{$act['num_act']}}">
                   @endif
                   @endforeach
                   @endif
@@ -241,7 +241,7 @@
             @foreach($act['sous_action'] as $sous_act)
             @if($sous_act['num_act'] != $act['num_act'])
                   <li>
-                <span class="member" id="s_act-{{$sous_act['num_act']}}">
+                <span class="member" id="sact-{{$sous_act['num_act']}}">
                 <div class="col-12 col-sm-6">
             <div class="card widget-card border-light shadow-sm">
               <div class="card-body p-1">
@@ -504,19 +504,19 @@ listItemsWithNestedUl.each(function(){
       path.push(id);
       path3.push(id);
     }
-    var typeact=id.split('-')
+    var typeact=id.split('_',2)
     console.log('-<<'+JSON.stringify(path)+"-->>"+JSON.stringify(typeact))
     if(typeact[0] =='act')
     {
       $(this).on('click',function(){
-  window.location.href='/testing/Action/'+path[0]+'/'+path[1]+'/'+path[2]+'/'+typeact[1]+'/'
+  window.location.href='/testing/Action/'+path3[0]+'/'+path3[1]+'/'+path3[2]+'/'+path3[3]+'/'
       })
     
     }
-    if(typeact[0] == 's_act')
+    if(typeact[0] == 'sact')
     {
     $(this).on('click',function(){
-     window.location.href='/testing/S_action/'+path[0]+'/'+path[1]+'/'+path[2]+'/'+path[3]+'/'+typeact[1]+'/'
+     window.location.href='/testing/S_action/'+path3[0]+'/'+path3[1]+'/'+path3[2]+'/'+path3[3]+'/'+typeact[1]+'/'
       })
    
     }

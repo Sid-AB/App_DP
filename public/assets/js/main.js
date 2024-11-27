@@ -879,6 +879,32 @@
                                  '<label for="input1">CP pour Sous Programme</label>' +
                                  '<input type="number" class="form-control" id="CP_sous_prog"  placeholder=" Entrer CP Sous Programme">' +
                                  '</div>' +
+                                 '<div class="init_holder">'+
+                                 '<div class="T_init_port">'+
+                                 '<div class="ports_init">'+
+                                 '<div class="form-group">' +
+                                 '<label for="input1">T1 pour Sous Programme</label>' +
+                                 '<input type="number" class="form-control" id="T1_AE_sous_prog"   placeholder="Entrer T1 AE Sous Programme">' +
+                                 '<input type="number" class="form-control" id="T1_CP_sous_prog"   placeholder="Entrer T1 CP Sous Programme">' +
+                                 '</div>' +
+                                 '<div class="form-group">' +
+                                 '<label for="input1">T2 pour Sous Programme</label>' +
+                                 '<input type="number" class="form-control" id="T2_AE_sous_prog"   placeholder="Entrer T2 AE Sous Programme">' +
+                                 '<input type="number" class="form-control" id="T2_CP_sous_prog"   placeholder="Entrer T2 CP Sous Programme">' +
+                                 '</div>' +
+                                 '<div class="form-group">' +
+                                 '<label for="input1">T3 pour Sous Programme</label>' +
+                                 '<input type="number" class="form-control" id="T3_AE_sous_prog"   placeholder="Entrer T3 AE Sous Programme">' +
+                                 '<input type="number" class="form-control" id="T3_CP_sous_prog"   placeholder="Entrer T3 CP Sous Programme">' +
+                                 '</div>' +
+                                 '<div class="form-group">' +
+                                 '<label for="input1">T4 pour Sous Programme</label>' +
+                                 '<input type="number" class="form-control" id="T4_AE_sous_prog"   placeholder="Entrer T4 AE Sous Programme">' +
+                                 '<input type="number" class="form-control" id="T4_CP_sous_prog"   placeholder="Entrer T4 CP Sous Programme">' +
+                                 '</div>' +
+                                 '</div>'+
+                                 '</div>'+
+                                 '</div>'+
                                  ' </form>' +
                                  ' <br>' +
                                  '<div id="confirm-holder_sprog">' +
@@ -918,7 +944,6 @@
                                          $('#progam-handle').append(prg2)
                                          $('#confirm-holder').empty()
                                          $('#confirm-holder').append('<i class="fas fa-wrench"></i>')
-
 
                                          // Vérifie l'existence du programme lorsque le champ de programme perd le focus
                                          $('#date_insert_sousProg').on('focusout', function () {
