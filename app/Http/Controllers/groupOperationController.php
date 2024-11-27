@@ -1141,15 +1141,8 @@ if (!$nom) {
 
        // Insertion dans la table sousoperation
        $sousoperation=sousoperation::updateOrCreate(
-<<<<<<< HEAD
-           ['code_sous_operation' => $code.$codeGp.$s_act],
-           ['code_operation' => $code.$codeGp.$s_act, 'nom_sous_operation' => $nom,
-           'AE_sous_operation' => floatval(str_replace(',', '', $ae)),
-           'CP_sous_operation' => floatval(str_replace(',', '', $cp))
-=======
            ['code_sous_operation' => $code.$codeOp.$codeGp.$s_act],
            ['code_operation' => $codeOp.$codeGp.$s_act, 'nom_sous_operation' => $nom
->>>>>>> 45c59ecb24968ae6441603cd5316d11824da7186
            ,'code_t4' => 40000, 'date_insert_SOUSoperation' => $currentDateTime]
        );
               // creation de la table  construireDPIA
