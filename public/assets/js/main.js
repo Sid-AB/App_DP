@@ -1857,6 +1857,10 @@
                                  '</th>' +
                                  '</tr>';
                              $('#T-tables thead').append(headT)
+                             var i = 0;
+                             var ig = 0;
+                             var io = 0;
+                             var iso = 0;
                              $.getJSON(jsonpath4, function (data) {
                                  // Loop through each item in the JSON data
                                  $.each(data, function (key, value) {
