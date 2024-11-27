@@ -85,7 +85,7 @@ foreach ($jsonData as $codeStr => $nom) {
         if ($code % 1000 == 0) {
             // Insertion dans la table groupoperation
             GroupOperation::updateOrCreate(
-                ['code_grp_operation' => $code.$s_act],
+                ['code_grp_operation' => $s_act.'-'.$code],
                 ['nom_grp_operation' => $nom, 'num_sous_action' => $s_act,
                  'date_insert_grp_operation' => $currentDateTime]
             );
@@ -96,11 +96,10 @@ foreach ($jsonData as $codeStr => $nom) {
 
             // Insertion dans la table operation
             Operation::updateOrCreate(
-                ['code_operation' => $code.$codeGp.$s_act],
-                ['code_grp_operation' => $codeGp.$s_act, 'nom_operation' => $nom,
+                ['code_operation' => $s_act.'-'.$codeGp.'-'.$code],
+                ['code_grp_operation' =>$s_act.'-'.$codeGp, 'nom_operation' => $nom,
                  'date_insert_operation' => $currentDateTime]
             );
-
            // Vérifier la ligne suivante
            $keys = array_keys($jsonData);
            $currentIndex = array_search($codeStr, $keys); // Trouver l'index du code actuel
@@ -117,8 +116,8 @@ foreach ($jsonData as $codeStr => $nom) {
                 if ($nextCode && ($nextCode % 100 == 0 || $nextCode % 1000 == 0)) {
                     // Insérer dans sousoperation avec un code spécifique
                     $sousoperation = sousoperation::updateOrCreate(
-                        ['code_sous_operation' => $code.$codeGp.$s_act], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
-                        ['code_operation' => $code.$codeGp.$s_act, 'nom_sous_operation' => $nom,'code_t1' =>10000,
+                        ['code_sous_operation' => $s_act.'-'.$codeGp.'-'.$code], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
+                        ['code_operation' => $s_act.'-'.$codeGp.'-'.$code, 'nom_sous_operation' => $nom,'code_t1' =>10000,
                          'AE_sous_operation' => floatval(str_replace(',', '', $ae)),
                          'CP_sous_operation' => floatval(str_replace(',', '', $cp))
                          , 'date_insert_SOUSoperation' => $currentDateTime]
@@ -167,9 +166,10 @@ foreach ($jsonData as $codeStr => $nom) {
                 }
             }else{
                 // Insérer dans sousoperation avec un code spécifique
+                //dd('ae = ', $code);
                 $sousoperation=sousoperation::updateOrCreate(
-                    ['code_sous_operation' => $code.$codeGp.$s_act], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
-                    ['code_operation' => $code.$codeGp.$s_act, 'nom_sous_operation' => $nom,'code_t1' =>10000,
+                    ['code_sous_operation' => $s_act.'-'.$codeGp.'-'.$code], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
+                    ['code_operation' => $s_act.'-'.$codeGp.'-'.$code, 'nom_sous_operation' => $nom,'code_t1' =>10000,
                      'AE_sous_operation' => floatval(str_replace(',', '', $ae)),
                      'CP_sous_operation' => floatval(str_replace(',', '', $cp))
                      , 'date_insert_SOUSoperation' => $currentDateTime]
@@ -220,8 +220,8 @@ foreach ($jsonData as $codeStr => $nom) {
 
             // Insertion dans la table sousoperation
             $sousoperation= sousoperation::updateOrCreate(
-                ['code_sous_operation' => $code.$codeOp.$codeGp.$s_act],
-                ['code_operation' => $codeOp.$codeGp.$s_act, 'nom_sous_operation' => $nom,'code_t1' =>10000,
+                ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code],
+                ['code_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp, 'nom_sous_operation' => $nom,'code_t1' =>10000,
                  'AE_sous_operation' => floatval(str_replace(',', '', $ae)),
                   'CP_sous_operation' => floatval(str_replace(',', '', $cp))
                   , 'date_insert_SOUSoperation' => $currentDateTime]
@@ -265,11 +265,11 @@ foreach ($jsonData as $codeStr => $nom) {
         }
     }
 
-    /*return response()->json([
+    return response()->json([
         'success' => true,
         'message' => 'Données insérées avec succès !',
         'code' => 200,
-    ]);*/
+    ]);
     return redirect()->back();
 
 
@@ -334,7 +334,7 @@ elseif ($T == 2) {
         if ($code % 1000 == 0) {
             // Insertion dans la table groupoperation
             GroupOperation::updateOrCreate(
-                ['code_grp_operation' => $code.$s_act],
+                ['code_grp_operation' => $s_act.'-'.$code],
                 ['nom_grp_operation' => $nom, 'num_sous_action' => $s_act, 'date_insert_grp_operation' => $currentDateTime]
             );
 
@@ -354,9 +354,9 @@ elseif ($T == 2) {
                    // dd($nextCode, $ae_attendu, $cp_attendu);
                     // Insérer dans sousoperation avec un code spécifique
                     $sousoperation=sousoperation::updateOrCreate(
-                        ['code_sous_operation' => $code.$s_act], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
+                        ['code_sous_operation' =>  $s_act.'-'.$code], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
                         [
-                            'code_operation' =>  $code.$s_act,
+                            'code_operation' =>  $s_act.'-'.$code,
                             'nom_sous_operation' => $nom,
                             'code_t2' => 20000,
                             'AE_atendu' => floatval(str_replace(',', '', $ae_attendu)),
@@ -417,9 +417,9 @@ elseif ($T == 2) {
             else{
                 // Insérer dans sousoperation avec un code spécifique
                 $sousoperation=sousoperation::updateOrCreate(
-                    ['code_sous_operation' => $code.$s_act], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
+                    ['code_sous_operation' =>  $s_act.'-'.$code], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
                     [
-                        'code_operation' =>  $code.$s_act,
+                        'code_operation' =>   $s_act.'-'.$code,
                         'nom_sous_operation' => $nom,
                         'code_t2' => 20000,
                         'AE_atendu' => floatval(str_replace(',', '', $ae_attendu)),
@@ -481,8 +481,8 @@ elseif ($T == 2) {
 
             // Insertion dans la table operation
             Operation::updateOrCreate(
-                ['code_operation' => $code.$codeGp.$s_act],
-                ['code_grp_operation' =>  $codeGp.$s_act, 'nom_operation' => $nom,
+                ['code_operation' => $s_act.'-'.$codeGp.'-'.$code],
+                ['code_grp_operation' => $s_act.'-'.$codeGp, 'nom_operation' => $nom,
                  'date_insert_operation' => $currentDateTime]
             );
 
@@ -502,9 +502,9 @@ elseif ($T == 2) {
                    // dd($nextCode, $ae_attendu, $cp_attendu);
                     // Insérer dans sousoperation avec un code spécifique
                     $sousoperation=sousoperation::updateOrCreate(
-                        ['code_sous_operation' => $code.$codeGp.$s_act], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
+                        ['code_sous_operation' => $s_act.'-'.$codeGp.'-'.$code], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
                         [
-                            'code_operation' =>  $code.$codeGp.$s_act,
+                            'code_operation' => $s_act.'-'.$codeGp.'-'.$code,
                             'nom_sous_operation' => $nom,
                             'code_t2' => 20000,
                             //'AE_sous_operation' => floatval(str_replace(',', '', $ae_attendu)) + floatval(str_replace(',', '', $ae_ouvert)),
@@ -561,9 +561,9 @@ elseif ($T == 2) {
             }else{
                 // Insérer dans sousoperation avec un code spécifique
                 $sousoperation=sousoperation::updateOrCreate(
-                    ['code_sous_operation' => $code.$codeGp.$s_act], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
+                    ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$code], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
                     [
-                        'code_operation' =>  $code.$codeGp.$s_act,
+                        'code_operation' => $s_act.'-'.$codeGp.'-'.$code,
                         'nom_sous_operation' => $nom,
                         'code_t2' => 20000,
                         //'AE_sous_operation' => floatval(str_replace(',', '', $ae_attendu)) + floatval(str_replace(',', '', $ae_ouvert)),
@@ -624,9 +624,9 @@ elseif ($T == 2) {
 
             // Insertion dans la table sousoperation
             $sousoperation= sousoperation::updateOrCreate(
-                ['code_sous_operation' => $code.$codeOp.$codeGp.$s_act],
+                ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code],
                 [
-                    'code_operation' =>  $codeOp.$codeGp.$s_act,
+                    'code_operation' => $s_act.'-'.$codeGp.'-'.$codeOp,
                     'nom_sous_operation' => $nom,
                     'code_t2' => 20000,
                     //'AE_sous_operation' => floatval(str_replace(',', '', $ae_attendu)) + floatval(str_replace(',', '', $ae_ouvert)),
@@ -768,7 +768,7 @@ foreach ($jsonData as $codeStr => $nom) {
           if ($code % 1000 == 0) {
               // Insertion dans la table groupoperation
               GroupOperation::updateOrCreate(
-                  ['code_grp_operation' => $code.$s_act],
+                  ['code_grp_operation' =>$s_act.'-'.$code],
                   ['nom_grp_operation' => $nom, 'num_sous_action' => $s_act,
                   'date_insert_grp_operation' => $currentDateTime]
               );
@@ -780,8 +780,8 @@ foreach ($jsonData as $codeStr => $nom) {
 
               // Insertion dans la table operation
               Operation::updateOrCreate(
-                  ['code_operation' => $code.$codeGp.$s_act],
-                  ['code_grp_operation' => $codeGp.$s_act, 'nom_operation' => $nom,
+                  ['code_operation' =>$s_act.'-'.$codeGp.'-'.$code],
+                  ['code_grp_operation' => $s_act.'-'.$codeGp, 'nom_operation' => $nom,
                   'date_insert_operation' => $currentDateTime]
               );
 
@@ -803,8 +803,8 @@ foreach ($jsonData as $codeStr => $nom) {
                     if ($nextCode && ($nextCode % 100 == 0 || $nextCode % 1000 == 0)) {
                       // Insérer dans sousoperation avec un code spécifique
                       $sousoperation=sousoperation::updateOrCreate(
-                          ['code_sous_operation' =>$code.$codeGp.$s_act], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
-                          ['code_operation' =>$code.$codeGp.$s_act,
+                          ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$code], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
+                          ['code_operation' =>$s_act.'-'.$codeGp.'-'.$code,
                           'nom_sous_operation' => $nom,
                           'code_t3' => 30000,
 
@@ -861,12 +861,73 @@ foreach ($jsonData as $codeStr => $nom) {
                 // dd( $DPIA);
                     }
 
-          }else{
+          }
+          else{
             $codeOp = floor($code / 100) * 100;
             // Insérer dans sousoperation avec un code spécifique
             $sousoperation=sousoperation::updateOrCreate(
-                ['code_sous_operation' =>$code.$codeOp.$codeGp.$s_act], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
-                ['code_operation' =>$codeOp.$codeGp.$s_act,
+                ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$code], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
+                          ['code_operation' =>$s_act.'-'.$codeGp.'-'.$code,
+                          'nom_sous_operation' => $nom,
+                          'code_t3' => 30000,
+
+                          'AE_reporte' => floatval(str_replace(',', '', $ae_reporte)),
+                          'AE_notifie' =>floatval(str_replace(',', '', $ae_notifie)) ,
+                          'AE_engage' => floatval(str_replace(',', '', $ae_engage)),
+
+                          'CP_reporte' => floatval(str_replace(',', '', $cp_reporte)),
+                          'CP_notifie' =>floatval(str_replace(',', '', $cp_notifie)),
+                          'CP_consome' => floatval(str_replace(',', '', $cp_consome))
+                          , 'date_insert_SOUSoperation' => $currentDateTime]
+            );
+                   // creation de la table  construireDPIA
+                   $portefeuille = Portefeuille::where('num_portefeuil', $port)->first();
+                   // dd($portefeuille);
+
+                   if ($portefeuille) {
+
+                    ConstruireDPIA::updateOrCreate(
+                 
+                        [
+                            'code_sous_operation' => $sousoperation->code_sous_operation,
+                            'id_rp' => 1,
+                            'id_ra' => 1,
+                        ],
+                        
+                        [
+                            'date_creation_dpia' => $portefeuille->Date_portefeuille,
+                            'date_modification_dpia' => now(),
+                            'motif_dpia' => 'Création de DPIA (T3) à partir du portefeuille ',
+                    
+                            'AE_dpia_nv' => null,
+                            'CP_dpia_nv' => null,
+                    
+                            'AE_ouvert_dpia' => null,
+                            'AE_atendu_dpia' => null,
+                            'CP_ouvert_dpia' => null,
+                            'CP_atendu_dpia' => null,
+                    
+                            'AE_reporte_dpia' => $sousoperation->AE_reporte,
+                            'AE_notifie_dpia' => $sousoperation->AE_notifie,
+                            'AE_engage_dpia' => $sousoperation->AE_engage,
+                            'CP_reporte_dpia' => $sousoperation->CP_reporte,
+                            'CP_notifie_dpia' => $sousoperation->CP_notifie,
+                            'CP_consome_dpia' => $sousoperation->CP_consome,
+                        ]
+                    );
+                   } else {
+
+                       dd('Portefeuille non trouvé');
+                   }
+
+                   // dd( $DPIA);
+          }
+        }else{
+            $codeOp = floor($code / 100) * 100;
+            // Insérer dans sousoperation avec un code spécifique
+            $sousoperation=sousoperation::updateOrCreate(
+                ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
+                ['code_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code,
                 'nom_sous_operation' => $nom,
                 'code_t3' => 30000,
 
@@ -924,13 +985,12 @@ foreach ($jsonData as $codeStr => $nom) {
           }
         }
 
-      }
+        return response()->json([
+          'success' => true,
+          'message' => 'Données insérées avec succès !',
+          'code' => 200,
+      ]);
 
-      return response()->json([
-        'success' => true,
-        'message' => 'Données insérées avec succès !',
-        'code' => 200,
-    ]);
 //===================================================================================
                             //FIN insertion T3
 //===================================================================================
@@ -963,12 +1023,6 @@ $cpData = $request->input('cp');
           return response()->json(['error' => 'Erreur lors du décodage du fichier JSON.'], 404);
       }
 
-      /*$numRows = count($jsonData);
-      for ($i = 0; $i < $numRows; $i++) {
-          $item = $jsonData[$i];
-   $code = $item['code']?? null;
-   $nom = $item['nom'] ?? '';
-   */
   // Parcourir les éléments du fichier JSON
 foreach ($jsonData as $codeStr => $nom) {
     // S'assurer que le code est une chaîne de caractères
@@ -1000,23 +1054,148 @@ if (!$nom) {
    if ($code % 1000 == 0) {
        // Insertion dans la table groupoperation
        GroupOperation::updateOrCreate(
-           ['code_grp_operation' => $code.$s_act],
+           ['code_grp_operation' => $s_act.'-'.$code],
            ['nom_grp_operation' => $nom, 'num_sous_action' => $s_act,
            'date_insert_grp_operation' => $currentDateTime]
        );
    }
    // Vérifier si le code représente une opération
    elseif ($code % 100 == 0) {
+    //dd("op= ",$code);
+
        $codeGp = floor($code / 1000) * 1000;
 
        // Insertion dans la table operation
        Operation::updateOrCreate(
-           ['code_operation' => $code.$codeGp.$s_act],
-           ['code_grp_operation' =>  $codeGp.$s_act, 'nom_operation' => $nom,
+           ['code_operation' =>$s_act.'-'.$codeGp.'-'.$code],
+           ['code_grp_operation' => $s_act.'-'.$codeGp, 'nom_operation' => $nom,
            //'AE_operation' => floatval(str_replace(',', '',  $ae)),
            //'CP_operation' => floatval(str_replace(',', '',  $cp)),
            'date_insert_operation' => $currentDateTime]
        );
+
+       $keys = array_keys($jsonData);
+       $currentIndex = array_search($codeStr, $keys); // Trouver l'index du code actuel
+
+       if ($currentIndex !== false && isset($keys[$currentIndex + 1])) {
+           $nextKey = $keys[$currentIndex + 1]; // Obtenir la clé suivante
+           $nextItem = $jsonData[$nextKey]; // Obtenir l'élément suivant par sa clé
+
+           // Récupérer le code correspondant au nom suivant
+           $nextCode = $nextKey; // La clé suivante est déjà le code
+
+       // Si la ligne suivante n'est pas une sous-opération
+       if ($nextCode && ($nextCode % 100 == 0 || $nextCode % 1000 == 0)) {
+    //dd("op= ",$code);
+
+           // Insérer dans sousoperation avec un code spécifique
+          $sousoperation= sousoperation::updateOrCreate(
+               ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$code ], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
+               ['code_operation' =>$s_act.'-'.$codeGp.'-'.$code, 'nom_sous_operation' => $nom,
+               'AE_sous_operation' => floatval(str_replace(',', '',  $ae)),
+               'code_t4' => 40000,
+               'CP_sous_operation' =>floatval(str_replace(',', '',  $cp))
+               , 'date_insert_SOUSoperation' => $currentDateTime]
+           );
+
+            // creation de la table  construireDPIA
+            $portefeuille = Portefeuille::where('num_portefeuil', $port)->first();
+            // dd($portefeuille);
+
+             if ($portefeuille) {
+                 // Création de la table ConstruireDPIA
+                 ConstruireDPIA::updateOrCreate(
+                   
+                    [
+                        'code_sous_operation' => $sousoperation->code_sous_operation,
+                        'id_rp' => 1,
+                        'id_ra' => 1,
+                    ],
+                
+                    [
+                        'date_creation_dpia' => $portefeuille->Date_portefeuille,
+                        'date_modification_dpia' =>now(),
+                        'motif_dpia' => 'Création de DPIA (T4) à partir du portefeuille',
+                
+                        'AE_dpia_nv' => $sousoperation->AE_sous_operation,
+                        'CP_dpia_nv' => $sousoperation->CP_sous_operation,
+                
+                        'AE_ouvert_dpia' => null,
+                        'AE_atendu_dpia' => null,
+                        'CP_ouvert_dpia' => null,
+                        'CP_atendu_dpia' => null,
+                
+                        'AE_reporte_dpia' => null,
+                        'AE_notifie_dpia' => null,
+                        'AE_engage_dpia' => null,
+                        'CP_reporte_dpia' => null,
+                        'CP_notifie_dpia' => null,
+                        'CP_consome_dpia' => null,
+                
+                        
+                    ]
+                );
+             } else {
+                 // si le portefeuille n'existe pas
+                 dd('Portefeuille non trouvé');
+             }
+             // dd( $DPIA);
+       }
+  }
+  else{
+    $sousoperation=sousoperation::updateOrCreate(
+       ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$code], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
+       ['code_operation' =>$s_act.'-'.$codeGp.'-'.$code, 'nom_sous_operation' => $nom,
+       'AE_sous_operation' => floatval(str_replace(',', '',  $ae)),
+       'code_t4' => 40000,
+       'CP_sous_operation' =>floatval(str_replace(',', '',  $cp))
+       , 'date_insert_SOUSoperation' => $currentDateTime]
+   );
+
+    // creation de la table  construireDPIA
+    $portefeuille = Portefeuille::where('num_portefeuil', $port)->first();
+    // dd($portefeuille);
+
+     if ($portefeuille) {
+         // Création de la table ConstruireDPIA
+         ConstruireDPIA::updateOrCreate(
+                   
+            [
+                'code_sous_operation' => $sousoperation->code_sous_operation,
+                'id_rp' => 1,
+                'id_ra' => 1,
+            ],
+        
+            [
+                'date_creation_dpia' => $portefeuille->Date_portefeuille,
+                'date_modification_dpia' =>now(),
+                'motif_dpia' => 'Création de DPIA (T4) à partir du portefeuille',
+        
+                'AE_dpia_nv' => $sousoperation->AE_sous_operation,
+                'CP_dpia_nv' => $sousoperation->CP_sous_operation,
+        
+                'AE_ouvert_dpia' => null,
+                'AE_atendu_dpia' => null,
+                'CP_ouvert_dpia' => null,
+                'CP_atendu_dpia' => null,
+        
+                'AE_reporte_dpia' => null,
+                'AE_notifie_dpia' => null,
+                'AE_engage_dpia' => null,
+                'CP_reporte_dpia' => null,
+                'CP_notifie_dpia' => null,
+                'CP_consome_dpia' => null,
+        
+                
+            ]
+        );
+     } else {
+         // si le portefeuille n'existe pas
+         dd('Portefeuille non trouvé');
+     }
+     // dd( $DPIA);
+  }
+
    }
    // Sinon, il s'agit d'une sous-opération
    else {
@@ -1024,8 +1203,8 @@ if (!$nom) {
 
        // Insertion dans la table sousoperation
        $sousoperation=sousoperation::updateOrCreate(
-           ['code_sous_operation' => $code.$codeOp.$codeGp.$s_act],
-           ['code_operation' => $codeOp.$codeGp.$s_act, 'nom_sous_operation' => $nom
+           ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code ],
+           ['code_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp, 'nom_sous_operation' => $nom
            ,'code_t4' => 40000, 'date_insert_SOUSoperation' => $currentDateTime]
        );
               // creation de la table  construireDPIA
@@ -1071,8 +1250,6 @@ if (!$nom) {
                }
                // dd( $DPIA);
 
-        $keys = array_keys($jsonData);
-        $currentIndex = array_search($codeStr, $keys); // Trouver l'index du code actuel
 
         if ($currentIndex !== false && isset($keys[$currentIndex + 1])) {
             $nextKey = $keys[$currentIndex + 1]; // Obtenir la clé suivante
