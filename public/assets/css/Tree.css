@@ -346,3 +346,10 @@ align-items: flex-end;
     display: block;
     background-color: #0000003d;
 }
+.edit-zone
+{
+  position: relative;
+    z-index: 10000;
+    width: 110px;
+    display: contents;
+}

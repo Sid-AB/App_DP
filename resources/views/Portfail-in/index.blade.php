@@ -88,8 +88,8 @@
                 @else
                 <span class="member alert_func" id="{{$portf['id_prog']}}">
               @endif
-              <i class="fas fa-edit update-handl"></i>
-                <div class="col-12 col-sm-6">  
+              <div class="edit-zone"><i class="fas fa-edit update-handl"></i></div>
+                <div class="col-12 col-sm-6" id="kids">  
             <div class="card widget-card border-light shadow-sm">
               <div class="card-body p-1">
                 <div class="row">
@@ -613,7 +613,7 @@ $(document).ready(function(){
                                 '<option id="T4" >Port 04</option>'+
                                 '</select>'+
                                 '</div>';
-                                $('.add-envoi').append('choseT');
+                                $('.add-envoi').append(choseT);
                                 let selectTret =$('#id-T-retire').val();
                                 if(selectTret !== 'T0')
                                 {
