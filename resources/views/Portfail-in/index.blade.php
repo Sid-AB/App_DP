@@ -43,7 +43,7 @@
 
                 <div class="col-12 col-sm-6">
             <div class="card widget-card border-light shadow-sm">
-              <div class="card-body p-4">
+              <div class="card-body p-1">
                 <div class="row">
                   <div class="col-8">
                     <h5 class="card-title widget-card-title mb-3">Portefeuille</h5>
@@ -82,17 +82,19 @@
             <ul id="father1" style="display:none;">
             @foreach($allport['prgrammes'] as $portf)
               <li>
+             
                 @if($portf['TotalAE'] == $portf['init_AE'] && $portf['TotalCP'] ==  $portf['init_CP'])
               <span class="member" id="{{$portf['id_prog']}}">
                 @else
                 <span class="member alert_func" id="{{$portf['id_prog']}}">
               @endif
-                <div class="col-12 col-sm-6">
+              <div class="edit-zone"><i class="fas fa-edit update-handl"></i></div>
+                <div class="col-12 col-sm-6" id="kids">  
             <div class="card widget-card border-light shadow-sm">
-              <div class="card-body p-4">
+              <div class="card-body p-1">
                 <div class="row">
                   <div class="col-8">
-                    <h5 class="card-title widget-card-title mb-3">Programme :{{$portf['id_prog']}}</h5>
+                    <h5 class="card-title widget-card-title mb-3">{{$portf['data']['nom_prog']}}</h5>
                     <h4 class="card-subtitle text-body-secondary m-0"> AE :{{$portf['TotalAE']}}</h4>
                     <h4 class="card-subtitle text-body-secondary m-0"> CP :{{$portf['TotalCP']}}</h4>
                   </div>
@@ -140,10 +142,10 @@
                 @endif
                 <div class="col-12 col-sm-6">
             <div class="card widget-card border-light shadow-sm">
-              <div class="card-body p-4">
+              <div class="card-body p-1">
                 <div class="row">
                   <div class="col-8">
-                    <h5 class="card-title widget-card-title mb-3">Sous Programme:{{$souportf['id_sous_prog']}}</h5>
+                    <h5 class="card-title widget-card-title mb-3">{{$souportf['data']['nom_sous_prog']}}</h5>
                     <h4 class="card-subtitle text-body-secondary m-0">AE : {{$souportf['TotalAE']}}</h4>
                     <h4 class="card-subtitle text-body-secondary m-0">CP :{{$souportf['TotalCP']}}</h4>
                   </div>
@@ -188,7 +190,7 @@
                   @endif
                 <div class="col-12 col-sm-6">
             <div class="card widget-card border-light shadow-sm">
-              <div class="card-body p-4">
+              <div class="card-body p-1">
                 <div class="row">
                   <div class="col-8">
                     <h5 class="card-title widget-card-title mb-3">Action: {{$act['num_act'] }}</h5>
@@ -242,7 +244,7 @@
                 <span class="member" id="s_act-{{$sous_act['num_act']}}">
                 <div class="col-12 col-sm-6">
             <div class="card widget-card border-light shadow-sm">
-              <div class="card-body p-4">
+              <div class="card-body p-1">
                 <div class="row">
                   <div class="col-8">
                     <h5 class="card-title widget-card-title mb-3">Sous Action: {{$sous_act['num_act'] }}</h5>
@@ -333,10 +335,125 @@
     </div>
 </div>
 
+<div class="modif-contiant">
+</div>
+<div class="modif-handler" style="display:none;">
+  <div>
+    <p> Modfication : <p id="id_sprog_modif"></p></p>
+    <form id="update_art_handler">
+    <div class="form-group">
+          <label for="input1">Article</label>
+          <select type="text" class="form-control" id="id" placeholder="Entrer le Nom du Programme">
+           <option id="0" >Selectionner Article</option>
+            <option id="1" >REF°39</option>
+            <option id="2" >REF°30</option>
+            <option id="3" >REF°27</option>
+            <option id="4" >REF°33-Transfer</option>
+            <option id="6" >REF°39-Verment</option>
+          </select>
+        </div>
+        <hr>
+        <div class="form-group">
+        <fieldset>
+        <legend>Choisir Les Port</legend>
+        <div class="Tchecks">
+        <div class="Tfields" >
+        <label for="Tports">T1</label>
+         <input type="checkbox" class="form-check-input" id="T1" name="interest" value="T1" />
+         <div id="T1-inpt-handle" style="display:none;">
+         <label for="Tports">AE</label>
+         <input type="number" class="form-control" id="AE_T1" name="interest" />
+         <label for="number">CP</label>
+         <input type="number" class="form-control" id="CP_T1" name="interest" />
+         </div>
+         </div>
+          
+         <div class="hr-vert"></div>
+
+
+        <div class="Tfields" >
+        <label for="Tports">T2</label>
+         <input type="checkbox" class="form-check-input" id="T2" name="interest" value="T2" />
+         <div id="T2-inpt-handle" style="display:none;">
+         <label for="Tports">AE</label>
+         <input type="number" class="form-control" id="AE_T2" name="interest" />
+         <label for="number">CP</label>
+         <input type="number" class="form-control" id="CP_T2" name="interest" />
+         </div>
+         </div>
+         
+         <div class="hr-vert"></div>
+
+         <div class="Tfields" >
+        <label for="Tports">T3</label>
+         <input type="checkbox" class="form-check-input" id="T3" name="interest" value="T3" />
+         <div id="T3-inpt-handle" style="display:none;">
+         <label for="Tports">AE</label>
+         <input type="number" class="form-control" id="AE_T3" name="interest" />
+         <label for="number">CP</label>
+         <input type="number" class="form-control" id="CP_T3" name="interest" />
+         </div>
+         </div>
+         
+         <div class="hr-vert"></div>
+
+         <div class="Tfields" >
+        <label for="Tports">T4</label>
+         <input type="checkbox" class="form-check-input" id="T4" name="interest" value="T4" />
+         <div id="T4-inpt-handle" style="display:none;">
+         <label for="Tports">AE</label>
+         <input type="number" class="form-control" id="AE_T4" name="interest" />
+         <label for="number">CP</label>
+         <input type="number" class="form-control" id="CP_T4" name="interest" />
+         </div>
+         </div>
+         </div>
+        </fieldset>
+        </div>
+        <hr>
+
+
+        <div class="Radio-ids">
+        <div>
+        <label for="Tports">Interieur</label>
+         <input type="radio" class="form-check-input" id="intr" name="type_modif" value="inter" />
+        </div>
+        <div>
+        <label for="Tports">Exterieur</label>
+         <input type="radio" class="form-check-input" id="extr" name="type_modif" value="exter" />
+        </div>
+        </div>
+
+        <hr>
+
+        <div class="add-envoi">
+
+        </div>
+
+        <div class="form-group">
+        <label for="input1">Action a modifier</label>
+          <select type="text" class="form-control" id="id" placeholder="Entrer le Nom du Programme">
+           <option id="0" >Selectionner Article</option>
+            <option id="1" >Action 01</option>
+            <option id="2" >Action 01</option>
+          </select>
+        </div>
+      </div>
+    </form>
+    <button class="button-70" role="button">modifier</button></div>
+  </div>
+ </div>
+
+
+<div class="confirm-justfie">
+ 
+</div>
+
 </body>
 <script src="{{asset('assets/bootstrap-5.0.2/js/bootstrap.js')}}"></script>
 <script src="{{asset('assets/fontawesome-free/js/all.js')}}"></script>
 <script src="{{asset('assets/js/jquery-3.7.1.min.js')}}"></script>
+<script src="{{asset('assets/js/treeHandles.js')}}"></script>
 <script>
   var path=Array();
   var path3=Array();
@@ -413,5 +530,6 @@ listItemsWithNestedUl.each(function(){
         })
 
 })
+
 </script>
 </html>

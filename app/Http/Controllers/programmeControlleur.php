@@ -38,7 +38,7 @@ class programmeControlleur extends Controller
     $request->validate([
         'num_prog' => 'required',
     ]);
-
+    //dd($request->num_prog);
         $prog = programme::where('num_prog', $request->num_prog)->first();
 
         if ($prog) {
