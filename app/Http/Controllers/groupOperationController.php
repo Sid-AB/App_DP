@@ -100,7 +100,6 @@ foreach ($jsonData as $codeStr => $nom) {
                 ['code_grp_operation' =>$s_act.'-'.$codeGp, 'nom_operation' => $nom,
                  'date_insert_operation' => $currentDateTime]
             );
-dd($request);
            // Vérifier la ligne suivante
            $keys = array_keys($jsonData);
            $currentIndex = array_search($codeStr, $keys); // Trouver l'index du code actuel
@@ -326,11 +325,11 @@ dd($request);
         }
     }
 
-    /*return response()->json([
+    return response()->json([
         'success' => true,
         'message' => 'Données insérées avec succès !',
         'code' => 200,
-    ]);*/
+    ]);
     return redirect()->back();
 
 
@@ -980,7 +979,68 @@ foreach ($jsonData as $codeStr => $nom) {
                 // dd( $DPIA);
                     }
 
-          }else{
+          }
+          else{
+            $codeOp = floor($code / 100) * 100;
+            // Insérer dans sousoperation avec un code spécifique
+            $sousoperation=sousoperation::updateOrCreate(
+                ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$code], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
+                          ['code_operation' =>$s_act.'-'.$codeGp.'-'.$code,
+                          'nom_sous_operation' => $nom,
+                          'code_t3' => 30000,
+
+                          'AE_reporte' => floatval(str_replace(',', '', $ae_reporte)),
+                          'AE_notifie' =>floatval(str_replace(',', '', $ae_notifie)) ,
+                          'AE_engage' => floatval(str_replace(',', '', $ae_engage)),
+
+                          'CP_reporte' => floatval(str_replace(',', '', $cp_reporte)),
+                          'CP_notifie' =>floatval(str_replace(',', '', $cp_notifie)),
+                          'CP_consome' => floatval(str_replace(',', '', $cp_consome))
+                          , 'date_insert_SOUSoperation' => $currentDateTime]
+            );
+                   // creation de la table  construireDPIA
+                   $portefeuille = Portefeuille::where('num_portefeuil', $port)->first();
+                   // dd($portefeuille);
+
+                   if ($portefeuille) {
+
+                       $DPIA = new ConstruireDPIA();
+
+
+                       $DPIA->date_creation_dpia = $portefeuille->Date_portefeuille;
+                       $DPIA->date_modification_dpia = $DPIA->date_creation_dpia;
+                       $DPIA->motif_dpia = 'Création de DPIA à partir du portefeuille';
+
+                       $DPIA->AE_dpia_nv = null;
+                       $DPIA->CP_dpia_nv = null;
+
+
+                       $DPIA->AE_ouvert_dpia = null;
+                       $DPIA->AE_atendu_dpia = null;
+                       $DPIA->CP_ouvert_dpia = null;
+                       $DPIA->CP_atendu_dpia = null;
+
+                       $DPIA->AE_reporte_dpia = $sousoperation->AE_reporte;
+                       $DPIA->AE_notifie_dpia = $sousoperation->AE_notifie;
+                       $DPIA->AE_engage_dpia = $sousoperation->AE_engage;
+                       $DPIA->CP_reporte_dpia = $sousoperation->CP_reporte;
+                       $DPIA->CP_notifie_dpia = $sousoperation->CP_notifie;
+                       $DPIA->CP_consome_dpia = $sousoperation->CP_consome;
+
+                       $DPIA->code_sous_operation = $sousoperation->code_sous_operation;
+                       $DPIA->id_rp = 1;
+                       $DPIA->id_ra = 1;
+
+
+                       $DPIA->save();
+                   } else {
+
+                       dd('Portefeuille non trouvé');
+                   }
+
+                   // dd( $DPIA);
+          }
+        }else{
             $codeOp = floor($code / 100) * 100;
             // Insérer dans sousoperation avec un code spécifique
             $sousoperation=sousoperation::updateOrCreate(
@@ -1042,13 +1102,12 @@ foreach ($jsonData as $codeStr => $nom) {
           }
         }
 
-      }
+        return response()->json([
+          'success' => true,
+          'message' => 'Données insérées avec succès !',
+          'code' => 200,
+      ]);
 
-      return response()->json([
-        'success' => true,
-        'message' => 'Données insérées avec succès !',
-        'code' => 200,
-    ]);
 //===================================================================================
                             //FIN insertion T3
 //===================================================================================
