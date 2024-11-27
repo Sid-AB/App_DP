@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\portfeuilleController;
 use App\Http\Controllers\programmeControlleur;
 use App\Http\Controllers\sousProgrammeController;
+use App\Http\Controllers\initPortController;
 use App\Http\Controllers\actionController;
 use App\Http\Controllers\SousActionController;
 use App\Http\Controllers\groupOperationController;
@@ -47,6 +48,12 @@ Route::controller(sousProgrammeController::class)->group(function(){
     Route::get('/SousProgramme','affich_sou_prog')->name('home.sousProgramme');
     Route::post('/creationSousProg','create_sou_prog')->name('creation.souProgramme');
     Route::get('/check-sousprog','check_sous_prog')->name('check.sousprog');
+
+});
+
+//===============ROUTE PORTE INITIALE==============================
+Route::controller(initPortCntroller::class)->group(function(){
+    Route::post('/creationPort','create_port')->name('creation.porte');
 
 });
 

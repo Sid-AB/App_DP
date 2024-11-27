@@ -185,6 +185,7 @@ foreach ($jsonData as $codeStr => $nom) {
                 }
             }else{
                 // Insérer dans sousoperation avec un code spécifique
+                dd('ae = ', $code);
                 $sousoperation=sousoperation::updateOrCreate(
                     ['code_sous_operation' => $code.$codeGp.$s_act], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
                     ['code_operation' => $code.$codeGp.$s_act, 'nom_sous_operation' => $nom,'code_t1' =>10000,
@@ -249,7 +250,7 @@ foreach ($jsonData as $codeStr => $nom) {
 
            $DPIA->save();
 
-              }*/
+              //}*/
                  }
             }
 
