@@ -539,6 +539,12 @@ $(document).ready(function(){
                                   $(this).empty()
                                   $(this).removeClass('setit-back');
                                   $('.member .update-handl').css('color','black')
+                                  $('.float-export').css('display','block');
+                                })
+                                $('.modif-contiant').on('click',function(){
+                                  $(this).removeClass('setit-insert');
+                                  $('.member .update-handl').css('color','black')
+                                  $('.float-export').css('display','block');
                                 })
                                 $('.button-70').on('click',function(){
                               $('.float-export').css('display','block'); 
@@ -628,15 +634,16 @@ $(document).ready(function(){
                                 }
                                 else
                                 {
-
+                                  console.log('nothing is selected of radios '+selectTret )
                                 }
                                   } else {
                                     
-                                  $('#output').text('No hobby selected. Please choose one.');
+                                    console.log('nothing is selected Action that will give '+selectedret)
                                   }
                                  } else {
-                                 $('#output').text('No hobby selected. Please choose one.');
+                                 console.log('nothing is selected type of interaction '+selectedHobby)
                                  $('.add-envoi').empty();
+                                 $('.float-export').css('display','block');
                                 }
 
                             })
