@@ -376,7 +376,7 @@
                                                              // Ajoute les valeurs dans les objets
                                                              data.ae[code] = aeValue;
                                                              data.cp[code] = cpValue;
-
+                                                            console.log('T4'+JSON.stringify(data))
 
                                                          }
                                                          // value_chng.push(rw);
@@ -2144,7 +2144,7 @@
                           *  this js for creation from the index
                           */
 
-
+                        
 
 
                          /**
