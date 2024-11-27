@@ -38,6 +38,7 @@ $(document).ready(function(){
     $('.modif-contiant').on('click',function(){
       $(this).removeClass('setit-insert');
       $('.member .update-handl').css('color','black')
+      $('.modif-handler').css('display','none')
       $('.float-export').css('display','block');
     })
     $('.button-70').on('click',function(){
