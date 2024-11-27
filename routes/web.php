@@ -40,6 +40,7 @@ Route::controller( programmeControlleur::class)->group(function(){
     Route::post('/creationProg','creat_prog')->name('creation.programme');
     Route::get('/check-prog','check_prog')->name('check.prog');
 
+
 });
 
 //===============ROUTE SOUS PROGRAMME==============================
