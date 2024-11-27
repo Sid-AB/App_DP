@@ -344,12 +344,12 @@
     <div class="form-group">
           <label for="input1">Article</label>
           <select type="text" class="form-control" id="id" placeholder="Entrer le Nom du Programme">
-           <option id="0" >Selectionner Article</option>
-            <option id="1" >REF°39</option>
-            <option id="2" >REF°30</option>
-            <option id="3" >REF°27</option>
-            <option id="4" >REF°33-Transfer</option>
-            <option id="6" >REF°39-Verment</option>
+           <option value="0" >Selectionner Article</option>
+            <option value="1" >REF°39</option>
+            <option value="2" >REF°30</option>
+            <option value="3" >REF°27</option>
+            <option value="4" >REF°33-Transfer</option>
+            <option value="6" >REF°39-Verment</option>
           </select>
         </div>
         <hr>
@@ -432,15 +432,15 @@
 
         <div class="form-group">
         <label for="input1">Action a modifier</label>
-          <select type="text" class="form-control" id="id" placeholder="Entrer le Nom du Programme">
-           <option id="0" >Selectionner Article</option>
-            <option id="1" >Action 01</option>
-            <option id="2" >Action 01</option>
+          <select type="text" class="form-control" id="id_cible" placeholder="Entrer le Nom du Programme">
+           <option value="0" >Selectionner Article</option>
+            <option value="1" >Action 01</option>
+            <option value="2" >Action 01</option>
           </select>
         </div>
       </div>
     </form>
-    <button class="button-70" role="button">modifier</button></div>
+    <button class="button-70" id="button-71" role="button">modifier</button></div>
   </div>
  </div>
 
