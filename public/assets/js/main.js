@@ -253,6 +253,16 @@
                                     var i=0
                                     var ae=0;
                                     var cp=0;
+                                    var ae_ouvert =0
+                                    var cp_ouvert =0
+                                    var ae_attendu =0
+                                    var cp_attendu =0
+                                    var ae_reporte =0
+                                    var ae_notifie =0
+                                    var ae_engage =0
+                                    var cp_reporte =0
+                                    var cp_notifie =0
+                                    var cp_consome =0
                                     var clickid = $(this).attr('id');
                                     console.log('testing the id'+clickid);
                                      var clickedRow = $(this).closest('tr');
@@ -271,6 +281,35 @@
                                      input.blur(function()
                                     {
                                         let newText = $(this).val();
+                                        if (T == '2') {
+                                            var testcpattendu = clickedRow.find('td').eq(5).text();//cpattendu
+                                            var testaeattendu = clickedRow.find('td').eq(4).text();//aeattendu
+                                            var testcpover = clickedRow.find('td').eq(3).text();//cpovert
+                                            var testaeover = clickedRow.find('td').eq(2).text();//aeovert
+                                            var someae = 0;
+                                            var somecp = 0;
+                                            if (newText != 0 && newText != '' && newText != null) {
+                                                var wit = $(this).parent().attr('id');
+                                                console.log('ae -> ' + testaeover + 'cp ->' + testcpover + ' ae ett -> ' + testaeattendu + ' cp ett ->' + testcpattendu + 'value change ->' + JSON.stringify(wit))
+                                                if (wit == 'CP_att') {
+                                                    testcpattendu = newText
+                                                }
+                                                if (wit == 'AE_att') {
+                                                    testaeattendu = newText
+                                                }
+                                                if (wit == 'AE_Over') {
+                                                    testaeover = newText
+                                                }
+                                                if (wit == 'CP_Over') {
+                                                    testcpover = newText
+                                                }
+                                                somecp = parseFloat(testcpattendu) + parseFloat(testcpover)
+                                                someae = parseFloat(testaeattendu) + parseFloat(testaeover);
+                                                console.log('ae' + someae + ' cp ' + somecp)
+                                                clickedRow.find('td').eq(6).text(someae);
+                                                clickedRow.find('td').eq(7).text(somecp);
+                                            }
+                                        }
                                         if(dataupdate.length > 0)
                                         {
                                            for (let index = 0; index < dataupdate.length; index++) {
@@ -281,13 +320,51 @@
                                                if( clickid == 'AE_T1')
                                                {
                                                 element.value.ae=newText;
-                                              
                                                }
                                                if(clickid == 'CP_T1')
                                                {
                                                 element.value.cp=newText;
-                                                
                                                }
+                                               if(clickid == 'AE_Over')
+                                               {
+                                                element.value.ae_ouvert=newText
+                                               }
+                                               if(clickid == 'AE_att')
+                                                {
+                                                    element.value.ae_attendu=newText
+                                                }
+                                                if(clickid == 'CP_Over')
+                                                {
+                                                    element.value.cp_ouvert=newText
+                                                }
+                                                if(clickid == 'CP_att')
+                                                {
+                                                    element.value.cp_attendu=newText
+                                                }
+                                                if(clickid == 'AE_rpor')
+                                                {
+                                                        element.value.ae_reporte=ae_reporte
+                                                }
+                                                if(clickid == 'AE_not')
+                                                    {
+                                                            element.value.ae_notifie=ae_notifie
+                                                    }
+                                                if(clickid == 'AE_enga')
+                                                    {
+                                                     element.value.ae_engage=ae_engage
+                                                    }
+                                                if(clickid == 'CP_rpor')
+                                                {
+                                                element.value.cp_reporte=cp_reporte
+                                                }
+                                                if(clickid == 'CP_not')
+                                                {
+                                                element.value.cp_notifie=cp_notifie
+                                                }
+                                                if(clickid == 'CP_cons')
+                                                {
+                                                element.value.cp_consome=cp_consome
+                                                }
                                                 exist=true;
                                              }
                                            }
@@ -304,6 +381,7 @@
                                                 }
                                                 $('.change_app').append(buttons)
                                             }
+                                            
                                             //  console.log('all table'+JSON.stringify(value_chng))
                                             cell.text(newText);
                                             if(!exist){
@@ -317,8 +395,33 @@
                                                     ae=0
                                                     cp=newText
                                                 }
-                                            dataupdate.push({code:codesoup,value:{ae:ae,cp:cp}});
-                                            console.log('i insert '+JSON.stringify(dataupdate))}
+                                                if(clickid == 'AE_Over')
+                                                {
+                                                     ae_ouvert=newText
+                                                }
+                                                if(clickid == 'AE_att')
+                                                {
+                                                 ae_attendu=newText
+                                                }
+                                                if(clickid == 'CP_Over')
+                                                {
+                                                cp_ouvert=newText
+                                                }
+                                                if(clickid == 'CP_att')
+                                                {
+                                                cp_attendu=newText
+                                                }
+                                                if( T == '1')
+                                                {
+                                                    dataupdate.push({code:codesoup,value:{ae:ae,cp:cp}});
+                                                }
+                                                if(T == '2')
+                                                {
+                                                dataupdate.push({code:codesoup,value:{ae_ouvert:ae_ouvert,ae_attendu:ae_attendu,cp_ouvert:cp_ouvert,cp_attendu:cp_attendu}});
+                                                }
+                                            
+                                            console.log('i insert '+JSON.stringify(dataupdate))
+                                            }
                                         }
                                         else {
                                             cell.empty();
@@ -346,6 +449,8 @@
                                     })
                                         }*/
                                        console.log('testing'+JSON.stringify(dataupdate))
+                                       $('.change_app').empty()
+                                       click=0
                                     //dataupdate=[];
                                 })
                                 })
@@ -1609,7 +1714,9 @@
 
                                  });
                                  if(code === 200)
-                                 {Update_dpia(T,id_s_act);
+                                 {
+                                    dataupdate=[]
+                                Update_dpia(T,id_s_act);
                                  console.log('testing new update function')}  
                              }).fail(function () {
                                  console.error('Error loading JSON file.');
@@ -1685,7 +1792,7 @@
                                  var iso = 0;
                                  $.each(data, function (key, value) {
                                      // Create a table row
-                                     let row = '<tr id="ref' + key + '">' +
+                                     let row = '<tr class="'+key+'" id="ref' + key + '">' +
                                          '<td class="code">' + key + '</td>' +
                                          '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"> <p>' + value + '</p> </td>' +
                                          '<td class="editable" id="AE_Over">' + 0 + '</td>' +
@@ -1700,8 +1807,9 @@
                                      var codesop = data_T_port.sousOperation;
                                      if(Object.keys(data_T_port).length > 0){
                                      if (codegr.length > 0 && data_T_port.group.length > ig) {
-                                         if (key == splitcode(data_T_port.group[ig].code, 5)[0].substring) {
-                                             row = '<tr id="ref' + key + '">' +
+                                        var land=data_T_port.group[ig].code.length-5
+                                         if (key == splitcode(data_T_port.group[ig].code, land)[1].substring) {
+                                             row = '<tr class="ref' + key + '" id="ref'+data_T_port.group[ig].code+'">' +
                                                  '<td class="code">' + key + '</td>' +
                                                  '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"> <p>' + value + '</p> </td>' +
                                                  '<td class="editable" id="AE_Over">' + data_T_port.group[ig].values.ae_ouvertgrpop + '</td>' +
@@ -1715,8 +1823,9 @@
                                          }
                                      }
                                      if (codeop.length > 0 && data_T_port.operation.length > io) {
-                                         if (key == splitcode(data_T_port.operation[io].code, 5)[0].substring) {
-                                             row = '<tr id="ref' + key + '">' +
+                                        var land=data_T_port.operation[io].code.length-5
+                                         if (key == splitcode(data_T_port.operation[io].code, land)[1].substring) {
+                                             row = '<tr class="ref'+key+'" id="ref' + data_T_port.operation[io].code + '">' +
                                                  '<td class="code">' + key + '</td>' +
                                                  '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"> <p>' + value + '</p> </td>' +
                                                  '<td class="editable" id="AE_Over">' + data_T_port.operation[io].values.ae_ouvertop + '</td>' +
@@ -1730,8 +1839,9 @@
                                          }
                                      }
                                      if (codesop.length > 0 && data_T_port.sousOperation.length > iso) {
-                                         if (key == splitcode(data_T_port.sousOperation[iso].code, 5)[0].substring) {
-                                             row = '<tr id="ref' + key + '">' +
+                                        var land=data_T_port.sousOperation[iso].code.length-5
+                                         if (key == splitcode(data_T_port.sousOperation[iso].code, land)[0].substring) {
+                                             row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                                                  '<td class="code">' + key + '</td>' +
                                                  '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"> <p>' + value + '</p> </td>' +
                                                  '<td class="editable" id="AE_Over">' + data_T_port.sousOperation[iso].values.ae_ouvertsousop + '</td>' +
@@ -1757,7 +1867,7 @@
                                          console.log('cuureent' + current.split("0")[0] + ' prev' + preve.split("0")[0])
                                          if (key.split("0")[0].length > preve.split("0")[0].length) {
                                              console.log('testing not adding' + preve)
-                                             $('#ref' + preve + ' td').each(function () {
+                                             $('.ref' + preve + ' td').each(function () {
                                                  $(this).removeClass('editable')
                                              })
 
@@ -1765,9 +1875,9 @@
                                          else {
 
                                              console.log('testing adding ' + preve)
-                                             if ($('#ref' + preve + ' td').hasClass("editable")) {
-                                                 $('#ref' + preve + ' #add_op').append(newbtn)
-                                                 $('#ref' + preve + ' #add_op').on('click', function () {
+                                             if ($('.ref' + preve + ' td').hasClass("editable")) {
+                                                 $('.ref' + preve + ' #add_op').append(newbtn)
+                                                 $('.ref' + preve + ' #add_op').on('click', function () {
                                                     var newKey=$(this).parent().attr('id');
                                                     var ads = newKey.split('ref')[1] + '1';
                                                      add_newOPs_T2(ads, 'testing new descr', 2500, newKey);
@@ -1781,9 +1891,9 @@
                                      }
                                      i++
                                      if (i == lengT) {
-                                         if ($('#ref' + key + ' td').hasClass("editable")) {
-                                             $('#ref' + key + ' #add_op').append(newbtn)
-                                             $('#ref' + key + ' #add_op').on('click', function () {
+                                         if ($('.ref' + key + ' td').hasClass("editable")) {
+                                             $('.ref' + key + ' #add_op').append(newbtn)
+                                             $('.ref' + key + ' #add_op').on('click', function () {
                                                  var ads = key + '1';
                                                  add_newOPs_T2(ads, 'testing new descr', 2500, key);
                                                  Edit(id, T)
@@ -1791,6 +1901,12 @@
                                          }
                                      }
                                  });
+                                 if(code === 200)
+                                    {
+                                        dataupdate=[]
+                                        Update_dpia(T,id_s_act);
+                                    console.log('testing new update function')
+                                    }  
                              }).fail(function () {
                                  console.error('Error loading JSON file.');
                              });
@@ -1854,7 +1970,7 @@
                                      var val = value.split('-')
 
                                      //   console.log('values' + JSON.stringify(val))
-                                     let row = '<tr id="ref' + key + '">' +
+                                     let row = '<tr class="ref'+key+'" id="ref' + key + '">' +
                                          '<td class="code">' + key + '</td>' +
                                          '<td><p>' + val[0] + '</p> </td>' +
                                          '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
@@ -1866,10 +1982,12 @@
                                          '<td class="editable" id="AE_enga">' + 0 + '</td>' +
                                          '</tr>';
                                      if(Object.keys(data_T_port).length > 0){
+                                        
                                      if (data_T_port.group.length > 0 && data_T_port.group.length > ig) {
-                                         console.log('code T3 ' + splitcode(data_T_port.group[ig].code, 5)[0].substring);
+                                        var land=data_T_port.group[ig].code-5;
+                                         console.log('code T3 ' + splitcode(data_T_port.group[ig].code, land)[1].substring);
                                          if (key == splitcode(data_T_port.group[ig].code, 5)[0].substring) {
-                                             row = '<tr id="ref' + key + '">' +
+                                             row = '<tr class="ref'+key+'" id="ref' + data_T_port.group[ig].code + '">' +
                                                  '<td class="code">' + key + '</td>' +
                                                  '<td><p>' + val[0] + '</p> </td>' +
                                                  '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
@@ -1884,8 +2002,9 @@
                                          }
                                      }
                                      if (data_T_port.operation.length > 0 && data_T_port.operation.length > io) {
-                                         if (key == splitcode(data_T_port.operation[io].code, 5)[0].substring) {
-                                             row = '<tr id="ref' + key + '">' +
+                                        var land=data_T_port.operation[io].code-5;
+                                         if (key == splitcode(data_T_port.operation[io].code, land)[1].substring) {
+                                             row = '<tr class="ref'+key+'" id="ref' + data_T_port.operation[io].code + '">' +
                                                  '<td class="code">' + key + '</td>' +
                                                  '<td><p>' + val[0] + '</p> </td>' +
                                                  '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
@@ -1900,8 +2019,9 @@
                                          }
                                      }
                                      if (data_T_port.sousOperation.length > 0 && data_T_port.sousOperation.length > iso) {
-                                         if (key == splitcode(data_T_port.sousOperation[iso].code, 5)[0].substring) {
-                                             row = '<tr id="ref' + key + '">' +
+                                        var land=data_T_port.sousOperation[iso].code-5;
+                                         if (key == splitcode(data_T_port.sousOperation[iso].code, land)[1].substring) {
+                                             row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                                                  '<td class="code">' + key + '</td>' +
                                                  '<td><p>' + val[0] + '</p> </td>' +
                                                  '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
@@ -1933,7 +2053,7 @@
                                          }
                                          if (current.split("0")[0].length > preve.split("0")[0].length) {
                                              console.log('testing ' + preve)
-                                             $('#ref' + preve + ' td').each(function () {
+                                             $('.ref' + preve + ' td').each(function () {
                                                  $(this).removeClass('editable')
                                              })
                                              preve = current;
@@ -1941,9 +2061,9 @@
                                          }
                                          else {
                                              //console.log('testing editable'+preve)
-                                             if ($('#ref' + preve + ' td').hasClass("editable")) {
-                                                 $('#ref' + preve + ' #add_op').append(newbtn)
-                                                 $('#ref' + preve + ' #add_op').on('click', function () {
+                                             if ($('.ref' + preve + ' td').hasClass("editable")) {
+                                                 $('.ref' + preve + ' #add_op').append(newbtn)
+                                                 $('.ref' + preve + ' #add_op').on('click', function () {
                                                     var newKey=$(this).parent().attr('id');
                                                     var ads = newKey.split('ref')[1] + '1';
                                                      add_newOPs_T3(ads, 'testing new descr', 2500, newKey);
@@ -1957,9 +2077,9 @@
                                      }
                                      i++
                                      if (i == lengT) {
-                                         if ($('#ref' + key + ' td').hasClass("editable")) {
-                                             $('#ref' + key + ' #add_op').append(newbtn)
-                                             $('#ref' + key + ' #add_op').on('click', function () {
+                                         if ($('.ref' + key + ' td').hasClass("editable")) {
+                                             $('.ref' + key + ' #add_op').append(newbtn)
+                                             $('.ref' + key + ' #add_op').on('click', function () {
                                                 var newKey=$(this).parent().attr('id');
                                                 var ads = newKey.split('ref')[1] + '1';
                                                  add_newOPs_T3(ads, 'testing new descr', 2500, preve);
@@ -1969,6 +2089,12 @@
                                      }
                                      Edit(id, T)
                                  });
+                                 if(code === 200)
+                                 {
+                                    dataupdate=[]
+                                    Update_dpia(T,id_s_act);
+                                    console.log('testing new update function')
+                                 }
                              }).fail(function () {
                                  console.error('Error loading JSON file.');
                              });
@@ -2027,7 +2153,7 @@
                                      // Create a table row
                                      var val = value.split('-')
                                      //   console.log('values' + JSON.stringify(val))
-                                     let row = '<tr id="ref' + key + '">' +
+                                     let row = '<tr class="ref"'+key+'" id="ref' + key + '">' +
                                          '<td class="code">' + key + '</td>' +
                                          '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
                                          '<td class="editable" id="AE_T4">' + 0 + ',00</td>' +
@@ -2035,8 +2161,9 @@
                                          '</tr>';
                                      if(Object.keys(data_T_port).length > 0){
                                      if (data_T_port.group.length > 0 && data_T_port.group.length > ig) {
-                                         if (key == splitcode(data_T_port.group[ig].code, 5)[0].substring) {
-                                             row = '<tr id="ref' + key + '">' +
+                                        var land=data_T_port.group[ig].code-5;
+                                         if (key == splitcode(data_T_port.group[ig].code, land)[1].substring) {
+                                             row = '<tr class="'+key+'" id="ref' + data_T_port.group[ig].code + '">' +
                                                  '<td class="code" >' + key + '</td>' +
                                                  '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
                                                  '<td class="editable" id="AE_T4">' + data_T_port.group[ig].values.ae_grpop + '</td>' +
@@ -2046,8 +2173,9 @@
                                          }
                                      }
                                      if (data_T_port.operation.length > 0 && data_T_port.operation.length > io) {
-                                         if (key == splitcode(data_T_port.operation[io].code, 5)[0].substring) {
-                                             row = '<tr id="ref' + key + '">' +
+                                        var land=data_T_port.operation[io].code.code-5;
+                                         if (key == splitcode(data_T_port.operation[io].code, land)[1].substring) {
+                                             row = '<tr class="ref'+key+'" id="ref' + data_T_port.operation[io].code + '">' +
                                                  '<td class="code" >' + key + '</td>' +
                                                  '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
                                                  '<td class="editable" id="AE_T4">' + data_T_port.operation[io].values.ae_op + '</td>' +
@@ -2057,8 +2185,9 @@
                                          }
                                      }
                                      if (data_T_port.sousOperation.length > 0 && data_T_port.sousOperation.length > iso) {
-                                         if (key == splitcode(data_T_port.sousOperation[iso].code, 5)[0].substring) {
-                                             row = '<tr id="ref' + key + '">' +
+                                        var land=data_T_port.sousOperation[iso].code.code-5;
+                                         if (key == splitcode(data_T_port.sousOperation[iso].code, land)[1].substring) {
+                                             row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                                                  '<td class="code" >' + key + '</td>' +
                                                  '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
                                                  '<td class="editable" id="AE_T4">' + data_T_port.sousOperation[iso].values.ae_sousop + '</td>' +
@@ -2108,6 +2237,12 @@
 
                                      Edit(id, T)
                                  });
+                                 if(code === 200)
+                                    {
+                                       dataupdate=[]
+                                       Update_dpia(T,id_s_act);
+                                       console.log('testing new update function')
+                                    }
                              }).fail(function () {
                                  console.error('Error loading JSON file.');
                              });
