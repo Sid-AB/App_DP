@@ -270,13 +270,12 @@
                                      let cell = $(this);  // Reference to the clicked cell
                                      var currentText = cell.text();
                                      var exist=false;  // Get current text
+                                     console.log('odl ' + code.text())
                                      var codesoup=clickedRow.attr('id').split('ref')[1];
-                                     console.log('odl ' + codesoup)
-                                    
                                      // Create an input element and set its value
                                      let input = $('<input type="number" step="0.01" class="form-control"/>').val(currentText);
                                      cell.html(input);  // Replace the cell content with the input
-                                    
+
                                      input.focus(); 
                                      input.blur(function()
                                     {
@@ -431,7 +430,7 @@
                                     $("#changin").on('click',function()
                                 {
                                     i++
-                                    /*if( i === 1)
+                                    if( i === 1)
                                         {
                                     $.ajax({
                                         url:'/update',
@@ -447,7 +446,7 @@
                                             }
                                        
                                     })
-                                        }*/
+                                        }
                                        console.log('testing'+JSON.stringify(dataupdate))
                                        $('.change_app').empty()
                                        click=0
@@ -1613,7 +1612,7 @@
                                  var ig = 0;
                                  var io = 0;
                                  var iso = 0;
-                                 console.log('testing split function'+data_T_port.group[0].code.length +' -->' + splitcode(data_T_port.group[0].code, 18)[1].substring)
+                               //  console.log('testing split function' + splitcode(data_T_port.group[0].code, 5)[0].substring)
                                  $.each(data, function (key, value) {
                                      // Create a table row
                                      let row = '<tr class="ref'+key+'" id="ref' + key + '">' +
@@ -1624,8 +1623,8 @@
                                          '</tr>';
                                          if(Object.keys(data_T_port).length > 0 ){
                                      if (data_T_port.group.length > 0 && data_T_port.group.length > ig) {
-                                        var lend=data_T_port.group[ig].code.length-5;
-                                         if (key == splitcode(data_T_port.group[ig].code, lend)[1].substring) {
+                                        var land=data_T_port.group[ig].code.length-5
+                                         if (key == splitcode(data_T_port.group[ig].code, land)[1].substring) {
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.group[ig].code + '">' +
                                                  '<td class="code" >' + key + '</td>' +
                                                  '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
@@ -1636,8 +1635,8 @@
                                          }
                                      }
                                      if (data_T_port.operation.length > 0 && data_T_port.operation.length > io) {
-                                        var lend=data_T_port.operation[io].code.length-5;
-                                         if (key == splitcode(data_T_port.operation[io].code, lend)[1].substring) {
+                                        var land=data_T_port.operation[io].code.length-5
+                                         if (key == splitcode(data_T_port.operation[io].code, land)[1].substring) {
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.operation[io].code + '">' +
                                                  '<td class="code" >' + key + '</td>' +
                                                  '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
@@ -1648,9 +1647,9 @@
                                          }
                                      }
                                      if (data_T_port.sousOperation.length > 0 && data_T_port.sousOperation.length > iso) {
-                                        var lend=data_T_port.sousOperation[iso].code.length-5;
-                                         if (key == splitcode(data_T_port.sousOperation[iso].code, lend)[1].substring) {
-                                             row = '<tr class="ref'+key+'"  id="ref' + data_T_port.sousOperation[iso].code + '">' +
+                                        var land=data_T_port.sousOperation[iso].code.length-5
+                                         if (key == splitcode(data_T_port.sousOperation[iso].code, land)[1].substring) {
+                                             row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                                                  '<td class="code" >' + key + '</td>' +
                                                  '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
                                                  '<td class="editable" id="AE_T1">' + data_T_port.sousOperation[iso].values.ae_sousop + '</td>' +

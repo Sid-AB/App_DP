@@ -16,6 +16,7 @@ use App\Http\Controllers\SousActionController;
 use App\Http\Controllers\groupOperationController;
 use App\Http\Controllers\opeartionController;
 use App\Http\Controllers\SousOperationController;
+use App\Http\Controllers\modificationController;
 
 Route::get('/', function () {
  $portfs =Portefeuille::get();
@@ -95,6 +96,12 @@ Route::controller(sousOperationController::class)->group(function(){
     Route::get('/testing/Action/{port}/{prog}/{sous_prog}/{act}','AffichePortsAction');
     Route::get('/testing/S_action/{port}/{prog}/{sous_prog}/{act}/{s_act}','AffichePortsSousAct');
     Route::get('/testing/{port}/{prog}/{sous_prog}/{act}/{s_act}/pdf','impressionpdf');
+    Route::get('/testing/{port}/{prog}/{sous_prog}/{act}/pdf','impressionpdf');
+});
+//===============ROUTE modification==============================
+Route::controller(modificationController::class)->group(function(){
+    Route::post('/update','updateSousOperation');
+
 });
 
 
