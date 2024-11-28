@@ -239,7 +239,7 @@
                           * star of update function
                           * 
                           */
-                         function Update_dpia(T)
+                         function Update_dpia(T,act)
                          {
                           
                             $(document).ready(function(){
@@ -255,6 +255,7 @@
                                      var currentText = cell.text();
                                      var exist=false;  // Get current text
                                      console.log('odl ' + code.text())
+                                     var codesoup=code.text()+act;
                                      // Create an input element and set its value
                                      let input = $('<input type="number" step="0.01" class="form-control"/>').val(currentText);
                                      cell.html(input);  // Replace the cell content with the input
@@ -267,7 +268,7 @@
                                         {
                                            for (let index = 0; index < dataupdate.length; index++) {
                                             const element = dataupdate[index];
-                                             if(element.code === code.text())
+                                             if(element.code === codesoup)
                                              {
                                                 console.log('code exisit'+JSON.stringify(element))
                                                if( clickid == 'AE_T1')
@@ -309,7 +310,7 @@
                                                     ae=0
                                                     cp=newText
                                                 }
-                                            dataupdate.push({code:code.text(),value:{ae:ae,cp:cp}});
+                                            dataupdate.push({code:codesoup,value:{ae:ae,cp:cp}});
                                             console.log('i insert '+JSON.stringify(dataupdate))}
                                         }
                                         else {
@@ -320,10 +321,10 @@
                                     $("#changin").on('click',function()
                                 {
                                     i++
-                                    if( i === 1)
+                                    /*if( i === 1)
                                         {
                                     $.ajax({
-                                        url:'',
+                                        url:'/update',
                                         type:'POST',
                                         data:{
                                             Tport:T,
@@ -336,7 +337,8 @@
                                             }
                                        
                                     })
-                                        }
+                                        }*/
+                                       console.log('testing'+JSON.stringify(dataupdate))
                                     //dataupdate=[];
                                 })
                                 })
@@ -1511,7 +1513,7 @@
                                          if(Object.keys(data_T_port).length > 0 ){
                                      if (data_T_port.group.length > 0 && data_T_port.group.length > ig) {
                                          if (key == splitcode(data_T_port.group[ig].code, 5)[0].substring) {
-                                             row = '<tr id="ref' + key + '">' +
+                                             row = '<tr id="ref' + data_T_port.group[ig].code + '">' +
                                                  '<td class="code" >' + key + '</td>' +
                                                  '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
                                                  '<td class="editable" id="AE_T1">' + data_T_port.group[ig].values.ae_grpop + '</td>' +
@@ -1522,7 +1524,7 @@
                                      }
                                      if (data_T_port.operation.length > 0 && data_T_port.operation.length > io) {
                                          if (key == splitcode(data_T_port.operation[io].code, 5)[0].substring) {
-                                             row = '<tr id="ref' + key + '">' +
+                                             row = '<tr id="ref' + data_T_port.operation[io].code + '">' +
                                                  '<td class="code" >' + key + '</td>' +
                                                  '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
                                                  '<td class="editable" id="AE_T1">' + data_T_port.operation[io].values.ae_op + '</td>' +
@@ -1533,7 +1535,7 @@
                                      }
                                      if (data_T_port.sousOperation.length > 0 && data_T_port.sousOperation.length > iso) {
                                          if (key == splitcode(data_T_port.sousOperation[iso].code, 5)[0].substring) {
-                                             row = '<tr id="ref' + key + '">' +
+                                             row = '<tr id="ref' + data_T_port.sousOperation[iso] + '">' +
                                                  '<td class="code" >' + key + '</td>' +
                                                  '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
                                                  '<td class="editable" id="AE_T1">' + data_T_port.sousOperation[iso].values.ae_sousop + '</td>' +
@@ -1597,7 +1599,7 @@
 
                                  });
                                  if(code === 200)
-                                 {Update_dpia(T);
+                                 {Update_dpia(T,id_s_act);
                                  console.log('testing new update function')}  
                              }).fail(function () {
                                  console.error('Error loading JSON file.');
