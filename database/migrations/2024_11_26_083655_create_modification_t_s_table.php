@@ -15,7 +15,7 @@ return new class extends Migration
             
             $table->integer('id_modif')->primary()->autoIncrement();
 
-            $table->Date('date_modif');
+            $table->DateTime('date_modif');
         
 
             $table->float('AE_envoi_t1')->default(0.0);
