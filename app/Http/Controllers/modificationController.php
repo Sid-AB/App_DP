@@ -12,7 +12,7 @@ class modificationController extends Controller
        
         //récupérer les données de request
         $data = $request->all();
-        // dd($data);
+         dd($data);
         // déterminer le type de données reçues est ce qu'ils sont T ou les valeurs qui sont dans tableau T[]
         $Tport = $data['Tport']; //arrey_key_first permet de récupérer la clé principale du tableau (t1 t2 t3 t4...)
         $resultats = $data['result']; //les valeurs [code_sous_op,ae et cp]
@@ -35,22 +35,22 @@ class modificationController extends Controller
     
             // récupérer la ligne d'entrée
             $sousOperation = SousOperation::findOrFail($code);
-           dd($sousOperation);
+            dd($sousOperation);
            // modification d'aprés les t
-            switch ($type) {
-                case 'T1':
+            switch ($Tport) {
+                case '1':
                     $this->ModifT1($sousOperation, $values);
                     break;
 
-                case 'T2':
+                case '2':
                     $this->ModifT2($sousOperation, $values);
                     break;
 
-                case 'T3':
+                case '3':
                     $this->ModifT3($sousOperation, $values);
                     break;
 
-                case 'T4':
+                case '4':
                     $this->ModifT4($sousOperation, $values);
                     break;
             }
@@ -66,7 +66,7 @@ class modificationController extends Controller
     {
         //update dans sous operation
         $sousOperation->update([
-            'AE_sous_operation' => $values['ae'] ?? $sousOperation->AE_sous_operation,
+            'AE_sous_operation' => $values['ae'] ?? $sousOperation->AE_sous_operation, //si existe ok sinn aucune modif (ae_sous_op sera utilisé)
             'CP_sous_operation' => $values['cp'] ?? $sousOperation->CP_sous_operation,
             'date_update_SOUSoperation' => now(),
         ]);
