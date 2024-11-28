@@ -321,7 +321,7 @@
                                     $("#changin").on('click',function()
                                 {
                                     i++
-                                    /*if( i === 1)
+                                    if( i === 1)
                                         {
                                     $.ajax({
                                         url:'/update',
@@ -337,7 +337,7 @@
                                             }
                                        
                                     })
-                                        }*/
+                                        }
                                        console.log('testing'+JSON.stringify(dataupdate))
                                     //dataupdate=[];
                                 })
