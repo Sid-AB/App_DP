@@ -97,6 +97,11 @@ Route::controller(sousOperationController::class)->group(function(){
     Route::get('/testing/{port}/{prog}/{sous_prog}/{act}/{s_act}/pdf','impressionpdf');
     Route::get('/testing/{port}/{prog}/{sous_prog}/{act}/pdf','impressionpdf');
 });
+//===============ROUTE modification==============================
+Route::controller(modification::class)->group(function(){
+    Route::post('/update','updateSousOperation');
+
+});
 
 
 /*Route::get('/testing/Action/{port}/{prog}/{sous_prog}/{act}/',function ($port,$prog,$sous_prog,$act){

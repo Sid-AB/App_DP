@@ -9,9 +9,10 @@ class modification extends Controller
     //fct update sous operation et insert dpia ac motif update
     public function updateSousOperation(Request $request)
     {
+       
         //récupérer les données de request
         $data = $request->all();
-         dd($data);
+        // dd($data);
         // déterminer le type de données reçues est ce qu'ils sont T ou les valeurs qui sont dans tableau T[]
         $type = array_key_first($data); //arrey_key_first permet de récupérer la clé principale du tableau (t1 t2 t3 t4...)
         $valeurs = $data[$type]; //les valeurs [code_sous_op,ae et cp]
@@ -28,7 +29,7 @@ class modification extends Controller
         try {
             // récupérer la ligne d'entré
             $sousOperation = SousOperation::findOrFail($values['code_sous_operation']);
-
+           dd($sousOperation);
            // modification d'aprés les t
             switch ($type) {
                 case 'T1':
@@ -73,7 +74,6 @@ class modification extends Controller
 
     private function ModifT2(SousOperation $sousOperation, $values)
     {
-        // Mise à jour des colonnes spécifiques à T2
         $sousOperation->update([
             'AE_ouvert' => $values['ae_ouvert'] ?? $sousOperation->AE_ouvert,
             'AE_atendu' => $values['ae_atendu'] ?? $sousOperation->AE_atendu,
@@ -82,44 +82,52 @@ class modification extends Controller
             'date_update_SOUSoperation' => now(),
         ]);
 
-        // Insérer dans ConstruireDPIA
+        // insérer dans ConstruireDPIA
         ConstruireDPIA::create([
             'code_sous_operation' => $values['code_sous_operation'],
-            'motif_dpia' => 'Modification T2: AE_ouvert=' . $values['ae_ouvert'] . ', CP_ouvert=' . $values['cp_ouvert'],
+            'motif_dpia' => 'Modification T2: AE_ouvert=' . $values['ae_ouvert'] . ', CP_ouvert=' . $values['cp_ouvert'] .
+             ', AE_atendu=' . $values['ae_atendu'] . ', CP_atendu=' . $values['cp_atendu'],
             'date_creation_dpia' => now(),
         ]);
     }
 
     private function ModifT3(SousOperation $sousOperation, $values)
     {
-        // Mise à jour des colonnes spécifiques à T3
+        
         $sousOperation->update([
             'AE_reporte' => $values['ae_reporte'] ?? $sousOperation->AE_reporte,
             'CP_reporte' => $values['cp_reporte'] ?? $sousOperation->CP_reporte,
+            'AE_notifie' => $values['ae_notifie'] ?? $sousOperation->AE_notifie,
+            'CP_notifie' => $values['cp_notifie'] ?? $sousOperation->CP_notifie,
+            'AE_engage' => $values['ae_engage'] ?? $sousOperation->AE_engage,
+            'CP_consome' => $values['cp_consome'] ?? $sousOperation->CP_consome,
             'date_update_SOUSoperation' => now(),
         ]);
 
-        // Insérer dans ConstruireDPIA
+        // insérer dans ConstruireDPIA
         ConstruireDPIA::create([
             'code_sous_operation' => $values['code_sous_operation'],
-            'motif_dpia' => 'Modification T3: AE_reporte=' . $values['ae_reporte'] . ', CP_reporte=' . $values['cp_reporte'],
+           'motif_dpia' => 'Modification T3: AE_reporte=' . $values['ae_reporte'] . ', CP_reporte=' . $values['cp_reporte'] .
+                    ', AE_notifie=' . $values['ae_notifie'] . ', CP_notifie=' . $values['cp_notifie'] .
+                    ', AE_engage=' . $values['ae_engage'] . ', CP_consome=' . $values['cp_consome'],
+ 
             'date_creation_dpia' => now(),
         ]);
     }
 
     private function ModifT4(SousOperation $sousOperation, $values)
     {
-        // Mise à jour des colonnes spécifiques à T4
+
         $sousOperation->update([
-            'AE_notifie' => $values['ae_notifie'] ?? $sousOperation->AE_notifie,
-            'CP_notifie' => $values['cp_notifie'] ?? $sousOperation->CP_notifie,
+            'AE_sous_operation' => $values['ae'] ?? $sousOperation->AE_sous_operation,
+            'CP_sous_operation' => $values['cp'] ?? $sousOperation->CP_sous_operation,
             'date_update_SOUSoperation' => now(),
         ]);
 
-        // Insérer dans ConstruireDPIA
+        // insérer dans ConstruireDPIA
         ConstruireDPIA::create([
             'code_sous_operation' => $values['code_sous_operation'],
-            'motif_dpia' => 'Modification T4: AE_notifie=' . $values['ae_notifie'] . ', CP_notifie=' . $values['cp_notifie'],
+            'motif_dpia' => 'Modification T4: AE=' . $values['ae'] . ', CP=' . $values['cp'],
             'date_creation_dpia' => now(),
         ]);
     }
