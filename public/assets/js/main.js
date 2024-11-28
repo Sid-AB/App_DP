@@ -239,7 +239,7 @@
                           * star of update function
                           *
                           */
-                         function Update_dpia(T)
+                         function Update_dpia(T,act)
                          {
 
                             $(document).ready(function(){
@@ -254,7 +254,9 @@
                                      let cell = $(this);  // Reference to the clicked cell
                                      var currentText = cell.text();
                                      var exist=false;  // Get current text
-                                     console.log('odl ' + code.text())
+                                     var codesoup=clickedRow.attr('id').split('ref')[1];
+                                     console.log('odl ' + codesoup)
+
                                      // Create an input element and set its value
                                      let input = $('<input type="number" step="0.01" class="form-control"/>').val(currentText);
                                      cell.html(input);  // Replace the cell content with the input
@@ -267,7 +269,7 @@
                                         {
                                            for (let index = 0; index < dataupdate.length; index++) {
                                             const element = dataupdate[index];
-                                             if(element.code === code.text())
+                                             if(element.code === codesoup)
                                              {
                                                 console.log('code exisit'+JSON.stringify(element))
                                                if( clickid == 'AE_T1')
@@ -309,7 +311,7 @@
                                                     ae=0
                                                     cp=newText
                                                 }
-                                            dataupdate.push({code:code.text(),value:{ae:ae,cp:cp}});
+                                            dataupdate.push({code:codesoup,value:{ae:ae,cp:cp}});
                                             console.log('i insert '+JSON.stringify(dataupdate))}
                                         }
                                         else {
@@ -320,10 +322,10 @@
                                     $("#changin").on('click',function()
                                 {
                                     i++
-                                    if( i === 1)
+                                    /*if( i === 1)
                                         {
                                     $.ajax({
-                                        url:'',
+                                        url:'/update',
                                         type:'POST',
                                         data:{
                                             Tport:T,
@@ -336,7 +338,8 @@
                                             }
 
                                     })
-                                        }
+                                        }*/
+                                       console.log('testing'+JSON.stringify(dataupdate))
                                     //dataupdate=[];
                                 })
                                 })
@@ -1528,10 +1531,10 @@
                                  var ig = 0;
                                  var io = 0;
                                  var iso = 0;
-                               //  console.log('testing split function' + splitcode(data_T_port.group[0].code, 5)[0].substring)
+                                 console.log('testing split function'+data_T_port.group[0].code.length +' -->' + splitcode(data_T_port.group[0].code, 18)[1].substring)
                                  $.each(data, function (key, value) {
                                      // Create a table row
-                                     let row = '<tr id="ref' + key + '">' +
+                                     let row = '<tr class="ref'+key+'" id="ref' + key + '">' +
                                          '<td class="code" >' + key + '</td>' +
                                          '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
                                          '<td class="editable" id="AE_T1">' + 0 + '</td>' +
@@ -1539,8 +1542,9 @@
                                          '</tr>';
                                          if(Object.keys(data_T_port).length > 0 ){
                                      if (data_T_port.group.length > 0 && data_T_port.group.length > ig) {
-                                         if (key == splitcode(data_T_port.group[ig].code, 5)[0].substring) {
-                                             row = '<tr id="ref' + key + '">' +
+                                        var lend=data_T_port.group[ig].code.length-5;
+                                         if (key == splitcode(data_T_port.group[ig].code, lend)[1].substring) {
+                                             row = '<tr class="ref'+key+'" id="ref' + data_T_port.group[ig].code + '">' +
                                                  '<td class="code" >' + key + '</td>' +
                                                  '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
                                                  '<td class="editable" id="AE_T1">' + data_T_port.group[ig].values.ae_grpop + '</td>' +
@@ -1550,8 +1554,9 @@
                                          }
                                      }
                                      if (data_T_port.operation.length > 0 && data_T_port.operation.length > io) {
-                                         if (key == splitcode(data_T_port.operation[io].code, 5)[0].substring) {
-                                             row = '<tr id="ref' + key + '">' +
+                                        var lend=data_T_port.operation[io].code.length-5;
+                                         if (key == splitcode(data_T_port.operation[io].code, lend)[1].substring) {
+                                             row = '<tr class="ref'+key+'" id="ref' + data_T_port.operation[io].code + '">' +
                                                  '<td class="code" >' + key + '</td>' +
                                                  '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
                                                  '<td class="editable" id="AE_T1">' + data_T_port.operation[io].values.ae_op + '</td>' +
@@ -1561,8 +1566,9 @@
                                          }
                                      }
                                      if (data_T_port.sousOperation.length > 0 && data_T_port.sousOperation.length > iso) {
-                                         if (key == splitcode(data_T_port.sousOperation[iso].code, 5)[0].substring) {
-                                             row = '<tr id="ref' + key + '">' +
+                                        var lend=data_T_port.sousOperation[iso].code.length-5;
+                                         if (key == splitcode(data_T_port.sousOperation[iso].code, lend)[1].substring) {
+                                             row = '<tr class="ref'+key+'"  id="ref' + data_T_port.sousOperation[iso].code + '">' +
                                                  '<td class="code" >' + key + '</td>' +
                                                  '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
                                                  '<td class="editable" id="AE_T1">' + data_T_port.sousOperation[iso].values.ae_sousop + '</td>' +
@@ -1584,9 +1590,9 @@
                                      i++
                                      console.log('the lengh' + lengT + 'and the pas' + i)
                                      if (i == lengT) {
-                                         if ($('#ref' + key + ' td').hasClass("editable")) {
-                                             $('#ref' + key + ' #add_op').append(newbtn)
-                                             $('#ref' + key + ' #add_op').on('click', function () {
+                                         if ($('.ref' + key + ' td').hasClass("editable")) {
+                                             $('.ref' + key + ' #add_op').append(newbtn)
+                                             $('.ref' + key + ' #add_op').on('click', function () {
                                                  var ads = key + '1';
                                                  add_newOPs_T1(ads, 'testing new descr', 2500, key);
                                                  Edit(id, T)
@@ -1602,16 +1608,16 @@
                                          current = key;
                                          if (current.split("0")[0].length > preve.split("0")[0].length) {
                                              //console.log('testing editable'+key)
-                                             $('#ref' + preve + ' td').each(function () {
+                                             $('.ref' + preve + ' td').each(function () {
                                                  $(this).removeClass('editable')
                                              })
                                              preve = current;
                                          }
                                          else {
                                              //   console.log('testing '+key)
-                                             if ($('#ref' + preve + ' td').hasClass("editable")) {
-                                                 $('#ref' + preve + ' #add_op').append(newbtn)
-                                                 $('#ref' + preve + ' #add_op').on('click', function () {
+                                             if ($('.ref' + preve + ' td').hasClass("editable")) {
+                                                 $('.ref' + preve + ' #add_op').append(newbtn)
+                                                 $('.ref' + preve + ' #add_op').on('click', function () {
                                                     var newKey=$(this).parent().attr('id');
                                                      var ads = newKey.split('ref')[1] + '1';
                                                      add_newOPs_T1(ads, 'testing new descr', 2500, newKey);
