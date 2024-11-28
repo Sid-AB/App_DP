@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class modification extends Controller
+class modificationController extends Controller
 {
     //fct update sous operation et insert dpia ac motif update
     public function updateSousOperation(Request $request)
@@ -14,21 +14,27 @@ class modification extends Controller
         $data = $request->all();
         // dd($data);
         // déterminer le type de données reçues est ce qu'ils sont T ou les valeurs qui sont dans tableau T[]
-        $type = array_key_first($data); //arrey_key_first permet de récupérer la clé principale du tableau (t1 t2 t3 t4...)
-        $valeurs = $data[$type]; //les valeurs [code_sous_op,ae et cp]
-
+        $Tport = $data['Tport']; //arrey_key_first permet de récupérer la clé principale du tableau (t1 t2 t3 t4...)
+        $resultats = $data['result']; //les valeurs [code_sous_op,ae et cp]
+        //dd($Tport);
+        //dd( $resultats );
         //validation
-        if (!in_array($type, ['T1', 'T2', 'T3', 'T4'])) {
+        if (!in_array($Tport, ['1', '2', '3', '4'])) {
             return response()->json(['erreur' => 'Type de T invalide reçu '], 400);
         }
 
         $validated = $request->validate([
-            "$type.code_sous_operation" => 'required|string|exists:sous_operations,code_sous_operation',
+            "code_sous_operation" => 'required|string|exists:sous_operations,code_sous_operation',
         ]);
 
         try {
-            // récupérer la ligne d'entré
-            $sousOperation = SousOperation::findOrFail($values['code_sous_operation']);
+
+            foreach ($resultats as $resultat) {
+                $code = $resultat['code']; // récupérer le code
+                $values = $resultat['value']; 
+    
+            // récupérer la ligne d'entrée
+            $sousOperation = SousOperation::findOrFail($code);
            dd($sousOperation);
            // modification d'aprés les t
             switch ($type) {
@@ -48,6 +54,7 @@ class modification extends Controller
                     $this->ModifT4($sousOperation, $values);
                     break;
             }
+        }
 
             return response()->json(['message' => 'Mise à jour réussie et ajout dans ConstruireDPIA'], 200);
         } catch (\Exception $e) {

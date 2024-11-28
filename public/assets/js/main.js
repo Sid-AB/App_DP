@@ -323,7 +323,7 @@
                                     if( i === 1)
                                         {
                                     $.ajax({
-                                        url:'',
+                                        url:'/update',
                                         type:'POST',
                                         data:{
                                             Tport:T,
