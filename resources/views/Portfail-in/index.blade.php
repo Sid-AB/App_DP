@@ -289,7 +289,7 @@
               @endforeach
               <li>
                   <span class="member">
-                  <button class="add-btn" id="{{$act['num_act'] }}-act">
+                  <button class="add-btn" id="{{$act['num_act'] }}_act">
                    <i class="fas fa-plus-circle icon-car" style='font-size:100px; color:#0dcaf0;'></i>
                   </button> 
                   </li>
@@ -298,7 +298,7 @@
                   @endforeach
                   <li>
                   <span class="member">
-                  <button class="add-btn" id="{{$souportf['id_sous_prog']}}-sprog">
+                  <button class="add-btn" id="{{$souportf['id_sous_prog']}}_sprog">
                    <i class="fas fa-plus-circle icon-car" style='font-size:100px; color:#0dcaf0;'></i>
                   </button> 
                   </li>
@@ -306,7 +306,7 @@
                 @endforeach
                 <li>
                 <span class="member">
-                <button class="add-btn" id=" {{$portf['id_prog']}}-prog">
+                <button class="add-btn" id=" {{$portf['id_prog']}}_prog">
                    <i class="fas fa-plus-circle icon-car" style='font-size:100px; color:#0dcaf0;'></i>
                 </button> 
                 </li>
@@ -315,7 +315,7 @@
             @endforeach
             <li>
                 <span class="member">
-                <button class="add-btn" id="{{$allport['id']}}-all">
+                <button class="add-btn" id="{{$allport['id']}}_all">
                    <i class="fas fa-plus-circle icon-car" style='font-size:100px; color:#0dcaf0;'></i>
                   </button> 
                 </li>

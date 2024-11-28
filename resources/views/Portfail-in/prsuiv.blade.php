@@ -306,11 +306,14 @@ Object.entries(paths).forEach(([code,value])=>{
                         </div>
                  @endif
                  </div>
-                 <script>var path3=Array()</script>
+                 <script>
+                 var path3=Array()
+                 </script>
 <script src="{{asset('assets/bootstrap-5.0.2/js/bootstrap.js')}}"></script>
 <script src="{{asset('assets/fontawesome-free/js/all.js')}}"></script>
 <script src="{{asset('assets/js/jquery-3.7.1.min.js')}}"></script>
-<script src="{{asset('assets/js/prousuiv.js')}}"></script>
+<script src="{{asset('assets/js/prousuiv.js')}}">
+</script>
  </body>
 
 </html>
