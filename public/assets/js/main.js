@@ -92,6 +92,12 @@
                           * this function for adding button et makalah -_- ;
                           */
 
+                        function only_year(years,id_date)
+                        {
+                           
+                        }
+
+
                          /**
                           *
                           * upload file function
