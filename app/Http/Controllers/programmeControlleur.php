@@ -75,7 +75,7 @@ class programmeControlleur extends Controller
             $programme->nom_prog = $request->nom_prog;
             $programme->AE_prog=floatval($request->ae_prog);
             $programme->CP_prog=floatval($request->cp_prog);
-            $programme->date_insert_portef = $request->date_insert_portef;
+            $programme->date_update_portef = $request->date_update_portef;
             $programme->save();
             //dd($programme);
             return response()->json([

@@ -32,7 +32,7 @@ class portfeuilleController extends Controller
     {
         //$path=$request->all();
 
-        $id=explode('-',$path);
+        $id=explode('_',$path);
         $num=$id[0];
         $cat=$id[1];
        // dd($id);

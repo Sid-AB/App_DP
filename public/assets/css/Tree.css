@@ -358,3 +358,7 @@ align-items: flex-end;
 {
   width: 2px; height: 100px; background-color: black; margin: 0 10px;
 }
+.Tenv-inpt-handle
+{
+  width: 150px;
+}

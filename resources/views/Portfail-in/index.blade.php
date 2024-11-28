@@ -184,7 +184,7 @@
                   @if($sous_act['num_act'] != $act['num_act'])
                   <span class="member" id="{{$act['num_act']}}">
                   @else
-                  <span class="member" id="act-{{$act['num_act']}}">
+                  <span class="member" id="act_{{$act['num_act']}}">
                   @endif
                   @endforeach
                   @endif
@@ -241,7 +241,7 @@
             @foreach($act['sous_action'] as $sous_act)
             @if($sous_act['num_act'] != $act['num_act'])
                   <li>
-                <span class="member" id="s_act-{{$sous_act['num_act']}}">
+                <span class="member" id="sact-{{$sous_act['num_act']}}">
                 <div class="col-12 col-sm-6">
             <div class="card widget-card border-light shadow-sm">
               <div class="card-body p-1">
@@ -289,7 +289,7 @@
               @endforeach
               <li>
                   <span class="member">
-                  <button class="add-btn" id="{{$act['num_act'] }}-act">
+                  <button class="add-btn" id="{{$act['num_act'] }}_act">
                    <i class="fas fa-plus-circle icon-car" style='font-size:100px; color:#0dcaf0;'></i>
                   </button> 
                   </li>
@@ -298,7 +298,7 @@
                   @endforeach
                   <li>
                   <span class="member">
-                  <button class="add-btn" id="{{$souportf['id_sous_prog']}}-sprog">
+                  <button class="add-btn" id="{{$souportf['id_sous_prog']}}_sprog">
                    <i class="fas fa-plus-circle icon-car" style='font-size:100px; color:#0dcaf0;'></i>
                   </button> 
                   </li>
@@ -306,7 +306,7 @@
                 @endforeach
                 <li>
                 <span class="member">
-                <button class="add-btn" id=" {{$portf['id_prog']}}-prog">
+                <button class="add-btn" id=" {{$portf['id_prog']}}_prog">
                    <i class="fas fa-plus-circle icon-car" style='font-size:100px; color:#0dcaf0;'></i>
                 </button> 
                 </li>
@@ -315,7 +315,7 @@
             @endforeach
             <li>
                 <span class="member">
-                <button class="add-btn" id="{{$allport['id']}}-all">
+                <button class="add-btn" id="{{$allport['id']}}_all">
                    <i class="fas fa-plus-circle icon-car" style='font-size:100px; color:#0dcaf0;'></i>
                   </button> 
                 </li>
@@ -344,12 +344,12 @@
     <div class="form-group">
           <label for="input1">Article</label>
           <select type="text" class="form-control" id="id" placeholder="Entrer le Nom du Programme">
-           <option id="0" >Selectionner Article</option>
-            <option id="1" >REF°39</option>
-            <option id="2" >REF°30</option>
-            <option id="3" >REF°27</option>
-            <option id="4" >REF°33-Transfer</option>
-            <option id="6" >REF°39-Verment</option>
+           <option value="0" >Selectionner Article</option>
+            <option value="1" >REF°39</option>
+            <option value="2" >REF°30</option>
+            <option value="3" >REF°27</option>
+            <option value="4" >REF°33-Transfer</option>
+            <option value="6" >REF°39-Verment</option>
           </select>
         </div>
         <hr>
@@ -432,15 +432,15 @@
 
         <div class="form-group">
         <label for="input1">Action a modifier</label>
-          <select type="text" class="form-control" id="id" placeholder="Entrer le Nom du Programme">
-           <option id="0" >Selectionner Article</option>
-            <option id="1" >Action 01</option>
-            <option id="2" >Action 01</option>
+          <select type="text" class="form-control" id="id_cible" placeholder="Entrer le Nom du Programme">
+           <option value="0" >Selectionner Article</option>
+            <option value="1" >Action 01</option>
+            <option value="2" >Action 01</option>
           </select>
         </div>
       </div>
     </form>
-    <button class="button-70" role="button">modifier</button></div>
+    <button class="button-70" id="button-71" role="button">modifier</button></div>
   </div>
  </div>
 
@@ -504,19 +504,19 @@ listItemsWithNestedUl.each(function(){
       path.push(id);
       path3.push(id);
     }
-    var typeact=id.split('-')
+    var typeact=id.split('_',2)
     console.log('-<<'+JSON.stringify(path)+"-->>"+JSON.stringify(typeact))
     if(typeact[0] =='act')
     {
       $(this).on('click',function(){
-  window.location.href='/testing/Action/'+path[0]+'/'+path[1]+'/'+path[2]+'/'+typeact[1]+'/'
+  window.location.href='/testing/Action/'+path3[0]+'/'+path3[1]+'/'+path3[2]+'/'+path3[3]+'/'
       })
     
     }
-    if(typeact[0] == 's_act')
+    if(typeact[0] == 'sact')
     {
     $(this).on('click',function(){
-     window.location.href='/testing/S_action/'+path[0]+'/'+path[1]+'/'+path[2]+'/'+path[3]+'/'+typeact[1]+'/'
+     window.location.href='/testing/S_action/'+path3[0]+'/'+path3[1]+'/'+path3[2]+'/'+path3[3]+'/'+typeact[1]+'/'
       })
    
     }
