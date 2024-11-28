@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SousProgramme;
 use Illuminate\Http\Request;
+use App\Models\SousProgramme;
+use App\Models\initPort;
+use App\Http\Controllers\Controller;
 
 class sousProgrammeController extends Controller
 {
@@ -62,42 +64,78 @@ public function check_sous_prog(Request $request)
             'num_sous_prog' => 'required',
             'nom_sous_prog' => 'required',
             'date_insert_sousProg' => 'required|date',
-        ]);
-        //dd($request->num_sous_prog);
- //si le portefeuiille existe donc le modifier
- $SousProgramme = SousProgramme::where('num_sous_prog', $request->num_sous_prog)->first();
- if ($SousProgramme) {
-    $SousProgramme->nom_sous_prog = $request->nom_sous_prog;
-        $SousProgramme->AE_sous_prog=floatval($request->AE_sous_prog);
-        $SousProgramme->CP_sous_prog=floatval($request->CP_sous_prog);
-        $SousProgramme->date_insert_sousProg = $request->date_insert_sousProg;
-        $SousProgramme->save();
-        return response()->json([
-            'success' => true,
-            'message' => 'Sous programme ajouté avec succès.',
-            'code' => 404,
-        ]);
-}
-else{
-        $SousProgramme = new SousProgramme();
-        $SousProgramme->num_sous_prog = $request->num_sous_prog;
-        $SousProgramme->num_prog = $request->id_program;
-        $SousProgramme->nom_sous_prog = $request->nom_sous_prog;
-        $SousProgramme->AE_sous_prog=floatval($request->AE_sous_prog);
-        $SousProgramme->CP_sous_prog=floatval($request->CP_sous_prog);
-        $SousProgramme->date_insert_sousProg = $request->date_insert_sousProg;
-        $SousProgramme->save();
 
+            'T1_AE_sous_prog' => 'required',
+            'T1_CP_sous_prog' => 'required',
 
-}
-      //  dd($SousProgramme);
+            'T2_AE_sous_prog' => 'required',
+            'T2_CP_sous_prog' => 'required',
+
+            'T3_AE_sous_prog' => 'required',
+            'T3_CP_sous_prog' => 'required',
+
+            'T4_AE_sous_prog' => 'required',
+            'T4_CP_sous_prog' => 'required',
+        ]);
+        //si le portefeuiille existe donc le modifier
+        $SousProgramme = SousProgramme::where('num_sous_prog', $request->num_sous_prog)->first();
         if ($SousProgramme) {
+            $SousProgramme->nom_sous_prog = $request->nom_sous_prog;
+            $SousProgramme->AE_sous_prog=floatval($request->AE_sous_prog);
+            $SousProgramme->CP_sous_prog=floatval($request->CP_sous_prog);
+            $SousProgramme->date_insert_sousProg = $request->date_insert_sousProg;
+            $SousProgramme->save();
+            return response()->json([
+                'success' => true,
+                'message' => 'Sous programme ajouté avec succès.',
+                'code' => 404,
+            ]);
+        }
+        else{
+            $SousProgramme = new SousProgramme();
+            $SousProgramme->num_sous_prog = $request->num_sous_prog;
+            $SousProgramme->num_prog = $request->id_program;
+            $SousProgramme->nom_sous_prog = $request->nom_sous_prog;
+            $SousProgramme->AE_sous_prog=floatval($request->AE_sous_prog);
+            $SousProgramme->CP_sous_prog=floatval($request->CP_sous_prog);
+            $SousProgramme->date_insert_sousProg = $request->date_insert_sousProg;
+            $SousProgramme->save();
+
+
+            //insertion des T
+            $initPort = new initPort();
+            $initPort->AE_init_t1 = floatval($request->T1_AE_sous_prog);
+            $initPort->CP_init_t1 = floatval($request->T1_CP_sous_prog);
+
+            $initPort->AE_init_t2 = floatval($request->T2_AE_sous_prog);
+            $initPort->CP_init_t2 = floatval($request->T2_CP_sous_prog);
+
+            $initPort->AE_init_t3 = floatval($request->T3_AE_sous_prog);
+            $initPort->CP_init_t3 = floatval($request->T3_CP_sous_prog);
+
+            $initPort->AE_init_t4 = floatval($request->T4_AE_sous_prog);
+            $initPort->CP_init_t4 = floatval($request->T4_CP_sous_prog);
+
+            $initPort->code_t1 = $request->code_t1;
+            $initPort->code_t2 = $request->code_t2;
+            $initPort->code_t3 = $request->code_t3;
+            $initPort->code_t4 = $request->code_t4;
+            $initPort->date_init = $request->date_insert_sousProg;
+            $initPort->num_sous_prog = $request->num_sous_prog;
+
+
+            $initPort->save();
+
+        }
+        dd($request);
+        //  dd($SousProgramme);
+        if ($SousProgramme && $initPort) {
             return response()->json([
                 'success' => true,
                 'message' => 'Sous programme ajouté avec succès.',
                 'code' => 200,
             ]);
-     //dd($SousProgramme);
+            //dd($SousProgramme);
 
         } else {
             return response()->json([
@@ -108,5 +146,5 @@ else{
         }
 
 
-}
+    }
 }

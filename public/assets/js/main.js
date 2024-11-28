@@ -235,13 +235,13 @@
                           */
 
                          /**
-                          * 
+                          *
                           * star of update function
-                          * 
+                          *
                           */
                          function Update_dpia(T)
                          {
-                          
+
                             $(document).ready(function(){
                                 $('.editable').dblclick(function(){
                                     var i=0
@@ -259,7 +259,7 @@
                                      let input = $('<input type="number" step="0.01" class="form-control"/>').val(currentText);
                                      cell.html(input);  // Replace the cell content with the input
 
-                                     input.focus(); 
+                                     input.focus();
                                      input.blur(function()
                                     {
                                         let newText = $(this).val();
@@ -273,18 +273,18 @@
                                                if( clickid == 'AE_T1')
                                                {
                                                 element.value.ae=newText;
-                                              
+
                                                }
                                                if(clickid == 'CP_T1')
                                                {
                                                 element.value.cp=newText;
-                                                
+
                                                }
                                                 exist=true;
                                              }
                                            }
                                         }
-                                        
+
                                         if (newText != 0 && newText != '' && newText != null) {
                                             mount_chang = true
 
@@ -316,7 +316,7 @@
                                             cell.empty();
                                             cell.text(old)
                                         }
-                                    })  
+                                    })
                                     $("#changin").on('click',function()
                                 {
                                     i++
@@ -334,7 +334,7 @@
                                             {
 
                                             }
-                                       
+
                                     })
                                         }
                                     //dataupdate=[];
@@ -344,8 +344,8 @@
                             i=0;
                          }
                          /**
-                          * 
-                          * The end of update function  
+                          *
+                          * The end of update function
                           */
                          function Edit(tid, T) {
                              $(document).ready(function () {
@@ -1106,6 +1106,18 @@
                                              var nom_sou_prog = $('#nom_sous_prog').val();
                                              var dat_sou_prog = $('#date_insert_sousProg').val()
                                              var AE_sous_prog = $('#AE_sous_prog').val()
+                                             var T1_AE_sous_prog = $('#T1_AE_sous_prog').val()
+                                             var T1_CP_sous_prog = $('#T1_CP_sous_prog').val()
+
+                                             var T2_AE_sous_prog = $('#T2_AE_sous_prog').val()
+                                             var T2_CP_sous_prog = $('#T2_CP_sous_prog').val()
+
+                                             var T3_AE_sous_prog = $('#T3_AE_sous_prog').val()
+                                             var T3_CP_sous_prog = $('#T3_CP_sous_prog').val()
+
+                                             var T4_AE_sous_prog = $('#T4_AE_sous_prog').val()
+                                             var T4_CP_sous_prog = $('#T4_CP_sous_prog').val()
+
                                              var CP_sous_prog = $('#CP_sous_prog').val()
                                              var id_prog = path[1];
                                              var numsouprog_year = id_prog +'-'+sou_prog ;
@@ -1158,6 +1170,23 @@
                                                  CP_sous_prog: CP_sous_prog,
                                                  date_insert_sousProg: dat_sou_prog,
                                                  id_program: id_prog,
+
+                                                 T1_AE_sous_prog: T1_AE_sous_prog,
+                                                 T1_CP_sous_prog: T1_CP_sous_prog,
+                                                 code_t1: 10000,
+
+                                                 T2_AE_sous_prog: T2_AE_sous_prog,
+                                                 T2_CP_sous_prog: T2_CP_sous_prog,
+                                                 code_t2:20000,
+
+                                                 T3_AE_sous_prog: T3_AE_sous_prog,
+                                                 T3_CP_sous_prog: T3_CP_sous_prog,
+                                                 code_t3:30000,
+
+                                                 T4_AE_sous_prog: T4_AE_sous_prog,
+                                                 T4_CP_sous_prog: T4_CP_sous_prog,
+                                                 code_t4:40000,
+
                                                  //id_porte: id_port,
                                                  _token: $('meta[name="csrf-token"]').attr('content'),
                                                  _method: 'POST'
@@ -1598,7 +1627,7 @@
                                  });
                                  if(code === 200)
                                  {Update_dpia(T);
-                                 console.log('testing new update function')}  
+                                 console.log('testing new update function')}
                              }).fail(function () {
                                  console.error('Error loading JSON file.');
                              });
@@ -2296,7 +2325,7 @@
                           *  this js for creation from the index
                           */
 
-                        
+
 
 
                          /**
