@@ -85,6 +85,7 @@
                          var click = 0;
                          var changing_mist = new Object();
                          var value_chng = new Array()
+                         var  dataupdate=new Array();
 
                          /**
                           *
@@ -231,6 +232,120 @@
                           *
                           * the end
                           *
+                          */
+
+                         /**
+                          * 
+                          * star of update function
+                          * 
+                          */
+                         function Update_dpia(T)
+                         {
+                          
+                            $(document).ready(function(){
+                                $('.editable').dblclick(function(){
+                                    var i=0
+                                    var ae=0;
+                                    var cp=0;
+                                    var clickid = $(this).attr('id');
+                                    console.log('testing the id'+clickid);
+                                     var clickedRow = $(this).closest('tr');
+                                     var code = clickedRow.find('td:first-child');
+                                     let cell = $(this);  // Reference to the clicked cell
+                                     var currentText = cell.text();
+                                     var exist=false;  // Get current text
+                                     console.log('odl ' + code.text())
+                                     // Create an input element and set its value
+                                     let input = $('<input type="number" step="0.01" class="form-control"/>').val(currentText);
+                                     cell.html(input);  // Replace the cell content with the input
+
+                                     input.focus(); 
+                                     input.blur(function()
+                                    {
+                                        let newText = $(this).val();
+                                        if(dataupdate.length > 0)
+                                        {
+                                           for (let index = 0; index < dataupdate.length; index++) {
+                                            const element = dataupdate[index];
+                                             if(element.code === code.text())
+                                             {
+                                                console.log('code exisit'+JSON.stringify(element))
+                                               if( clickid == 'AE_T1')
+                                               {
+                                                element.value.ae=newText;
+                                              
+                                               }
+                                               if(clickid == 'CP_T1')
+                                               {
+                                                element.value.cp=newText;
+                                                
+                                               }
+                                                exist=true;
+                                             }
+                                           }
+                                        }
+                                        
+                                        if (newText != 0 && newText != '' && newText != null) {
+                                            mount_chang = true
+
+                                            if (mount_chang == true) {
+                                                console.log('tesing ' + newText)
+                                                click++;
+                                                if (click == 1) {
+                                                    var buttons = '<button class="btn btn-primary" id="changin"> appliquer</button>'
+                                                }
+                                                $('.change_app').append(buttons)
+                                            }
+                                            //  console.log('all table'+JSON.stringify(value_chng))
+                                            cell.text(newText);
+                                            if(!exist){
+                                                if(clickid == 'AE_T1')
+                                                {
+                                                    ae=newText
+                                                    cp=0
+                                                }
+                                                else
+                                                {
+                                                    ae=0
+                                                    cp=newText
+                                                }
+                                            dataupdate.push({code:code.text(),value:{ae:ae,cp:cp}});
+                                            console.log('i insert '+JSON.stringify(dataupdate))}
+                                        }
+                                        else {
+                                            cell.empty();
+                                            cell.text(old)
+                                        }
+                                    })  
+                                    $("#changin").on('click',function()
+                                {
+                                    i++
+                                    if( i === 1)
+                                        {
+                                    $.ajax({
+                                        url:'',
+                                        type:'POST',
+                                        data:{
+                                            Tport:T,
+                                            result:dataupdate,
+                                            _token: $('meta[name="csrf-token"]').attr("content"),
+                                            _method: "POST",},
+                                            success:function(response)
+                                            {
+
+                                            }
+                                       
+                                    })
+                                        }
+                                    //dataupdate=[];
+                                })
+                                })
+                            })
+                            i=0;
+                         }
+                         /**
+                          * 
+                          * The end of update function  
                           */
                          function Edit(tid, T) {
                              $(document).ready(function () {
@@ -1431,7 +1546,12 @@
                                      // Append the row to the table body
 
                                      $('#T-tables tbody').append(row);
-                                     Edit(id, T)
+                                     if(code !== 200)
+                                     {
+                                        console.log('testing')
+                                        Edit(id, T)
+                                       ;
+                                     }
                                      i++
                                      console.log('the lengh' + lengT + 'and the pas' + i)
                                      if (i == lengT) {
@@ -1476,6 +1596,9 @@
 
 
                                  });
+                                 if(code === 200)
+                                 {Update_dpia(T);
+                                 console.log('testing new update function')}  
                              }).fail(function () {
                                  console.error('Error loading JSON file.');
                              });
