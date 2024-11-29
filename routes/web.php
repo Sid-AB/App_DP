@@ -38,7 +38,7 @@ Route::controller(portfeuilleController::class)->group(function(){
 
 //===============ROUTE PROGRAMME==============================
 Route::controller( programmeControlleur::class)->group(function(){
-    Route::get('/Programme','affich_prog')->name('home.programme');
+    Route::get('/Programme/{num_portefeuil}','affich_prog')->name('home.programme');
     Route::post('/creationProg','creat_prog')->name('creation.programme');
     Route::get('/check-prog','check_prog')->name('check.prog');
 
@@ -47,7 +47,7 @@ Route::controller( programmeControlleur::class)->group(function(){
 
 //===============ROUTE SOUS PROGRAMME==============================
 Route::controller(sousProgrammeController::class)->group(function(){
-    Route::get('/SousProgramme','affich_sou_prog')->name('home.sousProgramme');
+    Route::get('/SousProgramme/{num_prog}','affich_sou_prog')->name('home.sousProgramme');
     Route::post('/creationSousProg','create_sou_prog')->name('creation.souProgramme');
     Route::get('/check-sousprog','check_sous_prog')->name('check.sousprog');
 

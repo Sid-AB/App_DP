@@ -32,7 +32,7 @@
     </div>
 @endif
  <div class="container">
- <div class="container family-tree">
+ <div class="container family-tree" id="{{$allport['id']}}">
     <div class="row justify-content-center">
       <div class="col-12 tree">
         <ul id="father0">
@@ -345,11 +345,9 @@
           <label for="input1">Article</label>
           <select type="text" class="form-control" id="id" placeholder="Entrer le Nom du Programme">
            <option value="0" >Selectionner Article</option>
-            <option value="1" >REF°39</option>
-            <option value="2" >REF°30</option>
-            <option value="3" >REF°27</option>
-            <option value="4" >REF°33-Transfer</option>
-            <option value="6" >REF°39-Verment</option>
+           @foreach ($art as $key=>$actelement )
+           <option value="{{$actelement['id_art']}}" >{{$actelement['nom_art'].' / '.$actelement['code_art']}}</option>
+           @endforeach
           </select>
         </div>
         <hr>

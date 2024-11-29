@@ -210,9 +210,9 @@
                                  '<td class="editable" id="AE_rpor">' + value + '</td>' +
                                  '<td class="editable" id="AE_not">' + 180 + ',000</td>' +
                                  '<td class="editable" id="AE_enga">' + value + '</td>' +
-                                 '<td class="editable" id="AE_rpor">' + 180 + ',000</td>' +
-                                 '<td class="editable" id="AE_not">' + value + '</td>' +
-                                 '<td class="editable" id="AE_enga">' + 180 + ',000</td>' +
+                                 '<td class="editable" id="CP_rpor">' + 180 + ',000</td>' +
+                                 '<td class="editable" id="CP_not">' + value + '</td>' +
+                                 '<td class="editable" id="CP_consom">' + 180 + ',000</td>' +
                                  '</tr>';
                              $('#' + key).after(row);
                              $('#' + key + ' td').each(function () {
@@ -360,7 +360,7 @@
                                                 {
                                                 element.value.cp_notifie=cp_notifie
                                                 }
-                                                if(clickid == 'CP_cons')
+                                                if(clickid == 'CP_consom')
                                                 {
                                                 element.value.cp_consome=cp_consome
                                                 }
@@ -1976,9 +1976,9 @@
                                          '<td class="editable" id="AE_rpor">' + 0 + '</td>' +
                                          '<td class="editable" id="AE_not">' + 0 + '</td>' +
                                          '<td class="editable" id="AE_enga">' + 0 + '</td>' +
-                                         '<td class="editable" id="AE_rpor">' + 0 + '</td>' +
-                                         '<td class="editable" id="AE_not">' + 0 + '</td>' +
-                                         '<td class="editable" id="AE_enga">' + 0 + '</td>' +
+                                         '<td class="editable" id="CP_rpor">' + 0 + '</td>' +
+                                         '<td class="editable" id="CP_not">' + 0 + '</td>' +
+                                         '<td class="editable" id="CP_consom">' + 0 + '</td>' +
                                          '</tr>';
                                      if(Object.keys(data_T_port).length > 0){
                                         
@@ -1993,9 +1993,9 @@
                                                  '<td class="editable" id="AE_rpor">' + data_T_port.group[ig].values.ae_reportegrpop + '</td>' +
                                                  '<td class="editable" id="AE_not">' + data_T_port.group[ig].values.ae_notifiegrpop + ',000</td>' +
                                                  '<td class="editable" id="AE_enga">' + data_T_port.group[ig].values.ae_engagegrpop + '</td>' +
-                                                 '<td class="editable" id="AE_rpor">' + data_T_port.group[ig].values.cp_reportegrpop + ',000</td>' +
-                                                 '<td class="editable" id="AE_not">' + data_T_port.group[ig].values.cp_notifiegrpop + '</td>' +
-                                                 '<td class="editable" id="AE_enga">' + data_T_port.group[ig].values.cp_consomegrpop + ',000</td>' +
+                                                 '<td class="editable" id="CP_rpor">' + data_T_port.group[ig].values.cp_reportegrpop + ',000</td>' +
+                                                 '<td class="editable" id="CP_not">' + data_T_port.group[ig].values.cp_notifiegrpop + '</td>' +
+                                                 '<td class="editable" id="CP_consom">' + data_T_port.group[ig].values.cp_consomegrpop + ',000</td>' +
                                                  '</tr>';
                                              ig++;
                                          }
@@ -2010,9 +2010,9 @@
                                                  '<td class="editable" id="AE_rpor">' + data_T_port.operation[io].values.ae_reporteop + '</td>' +
                                                  '<td class="editable" id="AE_not">' + data_T_port.operation[io].values.ae_notifieop + ',000</td>' +
                                                  '<td class="editable" id="AE_enga">' + data_T_port.operation[io].values.ae_engageop + '</td>' +
-                                                 '<td class="editable" id="AE_rpor">' + data_T_port.operation[io].values.cp_reporteop + ',000</td>' +
-                                                 '<td class="editable" id="AE_not">' + data_T_port.operation[io].values.cp_notifieop + '</td>' +
-                                                 '<td class="editable" id="AE_enga">' + data_T_port.operation[io].values.cp_consomeop + ',000</td>' +
+                                                 '<td class="editable" id="CP_rpor">' + data_T_port.operation[io].values.cp_reporteop + ',000</td>' +
+                                                 '<td class="editable" id="CP_not">' + data_T_port.operation[io].values.cp_notifieop + '</td>' +
+                                                 '<td class="editable" id="CP_consom">' + data_T_port.operation[io].values.cp_consomeop + ',000</td>' +
                                                  '</tr>';
                                              io++;
                                          }
@@ -2027,9 +2027,9 @@
                                                  '<td class="editable" id="AE_rpor">' + data_T_port.sousOperation[iso].values.ae_reportesousop + '</td>' +
                                                  '<td class="editable" id="AE_not">' + data_T_port.sousOperation[iso].values.ae_notifiesousop + ',000</td>' +
                                                  '<td class="editable" id="AE_enga">' + data_T_port.sousOperation[iso].values.ae_engagesousop + '</td>' +
-                                                 '<td class="editable" id="AE_rpor">' + data_T_port.sousOperation[iso].values.cp_reportesousuop + ',000</td>' +
-                                                 '<td class="editable" id="AE_not">' + data_T_port.sousOperation[iso].values.cp_notifiesousop + '</td>' +
-                                                 '<td class="editable" id="AE_enga">' + data_T_port.sousOperation[iso].values.cp_consomesousop + ',000</td>' +
+                                                 '<td class="editable" id="CP_rpor">' + data_T_port.sousOperation[iso].values.cp_reportesousuop + ',000</td>' +
+                                                 '<td class="editable" id="CP_not">' + data_T_port.sousOperation[iso].values.cp_notifiesousop + '</td>' +
+                                                 '<td class="editable" id="CP_consom">' + data_T_port.sousOperation[iso].values.cp_consomesousop + ',000</td>' +
                                                  '</tr>';
                                              iso++;
                                          }
@@ -2206,13 +2206,13 @@
                                      else {
 
                                          if (key.split("0")[0].length <= 2) {
-                                             $('#ref' + key + ' td').each(function () {
+                                             $('.ref' + key + ' td').each(function () {
                                                  $(this).removeClass('editable')
                                              })
                                          }
                                          if (current.split("0")[0].length > preve.split("0")[0].length) {
                                              console.log('testing ' + preve)
-                                             $('#ref' + preve + ' td').each(function () {
+                                             $('.ref' + preve + ' td').each(function () {
                                                  $(this).removeClass('editable')
                                              })
                                              preve = current;
@@ -2220,9 +2220,9 @@
                                          }
                                          else {
                                              //console.log('testing editable'+preve)
-                                             if ($('#ref' + key + ' td').hasClass("editable")) {
-                                                 $('#ref' + key + ' #add_op').append(newbtn)
-                                                 $('#ref' + key + ' #add_op').on('click', function () {
+                                             if ($('.ref' + key + ' td').hasClass("editable")) {
+                                                 $('.ref' + key + ' #add_op').append(newbtn)
+                                                 $('.ref' + key + ' #add_op').on('click', function () {
                                                     var newKey=$(this).parent().attr('id');
                                                     var ads = newKey.split('ref')[1] + '1';
                                                      add_newOPs_T4(ads, 'testing new descr', 2500, newKey);

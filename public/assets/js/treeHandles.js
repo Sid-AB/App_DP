@@ -15,8 +15,11 @@ $(document).ready(function(){
   let selectTret ='T0';
   let  selectedHobby='t'
   let selectedret ='0';
+  var progs={};
+  var sousProgs={};
     $('.update-handl').on('click',function(){
       var id=$(this).parent().parent().attr('id');
+      var port=$('.family-tree').attr('id');
       console.log('file loading  '+id)
       $.ajax({
         url:'/check-prog',
@@ -29,6 +32,51 @@ $(document).ready(function(){
            if(response.exists)
            {
             $('#id_sprog_modif').text(response.nom_prog);
+            $.ajax({
+              url:'/Programme/'+port,
+              type:'GET',
+              success:function(response)
+              {
+                if(response.success)
+                {
+                  progs=response.result
+                  response.result.forEach(element => {
+                    $('#id_cible').append("<option value="+element.num_prog+">"+element.nom_prog+"</option>")
+                  });
+                
+                }
+              }
+            })
+           }
+           else
+           {
+            $.ajax({
+              url:'/check-sousprog',
+              Type:'GET',
+              data:{
+                num_sous_prog:id,},
+              success:function(response) {
+                if(response.exists)
+                {
+                $('#id_sprog_modif').text(response.nom_sous_prog);
+                $.ajax({
+                  url:'/SousProgramme/'+id,
+                  type:'GET',
+                  success:function(response)
+                  {
+                    if(response.success)
+                    {
+                      sousProgs= response.result;
+                      response.result.forEach(element => {
+                        $('#id_cible').append("<option value="+element.num_sous_prog+">"+element.nom_sous_prog+"</option>")
+                      });
+                    
+                    }
+                  }
+                })
+                }
+              }         
+            })
            }
         }
       })
@@ -124,11 +172,26 @@ $(document).ready(function(){
     ' <label for="input1">Action a Reterie montant</label>'+
     '<select class="form-control" id="id-retire" >'+
     '<option value="0" >Selectionner Article</option>'+
-    '<option value="1" >Action 01</option>'+
-    '<option value="2" >Action 01</option>'+
     '</select>'+
     '</div><div class="section-env"></div>';
     $('.add-envoi').append(chose);
+    if(Object.keys(progs).length !=0)
+    {
+      
+     progs.forEach(element=>{
+      $('#id-retire').append("<option value="+element.num_prog+">"+element.nom_prog+"</option>")
+     }) 
+    }
+    else
+    {
+      if(Object.keys(sousProgs).length !=0)
+      {
+        sousProgs.forEach(element=>{
+          $('#id-retire').append("<option value="+element.num_sous_prog+">"+element.nom_sous_prog+"</option>")
+         }) 
+      }
+    }
+    $('#id-retire')
     var choseT ='<div class="form-group">'+
     ' <label for="input1">Tport Reterie montant</label>'+
     '<select class="form-control" id="id-T-retire">'+
