@@ -9,7 +9,7 @@ class initPort extends Model
     use HasFactory;
     protected $table = 'init_ports';
     protected $primaryKey = 'id_init';
-    public $incrementing = false;
+    public $incrementing = true;
     protected $keyType = 'integer';
     public $timestamps = false;
 

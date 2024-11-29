@@ -12,10 +12,10 @@ use App\Http\Controllers\programmeControlleur;
 use App\Http\Controllers\sousProgrammeController;
 use App\Http\Controllers\initPortController;
 use App\Http\Controllers\actionController;
-use App\Http\Controllers\SousActionController;
+use App\Http\Controllers\sousActionController;
 use App\Http\Controllers\groupOperationController;
 use App\Http\Controllers\opeartionController;
-use App\Http\Controllers\SousOperationController;
+use App\Http\Controllers\sousOperationController;
 use App\Http\Controllers\modificationController;
 
 Route::get('/', function () {
@@ -101,6 +101,8 @@ Route::controller(sousOperationController::class)->group(function(){
 //===============ROUTE modification==============================
 Route::controller(modificationController::class)->group(function(){
     Route::post('/update','updateSousOperation');
+    Route::post('/updateModif','insertModif');
+
 
 });
 

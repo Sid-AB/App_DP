@@ -20,6 +20,12 @@ return new class extends Migration
             $table->Text('description_art_ar')->nullable();
             $table->string('code_art'); //reference
 
+            $table->string('num_sous_prog')->nullable();
+            $table->foreign('num_sous_prog')->references('num_sous_prog')->on('sous_programmes');
+
+            $table->string('num_prog')->nullable();
+            $table->foreign('num_prog')->references('num_prog')->on('programmes');
+
         });
 
         DB::table('articles')->insert([

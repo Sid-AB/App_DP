@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\SousOperation;
 use App\Models\Portefeuille;
+use App\Models\ModificationT;
 use App\Models\ConstruireDPIA;
+use Illuminate\Support\Facades\DB;
+
 class modificationController extends Controller
 {
     //fct update sous operation et insert dpia ac motif update
@@ -237,4 +240,127 @@ class modificationController extends Controller
                 
         ]);
     }
+
+    //insérer dans la table moddif
+    public function insertModif(Request $request)
+    {
+        //récupéreer lees données 
+        $modifications = $request->all();
+
+        foreach ($modifications as $modif) {
+            // valider les données reçues
+            $validated = validator($modif, [
+            'ref' => 'required|integer',
+            'AE_T1' => 'required|numeric',//rçoit
+            'CP_T1' => 'required|numeric',
+            'AE_T2' => 'required|numeric',
+            'CP_T2' => 'required|numeric',
+            'AE_T3' => 'required|numeric',
+            'CP_T3' => 'required|numeric',
+            'AE_T4' => 'required|numeric',
+            'CP_T4' => 'required|numeric',
+            'T_port_env' => 'required|string',
+            'AE_env_T' => 'required|numeric',
+            'CP_env_T' => 'required|numeric',
+            'Sous_prog_env' => 'required|string',
+            'type' => 'required|string',
+            'cible' => 'required|string',
+            'status' => 'required|boolean',
+            ])->validate();
+
+            //initialiser lees var 
+            $AE_env_T1 = 0;
+            $CP_env_T1 = 0;
+
+            $AE_env_T2 = 0;
+            $CP_env_T2 = 0;
+
+            $AE_env_T3 = 0;
+            $CP_env_T3 = 0;
+
+            $AE_env_T4 = 0;
+            $CP_env_T4 = 0;
+
+            $codeT1 = $codeT2 = $codeT3 = $codeT4 = null;
+        // remplir les colonnes d'envoi en fonction de T_port_env
+        switch ($validated['T_port_env']) {
+            case 'T1':
+                $AE_env_T1 = $validated['AE_env_T'];
+                $CP_env_T1 = $validated['CP_env_T'];
+                $codeT1 =T1::value('code_t1');
+
+                break;
+            case 'T2':
+                $AE_env_T2 = $validated['AE_env_T'];
+                $CP_env_T2 = $validated['CP_env_T'];
+                $codeT2 =T2::value('code_t2');
+              
+                break;
+            case 'T3':
+                $AE_env_T3 = $validated['AE_env_T'];
+                $CP_env_T3 = $validated['CP_env_T'];
+                $codeT3 = T3::value('code_t3');
+               
+                break;
+            case 'T4':
+                $AE_env_T4 = $validated['AE_env_T'];
+                $CP_env_T4 = $validated['CP_env_T'];
+                $codeT4 = T4::value('code_t4');
+               
+                break;
+        }
+
+        if ($validated['AE_T1'] != 0 || $validated['CP_T1'] != 0) {
+            $codeT1 = T1::value('code_t1');
+        }
+        if ($validated['AE_T2'] != 0 || $validated['CP_T2'] != 0) {
+            $codeT2 = T2::value('code_t2');
+        }
+        if ($validated['AE_T3'] != 0 || $validated['CP_T3'] != 0) {
+            $codeT3 = T3::value('code_t3');
+        }
+        if ($validated['AE_T4'] != 0 || $validated['CP_T4'] != 0) {
+            $codeT4 = T4::value('code_t4');
+        }
+
+        // insérer les données dans la table modif
+        ModificationT::insert([
+            'date_modif' => now(),
+
+            'AE_envoi_t1' => $AE_env_T1,
+            'CP_envoi_t1' => $CP_env_T1,
+            'AE_envoi_t2' => $AE_env_T2,
+            'CP_envoi_t2' =>$CP_env_T2 ,
+            'AE_envoi_t3' => $AE_env_T3,
+            'CP_envoi_t3' =>$CP_env_T3 ,
+            'AE_envoi_t4' => $AE_env_T4,
+            'CP_envoi_t4' =>  $CP_env_T4,
+
+           
+            'AE_recoit_t1' => $validated['AE_T1'] ,
+            'CP_recoit_t1' => $validated['CP_T1'],
+            'AE_recoit_t2' => $validated['AE_T2'],
+            'CP_recoit_t2' => $validated['CP_T2'],
+            'AE_recoit_t3' => $validated['AE_T3'],
+            'CP_recoit_t3' => $validated['CP_T3'],
+            'AE_recoit_t4' =>$validated['AE_T4'] ,
+            'CP_recoit_t4' =>$validated['CP_T4'],
+
+            'situation_modif' => $validated['status'],
+            'type_modif' => $validated['type'],
+            'id_art' => $validated['ref'], 
+            
+            'code_t1' => $codeT1,
+            'code_t2' => $codeT2,
+            'code_t3' => $codeT3,
+            'code_t4' => $codeT4,
+
+          
+           
+        ]);
+    }
+
+    return response()->json(['message' => 'Modifications insérées avec succès'], 200);
+}
+       
 }
