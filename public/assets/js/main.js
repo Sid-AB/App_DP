@@ -1174,21 +1174,21 @@
                                                  date_insert_sousProg: dat_sou_prog,
                                                  id_program: id_prog,
 
-                                                 T1_AE_sous_prog: T1_AE_sous_prog,
-                                                 T1_CP_sous_prog: T1_CP_sous_prog,
+                                                 T1_AE_init: T1_AE_sous_prog,
+                                                 T1_CP_init: T1_CP_sous_prog,
                                                  code_t1: 10000,
 
-                                                 T2_AE_sous_prog: T2_AE_sous_prog,
-                                                 T2_CP_sous_prog: T2_CP_sous_prog,
-                                                 code_t2:20000,
+                                                 T2_AE_init: T2_AE_sous_prog,
+                                                 T2_CP_init: T2_CP_sous_prog,
+                                                 code_t2: 20000,
 
-                                                 T3_AE_sous_prog: T3_AE_sous_prog,
-                                                 T3_CP_sous_prog: T3_CP_sous_prog,
-                                                 code_t3:30000,
+                                                 T3_AE_init: T3_AE_sous_prog,
+                                                 T3_CP_init: T3_CP_sous_prog,
+                                                 code_t3: 30000,
 
-                                                 T4_AE_sous_prog: T4_AE_sous_prog,
-                                                 T4_CP_sous_prog: T4_CP_sous_prog,
-                                                 code_t4:40000,
+                                                 T4_AE_init: T4_AE_sous_prog,
+                                                 T4_CP_init: T4_CP_sous_prog,
+                                                 code_t4: 40000,
 
                                                  //id_porte: id_port,
                                                  _token: $('meta[name="csrf-token"]').attr('content'),

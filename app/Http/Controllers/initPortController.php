@@ -15,43 +15,42 @@ function create_sou_prog(Request $request)
 {
     // Validation des données
     $request->validate([
-        'T1_AE_sous_prog' => 'required',
-        'T1_CP_sous_prog' => 'required',
+        'T1_AE_init' => 'required',
+        'T1_CP_init' => 'required',
 
-        'T2_AE_sous_prog' => 'required',
-        'T2_CP_sous_prog' => 'required',
+        'T2_AE_init' => 'required',
+        'T2_CP_init' => 'required',
 
-        'T3_AE_sous_prog' => 'required',
-        'T3_CP_sous_prog' => 'required',
+        'T3_AE_init' => 'required',
+        'T3_CP_init' => 'required',
 
-        'T4_AE_sous_prog' => 'required',
-        'T4_CP_sous_prog' => 'required',
+        'T4_AE_init' => 'required',
+        'T4_CP_init' => 'required',
 
     ]);
-    //dd(floatval(floatval($request->T1_AE_sous_prog)));
+    //dd(floatval(floatval($request->T1_AE_init)));
 
-    $initPort = new initPort();
-    $initPort->AE_init_t1 = floatval($request->T1_AE_sous_prog);
-    $initPort->CP_init_t1 = floatval($request->T1_CP_sous_prog);
+    $codes = [
+        't1' => 10000,
+        't2' => 20000,
+        't3' => 30000,
+        't4' => 40000,
+    ];
 
-    $initPort->AE_init_t2 = floatval($request->T2_AE_sous_prog);
-    $initPort->CP_init_t2 = floatval($request->T2_CP_sous_prog);
+    // Parcourir chaque clé (t1, t2, etc.) pour insérer les valeurs initiales et finales dans une même ligne
+    foreach ($codes as $id => $codeT) {
+        // Récupérer les valeurs initiales et finales
+        $AE_init = $request->input("{$id}_AE_init");
+        $CP_init = $request->input("{$id}_CP_init");
 
-    $initPort->AE_init_t3 = floatval($request->T3_AE_sous_prog);
-    $initPort->CP_init_t3 = floatval($request->T3_CP_sous_prog);
-
-    $initPort->AE_init_t4 = floatval($request->T4_AE_sous_prog);
-    $initPort->CP_init_t4 = floatval($request->T4_CP_sous_prog);
-
-    $initPort->code_t1 = $request->code_t1;
-    $initPort->code_t2 = $request->code_t2;
-    $initPort->code_t3 = $request->code_t3;
-    $initPort->code_t4 = $request->code_t4;
-    $initPort->date_init = $request->date_init;
-    $initPort->num_sous_prog = $request->numsouprog_year;
-
-
-    $initPort->save();
+        // Insérer une ligne dans la table
+        $initPort=initPort::create([
+            //'T' => $id, // Identifiant de la donnée (par exemple, 't1', 't2', etc.)
+            'codeT' => $codeT,
+            'AE_init' => $AE_init,
+            'CP_init' => $CP_init,
+        ]);
+    }
 
 
 
