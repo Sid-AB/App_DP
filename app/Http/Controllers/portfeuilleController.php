@@ -27,6 +27,15 @@ class portfeuilleController extends Controller
         $this->CalculDpia = $CalculDpia;
     }
 
+
+
+//============================ Creating Table =============================//
+
+
+
+
+
+
     //================================= Pour suivi Methode =====================//
 
     function show_prsuiv($path)

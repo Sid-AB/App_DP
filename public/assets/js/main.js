@@ -376,7 +376,8 @@
                                                 console.log('tesing ' + newText)
                                                 click++;
                                                 if (click == 1) {
-                                                    var buttons = '<button class="btn btn-primary" id="changin"> appliquer</button>'
+                                                    var buttons = '<button class="btn btn-primary" id="changin-up"> appliquer</button>'
+                                                    click++
                                                 }
                                                 $('.change_app').append(buttons)
                                             }
@@ -410,7 +411,30 @@
                                                 {
                                                 cp_attendu=newText
                                                 }
-                                                
+                                                if(clickid == 'AE_rpor')
+                                                    {
+                                                       ae_reporte=newText
+                                                    }
+                                                    if(clickid == 'AE_not')
+                                                    {
+                                                       ae_notifie=newText
+                                                    }
+                                                    if(clickid == 'AE_enga')
+                                                    {
+                                                        ae_engage=newText
+                                                    }
+                                                    if(clickid == 'CP_rpor')
+                                                    {
+                                                    cp_reporte=newText
+                                                    }
+                                                    if(clickid == 'CP_not')
+                                                    {
+                                                    cp_notifie=newText
+                                                    }
+                                                    if(clickid == 'CP_consom')
+                                                    {
+                                                    cp_consome=newText
+                                                    }
                                                 if( T == '1')
                                                 {
                                                     dataupdate.push({code:codesoup,value:{ae:ae,cp:cp}});
@@ -431,38 +455,39 @@
                                             
                                             console.log('i insert '+JSON.stringify(dataupdate))
                                             }
-                                            $("#changin").on('click',function()
-                                {
-                                    i++
-                                    if( i === 1)
-                                        {
-                                    $.ajax({
-                                        url:'/update',
-                                        type:'POST',
-                                        data:{
-                                            Tport:T,
-                                            result:dataupdate,
-                                            _token: $('meta[name="csrf-token"]').attr("content"),
-                                            _method: "POST",},
-                                            success:function(response)
+                                            $("#changin-up").on('click',function()
                                             {
-
-                                            }
-                                       
-                                    })
-                                        }
-                                       console.log('testing'+JSON.stringify(dataupdate))
-                                       $('.change_app').empty()
-                                       click=0
-                                    //dataupdate=[];
-                                })
+                                                console.log('click once')
+                                                i++
+                                                if( i === 1)
+                                                    {   
+                                             /*   $.ajax({
+                                                    url:'/update',
+                                                    type:'POST',
+                                                    data:{
+                                                        Tport:T,
+                                                        result:dataupdate,
+                                                        _token: $('meta[name="csrf-token"]').attr("content"),
+                                                        _method: "POST",},
+                                                        success:function(response)
+                                                        {
+            
+                                                        }
+                                                   
+                                                })*/
+                                                    }
+                                                   console.log('testing'+JSON.stringify(dataupdate))
+                                                   $('.change_app').empty()
+                                                  
+                                                //dataupdate=[];
+                                            })
                                         }
                                         else {
                                             cell.empty();
                                             cell.text(old)
                                         }
                                     })  
-                                    
+                                 
                                 })
                             })
                             i=0;
