@@ -1079,20 +1079,28 @@
                                                          num_sous_prog: num_sou_program,
                                                      },
                                                      success: function (response) {
-                                                         if (response.exists) {
-                                                             console.log(response); // Vérifiez la réponse
-                                                             console.log('num_sou_program path: ' + JSON.stringify(path));
-                                                            $("#file_holder").empty();
-                                                             // Remplir les champs du formulaire avec les données récupérées
-                                                             $('#nom_sous_prog').val(response.nom_sous_prog).trigger('change'); // Remplir et déclencher l'événement change
-                                                             //    $('#date_insert_sousProg').val(response.date_insert_sousProg).trigger('change'); // Remplir et déclencher l'événement change
-                                                             $('#AE_sous_prog').val(response.AE_sous_prog).trigger('change'); // Remplir et déclencher l'événement change
-                                                             $('#CP_sous_prog').val(response.CP_sous_prog).trigger('change'); // Remplir et déclencher l'événement change
-                                                             //   $('#num_journ_program').val(response.num_journal).trigger('change'); // Remplir et déclencher l'événement change
+                                                        if (response.exists) {
+                                                            console.log(response); // Vérifiez la réponse
 
-                                                             alert('Le sous programme existe déjà');
+                                                            // Remplir les champs du formulaire avec les données récupérées
+                                                            $('#nom_sous_prog').val(response.nom_sous_prog).trigger('change');
+                                                            $('#AE_sous_prog').val(response.AE_sous_prog).trigger('change');
+                                                            $('#CP_sous_prog').val(response.CP_sous_prog).trigger('change');
 
-                                                         } else {
+                                                            $('#T1_AE_sous_prog').val(response.T1_AE_init).trigger('change');
+                                                            $('#T1_CP_sous_prog').val(response.T1_CP_init).trigger('change');
+
+                                                            $('#T2_AE_sous_prog').val(response.T2_AE_init).trigger('change');
+                                                            $('#T2_CP_sous_prog').val(response.T2_CP_init).trigger('change');
+
+                                                            $('#T3_AE_sous_prog').val(response.T3_AE_init).trigger('change');
+                                                            $('#T3_CP_sous_prog').val(response.T3_CP_init).trigger('change');
+
+                                                            $('#T4_AE_sous_prog').val(response.T4_AE_init).trigger('change');
+                                                            $('#T4_CP_sous_prog').val(response.T4_CP_init).trigger('change');
+
+                                                            alert('Le sous-programme existe déjà.');
+                                                        }  else {
                                                              // alert('Le programme n\'existe pas.');
                                                          }
                                                      },
