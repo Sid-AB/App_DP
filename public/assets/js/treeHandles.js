@@ -60,7 +60,7 @@ $(document).ready(function(){
                 {
                 $('#id_sprog_modif').text(response.nom_sous_prog);
                 $.ajax({
-                  url:'/SousProgramme/'+id,
+                  url:'/SousProgramme/'+response.num_prog,
                   type:'GET',
                   success:function(response)
                   {
@@ -101,6 +101,7 @@ $(document).ready(function(){
       $('.modif-handler').css('display','none')
       $('.float-export').css('display','block');
       $('#id_cible').empty()
+      $('#id-retire').empty()
     })
     $('#button-70').on('click',function(){
   $('.float-export').css('display','block'); 

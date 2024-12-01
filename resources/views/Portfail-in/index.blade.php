@@ -175,8 +175,7 @@
               </div>
             </div>
           </div>
-        </span>
-                
+        </span> 
                 <ul id="father3" style="display:none">
                 @foreach($souportf['Action'] as $act)
                   <li>
