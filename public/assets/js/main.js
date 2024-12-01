@@ -376,7 +376,8 @@
                                                 console.log('tesing ' + newText)
                                                 click++;
                                                 if (click == 1) {
-                                                    var buttons = '<button class="btn btn-primary" id="changin"> appliquer</button>'
+                                                    var buttons = '<button class="btn btn-primary" id="changin-up"> appliquer</button>'
+                                                    click++
                                                 }
                                                 $('.change_app').append(buttons)
                                             }
@@ -410,7 +411,30 @@
                                                 {
                                                 cp_attendu=newText
                                                 }
-                                                
+                                                if(clickid == 'AE_rpor')
+                                                    {
+                                                       ae_reporte=newText
+                                                    }
+                                                    if(clickid == 'AE_not')
+                                                    {
+                                                       ae_notifie=newText
+                                                    }
+                                                    if(clickid == 'AE_enga')
+                                                    {
+                                                        ae_engage=newText
+                                                    }
+                                                    if(clickid == 'CP_rpor')
+                                                    {
+                                                    cp_reporte=newText
+                                                    }
+                                                    if(clickid == 'CP_not')
+                                                    {
+                                                    cp_notifie=newText
+                                                    }
+                                                    if(clickid == 'CP_consom')
+                                                    {
+                                                    cp_consome=newText
+                                                    }
                                                 if( T == '1')
                                                 {
                                                     dataupdate.push({code:codesoup,value:{ae:ae,cp:cp}});
@@ -431,37 +455,39 @@
                                             
                                             console.log('i insert '+JSON.stringify(dataupdate))
                                             }
+                                            $("#changin-up").on('click',function()
+                                            {
+                                                console.log('click once')
+                                                i++
+                                                if( i === 1)
+                                                    {   
+                                             /*   $.ajax({
+                                                    url:'/update',
+                                                    type:'POST',
+                                                    data:{
+                                                        Tport:T,
+                                                        result:dataupdate,
+                                                        _token: $('meta[name="csrf-token"]').attr("content"),
+                                                        _method: "POST",},
+                                                        success:function(response)
+                                                        {
+            
+                                                        }
+                                                   
+                                                })*/
+                                                    }
+                                                   console.log('testing'+JSON.stringify(dataupdate))
+                                                   $('.change_app').empty()
+                                                  
+                                                //dataupdate=[];
+                                            })
                                         }
                                         else {
                                             cell.empty();
                                             cell.text(old)
                                         }
                                     })  
-                                    $("#changin").on('click',function()
-                                {
-                                    i++
-                                    if( i === 1)
-                                        {
-                                    $.ajax({
-                                        url:'/update',
-                                        type:'POST',
-                                        data:{
-                                            Tport:T,
-                                            result:dataupdate,
-                                            _token: $('meta[name="csrf-token"]').attr("content"),
-                                            _method: "POST",},
-                                            success:function(response)
-                                            {
-
-                                            }
-                                       
-                                    })
-                                        }
-                                       console.log('testing'+JSON.stringify(dataupdate))
-                                       $('.change_app').empty()
-                                       click=0
-                                    //dataupdate=[];
-                                })
+                                 
                                 })
                             })
                             i=0;
@@ -1801,7 +1827,7 @@
                                  var iso = 0;
                                  $.each(data, function (key, value) {
                                      // Create a table row
-                                     let row = '<tr class="'+key+'" id="ref' + key + '">' +
+                                     let row = '<tr class="ref'+key+'" id="ref' + key + '">' +
                                          '<td class="code">' + key + '</td>' +
                                          '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"> <p>' + value + '</p> </td>' +
                                          '<td class="editable" id="AE_Over">' + 0 + '</td>' +

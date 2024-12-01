@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\SousAction;
+use App\Models\Programme;
 use Illuminate\Http\Request;
 
 class sousActionController extends Controller
@@ -25,6 +26,64 @@ public function affich_sous_action($num_action)
 
 // Retourner les action à la vue
     return view('Action-in.index', compact('SousAction'));
+}
+
+
+// ======================= get all action of portfial ===============================///
+
+
+function allact($numport)
+{
+    $allaction=[];
+    $progms=Programme::where("num_port",$numport)->get();
+    foreach($progms as $progm)
+    {
+        $sousprog=SousProgramme::where('num_prog',$progm->num_prog)->get();
+        foreach($sousprog as $sprog)
+        {
+
+
+                $act=Action::where('num_sous_prog',$sprog->num_sous_prog)->get();
+            //    dd($act);
+                foreach($act as $listact)
+                {
+                    if(isset($listact))
+                    {
+                        $sous_act=SousAction::where('num_action',$listact->num_action)->get();
+                      //  dd($sous_act);
+                        foreach($sous_act as $listsousact)
+                        {
+
+                            if(isset($listsousact))
+                            {
+                            
+                                array_push($allaction,['actions'=>$listsousact]);
+
+                            }
+
+                        }
+                        foreach($allsous_action as $sact)
+                        {
+                          $AE_All_act+=$sact['TotalAE'];
+                          $CP_All_act+=$sact['TotalCP'];
+                        }
+                
+                    }
+                }    
+            }
+        }
+        dd($allaction);
+        if(count($allaction)>0)
+        {
+        return response()->json([
+            'exists' => true,
+            'actions'=>$allaction
+        ]);
+        }
+        else
+        {
+            response()->json(['exists' => false]);
+        }
 }
 
 

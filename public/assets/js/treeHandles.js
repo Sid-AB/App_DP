@@ -33,11 +33,11 @@ $(document).ready(function(){
            {
             $('#id_sprog_modif').text(response.nom_prog);
             $.ajax({
-              url:'/Programme/'+port,
+              url:'/allaction/'+port,
               type:'GET',
               success:function(response)
               {
-                if(response.success)
+                if(response.exist)
                 {
                   progs=response.result
                   response.result.forEach(element => {

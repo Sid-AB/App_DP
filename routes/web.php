@@ -71,6 +71,7 @@ Route::controller(actionController::class)->group(function(){
 //===============ROUTE SOUS ACTION==============================
 Route::controller(sousActionController::class)->group(function(){
     Route::post('/creationsousAction','create_sousaction')->name('creation.sousaction');
+    Route::get('/allaction/{numport}','allact')->name('action.lists');
 });
 
 //===============ROUTE GROUPE D'OPERATIONS==============================
