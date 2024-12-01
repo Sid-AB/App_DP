@@ -23,6 +23,13 @@ class programmeControlleur extends Controller
             'message' => 'Aucun programme trouvé pour ce programme.',
         ]);
     }
+    else{
+        return response()->json([
+            'success' => true,
+            'result'=>$programmes,
+            'message' => 'Aucun programme trouvé pour ce programme.',
+        ]);
+    }
 
     // Retourner les programmes à la vue
         return view('Portfail-in.index', compact('programmes'));

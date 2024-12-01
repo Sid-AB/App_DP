@@ -6,15 +6,22 @@
     <title>Liste </title>
     <style>
         table {
-            width: 100%;
             border-collapse: collapse;
-        }
-        table, th, td {
-            border: 1px solid black;
+            width: 100%;
         }
         th, td {
+            border: 1px solid #000;
             padding: 8px;
-            text-align: left;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .highlight {
+            background-color: #e7f4e4;
+        }
+        .bold {
+            font-weight: bold;
         }
     </style>
 </head>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Models\Portefeuille;
 use App\Models\Programme;
@@ -88,7 +89,7 @@ class portfeuilleController extends Controller
     {
         // Récupérer tous les portefeuilles de la base de données
           //  $portefeuilles = Portefeuille::all();
-
+          $art=Article::get();
           $por=Portefeuille::findOrFail($id);
           $progms=Programme::where('num_portefeuil',$id)->get();
           $allprogram=[];
@@ -187,7 +188,7 @@ class portfeuilleController extends Controller
               array_push($allprogram,['id_prog'=>$progm->num_prog,'init_AE'=>$progm->AE_prog,'init_CP'=>$progm->CP_prog,'TotalAE'=>$AE_All_prog,'TotalCP'=>$CP_All_prog, 'data'=>$progm,'sous_program'=>$allsous_prog]);
               $allsous_prog=[];
           }
-       //   dd($por);
+          //dd($art);
           $allport=[
               'id'=>$id,
               'TotalAE'=>$por->AE_portef,
@@ -196,7 +197,7 @@ class portfeuilleController extends Controller
           ];
          //    dd($allprogram[1]['sous_program'][2]);
       // Passer les données à la vue
-      return view('Portfail-in.index', compact('allport'));
+      return view('Portfail-in.index', compact('allport','art'));
 
 
     // Passer les données à la vue

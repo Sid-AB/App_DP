@@ -193,7 +193,7 @@ if (!empty($portefeuille)) {
                                     $operationCPt4 = 0;
                                         // calculer la somme de chaque sous op
                                         foreach ($operation->SousOperation as $sousOperation) {
-                                            //dd($sousOperation);
+                                          //dd($sousOperation);
                          /***************************************** T2 ********************************************************** */
                                             $sousopAeouvert= $sousOperation->AE_ouvert;
                                             $sousopAeattendu= $sousOperation->AE_atendu;

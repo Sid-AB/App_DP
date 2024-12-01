@@ -23,6 +23,14 @@ class sousProgrammeController extends Controller
                     'message' => 'Aucun Sous programme trouvé pour ce programme.',
                 ]);
             }
+            else
+            {
+                return response()->json([
+                    'success' => true,
+                    'result'=>$SousProgramme,
+                    'message' => 'Sous programme trouvé pour ce programme.',
+                ]);
+            }
 
         // Retourner les SousProgramme à la vue
              return view('Portfail-in.index', compact('SousProgramme'));
