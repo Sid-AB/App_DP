@@ -85,15 +85,18 @@
             @foreach ($programmes as $programme)
             <tr class="program-title">
 
-                <td>{{ $programme['nom'] }}</td>
+                <td>{{ $programme['nom_prog'] }}</td>
                 <td colspan="8"></td>
             </tr>
             @foreach ($programme['sous_programmes'] as $sousProgramme)
             <tr class="subprogram-title">
-                <td>{{ $sousProgramme['nom'] }}</td>
+                <td>{{ $sousProgramme['nom_sous_prog'] }}</td>
 
-                {{-- Boucle sur les périodes T1, T2, T3, T4 --}}
+
                 @foreach (['T1', 'T2', 'T3', 'T4'] as $t)
+                     <td>{{ $sousProgramme['AE_sous_prog'] }}</td>
+                     <td>{{ $sousProgramme['CP_sous_prog'] }}</td>
+
                     <td>{{ $sousProgramme['credits_disponibles'][$t]['ae'] ?? 0 }}</td>
                     <td>{{ $sousProgramme['credits_disponibles'][$t]['cp'] ?? 0 }}</td>
                 @endforeach
@@ -111,8 +114,8 @@
             foreach ($programmes as $programme) {
                 foreach ($programme['sous_programmes'] as $sousProgramme) {
                     foreach (['T1', 'T2', 'T3', 'T4'] as $t) {
-                        $grandTotalAe += $sousProgramme['credits_disponibles'][$t]['ae'] ?? 0;
-                        $grandTotalCp += $sousProgramme['credits_disponibles'][$t]['cp'] ?? 0;
+                        $grandTotalAe += $sousProgramme['credits_disponibles'][$t]['AE_sous_prog'] ?? 0;
+                        $grandTotalCp += $sousProgramme['credits_disponibles'][$t]['CP_sous_prog'] ?? 0;
                     }
                 }
             }
