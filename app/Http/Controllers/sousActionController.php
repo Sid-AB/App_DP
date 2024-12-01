@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SousAction;
+use App\Models\Portefeuille;
 use App\Models\Programme;
+use App\Models\Action;
+
+use App\Models\SousAction;
+use App\Models\SousProgramme;
 use Illuminate\Http\Request;
 
 class sousActionController extends Controller
@@ -35,7 +39,9 @@ public function affich_sous_action($num_action)
 function allact($numport)
 {
     $allaction=[];
-    $progms=Programme::where("num_port",$numport)->get();
+    $allsous_prog=[];
+    $all_prog=[];
+    $progms=Programme::where("num_portefeuil",$numport)->get();
     foreach($progms as $progm)
     {
         $sousprog=SousProgramme::where('num_prog',$progm->num_prog)->get();
@@ -57,27 +63,25 @@ function allact($numport)
                             if(isset($listsousact))
                             {
                             
-                                array_push($allaction,['actions'=>$listsousact]);
+                                array_push($allaction,['actions'=>['actions_num'=>$listsousact->num_sous_action,"actions_name"=>$listsousact->nom_sous_action]]);
 
                             }
 
                         }
-                        foreach($allsous_action as $sact)
-                        {
-                          $AE_All_act+=$sact['TotalAE'];
-                          $CP_All_act+=$sact['TotalCP'];
-                        }
-                
                     }
-                }    
+                }   
+                array_push($allsous_prog,['sous_programs'=>['sous_progs_num'=>$sprog->num_sous_prog,"sous_progs_name"=>$sprog->nom_sous_prog]]);
             }
+            array_push($all_prog,['programs'=>['progs_num'=>$progm->num_prog,"progs_name"=>$progm->nom_prog]]); 
         }
-        dd($allaction);
+      //  dd($allaction,$allsous_prog,$all_prog); 
         if(count($allaction)>0)
         {
         return response()->json([
             'exists' => true,
-            'actions'=>$allaction
+            'actions'=>$allaction,
+            'sous_programs'=>$allsous_prog,
+            'programs'=>$all_prog,
         ]);
         }
         else
