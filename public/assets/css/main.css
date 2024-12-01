@@ -675,11 +675,18 @@ height: 100%;
 }
 .wallet-handle
 {
-  position: fixed;
+overflow: scroll;
+position: fixed;
 top: 25%;
 left: 35%;
 width: 30%;
+height: 60%;
 z-index: 1000;
+scrollbar-width: none; /* Firefox */
+-ms-overflow-style: none; /* IE 10+ */
+}
+.wallet-handle::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
 }
 .wallet-path
 {

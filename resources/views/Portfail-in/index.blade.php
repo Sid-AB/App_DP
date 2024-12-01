@@ -140,6 +140,7 @@
                 @else
                 <span class="member alert_func" id="{{$souportf['id_sous_prog']}}">
                 @endif
+                <div class="edit-zone"><i class="fas fa-edit update-handl"></i></div>
                 <div class="col-12 col-sm-6">
             <div class="card widget-card border-light shadow-sm">
               <div class="card-body p-1">
@@ -174,8 +175,7 @@
               </div>
             </div>
           </div>
-        </span>
-                
+        </span> 
                 <ul id="father3" style="display:none">
                 @foreach($souportf['Action'] as $act)
                   <li>
