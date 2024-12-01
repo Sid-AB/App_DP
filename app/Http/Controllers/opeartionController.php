@@ -29,7 +29,7 @@ class opeartionController extends Controller
 */
         try {
             $resultats = $this->CalculDpia->calculdpiaFromPath($port, $prog, $sous_prog, $act,$s_act);
-           dd($resultats );
+          // dd($resultats );
                // eenvoyer les résultats en JSON
                return view('Action-in.index',compact('port','prog','sous_prog','act','s_act','resultats'));
            // return response()->json($resultats);
@@ -244,9 +244,18 @@ class opeartionController extends Controller
                     ->join('sous_operations as so', 'so.code_operation', '=', 'o.code_operation')
                     ->join('construire_d_p_i_a_s as cdp', 'cdp.code_sous_operation', '=', 'so.code_sous_operation')
                     ->where('sa.num_sous_action', $s_act)
+            
                     ->whereNotNull('cdp.code_sous_operation') 
-                    ->exists();
-                    //dd($exists);
+                    ->selectRaw('
+                    CASE WHEN so.code_t1 IS NOT NULL THEN 1 ELSE 0 END as t1_exists,
+                    CASE WHEN so.code_t2 IS NOT NULL THEN 1 ELSE 0 END as t2_exists,
+                    CASE WHEN so.code_t3 IS NOT NULL THEN 1 ELSE 0 END as t3_exists,
+                    CASE WHEN so.code_t4 IS NOT NULL THEN 1 ELSE 0 END as t4_exists
+                ')
+                ->groupBy('t1_exists', 't2_exists', 't3_exists', 't4_exists')
+                ->get();
+                  //  ->exists();
+            //   dd($exists);
                 if ($exists) {
                     return response()->json([
                         'code' => 200,
