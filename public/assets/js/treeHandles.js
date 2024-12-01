@@ -60,7 +60,7 @@ $(document).ready(function(){
                 {
                 $('#id_sprog_modif').text(response.nom_sous_prog);
                 $.ajax({
-                  url:'/SousProgramme/'+id,
+                  url:'/SousProgramme/'+response.num_prog,
                   type:'GET',
                   success:function(response)
                   {
@@ -93,12 +93,15 @@ $(document).ready(function(){
       $(this).removeClass('setit-back');
       $('.member .update-handl').css('color','black')
       $('.float-export').css('display','block');
+      
     })
     $('.modif-contiant').on('click',function(){
       $(this).removeClass('setit-insert');
       $('.member .update-handl').css('color','black')
       $('.modif-handler').css('display','none')
       $('.float-export').css('display','block');
+      $('#id_cible').empty()
+      $('#id-retire').empty()
     })
     $('#button-70').on('click',function(){
   $('.float-export').css('display','block'); 
@@ -115,7 +118,7 @@ $(document).ready(function(){
    $('#T1-inpt-handle').css('display','none')
         AE_T1=0
         CP_T1=0
-        Tselect=false
+        T1select=false
        }
      });
      $('#T2').click(function(){
@@ -243,6 +246,7 @@ $(document).ready(function(){
       $('.Tenv-inpt-handle').empty();
       $('.section-env').empty();
      $('.add-envoi').empty();
+     
      console.log('nothing is selected type of interaction '+selectedHobby)
      $('.float-export').css('display','block');
     }

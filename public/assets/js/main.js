@@ -342,16 +342,16 @@
                                                 }
                                                 if(clickid == 'AE_rpor')
                                                 {
-                                                        element.value.ae_reporte=ae_reporte
+                                                    element.value.ae_reporte=ae_reporte
                                                 }
                                                 if(clickid == 'AE_not')
-                                                    {
-                                                            element.value.ae_notifie=ae_notifie
-                                                    }
+                                                {
+                                                    element.value.ae_notifie=ae_notifie
+                                                }
                                                 if(clickid == 'AE_enga')
-                                                    {
-                                                     element.value.ae_engage=ae_engage
-                                                    }
+                                                {
+                                                    element.value.ae_engage=ae_engage
+                                                }
                                                 if(clickid == 'CP_rpor')
                                                 {
                                                 element.value.cp_reporte=cp_reporte
@@ -410,6 +410,7 @@
                                                 {
                                                 cp_attendu=newText
                                                 }
+                                                
                                                 if( T == '1')
                                                 {
                                                     dataupdate.push({code:codesoup,value:{ae:ae,cp:cp}});
@@ -417,6 +418,15 @@
                                                 if(T == '2')
                                                 {
                                                 dataupdate.push({code:codesoup,value:{ae_ouvert:ae_ouvert,ae_attendu:ae_attendu,cp_ouvert:cp_ouvert,cp_attendu:cp_attendu}});
+                                                }
+                                                if(T == '3')
+                                                {
+                                                    dataupdate.push({code:codesoup,value:{ae_notifie:ae_notifie,ae_reporte:ae_reporte,ae_engage:ae_engage,
+                                                                                          cp_notifie:cp_notifie,cp_reporte:cp_reporte,cp_consome:cp_consome}})
+                                                }
+                                                if(T == '4')
+                                                {
+                                                        dataupdate.push({code:codesoup,value:{ae:ae,cp:cp}})
                                                 }
                                             
                                             console.log('i insert '+JSON.stringify(dataupdate))

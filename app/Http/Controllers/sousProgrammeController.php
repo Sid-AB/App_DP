@@ -15,7 +15,7 @@ class sousProgrammeController extends Controller
     {
         // Récupérer les SousProgramme qui ont le même num_prog
             $SousProgramme = SousProgramme::where('num_prog', $num_prog)->get();
-
+            //dd($SousProgramme);
         // Vérifier si des SousProgramme existent
             if ($SousProgramme->isEmpty()) {
                  return response()->json([
@@ -51,6 +51,8 @@ public function check_sous_prog(Request $request)
             'date_insert_sousProg' => $sousprog->date_insert_sousProg,
             'AE_sous_prog'=>$sousprog->AE_sous_prog,
             'CP_sous_prog'=>$sousprog->CP_sous_prog,
+            'num_sous_prog'=>$sousprog->num_sous_prog,
+            'num_prog'=>$sousprog->num_prog
         ]);
     }
 
