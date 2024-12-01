@@ -456,7 +456,7 @@
   var path=Array();
   var path3=Array();
  document.querySelectorAll('.member').forEach(member => {
-  member.addEventListener('click', function(event) {
+  member.addEventListener('dblclick', function(event) {
     const children = member.nextElementSibling;
     if (children) {
       if (children.style.display === 'flex') {
@@ -469,7 +469,7 @@
   });
   });
   $(document).ready(function(){
-    $('.member').on('click',function(){
+    $('.member').on('dblclick',function(){
     id=$(this).attr('id');
     
     var index=path.indexOf(id)
