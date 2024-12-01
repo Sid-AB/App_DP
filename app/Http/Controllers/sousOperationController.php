@@ -78,9 +78,17 @@ class sousOperationController extends Controller
 
           // Chargement du fichier JSON
         $jsonData = file_get_contents(public_path('assets/titre/dataT1.json')); //la fonction file_get_contents() lire directement depuis le système de fichiers :
-      //  dd($jsonData);  
+      //dd($jsonData);  
         $operations = json_decode($jsonData, true); // décoder en tableau 
-       // dd($operations);  
+        //dd($operations);  
+
+        $names = [];
+        foreach ($operations as $code => $name) {
+            $code_separer = explode('-', $code);  // séparer le code
+            $code_part = end($code_separer);  // la derniere partie du code pour que soit adaptable au code_sous_op
+            $names[$code_part] = $name;  
+        }
+       // dd( $names);
         //envoyer le sousprogramme dans compact avec son code  
            $sousProgramme = SousProgramme::where('num_sous_prog', $sous_prog)->first();
            //dd($sousProgramme );
@@ -88,8 +96,27 @@ class sousOperationController extends Controller
            if (!$sousProgramme) {
             throw new \Exception("Sous programme introuvable");
         }
+
+            // pour bien structurer les données de resultats (calcul dpia)
+         // Vérification de la présence des clés 'sousOperation', 'operation', 'group' et 'total'
+         $resultstructur = [];
+         foreach (['T1', 'T2', 'T3', 'T4'] as $t) {
+             if (isset($resultats[$t])) {
+                 $tdata = $resultats[$t];
+ 
+                // dump($tdata);
+                 $resultstructur[$t] = [
+                     'sousOperation' => $tdata['sousOperation'] ?? [], 
+                     'operation' => $tdata['operation'] ?? [],
+                     'group' => $tdata['group'] ?? [],
+                     'total' => $tdata['total'] ?? [],
+                 ];
+               
+             }
+         } 
+         //dd($tdata);
                // envoyer les résultats en JSON
-               $pdf=pdf::loadView('impression.liste_impression', compact('resultats','sousProgramme','operations'));
+               $pdf=pdf::loadView('impression.liste_impression', compact('resultstructur','sousProgramme','names'));
                return $pdf->download('liste_impression.pdf');
            // return response()->json($resultats);
         } catch (\Exception $e) {

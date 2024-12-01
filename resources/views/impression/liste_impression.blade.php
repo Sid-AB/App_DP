@@ -44,20 +44,14 @@
         </thead>
         <tbody>
       
-        @foreach (['T1', 'T2', 'T3', 'T4'] as $t)
-            @if (isset($resultats[$t]))
-                @foreach ($resultats[$t]['sousOperation'] as $sousOperation)
-                    <tr>
-                        <td>{{ $sousOperation['code'] }}</td>
-                        <td>{{ $operations[substr($sousOperation['code'], 0, 5)] ?? 'Nom introuvable' }}</td>
-                        <td>{{ $sousOperation['values']['ae_sousop'] ?? 'N/A' }}</td>
-                        <td>{{ $sousOperation['values']['cp_sousuop'] ?? 'N/A' }}</td>
-                    </tr>
-
-                   
-                @endforeach
-            @endif
-        @endforeach
+        @foreach ($resultstructur['T1']['sousOperation'] as $sousOperation)
+                <tr>
+                    <td>{{ $sousOperation ['code' ]}}</td>
+                    <td>{{  $names[$sousOperation['code']] ?? 'Nom non trouvé' }}</td>
+                    <td>{{  $sousOperation['values']['ae_sousop'] ?? 'N/A' }}</td>
+                    <td>{{ $sousOperation['values']['cp_sousuop']  ?? 'N/A' }}</td>
+                </tr>
+            @endforeach
     </tbody>
     </table>
 </body>

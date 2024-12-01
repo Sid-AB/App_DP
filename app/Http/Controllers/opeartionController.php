@@ -246,19 +246,27 @@ class opeartionController extends Controller
                     ->where('sa.num_sous_action', $s_act)
             
                     ->whereNotNull('cdp.code_sous_operation') 
+
                     ->selectRaw('
-                    CASE WHEN so.code_t1 IS NOT NULL THEN 1 ELSE 0 END as t1_exists,
-                    CASE WHEN so.code_t2 IS NOT NULL THEN 1 ELSE 0 END as t2_exists,
-                    CASE WHEN so.code_t3 IS NOT NULL THEN 1 ELSE 0 END as t3_exists,
-                    CASE WHEN so.code_t4 IS NOT NULL THEN 1 ELSE 0 END as t4_exists
+                    MAX(CASE WHEN so.code_t1 IS NOT NULL THEN 1 ELSE 0 END) as t1_exists,
+                    MAX(CASE WHEN so.code_t2 IS NOT NULL THEN 1 ELSE 0 END) as t2_exists,  
+                    MAX(CASE WHEN so.code_t3 IS NOT NULL THEN 1 ELSE 0 END) as t3_exists,
+                    MAX(CASE WHEN so.code_t4 IS NOT NULL THEN 1 ELSE 0 END) as t4_exists
                 ')
-                ->groupBy('t1_exists', 't2_exists', 't3_exists', 't4_exists')
-                ->get();
-                  //  ->exists();
-            //   dd($exists);
+        
+                ->first();
+            
+               
+                ////max prend le max des résultats pour toutes les lignes si au moins 1 est non null elle retourne 1;
+                  // ->exists();
+           //dd($exists);
                 if ($exists) {
                     return response()->json([
                         'code' => 200,
+                        't1_exists' => $exists->t1_exists,
+                        't2_exists' => $exists->t2_exists,
+                        't3_exists' => $exists->t3_exists,
+                        't4_exists' => $exists->t4_exists,
                       
                     ]);
                 } else {
