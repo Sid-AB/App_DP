@@ -85,6 +85,7 @@ function create_sou_prog(Request $request)
    $num_sous_prog=$request->num_sous_prog;
     // Vérifier si le sous-programme existe
     $SousProgramme = SousProgramme::where('num_sous_prog', $request->num_sous_prog)->first();
+    $initPort = initPort::where('num_sous_prog', $request->num_sous_prog)->first();
 
     if ($SousProgramme) {
         // Mise à jour du sous-programme existant
@@ -94,6 +95,26 @@ function create_sou_prog(Request $request)
         $SousProgramme->date_insert_sousProg = $request->date_insert_sousProg;
         $SousProgramme->save();
 
+        if ($initPort) {
+            // update des données dans init_ports
+
+                 $initPort->T1_AE_init= $request->T1_AE_init;
+                 $initPort->T1_CP_init= $request->T1_CP_init;
+
+                 $initPort->T2_AE_init= $request->T2_AE_init;
+                 $initPort->T2_CP_init= $request->T2_CP_init;
+
+                 $initPort->T3_AE_init= $request->T3_AE_init;
+                 $initPort->T3_CP_init= $request->T3_CP_init;
+
+                 $initPort->T4_AE_init=$request->T4_AE_init;
+                 $initPort->T4_CP_init=$request->T4_CP_init;
+
+
+            $initPort->save();
+
+
+        }
 
     }
 else {
@@ -108,10 +129,35 @@ else {
         'date_insert_sousProg' => $request->date_insert_sousProg,
     ]);
     $SousProgramme->save();
+
+     // Insertion des données dans init_ports
+     $initPort = initPort::create([
+        'num_sous_prog' =>$request->num_sous_prog,
+        'date_init' => $request->date_insert_sousProg,
+        'date_init' => $request->date_insert_sousProg,
+
+        'code_t1' => $request->code_t1,
+        'code_t2' => $request->code_t2,
+        'code_t3' => $request->code_t3,
+        'code_t4' => $request->code_t4,
+        'AE_init_t1' => $request->T1_AE_init,
+        'CP_init_t1' => $request->T1_CP_init,
+
+        'AE_init_t2' => $request->T2_AE_init,
+        'CP_init_t2' => $request->T2_CP_init,
+
+        'AE_init_t3' => $request->T3_AE_init,
+        'CP_init_t3' => $request->T3_CP_init,
+
+        'AE_init_t4' => $request->T4_AE_init,
+        'CP_init_t4' => $request->T4_CP_init,
+
+    ]);
+    $initPort->save();
 }
 
 // Vérifier si le sous-programme existe
-$exist = initPort::where('num_sous_prog', $request->num_sous_prog)->first();
+/*$exist = initPort::where('num_sous_prog', $request->num_sous_prog)->first();
 if (!$exist) {
     // Insertion des données dans init_ports
     $initPort = initPort::create([
@@ -139,8 +185,9 @@ if (!$exist) {
     $initPort->save();
 
 
-}
-if ($SousProgramme) {
+}*/
+
+if ($SousProgramme || $initPort) {
     return response()->json([
         'success' => true,
         'message' => 'Sous programme mis à jour avec succès.',
