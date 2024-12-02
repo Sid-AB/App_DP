@@ -98,28 +98,78 @@ class sousOperationController extends Controller
         }
 
             // pour bien structurer les données de resultats (calcul dpia)
-         // Vérification de la présence des clés 'sousOperation', 'operation', 'group' et 'total'
          $resultstructur = [];
          foreach (['T1', 'T2', 'T3', 'T4'] as $t) {
              if (isset($resultats[$t])) {
                  $tdata = $resultats[$t];
  
-                // dump($tdata);
-                 $resultstructur[$t] = [
-                     'sousOperation' => $tdata['sousOperation'] ?? [], 
-                     'operation' => $tdata['operation'] ?? [],
-                     'group' => $tdata['group'] ?? [],
-                     'total' => $tdata['total'] ?? [],
-                 ];
-               
+                 // chaque grp avec leurs sous operations
+                 $groupedData = [];
+                 foreach ($tdata['group'] as $group) {
+                     $groupCode = $group['code'];
+                    // dd($groupCode);
+                    $groupedData[$groupCode] = [
+                        'group' => $group,
+                        'operations' => [],
+                    ];
+                 }
+               // dd( $groupedData);
+               foreach ($tdata['operation'] as $operation) {
+                $groupCode = substr($operation['code'], 0, strlen($operation['code']) - 6); //extraire depuis l'op jusqu'à grp 
+                //dd($groupCode);
+                if (isset($groupedData[$groupCode])) {
+                    //ajouter les op au grp
+                    $groupedData[$groupCode]['operations'][] = [
+                        'operation' => $operation,
+                        'sousOperations' => [],  
+                    ];
+                }
+            } 
+          // dd( $groupedData);
+            // les sous operations dans operations 
+            foreach ($tdata['sousOperation'] as $sousOp) {
+                $operationCode = substr($sousOp['code'], 0, strlen($sousOp['code']) - 6); // extraire depuis sousOp jusqu'à opération
+                $sousOpSuffix = substr($sousOp['code'], -5); //extraire les 5 chiffres de sousop
+                $sousOpThird = substr($sousOpSuffix, 2, 1); //extraire le 3eme chiffre commencé par la fin 
+
+               //dd($operationCode ,$sousOpSuffix,$sousOpThird);
+                foreach ($groupedData as $groupCode => $groupData) {
+                    foreach ($groupData['operations'] as $code => $operationData) { //0=>operationdata
+                         // extraire les 5  chiffres de l'op
+                    $operationSuffix = substr($operationData['operation']['code'], -5); 
+                    $operationThird = substr($operationSuffix, 2, 1); // extraire le 3eme chiffre
+                      //dd($operationSuffix ,$operationThird);
+                        if (substr($operationData['operation']['code'], 0, strlen($operationCode)) === $operationCode) {
+                            if ($sousOp['code'] === $operationData['operation']['code']) {
+                                //si sousop = code op on l'affiche pas 
+                                continue;
+                               
+                            } 
+                             if  ($sousOpThird === $operationThird){
+                           //ajouter sous op
+                            $groupedData[$groupCode]['operations'][$code]['sousOperations'][] = $sousOp;
+                            }
+                        }
+                    } 
+                }
+            }
+            //dd($sousOp['code'] );
+           // dd( $operationData['operation']['code'] );
+            $resultstructur[$t] = [
+                'groupedData' => $groupedData,
+                'total' => $tdata['total'] ?? [], 
+                // Ajoute le total (si disponible)
+            ];//dd($resultstructur ['T1']); 
              }
-         } 
-         //dd($tdata);
+         }
+    
+        
                // envoyer les résultats en JSON
-               $pdf=pdf::loadView('impression.liste_impression', compact('resultstructur','sousProgramme','names'));
-               return $pdf->download('liste_impression.pdf');
+               /*$pdf=pdf::loadView('impression.liste_impression', compact('resultstructur','sousProgramme','names'));
+               return $pdf->download('liste_impression.pdf');*/
+               return view('impression.liste_impression', compact('resultstructur','sousProgramme','names'));
            // return response()->json($resultats);
-        } catch (\Exception $e) {
+        } catch (\Exception $e) { 
             return response()->json(['error' => $e->getMessage()], 400);
         }
         }
