@@ -94,7 +94,7 @@
 
                         function only_year(years,id_date)
                         {
-                           
+
                         }
 
 
@@ -241,13 +241,13 @@
                           */
 
                          /**
-                          * 
+                          *
                           * star of update function
-                          * 
+                          *
                           */
                          function Update_dpia(T,act)
                          {
-                          
+
                             $(document).ready(function(){
                                 $('.editable').dblclick(function(){
                                     var i=0
@@ -276,7 +276,7 @@
                                      let input = $('<input type="number" step="0.01" class="form-control"/>').val(currentText);
                                      cell.html(input);  // Replace the cell content with the input
 
-                                     input.focus(); 
+                                     input.focus();
                                      input.blur(function()
                                     {
                                         let newText = $(this).val();
@@ -319,56 +319,18 @@
                                                if( clickid == 'AE_T1')
                                                {
                                                 element.value.ae=newText;
+
                                                }
                                                if(clickid == 'CP_T1')
                                                {
                                                 element.value.cp=newText;
+
                                                }
-                                               if(clickid == 'AE_Over')
-                                               {
-                                                element.value.ae_ouvert=newText
-                                               }
-                                               if(clickid == 'AE_att')
-                                                {
-                                                    element.value.ae_attendu=newText
-                                                }
-                                                if(clickid == 'CP_Over')
-                                                {
-                                                    element.value.cp_ouvert=newText
-                                                }
-                                                if(clickid == 'CP_att')
-                                                {
-                                                    element.value.cp_attendu=newText
-                                                }
-                                                if(clickid == 'AE_rpor')
-                                                {
-                                                    element.value.ae_reporte=ae_reporte
-                                                }
-                                                if(clickid == 'AE_not')
-                                                {
-                                                    element.value.ae_notifie=ae_notifie
-                                                }
-                                                if(clickid == 'AE_enga')
-                                                {
-                                                    element.value.ae_engage=ae_engage
-                                                }
-                                                if(clickid == 'CP_rpor')
-                                                {
-                                                element.value.cp_reporte=cp_reporte
-                                                }
-                                                if(clickid == 'CP_not')
-                                                {
-                                                element.value.cp_notifie=cp_notifie
-                                                }
-                                                if(clickid == 'CP_consom')
-                                                {
-                                                element.value.cp_consome=cp_consome
-                                                }
                                                 exist=true;
                                              }
                                            }
                                         }
-                                        
+
                                         if (newText != 0 && newText != '' && newText != null) {
                                             mount_chang = true
 
@@ -381,7 +343,7 @@
                                                 }
                                                 $('.change_app').append(buttons)
                                             }
-                                            
+
                                             //  console.log('all table'+JSON.stringify(value_chng))
                                             cell.text(newText);
                                             if(!exist){
@@ -395,106 +357,44 @@
                                                     ae=0
                                                     cp=newText
                                                 }
-                                                if(clickid == 'AE_Over')
-                                                {
-                                                     ae_ouvert=newText
-                                                }
-                                                if(clickid == 'AE_att')
-                                                {
-                                                 ae_attendu=newText
-                                                }
-                                                if(clickid == 'CP_Over')
-                                                {
-                                                cp_ouvert=newText
-                                                }
-                                                if(clickid == 'CP_att')
-                                                {
-                                                cp_attendu=newText
-                                                }
-                                                if(clickid == 'AE_rpor')
-                                                    {
-                                                       ae_reporte=newText
-                                                    }
-                                                    if(clickid == 'AE_not')
-                                                    {
-                                                       ae_notifie=newText
-                                                    }
-                                                    if(clickid == 'AE_enga')
-                                                    {
-                                                        ae_engage=newText
-                                                    }
-                                                    if(clickid == 'CP_rpor')
-                                                    {
-                                                    cp_reporte=newText
-                                                    }
-                                                    if(clickid == 'CP_not')
-                                                    {
-                                                    cp_notifie=newText
-                                                    }
-                                                    if(clickid == 'CP_consom')
-                                                    {
-                                                    cp_consome=newText
-                                                    }
-                                                if( T == '1')
-                                                {
-                                                    dataupdate.push({code:codesoup,value:{ae:ae,cp:cp}});
-                                                }
-                                                if(T == '2')
-                                                {
-                                                dataupdate.push({code:codesoup,value:{ae_ouvert:ae_ouvert,ae_attendu:ae_attendu,cp_ouvert:cp_ouvert,cp_attendu:cp_attendu}});
-                                                }
-                                                if(T == '3')
-                                                {
-                                                    dataupdate.push({code:codesoup,value:{ae_notifie:ae_notifie,ae_reporte:ae_reporte,ae_engage:ae_engage,
-                                                                                          cp_notifie:cp_notifie,cp_reporte:cp_reporte,cp_consome:cp_consome}})
-                                                }
-                                                if(T == '4')
-                                                {
-                                                        dataupdate.push({code:codesoup,value:{ae:ae,cp:cp}})
-                                                }
-                                            
-                                            console.log('i insert '+JSON.stringify(dataupdate))
-                                            }
-                                            $("#changin-up").on('click',function()
-                                            {
-                                                console.log('click once')
-                                                i++
-                                                if( i === 1)
-                                                    {   
-                                             /*   $.ajax({
-                                                    url:'/update',
-                                                    type:'POST',
-                                                    data:{
-                                                        Tport:T,
-                                                        result:dataupdate,
-                                                        _token: $('meta[name="csrf-token"]').attr("content"),
-                                                        _method: "POST",},
-                                                        success:function(response)
-                                                        {
-            
-                                                        }
-                                                   
-                                                })*/
-                                                    }
-                                                   console.log('testing'+JSON.stringify(dataupdate))
-                                                   $('.change_app').empty()
-                                                  
-                                                //dataupdate=[];
-                                            })
+                                            dataupdate.push({code:codesoup,value:{ae:ae,cp:cp}});
+                                            console.log('i insert '+JSON.stringify(dataupdate))}
                                         }
                                         else {
                                             cell.empty();
                                             cell.text(old)
                                         }
-                                    })  
-                                 
+                                    })
+                                    $("#changin").on('click',function()
+                                {
+                                    i++
+                                    /*if( i === 1)
+                                        {
+                                    $.ajax({
+                                        url:'/update',
+                                        type:'POST',
+                                        data:{
+                                            Tport:T,
+                                            result:dataupdate,
+                                            _token: $('meta[name="csrf-token"]').attr("content"),
+                                            _method: "POST",},
+                                            success:function(response)
+                                            {
+
+                                            }
+
+                                    })
+                                        }*/
+                                       console.log('testing'+JSON.stringify(dataupdate))
+                                    //dataupdate=[];
+                                })
                                 })
                             })
                             i=0;
                          }
                          /**
-                          * 
-                          * The end of update function  
+                          *
+                          * The end of update function
                           */
                          function Edit(tid, T) {
                              $(document).ready(function () {
@@ -1225,20 +1125,28 @@
                                                          num_sous_prog: num_sou_program,
                                                      },
                                                      success: function (response) {
-                                                         if (response.exists) {
-                                                             console.log(response); // Vérifiez la réponse
-                                                             console.log('num_sou_program path: ' + JSON.stringify(path));
-                                                            $("#file_holder").empty();
-                                                             // Remplir les champs du formulaire avec les données récupérées
-                                                             $('#nom_sous_prog').val(response.nom_sous_prog).trigger('change'); // Remplir et déclencher l'événement change
-                                                             //    $('#date_insert_sousProg').val(response.date_insert_sousProg).trigger('change'); // Remplir et déclencher l'événement change
-                                                             $('#AE_sous_prog').val(response.AE_sous_prog).trigger('change'); // Remplir et déclencher l'événement change
-                                                             $('#CP_sous_prog').val(response.CP_sous_prog).trigger('change'); // Remplir et déclencher l'événement change
-                                                             //   $('#num_journ_program').val(response.num_journal).trigger('change'); // Remplir et déclencher l'événement change
+                                                        if (response.exists) {
+                                                            console.log(response); // Vérifiez la réponse
 
-                                                             alert('Le sous programme existe déjà');
+                                                            // Remplir les champs du formulaire avec les données récupérées
+                                                            $('#nom_sous_prog').val(response.nom_sous_prog).trigger('change');
+                                                            $('#AE_sous_prog').val(response.AE_sous_prog).trigger('change');
+                                                            $('#CP_sous_prog').val(response.CP_sous_prog).trigger('change');
 
-                                                         } else {
+                                                            $('#T1_AE_sous_prog').val(response.T1_AE_init).trigger('change');
+                                                            $('#T1_CP_sous_prog').val(response.T1_CP_init).trigger('change');
+
+                                                            $('#T2_AE_sous_prog').val(response.T2_AE_init).trigger('change');
+                                                            $('#T2_CP_sous_prog').val(response.T2_CP_init).trigger('change');
+
+                                                            $('#T3_AE_sous_prog').val(response.T3_AE_init).trigger('change');
+                                                            $('#T3_CP_sous_prog').val(response.T3_CP_init).trigger('change');
+
+                                                            $('#T4_AE_sous_prog').val(response.T4_AE_init).trigger('change');
+                                                            $('#T4_CP_sous_prog').val(response.T4_CP_init).trigger('change');
+
+                                                            alert('Le sous-programme existe déjà.');
+                                                        }  else {
                                                              // alert('Le programme n\'existe pas.');
                                                          }
                                                      },
@@ -1255,6 +1163,18 @@
                                              var nom_sou_prog = $('#nom_sous_prog').val();
                                              var dat_sou_prog = $('#date_insert_sousProg').val()
                                              var AE_sous_prog = $('#AE_sous_prog').val()
+                                             var T1_AE_sous_prog = $('#T1_AE_sous_prog').val()
+                                             var T1_CP_sous_prog = $('#T1_CP_sous_prog').val()
+
+                                             var T2_AE_sous_prog = $('#T2_AE_sous_prog').val()
+                                             var T2_CP_sous_prog = $('#T2_CP_sous_prog').val()
+
+                                             var T3_AE_sous_prog = $('#T3_AE_sous_prog').val()
+                                             var T3_CP_sous_prog = $('#T3_CP_sous_prog').val()
+
+                                             var T4_AE_sous_prog = $('#T4_AE_sous_prog').val()
+                                             var T4_CP_sous_prog = $('#T4_CP_sous_prog').val()
+
                                              var CP_sous_prog = $('#CP_sous_prog').val()
                                              var id_prog = path[1];
                                              var numsouprog_year = id_prog +'-'+sou_prog ;
@@ -1307,6 +1227,23 @@
                                                  CP_sous_prog: CP_sous_prog,
                                                  date_insert_sousProg: dat_sou_prog,
                                                  id_program: id_prog,
+
+                                                 T1_AE_init: T1_AE_sous_prog,
+                                                 T1_CP_init: T1_CP_sous_prog,
+                                                 code_t1: 10000,
+
+                                                 T2_AE_init: T2_AE_sous_prog,
+                                                 T2_CP_init: T2_CP_sous_prog,
+                                                 code_t2: 20000,
+
+                                                 T3_AE_init: T3_AE_sous_prog,
+                                                 T3_CP_init: T3_CP_sous_prog,
+                                                 code_t3: 30000,
+
+                                                 T4_AE_init: T4_AE_sous_prog,
+                                                 T4_CP_init: T4_CP_sous_prog,
+                                                 code_t4: 40000,
+
                                                  //id_porte: id_port,
                                                  _token: $('meta[name="csrf-token"]').attr('content'),
                                                  _method: 'POST'
@@ -1788,10 +1725,8 @@
 
                                  });
                                  if(code === 200)
-                                 {
-                                    dataupdate=[]
-                                Update_dpia(T,id_s_act);
-                                 console.log('testing new update function')}  
+                                 {Update_dpia(T,id_s_act);
+                                 console.log('testing new update function')}
                              }).fail(function () {
                                  console.error('Error loading JSON file.');
                              });
@@ -1981,7 +1916,7 @@
                                         dataupdate=[]
                                         Update_dpia(T,id_s_act);
                                     console.log('testing new update function')
-                                    }  
+                                    }
                              }).fail(function () {
                                  console.error('Error loading JSON file.');
                              });
@@ -2058,7 +1993,7 @@
                                          '</tr>';
                                          
                                      if(Object.keys(data_T_port).length > 0){
-                                        
+
                                      if (data_T_port.group.length > 0 && data_T_port.group.length > ig) {
                                         var land=data_T_port.group[ig].code.length-5;
                                         console.log('T3'+JSON.stringify(data_T_port.group) +' length'+land)
@@ -2544,7 +2479,7 @@
                           *  this js for creation from the index
                           */
 
-                        
+
 
 
                          /**

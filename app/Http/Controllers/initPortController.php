@@ -15,44 +15,43 @@ function create_sou_prog(Request $request)
 {
     // Validation des données
     $request->validate([
-        'AE_init_t1' => 'required',
-        'CP_init_t1' => 'required',
+        'T1_AE_init' => 'required',
+        'T1_CP_init' => 'required',
 
-        'AE_init_t2' => 'required',
-        'CP_init_t2' => 'required',
+        'T2_AE_init' => 'required',
+        'T2_CP_init' => 'required',
 
-        'AE_init_t3' => 'required',
-        'CP_init_t3' => 'required',
+        'T3_AE_init' => 'required',
+        'T3_CP_init' => 'required',
 
-        'AE_init_t4' => 'required',
-        'CP_init_t4' => 'required',
+        'T4_AE_init' => 'required',
+        'T4_CP_init' => 'required',
 
     ]);
     //dd($request);
     //dd(floatval(floatval($request->AE_init_t1)));
 
-    $initPort = new initPort();
-    $initPort->AE_init_t1 = floatval($request->AE_init_t1);
-    $initPort->CP_init_t1 = floatval($request->CP_init_t1);
+    $codes = [
+        't1' => 10000,
+        't2' => 20000,
+        't3' => 30000,
+        't4' => 40000,
+    ];
 
-    $initPort->AE_init_t2 = floatval($request->AE_init_t2);
-    $initPort->CP_init_t2 = floatval($request->CP_init_t2);
+    // Parcourir chaque clé (t1, t2, etc.) pour insérer les valeurs initiales et finales dans une même ligne
+    foreach ($codes as $id => $codeT) {
+        // Récupérer les valeurs initiales et finales
+        $AE_init = $request->input("{$id}_AE_init");
+        $CP_init = $request->input("{$id}_CP_init");
 
-    $initPort->AE_init_t3 = floatval($request->AE_init_t3);
-    $initPort->CP_init_t3 = floatval($request->CP_init_t3);
-
-    $initPort->AE_init_t4 = floatval($request->AE_init_t4);
-    $initPort->CP_init_t4 = floatval($request->CP_init_t4);
-
-    $initPort->code_t1 = $request->code_t1;
-    $initPort->code_t2 = $request->code_t2;
-    $initPort->code_t3 = $request->code_t3;
-    $initPort->code_t4 = $request->code_t4;
-    $initPort->date_init = $request->date_init;
-    $initPort->num_sous_prog = $request->num_sous_prog;
-
-
-    $initPort->save();
+        // Insérer une ligne dans la table
+        $initPort=initPort::create([
+            //'T' => $id, // Identifiant de la donnée (par exemple, 't1', 't2', etc.)
+            'codeT' => $codeT,
+            'AE_init' => $AE_init,
+            'CP_init' => $CP_init,
+        ]);
+    }
 
 
 
