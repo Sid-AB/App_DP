@@ -45,7 +45,12 @@ class sousOperationController extends Controller
 
     function AffichePortsSousAct ($port,$prog,$sous_prog,$act,$s_act)
     {
-        $s_act=explode('_',$s_act)[1];
+        $s_act1=explode('_',$s_act);
+        //dd($act1);
+        if(count($s_act1) > 1)
+        {
+            $s_act=$s_act1[1];
+        }
       //dd($port,$prog,$sous_prog,$act,$s_act);
       //$resultats = $this->CalculDpia->calculdpiaFromPath($port, $prog, $sous_prog, $act,$s_act);
      // dd($resultats);

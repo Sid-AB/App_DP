@@ -17,12 +17,20 @@ class sousProgrammeController extends Controller
     {
         // Récupérer les SousProgramme qui ont le même num_prog
             $SousProgramme = SousProgramme::where('num_prog', $num_prog)->get();
-
+            //dd($SousProgramme);
         // Vérifier si des SousProgramme existent
             if ($SousProgramme->isEmpty()) {
                  return response()->json([
                     'success' => false,
                     'message' => 'Aucun Sous programme trouvé pour ce programme.',
+                ]);
+            }
+            else
+            {
+                return response()->json([
+                    'success' => true,
+                    'result'=>$SousProgramme,
+                    'message' => 'Sous programme trouvé pour ce programme.',
                 ]);
             }
 

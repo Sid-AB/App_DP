@@ -9,15 +9,17 @@ class ModificationT extends Model
     use HasFactory;
     protected $table = 'modification_t_s';
     protected $primaryKey = 'id_modif';
-    public $incrementing = false; 
+    public $incrementing = true; 
     protected $keyType = 'integer'; 
     public $timestamps = false;
 
     protected $fillable = [
-       'id_modif','date_modif','AE_modif_t1','CP_modif_t1','AE_modif_t2'
-,'CP_modif_t2','AE_modif_t3','CP_modif_t3','AE_modif_t4','CP_modif_t4','code_t1','code_t2','code_t3','code_t4','id_art'
+       'id_modif','date_modif','AE_envoi_t1','CP_envoi_t1','AE_envoi_t2'
+,'CP_envoi_t2','AE_envoi_t3','CP_envoi_t3','AE_envoi_t4','CP_envoi_t4',
+'code_t1','code_t2','code_t3','code_t4','id_art','AE_recoit_t1','CP_recoit_t1'
+,'AE_recoit_t2','CP_recoit_t2','AE_recoit_t3','CP_recoit_t3','AE_recoit_t4','CP_recoit_t4'
  ];
-   
+
  
     public function articles()
     {

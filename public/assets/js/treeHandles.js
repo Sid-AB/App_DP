@@ -15,8 +15,13 @@ $(document).ready(function(){
   let selectTret ='T0';
   let  selectedHobby='t'
   let selectedret ='0';
+  var prognum='';
+  var sousprogbum='';
+  var progs={};
+  var sousProgs={};
     $('.update-handl').on('click',function(){
       var id=$(this).parent().parent().attr('id');
+      var port=$('.family-tree').attr('id');
       console.log('file loading  '+id)
       $.ajax({
         url:'/check-prog',
@@ -29,6 +34,58 @@ $(document).ready(function(){
            if(response.exists)
            {
             $('#id_sprog_modif').text(response.nom_prog);
+            prognum=response.num_prog
+            $.ajax({
+              url:'/allaction/'+port,
+              type:'GET',
+              success:function(response)
+              {
+                if(response.exists)
+                {
+                  progs=response.programs
+                  
+                  response.actions.forEach(element => {
+                    console.log('append'+JSON.stringify(element.actions) )
+                    $('#id_cible').append("<option value="+element.actions.actions_num+">"+element.actions.actions_name+"</option>")
+                  });
+                
+                }
+              }
+            })
+           }
+           else
+           {
+            $.ajax({
+              url:'/check-sousprog',
+              Type:'GET',
+              data:{
+                num_sous_prog:id,},
+              success:function(response) {
+                if(response.exists)
+                {
+                $('#id_sprog_modif').text(response.nom_sous_prog);
+                sousprogbum=response.num_sous_prog
+                prognum=response.num_prog
+                $.ajax({
+                  url:'/allaction/'+port,
+                  type:'GET',
+                  success:function(response)
+                  {
+                    if(response.exists)
+                    {
+                      sousProgs=response.sous_programs
+                      
+                      response.actions.forEach(element => {
+                        console.log('append'+JSON.stringify(element.actions) )
+                        $('#id_cible').append("<option value="+element.actions.actions_num+">"+element.actions.actions_name+"</option>")
+                      });
+                    
+                    }
+                  }
+                })
+                }
+              }         
+            })
            }
         }
       })
@@ -45,12 +102,16 @@ $(document).ready(function(){
       $(this).removeClass('setit-back');
       $('.member .update-handl').css('color','black')
       $('.float-export').css('display','block');
+      
     })
     $('.modif-contiant').on('click',function(){
       $(this).removeClass('setit-insert');
       $('.member .update-handl').css('color','black')
       $('.modif-handler').css('display','none')
       $('.float-export').css('display','block');
+      $('#id_cible').empty()
+      $('#id-retire').empty()
+      window.location.reload();
     })
     $('#button-70').on('click',function(){
   $('.float-export').css('display','block'); 
@@ -67,7 +128,7 @@ $(document).ready(function(){
    $('#T1-inpt-handle').css('display','none')
         AE_T1=0
         CP_T1=0
-        Tselect=false
+        T1select=false
        }
      });
      $('#T2').click(function(){
@@ -124,11 +185,26 @@ $(document).ready(function(){
     ' <label for="input1">Action a Reterie montant</label>'+
     '<select class="form-control" id="id-retire" >'+
     '<option value="0" >Selectionner Article</option>'+
-    '<option value="1" >Action 01</option>'+
-    '<option value="2" >Action 01</option>'+
     '</select>'+
     '</div><div class="section-env"></div>';
     $('.add-envoi').append(chose);
+    if(Object.keys(progs).length !=0)
+    {
+   
+     progs.forEach(element=>{
+      $('#id-retire').append("<option value="+element.programs.progs_num+">"+element.programs.progs_name+"</option>")
+     }) 
+    }
+    else
+    {
+      if(Object.keys(sousProgs).length !=0)
+      {
+
+        sousProgs.forEach(element=>{
+          $('#id-retire').append("<option value="+element.sous_programs.sous_progs_num+">"+element.sous_programs.sous_progs_name+"</option>")
+         }) 
+      }
+    }
     var choseT ='<div class="form-group">'+
     ' <label for="input1">Tport Reterie montant</label>'+
     '<select class="form-control" id="id-T-retire">'+
@@ -180,6 +256,7 @@ $(document).ready(function(){
       $('.Tenv-inpt-handle').empty();
       $('.section-env').empty();
      $('.add-envoi').empty();
+     
      console.log('nothing is selected type of interaction '+selectedHobby)
      $('.float-export').css('display','block');
     }
@@ -222,7 +299,6 @@ $('#button-71').on('click',function(){
   {
     cmpt=true;
   }
-  
   var data={
     ref:$('#id').val(),
      AE_T1:AE_T1,
@@ -238,6 +314,8 @@ $('#button-71').on('click',function(){
      CP_env_T:$('#CP_env_T').val(),
      Sous_prog_env:selectedret,
      type:selectedHobby,
+     prognum:prognum,
+     sousprogbum:sousprogbum,
      cible:$('#id_cible').val(),
      status:cmpt, 
   }

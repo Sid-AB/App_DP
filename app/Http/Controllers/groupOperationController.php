@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\GroupOperation;
 use App\Models\Portefeuille;
-use App\Models\operation;
-use App\Models\sousOperation;
+use App\Models\Operation;
+use App\Models\SousOperation;
 use App\Models\ConstruireDPIA;
 use App\Models\ConstruireDPIC;
 use Carbon\Carbon;
@@ -130,57 +130,39 @@ foreach ($jsonData as $codeStr => $nom) {
 
                         if ($portefeuille) {
                             // Création de la table ConstruireDPIA
-                            $DPIA = new ConstruireDPIA();
-
-
-                            $DPIA->date_creation_dpia = $portefeuille->Date_portefeuille;
-                            $DPIA->date_modification_dpia = $DPIA->date_creation_dpia;
-                            $DPIA->motif_dpia = 'Création de DPIA à partir du portefeuille';
-
-                            $DPIA->AE_dpia_nv = $sousoperation->AE_sous_operation;
-                            $DPIA->CP_dpia_nv = $sousoperation->CP_sous_operation;
-
-
-                            $DPIA->AE_ouvert_dpia = null;
-                            $DPIA->AE_atendu_dpia = null;
-                            $DPIA->CP_ouvert_dpia = null;
-                            $DPIA->CP_atendu_dpia = null;
-
-                            $DPIA->AE_reporte_dpia = null;
-                            $DPIA->AE_notifie_dpia = null;
-                            $DPIA->AE_engage_dpia = null;
-                            $DPIA->CP_reporte_dpia = null;
-                            $DPIA->CP_notifie_dpia = null;
-                            $DPIA->CP_consome_dpia = null;
-
-                            $DPIA->code_sous_operation = $sousoperation->code_sous_operation;
-                            $DPIA->id_rp = 1;
-                            $DPIA->id_ra = 1;
-
-
-                            $DPIA->save();
+                            ConstruireDPIA::updateOrCreate(
+                                [
+                                    'code_sous_operation' => $sousoperation->code_sous_operation,
+                                    'motif_dpia' => 'Création de DPIA (T1) à partir du portefeuille'
+                                ],
+                                [
+                                    'date_creation_dpia' => $portefeuille->Date_portefeuille,
+                                    'date_modification_dpia' => now(),
+                                    'AE_dpia_nv' => $sousoperation->AE_sous_operation,
+                                    'CP_dpia_nv' => $sousoperation->CP_sous_operation,
+                                    'AE_ouvert_dpia' => null,
+                                    'AE_atendu_dpia' => null,
+                                    'CP_ouvert_dpia' => null,
+                                    'CP_atendu_dpia' => null,
+                                    'AE_reporte_dpia' => null,
+                                    'AE_notifie_dpia' => null,
+                                    'AE_engage_dpia' => null,
+                                    'CP_reporte_dpia' => null,
+                                    'CP_notifie_dpia' => null,
+                                    'CP_consome_dpia' => null,
+                                    'id_rp' => 1,
+                                    'id_ra' => 1,
+                                ]
+                            );
+    
+    
+                            
                         } else {
                             // si le portefeuille n'existe pas
                             dd('Portefeuille non trouvé');
                         }
 
-                       // dd( $DPIA);
-               // mettre à jour ConstruireDPIA
-             /*$DPIA = ConstruireDPIA::whereNull('code_sous_operation')->first();
-
-             if ($DPIA) {
-
-                 $DPIA->update([
-                    'code_sous_operation' => $sousoperation->code_sous_operation,
-                     'AE_dpia_nv' => $sousoperation->AE_sous_operation,
-                     'CP_dpia_nv' => $sousoperation->CP_sous_operation,
-                     'date_modification_dpia' => now(),
-                 ]);
-
-
-             $DPIA->save();
-
-                }*/
+            
                 }
             }else{
                 // Insérer dans sousoperation avec un code spécifique
@@ -200,56 +182,35 @@ foreach ($jsonData as $codeStr => $nom) {
 
                 if ($portefeuille) {
                     // Création de la table ConstruireDPIA
-                    $DPIA = new ConstruireDPIA();
-
-
-                    $DPIA->date_creation_dpia = $portefeuille->Date_portefeuille;
-                    $DPIA->date_modification_dpia = $DPIA->date_creation_dpia;
-                    $DPIA->motif_dpia = 'Création de DPIA à partir du portefeuille';
-
-                    $DPIA->AE_dpia_nv = $sousoperation->AE_sous_operation;
-                    $DPIA->CP_dpia_nv = $sousoperation->CP_sous_operation;
-
-
-                    $DPIA->AE_ouvert_dpia = null;
-                    $DPIA->AE_atendu_dpia = null;
-                    $DPIA->CP_ouvert_dpia = null;
-                    $DPIA->CP_atendu_dpia = null;
-
-                    $DPIA->AE_reporte_dpia = null;
-                    $DPIA->AE_notifie_dpia = null;
-                    $DPIA->AE_engage_dpia = null;
-                    $DPIA->CP_reporte_dpia = null;
-                    $DPIA->CP_notifie_dpia = null;
-                    $DPIA->CP_consome_dpia = null;
-
-                    $DPIA->code_sous_operation = $sousoperation->code_sous_operation;
-                    $DPIA->id_rp = 1;
-                    $DPIA->id_ra = 1;
-
-
-                    $DPIA->save();
+                    ConstruireDPIA::updateOrCreate(
+                        [
+                            'code_sous_operation' => $sousoperation->code_sous_operation,
+                            'motif_dpia' => 'Création de DPIA (T1) à partir du portefeuille'
+                        ],
+                        [
+                            'date_creation_dpia' => $portefeuille->Date_portefeuille,
+                            'date_modification_dpia' => now(),
+                            'AE_dpia_nv' => $sousoperation->AE_sous_operation,
+                            'CP_dpia_nv' => $sousoperation->CP_sous_operation,
+                            'AE_ouvert_dpia' => null,
+                            'AE_atendu_dpia' => null,
+                            'CP_ouvert_dpia' => null,
+                            'CP_atendu_dpia' => null,
+                            'AE_reporte_dpia' => null,
+                            'AE_notifie_dpia' => null,
+                            'AE_engage_dpia' => null,
+                            'CP_reporte_dpia' => null,
+                            'CP_notifie_dpia' => null,
+                            'CP_consome_dpia' => null,
+                            'id_rp' => 1,
+                            'id_ra' => 1,
+                        ]
+                    );
                 } else {
                     // si le portefeuille n'existe pas
                     dd('Portefeuille non trouvé');
                 }
-                // dd( $DPIA);
-           // mettre à jour ConstruireDPIA
-          /* $DPIA = ConstruireDPIA::whereNull('code_sous_operation')->first();
-
-           if ($DPIA) {
-
-               $DPIA->update([
-                  'code_sous_operation' => $sousoperation->code_sous_operation,
-                   'AE_dpia_nv' => $sousoperation->AE_sous_operation,
-                   'CP_dpia_nv' => $sousoperation->CP_sous_operation,
-                   'date_modification_dpia' => now(),
-               ]);
-
-
-           $DPIA->save();
-
-              //}*/
+                
                  }
             }
 
@@ -272,56 +233,35 @@ foreach ($jsonData as $codeStr => $nom) {
 
               if ($portefeuille) {
                   // Création de la table ConstruireDPIA
-                  $DPIA = new ConstruireDPIA();
-
-
-                  $DPIA->date_creation_dpia = $portefeuille->Date_portefeuille;
-                  $DPIA->date_modification_dpia = $DPIA->date_creation_dpia;
-                  $DPIA->motif_dpia = 'Création de DPIA à partir du portefeuille';
-
-                  $DPIA->AE_dpia_nv = $sousoperation->AE_sous_operation;
-                  $DPIA->CP_dpia_nv = $sousoperation->CP_sous_operation;
-
-
-                  $DPIA->AE_ouvert_dpia = null;
-                  $DPIA->AE_atendu_dpia = null;
-                  $DPIA->CP_ouvert_dpia = null;
-                  $DPIA->CP_atendu_dpia = null;
-
-                  $DPIA->AE_reporte_dpia = null;
-                  $DPIA->AE_notifie_dpia = null;
-                  $DPIA->AE_engage_dpia = null;
-                  $DPIA->CP_reporte_dpia = null;
-                  $DPIA->CP_notifie_dpia = null;
-                  $DPIA->CP_consome_dpia = null;
-
-                  $DPIA->code_sous_operation = $sousoperation->code_sous_operation;
-                  $DPIA->id_rp = 1;
-                  $DPIA->id_ra = 1;
-
-
-                  $DPIA->save();
+                  ConstruireDPIA::updateOrCreate(
+                    [
+                        'code_sous_operation' => $sousoperation->code_sous_operation,
+                        'motif_dpia' => 'Création de DPIA (T1) à partir du portefeuille'
+                    ],
+                    [
+                        'date_creation_dpia' => $portefeuille->Date_portefeuille,
+                        'date_modification_dpia' => now(),
+                        'AE_dpia_nv' => $sousoperation->AE_sous_operation,
+                        'CP_dpia_nv' => $sousoperation->CP_sous_operation,
+                        'AE_ouvert_dpia' => null,
+                        'AE_atendu_dpia' => null,
+                        'CP_ouvert_dpia' => null,
+                        'CP_atendu_dpia' => null,
+                        'AE_reporte_dpia' => null,
+                        'AE_notifie_dpia' => null,
+                        'AE_engage_dpia' => null,
+                        'CP_reporte_dpia' => null,
+                        'CP_notifie_dpia' => null,
+                        'CP_consome_dpia' => null,
+                        'id_rp' => 1,
+                        'id_ra' => 1,
+                    ]
+                );
               } else {
                   // si le portefeuille n'existe pas
                   dd('Portefeuille non trouvé');
               }
-            // dd( $DPIA);
-             // mettre à jour ConstruireDPIA
-            /* $DPIA = ConstruireDPIA::whereNull('code_sous_operation')->first();
-
-             if ($DPIA) {
-
-                 $DPIA->update([
-                    'code_sous_operation' => $sousoperation->code_sous_operation,
-                     'AE_dpia_nv' => $sousoperation->AE_sous_operation,
-                     'CP_dpia_nv' => $sousoperation->CP_sous_operation,
-                     'date_modification_dpia' => now(),
-                 ]);
-
-
-             $DPIA->save();
-
-                }*/
+           
         }
     }
 
@@ -434,53 +374,42 @@ elseif ($T == 2) {
 
                 if ($portefeuille) {
 
-                    $DPIA = new ConstruireDPIA();
-
-
-                    $DPIA->date_creation_dpia = $portefeuille->Date_portefeuille;
-                    $DPIA->date_modification_dpia = $DPIA->date_creation_dpia;
-                    $DPIA->motif_dpia = 'Création de DPIA à partir du portefeuille';
-
-                    $DPIA->AE_dpia_nv = null;
-                    $DPIA->CP_dpia_nv = null;
-
-
-                    $DPIA->AE_ouvert_dpia = $sousoperation->AE_ouvert;
-                    $DPIA->AE_atendu_dpia = $sousoperation->AE_atendu;
-                    $DPIA->CP_ouvert_dpia = $sousoperation->CP_ouvert;
-                    $DPIA->CP_atendu_dpia = $sousoperation->CP_atendu;
-
-                    $DPIA->AE_reporte_dpia = null;
-                    $DPIA->AE_notifie_dpia = null;
-                    $DPIA->AE_engage_dpia = null;
-                    $DPIA->CP_reporte_dpia = null;
-                    $DPIA->CP_notifie_dpia = null;
-                    $DPIA->CP_consome_dpia = null;
-
-                    $DPIA->code_sous_operation = $sousoperation->code_sous_operation;
-                    $DPIA->id_rp = 1;
-                    $DPIA->id_ra = 1;
-
-
-                    $DPIA->save();
+                    ConstruireDPIA::updateOrCreate(
+                       
+                        [
+                            'code_sous_operation' => $sousoperation->code_sous_operation,
+                            'id_rp' => 1,
+                            'id_ra' => 1,
+                        ],
+                     
+                        [
+                            'date_creation_dpia' => $portefeuille->Date_portefeuille,
+                            'date_modification_dpia' => now(),
+                            'motif_dpia' => 'Création de DPIA (T2) à partir du portefeuille',
+                    
+                            'AE_dpia_nv' => null,
+                            'CP_dpia_nv' => null,
+                    
+                            'AE_ouvert_dpia' => $sousoperation->AE_ouvert,
+                            'AE_atendu_dpia' => $sousoperation->AE_atendu,
+                            'CP_ouvert_dpia' => $sousoperation->CP_ouvert,
+                            'CP_atendu_dpia' => $sousoperation->CP_atendu,
+                    
+                            'AE_reporte_dpia' => null,
+                            'AE_notifie_dpia' => null,
+                            'AE_engage_dpia' => null,
+                            'CP_reporte_dpia' => null,
+                            'CP_notifie_dpia' => null,
+                            'CP_consome_dpia' => null,
+                        ]
+                    );
+                    
                 } else {
 
                     dd('Portefeuille non trouvé');
                 }
 
-                // dd( $DPIA);
-                     // mettre à jour ConstruireDPIA
-                    /* $DPIA = ConstruireDPIA::whereNull('code_sous_operation')->firstOrFail();
-                // vérifiez si les champs sont nuls et update
-                $DPIA->update([
-                'code_sous_operation'=>$DPIA->code_sous_operation ?? $sousoperation->code_sous_operation,
-                'AE_ouvert_dpia' => $DPIA->AE_ouvert_dpia ?? $sousoperation->AE_ouvert,
-                'AE_atendu_dpia' => $DPIA->AE_atendu_dpia ?? $sousoperation->AE_atendu,
-                'CP_ouvert_dpia' => $DPIA->CP_ouvert_dpia ?? $sousoperation->CP_ouvert,
-                'CP_atendu_dpia' => $DPIA->CP_atendu_dpia ?? $sousoperation->CP_atendu,
-                ]);
-
-                $DPIA->save();*/
+                
                 }
 
 
@@ -506,53 +435,42 @@ elseif ($T == 2) {
 
                  if ($portefeuille) {
 
-                     $DPIA = new ConstruireDPIA();
-
-
-                     $DPIA->date_creation_dpia = $portefeuille->Date_portefeuille;
-                     $DPIA->date_modification_dpia = $DPIA->date_creation_dpia;
-                     $DPIA->motif_dpia = 'Création de DPIA à partir du portefeuille';
-
-                     $DPIA->AE_dpia_nv = null;
-                     $DPIA->CP_dpia_nv = null;
-
-
-                     $DPIA->AE_ouvert_dpia = $sousoperation->AE_ouvert;
-                     $DPIA->AE_atendu_dpia = $sousoperation->AE_atendu;
-                     $DPIA->CP_ouvert_dpia = $sousoperation->CP_ouvert;
-                     $DPIA->CP_atendu_dpia = $sousoperation->CP_atendu;
-
-                     $DPIA->AE_reporte_dpia = null;
-                     $DPIA->AE_notifie_dpia = null;
-                     $DPIA->AE_engage_dpia = null;
-                     $DPIA->CP_reporte_dpia = null;
-                     $DPIA->CP_notifie_dpia = null;
-                     $DPIA->CP_consome_dpia = null;
-
-                     $DPIA->code_sous_operation = $sousoperation->code_sous_operation;
-                     $DPIA->id_rp = 1;
-                     $DPIA->id_ra = 1;
-
-
-                     $DPIA->save();
+                    ConstruireDPIA::updateOrCreate(
+                       
+                        [
+                            'code_sous_operation' => $sousoperation->code_sous_operation,
+                            'id_rp' => 1,
+                            'id_ra' => 1,
+                        ],
+                     
+                        [
+                            'date_creation_dpia' => $portefeuille->Date_portefeuille,
+                            'date_modification_dpia' => now(),
+                            'motif_dpia' => 'Création de DPIA (T2) à partir du portefeuille',
+                    
+                            'AE_dpia_nv' => null,
+                            'CP_dpia_nv' => null,
+                    
+                            'AE_ouvert_dpia' => $sousoperation->AE_ouvert,
+                            'AE_atendu_dpia' => $sousoperation->AE_atendu,
+                            'CP_ouvert_dpia' => $sousoperation->CP_ouvert,
+                            'CP_atendu_dpia' => $sousoperation->CP_atendu,
+                    
+                            'AE_reporte_dpia' => null,
+                            'AE_notifie_dpia' => null,
+                            'AE_engage_dpia' => null,
+                            'CP_reporte_dpia' => null,
+                            'CP_notifie_dpia' => null,
+                            'CP_consome_dpia' => null,
+                        ]
+                    );
+                    
                  } else {
 
                      dd('Portefeuille non trouvé');
                  }
 
-                 // dd( $DPIA);
-                   // mettre à jour ConstruireDPIA
-                  /* $DPIA = ConstruireDPIA::whereNull('code_sous_operation')->firstOrFail();
-                   // vérifiez si les champs sont nuls et update
-                   $DPIA->update([
-                   'code_sous_operation'=>$DPIA->code_sous_operation ?? $sousoperation->code_sous_operation,
-                   'AE_ouvert_dpia' => $DPIA->AE_ouvert_dpia ?? $sousoperation->AE_ouvert,
-                   'AE_atendu_dpia' => $DPIA->AE_atendu_dpia ?? $sousoperation->AE_atendu,
-                   'CP_ouvert_dpia' => $DPIA->CP_ouvert_dpia ?? $sousoperation->CP_ouvert,
-                   'CP_atendu_dpia' => $DPIA->CP_atendu_dpia ?? $sousoperation->CP_atendu,
-                   ]);
-
-                   $DPIA->save();*/
+                
             }
 
 
@@ -604,54 +522,41 @@ elseif ($T == 2) {
 
                 if ($portefeuille) {
 
-                    $DPIA = new ConstruireDPIA();
-
-
-                    $DPIA->date_creation_dpia = $portefeuille->Date_portefeuille;
-                    $DPIA->date_modification_dpia = $DPIA->date_creation_dpia;
-                    $DPIA->motif_dpia = 'Création de DPIA à partir du portefeuille';
-
-                    $DPIA->AE_dpia_nv = null;
-                    $DPIA->CP_dpia_nv = null;
-
-
-                    $DPIA->AE_ouvert_dpia = $sousoperation->AE_ouvert;
-                    $DPIA->AE_atendu_dpia = $sousoperation->AE_atendu;
-                    $DPIA->CP_ouvert_dpia = $sousoperation->CP_ouvert;
-                    $DPIA->CP_atendu_dpia = $sousoperation->CP_atendu;
-
-                    $DPIA->AE_reporte_dpia = null;
-                    $DPIA->AE_notifie_dpia = null;
-                    $DPIA->AE_engage_dpia = null;
-                    $DPIA->CP_reporte_dpia = null;
-                    $DPIA->CP_notifie_dpia = null;
-                    $DPIA->CP_consome_dpia = null;
-
-                    $DPIA->code_sous_operation = $sousoperation->code_sous_operation;
-                    $DPIA->id_rp = 1;
-                    $DPIA->id_ra = 1;
-
-
-                    $DPIA->save();
+                    ConstruireDPIA::updateOrCreate(
+                       
+                        [
+                            'code_sous_operation' => $sousoperation->code_sous_operation,
+                            'id_rp' => 1,
+                            'id_ra' => 1,
+                        ],
+                     
+                        [
+                            'date_creation_dpia' => $portefeuille->Date_portefeuille,
+                            'date_modification_dpia' => now(),
+                            'motif_dpia' => 'Création de DPIA (T2)à partir du portefeuille',
+                    
+                            'AE_dpia_nv' => null,
+                            'CP_dpia_nv' => null,
+                    
+                            'AE_ouvert_dpia' => $sousoperation->AE_ouvert,
+                            'AE_atendu_dpia' => $sousoperation->AE_atendu,
+                            'CP_ouvert_dpia' => $sousoperation->CP_ouvert,
+                            'CP_atendu_dpia' => $sousoperation->CP_atendu,
+                    
+                            'AE_reporte_dpia' => null,
+                            'AE_notifie_dpia' => null,
+                            'AE_engage_dpia' => null,
+                            'CP_reporte_dpia' => null,
+                            'CP_notifie_dpia' => null,
+                            'CP_consome_dpia' => null,
+                        ]
+                    );
                 } else {
 
                     dd('Portefeuille non trouvé');
                 }
 
-                // dd( $DPIA);
-                       // mettre à jour ConstruireDPIA
-                     //  $DPIA = ConstruireDPIA::whereNull('code_sous_operation')->firstOrFail();
-                // vérifiez si les champs sont nuls et update
-              /*  $DPIA->update([
-                'code_sous_operation'=>$DPIA->code_sous_operation ?? $sousoperation->code_sous_operation,
-                'AE_ouvert_dpia' => $DPIA->AE_ouvert_dpia ?? $sousoperation->AE_ouvert,
-                'AE_atendu_dpia' => $DPIA->AE_atendu_dpia ?? $sousoperation->AE_atendu,
-                'CP_ouvert_dpia' => $DPIA->CP_ouvert_dpia ?? $sousoperation->CP_ouvert,
-                'CP_atendu_dpia' => $DPIA->CP_atendu_dpia ?? $sousoperation->CP_atendu,
-                ]);
-
-                $DPIA->save();*/
-
+                
                 }
             }else{
                 // Insérer dans sousoperation avec un code spécifique
@@ -676,53 +581,41 @@ elseif ($T == 2) {
 
                  if ($portefeuille) {
 
-                     $DPIA = new ConstruireDPIA();
-
-
-                     $DPIA->date_creation_dpia = $portefeuille->Date_portefeuille;
-                     $DPIA->date_modification_dpia = $DPIA->date_creation_dpia;
-                     $DPIA->motif_dpia = 'Création de DPIA à partir du portefeuille';
-
-                     $DPIA->AE_dpia_nv = null;
-                     $DPIA->CP_dpia_nv = null;
-
-
-                     $DPIA->AE_ouvert_dpia = $sousoperation->AE_ouvert;
-                     $DPIA->AE_atendu_dpia = $sousoperation->AE_atendu;
-                     $DPIA->CP_ouvert_dpia = $sousoperation->CP_ouvert;
-                     $DPIA->CP_atendu_dpia = $sousoperation->CP_atendu;
-
-                     $DPIA->AE_reporte_dpia = null;
-                     $DPIA->AE_notifie_dpia = null;
-                     $DPIA->AE_engage_dpia = null;
-                     $DPIA->CP_reporte_dpia = null;
-                     $DPIA->CP_notifie_dpia = null;
-                     $DPIA->CP_consome_dpia = null;
-
-                     $DPIA->code_sous_operation = $sousoperation->code_sous_operation;
-                     $DPIA->id_rp = 1;
-                     $DPIA->id_ra = 1;
-
-
-                     $DPIA->save();
+                    ConstruireDPIA::updateOrCreate(
+                       
+                        [
+                            'code_sous_operation' => $sousoperation->code_sous_operation,
+                            'id_rp' => 1,
+                            'id_ra' => 1,
+                        ],
+                     
+                        [
+                            'date_creation_dpia' => $portefeuille->Date_portefeuille,
+                            'date_modification_dpia' => now(),
+                            'motif_dpia' => 'Création de DPIA (T2) à partir du portefeuille',
+                    
+                            'AE_dpia_nv' => null,
+                            'CP_dpia_nv' => null,
+                    
+                            'AE_ouvert_dpia' => $sousoperation->AE_ouvert,
+                            'AE_atendu_dpia' => $sousoperation->AE_atendu,
+                            'CP_ouvert_dpia' => $sousoperation->CP_ouvert,
+                            'CP_atendu_dpia' => $sousoperation->CP_atendu,
+                    
+                            'AE_reporte_dpia' => null,
+                            'AE_notifie_dpia' => null,
+                            'AE_engage_dpia' => null,
+                            'CP_reporte_dpia' => null,
+                            'CP_notifie_dpia' => null,
+                            'CP_consome_dpia' => null,
+                        ]
+                    );
                  } else {
 
                      dd('Portefeuille non trouvé');
                  }
 
-                 // dd( $DPIA);
-                   // mettre à jour ConstruireDPIA
-                  /* $DPIA = ConstruireDPIA::whereNull('code_sous_operation')->firstOrFail();
-                   // vérifiez si les champs sont nuls et update
-                   $DPIA->update([
-                   'code_sous_operation'=>$DPIA->code_sous_operation ?? $sousoperation->code_sous_operation,
-                   'AE_ouvert_dpia' => $DPIA->AE_ouvert_dpia ?? $sousoperation->AE_ouvert,
-                   'AE_atendu_dpia' => $DPIA->AE_atendu_dpia ?? $sousoperation->AE_atendu,
-                   'CP_ouvert_dpia' => $DPIA->CP_ouvert_dpia ?? $sousoperation->CP_ouvert,
-                   'CP_atendu_dpia' => $DPIA->CP_atendu_dpia ?? $sousoperation->CP_atendu,
-                   ]);
-
-                   $DPIA->save();*/
+               
             }
 
         // Sinon, il s'agit d'une sous-opération
@@ -751,53 +644,41 @@ elseif ($T == 2) {
 
              if ($portefeuille) {
 
-                 $DPIA = new ConstruireDPIA();
-
-
-                 $DPIA->date_creation_dpia = $portefeuille->Date_portefeuille;
-                 $DPIA->date_modification_dpia = $DPIA->date_creation_dpia;
-                 $DPIA->motif_dpia = 'Création de DPIA à partir du portefeuille';
-
-                 $DPIA->AE_dpia_nv = null;
-                 $DPIA->CP_dpia_nv = null;
-
-
-                 $DPIA->AE_ouvert_dpia = $sousoperation->AE_ouvert;
-                 $DPIA->AE_atendu_dpia = $sousoperation->AE_atendu;
-                 $DPIA->CP_ouvert_dpia = $sousoperation->CP_ouvert;
-                 $DPIA->CP_atendu_dpia = $sousoperation->CP_atendu;
-
-                 $DPIA->AE_reporte_dpia = null;
-                 $DPIA->AE_notifie_dpia = null;
-                 $DPIA->AE_engage_dpia = null;
-                 $DPIA->CP_reporte_dpia = null;
-                 $DPIA->CP_notifie_dpia = null;
-                 $DPIA->CP_consome_dpia = null;
-
-                 $DPIA->code_sous_operation = $sousoperation->code_sous_operation;
-                 $DPIA->id_rp = 1;
-                 $DPIA->id_ra = 1;
-
-
-                 $DPIA->save();
+                ConstruireDPIA::updateOrCreate(
+                       
+                    [
+                        'code_sous_operation' => $sousoperation->code_sous_operation,
+                        'id_rp' => 1,
+                        'id_ra' => 1,
+                    ],
+                 
+                    [
+                        'date_creation_dpia' => $portefeuille->Date_portefeuille,
+                        'date_modification_dpia' => now(),
+                        'motif_dpia' => 'Création de DPIA (T2) à partir du portefeuille',
+                
+                        'AE_dpia_nv' => null,
+                        'CP_dpia_nv' => null,
+                
+                        'AE_ouvert_dpia' => $sousoperation->AE_ouvert,
+                        'AE_atendu_dpia' => $sousoperation->AE_atendu,
+                        'CP_ouvert_dpia' => $sousoperation->CP_ouvert,
+                        'CP_atendu_dpia' => $sousoperation->CP_atendu,
+                
+                        'AE_reporte_dpia' => null,
+                        'AE_notifie_dpia' => null,
+                        'AE_engage_dpia' => null,
+                        'CP_reporte_dpia' => null,
+                        'CP_notifie_dpia' => null,
+                        'CP_consome_dpia' => null,
+                    ]
+                );
              } else {
 
                  dd('Portefeuille non trouvé');
              }
 
-             // dd( $DPIA);
-             // mettre à jour ConstruireDPIA
-            /* $DPIA = ConstruireDPIA::whereNull('code_sous_operation')->firstOrFail();
-             // vérifiez si les champs sont nuls et update
-             $DPIA->update([
-            'code_sous_operation'=>$DPIA->code_sous_operation ?? $sousoperation->code_sous_operation,
-             'AE_ouvert_dpia' => $DPIA->AE_ouvert_dpia ?? $sousoperation->AE_ouvert,
-             'AE_atendu_dpia' => $DPIA->AE_atendu_dpia ?? $sousoperation->AE_atendu,
-             'CP_ouvert_dpia' => $DPIA->CP_ouvert_dpia ?? $sousoperation->CP_ouvert,
-             'CP_atendu_dpia' => $DPIA->CP_atendu_dpia ?? $sousoperation->CP_atendu,
-             ]);
-
-             $DPIA->save();*/
+             
         }
     } // fin boucle
 
@@ -942,35 +823,36 @@ foreach ($jsonData as $codeStr => $nom) {
 
                 if ($portefeuille) {
 
-                    $DPIA = new ConstruireDPIA();
-
-
-                    $DPIA->date_creation_dpia = $portefeuille->Date_portefeuille;
-                    $DPIA->date_modification_dpia = $DPIA->date_creation_dpia;
-                    $DPIA->motif_dpia = 'Création de DPIA à partir du portefeuille';
-
-                    $DPIA->AE_dpia_nv = null;
-                    $DPIA->CP_dpia_nv = null;
-
-
-                    $DPIA->AE_ouvert_dpia = null;
-                    $DPIA->AE_atendu_dpia = null;
-                    $DPIA->CP_ouvert_dpia = null;
-                    $DPIA->CP_atendu_dpia = null;
-
-                    $DPIA->AE_reporte_dpia = $sousoperation->AE_reporte;
-                    $DPIA->AE_notifie_dpia = $sousoperation->AE_notifie;
-                    $DPIA->AE_engage_dpia = $sousoperation->AE_engage;
-                    $DPIA->CP_reporte_dpia = $sousoperation->CP_reporte;
-                    $DPIA->CP_notifie_dpia = $sousoperation->CP_notifie;
-                    $DPIA->CP_consome_dpia = $sousoperation->CP_consome;
-
-                    $DPIA->code_sous_operation = $sousoperation->code_sous_operation;
-                    $DPIA->id_rp = 1;
-                    $DPIA->id_ra = 1;
-
-
-                    $DPIA->save();
+                    ConstruireDPIA::updateOrCreate(
+                 
+                        [
+                            'code_sous_operation' => $sousoperation->code_sous_operation,
+                            'id_rp' => 1,
+                            'id_ra' => 1,
+                        ],
+                        
+                        [
+                            'date_creation_dpia' => $portefeuille->Date_portefeuille,
+                            'date_modification_dpia' => now(),
+                            'motif_dpia' => 'Création de DPIA (T3) à partir du portefeuille ',
+                    
+                            'AE_dpia_nv' => null,
+                            'CP_dpia_nv' => null,
+                    
+                            'AE_ouvert_dpia' => null,
+                            'AE_atendu_dpia' => null,
+                            'CP_ouvert_dpia' => null,
+                            'CP_atendu_dpia' => null,
+                    
+                            'AE_reporte_dpia' => $sousoperation->AE_reporte,
+                            'AE_notifie_dpia' => $sousoperation->AE_notifie,
+                            'AE_engage_dpia' => $sousoperation->AE_engage,
+                            'CP_reporte_dpia' => $sousoperation->CP_reporte,
+                            'CP_notifie_dpia' => $sousoperation->CP_notifie,
+                            'CP_consome_dpia' => $sousoperation->CP_consome,
+                        ]
+                    );
+                  
                 } else {
 
                     dd('Portefeuille non trouvé');
@@ -1004,35 +886,35 @@ foreach ($jsonData as $codeStr => $nom) {
 
                    if ($portefeuille) {
 
-                       $DPIA = new ConstruireDPIA();
-
-
-                       $DPIA->date_creation_dpia = $portefeuille->Date_portefeuille;
-                       $DPIA->date_modification_dpia = $DPIA->date_creation_dpia;
-                       $DPIA->motif_dpia = 'Création de DPIA à partir du portefeuille';
-
-                       $DPIA->AE_dpia_nv = null;
-                       $DPIA->CP_dpia_nv = null;
-
-
-                       $DPIA->AE_ouvert_dpia = null;
-                       $DPIA->AE_atendu_dpia = null;
-                       $DPIA->CP_ouvert_dpia = null;
-                       $DPIA->CP_atendu_dpia = null;
-
-                       $DPIA->AE_reporte_dpia = $sousoperation->AE_reporte;
-                       $DPIA->AE_notifie_dpia = $sousoperation->AE_notifie;
-                       $DPIA->AE_engage_dpia = $sousoperation->AE_engage;
-                       $DPIA->CP_reporte_dpia = $sousoperation->CP_reporte;
-                       $DPIA->CP_notifie_dpia = $sousoperation->CP_notifie;
-                       $DPIA->CP_consome_dpia = $sousoperation->CP_consome;
-
-                       $DPIA->code_sous_operation = $sousoperation->code_sous_operation;
-                       $DPIA->id_rp = 1;
-                       $DPIA->id_ra = 1;
-
-
-                       $DPIA->save();
+                    ConstruireDPIA::updateOrCreate(
+                 
+                        [
+                            'code_sous_operation' => $sousoperation->code_sous_operation,
+                            'id_rp' => 1,
+                            'id_ra' => 1,
+                        ],
+                        
+                        [
+                            'date_creation_dpia' => $portefeuille->Date_portefeuille,
+                            'date_modification_dpia' => now(),
+                            'motif_dpia' => 'Création de DPIA (T3) à partir du portefeuille ',
+                    
+                            'AE_dpia_nv' => null,
+                            'CP_dpia_nv' => null,
+                    
+                            'AE_ouvert_dpia' => null,
+                            'AE_atendu_dpia' => null,
+                            'CP_ouvert_dpia' => null,
+                            'CP_atendu_dpia' => null,
+                    
+                            'AE_reporte_dpia' => $sousoperation->AE_reporte,
+                            'AE_notifie_dpia' => $sousoperation->AE_notifie,
+                            'AE_engage_dpia' => $sousoperation->AE_engage,
+                            'CP_reporte_dpia' => $sousoperation->CP_reporte,
+                            'CP_notifie_dpia' => $sousoperation->CP_notifie,
+                            'CP_consome_dpia' => $sousoperation->CP_consome,
+                        ]
+                    );
                    } else {
 
                        dd('Portefeuille non trouvé');
@@ -1064,35 +946,36 @@ foreach ($jsonData as $codeStr => $nom) {
 
                    if ($portefeuille) {
 
-                       $DPIA = new ConstruireDPIA();
-
-
-                       $DPIA->date_creation_dpia = $portefeuille->Date_portefeuille;
-                       $DPIA->date_modification_dpia = $DPIA->date_creation_dpia;
-                       $DPIA->motif_dpia = 'Création de DPIA à partir du portefeuille';
-
-                       $DPIA->AE_dpia_nv = null;
-                       $DPIA->CP_dpia_nv = null;
-
-
-                       $DPIA->AE_ouvert_dpia = null;
-                       $DPIA->AE_atendu_dpia = null;
-                       $DPIA->CP_ouvert_dpia = null;
-                       $DPIA->CP_atendu_dpia = null;
-
-                       $DPIA->AE_reporte_dpia = $sousoperation->AE_reporte;
-                       $DPIA->AE_notifie_dpia = $sousoperation->AE_notifie;
-                       $DPIA->AE_engage_dpia = $sousoperation->AE_engage;
-                       $DPIA->CP_reporte_dpia = $sousoperation->CP_reporte;
-                       $DPIA->CP_notifie_dpia = $sousoperation->CP_notifie;
-                       $DPIA->CP_consome_dpia = $sousoperation->CP_consome;
-
-                       $DPIA->code_sous_operation = $sousoperation->code_sous_operation;
-                       $DPIA->id_rp = 1;
-                       $DPIA->id_ra = 1;
-
-
-                       $DPIA->save();
+                    ConstruireDPIA::updateOrCreate(
+                 
+                        [
+                            'code_sous_operation' => $sousoperation->code_sous_operation,
+                            'id_rp' => 1,
+                            'id_ra' => 1,
+                        ],
+                        
+                        [
+                            'date_creation_dpia' => $portefeuille->Date_portefeuille,
+                            'date_modification_dpia' => now(),
+                            'motif_dpia' => 'Création de DPIA (T3) à partir du portefeuille ',
+                    
+                            'AE_dpia_nv' => null,
+                            'CP_dpia_nv' => null,
+                    
+                            'AE_ouvert_dpia' => null,
+                            'AE_atendu_dpia' => null,
+                            'CP_ouvert_dpia' => null,
+                            'CP_atendu_dpia' => null,
+                    
+                            'AE_reporte_dpia' => $sousoperation->AE_reporte,
+                            'AE_notifie_dpia' => $sousoperation->AE_notifie,
+                            'AE_engage_dpia' => $sousoperation->AE_engage,
+                            'CP_reporte_dpia' => $sousoperation->CP_reporte,
+                            'CP_notifie_dpia' => $sousoperation->CP_notifie,
+                            'CP_consome_dpia' => $sousoperation->CP_consome,
+                        ]
+                    );
+                 
                    } else {
 
                        dd('Portefeuille non trouvé');
@@ -1221,35 +1104,37 @@ if (!$nom) {
 
              if ($portefeuille) {
                  // Création de la table ConstruireDPIA
-                 $DPIA = new ConstruireDPIA();
-
-
-                 $DPIA->date_creation_dpia = $portefeuille->Date_portefeuille;
-                 $DPIA->date_modification_dpia = $DPIA->date_creation_dpia;
-                 $DPIA->motif_dpia = 'Création de DPIA à partir du portefeuille';
-
-                 $DPIA->AE_dpia_nv = $sousoperation->AE_sous_operation;
-                 $DPIA->CP_dpia_nv = $sousoperation->CP_sous_operation;
-
-
-                 $DPIA->AE_ouvert_dpia = null;
-                 $DPIA->AE_atendu_dpia = null;
-                 $DPIA->CP_ouvert_dpia = null;
-                 $DPIA->CP_atendu_dpia = null;
-
-                 $DPIA->AE_reporte_dpia = null;
-                 $DPIA->AE_notifie_dpia = null;
-                 $DPIA->AE_engage_dpia = null;
-                 $DPIA->CP_reporte_dpia = null;
-                 $DPIA->CP_notifie_dpia = null;
-                 $DPIA->CP_consome_dpia = null;
-
-                 $DPIA->code_sous_operation = $sousoperation->code_sous_operation;
-                 $DPIA->id_rp = 1;
-                 $DPIA->id_ra = 1;
-
-
-                 $DPIA->save();
+                 ConstruireDPIA::updateOrCreate(
+                   
+                    [
+                        'code_sous_operation' => $sousoperation->code_sous_operation,
+                        'id_rp' => 1,
+                        'id_ra' => 1,
+                    ],
+                
+                    [
+                        'date_creation_dpia' => $portefeuille->Date_portefeuille,
+                        'date_modification_dpia' =>now(),
+                        'motif_dpia' => 'Création de DPIA (T4) à partir du portefeuille',
+                
+                        'AE_dpia_nv' => $sousoperation->AE_sous_operation,
+                        'CP_dpia_nv' => $sousoperation->CP_sous_operation,
+                
+                        'AE_ouvert_dpia' => null,
+                        'AE_atendu_dpia' => null,
+                        'CP_ouvert_dpia' => null,
+                        'CP_atendu_dpia' => null,
+                
+                        'AE_reporte_dpia' => null,
+                        'AE_notifie_dpia' => null,
+                        'AE_engage_dpia' => null,
+                        'CP_reporte_dpia' => null,
+                        'CP_notifie_dpia' => null,
+                        'CP_consome_dpia' => null,
+                
+                        
+                    ]
+                );
              } else {
                  // si le portefeuille n'existe pas
                  dd('Portefeuille non trouvé');
@@ -1273,35 +1158,37 @@ if (!$nom) {
 
      if ($portefeuille) {
          // Création de la table ConstruireDPIA
-         $DPIA = new ConstruireDPIA();
-
-
-         $DPIA->date_creation_dpia = $portefeuille->Date_portefeuille;
-         $DPIA->date_modification_dpia = $DPIA->date_creation_dpia;
-         $DPIA->motif_dpia = 'Création de DPIA à partir du portefeuille';
-
-         $DPIA->AE_dpia_nv = $sousoperation->AE_sous_operation;
-         $DPIA->CP_dpia_nv = $sousoperation->CP_sous_operation;
-
-
-         $DPIA->AE_ouvert_dpia = null;
-         $DPIA->AE_atendu_dpia = null;
-         $DPIA->CP_ouvert_dpia = null;
-         $DPIA->CP_atendu_dpia = null;
-
-         $DPIA->AE_reporte_dpia = null;
-         $DPIA->AE_notifie_dpia = null;
-         $DPIA->AE_engage_dpia = null;
-         $DPIA->CP_reporte_dpia = null;
-         $DPIA->CP_notifie_dpia = null;
-         $DPIA->CP_consome_dpia = null;
-
-         $DPIA->code_sous_operation = $sousoperation->code_sous_operation;
-         $DPIA->id_rp = 1;
-         $DPIA->id_ra = 1;
-
-
-         $DPIA->save();
+         ConstruireDPIA::updateOrCreate(
+                   
+            [
+                'code_sous_operation' => $sousoperation->code_sous_operation,
+                'id_rp' => 1,
+                'id_ra' => 1,
+            ],
+        
+            [
+                'date_creation_dpia' => $portefeuille->Date_portefeuille,
+                'date_modification_dpia' =>now(),
+                'motif_dpia' => 'Création de DPIA (T4) à partir du portefeuille',
+        
+                'AE_dpia_nv' => $sousoperation->AE_sous_operation,
+                'CP_dpia_nv' => $sousoperation->CP_sous_operation,
+        
+                'AE_ouvert_dpia' => null,
+                'AE_atendu_dpia' => null,
+                'CP_ouvert_dpia' => null,
+                'CP_atendu_dpia' => null,
+        
+                'AE_reporte_dpia' => null,
+                'AE_notifie_dpia' => null,
+                'AE_engage_dpia' => null,
+                'CP_reporte_dpia' => null,
+                'CP_notifie_dpia' => null,
+                'CP_consome_dpia' => null,
+        
+                
+            ]
+        );
      } else {
          // si le portefeuille n'existe pas
          dd('Portefeuille non trouvé');
@@ -1326,35 +1213,37 @@ if (!$nom) {
 
                if ($portefeuille) {
                    // Création de la table ConstruireDPIA
-                   $DPIA = new ConstruireDPIA();
-
-
-                   $DPIA->date_creation_dpia = $portefeuille->Date_portefeuille;
-                   $DPIA->date_modification_dpia = $DPIA->date_creation_dpia;
-                   $DPIA->motif_dpia = 'Création de DPIA à partir du portefeuille';
-
-                   $DPIA->AE_dpia_nv = $sousoperation->AE_sous_operation;
-                   $DPIA->CP_dpia_nv = $sousoperation->CP_sous_operation;
-
-
-                   $DPIA->AE_ouvert_dpia = null;
-                   $DPIA->AE_atendu_dpia = null;
-                   $DPIA->CP_ouvert_dpia = null;
-                   $DPIA->CP_atendu_dpia = null;
-
-                   $DPIA->AE_reporte_dpia = null;
-                   $DPIA->AE_notifie_dpia = null;
-                   $DPIA->AE_engage_dpia = null;
-                   $DPIA->CP_reporte_dpia = null;
-                   $DPIA->CP_notifie_dpia = null;
-                   $DPIA->CP_consome_dpia = null;
-
-                   $DPIA->code_sous_operation = $sousoperation->code_sous_operation;
-                   $DPIA->id_rp = 1;
-                   $DPIA->id_ra = 1;
-
-
-                   $DPIA->save();
+                   ConstruireDPIA::updateOrCreate(
+                   
+                    [
+                        'code_sous_operation' => $sousoperation->code_sous_operation,
+                        'id_rp' => 1,
+                        'id_ra' => 1,
+                    ],
+                
+                    [
+                        'date_creation_dpia' => $portefeuille->Date_portefeuille,
+                        'date_modification_dpia' =>now(),
+                        'motif_dpia' => 'Création de DPIA (T4) à partir du portefeuille',
+                
+                        'AE_dpia_nv' => $sousoperation->AE_sous_operation,
+                        'CP_dpia_nv' => $sousoperation->CP_sous_operation,
+                
+                        'AE_ouvert_dpia' => null,
+                        'AE_atendu_dpia' => null,
+                        'CP_ouvert_dpia' => null,
+                        'CP_atendu_dpia' => null,
+                
+                        'AE_reporte_dpia' => null,
+                        'AE_notifie_dpia' => null,
+                        'AE_engage_dpia' => null,
+                        'CP_reporte_dpia' => null,
+                        'CP_notifie_dpia' => null,
+                        'CP_consome_dpia' => null,
+                
+                        
+                    ]
+                );
                } else {
                    // si le portefeuille n'existe pas
                    dd('Portefeuille non trouvé');
@@ -1362,6 +1251,122 @@ if (!$nom) {
                // dd( $DPIA);
 
 
+        if ($currentIndex !== false && isset($keys[$currentIndex + 1])) {
+            $nextKey = $keys[$currentIndex + 1]; // Obtenir la clé suivante
+            $nextItem = $jsonData[$nextKey]; // Obtenir l'élément suivant par sa clé
+
+            // Récupérer le code correspondant au nom suivant
+            $nextCode = $nextKey; // La clé suivante est déjà le code
+
+        // Si la ligne suivante n'est pas une sous-opération
+        if ($nextCode && ($nextCode % 100 == 0 || $nextCode % 1000 == 0)) {
+            // Insérer dans sousoperation avec un code spécifique
+           $sousoperation= sousoperation::updateOrCreate(
+                ['code_sous_operation' =>  $code.$codeOp.$codeGp.$s_act], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
+                ['code_operation' => $codeOp.$codeGp.$s_act, 'nom_sous_operation' => $nom,
+                'AE_sous_operation' => floatval(str_replace(',', '',  $ae)),
+                'code_t4' => 40000,
+                'CP_sous_operation' =>floatval(str_replace(',', '',  $cp))
+                , 'date_insert_SOUSoperation' => $currentDateTime]
+            );
+
+             // creation de la table  construireDPIA
+             $portefeuille = Portefeuille::where('num_portefeuil', $port)->first();
+             // dd($portefeuille);
+
+              if ($portefeuille) {
+                  // Création de la table ConstruireDPIA
+                  ConstruireDPIA::updateOrCreate(
+                   
+                    [
+                        'code_sous_operation' => $sousoperation->code_sous_operation,
+                        'id_rp' => 1,
+                        'id_ra' => 1,
+                    ],
+                
+                    [
+                        'date_creation_dpia' => $portefeuille->Date_portefeuille,
+                        'date_modification_dpia' =>now(),
+                        'motif_dpia' => 'Création de DPIA (T4) à partir du portefeuille',
+                
+                        'AE_dpia_nv' => $sousoperation->AE_sous_operation,
+                        'CP_dpia_nv' => $sousoperation->CP_sous_operation,
+                
+                        'AE_ouvert_dpia' => null,
+                        'AE_atendu_dpia' => null,
+                        'CP_ouvert_dpia' => null,
+                        'CP_atendu_dpia' => null,
+                
+                        'AE_reporte_dpia' => null,
+                        'AE_notifie_dpia' => null,
+                        'AE_engage_dpia' => null,
+                        'CP_reporte_dpia' => null,
+                        'CP_notifie_dpia' => null,
+                        'CP_consome_dpia' => null,
+                
+                        
+                    ]
+                );
+              } else {
+                  // si le portefeuille n'existe pas
+                  dd('Portefeuille non trouvé');
+              }
+              // dd( $DPIA);
+        }
+   }
+   else{
+     $sousoperation=sousoperation::updateOrCreate(
+        ['code_sous_operation' =>  $code.$codeOp.$codeGp.$s_act], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
+        ['code_operation' => $codeOp.$codeGp.$s_act, 'nom_sous_operation' => $nom,
+        'AE_sous_operation' => floatval(str_replace(',', '',  $ae)),
+        'code_t4' => 40000,
+        'CP_sous_operation' =>floatval(str_replace(',', '',  $cp))
+        , 'date_insert_SOUSoperation' => $currentDateTime]
+    );
+
+     // creation de la table  construireDPIA
+     $portefeuille = Portefeuille::where('num_portefeuil', $port)->first();
+     // dd($portefeuille);
+
+      if ($portefeuille) {
+          // Création de la table ConstruireDPIA
+         ConstruireDPIA::updateOrCreate(
+                   
+                    [
+                        'code_sous_operation' => $sousoperation->code_sous_operation,
+                        'id_rp' => 1,
+                        'id_ra' => 1,
+                    ],
+                
+                    [
+                        'date_creation_dpia' => $portefeuille->Date_portefeuille,
+                        'date_modification_dpia' =>now(),
+                        'motif_dpia' => 'Création de DPIA (T4) à partir du portefeuille',
+                
+                        'AE_dpia_nv' => $sousoperation->AE_sous_operation,
+                        'CP_dpia_nv' => $sousoperation->CP_sous_operation,
+                
+                        'AE_ouvert_dpia' => null,
+                        'AE_atendu_dpia' => null,
+                        'CP_ouvert_dpia' => null,
+                        'CP_atendu_dpia' => null,
+                
+                        'AE_reporte_dpia' => null,
+                        'AE_notifie_dpia' => null,
+                        'AE_engage_dpia' => null,
+                        'CP_reporte_dpia' => null,
+                        'CP_notifie_dpia' => null,
+                        'CP_consome_dpia' => null,
+                
+                        
+                    ]
+                );
+      } else {
+          // si le portefeuille n'existe pas
+          dd('Portefeuille non trouvé');
+      }
+      // dd( $DPIA);
+   }
 }
 }
 return response()->json([

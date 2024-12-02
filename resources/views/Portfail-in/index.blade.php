@@ -32,7 +32,7 @@
     </div>
 @endif
  <div class="container">
- <div class="container family-tree">
+ <div class="container family-tree" id="{{$allport['id']}}">
     <div class="row justify-content-center">
       <div class="col-12 tree">
         <ul id="father0">
@@ -140,6 +140,7 @@
                 @else
                 <span class="member alert_func" id="{{$souportf['id_sous_prog']}}">
                 @endif
+                <div class="edit-zone"><i class="fas fa-edit update-handl"></i></div>
                 <div class="col-12 col-sm-6">
             <div class="card widget-card border-light shadow-sm">
               <div class="card-body p-1">
@@ -174,8 +175,7 @@
               </div>
             </div>
           </div>
-        </span>
-                
+        </span> 
                 <ul id="father3" style="display:none">
                 @foreach($souportf['Action'] as $act)
                   <li>
@@ -289,7 +289,7 @@
               @endforeach
               <li>
                   <span class="member">
-                  <button class="add-btn" id="{{$act['num_act'] }}-act">
+                  <button class="add-btn" id="{{$act['num_act'] }}_act">
                    <i class="fas fa-plus-circle icon-car" style='font-size:100px; color:#0dcaf0;'></i>
                   </button> 
                   </li>
@@ -298,7 +298,7 @@
                   @endforeach
                   <li>
                   <span class="member">
-                  <button class="add-btn" id="{{$souportf['id_sous_prog']}}-sprog">
+                  <button class="add-btn" id="{{$souportf['id_sous_prog']}}_sprog">
                    <i class="fas fa-plus-circle icon-car" style='font-size:100px; color:#0dcaf0;'></i>
                   </button> 
                   </li>
@@ -306,7 +306,7 @@
                 @endforeach
                 <li>
                 <span class="member">
-                <button class="add-btn" id=" {{$portf['id_prog']}}-prog">
+                <button class="add-btn" id=" {{$portf['id_prog']}}_prog">
                    <i class="fas fa-plus-circle icon-car" style='font-size:100px; color:#0dcaf0;'></i>
                 </button> 
                 </li>
@@ -315,7 +315,7 @@
             @endforeach
             <li>
                 <span class="member">
-                <button class="add-btn" id="{{$allport['id']}}-all">
+                <button class="add-btn" id="{{$allport['id']}}_all">
                    <i class="fas fa-plus-circle icon-car" style='font-size:100px; color:#0dcaf0;'></i>
                   </button> 
                 </li>
@@ -345,11 +345,9 @@
           <label for="input1">Article</label>
           <select type="text" class="form-control" id="id" placeholder="Entrer le Nom du Programme">
            <option value="0" >Selectionner Article</option>
-            <option value="1" >REF°39</option>
-            <option value="2" >REF°30</option>
-            <option value="3" >REF°27</option>
-            <option value="4" >REF°33-Transfer</option>
-            <option value="6" >REF°39-Verment</option>
+           @foreach ($art as $key=>$actelement )
+           <option value="{{$actelement['id_art']}}" >{{$actelement['nom_art'].' / '.$actelement['code_art']}}</option>
+           @endforeach
           </select>
         </div>
         <hr>
@@ -458,7 +456,7 @@
   var path=Array();
   var path3=Array();
  document.querySelectorAll('.member').forEach(member => {
-  member.addEventListener('click', function(event) {
+  member.addEventListener('dblclick', function(event) {
     const children = member.nextElementSibling;
     if (children) {
       if (children.style.display === 'flex') {
@@ -471,7 +469,7 @@
   });
   });
   $(document).ready(function(){
-    $('.member').on('click',function(){
+    $('.member').on('dblclick',function(){
     id=$(this).attr('id');
     
     var index=path.indexOf(id)
