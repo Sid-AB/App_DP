@@ -2271,15 +2271,15 @@
                                      url: '/testing/codeSousOperation/' + path3[indic],
                                      type: 'GET',
                                      success: function (response) {
-                                         if (response.code == 200) {
+                                         if (response.code == 200 && response.t1_exists==1) {
                                              alert('Exist')
                                              T1_table(id, T, path3[indic], path3[0],response.code)
                                              $('#T_port1').addClass('heilighter')
                                          }
                                          else {
                                              alert('New')
-                                             T1_table(id, T, path3[indic], path3[0],response.code)
-                                             $('#T_port1').addClass('heilighter')
+                                             code =404
+                                             T1_table(id, T, path3[indic], path3[0],code)
                                          }
                                      }
                                  })
@@ -2294,19 +2294,18 @@
                                      url: '/testing/codeSousOperation/' + path3[indic],
                                      type: 'GET',
                                      success: function (response) {
-                                         if (response.code == 200) {
+                                         if (response.code == 200 && response.t2_exists==1) {
                                              alert('Exist')
 
-
+                                                   
                                              T2_table(id, T, path3[indic], path3[0],response.code)
                                              $('#T_port2').addClass('heilighter')
                                          }
                                          else {
                                              alert('New')
 
-
-                                             T2_table(id, T, path3[indic], path3[0],response.code)
-                                             $('#T_port2').addClass('heilighter')
+                                            code=404
+                                             T2_table(id, T, path3[indic], path3[0],code)
                                          }
                                      }
                                  })
@@ -2323,7 +2322,7 @@
                                      url: '/testing/codeSousOperation/' + path3[indic],
                                      type: 'GET',
                                      success: function (response) {
-                                         if (response.code == 200) {
+                                         if (response.code == 200 && response.t3_exists==1) {
                                              alert('Exist')
 
                                              T3_table(id, T, path3[indic], path3[0],response.code)
@@ -2331,9 +2330,8 @@
                                          }
                                          else {
                                              alert('New')
-
-                                             T3_table(id, T, path3[indic], path3[0],response.code)
-                                             $('#T_port3').addClass('heilighter')
+                                             code =404
+                                             T3_table(id, T, path3[indic], path3[0],code)
                                          }
                                      }
                                  })
@@ -2349,7 +2347,7 @@
                                      url: '/testing/codeSousOperation/' + path3[indic],
                                      type: 'GET',
                                      success: function (response) {
-                                         if (response.code == 200) {
+                                         if (response.code == 200 && response.t4_exists==1) {
                                              alert('Exist')
 
                                              T4_table(id, T, path3[indic], path3[0],response.code)
@@ -2357,9 +2355,8 @@
                                          }
                                          else {
                                              alert('New')
-
-                                             T4_table(id, T, path3[indic], path3[0],response.code)
-                                             $('#T_port4').addClass('heilighter')
+                                             code =404
+                                             T4_table(id, T, path3[indic], path3[0],code)
                                          }
                                      }
                                  })
@@ -2382,15 +2379,15 @@
                                          url: '/testing/codeSousOperation/' + path3[indic],
                                          type: 'GET',
                                          success: function (response) {
-                                             if (response.code == 200) {
+                                             if (response.code == 200 && response.t1_exists==1) {
                                                  alert('Exist')
 
                                                  T1_table(id, T, path3[indic], path3[0],response.code)
                                              }
                                              else {
                                                  alert('New')
-
-                                                 T1_table(id, T, path3[indic], path3[0],response.code)
+                                                 code =404
+                                                 T1_table(id, T, path3[indic], path3[0],code)
                                              }
                                          }
                                      })
@@ -2405,15 +2402,15 @@
                                          url: '/testing/codeSousOperation/' + path3[indic],
                                          type: 'GET',
                                          success: function (response) {
-                                             if (response.code == 200) {
+                                             if (response.code == 200 && response.t2_exists==1) {
                                                  alert('Exist')
 
                                                  T2_table(id, T, path3[indic], path3[0],response.code)
                                              }
                                              else {
                                                  alert('New')
-
-                                                 T2_table(id, T, path3[indic], path3[0],response.code)
+                                                        code=404
+                                                 T2_table(id, T, path3[indic], path3[0],code)
                                              }
                                          }
                                      })
@@ -2428,15 +2425,15 @@
                                          url: '/testing/codeSousOperation/' + path3[indic],
                                          type: 'GET',
                                          success: function (response) {
-                                             if (response.code == 200) {
+                                             if (response.code == 200 && response.t3_exists==1) {
                                                  alert('Exist')
 
                                                  T3_table(id, T, path3[indic], path3[0],response.code)
                                              }
                                              else {
                                                  alert('New')
-
-                                                 T3_table(id, T, path3[indic], path3[0],response.code)
+                                                 code =404
+                                                 T3_table(id, T, path3[indic], path3[0],code)
                                              }
                                          }
                                      })
@@ -2453,15 +2450,15 @@
                                          url: '/testing/codeSousOperation/' + path3[indic],
                                          type: 'GET',
                                          success: function (response) {
-                                             if (response.code == 200) {
+                                             if (response.code == 200 && response.t4_exists==1) {
                                                  alert('Exist')
 
                                                  T4_table(id, T, path3[indic], path3[0],response.code)
                                              }
                                              else {
                                                  alert('New')
-
-                                                 T4_table(id, T, path3[indic], path3[0],response.code)
+                                                 code =404
+                                                 T4_table(id, T, path3[indic], path3[0],code)
                                              }
                                          }
                                      })
