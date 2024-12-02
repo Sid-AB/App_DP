@@ -7,8 +7,10 @@ use Illuminate\Support\Facades\DB;
 use App\Services\CalculDpia;
 use App\Models\SousOperation;
 use App\Models\SousProgramme;
+use App\Models\Portefeuille;
 use Barryvdh\DomPDF\Facade\pdf;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 class sousOperationController extends Controller
 {
 
@@ -24,6 +26,8 @@ class sousOperationController extends Controller
     {
 
         $act1=explode('_',$act);
+        $years=Portefeuille::where('num_portefeuil',$port)->firstOrFail();
+        $years = Carbon::parse($years->Date_portefeuille)->year;
         //dd($act1);
         if(count($act1) > 1)
         {
@@ -33,7 +37,7 @@ class sousOperationController extends Controller
             try{
         $resultats = $this->CalculDpia->calculdpiaFromPath($port, $prog, $sous_prog, $act,$act);
         //dd($resultats);
-           return view('Action-in.index',compact('port','prog','sous_prog','act','resultats'));
+           return view('Action-in.index',compact('port','prog','sous_prog','act','resultats','years'));
    
        } catch (\Exception $e) {
            // en cas d'erreur retourner un message d'erreur 
@@ -47,6 +51,9 @@ class sousOperationController extends Controller
     {
         $s_act1=explode('_',$s_act);
         //dd($act1);
+
+        $years=Portefeuille::where('num_portefeuil',$port)->firstOrFail();
+        $years = Carbon::parse($years->Date_portefeuille)->year;
         if(count($s_act1) > 1)
         {
             $s_act=$s_act1[1];
@@ -56,7 +63,7 @@ class sousOperationController extends Controller
      // dd($resultats);
         try{
             $resultats = $this->CalculDpia->calculdpiaFromPath($port, $prog, $sous_prog, $act,$s_act);
-               return view('Action-in.index',compact('port','prog','sous_prog','act','s_act','resultats'));
+               return view('Action-in.index',compact('port','prog','sous_prog','act','s_act','resultats','years'));
            } catch (\Exception $e) {
                // en cas d'erreur retourner un message d'erreur 
                return response()->view('errors.not_found', [], 404);

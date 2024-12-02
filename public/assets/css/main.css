@@ -647,6 +647,13 @@ background-color: #f0f0f0e7;
 -moz-box-shadow: 2px 4px 40px -6px rgba(255,162,0,1);
 box-shadow: 2px 4px 40px -6px rgba(255,162,0,1);
 }
+.heilighter
+{
+  background-color: #f3a909ef;
+-webkit-box-shadow: 0px 1px 40px 20px rgba(255,162,0,1);
+-moz-box-shadow: 0px 1px 40px 20px rgba(255,162,0,1);
+box-shadow: 0px 1px 40px 20px rgba(255,162,0,1);
+}
 /***----------------- css for the Creation DPIC and DPIA**/
 #progam-handle
 {

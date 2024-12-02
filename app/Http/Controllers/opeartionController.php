@@ -20,7 +20,8 @@ class opeartionController extends Controller
     {
        
         //dd($port, $prog, $sous_prog, $act);
-      
+        $years=Portefeuille::where('num_portefeuil',$port)->firstOrFail();
+        $years = Carbon::parse($years->Date_portefeuille)->year;
        /* $port = $request->input('port');
         $prog = $request->input('prog');
         $sous_prog = $request->input('sous_prog');
@@ -31,7 +32,7 @@ class opeartionController extends Controller
             $resultats = $this->CalculDpia->calculdpiaFromPath($port, $prog, $sous_prog, $act,$s_act);
          //  dd($resultats );
                // eenvoyer les résultats en JSON
-               return view('Action-in.index',compact('port','prog','sous_prog','act','s_act','resultats'));
+               return view('Action-in.index',compact('port','prog','sous_prog','act','s_act','resultats','years'));
            // return response()->json($resultats);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 400);

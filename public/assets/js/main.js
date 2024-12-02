@@ -1311,6 +1311,28 @@
                                                  _token: $('meta[name="csrf-token"]').attr('content'),
                                                  _method: 'POST'
                                              }
+                                             var formatinitports=
+                                             {
+                                                num_sous_prog: numsouprog_year,
+                                                code_t1:10000,
+                                                AE_init_t1:$('#T1_AE_sous_prog').val(),
+                                                CP_init_t1:$('#T1_CP_sous_prog').val(),
+                         
+                                                code_t2:20000,
+                                                AE_init_t2:$('#T2_AE_sous_prog').val(),
+                                                CP_init_t2:$('#T2_CP_sous_prog').val(),
+                         
+                                                code_t3:30000,
+                                                AE_init_t3:$('#T3_AE_sous_prog').val(),
+                                                CP_init_t3:$('#T3_CP_sous_prog').val(),
+                                             
+                                                code_t4:40000,
+                                                AE_init_t4:$('#T4_AE_sous_prog').val(),
+                                                CP_init_t4:$('#T4_CP_sous_prog').val(),
+                                                date_init:dat_sou_prog,
+                                                _token: $('meta[name="csrf-token"]').attr('content'),
+                                                _method: 'POST'
+                                             }
                                              console.log('data' + JSON.stringify(formdatasou_prog))
                                              $.ajax({
                                                  url: '/creationSousProg',
@@ -1321,8 +1343,25 @@
                                                         if(response.code == 200){
                                                             if(upload_file('file',sou_prog) == 200)
                                                             {
+                                                            
                                                                 alert(response.message)
                                                             }
+                                                            $.ajax({
+                                                                url:'/init_ports',
+                                                                type:'POST',
+                                                                data:formatinitports,
+                                                                success:function(response)
+                                                                {
+                                                                    if(response.code == 200)
+                                                                    {
+
+                                                                    }
+                                                                    else
+                                                                    {
+
+                                                                    }
+                                                                }
+                                                            })
                                                         }
                                                          alert(response.message)
                                                          path.push(numsouprog_year);
@@ -1840,6 +1879,7 @@
                                      var codegr = data_T_port.group;
                                      var codeop = data_T_port.operation;
                                      var codesop = data_T_port.sousOperation;
+                                    
                                      if(Object.keys(data_T_port).length > 0){
                                      if (codegr.length > 0 && data_T_port.group.length > ig) {
                                         var land=data_T_port.group[ig].code.length-5
@@ -1875,7 +1915,7 @@
                                      }
                                      if (codesop.length > 0 && data_T_port.sousOperation.length > iso) {
                                         var land=data_T_port.sousOperation[iso].code.length-5
-                                         if (key == splitcode(data_T_port.sousOperation[iso].code, land)[0].substring) {
+                                         if (key == splitcode(data_T_port.sousOperation[iso].code, land)[1].substring) {
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                                                  '<td class="code">' + key + '</td>' +
                                                  '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"> <p>' + value + '</p> </td>' +
@@ -1974,7 +2014,7 @@
                                      }
                                  }
                              })}
-
+                                var lasty=parseInt(yearport) - 1
                              var headT = '<tr>' +
                                  '<th><h1>code</h1></th>' +
                                  '<th><h1>T Description</h1></th>' +
@@ -1983,12 +2023,12 @@
                                  '<div class="fusion-father">' +
                                  '<h1>MONTANT ANNEE (N)</h1>' +
                                  '<div class="fusion-child">' +
-                                 '<h1>AE Reportee</h1>' +
-                                 '<h1>AE Notifiee</h1>' +
-                                 '<h1>AE Engagée</h1>' +
-                                 '<h1>CP Reportee</h1>' +
-                                 '<h1>CP Notifiée</h1>' +
-                                 '<h1>CP Engagée</h1>' +
+                                 '<h1>AE Reportee <p>31-12-'+lasty+'</p></h1>' +
+                                 '<h1>AE Notifiee <p>'+yearport+'<p></h1>' +
+                                 '<h1>AE Engagée  <p>31-12-'+lasty+'</p></h1>' +
+                                 '<h1>CP Reportee <p>31-12-'+lasty+'</p></h1>' +
+                                 '<h1>CP Notifiée <p>'+yearport+'<p></h1>' +
+                                 '<h1>CP Engagée  <p>31-12-'+lasty+'</p></h1>' +
                                  '</div>' +
                                  '</th>' +
                                  '</tr>';
@@ -2016,12 +2056,13 @@
                                          '<td class="editable" id="CP_not">' + 0 + '</td>' +
                                          '<td class="editable" id="CP_consom">' + 0 + '</td>' +
                                          '</tr>';
+                                         
                                      if(Object.keys(data_T_port).length > 0){
                                         
                                      if (data_T_port.group.length > 0 && data_T_port.group.length > ig) {
-                                        var land=data_T_port.group[ig].code-5;
-                                         console.log('code T3 ' + splitcode(data_T_port.group[ig].code, land)[1].substring);
-                                         if (key == splitcode(data_T_port.group[ig].code, 5)[0].substring) {
+                                        var land=data_T_port.group[ig].code.length-5;
+                                        console.log('T3'+JSON.stringify(data_T_port.group) +' length'+land)
+                                         if (key == splitcode(data_T_port.group[ig].code, land)[1].substring) {
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.group[ig].code + '">' +
                                                  '<td class="code">' + key + '</td>' +
                                                  '<td><p>' + val[0] + '</p> </td>' +
@@ -2037,7 +2078,8 @@
                                          }
                                      }
                                      if (data_T_port.operation.length > 0 && data_T_port.operation.length > io) {
-                                        var land=data_T_port.operation[io].code-5;
+                                        var land=data_T_port.operation[io].code.length-5;
+                                        
                                          if (key == splitcode(data_T_port.operation[io].code, land)[1].substring) {
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.operation[io].code + '">' +
                                                  '<td class="code">' + key + '</td>' +
@@ -2054,7 +2096,7 @@
                                          }
                                      }
                                      if (data_T_port.sousOperation.length > 0 && data_T_port.sousOperation.length > iso) {
-                                        var land=data_T_port.sousOperation[iso].code-5;
+                                        var land=data_T_port.sousOperation[iso].code.length-5;
                                          if (key == splitcode(data_T_port.sousOperation[iso].code, land)[1].substring) {
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                                                  '<td class="code">' + key + '</td>' +
@@ -2196,7 +2238,7 @@
                                          '</tr>';
                                      if(Object.keys(data_T_port).length > 0){
                                      if (data_T_port.group.length > 0 && data_T_port.group.length > ig) {
-                                        var land=data_T_port.group[ig].code-5;
+                                        var land=data_T_port.group[ig].code.length-5;
                                          if (key == splitcode(data_T_port.group[ig].code, land)[1].substring) {
                                              row = '<tr class="'+key+'" id="ref' + data_T_port.group[ig].code + '">' +
                                                  '<td class="code" >' + key + '</td>' +
@@ -2208,7 +2250,7 @@
                                          }
                                      }
                                      if (data_T_port.operation.length > 0 && data_T_port.operation.length > io) {
-                                        var land=data_T_port.operation[io].code.code-5;
+                                        var land=data_T_port.operation[io].code.code.length-5;
                                          if (key == splitcode(data_T_port.operation[io].code, land)[1].substring) {
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.operation[io].code + '">' +
                                                  '<td class="code" >' + key + '</td>' +
@@ -2220,7 +2262,7 @@
                                          }
                                      }
                                      if (data_T_port.sousOperation.length > 0 && data_T_port.sousOperation.length > iso) {
-                                        var land=data_T_port.sousOperation[iso].code.code-5;
+                                        var land=data_T_port.sousOperation[iso].code.length-5;
                                          if (key == splitcode(data_T_port.sousOperation[iso].code, land)[1].substring) {
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                                                  '<td class="code" >' + key + '</td>' +
@@ -2285,6 +2327,7 @@
                          $(document).ready(function () {
 
                              $('#T1').on('click', function () {
+                               
                                  var indic = path3.length - 1
                                  var id = $(this).attr('id');
                                  var T = 1;
@@ -2296,15 +2339,18 @@
                                          if (response.code == 200) {
                                              alert('Exist')
                                              T1_table(id, T, path3[indic], path3[0],response.code)
+                                             $('#T_port1').addClass('heilighter')
                                          }
                                          else {
                                              alert('New')
                                              T1_table(id, T, path3[indic], path3[0],response.code)
+                                             $('#T_port1').addClass('heilighter')
                                          }
                                      }
                                  })
                              })
                              $('#T2').on('click', function () {
+                               
                                  var indic = path3.length - 1
                                  var T=2
                                  var id = $(this).attr('id');
@@ -2318,12 +2364,14 @@
 
 
                                              T2_table(id, T, path3[indic], path3[0],response.code)
+                                             $('#T_port2').addClass('heilighter')
                                          }
                                          else {
                                              alert('New')
 
 
                                              T2_table(id, T, path3[indic], path3[0],response.code)
+                                             $('#T_port2').addClass('heilighter')
                                          }
                                      }
                                  })
@@ -2331,6 +2379,7 @@
                              })
 
                              $('#T3').on('click', function () {
+                               
                                  var indic = path3.length - 1
                                  console.log('len' + path3.length + ' act ' + indic)
                                  var id = $(this).attr('id');
@@ -2343,17 +2392,20 @@
                                              alert('Exist')
 
                                              T3_table(id, T, path3[indic], path3[0],response.code)
+                                             $('#T_port3').addClass('heilighter')
                                          }
                                          else {
                                              alert('New')
 
                                              T3_table(id, T, path3[indic], path3[0],response.code)
+                                             $('#T_port3').addClass('heilighter')
                                          }
                                      }
                                  })
                                  //T3_table(id, T)
                              })
                              $('#T4').on('click', function () {
+                                
                                  var indic = path3.length - 1
                                  console.log('len' + path3.length + ' act ' + indic)
                                  var id = $(this).attr('id');
@@ -2366,11 +2418,13 @@
                                              alert('Exist')
 
                                              T4_table(id, T, path3[indic], path3[0],response.code)
+                                             $('#T_port4').addClass('heilighter')
                                          }
                                          else {
                                              alert('New')
 
                                              T4_table(id, T, path3[indic], path3[0],response.code)
+                                             $('#T_port4').addClass('heilighter')
                                          }
                                      }
                                  })
@@ -2380,8 +2434,11 @@
                                  $('#T-tables tbody').empty()
                                  var indic = path3.length - 1
                                  var id_tport_c = $(this).attr('id');
-
+                                    $(this).addClass('heilighter')
                                  if (id_tport_c == 'T_port1') {
+                                    $('#T_port2').removeClass('heilighter')
+                                    $('#T_port3').removeClass('heilighter')
+                                    $('#T_port4').removeClass('heilighter')
                                      //var indic = path3.length - 1
                                      var id = $(this).attr('id');
                                      var T = 1;
@@ -2404,6 +2461,9 @@
                                      })
                                  }
                                  if (id_tport_c == 'T_port2') {
+                                    $('#T_port1').removeClass('heilighter')
+                                    $('#T_port3').removeClass('heilighter')
+                                    $('#T_port4').removeClass('heilighter')
                                     var id = $(this).attr('id');
                                     var T = 2;
                                      $.ajax({
@@ -2424,6 +2484,9 @@
                                      })
                                  }
                                  if (id_tport_c == 'T_port3') {
+                                    $('#T_port2').removeClass('heilighter')
+                                    $('#T_port1').removeClass('heilighter')
+                                    $('#T_port4').removeClass('heilighter')
                                     var id = $(this).attr('id');
                                     var T = 3;
                                      $.ajax({
@@ -2446,6 +2509,9 @@
 
                                  }
                                  if (id_tport_c == 'T_port4') {
+                                    $('#T_port2').removeClass('heilighter')
+                                    $('#T_port3').removeClass('heilighter')
+                                    $('#T_port1').removeClass('heilighter')
                                     var id = $(this).attr('id');
                                     var T = 4;
                                      $.ajax({

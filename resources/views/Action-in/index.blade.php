@@ -223,6 +223,7 @@
   var jsonpath2="{{asset('assets/Titre/dataT2.json')}}"
   var jsonpath3="{{asset('assets/Titre/dataT3.json')}}"
   var jsonpath4="{{asset('assets/Titre/dataT4.json')}}"
+  var yearport="{{$years}}"
   @if(isset($s_act))
   var path3=['{{$port}}','{{$prog}}','{{$sous_prog}}','{{$act}}','{{$s_act}}']
   @else
