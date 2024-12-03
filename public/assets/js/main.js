@@ -2267,7 +2267,7 @@
                                      // Create a table row
                                      var val = value.split('-')
                                      //   console.log('values' + JSON.stringify(val))
-                                     let row = '<tr class="ref"'+key+'" id="ref' + key + '">' +
+                                     let row = '<tr class="ref'+key+'" id="ref' + key + '">' +
                                          '<td scope="row"  class="code">' + key + '</td>' +
                                          '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
                                          '<td class="editable" id="AE_T4">' + 0 + ',00</td>' +
