@@ -183,16 +183,23 @@ $(document).ready(function(){
     console.log('testing radio'+selectedHobby);
     var chose ='<div class="form-group">'+
     ' <label for="input1">Programme ou Bien sous programme a Reterie montant</label>'+
-    '<select class="form-control" id="id-retire" >'+
+    '<select class="form-control" id="id-retire_prog" >'+
     '<option value="0" >Selectionner Article</option>'+
     '</select>'+
-    '</div><div class="section-env"></div>';
+    '</div><div class="section-env"></div><hr>';
     $('.add-envoi').append(chose);
+    var chosesous ='<div class="form-group">'+
+    ' <label for="input1">Sous Programme a Reterie montant</label>'+
+    '<select class="form-control" id="id-retire_sous_prog" >'+
+    '<option value="0" >Selectionner Article</option>'+
+    '</select>'+
+    '<hr>';
+    $('.add-envoi').append(chosesous);
     if(Object.keys(progs).length !=0)
     {
    
      progs.forEach(element=>{
-      $('#id-retire').append("<option value="+element.programs.progs_num+">"+element.programs.progs_name+"</option>")
+      $('#id-retire_prog').append("<option value="+element.programs.progs_num+">"+element.programs.progs_name+"</option>")
      }) 
     }
     else
@@ -201,7 +208,7 @@ $(document).ready(function(){
       {
 
         sousProgs.forEach(element=>{
-          $('#id-retire').append("<option value="+element.sous_programs.sous_progs_num+">"+element.sous_programs.sous_progs_name+"</option>")
+          $('#id-retire_sous_prog').append("<option value="+element.sous_programs.sous_progs_num+">"+element.sous_programs.sous_progs_name+"</option>")
          }) 
       }
     }
@@ -218,7 +225,7 @@ $(document).ready(function(){
     '<div class="Tenv-inpt-handle" >'+
      '</div>';
     
-      $('#id-retire').on('change',function(){
+      $('#id-retire_prog').on('change',function(){
         console.log('i act chnage')
         selectedret = $('#id-retire').val();
         if (selectedret != '0') {
