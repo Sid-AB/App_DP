@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
 <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 <link href="{{asset('assets/css/main.css')}}" rel="stylesheet"/>
+<link href="{{asset('assets/css/tableTemplat-new.css')}}" rel="stylesheet"/>
 <link href="{{asset('assets/bootstrap-5.0.2/css/bootstrap.css')}}" rel="stylesheet"/>
 <link href="{{asset('assets/fontawesome-free/css/all.css')}}" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
@@ -138,7 +139,7 @@
         </div>
         <hr>
         <div class="table-T-handle">
-            <table class="container-T" id="T-tables" style="width:97%;">
+            <table class="responsive-table" id="T-tables">
             <thead>
 	         </thead>
 	<tbody>

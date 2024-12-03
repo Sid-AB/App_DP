@@ -380,8 +380,12 @@
                                                     click++
                                                 }
                                                 $('.change_app').append(buttons)
+<<<<<<< HEAD
                                                 click=0;
                                             }
+=======
+                                            
+>>>>>>> 2892c6a3e7286820e6ccbfe4c62f1719695415ea
                                             
                                             //  console.log('all table'+JSON.stringify(value_chng))
                                             cell.text(newText);
@@ -482,7 +486,9 @@
                                                    $('.change_app').empty()
                                                   
                                                 //dataupdate=[];
+                                                click=0;
                                             })
+                                        }
                                         }
                                         else {
                                             cell.empty();
@@ -688,7 +694,7 @@
                                                          },
                                                          success: function (response) {
                                                              if (response.code == 200 || response.code == 404) {
-                                                                 window.location.reload();
+                                                               //  window.location.reload();
                                                                  console.log('path' + JSON.stringify(path))
 
                                                              }
