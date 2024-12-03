@@ -321,7 +321,7 @@ $('#button-71').on('click',function(){
   }
 
   $.ajax({
-    url:'',
+    url:'/updateModif',
     type:'POST',
     data:datamodif,
     success:function(response)
