@@ -35,9 +35,9 @@ class Programme extends Model
         return $this->hasMany(SousProgramme::class ,'num_prog','num_prog');
     }
 
-    public function Article()
+    public function ModificationT()
     {
-        return $this->hasMany(Article::class ,'num_prog','num_prog');
+        return $this->hasMany(ModificationT::class ,'num_prog','num_prog');
     }
 
     public function multimedias()

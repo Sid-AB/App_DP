@@ -79,6 +79,7 @@ class sousOperationController extends Controller
    public function impressionpdf($port, $prog, $sous_prog, $act,$s_act)
    {
         try {
+
             //dd($port, $prog, $sous_prog, $act,$s_act);
             $resultats = $this->CalculDpia->calculdpiaFromPath($port, $prog, $sous_prog, $act,$s_act);
           //dd($resultats );
@@ -98,10 +99,19 @@ class sousOperationController extends Controller
        // dd( $names);
         //envoyer le sousprogramme dans compact avec son code  
            $sousProgramme = SousProgramme::where('num_sous_prog', $sous_prog)->first();
-           //dd($sousProgramme );
+          //dd($sousProgramme );
            // vérifier si le sous programme existe
            if (!$sousProgramme) {
             throw new \Exception("Sous programme introuvable");
+        }
+
+            // envoyer tous le chemin 
+            $portefeuille = Portefeuille::with(['Programme.SousProgramme.Action.SousAction'])
+            ->where('num_portefeuil', $port) 
+            ->first();
+                   //dd($portefeuille);
+        if (!$portefeuille) {
+            throw new \Exception("Programme introuvable");
         }
 
             // pour bien structurer les données de resultats (calcul dpia)
@@ -169,13 +179,26 @@ class sousOperationController extends Controller
             ];//dd($resultstructur ['T1']); 
              }
          }
-    
-        
-               // envoyer les résultats en JSON
-               /*$pdf=pdf::loadView('impression.liste_impression', compact('resultstructur','sousProgramme','names'));
+     
+               if (isset($resultstructur['T1'])) {
+                return view('impression.liste_impression', compact('resultstructur', 'sousProgramme', 'names','portefeuille'));
+                  /*$pdf=pdf::loadView('impression.liste_impression', compact('resultstructur','sousProgramme','names'));
                return $pdf->download('liste_impression.pdf');*/
-               return view('impression.liste_impression', compact('resultstructur','sousProgramme','names'));
-           // return response()->json($resultats);
+            } elseif (isset($resultstructur['T2'])) {
+                return view('impression.liste_impression_t2', compact('resultstructur', 'sousProgramme', 'names','portefeuille'));
+                  /*$pdf=pdf::loadView('impression.liste_impression', compact('resultstructur','sousProgramme','names'));
+               return $pdf->download('liste_impression.pdf');*/
+            } elseif (isset($resultstructur['T3'])) {
+                return view('impression.liste_impression_t3', compact('resultstructur', 'sousProgramme', 'names','portefeuille'));
+                  /*$pdf=pdf::loadView('impression.liste_impression', compact('resultstructur','sousProgramme','names'));
+               return $pdf->download('liste_impression.pdf');*/
+            } elseif (isset($resultstructur['T4'])) {
+                return view('impression.liste_impression_t4', compact('resultstructur', 'sousProgramme', 'names','portefeuille'));
+                  /*$pdf=pdf::loadView('impression.liste_impression', compact('resultstructur','sousProgramme','names'));
+               return $pdf->download('liste_impression.pdf');*/
+            } else {
+                throw new \Exception("Aucune donnée trouvée ");
+            }
         } catch (\Exception $e) { 
             return response()->json(['error' => $e->getMessage()], 400);
         }

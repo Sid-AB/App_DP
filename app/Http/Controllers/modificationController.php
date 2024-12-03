@@ -246,12 +246,12 @@ class modificationController extends Controller
     {
         //récupéreer lees données 
         $modifications = $request->all();
-
+        //  dd($modifications);
         foreach ($modifications as $modif) {
             // valider les données reçues
             $validated = validator($modif, [
             'ref' => 'required|integer',
-            'AE_T1' => 'required|numeric',//rçoit
+            'AE_T1' => 'required|numeric',//reçoit
             'CP_T1' => 'required|numeric',
             'AE_T2' => 'required|numeric',
             'CP_T2' => 'required|numeric',
@@ -262,10 +262,12 @@ class modificationController extends Controller
             'T_port_env' => 'required|string',
             'AE_env_T' => 'required|numeric',
             'CP_env_T' => 'required|numeric',
-            'Sous_prog_env' => 'required|string',
+            'Sous_prog_retire' => 'required|string', //sousprogramme li jabna mano l'argent 
             'type' => 'required|string',
-            'cible' => 'required|string',
+            'cible_action' => 'required|string',
             'status' => 'required|boolean',
+            'prognum_click'=>'required|string',  //programme clickable ou reçoit l'argent
+            'sousprogbum_click'=>'required|string', //sousprog clickable ou reçoit l'argent
             ])->validate();
 
             //initialiser lees var 
@@ -349,15 +351,20 @@ class modificationController extends Controller
             'situation_modif' => $validated['status'],
             'type_modif' => $validated['type'],
             'id_art' => $validated['ref'], 
+            'num_sous_prog'=> $validated['sousprogbum_click'],
+            'num_prog'=>$validated['prognum_click'],
+
+            'num_sous_prog_retire'=> $validated['Sous_prog_retire'],
+            'action_modifie'=> $validated['cible_action'],
             
+
             'code_t1' => $codeT1,
             'code_t2' => $codeT2,
             'code_t3' => $codeT3,
             'code_t4' => $codeT4,
 
           
-           
-        ]);
+              ]);
     }
 
     return response()->json(['message' => 'Modifications insérées avec succès'], 200);
