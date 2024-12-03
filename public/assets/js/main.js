@@ -94,7 +94,7 @@
 
                         function only_year(years,id_date)
                         {
-                           
+
                         }
 
 
@@ -241,9 +241,9 @@
                           */
 
                          /**
-                          * 
+                          *
                           * star of update function
-                          * 
+                          *
                           */
                          function Update_dpia(T,act)
                          {
@@ -493,8 +493,8 @@
                             i=0;
                          }
                          /**
-                          * 
-                          * The end of update function  
+                          *
+                          * The end of update function
                           */
                          function Edit(tid, T) {
                              $(document).ready(function () {
@@ -1225,20 +1225,28 @@
                                                          num_sous_prog: num_sou_program,
                                                      },
                                                      success: function (response) {
-                                                         if (response.exists) {
-                                                             console.log(response); // Vérifiez la réponse
-                                                             console.log('num_sou_program path: ' + JSON.stringify(path));
-                                                            $("#file_holder").empty();
-                                                             // Remplir les champs du formulaire avec les données récupérées
-                                                             $('#nom_sous_prog').val(response.nom_sous_prog).trigger('change'); // Remplir et déclencher l'événement change
-                                                             //    $('#date_insert_sousProg').val(response.date_insert_sousProg).trigger('change'); // Remplir et déclencher l'événement change
-                                                             $('#AE_sous_prog').val(response.AE_sous_prog).trigger('change'); // Remplir et déclencher l'événement change
-                                                             $('#CP_sous_prog').val(response.CP_sous_prog).trigger('change'); // Remplir et déclencher l'événement change
-                                                             //   $('#num_journ_program').val(response.num_journal).trigger('change'); // Remplir et déclencher l'événement change
+                                                        if (response.exists) {
+                                                            console.log(response); // Vérifiez la réponse
 
-                                                             alert('Le sous programme existe déjà');
+                                                            // Remplir les champs du formulaire avec les données récupérées
+                                                            $('#nom_sous_prog').val(response.nom_sous_prog).trigger('change');
+                                                            $('#AE_sous_prog').val(response.AE_sous_prog).trigger('change');
+                                                            $('#CP_sous_prog').val(response.CP_sous_prog).trigger('change');
 
-                                                         } else {
+                                                            $('#T1_AE_sous_prog').val(response.T1_AE_init).trigger('change');
+                                                            $('#T1_CP_sous_prog').val(response.T1_CP_init).trigger('change');
+
+                                                            $('#T2_AE_sous_prog').val(response.T2_AE_init).trigger('change');
+                                                            $('#T2_CP_sous_prog').val(response.T2_CP_init).trigger('change');
+
+                                                            $('#T3_AE_sous_prog').val(response.T3_AE_init).trigger('change');
+                                                            $('#T3_CP_sous_prog').val(response.T3_CP_init).trigger('change');
+
+                                                            $('#T4_AE_sous_prog').val(response.T4_AE_init).trigger('change');
+                                                            $('#T4_CP_sous_prog').val(response.T4_CP_init).trigger('change');
+
+                                                            alert('Le sous-programme existe déjà.');
+                                                        }  else {
                                                              // alert('Le programme n\'existe pas.');
                                                          }
                                                      },
@@ -1255,6 +1263,18 @@
                                              var nom_sou_prog = $('#nom_sous_prog').val();
                                              var dat_sou_prog = $('#date_insert_sousProg').val()
                                              var AE_sous_prog = $('#AE_sous_prog').val()
+                                             var T1_AE_sous_prog = $('#T1_AE_sous_prog').val()
+                                             var T1_CP_sous_prog = $('#T1_CP_sous_prog').val()
+
+                                             var T2_AE_sous_prog = $('#T2_AE_sous_prog').val()
+                                             var T2_CP_sous_prog = $('#T2_CP_sous_prog').val()
+
+                                             var T3_AE_sous_prog = $('#T3_AE_sous_prog').val()
+                                             var T3_CP_sous_prog = $('#T3_CP_sous_prog').val()
+
+                                             var T4_AE_sous_prog = $('#T4_AE_sous_prog').val()
+                                             var T4_CP_sous_prog = $('#T4_CP_sous_prog').val()
+
                                              var CP_sous_prog = $('#CP_sous_prog').val()
                                              var id_prog = path[1];
                                              var numsouprog_year = id_prog +'-'+sou_prog ;
@@ -1307,6 +1327,23 @@
                                                  CP_sous_prog: CP_sous_prog,
                                                  date_insert_sousProg: dat_sou_prog,
                                                  id_program: id_prog,
+
+                                                 T1_AE_init: T1_AE_sous_prog,
+                                                 T1_CP_init: T1_CP_sous_prog,
+                                                 code_t1: 10000,
+
+                                                 T2_AE_init: T2_AE_sous_prog,
+                                                 T2_CP_init: T2_CP_sous_prog,
+                                                 code_t2: 20000,
+
+                                                 T3_AE_init: T3_AE_sous_prog,
+                                                 T3_CP_init: T3_CP_sous_prog,
+                                                 code_t3: 30000,
+
+                                                 T4_AE_init: T4_AE_sous_prog,
+                                                 T4_CP_init: T4_CP_sous_prog,
+                                                 code_t4: 40000,
+
                                                  //id_porte: id_port,
                                                  _token: $('meta[name="csrf-token"]').attr('content'),
                                                  _method: 'POST'
@@ -1673,7 +1710,7 @@
                              })
                          }
 
-                             var headT = '<tr class="row100 head">' +
+                             var headT = '<tr>' +
                                  '<th ><h1>Code</h1></th>' +
                                  '<th ><h1>T Description</h1></th>' +
                                  '<th><h1>AE</h1></th>' +
@@ -1788,10 +1825,8 @@
 
                                  });
                                  if(code === 200)
-                                 {
-                                    dataupdate=[]
-                                Update_dpia(T,id_s_act);
-                                 console.log('testing new update function')}  
+                                 {Update_dpia(T,id_s_act);
+                                 console.log('testing new update function')}
                              }).fail(function () {
                                  console.error('Error loading JSON file.');
                              });
@@ -1879,6 +1914,7 @@
                                      var codegr = data_T_port.group;
                                      var codeop = data_T_port.operation;
                                      var codesop = data_T_port.sousOperation;
+                                    
                                      if(Object.keys(data_T_port).length > 0){
                                      if (codegr.length > 0 && data_T_port.group.length > ig) {
                                         var land=data_T_port.group[ig].code.length-5
@@ -1914,7 +1950,7 @@
                                      }
                                      if (codesop.length > 0 && data_T_port.sousOperation.length > iso) {
                                         var land=data_T_port.sousOperation[iso].code.length-5
-                                         if (key == splitcode(data_T_port.sousOperation[iso].code, land)[0].substring) {
+                                         if (key == splitcode(data_T_port.sousOperation[iso].code, land)[1].substring) {
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                                                  '<td class="code">' + key + '</td>' +
                                                  '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"> <p>' + value + '</p> </td>' +
@@ -1980,7 +2016,7 @@
                                         dataupdate=[]
                                         Update_dpia(T,id_s_act);
                                     console.log('testing new update function')
-                                    }  
+                                    }
                              }).fail(function () {
                                  console.error('Error loading JSON file.');
                              });
@@ -2013,7 +2049,7 @@
                                      }
                                  }
                              })}
-
+                                var lasty=parseInt(yearport) - 1
                              var headT = '<tr>' +
                                  '<th><h1>code</h1></th>' +
                                  '<th><h1>T Description</h1></th>' +
@@ -2022,12 +2058,12 @@
                                  '<div class="fusion-father">' +
                                  '<h1>MONTANT ANNEE (N)</h1>' +
                                  '<div class="fusion-child">' +
-                                 '<h1>AE Reportee</h1>' +
-                                 '<h1>AE Notifiee</h1>' +
-                                 '<h1>AE Engagée</h1>' +
-                                 '<h1>CP Reportee</h1>' +
-                                 '<h1>CP Notifiée</h1>' +
-                                 '<h1>CP Engagée</h1>' +
+                                 '<h1>AE Reportee <p>31-12-'+lasty+'</p></h1>' +
+                                 '<h1>AE Notifiee <p>'+yearport+'<p></h1>' +
+                                 '<h1>AE Engagée  <p>31-12-'+lasty+'</p></h1>' +
+                                 '<h1>CP Reportee <p>31-12-'+lasty+'</p></h1>' +
+                                 '<h1>CP Notifiée <p>'+yearport+'<p></h1>' +
+                                 '<h1>CP Engagée  <p>31-12-'+lasty+'</p></h1>' +
                                  '</div>' +
                                  '</th>' +
                                  '</tr>';
@@ -2055,12 +2091,13 @@
                                          '<td class="editable" id="CP_not">' + 0 + '</td>' +
                                          '<td class="editable" id="CP_consom">' + 0 + '</td>' +
                                          '</tr>';
+                                         
                                      if(Object.keys(data_T_port).length > 0){
-                                        
+
                                      if (data_T_port.group.length > 0 && data_T_port.group.length > ig) {
-                                        var land=data_T_port.group[ig].code-5;
-                                         console.log('code T3 ' + splitcode(data_T_port.group[ig].code, land)[1].substring);
-                                         if (key == splitcode(data_T_port.group[ig].code, 5)[0].substring) {
+                                        var land=data_T_port.group[ig].code.length-5;
+                                        console.log('T3'+JSON.stringify(data_T_port.group) +' length'+land)
+                                         if (key == splitcode(data_T_port.group[ig].code, land)[1].substring) {
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.group[ig].code + '">' +
                                                  '<td class="code">' + key + '</td>' +
                                                  '<td><p>' + val[0] + '</p> </td>' +
@@ -2076,7 +2113,8 @@
                                          }
                                      }
                                      if (data_T_port.operation.length > 0 && data_T_port.operation.length > io) {
-                                        var land=data_T_port.operation[io].code-5;
+                                        var land=data_T_port.operation[io].code.length-5;
+                                        
                                          if (key == splitcode(data_T_port.operation[io].code, land)[1].substring) {
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.operation[io].code + '">' +
                                                  '<td class="code">' + key + '</td>' +
@@ -2093,7 +2131,7 @@
                                          }
                                      }
                                      if (data_T_port.sousOperation.length > 0 && data_T_port.sousOperation.length > iso) {
-                                        var land=data_T_port.sousOperation[iso].code-5;
+                                        var land=data_T_port.sousOperation[iso].code.length-5;
                                          if (key == splitcode(data_T_port.sousOperation[iso].code, land)[1].substring) {
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                                                  '<td class="code">' + key + '</td>' +
@@ -2235,7 +2273,7 @@
                                          '</tr>';
                                      if(Object.keys(data_T_port).length > 0){
                                      if (data_T_port.group.length > 0 && data_T_port.group.length > ig) {
-                                        var land=data_T_port.group[ig].code-5;
+                                        var land=data_T_port.group[ig].code.length-5;
                                          if (key == splitcode(data_T_port.group[ig].code, land)[1].substring) {
                                              row = '<tr class="'+key+'" id="ref' + data_T_port.group[ig].code + '">' +
                                                  '<td class="code" >' + key + '</td>' +
@@ -2247,7 +2285,7 @@
                                          }
                                      }
                                      if (data_T_port.operation.length > 0 && data_T_port.operation.length > io) {
-                                        var land=data_T_port.operation[io].code.code-5;
+                                        var land=data_T_port.operation[io].code.code.length-5;
                                          if (key == splitcode(data_T_port.operation[io].code, land)[1].substring) {
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.operation[io].code + '">' +
                                                  '<td class="code" >' + key + '</td>' +
@@ -2259,7 +2297,7 @@
                                          }
                                      }
                                      if (data_T_port.sousOperation.length > 0 && data_T_port.sousOperation.length > iso) {
-                                        var land=data_T_port.sousOperation[iso].code.code-5;
+                                        var land=data_T_port.sousOperation[iso].code.length-5;
                                          if (key == splitcode(data_T_port.sousOperation[iso].code, land)[1].substring) {
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                                                  '<td class="code" >' + key + '</td>' +
@@ -2324,6 +2362,7 @@
                          $(document).ready(function () {
 
                              $('#T1').on('click', function () {
+                               
                                  var indic = path3.length - 1
                                  var id = $(this).attr('id');
                                  var T = 1;
@@ -2332,18 +2371,21 @@
                                      url: '/testing/codeSousOperation/' + path3[indic],
                                      type: 'GET',
                                      success: function (response) {
-                                         if (response.code == 200) {
+                                         if (response.code == 200 && response.t1_exists==1) {
                                              alert('Exist')
                                              T1_table(id, T, path3[indic], path3[0],response.code)
+                                             $('#T_port1').addClass('heilighter')
                                          }
                                          else {
                                              alert('New')
-                                             T1_table(id, T, path3[indic], path3[0],response.code)
+                                             code =404
+                                             T1_table(id, T, path3[indic], path3[0],code)
                                          }
                                      }
                                  })
                              })
                              $('#T2').on('click', function () {
+                               
                                  var indic = path3.length - 1
                                  var T=2
                                  var id = $(this).attr('id');
@@ -2352,17 +2394,18 @@
                                      url: '/testing/codeSousOperation/' + path3[indic],
                                      type: 'GET',
                                      success: function (response) {
-                                         if (response.code == 200) {
+                                         if (response.code == 200 && response.t2_exists==1) {
                                              alert('Exist')
 
-
+                                                   
                                              T2_table(id, T, path3[indic], path3[0],response.code)
+                                             $('#T_port2').addClass('heilighter')
                                          }
                                          else {
                                              alert('New')
 
-
-                                             T2_table(id, T, path3[indic], path3[0],response.code)
+                                            code=404
+                                             T2_table(id, T, path3[indic], path3[0],code)
                                          }
                                      }
                                  })
@@ -2370,6 +2413,7 @@
                              })
 
                              $('#T3').on('click', function () {
+                               
                                  var indic = path3.length - 1
                                  console.log('len' + path3.length + ' act ' + indic)
                                  var id = $(this).attr('id');
@@ -2378,21 +2422,23 @@
                                      url: '/testing/codeSousOperation/' + path3[indic],
                                      type: 'GET',
                                      success: function (response) {
-                                         if (response.code == 200) {
+                                         if (response.code == 200 && response.t3_exists==1) {
                                              alert('Exist')
 
                                              T3_table(id, T, path3[indic], path3[0],response.code)
+                                             $('#T_port3').addClass('heilighter')
                                          }
                                          else {
                                              alert('New')
-
-                                             T3_table(id, T, path3[indic], path3[0],response.code)
+                                             code =404
+                                             T3_table(id, T, path3[indic], path3[0],code)
                                          }
                                      }
                                  })
                                  //T3_table(id, T)
                              })
                              $('#T4').on('click', function () {
+                                
                                  var indic = path3.length - 1
                                  console.log('len' + path3.length + ' act ' + indic)
                                  var id = $(this).attr('id');
@@ -2401,15 +2447,16 @@
                                      url: '/testing/codeSousOperation/' + path3[indic],
                                      type: 'GET',
                                      success: function (response) {
-                                         if (response.code == 200) {
+                                         if (response.code == 200 && response.t4_exists==1) {
                                              alert('Exist')
 
                                              T4_table(id, T, path3[indic], path3[0],response.code)
+                                             $('#T_port4').addClass('heilighter')
                                          }
                                          else {
                                              alert('New')
-
-                                             T4_table(id, T, path3[indic], path3[0],response.code)
+                                             code =404
+                                             T4_table(id, T, path3[indic], path3[0],code)
                                          }
                                      }
                                  })
@@ -2419,8 +2466,11 @@
                                  $('#T-tables tbody').empty()
                                  var indic = path3.length - 1
                                  var id_tport_c = $(this).attr('id');
-
+                                    $(this).addClass('heilighter')
                                  if (id_tport_c == 'T_port1') {
+                                    $('#T_port2').removeClass('heilighter')
+                                    $('#T_port3').removeClass('heilighter')
+                                    $('#T_port4').removeClass('heilighter')
                                      //var indic = path3.length - 1
                                      var id = $(this).attr('id');
                                      var T = 1;
@@ -2429,55 +2479,61 @@
                                          url: '/testing/codeSousOperation/' + path3[indic],
                                          type: 'GET',
                                          success: function (response) {
-                                             if (response.code == 200) {
+                                             if (response.code == 200 && response.t1_exists==1) {
                                                  alert('Exist')
 
                                                  T1_table(id, T, path3[indic], path3[0],response.code)
                                              }
                                              else {
                                                  alert('New')
-
-                                                 T1_table(id, T, path3[indic], path3[0],response.code)
+                                                 code =404
+                                                 T1_table(id, T, path3[indic], path3[0],code)
                                              }
                                          }
                                      })
                                  }
                                  if (id_tport_c == 'T_port2') {
+                                    $('#T_port1').removeClass('heilighter')
+                                    $('#T_port3').removeClass('heilighter')
+                                    $('#T_port4').removeClass('heilighter')
                                     var id = $(this).attr('id');
                                     var T = 2;
                                      $.ajax({
                                          url: '/testing/codeSousOperation/' + path3[indic],
                                          type: 'GET',
                                          success: function (response) {
-                                             if (response.code == 200) {
+                                             if (response.code == 200 && response.t2_exists==1) {
                                                  alert('Exist')
 
                                                  T2_table(id, T, path3[indic], path3[0],response.code)
                                              }
                                              else {
                                                  alert('New')
-
-                                                 T2_table(id, T, path3[indic], path3[0],response.code)
+                                                        code=404
+                                                 T2_table(id, T, path3[indic], path3[0],code)
                                              }
                                          }
                                      })
                                  }
                                  if (id_tport_c == 'T_port3') {
+                                    $('#T_port2').removeClass('heilighter')
+                                    $('#T_port1').removeClass('heilighter')
+                                    $('#T_port4').removeClass('heilighter')
                                     var id = $(this).attr('id');
                                     var T = 3;
                                      $.ajax({
                                          url: '/testing/codeSousOperation/' + path3[indic],
                                          type: 'GET',
                                          success: function (response) {
-                                             if (response.code == 200) {
+                                             if (response.code == 200 && response.t3_exists==1) {
                                                  alert('Exist')
 
                                                  T3_table(id, T, path3[indic], path3[0],response.code)
                                              }
                                              else {
                                                  alert('New')
-
-                                                 T3_table(id, T, path3[indic], path3[0],response.code)
+                                                 code =404
+                                                 T3_table(id, T, path3[indic], path3[0],code)
                                              }
                                          }
                                      })
@@ -2485,21 +2541,24 @@
 
                                  }
                                  if (id_tport_c == 'T_port4') {
+                                    $('#T_port2').removeClass('heilighter')
+                                    $('#T_port3').removeClass('heilighter')
+                                    $('#T_port1').removeClass('heilighter')
                                     var id = $(this).attr('id');
                                     var T = 4;
                                      $.ajax({
                                          url: '/testing/codeSousOperation/' + path3[indic],
                                          type: 'GET',
                                          success: function (response) {
-                                             if (response.code == 200) {
+                                             if (response.code == 200 && response.t4_exists==1) {
                                                  alert('Exist')
 
                                                  T4_table(id, T, path3[indic], path3[0],response.code)
                                              }
                                              else {
                                                  alert('New')
-
-                                                 T4_table(id, T, path3[indic], path3[0],response.code)
+                                                 code =404
+                                                 T4_table(id, T, path3[indic], path3[0],code)
                                              }
                                          }
                                      })
@@ -2517,7 +2576,7 @@
                           *  this js for creation from the index
                           */
 
-                        
+
 
 
                          /**
