@@ -122,7 +122,7 @@ class modificationController extends Controller
             'AE_ouvert' => $values['ae_ouvert'] ?? $sousOperation->AE_ouvert,
             'AE_atendu' => $values['ae_atendu'] ?? $sousOperation->AE_atendu,
             'CP_ouvert' => $values['cp_ouvert'] ?? $sousOperation->CP_ouvert,
-            'CP_atendu' => $values['cp_atendu'] ?? $sousOperation->CP_atendu,
+            'CP_atendu' => $values['cp_attendu'] ?? $sousOperation->CP_atendu,
             'date_update_SOUSoperation' => now(),
         ]);
 

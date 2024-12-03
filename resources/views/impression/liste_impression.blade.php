@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste </title>
+    <title>LES CREDITS DES DEPENSES DE PERSONNEL </title>
     <style>
         table {
             border-collapse: collapse;
@@ -25,10 +25,16 @@
         }
 
         .group-row {
-            background-color: #f2e6d9; 
+            background-color: #FFE5CC; 
         }
         .with-sousop{
-            background-color: #f2e6d9; 
+            background-color: #f9f2eb ; 
+        }
+        .code ,.t1{
+            background-color:#CCE5FF;
+        }
+        .total {
+            background-color:#6A58DF;
         }
     </style>
 </head>
@@ -39,8 +45,13 @@
         <thead>
             <tr>
                 <th rowspan="2">Code</th>
-                <th rowspan="2">T1. DEPENSES DE PERSONNEL</th>
-                <th colspan="2">Code {{ $sousProgramme->num_sous_prog }} - Sous Programme {{ $sousProgramme->nom_sous_prog }}</th>
+                <th rowspan="2" class="t1">T1. DEPENSES DE PERSONNEL</th>
+                @php
+                    $sousprog = explode('-', $sousProgramme->num_sous_prog);
+                    $lastchiffre = end($sousprog);
+                @endphp
+
+                <th colspan="2">Code {{ $lastchiffre }} - Sous Programme {{ $sousProgramme->nom_sous_prog }}</th>
             </tr>
             <tr>
          
@@ -57,7 +68,7 @@
                     $codegrp = end($code_grpsepar);
                 @endphp
                 <tr class="group-row">
-                <td>{{$codegrp}}</td>
+                <td class="code">{{$codegrp}}</td>
                 <td>{{ $names[$codegrp ] ?? 'Nom non trouvé' }}</td>
                 <td>{{ $groupData['group']['values']['ae_grpop'] ?? 'N/A' }}</td>
                 <td>{{ $groupData['group']['values']['cp_grpop'] ?? 'N/A' }}</td>
@@ -72,14 +83,14 @@
                      @endphp
                 @if (count($operationData['sousOperations']) > 0)
                    <tr class="operation-row with-sousop">
-                   <td>{{ $codeop }}</td>
+                   <td class="code">{{ $codeop }}</td>
                 <td>{{ $names[$codeop] ?? 'Nom non trouvé' }}</td>
                 <td>{{ $operationData['operation']['values']['ae_op'] ?? 'N/A' }}</td>
                 <td>{{ $operationData['operation']['values']['cp_op'] ?? 'N/A' }}</td>
               
                @else
                    <tr class="operation-row">
-                   <td>{{ $codeop }}</td>
+                   <td class="code">{{ $codeop }}</td>
                 <td>{{ $names[$codeop] ?? 'Nom non trouvé' }}</td>
                 <td>{{ $operationData['operation']['values']['ae_op'] ?? 'N/A' }}</td>
                 <td>{{ $operationData['operation']['values']['cp_op'] ?? 'N/A' }}</td>
@@ -95,7 +106,7 @@
                     $codeextr = end($code_separer);
                 @endphp
                 <tr>
-                    <td>{{ $codeextr }}</td>
+                    <td class="code">{{ $codeextr }}</td>
                     <td>{{ $names[$codeextr]?? 'Nom non trouvé' }}</td>
                     <td>{{ $sousOp['values']['ae_sousop'] ?? 'N/A' }}</td>
                     <td>{{ $sousOp['values']['cp_sousuop'] ?? 'N/A' }}</td>
@@ -104,6 +115,13 @@
         @endforeach
         @endforeach
     </tbody>
+    <tfoot>
+        <tr  class="total">
+            <td colspan="2" style="text-align: center; font-weight: bold;">Total</td>
+            <td>{{ $resultstructur['T1']['total'][0]['values']['totalAE'] ?? 'N/A' }}</td>
+            <td>{{ $resultstructur['T1']['total'][0]['values']['totalCP'] ?? 'N/A' }}</td>
+        </tr>
+    </tfoot>
     </table>
 </body>
 
