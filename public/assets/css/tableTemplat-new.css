@@ -2,12 +2,12 @@
   margin: 5% 3%;
 }
 @media (min-width: 48em) {
-  .container {
+  .container-T {
     margin: 2%;
   }
 }
 @media (min-width: 75em) {
-  .container {
+  .container-T {
     margin: 2em auto;
     max-width: 75em;
   }
@@ -17,7 +17,7 @@
   width: 100%;
   margin-bottom: 1.5em;
   border-spacing: 0;
-  background-color: bisque;
+  background-color: #ffffff;
 }
 @media (min-width: 48em) {
   .responsive-table {
@@ -49,8 +49,11 @@
   }
 }
 .responsive-table thead th {
-  background-color: #26890d;
-  border: 1px solid #86bc25;
+  position: sticky;
+  top: 0; /* Keep the header at the top when scrolling */
+  z-index: 1; /* Ensures the header stays on top of table content */
+  background-color: #020202f3;
+  border: 1px solid #e9b116;
   font-weight: normal;
   text-align: center;
   color: white;
@@ -150,8 +153,8 @@
 }
 @media (min-width: 30em) {
   .responsive-table tbody th[scope=row] {
-    border-left: 1px solid #86bc25;
-    border-bottom: 1px solid #86bc25;
+    border-left: 1px solid #f5bf0e;
+    border-bottom: 1px solid #f5bf0e;
   }
 }
 @media (min-width: 48em) {
@@ -166,14 +169,14 @@
 }
 @media (min-width: 48em) {
   .responsive-table tbody td {
-    border-left: 1px solid #86bc25;
-    border-bottom: 1px solid #86bc25;
+    border-left: 1px solid #f5bf0e;
+    border-bottom: 1px solid #f5bf0e;
     text-align: center;
   }
 }
 @media (min-width: 48em) {
   .responsive-table tbody td:last-of-type {
-    border-right: 1px solid #86bc25;
+    border-right: 1px solid #f5bf0e;
   }
 }
 .responsive-table tbody td[data-type=currency] {

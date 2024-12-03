@@ -2287,7 +2287,7 @@
                                          }
                                      }
                                      if (data_T_port.operation.length > 0 && data_T_port.operation.length > io) {
-                                        var land=data_T_port.operation[io].code.code.length-5;
+                                        var land=data_T_port.operation[io].code.length-5;
                                          if (key == splitcode(data_T_port.operation[io].code, land)[1].substring) {
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.operation[io].code + '">' +
                                                  '<td class="code" >' + key + '</td>' +
