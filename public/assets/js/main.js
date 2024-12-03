@@ -2332,7 +2332,7 @@
                                      url: '/testing/codeSousOperation/' + path3[indic],
                                      type: 'GET',
                                      success: function (response) {
-                                         if (response.code == 200) {
+                                         if (response.code == 200 && t1_exists==1) {
                                              alert('Exist')
                                              T1_table(id, T, path3[indic], path3[0],response.code)
                                          }
@@ -2352,7 +2352,7 @@
                                      url: '/testing/codeSousOperation/' + path3[indic],
                                      type: 'GET',
                                      success: function (response) {
-                                         if (response.code == 200) {
+                                         if (response.code == 200 && t2_exists==1) {
                                              alert('Exist')
 
 
@@ -2378,7 +2378,7 @@
                                      url: '/testing/codeSousOperation/' + path3[indic],
                                      type: 'GET',
                                      success: function (response) {
-                                         if (response.code == 200) {
+                                         if (response.code == 200 && t3_exists==1) {
                                              alert('Exist')
 
                                              T3_table(id, T, path3[indic], path3[0],response.code)
@@ -2401,7 +2401,7 @@
                                      url: '/testing/codeSousOperation/' + path3[indic],
                                      type: 'GET',
                                      success: function (response) {
-                                         if (response.code == 200) {
+                                         if (response.code == 200 && t4_exists==1) {
                                              alert('Exist')
 
                                              T4_table(id, T, path3[indic], path3[0],response.code)
@@ -2429,7 +2429,7 @@
                                          url: '/testing/codeSousOperation/' + path3[indic],
                                          type: 'GET',
                                          success: function (response) {
-                                             if (response.code == 200) {
+                                             if (response.code == 200 && t1_exists==1) {
                                                  alert('Exist')
 
                                                  T1_table(id, T, path3[indic], path3[0],response.code)
@@ -2449,7 +2449,7 @@
                                          url: '/testing/codeSousOperation/' + path3[indic],
                                          type: 'GET',
                                          success: function (response) {
-                                             if (response.code == 200) {
+                                             if (response.code == 200 && t2_exists==1)  {
                                                  alert('Exist')
 
                                                  T2_table(id, T, path3[indic], path3[0],response.code)
@@ -2469,7 +2469,7 @@
                                          url: '/testing/codeSousOperation/' + path3[indic],
                                          type: 'GET',
                                          success: function (response) {
-                                             if (response.code == 200) {
+                                             if (response.code == 200 && t3_exists==1) {
                                                  alert('Exist')
 
                                                  T3_table(id, T, path3[indic], path3[0],response.code)
@@ -2491,7 +2491,7 @@
                                          url: '/testing/codeSousOperation/' + path3[indic],
                                          type: 'GET',
                                          success: function (response) {
-                                             if (response.code == 200) {
+                                             if (response.code == 200 && t4_exists==1) {
                                                  alert('Exist')
 
                                                  T4_table(id, T, path3[indic], path3[0],response.code)
