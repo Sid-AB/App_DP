@@ -30,11 +30,7 @@ class opeartionController extends Controller
 */
         try {
             $resultats = $this->CalculDpia->calculdpiaFromPath($port, $prog, $sous_prog, $act,$s_act);
-<<<<<<< HEAD
-         //  dd($resultats );
-=======
           // dd($resultats );
->>>>>>> 4a19c858ca09f3f4b034014ee037be77e4ea20cc
                // eenvoyer les résultats en JSON
                return view('Action-in.index',compact('port','prog','sous_prog','act','s_act','resultats','years'));
            // return response()->json($resultats);
