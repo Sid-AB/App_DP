@@ -45,7 +45,7 @@ return new class extends Migration
             $table->float('AE_recoit_t4')->default(0.0);
             $table->float('CP_recoit_t4')->default(0.0);
 
-            $table->boolean('situation_modif'); //incomplète ou complète (concernant dpia ou juste sous prog)
+            $table->string('situation_modif'); //incomplète ou complète (concernant dpia ou juste sous prog)
             $table->string('type_modif'); //modif interieure entre les t ou exterieurs hors par ex du ministere à cndpi=exter et entre t1 t2 ex =inter
 
 
@@ -71,9 +71,10 @@ return new class extends Migration
             $table->foreign('num_prog')->references('num_prog')->on('programmes');
 
             $table->string('num_sous_prog_retire')->nullable();
-           
+            $table->foreign('num_sous_prog_retire')->references('num_sous_prog')->on('sous_programmes');
 
-            $table->string('num_prog_retire')->nullable();;
+            $table->string('num_prog_retire')->nullable();
+            $table->foreign('num_prog_retire')->references('num_prog')->on('programmes');
            
 
         });

@@ -16,7 +16,10 @@ table>
             <tr>
             <thead>
             <tr>
-                
+            <th>PROGRAMME </th>
+                <th>Code</th>
+                <th> </th>
+                <th>T2 DANS LE  DPIC</th>
             </tr>
         </thead>
             
