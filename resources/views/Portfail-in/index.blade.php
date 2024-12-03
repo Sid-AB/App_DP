@@ -329,7 +329,7 @@
 
  <div class="float-export">
     <div class="folder-box">
-    <a href="#">
+    <a href="/allaction/{{$allport['id']}}">
     <i class="fas fa-print"></i>
     </a>
     </div>
