@@ -1386,7 +1386,7 @@
                                                             
                                                                 alert(response.message)
                                                             }
-                                                            $.ajax({
+                                                           /* $.ajax({
                                                                 url:'/init_ports',
                                                                 type:'POST',
                                                                 data:formatinitports,
@@ -1401,7 +1401,7 @@
 
                                                                     }
                                                                 }
-                                                            })
+                                                            })*/
                                                         }
                                                          alert(response.message)
                                                          path.push(numsouprog_year);

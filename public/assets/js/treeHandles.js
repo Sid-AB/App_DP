@@ -1,4 +1,5 @@
 $(document).ready(function(){
+  var change = false;
   var AE_T1=0
   var CP_T1=0
   var T1select=false
@@ -14,7 +15,8 @@ $(document).ready(function(){
   var type;
   let selectTret ='T0';
   let  selectedHobby='t'
-  let selectedret ='0';
+  let selectedprogret ='0';
+  let selectdsousret='0';
   var prognum='';
   var sousprogbum='';
   var progs={};
@@ -23,7 +25,43 @@ $(document).ready(function(){
       var id=$(this).parent().parent().attr('id');
       var port=$('.family-tree').attr('id');
       console.log('file loading  '+id)
+
+
       $.ajax({
+        url:'/allaction/'+port,
+        type:'GET',
+        success:function(response)
+        {
+          if(response.exists)
+          {
+            progs=response.programs
+            sousProgs=response.sous_programs
+            console.log('sous prog'+JSON.stringify(sousProgs)+' and prog'+JSON.stringify(progs))
+            progs.forEach(element=>{
+              console.log('boucme'+element.programs.progs_num )
+              var ids=element.programs.progs_num
+              if(ids == id)
+              {
+                $('#id_sprog_modif').text(element.programs.progs_name);
+              }
+             })
+             sousProgs.forEach(element=>{
+              if(element.sous_programs.sous_progs_num == id)
+              {
+                $('#id_sprog_modif').text(element.sousProgs.sous_progs_name);
+              }
+             }) 
+
+            response.actions.forEach(element => {
+              console.log('append'+JSON.stringify(element.actions) )
+              $('#id_cible').append("<option value="+element.actions.actions_num+">"+element.actions.actions_name+"</option>")
+            });
+          
+          }
+        }
+      })
+
+     $.ajax({
         url:'/check-prog',
         Type:'GET',
         data:{
@@ -33,25 +71,7 @@ $(document).ready(function(){
         {
            if(response.exists)
            {
-            $('#id_sprog_modif').text(response.nom_prog);
             prognum=response.num_prog
-            $.ajax({
-              url:'/allaction/'+port,
-              type:'GET',
-              success:function(response)
-              {
-                if(response.exists)
-                {
-                  progs=response.programs
-                  
-                  response.actions.forEach(element => {
-                    console.log('append'+JSON.stringify(element.actions) )
-                    $('#id_cible').append("<option value="+element.actions.actions_num+">"+element.actions.actions_name+"</option>")
-                  });
-                
-                }
-              }
-            })
            }
            else
            {
@@ -63,26 +83,8 @@ $(document).ready(function(){
               success:function(response) {
                 if(response.exists)
                 {
-                $('#id_sprog_modif').text(response.nom_sous_prog);
                 sousprogbum=response.num_sous_prog
                 prognum=response.num_prog
-                $.ajax({
-                  url:'/allaction/'+port,
-                  type:'GET',
-                  success:function(response)
-                  {
-                    if(response.exists)
-                    {
-                      sousProgs=response.sous_programs
-                      
-                      response.actions.forEach(element => {
-                        console.log('append'+JSON.stringify(element.actions) )
-                        $('#id_cible').append("<option value="+element.actions.actions_num+">"+element.actions.actions_name+"</option>")
-                      });
-                    
-                    }
-                  }
-                })
                 }
               }         
             })
@@ -197,21 +199,17 @@ $(document).ready(function(){
     $('.add-envoi').append(chosesous);
     if(Object.keys(progs).length !=0)
     {
-   
      progs.forEach(element=>{
       $('#id-retire_prog').append("<option value="+element.programs.progs_num+">"+element.programs.progs_name+"</option>")
      }) 
     }
-    else
+    if(Object.keys(sousProgs).length !=0)
     {
-      if(Object.keys(sousProgs).length !=0)
-      {
-
         sousProgs.forEach(element=>{
           $('#id-retire_sous_prog').append("<option value="+element.sous_programs.sous_progs_num+">"+element.sous_programs.sous_progs_name+"</option>")
          }) 
-      }
     }
+    
     var choseT ='<div class="form-group">'+
     ' <label for="input1">Tport Reterie montant</label>'+
     '<select class="form-control" id="id-T-retire">'+
@@ -224,20 +222,26 @@ $(document).ready(function(){
     '</div>'+
     '<div class="Tenv-inpt-handle" >'+
      '</div>';
-    
+      $('#id-retire_sous_prog').on('change',function(){
+        console.log('i act chnage')
+        selectdsousret = $('#id-retire_sous_prog').val();  
+      })
       $('#id-retire_prog').on('change',function(){
         console.log('i act chnage')
-        selectedret = $('#id-retire').val();
-        if (selectedret != '0') {
+        selectedprogret = $('#id-retire_prog').val();
+        if (selectedprogret != '0') {
           console.log('i act chnage inside')
+      
+      if(change == false)
+      {
       $('.add-envoi').append('<hr>');
       $('.section-env').append(choseT);
-      
+      }
+      change= true;
       var init='<label for="Tports">AE</label>'+
       '<input type="number" class="form-control" id="AE_env_T" name="interest" />'+
        '<label for="number">CP</label>'+
        '<input type="number" class="form-control" id="CP_env_T" name="interest" />';
-      $('.add-envoi').append('<hr>');
       $('#id-T-retire').on('change',function(){
       $('.Tenv-inpt-handle').empty()
        selectTret =$('#id-T-retire').val();
@@ -255,7 +259,7 @@ $(document).ready(function(){
       
         } else {
           
-          console.log('nothing is selected Action that will give '+selectedret)
+          console.log('nothing is selected Action that will give '+selectedprogret)
         }
       })
 
@@ -291,13 +295,13 @@ $('#button-71').on('click',function(){
     CP_T4=$('#CP_T4').val();     
   }
   var cmpt=false;
-  if(selectTret === '' || selectedret === '' && selectedHobby === 'inter')
+  if(selectTret === '' || selectedprogret === '' && selectedHobby === 'inter')
   {
     cmpt=false
   }
   else
   {
-    if(selectTret !== '' && selectedret !== '' && selectedHobby === 'inter')
+    if(selectTret !== '' && selectedprogret !== '' && selectedHobby === 'inter')
     {
       cmpt=true;
     }
@@ -319,7 +323,8 @@ $('#button-71').on('click',function(){
      T_port_env:selectTret,
      AE_env_T:$('#AE_env_T').val(),
      CP_env_T:$('#CP_env_T').val(),
-     Sous_prog_retire:selectedret,
+     prog_retirer:selectedprogret,
+     Sous_prog_retire:selectdsousret,
      type:selectedHobby,
      prognum_click:prognum,
      sousprogbum_click:sousprogbum,
@@ -342,6 +347,7 @@ $('#button-71').on('click',function(){
   $('.Tenv-inpt-handle').empty();
       $('.section-env').empty();
      $('.add-envoi').empty();
+     change=false;
 })
     })
   })
