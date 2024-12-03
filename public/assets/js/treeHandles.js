@@ -182,7 +182,7 @@ $(document).ready(function(){
    if (selectedHobby === "inter") {
     console.log('testing radio'+selectedHobby);
     var chose ='<div class="form-group">'+
-    ' <label for="input1">Action a Reterie montant</label>'+
+    ' <label for="input1">Programme ou Bien sous programme a Reterie montant</label>'+
     '<select class="form-control" id="id-retire" >'+
     '<option value="0" >Selectionner Article</option>'+
     '</select>'+
@@ -312,11 +312,11 @@ $('#button-71').on('click',function(){
      T_port_env:selectTret,
      AE_env_T:$('#AE_env_T').val(),
      CP_env_T:$('#CP_env_T').val(),
-     Sous_prog_env:selectedret,
+     Sous_prog_retire:selectedret,
      type:selectedHobby,
-     prognum:prognum,
-     sousprogbum:sousprogbum,
-     cible:$('#id_cible').val(),
+     prognum_click:prognum,
+     sousprogbum_click:sousprogbum,
+     cible_action:$('#id_cible').val(),
      status:cmpt, 
   }
 

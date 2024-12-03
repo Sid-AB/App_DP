@@ -31,9 +31,9 @@ class SousProgramme extends Model
         return $this->hasMany(Action::class,'num_sous_prog','num_sous_prog');
     }
 
-    public function Article()
+    public function ModificationT()
     {
-        return $this->hasMany(Article::class,'num_sous_prog','num_sous_prog');
+        return $this->hasMany(ModificationT::class,'num_sous_prog','num_sous_prog');
     }
 
     public function multimedias()
