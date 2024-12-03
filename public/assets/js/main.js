@@ -316,11 +316,11 @@
                                              if(element.code === codesoup)
                                              {
                                                 console.log('code exisit'+JSON.stringify(element))
-                                               if( clickid == 'AE_T1')
+                                               if( clickid == 'AE_T1' || clickid == 'AE_T4')
                                                {
                                                 element.value.ae=newText;
                                                }
-                                               if(clickid == 'CP_T1')
+                                               if(clickid == 'CP_T1' || clickid == 'CP_T4')
                                                {
                                                 element.value.cp=newText;
                                                }
@@ -380,22 +380,17 @@
                                                     click++
                                                 }
                                                 $('.change_app').append(buttons)
-<<<<<<< HEAD
-                                                click=0;
-                                            }
-=======
                                             
->>>>>>> 2892c6a3e7286820e6ccbfe4c62f1719695415ea
                                             
                                             //  console.log('all table'+JSON.stringify(value_chng))
                                             cell.text(newText);
                                             if(!exist){
-                                                if(clickid == 'AE_T1')
+                                                if(clickid == 'AE_T1' || clickid == 'AE_T4')
                                                 {
                                                     ae=newText
                                                     cp=0
                                                 }
-                                                else
+                                                if(clickid == 'CP_T1' || clickid == 'CP_T4')
                                                 {
                                                     ae=0
                                                     cp=newText
