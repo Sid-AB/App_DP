@@ -1731,7 +1731,7 @@
                                  $.each(data, function (key, value) {
                                      // Create a table row
                                      let row = '<tr class="ref'+key+'" id="ref' + key + '">' +
-                                         '<td class="code" >' + key + '</td>' +
+                                         '<td scope="row" class="code" >' + key + '</td>' +
                                          '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
                                          '<td class="editable" id="AE_T1">' + 0 + '</td>' +
                                          '<td class="editable" id="CP_T1">' + 0 + '</td>' +
@@ -1741,7 +1741,7 @@
                                         var land=data_T_port.group[ig].code.length-5
                                          if (key == splitcode(data_T_port.group[ig].code, land)[1].substring) {
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.group[ig].code + '">' +
-                                                 '<td class="code" >' + key + '</td>' +
+                                                 '<td scope="row" class="code" >' + key + '</td>' +
                                                  '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
                                                  '<td class="editable" id="AE_T1">' + data_T_port.group[ig].values.ae_grpop + '</td>' +
                                                  '<td class="editable" id="CP_T1">' + data_T_port.group[ig].values.cp_grpop + '</td>' +
@@ -1753,7 +1753,7 @@
                                         var land=data_T_port.operation[io].code.length-5
                                          if (key == splitcode(data_T_port.operation[io].code, land)[1].substring) {
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.operation[io].code + '">' +
-                                                 '<td class="code" >' + key + '</td>' +
+                                                 '<td scope="row"  class="code" >' + key + '</td>' +
                                                  '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
                                                  '<td class="editable" id="AE_T1">' + data_T_port.operation[io].values.ae_op + '</td>' +
                                                  '<td class="editable" id="CP_T1">' + data_T_port.operation[io].values.cp_op + '</td>' +
@@ -1765,7 +1765,7 @@
                                         var land=data_T_port.sousOperation[iso].code.length-5
                                          if (key == splitcode(data_T_port.sousOperation[iso].code, land)[1].substring) {
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
-                                                 '<td class="code" >' + key + '</td>' +
+                                                 '<td scope="row"  class="code" >' + key + '</td>' +
                                                  '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
                                                  '<td class="editable" id="AE_T1">' + data_T_port.sousOperation[iso].values.ae_sousop + '</td>' +
                                                  '<td class="editable" id="CP_T1">' + data_T_port.sousOperation[iso].values.cp_sousuop + '</td>' +
@@ -1905,7 +1905,7 @@
                                  $.each(data, function (key, value) {
                                      // Create a table row
                                      let row = '<tr class="ref'+key+'" id="ref' + key + '">' +
-                                         '<td class="code">' + key + '</td>' +
+                                         '<td scope="row"  class="code">' + key + '</td>' +
                                          '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"> <p>' + value + '</p> </td>' +
                                          '<td class="editable" id="AE_Over">' + 0 + '</td>' +
                                          '<td class="editable" id="CP_Over">' + 0 + '</td>' +
@@ -1923,7 +1923,7 @@
                                         var land=data_T_port.group[ig].code.length-5
                                          if (key == splitcode(data_T_port.group[ig].code, land)[1].substring) {
                                              row = '<tr class="ref' + key + '" id="ref'+data_T_port.group[ig].code+'">' +
-                                                 '<td class="code">' + key + '</td>' +
+                                                 '<td scope="row"  class="code">' + key + '</td>' +
                                                  '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"> <p>' + value + '</p> </td>' +
                                                  '<td class="editable" id="AE_Over">' + data_T_port.group[ig].values.ae_ouvertgrpop + '</td>' +
                                                  '<td class="editable" id="CP_Over">' + data_T_port.group[ig].values.cp_ouvertgrpop + '</td>' +
@@ -1939,7 +1939,7 @@
                                         var land=data_T_port.operation[io].code.length-5
                                          if (key == splitcode(data_T_port.operation[io].code, land)[1].substring) {
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.operation[io].code + '">' +
-                                                 '<td class="code">' + key + '</td>' +
+                                                 '<td scope="row"  class="code">' + key + '</td>' +
                                                  '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"> <p>' + value + '</p> </td>' +
                                                  '<td class="editable" id="AE_Over">' + data_T_port.operation[io].values.ae_ouvertop + '</td>' +
                                                  '<td class="editable" id="CP_Over">' + data_T_port.operation[io].values.cp_ouvertop + '</td>' +
@@ -1955,7 +1955,7 @@
                                         var land=data_T_port.sousOperation[iso].code.length-5
                                          if (key == splitcode(data_T_port.sousOperation[iso].code, land)[1].substring) {
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
-                                                 '<td class="code">' + key + '</td>' +
+                                                 '<td scope="row"  class="code">' + key + '</td>' +
                                                  '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"> <p>' + value + '</p> </td>' +
                                                  '<td class="editable" id="AE_Over">' + data_T_port.sousOperation[iso].values.ae_ouvertsousop + '</td>' +
                                                  '<td class="editable" id="CP_Over">' + data_T_port.sousOperation[iso].values.cp_ouvertsousop + '</td>' +
@@ -2084,7 +2084,7 @@
 
                                      //   console.log('values' + JSON.stringify(val))
                                      let row = '<tr class="ref'+key+'" id="ref' + key + '">' +
-                                         '<td class="code">' + key + '</td>' +
+                                         '<td scope="row"  class="code">' + key + '</td>' +
                                          '<td><p>' + val[0] + '</p> </td>' +
                                          '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
                                          '<td class="editable" id="AE_rpor">' + 0 + '</td>' +
@@ -2102,7 +2102,7 @@
                                         console.log('T3'+JSON.stringify(data_T_port.group) +' length'+land)
                                          if (key == splitcode(data_T_port.group[ig].code, land)[1].substring) {
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.group[ig].code + '">' +
-                                                 '<td class="code">' + key + '</td>' +
+                                                 '<td scope="row"  class="code">' + key + '</td>' +
                                                  '<td><p>' + val[0] + '</p> </td>' +
                                                  '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
                                                  '<td class="editable" id="AE_rpor">' + data_T_port.group[ig].values.ae_reportegrpop + '</td>' +
@@ -2120,7 +2120,7 @@
                                         
                                          if (key == splitcode(data_T_port.operation[io].code, land)[1].substring) {
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.operation[io].code + '">' +
-                                                 '<td class="code">' + key + '</td>' +
+                                                 '<td scope="row"  class="code">' + key + '</td>' +
                                                  '<td><p>' + val[0] + '</p> </td>' +
                                                  '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
                                                  '<td class="editable" id="AE_rpor">' + data_T_port.operation[io].values.ae_reporteop + '</td>' +
@@ -2137,7 +2137,7 @@
                                         var land=data_T_port.sousOperation[iso].code.length-5;
                                          if (key == splitcode(data_T_port.sousOperation[iso].code, land)[1].substring) {
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
-                                                 '<td class="code">' + key + '</td>' +
+                                                 '<td scope="row"  class="code">' + key + '</td>' +
                                                  '<td><p>' + val[0] + '</p> </td>' +
                                                  '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
                                                  '<td class="editable" id="AE_rpor">' + data_T_port.sousOperation[iso].values.ae_reportesousop + '</td>' +
@@ -2245,8 +2245,7 @@
 
                              var headT = '<tr>' +
                                  '<th><h1>Code</h1></th>' +
-                                 '<th><h1>DEPENSES DE TRANSFERT</h1></th>' +
-                                 '<th>' +
+                                 '<th><h1>DEPENSES DE TRANSFERT</h1></th>' +    
                                  '<th colspan="2">' +
                                  '<div class="fusion-father">' +
                                  '<h1>MONTANT ANNEE (N)</h1>' +
@@ -2269,7 +2268,7 @@
                                      var val = value.split('-')
                                      //   console.log('values' + JSON.stringify(val))
                                      let row = '<tr class="ref"'+key+'" id="ref' + key + '">' +
-                                         '<td class="code">' + key + '</td>' +
+                                         '<td scope="row"  class="code">' + key + '</td>' +
                                          '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
                                          '<td class="editable" id="AE_T4">' + 0 + ',00</td>' +
                                          '<td class="editable" id="CP_T4">' + 0 + ',00</td>' +
@@ -2278,8 +2277,8 @@
                                      if (data_T_port.group.length > 0 && data_T_port.group.length > ig) {
                                         var land=data_T_port.group[ig].code.length-5;
                                          if (key == splitcode(data_T_port.group[ig].code, land)[1].substring) {
-                                             row = '<tr class="'+key+'" id="ref' + data_T_port.group[ig].code + '">' +
-                                                 '<td class="code" >' + key + '</td>' +
+                                             row = '<tr class="ref'+key+'" id="ref' + data_T_port.group[ig].code + '">' +
+                                                 '<td scope="row" class="code" >' + key + '</td>' +
                                                  '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
                                                  '<td class="editable" id="AE_T4">' + data_T_port.group[ig].values.ae_grpop + '</td>' +
                                                  '<td class="editable" id="CP_T4">' + data_T_port.group[ig].values.cp_grpop + '</td>' +
@@ -2291,7 +2290,7 @@
                                         var land=data_T_port.operation[io].code.length-5;
                                          if (key == splitcode(data_T_port.operation[io].code, land)[1].substring) {
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.operation[io].code + '">' +
-                                                 '<td class="code" >' + key + '</td>' +
+                                                 '<td scope="row" class="code" >' + key + '</td>' +
                                                  '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
                                                  '<td class="editable" id="AE_T4">' + data_T_port.operation[io].values.ae_op + '</td>' +
                                                  '<td class="editable" id="CP_T4">' + data_T_port.operation[io].values.cp_op + '</td>' +
@@ -2303,7 +2302,7 @@
                                         var land=data_T_port.sousOperation[iso].code.length-5;
                                          if (key == splitcode(data_T_port.sousOperation[iso].code, land)[1].substring) {
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
-                                                 '<td class="code" >' + key + '</td>' +
+                                                 '<td scope="row" class="code" >' + key + '</td>' +
                                                  '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
                                                  '<td class="editable" id="AE_T4">' + data_T_port.sousOperation[iso].values.ae_sousop + '</td>' +
                                                  '<td class="editable" id="CP_T4">' + data_T_port.sousOperation[iso].values.cp_sousuop + '</td>' +

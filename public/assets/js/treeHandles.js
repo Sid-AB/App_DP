@@ -299,7 +299,7 @@ $('#button-71').on('click',function(){
   {
     cmpt=true;
   }
-  var data={
+  var datamodif={
     ref:$('#id').val(),
      AE_T1:AE_T1,
      CP_T1:CP_T1,
@@ -319,7 +319,17 @@ $('#button-71').on('click',function(){
      cible:$('#id_cible').val(),
      status:cmpt, 
   }
-  console.log('testing all'+JSON.stringify(data));
+
+  $.ajax({
+    url:'',
+    type:'POST',
+    data:datamodif,
+    success:function(response)
+    {
+
+    }
+  })
+  console.log('testing all'+JSON.stringify(datamodif));
   $('.Tenv-inpt-handle').empty();
       $('.section-env').empty();
      $('.add-envoi').empty();
