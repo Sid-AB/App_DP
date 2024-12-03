@@ -318,6 +318,8 @@ $('#button-71').on('click',function(){
      sousprogbum_click:sousprogbum,
      cible_action:$('#id_cible').val(),
      status:cmpt, 
+     _token: $('meta[name="csrf-token"]').attr("content"),
+     _method: "POST",
   }
 
   $.ajax({
