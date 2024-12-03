@@ -7,7 +7,12 @@ use App\Models\SousOperation;
 use App\Models\Portefeuille;
 use App\Models\ModificationT;
 use App\Models\ConstruireDPIA;
+use App\Models\T1;
+use App\Models\T2;
+use App\Models\T3;
+use App\Models\T4;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class modificationController extends Controller
 {
@@ -246,11 +251,11 @@ class modificationController extends Controller
     {
         //récupéreer lees données 
         $modifications = $request->all();
-        //  dd($modifications);
-        foreach ($modifications as $modif) {
+        // dd($modifications);
+       // dd( $request->input('status') );
             // valider les données reçues
-            $validated = validator($modif, [
-            'ref' => 'required|integer',
+            $request -> validate([
+                'ref' => 'required|integer',
             'AE_T1' => 'required|numeric',//reçoit
             'CP_T1' => 'required|numeric',
             'AE_T2' => 'required|numeric',
@@ -265,10 +270,14 @@ class modificationController extends Controller
             'Sous_prog_retire' => 'required|string', //sousprogramme li jabna mano l'argent 
             'type' => 'required|string',
             'cible_action' => 'required|string',
-            'status' => 'required|boolean',
+            'status' => 'required|string',
             'prognum_click'=>'required|string',  //programme clickable ou reçoit l'argent
-            'sousprogbum_click'=>'required|string', //sousprog clickable ou reçoit l'argent
-            ])->validate();
+            //'prog_retire'=>'required|string',
+         //   'sousprogbum_click'=>'string', //sousprog clickable ou reçoit l'argent
+            ]);
+
+            //dd( $request );
+            $validated=$request;
 
             //initialiser lees var 
             $AE_env_T1 = 0;
@@ -285,45 +294,48 @@ class modificationController extends Controller
 
             $codeT1 = $codeT2 = $codeT3 = $codeT4 = null;
         // remplir les colonnes d'envoi en fonction de T_port_env
-        switch ($validated['T_port_env']) {
-            case 'T1':
-                $AE_env_T1 = $validated['AE_env_T'];
-                $CP_env_T1 = $validated['CP_env_T'];
-                $codeT1 =T1::value('code_t1');
 
-                break;
-            case 'T2':
-                $AE_env_T2 = $validated['AE_env_T'];
-                $CP_env_T2 = $validated['CP_env_T'];
-                $codeT2 =T2::value('code_t2');
-              
-                break;
-            case 'T3':
-                $AE_env_T3 = $validated['AE_env_T'];
-                $CP_env_T3 = $validated['CP_env_T'];
+            switch ($validated['T_port_env']) {
+                case 'T1':
+                    $AE_env_T1 = $validated['AE_env_T'];
+                    $CP_env_T1 = $validated['CP_env_T'];
+                    $codeT1 =T1::value('code_t1');
+    
+                    break;
+                case 'T2':
+                    $AE_env_T2 = $validated['AE_env_T'];
+                    $CP_env_T2 = $validated['CP_env_T'];
+                    $codeT2 =T2::value('code_t2');
+                  
+                    break;
+                case 'T3':
+                    $AE_env_T3 = $validated['AE_env_T'];
+                    $CP_env_T3 = $validated['CP_env_T'];
+                    $codeT3 = T3::value('code_t3');
+                   
+                    break;
+                case 'T4':
+                    $AE_env_T4 = $validated['AE_env_T'];
+                    $CP_env_T4 = $validated['CP_env_T'];
+                    $codeT4 = T4::value('code_t4');
+                   
+                    break;
+            }
+    
+            if ($validated['AE_T1'] != 0 || $validated['CP_T1'] != 0) {
+                $codeT1 = T1::value('code_t1');
+            }
+            if ($validated['AE_T2'] != 0 || $validated['CP_T2'] != 0) {
+                $codeT2 = T2::value('code_t2');
+            }
+            if ($validated['AE_T3'] != 0 || $validated['CP_T3'] != 0) {
                 $codeT3 = T3::value('code_t3');
-               
-                break;
-            case 'T4':
-                $AE_env_T4 = $validated['AE_env_T'];
-                $CP_env_T4 = $validated['CP_env_T'];
+            }
+            if ($validated['AE_T4'] != 0 || $validated['CP_T4'] != 0) {
                 $codeT4 = T4::value('code_t4');
-               
-                break;
-        }
-
-        if ($validated['AE_T1'] != 0 || $validated['CP_T1'] != 0) {
-            $codeT1 = T1::value('code_t1');
-        }
-        if ($validated['AE_T2'] != 0 || $validated['CP_T2'] != 0) {
-            $codeT2 = T2::value('code_t2');
-        }
-        if ($validated['AE_T3'] != 0 || $validated['CP_T3'] != 0) {
-            $codeT3 = T3::value('code_t3');
-        }
-        if ($validated['AE_T4'] != 0 || $validated['CP_T4'] != 0) {
-            $codeT4 = T4::value('code_t4');
-        }
+            }
+        
+        
 
         // insérer les données dans la table modif
         ModificationT::insert([
@@ -355,6 +367,7 @@ class modificationController extends Controller
             'num_prog'=>$validated['prognum_click'],
 
             'num_sous_prog_retire'=> $validated['Sous_prog_retire'],
+            'num_prog_retire'=> $validated['prog_retire'],
             'action_modifie'=> $validated['cible_action'],
             
 
@@ -365,7 +378,7 @@ class modificationController extends Controller
 
           
               ]);
-    }
+    
 
     return response()->json(['message' => 'Modifications insérées avec succès'], 200);
 }

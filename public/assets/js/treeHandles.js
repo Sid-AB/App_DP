@@ -301,14 +301,14 @@ $('#button-71').on('click',function(){
   }
   var datamodif={
     ref:$('#id').val(),
-     AE_T1:AE_T1,
-     CP_T1:CP_T1,
-     AE_T2:AE_T2,
-     CP_T2:CP_T2,
-     AE_T3:AE_T3,
-     CP_T3:CP_T3,
-     AE_T4:AE_T4,
-     CP_T4:CP_T4,
+     AE_T1:parseFloat(AE_T1),
+     CP_T1:parseFloat(CP_T1),
+     AE_T2:parseFloat(AE_T2),
+     CP_T2:parseFloat(CP_T2),
+     AE_T3:parseFloat(AE_T3),
+     CP_T3:parseFloat(CP_T3),
+     AE_T4:parseFloat(AE_T4),
+     CP_T4:parseFloat(CP_T4),
      T_port_env:selectTret,
      AE_env_T:$('#AE_env_T').val(),
      CP_env_T:$('#CP_env_T').val(),
@@ -321,7 +321,7 @@ $('#button-71').on('click',function(){
      _token: $('meta[name="csrf-token"]').attr("content"),
      _method: "POST",
   }
-
+  console.log('testing all'+JSON.stringify(datamodif));
   $.ajax({
     url:'/updateModif',
     type:'POST',
@@ -331,7 +331,7 @@ $('#button-71').on('click',function(){
 
     }
   })
-  console.log('testing all'+JSON.stringify(datamodif));
+
   $('.Tenv-inpt-handle').empty();
       $('.section-env').empty();
      $('.add-envoi').empty();
