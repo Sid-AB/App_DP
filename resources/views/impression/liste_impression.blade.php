@@ -34,7 +34,7 @@
             background-color:#CCE5FF;
         }
         .total {
-            background-color:#6A58DF;
+            background-color:#6A58DF; 
         }
     </style>
 </head>

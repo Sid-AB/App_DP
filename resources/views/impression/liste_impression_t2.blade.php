@@ -13,15 +13,20 @@
 <h1>LES CREDITS DES DEPENSES DE FONCTIONNEMENT  : </h1>
 table>
         <thead>
+        
             <tr>
-            <thead>
-            <tr>
-            <th>PROGRAMME </th>
+            <th>PROGRAMME  {{ $prog?? 'N/A'}}</th>
                 <th>Code</th>
-                <th> </th>
+                <th>{{$portefeuille->Programme->num_prog ?? 'N/A'}} </th>
                 <th>T2 DANS LE  DPIC</th>
             </tr>
         </thead>
+        <tbody>
+      
+                @foreach ($resultstructur['T2']['groupedData'] as $groupData)
+            
+        @endforeach
+    </tbody>
             
 </body>
 </html>

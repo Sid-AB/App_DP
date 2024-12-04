@@ -114,12 +114,16 @@ class sousOperationController extends Controller
             throw new \Exception("Programme introuvable");
         }
 
+        $prog=$portefeuille->Programme->first();
+        dd($prog);
+
             // pour bien structurer les données de resultats (calcul dpia)
          $resultstructur = [];
          foreach (['T1', 'T2', 'T3', 'T4'] as $t) {
              if (isset($resultats[$t])) {
+             
                  $tdata = $resultats[$t];
- 
+             
                  // chaque grp avec leurs sous operations
                  $groupedData = [];
                  foreach ($tdata['group'] as $group) {
@@ -176,10 +180,12 @@ class sousOperationController extends Controller
                 'groupedData' => $groupedData,
                 'total' => $tdata['total'] ?? [], 
                 // Ajoute le total (si disponible)
-            ];//dd($resultstructur ['T1']); 
+            ];
              }
          }
-     
+       // dd($resultstructur);
+      
+       //  dd($resultstructur['T2']);
                if (isset($resultstructur['T1'])) {
                 return view('impression.liste_impression', compact('resultstructur', 'sousProgramme', 'names','portefeuille'));
                   /*$pdf=pdf::loadView('impression.liste_impression', compact('resultstructur','sousProgramme','names'));
