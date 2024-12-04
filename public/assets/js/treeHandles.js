@@ -48,7 +48,7 @@ $(document).ready(function(){
              sousProgs.forEach(element=>{
               if(element.sous_programs.sous_progs_num == id)
               {
-                $('#id_sprog_modif').text(element.sousProgs.sous_progs_name);
+                $('#id_sprog_modif').text(element.sous_programs.sous_progs_name);
               }
              }) 
 
@@ -85,6 +85,7 @@ $(document).ready(function(){
                 {
                 sousprogbum=response.num_sous_prog
                 prognum=response.num_prog
+                console.log('resitn'+JSON.stringify(response));
                 }
               }         
             })
@@ -295,13 +296,13 @@ $('#button-71').on('click',function(){
     CP_T4=$('#CP_T4').val();     
   }
   var cmpt=false;
-  if(selectTret === '' || selectedprogret === '' && selectedHobby === 'inter')
+  if(selectTret === '0' || selectedprogret === '' && selectedHobby === 'inter' && $('#id_cible').val() === '0')
   {
     cmpt=false
   }
   else
   {
-    if(selectTret !== '' && selectedprogret !== '' && selectedHobby === 'inter')
+    if(selectTret !== '0' && selectedprogret !== '' && selectedHobby === 'inter' && $('#id_cible').val() !== '0')
     {
       cmpt=true;
     }
@@ -310,6 +311,8 @@ $('#button-71').on('click',function(){
   {
     cmpt=true;
   }
+  else
+  
   var datamodif={
     ref:$('#id').val(),
      AE_T1:parseFloat(AE_T1),

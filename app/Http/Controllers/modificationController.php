@@ -251,7 +251,7 @@ class modificationController extends Controller
     {
         //récupéreer lees données 
         $modifications = $request->all();
-         dd($request);
+         dd($modifications);
        // dd( $request->input('status') );
             // valider les données reçues
             $request -> validate([
