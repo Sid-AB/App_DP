@@ -115,7 +115,7 @@ class sousOperationController extends Controller
         }
 
         $prog=$portefeuille->Programme->first();
-        dd($prog);
+        //dd($prog);
 
             // pour bien structurer les données de resultats (calcul dpia)
          $resultstructur = [];
@@ -186,12 +186,13 @@ class sousOperationController extends Controller
        // dd($resultstructur);
       
        //  dd($resultstructur['T2']);
-               if (isset($resultstructur['T1'])) {
+               /*if (isset($resultstructur['T1'])) {
                 return view('impression.liste_impression', compact('resultstructur', 'sousProgramme', 'names','portefeuille'));
                   /*$pdf=pdf::loadView('impression.liste_impression', compact('resultstructur','sousProgramme','names'));
                return $pdf->download('liste_impression.pdf');*/
-            } elseif (isset($resultstructur['T2'])) {
-                return view('impression.liste_impression_t2', compact('resultstructur', 'sousProgramme', 'names','portefeuille'));
+            //}
+             if (isset($resultstructur['T2'])) {
+                return view('impression.liste_impression_t2', compact('resultstructur', 'sousProgramme', 'names','portefeuille','prog'));
                   /*$pdf=pdf::loadView('impression.liste_impression', compact('resultstructur','sousProgramme','names'));
                return $pdf->download('liste_impression.pdf');*/
             } elseif (isset($resultstructur['T3'])) {

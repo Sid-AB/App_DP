@@ -251,7 +251,7 @@ class modificationController extends Controller
     {
         //récupéreer lees données 
         $modifications = $request->all();
-        // dd($modifications);
+         dd($request);
        // dd( $request->input('status') );
             // valider les données reçues
             $request -> validate([
@@ -272,7 +272,7 @@ class modificationController extends Controller
             'cible_action' => 'required|string',
             'status' => 'required|string',
             'prognum_click'=>'required|string',  //programme clickable ou reçoit l'argent
-            //'prog_retire'=>'required|string',
+            'prog_retirer'=>'required|string',
          //   'sousprogbum_click'=>'string', //sousprog clickable ou reçoit l'argent
             ]);
 
@@ -367,7 +367,7 @@ class modificationController extends Controller
             'num_prog'=>$validated['prognum_click'],
 
             'num_sous_prog_retire'=> $validated['Sous_prog_retire'],
-            'num_prog_retire'=> $validated['prog_retire'],
+            'num_prog_retire'=> $validated['prog_retirer'],
             'action_modifie'=> $validated['cible_action'],
             
 
