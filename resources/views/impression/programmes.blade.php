@@ -133,14 +133,14 @@
                         <tr class="subprogram-title">
                             <td>{{ $action['code'] }}</td>
                             <td>{{ $action['nom'] }}</td>
-                            <td>{{ $action['TotalT']['T1']['values']['totalAE']}}</td>
-                            <td>{{ $action['TotalT']['T1']['values']['totalCP']}}</td>
-                            <td>{{ $action['TotalT']['T2']['values']['totalAE']}}</td>
-                            <td>{{ $action['TotalT']['T2']['values']['totalCP']}}</td>
-                            <td>{{ $action['TotalT']['T3']['values']['totalAE']}}</td>
-                            <td>{{ $action['TotalT']['T3']['values']['totalCP']}}</td>
-                            <td>{{ $action['TotalT']['T4']['values']['totalAE']}}</td>
-                            <td>{{ $action['TotalT']['T4']['values']['totalCP']}}</td>
+                            <td>{{ $action['TotalT']['T1']['total'][0]['values']['totalAE']}}</td>
+                            <td>{{ $action['TotalT']['T1']['total'][0]['values']['totalCP']}}</td>
+                            <td>{{ $action['TotalT']['T2']['total'][0]['values']['totalAE']}}</td>
+                            <td>{{ $action['TotalT']['T2']['total'][0]['values']['totalCP']}}</td>
+                            <td>{{ $action['TotalT']['T3']['total'][0]['values']['totalAE']}}</td>
+                            <td>{{ $action['TotalT']['T3']['total'][0]['values']['totalCP']}}</td>
+                            <td>{{ $action['TotalT']['T4']['total'][0]['values']['totalAE']}}</td>
+                            <td>{{ $action['TotalT']['T4']['total'][0]['values']['totalCP']}}</td>
                             <td colspan="8"></td>
                         </tr>
                     @endforeach

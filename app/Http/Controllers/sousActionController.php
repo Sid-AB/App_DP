@@ -214,7 +214,7 @@ function printdpic($numport)
             array_push($programmes,['programmes'=>['code'=>$progm->num_prog,"nom"=>$progm->nom_prog,"sous_programmes"=>$all_sous_prog,"Total"=>$ttall]]); 
             $allsous_prog=[];
         }
-              dd($all_act);
+            //  dd($all_act);
         if(count($all_act)>0)
         {
         /*return response()->json([
