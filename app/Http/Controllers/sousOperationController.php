@@ -83,6 +83,10 @@ class sousOperationController extends Controller
             //dd($port, $prog, $sous_prog, $act,$s_act);
             $resultats = $this->CalculDpia->calculdpiaFromPath($port, $prog, $sous_prog, $act,$s_act);
           //dd($resultats );
+           
+          //pour t3 
+          $years=Portefeuille::where('num_portefeuil',$port)->firstOrFail();
+          $years = Carbon::parse($years->Date_portefeuille)->year;
 
           // Chargement du fichier JSON
         $jsonData = file_get_contents(public_path('assets/titre/dataT1.json')); //la fonction file_get_contents() lire directement depuis le système de fichiers :
@@ -208,7 +212,7 @@ class sousOperationController extends Controller
                   /*$pdf=pdf::loadView('impression.liste_impression', compact('resultstructur','sousProgramme','names'));
                return $pdf->download('liste_impression.pdf');
             }*/ if (isset($resultstructur['T3'])) {
-                return view('impression.liste_impression_t3', compact('resultstructur', 'sousProgramme', 'namesT3','portefeuille','prog','action'));
+                return view('impression.liste_impression_t3', compact('resultstructur', 'sousProgramme', 'namesT3','portefeuille','prog','action','years'));
                   /*$pdf=pdf::loadView('impression.liste_impression', compact('resultstructur','sousProgramme','names'));
                return $pdf->download('liste_impression.pdf');*/
             } elseif (isset($resultstructur['T4'])) {

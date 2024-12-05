@@ -98,23 +98,23 @@
 
                 <th rowspan="3"> N° DE DECISION D'INSCRIPTION</th>
                 <th rowspan="3">INTITULE DE L'OPERATION D'INVESTISSEMENT PUBLIC (PROJET)</th>
-                <th colspan="6">ANNEE EN COURS (N)</th>
+                <th colspan="6" style="text-align: center;">ANNEE EN COURS (N)</th>
             </tr>
             <tr>
          
-                <th colspan="3">AE </th>
-                <th colspan="3">CP </th>
+                <th colspan="3" style="text-align: center;" >AE </th>
+                <th colspan="3" style="text-align: center;">CP </th>
             </tr>
 
 
             <tr>
-            <th>AE REPORTEE  </th>
-            <th>AE NOTIFIEE </th>
-            <th>AE ENGAGEE AU </th>
+            <th>AE REPORTEE  31-12-{{$years-1}} </th>
+            <th>AE NOTIFIEE {{$years}}</th>
+            <th>AE ENGAGEE AU 31-12-{{$years-1}} </th>
 
-            <th>CP REPORTES </th>
-            <th>CP NOTIFIES </th>
-            <th>CP CONSOMMES Au </th>
+            <th>CP REPORTES 31-12-{{$years-1}}</th>
+            <th>CP NOTIFIES  {{$years}}</th>
+            <th>CP CONSOMMES Au 31-12-{{$years-1}} </th>
             </tr>
 
         </thead>
@@ -166,8 +166,14 @@
                 @if (count($operationData['sousOperations']) > 0)
                    <tr class="operation-row with-sousop">
                        
-                   <td  class="code"></td>
-                      <!--td class="code">{{ $codeop }}</td-->
+                   @if( $i == 0)
+                   <td rowspan={{$totalOperations}} class="code"></td>        <!--td class="code">{{ $codeop }}</td-->
+                   <td rowspan={{$totalOperations}}>{{$namesT3[$codegrp]}}</td>
+                   @php
+                   $i++;
+                   @endphp
+                   @endif
+               
                    <td >{{$namesT3[$codegrp]}}</td>
 
                    <td >{{$nomfirst ?? Néant}}</td> 
@@ -185,11 +191,9 @@
               
                @else
                    <tr class="operation-row">
-                   <!--td class="code">{{ $codeop }}</td-->
-                  
-                  
+              
                    @if( $i == 0)
-                   <td rowspan={{$totalOperations}} class="code" id="{{'eir'.$i}}"></td>
+                   <td rowspan={{$totalOperations}} class="code" id="{{'eir'.$i}}"></td>      <!--td class="code">{{ $codeop }}</td-->
                    <td rowspan={{$totalOperations}} id="{{'eir'.$i}}">{{$namesT3[$codegrp]}}</td>
                    @php
                    $i++;
