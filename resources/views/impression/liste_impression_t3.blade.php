@@ -42,9 +42,7 @@
 
 <h1>LISTE DES OPERATIONS D'INVESTISSEMENT PUBLIC:</h1>
 
-@php
-$i=0;
-@endphp
+
 <table class="first-table">
     <thead>
                 @php
@@ -128,7 +126,7 @@ $i=0;
                     $code_grpsepar = explode('-', $groupData['group']['code']);
                     $codegrp = end($code_grpsepar);
 
-                 
+                 $i=0;
                 @endphp
             <tr class="group-row">
                 <td class="code">{{$codegrp}}</td>
@@ -191,14 +189,11 @@ $i=0;
                   
                   
                    @if( $i == 0)
-                   <td rowspan={{$totalOperations}} class="code"></td>
-                   <td rowspan={{$totalOperations}} >{{$namesT3[$codegrp]}}</td>
+                   <td rowspan={{$totalOperations}} class="code" id="{{'eir'.$i}}"></td>
+                   <td rowspan={{$totalOperations}} id="{{'eir'.$i}}">{{$namesT3[$codegrp]}}</td>
                    @php
                    $i++;
                    @endphp
-                   @else 
-                   <td class="code"></td>
-                   <td  >{{$namesT3[$codegrp]}}</td>
                    @endif
                    <td >{{$nomfirst ?? Néant}}</td> 
 
@@ -250,6 +245,12 @@ $i=0;
             @endforeach
         @endforeach
         @endforeach
+
+
+        {{-- this part for no rowspan --}}
+
+
+
     </tbody>
     <tfoot>
         <tr  class="total">
