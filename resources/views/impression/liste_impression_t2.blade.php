@@ -31,8 +31,8 @@
     }
 
     .first-table {
-            width: 50%; /* Vous pouvez ajuster cette valeur selon vos besoins */
-            margin-bottom: 20px; /* Ajoute un espacement sous le premier tableau */
+            width: 50%; 
+            margin-bottom: 20px; 
             margin: 0 auto;
         }
 
