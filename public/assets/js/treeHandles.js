@@ -24,6 +24,38 @@ $(document).ready(function(){
       var port=$('.family-tree').attr('id');
       console.log('file loading  '+id)
       $.ajax({
+        url:'/allaction/'+port,
+        type:'GET',
+        success:function(response)
+        {
+          if(response.exists)
+          {
+            progs=response.programs
+            sousProgs=response.sous_programs
+            progs.forEach(element=>{
+              if(programs.progs_num == id)
+              {
+                $('#id_sprog_modif').text(response.progs_name);
+              }
+            
+            
+             }) 
+             sousProgs.forEach(element=>{
+              if(element.sous_programs.sous_progs_num == id)
+              {
+                $('#id_sprog_modif').text(response.sous_progs_name);
+              }
+             
+             }) 
+            response.actions.forEach(element => {
+              console.log('append'+JSON.stringify(element.actions) )
+              $('#id_cible').append("<option value="+element.actions.actions_num+">"+element.actions.actions_name+"</option>")
+            });
+          
+          }
+        }
+      })
+      $.ajax({
         url:'/check-prog',
         Type:'GET',
         data:{
@@ -35,23 +67,7 @@ $(document).ready(function(){
            {
             $('#id_sprog_modif').text(response.nom_prog);
             prognum=response.num_prog
-            $.ajax({
-              url:'/allaction/'+port,
-              type:'GET',
-              success:function(response)
-              {
-                if(response.exists)
-                {
-                  progs=response.programs
-                  
-                  response.actions.forEach(element => {
-                    console.log('append'+JSON.stringify(element.actions) )
-                    $('#id_cible').append("<option value="+element.actions.actions_num+">"+element.actions.actions_name+"</option>")
-                  });
-                
-                }
-              }
-            })
+            
            }
            else
            {
@@ -63,7 +79,7 @@ $(document).ready(function(){
               success:function(response) {
                 if(response.exists)
                 {
-                $('#id_sprog_modif').text(response.nom_sous_prog);
+                
                 sousprogbum=response.num_sous_prog
                 prognum=response.num_prog
                 $.ajax({
@@ -73,7 +89,7 @@ $(document).ready(function(){
                   {
                     if(response.exists)
                     {
-                      sousProgs=response.sous_programs
+                     
                       
                       response.actions.forEach(element => {
                         console.log('append'+JSON.stringify(element.actions) )
