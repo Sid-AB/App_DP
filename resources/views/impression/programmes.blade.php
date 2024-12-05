@@ -32,9 +32,9 @@
             background-color: #f5f4f4; /* Ligne alternative */
         }
 
-        tr:hover {
-            background-color: #0c0a0a; /* Effet survol */
-        }
+      /*  tr:hover {
+            background-color: #0c0a0a; /* Effet survol 
+       }*/
 
         .program-title {
             font-weight: bold;
