@@ -195,20 +195,20 @@ class sousOperationController extends Controller
          }
        // dd($resultstructur);
       
-       //  dd($resultstructur['T2']);
+       // dd($resultstructur['T1']);
   
        
            /*if (isset($resultstructur['T1'])) {
                 return view('impression.liste_impression', compact('resultstructur', 'sousProgramme', 'names','portefeuille'));
                   /*$pdf=pdf::loadView('impression.liste_impression', compact('resultstructur','sousProgramme','names'));
-               return $pdf->download('liste_impression.pdf');*/
-         //   }
-             if (isset($resultstructur['T2'])) {
+               return $pdf->download('liste_impression.pdf');
+           }
+             elseif (isset($resultstructur['T2'])) {
                 return view('impression.liste_impression_t2', compact('resultstructur', 'sousProgramme', 'namesT2','portefeuille','prog','action'));
                   /*$pdf=pdf::loadView('impression.liste_impression', compact('resultstructur','sousProgramme','names'));
-               return $pdf->download('liste_impression.pdf');*/
-            } elseif (isset($resultstructur['T3'])) {
-                return view('impression.liste_impression_t3', compact('resultstructur', 'sousProgramme', 'namesT3','portefeuille'));
+               return $pdf->download('liste_impression.pdf');
+            }*/ if (isset($resultstructur['T3'])) {
+                return view('impression.liste_impression_t3', compact('resultstructur', 'sousProgramme', 'namesT3','portefeuille','prog','action'));
                   /*$pdf=pdf::loadView('impression.liste_impression', compact('resultstructur','sousProgramme','names'));
                return $pdf->download('liste_impression.pdf');*/
             } elseif (isset($resultstructur['T4'])) {
