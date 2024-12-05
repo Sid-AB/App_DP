@@ -205,7 +205,7 @@ class portfeuilleController extends Controller
               'TotalCP'=>$por->CP_portef,
               'prgrammes'=>$allprogram,
           ];
-         //    dd($allprogram[1]['sous_program'][2]);
+         //  dd($allprogram[1]['sous_program'][2]);
       // Passer les données à la vue
       return view('Portfail-in.index', compact('allport','art'));
 
@@ -306,6 +306,7 @@ return response()->json([
 
             $DPIC->date_creation_dpic = $portefeuille->Date_portefeuille; // elle prend la date de creation du portfeuille
 
+            $DPIC->date_modification_dpic = now(); 
             $DPIC->AE_dpic_nv = $portefeuille->AE_portef;
             $DPIC->CP_dpic_nv = $portefeuille->CP_portef;
 

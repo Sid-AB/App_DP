@@ -15,7 +15,7 @@
             text-align: center;
         }
         th {
-            background-color: while; 
+            background-color: white; 
         }
         .highlight {
             background-color: white;
@@ -24,7 +24,7 @@
             font-weight: bold;
         }
 
-        .group-row {
+        /*.group-row {
             background-color: #FFE5CC; 
         }
         .with-sousop{
@@ -34,8 +34,8 @@
             background-color:#CCE5FF;
         }
         .total {
-            background-color:#6A58DF;
-        }
+            background-color:#6A58DF; 
+        }*/
     </style>
 </head>
 <body>

@@ -50,11 +50,15 @@ public function check_sous_prog(Request $request)
     if ($sousprog && $initPort) {
         return response()->json([
             'exists' => true,
+
+            'num_sous_prog'=>$sousprog->num_sous_prog,
             'nom_sous_prog' => $sousprog->nom_sous_prog,
             'date_insert_sousProg' => $sousprog->date_insert_sousProg,
+            'num_prog' =>$sousprog->num_prog,
+
             'AE_sous_prog' => $sousprog->AE_sous_prog,
             'CP_sous_prog' => $sousprog->CP_sous_prog,
-
+           
             'T1_AE_init' => $initPort->AE_init_t1,
             'T1_CP_init' => $initPort->CP_init_t1,
 
