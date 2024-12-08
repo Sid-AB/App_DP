@@ -255,7 +255,7 @@ class modificationController extends Controller
        // dd( $request->input('status') );
             // valider les données reçues
             $request -> validate([
-                'ref' => 'required|integer',
+            'ref' => 'required|integer',
             'AE_T1' => 'required|numeric',//reçoit
             'CP_T1' => 'required|numeric',
             'AE_T2' => 'required|numeric',
@@ -273,7 +273,7 @@ class modificationController extends Controller
             'status' => 'required|string',
             'prognum_click'=>'required|string',  //programme clickable ou reçoit l'argent
             'prog_retirer'=>'required|string',
-         //   'sousprogbum_click'=>'string', //sousprog clickable ou reçoit l'argent
+            'sousprogbum_click'=>'string', //sousprog clickable ou reçoit l'argent
             ]);
 
             //dd( $request );
@@ -378,6 +378,8 @@ class modificationController extends Controller
 
           
               ]);
+
+           
     
 
     return response()->json(['message' => 'Modifications insérées avec succès'], 200);
