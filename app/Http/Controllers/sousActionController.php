@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 
 class sousActionController extends Controller
 {
+
+
 //===================================================================================
                             // affichage sous action
 //===================================================================================
@@ -62,19 +64,19 @@ function allact($numport)
 
                             if(isset($listsousact))
                             {
-                            
+
                                 array_push($allaction,['actions'=>['actions_num'=>$listsousact->num_sous_action,"actions_name"=>$listsousact->nom_sous_action]]);
 
                             }
 
                         }
                     }
-                }   
+                }
                 array_push($allsous_prog,['sous_programs'=>['sous_progs_num'=>$sprog->num_sous_prog,"sous_progs_name"=>$sprog->nom_sous_prog]]);
             }
-            array_push($all_prog,['programs'=>['progs_num'=>$progm->num_prog,"progs_name"=>$progm->nom_prog]]); 
+            array_push($all_prog,['programs'=>['progs_num'=>$progm->num_prog,"progs_name"=>$progm->nom_prog]]);
         }
-      //  dd($allaction,$allsous_prog,$all_prog); 
+      //  dd($allaction,$allsous_prog,$all_prog);
         if(count($allaction)>0)
         {
         return response()->json([
@@ -95,17 +97,17 @@ function allact($numport)
                                 //DEBUT CHECK
 //===================================================================================
 
-public function check_action(Request $request)
+public function check_sousaction(Request $request)
     {
-        $sousaction = sousAction::where('num_sous_action', $request->num_sous_action)->first();
+        $sousAction = sousAction::where('num_sous_action', $request->num_sous_action)->first();
 
-        if ($sousaction) {
+        if ($sousAction) {
             return response()->json([
                 'exists' => true,
-                'nom_sous_action' => $sousaction->nom_sous_action,
-                'AE_sous_action' => $sousaction->AE_sous_act,
-                'CP_sous_action' => $sousaction->CP_sous_act,
-                'date_insert_sous_action' => $sousaction->date_insert_sous_action
+                'nom_sous_action' => $sousAction->nom_sous_action,
+                'date_insert_sous_action' => $sousAction->date_insert_sous_action,
+                'AE_sous_act'=>$sousAction->AE_sous_action,
+                'CP_sous_act'=>$sousAction->CP_sous_action,
             ]);
         }
 
@@ -115,12 +117,13 @@ public function check_action(Request $request)
 //===================================================================================
                             //FIN CHECK
 //===================================================================================
+
 //===================================================================================
                         // creation sous action
 //===================================================================================
 function create_sousaction(Request $request)
 {
-    //dd($request);
+
  // Récupérer la ligne de la table en fonction de 'numsouaction'
  $sousAction = SousAction::where('num_sous_action', $request->num_act)->first(); // Utilisation de 'numsouaction' pour trouver l'élément
 
@@ -131,68 +134,38 @@ function create_sousaction(Request $request)
     $sousAction->AE_sous_action=floatval($request->AE_sous_act);
     $sousAction->CP_sous_action=floatval($request->CP_sous_act);
    // $sousAction->num_action = $request->num_act;
-    $sousAction->date_insert_sous_action = $request->date_insert_sous_action;
+    $sousAction->date_update_sous_action = $request->date_insert_sous_action;
 
     // Enregistrer les modifications dans la base de données
-    if($sousAction->save())
-   {
-    //dd($sousAction);
-    return response()->json([
-        'success' => true,
-        'message' => 'Sous-Action ajouté avec succès.',
-        'code' => 200,
-    ]);
-}
-    else
-    {
-        return response()->json([
-            'success' => false,
-            'message' => 'Erreur lors de l\'ajout de la sous action.',
-            'code' => 500,
-        ]);
-    }
+    $sousAction->save();
+
 }
 else{
-        //si la sous action existe donc la modifier
-        //dd($request);
-        $sousAction = SousAction::where('num_sous_action', $request->num_sous_action)->first();
-    if ($sousAction) {
-        $sousAction->nom_sous_action = $request->nom_sous_action;
-        $sousAction->AE_sous_action=floatval($request->AE_sous_act);
-        $sousAction->CP_sous_action=floatval($request->CP_sous_act);
-        $sousAction->date_insert_sous_action = $request->date_insert_sous_action;
-        $sousAction->save();
-
-              // Enregistrer le fichier et le lier au portefeuille
-                /*...
-                                                    */
-
-        if ( $sousAction) {
-            return response()->json([
-                'success' => true,
-                'message' => 'Action ajouté avec succès.',
-                'code' => 200,
-            ]);
-        } else {
-            return response()->json([
-                'success' => false,
-                'message' => 'Erreur lors de l\'ajout de l\'action.',
-                'code' => 500,
-            ]);
-        }
-
-    }
-    else {
-        // Gérer le cas où la sous-action n'est pas trouvée
-        return response()->json([
-            'success' => true,
-            'message' => 'exist lors de l\'ajout de la sous action.',
-            'code' => 404,
-        ]);
-
-    }
+      //dd($request);
+    // creer une nouvelle  sous action
+    $sousaction = new sousAction();
+    $sousaction->num_action = $request->num_act;
+    $sousaction->num_sous_action = $request->num_sous_action;
+    $sousaction->nom_sous_action = $request->nom_sous_action;
+    $sousaction->AE_sous_action=floatval($request->AE_sous_act);
+    $sousaction->CP_sous_action=floatval($request->CP_sous_act);
+    $sousaction->date_insert_sous_action = $request->date_insert_sous_action;
+    $sousaction->save();
 }
 
+if ( $sousaction) {
+    return response()->json([
+        'success' => true,
+        'message' => 'Action ajouté avec succès.',
+        'code' => 200,
+    ]);
+} else {
+    return response()->json([
+        'success' => false,
+        'message' => 'Erreur lors de l\'ajout de l\'action.',
+        'code' => 500,
+    ]);
+}
 
 }
 }

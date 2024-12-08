@@ -14,12 +14,8 @@ return new class extends Migration
         Schema::create('init_ports', function (Blueprint $table) {
             $table->integer('id_init')->primary()->autoIncrement();
 
-            $table->DateTime('date_init');
-<<<<<<< HEAD
-
-=======
-        
->>>>>>> 3a222636207d13d1ba88557a822b38a5248a1172
+            $table->Date('date_init');
+            $table->Date('date_update_init')->nullable();
 
             $table->float('AE_init_t1')->default(0.0);
             $table->float('CP_init_t1')->default(0.0);

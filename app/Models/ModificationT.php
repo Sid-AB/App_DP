@@ -2,6 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\T1;
+use App\Models\T2;
+use App\Models\T3;
+use App\Models\T4;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Article;
 use Illuminate\Database\Eloquent\Model;
 
 class ModificationT extends Model
@@ -9,8 +15,8 @@ class ModificationT extends Model
     use HasFactory;
     protected $table = 'modification_t_s';
     protected $primaryKey = 'id_modif';
-    public $incrementing = true; 
-    protected $keyType = 'integer'; 
+    public $incrementing = true;
+    protected $keyType = 'integer';
     public $timestamps = false;
 
     protected $fillable = [
@@ -20,7 +26,7 @@ class ModificationT extends Model
 ,'AE_recoit_t2','CP_recoit_t2','AE_recoit_t3','CP_recoit_t3','AE_recoit_t4','CP_recoit_t4'
  ];
 
- 
+
     public function articles()
     {
         return $this->belongsTo(Article::class,'id_art','id_art');
@@ -45,5 +51,5 @@ class ModificationT extends Model
         return $this->belongsTo(T4::class,'code_t4','code_t4');
     }
 
-    
+
 }

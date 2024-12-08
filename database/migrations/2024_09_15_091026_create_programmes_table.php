@@ -19,7 +19,7 @@ return new class extends Migration
             $table->float('CP_prog');
 
             $table->Date('date_insert_portef');
-            $table->Date('date_update_portef')->nullable();
+            $table->DateTime('date_update_portef')->nullable();
           //  $table->integer('num_journ');
 
 

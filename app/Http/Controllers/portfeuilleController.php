@@ -236,6 +236,8 @@ public function check_portef(Request $request)
     // Vérification si le portefeuille existe dans la base de données
     $portefeuille = Portefeuille::where('num_portefeuil', $num)->first();
 
+    //$Date_portefeuille= Carbon::parse($portefeuille->Date_portefeuille)->format('Y-m-d');
+   // dd($Date_portefeuille);
     if ($portefeuille) {
         return response()->json([
             'exists' => true,
@@ -276,6 +278,7 @@ public function check_portef(Request $request)
         $portefeuille->AE_portef = $request->AE_portef;
         $portefeuille->CP_portef = $request->CP_portef;
         $portefeuille->Date_portefeuille = $request->Date_portefeuille;
+        $portefeuille->Date_update_portefeuille = Carbon::now();
         $portefeuille->id_min =1;//periodiquement
         $portefeuille->save();
 

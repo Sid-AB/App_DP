@@ -17,6 +17,8 @@ use App\Http\Controllers\groupOperationController;
 use App\Http\Controllers\opeartionController;
 use App\Http\Controllers\sousOperationController;
 use App\Http\Controllers\modificationController;
+
+
 Route::get('/', function () {
  $portfs =Portefeuille::get();
     return view('welcome',compact('portfs'));
@@ -52,11 +54,7 @@ Route::controller(sousProgrammeController::class)->group(function(){
 
 });
 
-//===============ROUTE PORTE INITIALE==============================
-Route::controller(initPortCntroller::class)->group(function(){
-    Route::post('/creationPort','create_port')->name('creation.porte');
 
-});
 
 //===============ROUTE ACTION==============================
 Route::controller(actionController::class)->group(function(){
