@@ -1294,7 +1294,11 @@ transition-timing-function: line;
 #Tport-vals
 {
   display: flex;
-    align-items: center;
-    justify-content: space-evenly;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.T4
+{
+  flex-direction: column;
 }
 /***------------------------------ end --------------------***/
