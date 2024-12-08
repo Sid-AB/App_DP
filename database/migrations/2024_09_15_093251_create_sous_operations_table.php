@@ -18,7 +18,7 @@ return new class extends Migration
             $table->float('AE_sous_operation')->nullable(); //si t1 ou t4
             $table->float('CP_sous_operation')->nullable();//si t1 ou t4
 
-            $table->DateTime('date_insert_SOUSoperation');
+            $table->Date('date_insert_SOUSoperation');
             $table->DateTime('date_update_SOUSoperation')->nullable();
 
             $table->float('AE_ouvert')->nullable();

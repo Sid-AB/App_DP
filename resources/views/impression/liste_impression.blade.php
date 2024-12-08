@@ -36,11 +36,67 @@
         .total {
             background-color:#6A58DF; 
         }*/
+        .table-diviser {
+        margin: 20px 0; /* la distance entre les 2 tables */
+       
+    }
+
+    .first-table {
+            width: 50%; 
+            margin-bottom: 20px; 
+            margin: 0 auto;
+        }
+
     </style>
 </head>
 <body>
     <h1>LES CREDITS DES DEPENSES DE PERSONNEL : </h1>
+    <table class="first-table">
+    <thead>
+                @php
+                    // extraire la dernière partie du code 
+                    $code_prog = explode('-', $prog->num_prog);
+                    $codeprg = end($code_prog);
+                @endphp
+        <tr>
+            <th>PROGRAMME {{ $prog->nom_prog }}</th>
+            <th>Code</th>
+            <td>{{ $codeprg }}</th>
+            <th colspan="2">T1</th>
+        </tr>
 
+
+        <tr>
+                @php
+                    // extraire la dernière partie du code 
+                    $code_sousprog = explode('-', $sousProgramme->num_sous_prog);
+                    $codesousprg = end($code_sousprog);
+                @endphp
+            <th>Sous-programme {{ $sousProgramme->nom_sous_prog }}</th>
+            <th>Code</th>
+            <td>{{ $codesousprg}}</th>
+            <th>AE </th>
+            <th>CP </th>
+        </tr>
+
+        <tr>
+                @php
+                    // extraire la dernière partie du code 
+                    $code_action = explode('-', $action->num_action );
+                    $codeact = end($code_action);
+                @endphp
+            <th>Action {{ $action->nom_action }}</th>
+            <th>Code</th>
+            <td>{{ $codeact }}</th>
+            <td>{{ $resultstructur['T2']['total'][0]['values']['totalAE'] ?? 'N/A' }}</td>
+            <td>{{ $resultstructur['T2']['total'][0]['values']['totalCP'] ?? 'N/A' }}</td>
+        </tr>
+    </thead>
+    <tbody>
+       
+    </tbody>
+</table>
+<div class="table-diviser"></div> 
     <table>
         <thead>
             <tr>

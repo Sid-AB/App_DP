@@ -268,7 +268,44 @@ $(document).ready(function(){
       $('.Tenv-inpt-handle').empty();
       $('.section-env').empty();
      $('.add-envoi').empty();
-     
+      if(selectedHobby == "mvm")
+      {
+        var choseT ='<div class="form-group">'+
+    ' <label for="input1">Tport Reterie montant</label>'+
+    '<select class="form-control" id="id-T-retire">'+
+    '<option value="T0" >Selectionner TPort</option>'+
+    '<option value="T1" >Port 01</option>'+
+    '<option value="T2" >Port 02</option>'+
+    '<option value="T3" >Port 03</option>'+
+    '<option value="T4" >Port 04</option>'+
+    '</select>'+
+    '</div>'+
+    '<div class="Tenv-inpt-handle" >'+
+     '</div>';
+   
+      $('.add-envoi').append(choseT);
+      $('.add-envoi').append('<hr>');
+      var init='<label for="Tports">AE</label>'+
+      '<input type="number" class="form-control" id="AE_env_T" name="interest" />'+
+       '<label for="number">CP</label>'+
+       '<input type="number" class="form-control" id="CP_env_T" name="interest" />';
+       $('#id-T-retire').on('change',function(){
+        $('.Tenv-inpt-handle').empty()
+         selectTret =$('#id-T-retire').val();
+         if(selectTret !== 'T0')
+          {
+            console.log('all inside')
+          $('.Tenv-inpt-handle').append(init);
+         
+          }  
+         }  
+        )}
+      else
+      {
+        $('.Tenv-inpt-handle').empty();
+      $('.section-env').empty();
+     $('.add-envoi').empty();
+      }
      console.log('nothing is selected type of interaction '+selectedHobby)
      $('.float-export').css('display','block');
     }
