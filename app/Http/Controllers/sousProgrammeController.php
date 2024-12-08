@@ -106,7 +106,7 @@ function create_sou_prog(Request $request)
         $SousProgramme->CP_sous_prog = floatval($request->CP_sous_prog);
         $SousProgramme->date_insert_sousProg = $request->date_insert_sousProg;
         $SousProgramme->save();
-
+        
         if ($initPort) {
             // update des données dans init_ports
 
