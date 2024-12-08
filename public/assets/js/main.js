@@ -1600,7 +1600,7 @@
                                                                              focus_()
 
                                                                              //===============CHECK SOUS ACTION=====================//
-                                                                             /*$('#date_insert_sou_action').on('focusout', function () {
+                                                                             $('#date_insert_sou_action').on('focusout', function () {
                                                                                 //alert('out')
                                                                                 var date_sousact = $(this).val();
                                                                                 var num_sousact = $('#num_sous_act').val();
@@ -1630,7 +1630,7 @@
                                                                                         }
                                                                                     })
                                                                                 }
-                                                                            })*/
+                                                                            })
                                                                              //=============== FIN CHECK SOUS ACTION================//
                                                                              // Ajout de l'événement d'ajout pour la sous-action
                                                                              $('#add-prg4').on('click', function () {
@@ -2329,7 +2329,7 @@
 
                              var headT = '<tr>' +
                                  '<th><h1>Code</h1></th>' +
-                                 '<th><h1>DEPENSES DE TRANSFERT</h1></th>' +    
+                                 '<th><h1>DEPENSES DE TRANSFERT</h1></th>' +
                                  '<th colspan="2">' +
                                  '<div class="fusion-father">' +
                                  '<h1>MONTANT ANNEE (N)</h1>' +
