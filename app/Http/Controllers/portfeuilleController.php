@@ -60,7 +60,7 @@ class portfeuilleController extends Controller
        {
         $progms=Programme::where('num_prog',intval($num))->get();
        // dd($progms);
-        $paths=['code_port'=>$progms[0]->num_portefeuil,'programme'=>$progms[0]->num_prog];
+        $paths=['code_port'=>$progms[0]->num_portefeuil,'programme'=>$num];
        // dd($paths);
        }
 
@@ -68,7 +68,7 @@ class portfeuilleController extends Controller
         {
                 $sprog=SousProgramme::where('num_sous_prog',intval($num))->first();
                 $progms=Programme::where('num_prog',$sprog->num_prog)   ->first();
-                $paths=['code_port'=>$progms->num_portefeuil,'programme'=>$progms->num_prog,'sous Programme'=>$sprog->num_sous_prog];
+                $paths=['code_port'=>$progms->num_portefeuil,'programme'=>$progms->num_prog,'sous Programme'=>$num];
              //    dd($paths);
         }
         if($cat == 'act' )
@@ -76,13 +76,14 @@ class portfeuilleController extends Controller
             $act=Action::where('num_action',intval($num))->first();
             $sprog=SousProgramme::where('num_sous_prog',$act->num_sous_prog)->first();
             $progms=Programme::where('num_prog',$sprog->num_prog)->first();
-            $paths=['code_port'=>$progms->num_portefeuil,'programme'=>$progms->num_prog,'sous Programme'=>$sprog->num_sous_prog,'Action'=>$act->num_action];
+            $paths=['code_port'=>$progms->num_portefeuil,'programme'=>$progms->num_prog,'sous Programme'=>$sprog->num_sous_prog,'Action'=>$num];
              //   dd($paths);
         }
         $leng=count($paths);
       //  dd($leng);
       if($leng > 0)
       {
+       // dd($paths);
         return view('Portfail-in.prsuiv',compact('paths','leng'));
       }
       else

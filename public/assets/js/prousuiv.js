@@ -344,7 +344,7 @@ $(document).ready(function(){
                                     
                                         alert(response.message)
                                     }
-                                $.ajax({
+                             /*   $.ajax({
                                     url:'/init_ports',
                                     type:'POST',
                                     data:formatinitports,
@@ -364,7 +364,7 @@ $(document).ready(function(){
 
                                         }
                                     }
-                                })
+                                })*/
                            
                             // path3.push(id_prog);
                               }

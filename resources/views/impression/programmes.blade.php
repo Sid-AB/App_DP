@@ -17,7 +17,10 @@
             border-collapse: collapse;
             margin-bottom: 20px;
         }
-
+        thead th
+        {
+            text-align: center;
+        }
         th, td {
             border: 1px solid #000;
             text-align: left;
@@ -63,6 +66,7 @@
             background-color: #00B050; /* Couleur eventuels credits */
             color: rgb(245, 238, 238);
         }
+        
         .totals {
             font-weight: bold;
             background-color: #31869B   ; /* Couleur totals des actions1..n */
@@ -73,10 +77,10 @@
         background-color:#DDD9C4;
         }
     </style>
-    <h1>Programmation des crédits du programme 088+089</h1>
+   
 </head>
 <body>
-    <h1>Programmation des crédits du programme 088</h1>
+<h1>Programmation des crédits du programme 088+089</h1>
     <table border="1">
         <thead>
             <tr>
@@ -104,9 +108,15 @@
             {{-- Boucle sur les programmes --}}
             @for($i=0;$i< count($programmes);$i++)
             @foreach ($programmes[$i] as $programme)
+            @php
+            $code =explode('-',$programme['code']);
+            $last =count($code)-1;
+            //dd($code);
+            $code = $code[$last];
+            @endphp
                 <tr class="subprogram-title" >
-                    <td>{{ $programme['code'] }}</td>
-                    <td>{{ $programme['nom'] }}</td>
+                    <td>{{ $code }}</td>
+                    <td>Programme :{{ $programme['nom'] }}</td>
                     <td>{{ $programme['Total']['TotalT1_AE']}}</td>
                     <td>{{ $programme['Total']['TotalT1_CP']}}</td>
                     <td>{{ $programme['Total']['TotalT2_AE']}}</td>
@@ -115,15 +125,20 @@
                     <td>{{ $programme['Total']['TotalT3_CP']}}</td>
                     <td>{{ $programme['Total']['TotalT4_AE']}}</td>
                     <td>{{ $programme['Total']['TotalT4_CP']}}</td>
-
                 </tr>
 
                 {{-- Boucle sur les sous-programmes --}}
                 @for($j = 0 ; $j < count($programme['sous_programmes']) ; $j++ )
                 @foreach ($programme['sous_programmes'][$j] as $sousProgramme)
+                @php
+                  $code =explode('-',$sousProgramme['code']);
+                  $last =count($code)-1;
+              //dd($code);
+                  $code = $code[$last];
+                 @endphp
                     <tr class="subprogram-title">
-                        <td>{{ $sousProgramme['code'] }}</td>
-                        <td>{{ $sousProgramme['nom'] }}</td>
+                        <td>{{ $code }}</td>
+                        <td>Sous Programme :{{ $sousProgramme['nom'] }}</td>
                         <td>{{ $sousProgramme['Total']['TotalT1_AE']}}</td>
                         <td>{{ $sousProgramme['Total']['TotalT1_CP']}}</td>
                         <td>{{ $sousProgramme['Total']['TotalT2_AE']}}</td>
@@ -132,16 +147,22 @@
                         <td>{{ $sousProgramme['Total']['TotalT3_CP']}}</td>
                         <td>{{ $sousProgramme['Total']['TotalT4_AE']}}</td>
                         <td>{{ $sousProgramme['Total']['TotalT4_CP']}}</td>
-                        
+                      
                     </tr>
 
                     {{-- Boucle sur les actions pour chaque sous-programme --}}
                     @if(isset($sousProgramme['actions'][0]  ))
                     @for($k=0 ; $k < count($sousProgramme['actions']) ; $k++)
                     @foreach ($sousProgramme['actions'][$k] as $action)
+                    @php
+                     $code =explode('-',$action['code']);
+                    $last =count($code)-1;
+                    //dd($code);
+                     $code = $code[$last];
+                     @endphp
                         <tr class="subprogram-title">
-                            <td>{{ $action['code'] }}</td>
-                            <td>{{ $action['nom'] }}</td>
+                            <td>{{ $code }}</td>
+                            <td>Action :{{ $action['nom'] }}</td>
                             <td>{{ $action['TotalT']['T1']['total'][0]['values']['totalAE']}}</td>
                             <td>{{ $action['TotalT']['T1']['total'][0]['values']['totalCP']}}</td>
                             <td>{{ $action['TotalT']['T2']['total'][0]['values']['totalAE']}}</td>
@@ -150,7 +171,6 @@
                             <td>{{ $action['TotalT']['T3']['total'][0]['values']['totalCP']}}</td>
                             <td>{{ $action['TotalT']['T4']['total'][0]['values']['totalAE']}}</td>
                             <td>{{ $action['TotalT']['T4']['total'][0]['values']['totalCP']}}</td>
-                          
                         </tr>
                     @endforeach
                     @endfor

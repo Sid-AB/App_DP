@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Barryvdh\DomPDF\Facade\pdf;
 use App\Models\Portefeuille;
 use App\Models\Programme;
 use App\Models\Action;
@@ -10,6 +11,8 @@ use App\Models\SousAction;
 use App\Models\SousProgramme;
 use Illuminate\Http\Request;
 use App\Services\CalculDpia;
+
+
 class sousActionController extends Controller
 {
     protected $CalculDpia;
@@ -70,7 +73,7 @@ function allact($numport)
                             {
                             
                                 $resultats = $this->CalculDpia->calculdpiaFromPath($numport, $progm->num_prog, $sprog->num_sous_prog, $listact->num_action,$listsousact->num_sous_action);
-                                dd($resultats);
+                             //   dd($resultats);
                                 array_push($allaction,['actions'=>['actions_num'=>$listsousact->num_sous_action,"actions_name"=>$listsousact->nom_sous_action]]);
 
                             }
@@ -217,10 +220,18 @@ function printdpic($numport)
             'TotalT4_AE'=>$TtAE4,'TotalT4_CP'=>$TtCP4,
         ];
             array_push($programmes,['programmes'=>['code'=>$progm->num_prog,"nom"=>$progm->nom_prog,"sous_programmes"=>$all_sous_prog,"Total"=>$ttall]]); 
+            $TtAE1=0;
+            $TtCP1=0;
+            $TtAE2=0;
+            $TtCP2=0;
+            $TtAE3=0;
+            $TtCP3=0;
+            $TtAE4=0;
+            $TtCP4=0;
             $allsous_prog=[];
         }
-          //    dd($programmes);
-        if(count($programmes)>0)
+           //   dd($all_act);
+        if(count($all_act)>0)
         {
         /*return response()->json([
             'exists' => true,
@@ -228,7 +239,9 @@ function printdpic($numport)
             'sous_programs'=>$allsous_prog,
             'programs'=>$all_prog,
         ]);*/
-        return view('impression.programmes',compact('programmes'));
+         $pdf=Pdf::loadView('impression.programmes', compact('programmes'))->setPaper([0, 0, 842, 595]);//lanscape mean orentation
+               return $pdf->download('liste_impression.pdf');
+      // return view('impression.programmes',compact('programmes'));
         }
         else
         {
