@@ -22,11 +22,12 @@ class initPort extends Model
 
     protected $fillable = [
        'id_init','date_init','AE_init_t1','CP_init_t1','AE_init_t2'
-        ,'CP_init_t2','AE_init_t3','CP_init_t3','AE_init_t4','CP_init_t4',
-        'code_t1','code_t2','code_t3','code_t4', 'num_sous_prog'
+        ,'CP_init_t2','AE_init_t3','CP_init_t3','AE_init_t4','CP_init_t4','AE_init_t3_NONREPARTIS','CP_init_t3_NONREPARTIS','AE_init_t4_NONREPARTIS',
+        'code_t1','code_t2','code_t3','code_t4', 'num_sous_prog','CP_init_t2_NONREPARTIS','AE_init_t2_NONREPARTIS','CP_init_t4_NONREPARTIS',
+        'AE_init_t1_NONREPARTIS', 'CP_init_t1_NONREPARTIS'
+
     ];
-
-
+  
     public function sousProgramme()
     {
         return $this->belongsTo(SousProgramme::class,'num_sous_prog','num_sous_prog');

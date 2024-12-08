@@ -37,7 +37,7 @@ class actionController extends Controller
 public function check_action(Request $request)
     {
         $action = Action::where('num_action', $request->num_action)->first();
-
+        //dd($request);
         if ($action) {
             return response()->json([
                 'exists' => true,

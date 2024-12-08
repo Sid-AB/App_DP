@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\initPort;
 use Illuminate\Http\Request;
 use App\Models\SousProgramme;
-use App\Models\initPort;
 use App\Http\Controllers\Controller;
 
 class sousProgrammeController extends Controller
@@ -58,7 +59,7 @@ public function check_sous_prog(Request $request)
 
             'AE_sous_prog' => $sousprog->AE_sous_prog,
             'CP_sous_prog' => $sousprog->CP_sous_prog,
-           
+
             'T1_AE_init' => $initPort->AE_init_t1,
             'T1_CP_init' => $initPort->CP_init_t1,
 
@@ -83,137 +84,103 @@ public function check_sous_prog(Request $request)
 //===================================================================================
                             // creation du SousProgramme
 //===================================================================================
-function create_sou_prog(Request $request)
+public function create_sou_prog(Request $request)
 {
     // Validation des données
     $request->validate([
         'num_sous_prog' => 'required',
         'nom_sous_prog' => 'required',
         'date_insert_sousProg' => 'required|date',
-
-
+        'AE_sous_prog' => 'nullable|numeric',
+        'CP_sous_prog' => 'nullable|numeric',
+        'T1_AE_init' => 'nullable|numeric',
+        'T1_CP_init' => 'nullable|numeric',
+        'T2_AE_init' => 'nullable|numeric',
+        'T2_CP_init' => 'nullable|numeric',
+        'T3_AE_init' => 'nullable|numeric',
+        'T3_CP_init' => 'nullable|numeric',
+        'T4_AE_init' => 'nullable|numeric',
+        'T4_CP_init' => 'nullable|numeric',
+        'code_t1' => 'nullable',
+        'code_t2' => 'nullable',
+        'code_t3' => 'nullable',
+        'code_t4' => 'nullable',
+        'id_program' => 'required',
     ]);
-   // dd($request);
-   $num_sous_prog=$request->num_sous_prog;
+
     // Vérifier si le sous-programme existe
-    $SousProgramme = SousProgramme::where('num_sous_prog', $request->num_sous_prog)->first();
+    $sousProgramme = SousProgramme::where('num_sous_prog', $request->num_sous_prog)->first();
     $initPort = initPort::where('num_sous_prog', $request->num_sous_prog)->first();
 
-    if ($SousProgramme) {
+    if ($sousProgramme) {
         // Mise à jour du sous-programme existant
-        $SousProgramme->nom_sous_prog = $request->nom_sous_prog;
-        $SousProgramme->AE_sous_prog = floatval($request->AE_sous_prog);
-        $SousProgramme->CP_sous_prog = floatval($request->CP_sous_prog);
-        $SousProgramme->date_insert_sousProg = $request->date_insert_sousProg;
-        $SousProgramme->save();
+        $sousProgramme->update([
+            'nom_sous_prog' => $request->nom_sous_prog,
+            'AE_sous_prog' => floatval($request->AE_sous_prog),
+            'CP_sous_prog' => floatval($request->CP_sous_prog),
+            'date_update_sousProg' => now(),
+        ]);
 
         if ($initPort) {
-            // update des données dans init_ports
-
-                 $initPort->T1_AE_init= $request->T1_AE_init;
-                 $initPort->T1_CP_init= $request->T1_CP_init;
-
-                 $initPort->T2_AE_init= $request->T2_AE_init;
-                 $initPort->T2_CP_init= $request->T2_CP_init;
-
-                 $initPort->T3_AE_init= $request->T3_AE_init;
-                 $initPort->T3_CP_init= $request->T3_CP_init;
-
-                 $initPort->T4_AE_init=$request->T4_AE_init;
-                 $initPort->T4_CP_init=$request->T4_CP_init;
-
-
-            $initPort->save();
-
-
+            // Mise à jour des données dans init_ports
+            $initPort->update([
+                'AE_init_t1' => $request->T1_AE_init,
+                'CP_init_t1' => $request->T1_CP_init,
+                'AE_init_t2' => $request->T2_AE_init,
+                'CP_init_t2' => $request->T2_CP_init,
+                'AE_init_t3' => $request->T3_AE_init,
+                'CP_init_t3' => $request->T3_CP_init,
+                'AE_init_t4' => $request->T4_AE_init,
+                'CP_init_t4' => $request->T4_CP_init,
+                'date_update_init' => now(),
+            ]);
         }
+    } else {
+        // Création d'un nouveau sous-programme
+        $sousProgramme = SousProgramme::create([
+            'num_sous_prog' => $request->num_sous_prog,
+            'num_prog' => $request->id_program,
+            'nom_sous_prog' => $request->nom_sous_prog,
+            'AE_sous_prog' => $request->AE_sous_prog,
+            'CP_sous_prog' => $request->CP_sous_prog,
+            'date_insert_sousProg' => $request->date_insert_sousProg,
+        ]);
 
+        // Création des données dans init_ports
+        initPort::create([
+            'num_sous_prog' => $request->num_sous_prog,
+            'date_init' => $request->date_insert_sousProg,
+            'code_t1' => $request->code_t1,
+            'code_t2' => $request->code_t2,
+            'code_t3' => $request->code_t3,
+            'code_t4' => $request->code_t4,
+            'AE_init_t1' => $request->T1_AE_init,
+            'CP_init_t1' => $request->T1_CP_init,
+            'AE_init_t2' => $request->T2_AE_init,
+            'CP_init_t2' => $request->T2_CP_init,
+            'AE_init_t3' => $request->T3_AE_init,
+            'CP_init_t3' => $request->T3_CP_init,
+            'AE_init_t4' => $request->T4_AE_init,
+            'CP_init_t4' => $request->T4_CP_init,
+        ]);
     }
-else {
 
-    // Création d'un nouveau sous-programme
-    $SousProgramme = SousProgramme::create([
-        'num_sous_prog' => $request->num_sous_prog,
-        'num_prog' => $request->id_program,
-        'nom_sous_prog' => $request->nom_sous_prog,
-        'AE_sous_prog' => floatval($request->AE_sous_prog),
-        'CP_sous_prog' => floatval($request->CP_sous_prog),
-        'date_insert_sousProg' => $request->date_insert_sousProg,
-    ]);
-    $SousProgramme->save();
+    // Vérification finale
+    if ($sousProgramme && (!$initPort || $initPort->exists)) {
+        return response()->json([
+            'success' => true,
+            'message' => 'Sous programme mis à jour avec succès.',
+            'code' => 200,
+        ]);
+    }
 
-     // Insertion des données dans init_ports
-     $initPort = initPort::create([
-        'num_sous_prog' =>$request->num_sous_prog,
-        'date_init' => $request->date_insert_sousProg,
-        'date_init' => $request->date_insert_sousProg,
-
-        'code_t1' => $request->code_t1,
-        'code_t2' => $request->code_t2,
-        'code_t3' => $request->code_t3,
-        'code_t4' => $request->code_t4,
-        'AE_init_t1' => $request->T1_AE_init,
-        'CP_init_t1' => $request->T1_CP_init,
-
-        'AE_init_t2' => $request->T2_AE_init,
-        'CP_init_t2' => $request->T2_CP_init,
-
-        'AE_init_t3' => $request->T3_AE_init,
-        'CP_init_t3' => $request->T3_CP_init,
-
-        'AE_init_t4' => $request->T4_AE_init,
-        'CP_init_t4' => $request->T4_CP_init,
-
-    ]);
-    $initPort->save();
-}
-
-// Vérifier si le sous-programme existe
-/*$exist = initPort::where('num_sous_prog', $request->num_sous_prog)->first();
-if (!$exist) {
-    // Insertion des données dans init_ports
-    $initPort = initPort::create([
-        'num_sous_prog' =>$request->num_sous_prog,
-        'date_init' => $request->date_insert_sousProg,
-        'date_init' => $request->date_insert_sousProg,
-
-        'code_t1' => $request->code_t1,
-        'code_t2' => $request->code_t2,
-        'code_t3' => $request->code_t3,
-        'code_t4' => $request->code_t4,
-        'AE_init_t1' => $request->T1_AE_init,
-        'CP_init_t1' => $request->T1_CP_init,
-
-        'AE_init_t2' => $request->T2_AE_init,
-        'CP_init_t2' => $request->T2_CP_init,
-
-        'AE_init_t3' => $request->T3_AE_init,
-        'CP_init_t3' => $request->T3_CP_init,
-
-        'AE_init_t4' => $request->T4_AE_init,
-        'CP_init_t4' => $request->T4_CP_init,
-
-    ]);
-    $initPort->save();
-
-
-}*/
-
-if ($SousProgramme || $initPort) {
-    return response()->json([
-        'success' => true,
-        'message' => 'Sous programme mis à jour avec succès.',
-        'code' => 200,
-    ]);
-} else {
     return response()->json([
         'success' => false,
-        'message' => 'Erreur lors de l\'ajout des données initiales.',
+        'message' => 'Erreur lors de l\'ajout ou de la mise à jour des données.',
         'code' => 500,
     ]);
 }
 
 
-}
 
 }
