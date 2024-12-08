@@ -9,8 +9,8 @@ class ModificationT extends Model
     use HasFactory;
     protected $table = 'modification_t_s';
     protected $primaryKey = 'id_modif';
-    public $incrementing = true; 
-    protected $keyType = 'integer'; 
+    public $incrementing = true;
+    protected $keyType = 'integer';
     public $timestamps = false;
 
     protected $fillable = [
@@ -20,7 +20,7 @@ class ModificationT extends Model
 ,'AE_recoit_t2','CP_recoit_t2','AE_recoit_t3','CP_recoit_t3','AE_recoit_t4','CP_recoit_t4','num_sous_prog_click','num_prog_click','num_sous_prog_retire','num_prog_retire'
  ,'action_modifie'];
 
- 
+
     public function articles()
     {
         return $this->belongsTo(Article::class,'id_art','id_art');
@@ -45,7 +45,7 @@ class ModificationT extends Model
         return $this->belongsTo(T4::class,'code_t4','code_t4');
     }
 
-    
+
     public function SousProgramme()
     {
         return $this->belongsTo(SousProgramme::class,'num_sous_prog','num_sous_prog');

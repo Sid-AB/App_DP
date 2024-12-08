@@ -294,7 +294,7 @@
                           */
                          function Update_dpia(T,act)
                          {
-                          
+
                             $(document).ready(function(){
                                 $('.editable').dblclick(function(){
                                     var i=0
@@ -323,7 +323,7 @@
                                      let input = $('<input type="number" step="0.01" class="form-control"/>').val(currentText);
                                      cell.html(input);  // Replace the cell content with the input
 
-                                     input.focus(); 
+                                     input.focus();
                                      input.blur(function()
                                     {
                                         let newText = $(this).val();
@@ -415,7 +415,7 @@
                                              }
                                            }
                                         }
-                                        
+
                                         if (newText != 0 && newText != '' && newText != null) {
                                             mount_chang = true
 
@@ -427,8 +427,8 @@
                                                     click++
                                                 }
                                                 $('.change_app').append(buttons)
-                                            
-                                            
+
+
                                             //  console.log('all table'+JSON.stringify(value_chng))
                                             cell.text(newText);
                                             if(!exist){
@@ -482,7 +482,7 @@
                                                     {
                                                     cp_consome=newText
                                                     }
-                                                    
+
                                                 if( T == '1')
                                                 {
                                                     dataupdate.push({code:codesoup,value:{ae:ae,cp:cp}});
@@ -500,7 +500,7 @@
                                                 {
                                                         dataupdate.push({code:codesoup,value:{ae:ae,cp:cp}})
                                                 }
-                                            
+
                                             console.log('i insert '+JSON.stringify(dataupdate))
                                             }
                                             $("#changin-up").on('click',function()
@@ -508,7 +508,7 @@
                                                 console.log('click once')
                                                 i++
                                                 if( i === 1)
-                                                    {   
+                                                    {
                                                $.ajax({
                                                     url:'/update',
                                                     type:'POST',
@@ -519,14 +519,14 @@
                                                         _method: "POST",},
                                                         success:function(response)
                                                         {
-            
+
                                                         }
-                                                   
+
                                                 })
                                                     }
                                                    console.log('testing'+JSON.stringify(dataupdate))
                                                    $('.change_app').empty()
-                                                  
+
                                                 //dataupdate=[];
                                                 click=0;
                                             })
@@ -536,8 +536,8 @@
                                             cell.empty();
                                             cell.text(old)
                                         }
-                                    })  
-                                 
+                                    })
+
                                 })
                             })
                             i=0;
@@ -948,6 +948,7 @@
 
                                                  console.log('numwall_year path3: ' + JSON.stringify(path3));
                                                   $('#file_holder   ').empty()
+
                                                  // Remplir les champs du formulaire avec les données récupérées
                                                  $('#date_crt_portf').val(response.Date_portefeuille).trigger('change'); // Remplir et déclencher l'événement change
                                                  $('#AE_portef').val(response.AE_portef).trigger('change'); // Remplir et déclencher l'événement change
@@ -955,6 +956,7 @@
                                                  $('#nom_journ').val(response.nom_journal).trigger('change'); // Remplir et déclencher l'événement change
                                                  $('#num_journ').val(response.num_journal).trigger('change'); // Remplir et déclencher l'événement change
 
+                                                 console.log(response.Date_portefeuille);
                                                  alert('Le portefeuille existe déjà');
 
                                                  //$('.font-bk').removeClass('back-bk')
@@ -1198,23 +1200,23 @@
                                  '<div class="ports_init">'+
                                  '<div class="form-group">' +
                                  '<label for="input1">T1 pour Sous Programme</label>' +
-                                 '<input type="number" class="form-control" id="T1_AE_sous_prog"   placeholder="Entrer T1 AE Sous Programme">' +
-                                 '<input type="number" class="form-control" id="T1_CP_sous_prog"   placeholder="Entrer T1 CP Sous Programme">' +
+                                 '<input type="number" class="form-control" id="T1_AE_init"   placeholder="Entrer T1 AE Sous Programme">' +
+                                 '<input type="number" class="form-control" id="T1_CP_init"   placeholder="Entrer T1 CP Sous Programme">' +
                                  '</div>' +
                                  '<div class="form-group">' +
                                  '<label for="input1">T2 pour Sous Programme</label>' +
-                                 '<input type="number" class="form-control" id="T2_AE_sous_prog"   placeholder="Entrer T2 AE Sous Programme">' +
-                                 '<input type="number" class="form-control" id="T2_CP_sous_prog"   placeholder="Entrer T2 CP Sous Programme">' +
+                                 '<input type="number" class="form-control" id="T2_AE_init"   placeholder="Entrer T2 AE Sous Programme">' +
+                                 '<input type="number" class="form-control" id="T2_CP_init"   placeholder="Entrer T2 CP Sous Programme">' +
                                  '</div>' +
                                  '<div class="form-group">' +
                                  '<label for="input1">T3 pour Sous Programme</label>' +
-                                 '<input type="number" class="form-control" id="T3_AE_sous_prog"   placeholder="Entrer T3 AE Sous Programme">' +
-                                 '<input type="number" class="form-control" id="T3_CP_sous_prog"   placeholder="Entrer T3 CP Sous Programme">' +
+                                 '<input type="number" class="form-control" id="T3_AE_init"   placeholder="Entrer T3 AE Sous Programme">' +
+                                 '<input type="number" class="form-control" id="T3_CP_init"   placeholder="Entrer T3 CP Sous Programme">' +
                                  '</div>' +
                                  '<div class="form-group">' +
                                  '<label for="input1">T4 pour Sous Programme</label>' +
-                                 '<input type="number" class="form-control" id="T4_AE_sous_prog"   placeholder="Entrer T4 AE Sous Programme">' +
-                                 '<input type="number" class="form-control" id="T4_CP_sous_prog"   placeholder="Entrer T4 CP Sous Programme">' +
+                                 '<input type="number" class="form-control" id="T4_AE_init"   placeholder="Entrer T4 AE Sous Programme">' +
+                                 '<input type="number" class="form-control" id="T4_CP_init"   placeholder="Entrer T4 CP Sous Programme">' +
                                  '</div>' +
                                  '</div>'+
                                  '</div>'+
@@ -1283,17 +1285,17 @@
                                                             $('#AE_sous_prog').val(response.AE_sous_prog).trigger('change');
                                                             $('#CP_sous_prog').val(response.CP_sous_prog).trigger('change');
 
-                                                            $('#T1_AE_sous_prog').val(response.T1_AE_init).trigger('change');
-                                                            $('#T1_CP_sous_prog').val(response.T1_CP_init).trigger('change');
+                                                            $('#T1_AE_init').val(response.T1_AE_init).trigger('change');
+                                                            $('#T1_CP_init').val(response.T1_CP_init).trigger('change');
 
-                                                            $('#T2_AE_sous_prog').val(response.T2_AE_init).trigger('change');
-                                                            $('#T2_CP_sous_prog').val(response.T2_CP_init).trigger('change');
+                                                            $('#T2_AE_init').val(response.T2_AE_init).trigger('change');
+                                                            $('#T2_CP_init').val(response.T2_CP_init).trigger('change');
 
-                                                            $('#T3_AE_sous_prog').val(response.T3_AE_init).trigger('change');
-                                                            $('#T3_CP_sous_prog').val(response.T3_CP_init).trigger('change');
+                                                            $('#T3_AE_init').val(response.T3_AE_init).trigger('change');
+                                                            $('#T3_CP_init').val(response.T3_CP_init).trigger('change');
 
-                                                            $('#T4_AE_sous_prog').val(response.T4_AE_init).trigger('change');
-                                                            $('#T4_CP_sous_prog').val(response.T4_CP_init).trigger('change');
+                                                            $('#T4_AE_init').val(response.T4_AE_init).trigger('change');
+                                                            $('#T4_CP_init').val(response.T4_CP_init).trigger('change');
 
                                                             alert('Le sous-programme existe déjà.');
                                                         }  else {
@@ -1313,17 +1315,17 @@
                                              var nom_sou_prog = $('#nom_sous_prog').val();
                                              var dat_sou_prog = $('#date_insert_sousProg').val()
                                              var AE_sous_prog = $('#AE_sous_prog').val()
-                                             var T1_AE_sous_prog = $('#T1_AE_sous_prog').val()
-                                             var T1_CP_sous_prog = $('#T1_CP_sous_prog').val()
+                                             var T1_AE_init = $('#T1_AE_init').val()
+                                             var T1_CP_init = $('#T1_CP_init').val()
 
-                                             var T2_AE_sous_prog = $('#T2_AE_sous_prog').val()
-                                             var T2_CP_sous_prog = $('#T2_CP_sous_prog').val()
+                                             var T2_AE_init = $('#T2_AE_init').val()
+                                             var T2_CP_init = $('#T2_CP_init').val()
 
-                                             var T3_AE_sous_prog = $('#T3_AE_sous_prog').val()
-                                             var T3_CP_sous_prog = $('#T3_CP_sous_prog').val()
+                                             var T3_AE_init = $('#T3_AE_init').val()
+                                             var T3_CP_init = $('#T3_CP_init').val()
 
-                                             var T4_AE_sous_prog = $('#T4_AE_sous_prog').val()
-                                             var T4_CP_sous_prog = $('#T4_CP_sous_prog').val()
+                                             var T4_AE_init = $('#T4_AE_init').val()
+                                             var T4_CP_init = $('#T4_CP_init').val()
 
                                              var CP_sous_prog = $('#CP_sous_prog').val()
                                              var id_prog = path[1];
@@ -1378,20 +1380,20 @@
                                                  date_insert_sousProg: dat_sou_prog,
                                                  id_program: id_prog,
 
-                                                 T1_AE_init: T1_AE_sous_prog,
-                                                 T1_CP_init: T1_CP_sous_prog,
+                                                 T1_AE_init: T1_AE_init,
+                                                 T1_CP_init: T1_CP_init,
                                                  code_t1: 10000,
 
-                                                 T2_AE_init: T2_AE_sous_prog,
-                                                 T2_CP_init: T2_CP_sous_prog,
+                                                 T2_AE_init: T2_AE_init,
+                                                 T2_CP_init: T2_CP_init,
                                                  code_t2: 20000,
 
-                                                 T3_AE_init: T3_AE_sous_prog,
-                                                 T3_CP_init: T3_CP_sous_prog,
+                                                 T3_AE_init: T3_AE_init,
+                                                 T3_CP_init: T3_CP_init,
                                                  code_t3: 30000,
 
-                                                 T4_AE_init: T4_AE_sous_prog,
-                                                 T4_CP_init: T4_CP_sous_prog,
+                                                 T4_AE_init: T4_AE_init,
+                                                 T4_CP_init: T4_CP_init,
                                                  code_t4: 40000,
 
                                                  //id_porte: id_port,
@@ -1402,20 +1404,20 @@
                                              {
                                                 num_sous_prog: numsouprog_year,
                                                 code_t1:10000,
-                                                AE_init_t1:$('#T1_AE_sous_prog').val(),
-                                                CP_init_t1:$('#T1_CP_sous_prog').val(),
-                         
+                                                T1_AE_init:$('#T1_AE_init').val(),
+                                                T1_CP_init:$('#T1_CP_init').val(),
+
                                                 code_t2:20000,
-                                                AE_init_t2:$('#T2_AE_sous_prog').val(),
-                                                CP_init_t2:$('#T2_CP_sous_prog').val(),
-                         
+                                                T2_AE_init:$('#T2_AE_init').val(),
+                                                T2_CP_init:$('#T2_CP_init').val(),
+
                                                 code_t3:30000,
-                                                AE_init_t3:$('#T3_AE_sous_prog').val(),
-                                                CP_init_t3:$('#T3_CP_sous_prog').val(),
-                                             
+                                                AE_init_t3:$('#T3_AE_init').val(),
+                                                CP_init_t3:$('#T3_CP_init').val(),
+
                                                 code_t4:40000,
-                                                AE_init_t4:$('#T4_AE_sous_prog').val(),
-                                                CP_init_t4:$('#T4_CP_sous_prog').val(),
+                                                AE_init_t4:$('#T4_AE_init').val(),
+                                                CP_init_t4:$('#T4_CP_init').val(),
                                                 date_init:dat_sou_prog,
                                                 _token: $('meta[name="csrf-token"]').attr('content'),
                                                 _method: 'POST'
@@ -1430,7 +1432,7 @@
                                                         if(response.code == 200){
                                                             if(upload_file('file',sou_prog) == 200)
                                                             {
-                                                            
+
                                                                 alert(response.message)
                                                             }
                                                            /* $.ajax({
@@ -1472,6 +1474,7 @@
                                                              //  var date_act=  new Date(date_act).getFullYear();
                                                              var numact_year = path[2] +'-'+num_act ;
                                                              console.log('the new id' + numact_year + ' with ' + JSON.stringify(path))
+                                                             console.log('jhvgf');
                                                              if (date_act && num_act) {
                                                                  $.ajax({
                                                                      url: '/check-action',  // Route pour vérifier l'existence du programme
@@ -1482,7 +1485,7 @@
                                                                      success: function (response) {
                                                                          if (response.exists) {
                                                                              $('#nom_act').val(response.nom_action).trigger('change'); // Remplir et déclencher l'événement change
-                                                                             // $('#date_insert_action').val(response.date_insert_action).trigger('change'); // Remplir et déclencher l'événement change
+                                                                              //$('#date_insert_action').val(response.date_insert_action).trigger('change'); // Remplir et déclencher l'événement change
                                                                              $('#AE_act').val(response.AE_act).trigger('change'); // Remplir et déclencher l'événement change
                                                                              $('#CP_act').val(response.CP_act).trigger('change'); // Remplir et déclencher l'événement change
                                                                              alert('L`Action existe déjà');
@@ -1596,6 +1599,39 @@
                                                                              $('#progam-handle').append(prg4);
                                                                              focus_()
 
+                                                                             //===============CHECK SOUS ACTION=====================//
+                                                                             /*$('#date_insert_sou_action').on('focusout', function () {
+                                                                                //alert('out')
+                                                                                var date_sousact = $(this).val();
+                                                                                var num_sousact = $('#num_sous_act').val();
+                                                                                //  var date_act=  new Date(date_act).getFullYear();
+                                                                                var numsousact_year = path[3] +'-'+num_sousact ;
+                                                                                console.log('numsousact_year' + numsousact_year + ' with ' + JSON.stringify(path))
+                                                                                if (date_sousact && num_sousact) {
+                                                                                    $.ajax({
+                                                                                        url: '/check-sousaction',  // Route pour vérifier l'existence du programme
+                                                                                        type: 'GET',
+                                                                                        data: {
+                                                                                            num_sous_action: numsousact_year,
+                                                                                        },
+                                                                                        success: function (response) {
+                                                                                            if (response.exists) {
+                                                                                                $('#nom_sous_act').val(response.nom_sous_action).trigger('change'); // Remplir et déclencher l'événement change
+                                                                                                 $('#date_insert_sou_action').val(response.date_insert_sous_action).trigger('change'); // Remplir et déclencher l'événement change
+                                                                                                $('#AE_sous_act').val(response.AE_sous_act).trigger('change'); // Remplir et déclencher l'événement change
+                                                                                                $('#CP_sous_act').val(response.CP_sous_act).trigger('change'); // Remplir et déclencher l'événement change
+                                                                                                alert('L`Action existe déjà');
+
+                                                                                            }
+                                                                                            else {
+                                                                                                alert('Erreur d`Opération');
+
+                                                                                            }
+                                                                                        }
+                                                                                    })
+                                                                                }
+                                                                            })*/
+                                                                             //=============== FIN CHECK SOUS ACTION================//
                                                                              // Ajout de l'événement d'ajout pour la sous-action
                                                                              $('#add-prg4').on('click', function () {
                                                                                  console.log('inside sous_action')
@@ -1964,7 +2000,7 @@
                                      var codegr = data_T_port.group;
                                      var codeop = data_T_port.operation;
                                      var codesop = data_T_port.sousOperation;
-                                    
+
                                      if(Object.keys(data_T_port).length > 0){
                                      if (codegr.length > 0 && data_T_port.group.length > ig) {
                                         var land=data_T_port.group[ig].code.length-5
@@ -2141,7 +2177,7 @@
                                          '<td class="editable" id="CP_not">' + 0 + '</td>' +
                                          '<td class="editable" id="CP_consom">' + 0 + '</td>' +
                                          '</tr>';
-                                         
+
                                      if(Object.keys(data_T_port).length > 0){
 
                                      if (data_T_port.group.length > 0 && data_T_port.group.length > ig) {
@@ -2164,7 +2200,7 @@
                                      }
                                      if (data_T_port.operation.length > 0 && data_T_port.operation.length > io) {
                                         var land=data_T_port.operation[io].code.length-5;
-                                        
+
                                          if (key == splitcode(data_T_port.operation[io].code, land)[1].substring) {
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.operation[io].code + '">' +
                                                  '<td scope="row"  class="code">' + key + '</td>' +
@@ -2412,7 +2448,7 @@
                          $(document).ready(function () {
 
                              $('#T1').on('click', function () {
-                               
+
                                  var indic = path3.length - 1
                                  var id = $(this).attr('id');
                                  var T = 1;
@@ -2435,7 +2471,7 @@
                                  })
                              })
                              $('#T2').on('click', function () {
-                               
+
                                  var indic = path3.length - 1
                                  var T=2
                                  var id = $(this).attr('id');
@@ -2447,7 +2483,7 @@
                                          if (response.code == 200 && response.t2_exists==1) {
                                              alert('Exist')
 
-                                                   
+
                                              T2_table(id, T, path3[indic], path3[0],response.code)
                                              $('#T_port2').addClass('heilighter')
                                          }
@@ -2463,7 +2499,7 @@
                              })
 
                              $('#T3').on('click', function () {
-                               
+
                                  var indic = path3.length - 1
                                  console.log('len' + path3.length + ' act ' + indic)
                                  var id = $(this).attr('id');
@@ -2488,7 +2524,7 @@
                                  //T3_table(id, T)
                              })
                              $('#T4').on('click', function () {
-                                
+
                                  var indic = path3.length - 1
                                  console.log('len' + path3.length + ' act ' + indic)
                                  var id = $(this).attr('id');
