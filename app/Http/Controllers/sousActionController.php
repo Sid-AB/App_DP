@@ -140,11 +140,15 @@ function printdpic($numport)
                                 
                                 array_push($allaction,['actions'=>['code'=>$listsousact->num_sous_action,"nom"=>$listsousact->nom_sous_action,'TotalT'=>$resultats]]);
                                 $all_act= $allaction;
+
                             }
 
                         }
                     }
-                }   
+                    
+
+                }
+
                // dd($allaction);
                 for($i=0 ;$i<count($allaction);$i++)
                 {
@@ -183,7 +187,8 @@ function printdpic($numport)
                 $TtAE4=0;
                 $TtCP4=0;
                 $ttall=[];
-                $allaction=[];
+                $allaction=[];                                
+                $all_act=[];
                 
                 
                
@@ -214,8 +219,8 @@ function printdpic($numport)
             array_push($programmes,['programmes'=>['code'=>$progm->num_prog,"nom"=>$progm->nom_prog,"sous_programmes"=>$all_sous_prog,"Total"=>$ttall]]); 
             $allsous_prog=[];
         }
-            //  dd($all_act);
-        if(count($all_act)>0)
+          //    dd($programmes);
+        if(count($programmes)>0)
         {
         /*return response()->json([
             'exists' => true,

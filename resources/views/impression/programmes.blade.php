@@ -8,59 +8,69 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
-            background-color: #f1eeee;
+            background-color: #fff;
         }
 
         table {
+            background-color:#fff;  
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
         }
 
         th, td {
-            border: 1px solid #d8d3d3;
+            border: 1px solid #000;
             text-align: left;
             padding: 8px;
         }
 
         th {
-            background-color: #5a5b5c; /* Couleur en-têtes */
+            background-color: #DDD9C4; /* Couleur en-têtes */
             color: rgb(10, 10, 10);
         }
 
         tr:nth-child(even) {
-            background-color: #f5f4f4; /* Ligne alternative */
+            background-color: #fff; /* Ligne alternative */
         }
 
-        tr:hover {
-            background-color: #0c0a0a; /* Effet survol */
-        }
+     /*   tr:hover {
+            background-color: #0c0a0a;  Effet survol 
+        }*/
 
         .program-title {
             font-weight: bold;
-            background-color: #2d92fd; /* Couleur plus sombre pour les programmes principaux */
+            background-color: #DDD9C4; /* Couleur plus sombre pour les programmes principaux */
             color: rgb(8, 8, 8);
         }
 
         .subprogram-title {
             font-weight: bold;
-            background-color: #e5e7e9; /* Couleur grise pour les sous-programmes */
+            background-color: #fff; /* Couleur grise pour les sous-programmes */
             color: rgb(17, 16, 16);
         }
         .ttaction-title {
             font-weight: bold;
-            background-color: #39f167; /* Couleur plus sombre pour les programmes principaux */
+            background-color: #EAF1DD; /* Couleur plus sombre pour les programmes principaux */
             color: rgb(8, 8, 8);
         }
         .event-title {
             font-weight: bold;
-            background-color: #41165a; /* Couleur eventuels credits */
+            background-color: #00B050; /* Couleur eventuels credits */
+            color: rgb(245, 238, 238);
+        }
+        .event-title td {
+            font-weight: bold;
+            background-color: #00B050; /* Couleur eventuels credits */
             color: rgb(245, 238, 238);
         }
         .totals {
             font-weight: bold;
-            background-color: #31cfeb; /* Couleur totals des actions1..n */
+            background-color: #31869B   ; /* Couleur totals des actions1..n */
             color: rgb(243, 236, 236);
+        }
+        .T
+        {
+        background-color:#DDD9C4;
         }
     </style>
     <h1>Programmation des crédits du programme 088+089</h1>
@@ -70,12 +80,11 @@
     <table border="1">
         <thead>
             <tr>
-                <th class="subprogram-title"></th>
-                <th class="subprogram-title"></th>
-                <th colspan="2">T1</th>
-                <th colspan="2">T2</th>
-                <th colspan="2">T3</th>
-                <th colspan="2">T4</th>
+                <th class="subprogram-title" colspan=2></th>
+                <th colspan="2" class="T">T1</th>
+                <th colspan="2" class="T">T2</th>
+                <th colspan="2" class="T">T3</th>
+                <th colspan="2" class="T">T4</th>
             </tr>
             <tr>
                 <th>Code</th>
@@ -106,7 +115,7 @@
                     <td>{{ $programme['Total']['TotalT3_CP']}}</td>
                     <td>{{ $programme['Total']['TotalT4_AE']}}</td>
                     <td>{{ $programme['Total']['TotalT4_CP']}}</td>
-                    <td colspan="8"></td>
+
                 </tr>
 
                 {{-- Boucle sur les sous-programmes --}}
@@ -123,7 +132,7 @@
                         <td>{{ $sousProgramme['Total']['TotalT3_CP']}}</td>
                         <td>{{ $sousProgramme['Total']['TotalT4_AE']}}</td>
                         <td>{{ $sousProgramme['Total']['TotalT4_CP']}}</td>
-                        <td colspan="8"></td>
+                        
                     </tr>
 
                     {{-- Boucle sur les actions pour chaque sous-programme --}}
@@ -141,7 +150,7 @@
                             <td>{{ $action['TotalT']['T3']['total'][0]['values']['totalCP']}}</td>
                             <td>{{ $action['TotalT']['T4']['total'][0]['values']['totalAE']}}</td>
                             <td>{{ $action['TotalT']['T4']['total'][0]['values']['totalCP']}}</td>
-                            <td colspan="8"></td>
+                          
                         </tr>
                     @endforeach
                     @endfor
