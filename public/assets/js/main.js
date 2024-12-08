@@ -203,23 +203,70 @@
                              })
                          }
                          function add_newOPs_T3(id, descr, value, key,) {
-                             var row = '<tr id="ref' + id + '">' +
-                                 '<td class="code">' + id + '</td>' +
-                                 '<td><p>' + descr + '</p> </td>' +
-                                 '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + descr + '</p></td>' +
-                                 '<td class="editable" id="AE_rpor">' + value + '</td>' +
-                                 '<td class="editable" id="AE_not">' + 180 + ',000</td>' +
-                                 '<td class="editable" id="AE_enga">' + value + '</td>' +
-                                 '<td class="editable" id="CP_rpor">' + 180 + ',000</td>' +
-                                 '<td class="editable" id="CP_not">' + value + '</td>' +
-                                 '<td class="editable" id="CP_consom">' + 180 + ',000</td>' +
-                                 '</tr>';
-                             $('#' + key).after(row);
-                             $('#' + key + ' td').each(function () {
-                                 $(this).removeClass('editable');
-                             })
+                            var champ='<div><label>AE Reportter</label>'+
+                                      '<input type="number" class="form-control" id="add_AE_rpor">'+
+                                      '<label>AE Notifier</label>'+
+                                      '<input type="number" class="form-control" id="add_AE_not">'+
+                                      '<label>AE Engager</label>'+
+                                      '<input type="number" class="form-control" id="add_AE_enga">'+
+                                      '</div>'+
+                                      '<div>'+
+                                      '<label>CP Reporter</label>'+
+                                      '<input type="number" class="form-control" id="add_CP_rpor">'+
+                                      '<label>CP Notifier</label>'+
+                                      '<input type="number" class="form-control" id="add_CP_not">'+
+                                      '<label>CP Consumer</label>'+
+                                      '<input type="number" class="form-control" id="add_CP_consom">'+
+                                      '</div>';
+                            $('#Tport-vals').append(champ);
+                            $('#ajt').on('click',function(){
+                                var sopdata_add={
+                                    code:id,
+                                    descrp:descr,
+                                    AE_rpor:$('#add_AE_rpor').val(),
+                                    AE_not:$('#add_AE_not').val(),
+                                    AE_enga:$('#add_AE_enga').val(),
+                                    CP_rpor:$('#add_CP_rpor').val(),
+                                    CP_not:$('#add_CP_not').val(),
+                                    CP_consom:$('#add_CP_consom').val(),
+                                    _token: $('meta[name="csrf-token"]').attr("content"),
+                                    _method: "POST",
 
-
+                                }
+                               
+                                $.ajax({
+                                    url:'',
+                                    type:'POST',
+                                    data:sopdata_add,
+                                    success:function(response)
+                                    {
+                                        if(response.code == 200)
+                                        {
+                                            var row = '<tr id="ref' + id + '">' +
+                                            '<td class="code">' + id + '</td>' +
+                                            '<td><p>' + descr + '</p> </td>' +
+                                            '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + descr + '</p></td>' +
+                                            '<td class="editable" id="AE_rpor">' + value + '</td>' +
+                                            '<td class="editable" id="AE_not">' + 180 + ',000</td>' +
+                                            '<td class="editable" id="AE_enga">' + value + '</td>' +
+                                            '<td class="editable" id="CP_rpor">' + 180 + ',000</td>' +
+                                            '<td class="editable" id="CP_not">' + value + '</td>' +
+                                            '<td class="editable" id="CP_consom">' + 180 + ',000</td>' +
+                                            '</tr>';
+                                        $('#' + key).after(row);
+                                        $('#' + key + ' td').each(function () {
+                                            $(this).removeClass('editable');
+                                        })
+                                        $('.Tsop_handler').addClass('Tsop_handler_h')
+                                        $('#Tport-vals').empty()
+                                        }
+                                    }
+                                })
+                            })
+                            $('#cancel_ops').click(function(){
+                                $('.Tsop_handler').addClass('Tsop_handler_h')
+                                $('#Tport-vals').empty()
+                            })
                          }
 
                          function add_newOPs_T4(id, descr, value, key,) {
@@ -2217,6 +2264,7 @@
                                                  $('.ref' + preve + ' #add_op').on('click', function () {
                                                     var newKey=$(this).parent().attr('id');
                                                     var ads = newKey.split('ref')[1] + '1';
+                                                    $('.Tsop_handler').removeClass('Tsop_handler_h')
                                                      add_newOPs_T3(ads, 'testing new descr', 2500, newKey);
                                                      Edit(id, T)
                                                  })

@@ -242,7 +242,7 @@
             @foreach($act['sous_action'] as $sous_act)
             @if($sous_act['num_act'] != $act['num_act'])
                   <li>
-                <span class="member" id="sact-{{$sous_act['num_act']}}">
+                <span class="member" id="sact_{{$sous_act['num_act']}}">
                 <div class="col-12 col-sm-6">
             <div class="card widget-card border-light shadow-sm">
               <div class="card-body p-1">
@@ -518,6 +518,7 @@ listItemsWithNestedUl.each(function(){
     }
     if(typeact[0] == 'sact')
     {
+      console.log('sub action'+typeact[0])
     $(this).on('click',function(){
      window.location.href='/testing/S_action/'+path3[0]+'/'+path3[1]+'/'+path3[2]+'/'+path3[3]+'/'+typeact[1]+'/'
       })
