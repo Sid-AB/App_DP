@@ -60,6 +60,11 @@
 }
 .responsive-table thead th:first-of-type {
   text-align: left;
+
+}
+.responsive-table tbody tr td
+{
+  font-size: large;
 }
 .responsive-table tbody,
 .responsive-table tr,

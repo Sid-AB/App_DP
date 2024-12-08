@@ -79,9 +79,14 @@ class sousOperationController extends Controller
    public function impressionpdf($port, $prog, $sous_prog, $act,$s_act)
    {
         try {
+
             //dd($port, $prog, $sous_prog, $act,$s_act);
             $resultats = $this->CalculDpia->calculdpiaFromPath($port, $prog, $sous_prog, $act,$s_act);
           //dd($resultats );
+           
+          //pour t3 
+          $years=Portefeuille::where('num_portefeuil',$port)->firstOrFail();
+          $years = Carbon::parse($years->Date_portefeuille)->year;
 
           // Chargement du fichier JSON
         $jsonData = file_get_contents(public_path('assets/titre/dataT1.json')); //la fonction file_get_contents() lire directement depuis le système de fichiers :
@@ -89,27 +94,50 @@ class sousOperationController extends Controller
         $operations = json_decode($jsonData, true); // décoder en tableau 
         //dd($operations);  
 
-        $names = [];
-        foreach ($operations as $code => $name) {
-            $code_separer = explode('-', $code);  // séparer le code
-            $code_part = end($code_separer);  // la derniere partie du code pour que soit adaptable au code_sous_op
-            $names[$code_part] = $name;  
-        }
-       // dd( $names);
+        $jsonDataT2 = file_get_contents(public_path('assets/titre/dataT2.json'));
+        $operationsT2 = json_decode($jsonDataT2, true);
+    
+        $jsonDataT3 = file_get_contents(public_path('assets/titre/dataT3.json'));
+        $operationsT3 = json_decode($jsonDataT3, true);
+    
+        $jsonDataT4 = file_get_contents(public_path('assets/titre/dataT4.json'));
+        $operationsT4 = json_decode($jsonDataT4, true);
+    
+        // fonction prepareer names
+        $names= $this->prepareNames($operations);
+        $namesT2 = $this->prepareNames($operationsT2);
+        $namesT3 = $this->prepareNames($operationsT3);
+        $namesT4 = $this->prepareNames($operationsT4);
+ 
         //envoyer le sousprogramme dans compact avec son code  
            $sousProgramme = SousProgramme::where('num_sous_prog', $sous_prog)->first();
-           //dd($sousProgramme );
+          //dd($sousProgramme );
            // vérifier si le sous programme existe
            if (!$sousProgramme) {
             throw new \Exception("Sous programme introuvable");
         }
 
+            // envoyer tous le chemin 
+            $portefeuille = Portefeuille::with(['Programme.SousProgramme.Action.SousAction'])
+            ->where('num_portefeuil', $port) 
+            ->first();
+                   //dd($portefeuille);
+        if (!$portefeuille) {
+            throw new \Exception("Programme introuvable");
+        }
+
+        $prog=$portefeuille->Programme->first();
+        //dd($prog);
+
+        $action=$sousProgramme->Action->first();
+      //  dd($action);
             // pour bien structurer les données de resultats (calcul dpia)
          $resultstructur = [];
          foreach (['T1', 'T2', 'T3', 'T4'] as $t) {
              if (isset($resultats[$t])) {
+             
                  $tdata = $resultats[$t];
- 
+             
                  // chaque grp avec leurs sous operations
                  $groupedData = [];
                  foreach ($tdata['group'] as $group) {
@@ -166,22 +194,51 @@ class sousOperationController extends Controller
                 'groupedData' => $groupedData,
                 'total' => $tdata['total'] ?? [], 
                 // Ajoute le total (si disponible)
-            ];//dd($resultstructur ['T1']); 
+            ];
              }
          }
-    
-        
-               // envoyer les résultats en JSON
-               /*$pdf=pdf::loadView('impression.liste_impression', compact('resultstructur','sousProgramme','names'));
+       // dd($resultstructur);
+      
+       // dd($resultstructur['T1']);
+  
+       
+          if (isset($resultstructur['T1'])) {
+                return view('impression.liste_impression', compact('resultstructur', 'sousProgramme', 'names','portefeuille','prog','action'));
+                  /*$pdf=pdf::loadView('impression.liste_impression', compact('resultstructur','sousProgramme','names'));
                return $pdf->download('liste_impression.pdf');*/
-               return view('impression.liste_impression', compact('resultstructur','sousProgramme','names'));
-           // return response()->json($resultats);
+           }
+             /*elseif (isset($resultstructur['T2'])) {
+                return view('impression.liste_impression_t2', compact('resultstructur', 'sousProgramme', 'namesT2','portefeuille','prog','action'));
+                  /*$pdf=pdf::loadView('impression.liste_impression', compact('resultstructur','sousProgramme','names'));
+               return $pdf->download('liste_impression.pdf');
+            } elseif (isset($resultstructur['T3'])) {
+                return view('impression.liste_impression_t3', compact('resultstructur', 'sousProgramme', 'namesT3','portefeuille','prog','action','years'));
+                  /*$pdf=pdf::loadView('impression.liste_impression', compact('resultstructur','sousProgramme','names'));
+               return $pdf->download('liste_impression.pdf');*/
+            //} 
+             elseif (isset($resultstructur['T4'])) {
+                return view('impression.liste_impression_t4', compact('resultstructur', 'sousProgramme', 'namesT4','portefeuille','prog','action'));
+                  /*$pdf=pdf::loadView('impression.liste_impression', compact('resultstructur','sousProgramme','names'));
+               return $pdf->download('liste_impression.pdf');*/
+            } else {
+                throw new \Exception("Aucune donnée trouvée ");
+            }
+        
         } catch (\Exception $e) { 
             return response()->json(['error' => $e->getMessage()], 400);
         }
-        }
+    }
    
- 
+    private function prepareNames($operations)
+    {
+        $names = [];
+        foreach ($operations as $code => $name) {
+            $code_separer = explode('-', $code);  // Séparer le code
+            $code_part = end($code_separer);      // la derniere partie du code pour que soit adaptable au code_sous_op
+            $names[$code_part] = $name;
+        }
+        return $names;
+    }
    }
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Barryvdh\DomPDF\Facade\pdf;
 use App\Models\Portefeuille;
 use App\Models\Programme;
 use App\Models\Action;
@@ -9,11 +10,17 @@ use App\Models\Action;
 use App\Models\SousAction;
 use App\Models\SousProgramme;
 use Illuminate\Http\Request;
+use App\Services\CalculDpia;
+
 
 class sousActionController extends Controller
 {
+    protected $CalculDpia;
 
-
+    public function __construct(CalculDpia $CalculDpia)
+    {
+        $this->CalculDpia = $CalculDpia;
+    }
 //===================================================================================
                             // affichage sous action
 //===================================================================================
@@ -65,6 +72,8 @@ function allact($numport)
                             if(isset($listsousact))
                             {
 
+                                $resultats = $this->CalculDpia->calculdpiaFromPath($numport, $progm->num_prog, $sprog->num_sous_prog, $listact->num_action,$listsousact->num_sous_action);
+                             //   dd($resultats);
                                 array_push($allaction,['actions'=>['actions_num'=>$listsousact->num_sous_action,"actions_name"=>$listsousact->nom_sous_action]]);
 
                             }
@@ -92,6 +101,154 @@ function allact($numport)
         }
 }
 
+
+function printdpic($numport)
+{
+    $allaction=[];
+    $all_act=[];
+    $allsous_prog=[];
+    $programmes=[];
+    $ttall=[];
+    $TtAE1=0;
+    $TtCP1=0;
+    $TtAE2=0;
+    $TtCP2=0;
+    $TtAE3=0;
+    $TtCP3=0;
+    $TtAE4=0;
+    $TtCP4=0;
+    $progms=Programme::where("num_portefeuil",$numport)->get();
+    foreach($progms as $progm)
+    {
+        $sousprog=SousProgramme::where('num_prog',$progm->num_prog)->get();
+        foreach($sousprog as $sprog)
+        {
+
+
+                $act=Action::where('num_sous_prog',$sprog->num_sous_prog)->get();
+            //    dd($act);
+                foreach($act as $listact)
+                {
+                    if(isset($listact))
+                    {
+                        $sous_act=SousAction::where('num_action',$listact->num_action)->get();
+                      //  dd($sous_act);
+                        foreach($sous_act as $listsousact)
+                        {
+
+                            if(isset($listsousact))
+                            {
+
+                                $resultats = $this->CalculDpia->calculdpiaFromPath($numport, $progm->num_prog, $sprog->num_sous_prog, $listact->num_action,$listsousact->num_sous_action);
+
+                                array_push($allaction,['actions'=>['code'=>$listsousact->num_sous_action,"nom"=>$listsousact->nom_sous_action,'TotalT'=>$resultats]]);
+                                $all_act= $allaction;
+
+                            }
+
+                        }
+                    }
+
+
+                }
+
+               // dd($allaction);
+                for($i=0 ;$i<count($allaction);$i++)
+                {
+                foreach($allaction[$i] as $actsect)
+                {
+                    $TtAE1+=$actsect['TotalT']['T1']['total'][0]['values']['totalAE'];
+                    $TtCP1+=$actsect['TotalT']['T1']['total'][0]['values']['totalCP'];
+
+                    $TtAE2+=$actsect['TotalT']['T2']['total'][0]['values']['totalAE'];
+                    $TtCP2+=$actsect['TotalT']['T2']['total'][0]['values']['totalCP'];
+
+                    $TtAE3+=$actsect['TotalT']['T3']['total'][0]['values']['totalAE'];
+                    $TtCP3+=$actsect['TotalT']['T3']['total'][0]['values']['totalCP'];
+
+                    $TtAE4+=$actsect['TotalT']['T4']['total'][0]['values']['totalAE'];
+                    $TtCP4+=$actsect['TotalT']['T4']['total'][0]['values']['totalCP'];
+
+                };
+
+                };
+
+                $ttall=['TotalT1_AE'=>$TtAE1,'TotalT1_CP'=>$TtCP1,
+                    'TotalT2_AE'=>$TtAE2,'TotalT2_CP'=>$TtCP2,
+                    'TotalT3_AE'=>$TtAE3,'TotalT3_CP'=>$TtCP3,
+                    'TotalT4_AE'=>$TtAE4,'TotalT4_CP'=>$TtCP4,
+                ];
+
+                array_push($allsous_prog,['sous_programmes'=>['code'=>$sprog->num_sous_prog,"nom"=>$sprog->nom_sous_prog,'actions'=>$all_act,"Total"=>$ttall]]);
+                $all_sous_prog= $allsous_prog;
+                $TtAE1=0;
+                $TtCP1=0;
+                $TtAE2=0;
+                $TtCP2=0;
+                $TtAE3=0;
+                $TtCP3=0;
+                $TtAE4=0;
+                $TtCP4=0;
+                $ttall=[];
+                $allaction=[];
+                $all_act=[];
+
+
+
+            }
+            for ($i=0; $i < count($allsous_prog) ; $i++)
+            {
+            foreach($allsous_prog[$i] as $sousprog)
+             {
+                # code...
+                $TtAE1+=$sousprog['Total']['TotalT1_AE'];
+                $TtCP1+=$sousprog['Total']['TotalT1_CP'];
+
+                $TtAE2+=$sousprog['Total']['TotalT2_AE'];
+                $TtCP2+=$sousprog['Total']['TotalT2_CP'];
+
+                $TtAE3+=$sousprog['Total']['TotalT3_AE'];
+                $TtCP3+=$sousprog['Total']['TotalT3_CP'];
+
+                $TtAE4+=$sousprog['Total']['TotalT4_AE'];
+                $TtCP4+=$sousprog['Total']['TotalT4_CP'];
+            }
+        }
+            $ttall=['TotalT1_AE'=>$TtAE1,'TotalT1_CP'=>$TtCP1,
+            'TotalT2_AE'=>$TtAE2,'TotalT2_CP'=>$TtCP2,
+            'TotalT3_AE'=>$TtAE3,'TotalT3_CP'=>$TtCP3,
+            'TotalT4_AE'=>$TtAE4,'TotalT4_CP'=>$TtCP4,
+        ];
+            array_push($programmes,['programmes'=>['code'=>$progm->num_prog,"nom"=>$progm->nom_prog,"sous_programmes"=>$all_sous_prog,"Total"=>$ttall]]);
+            $TtAE1=0;
+            $TtCP1=0;
+            $TtAE2=0;
+            $TtCP2=0;
+            $TtAE3=0;
+            $TtCP3=0;
+            $TtAE4=0;
+            $TtCP4=0;
+            $allsous_prog=[];
+        }
+           //   dd($all_act);
+        if(count($all_act)>0)
+        {
+        /*return response()->json([
+            'exists' => true,
+            'actions'=>$allaction,
+            'sous_programs'=>$allsous_prog,
+            'programs'=>$all_prog,
+        ]);*/
+         $pdf=Pdf::loadView('impression.programmes', compact('programmes'))->setPaper([0, 0, 842, 595]);//lanscape mean orentation
+               return $pdf->download('liste_impression.pdf');
+      // return view('impression.programmes',compact('programmes'));
+        }
+        else
+        {
+            response()->json(['exists' => false]);
+        }
+
+}
 
 //===================================================================================
                                 //DEBUT CHECK

@@ -19,15 +19,23 @@ return new class extends Migration
 
             $table->float('AE_init_t1')->default(0.0);
             $table->float('CP_init_t1')->default(0.0);
+            $table->float('AE_init_t1_NONREPARTIS')->default(0.0);;
+            $table->float('CP_init_t1_NONREPARTIS')->default(0.0);;
 
             $table->float('AE_init_t2')->default(0.0);
             $table->float('CP_init_t2')->default(0.0);
+            $table->float('AE_init_t2_NONREPARTIS')->default(0.0);
+            $table->float('CP_init_t2_NONREPARTIS')->default(0.0);
 
             $table->float('AE_init_t3')->default(0.0);
             $table->float('CP_init_t3')->default(0.0);
+            $table->float('AE_init_t3_NONREPARTIS')->default(0.0);
+            $table->float('CP_init_t3_NONREPARTIS')->default(0.0);
 
             $table->float('AE_init_t4')->default(0.0);
             $table->float('CP_init_t4')->default(0.0);
+            $table->float('AE_init_t4_NONREPARTIS')->default(0.0);
+            $table->float('CP_init_t4_NONREPARTIS')->default(0.0);
 
             $table->integer('code_t1');
             $table->foreign('code_t1')->references('code_t1')->on('t1_s');

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="csrf-token" content=" {{csrf_token()}}">
     <title>Portefeuille</title>
 
 <!-- Fonts -->
@@ -329,7 +330,7 @@
 
  <div class="float-export">
     <div class="folder-box">
-    <a href="#">
+    <a href="/printdpic/{{$allport['id']}}">
     <i class="fas fa-print"></i>
     </a>
     </div>
@@ -422,6 +423,12 @@
         </div>
         </div>
 
+        <div>
+        <label for="Tports">Mouvement</label>
+         <input type="radio" class="form-check-input" id="mvm" name="type_modif" value="mvm" />
+        </div>
+        
+
         <hr>
 
         <div class="add-envoi">
@@ -432,8 +439,6 @@
         <label for="input1">Action a modifier</label>
           <select type="text" class="form-control" id="id_cible" placeholder="Entrer le Nom du Programme">
            <option value="0" >Selectionner Article</option>
-            <option value="1" >Action 01</option>
-            <option value="2" >Action 01</option>
           </select>
         </div>
       </div>

@@ -2,40 +2,29 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LES CREDITS DES DEPENSES DE PERSONNEL </title>
+    <title>LISTE DES DEPENSES DE TRANSFERTS</title>
     <style>
+      
         table {
-            border-collapse: collapse;
             width: 100%;
+            border-collapse: collapse;
         }
+
         th, td {
             border: 1px solid #000;
             padding: 8px;
-            text-align: center;
-        }
-        th {
-            background-color: white; 
-        }
-        .highlight {
-            background-color: white;
-        }
-        .bold {
-            font-weight: bold;
+            text-align: left;
         }
 
-        /*.group-row {
-            background-color: #FFE5CC; 
+        th {
+            background-color: white;
         }
-        .with-sousop{
-            background-color: #DED4CA ; 
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
         }
-        .code ,.t1{
-            background-color:#CCE5FF;
-        }
-        .total {
-            background-color:#6A58DF; 
-        }*/
+
         .table-diviser {
         margin: 20px 0; /* la distance entre les 2 tables */
        
@@ -50,8 +39,11 @@
     </style>
 </head>
 <body>
-    <h1>LES CREDITS DES DEPENSES DE PERSONNEL : </h1>
-    <table class="first-table">
+
+<h1>LISTE DES DEPENSES DE TRANSFERTS:</h1>
+
+
+<table class="first-table">
     <thead>
                 @php
                     // extraire la dernière partie du code 
@@ -62,7 +54,7 @@
             <th>PROGRAMME {{ $prog->nom_prog }}</th>
             <th>Code</th>
             <td>{{ $codeprg }}</th>
-            <th colspan="2">T1</th>
+            <th colspan="2">T3 DANS LE DPIC</th>
         </tr>
 
 
@@ -88,36 +80,37 @@
             <th>Action {{ $action->nom_action }}</th>
             <th>Code</th>
             <td>{{ $codeact }}</th>
-            <td>{{ $resultstructur['T2']['total'][0]['values']['totalAE'] ?? 'N/A' }}</td>
-            <td>{{ $resultstructur['T2']['total'][0]['values']['totalCP'] ?? 'N/A' }}</td>
+            <td>{{ $resultstructur['T4']['total'][0]['values']['totalAE'] ?? 'N/A' }}</td>
+            <td>{{ $resultstructur['T4']['total'][0]['values']['totalCP'] ?? 'N/A' }}</td>
         </tr>
     </thead>
     <tbody>
        
     </tbody>
 </table>
+
 <div class="table-diviser"></div> 
-    <table>
+<table>
         <thead>
             <tr>
-                <th rowspan="2">Code</th>
-                <th rowspan="2" class="t1">T1. DEPENSES DE PERSONNEL</th>
-                @php
-                    $sousprog = explode('-', $sousProgramme->num_sous_prog);
-                    $lastchiffre = end($sousprog);
-                @endphp
-
-                <th colspan="2">Code {{ $lastchiffre }} - Sous Programme {{ $sousProgramme->nom_sous_prog }}</th>
+                <th rowspan="3">Code</th>
+                <th rowspan="3"> T4. DEPENSES DE TRANSFERT </th>
+                <th rowspan="3"> Dispositifs d'interventions</th>
+                <th colspan="6" style="text-align: center;">MONTANT ANNEE (N)</th>
             </tr>
             <tr>
          
-                <th>AE Sous-Operation</th>
-                <th>CP Sous-Operation</th>
+                <th style="text-align: center;" >AE </th>
+                <th  style="text-align: center;">CP </th>
             </tr>
+
         </thead>
         <tbody>
       
-                @foreach ($resultstructur['T1']['groupedData'] as $groupData)
+             
+
+    </tbody>
+    @foreach ($resultstructur['T4']['groupedData'] as $groupData)
                 @php
                     // extraire la dernière partie du code grp
                     $code_grpsepar = explode('-', $groupData['group']['code']);
@@ -125,7 +118,8 @@
                 @endphp
                 <tr class="group-row">
                 <td class="code">{{$codegrp}}</td>
-                <td>{{ $names[$codegrp ] ?? 'Nom non trouvé' }}</td>
+                <td>{{ $namesT4[$codegrp ] ?? 'Nom non trouvé' }}</td>
+                <td>{{ $namesT4[$codegrp ] ?? 'Nom non trouvé' }}</td>
                 <td>{{ $groupData['group']['values']['ae_grpop'] ?? 'N/A' }}</td>
                 <td>{{ $groupData['group']['values']['cp_grpop'] ?? 'N/A' }}</td>
             </tr>
@@ -140,14 +134,16 @@
                 @if (count($operationData['sousOperations']) > 0)
                    <tr class="operation-row with-sousop">
                    <td class="code">{{ $codeop }}</td>
-                <td>{{ $names[$codeop] ?? 'Nom non trouvé' }}</td>
+                <td>{{ $namesT4[$codeop] ?? 'Nom non trouvé' }}</td>
+                <td>{{ $namesT4[$codegrp ] ?? 'Nom non trouvé' }}</td>
                 <td>{{ $operationData['operation']['values']['ae_op'] ?? 'N/A' }}</td>
                 <td>{{ $operationData['operation']['values']['cp_op'] ?? 'N/A' }}</td>
               
                @else
                    <tr class="operation-row">
                    <td class="code">{{ $codeop }}</td>
-                <td>{{ $names[$codeop] ?? 'Nom non trouvé' }}</td>
+                <td>{{ $namesT4[$codeop] ?? 'Nom non trouvé' }}</td>
+                <td>{{ $namesT4[$codegrp ] ?? 'Nom non trouvé' }}</td>
                 <td>{{ $operationData['operation']['values']['ae_op'] ?? 'N/A' }}</td>
                 <td>{{ $operationData['operation']['values']['cp_op'] ?? 'N/A' }}</td>
               
@@ -163,22 +159,14 @@
                 @endphp
                 <tr>
                     <td class="code">{{ $codeextr }}</td>
-                    <td>{{ $names[$codeextr]?? 'Nom non trouvé' }}</td>
+                    <td>{{ $namesT4[$codeextr]?? 'Nom non trouvé' }}</td>
+                    <td>{{ $namesT4[$codegrp ] ?? 'Nom non trouvé' }}</td>
                     <td>{{ $sousOp['values']['ae_sousop'] ?? 'N/A' }}</td>
                     <td>{{ $sousOp['values']['cp_sousuop'] ?? 'N/A' }}</td>
                 </tr>
             @endforeach
         @endforeach
         @endforeach
-    </tbody>
-    <tfoot>
-        <tr  class="total">
-            <td colspan="2" style="text-align: center; font-weight: bold;">Total</td>
-            <td>{{ $resultstructur['T1']['total'][0]['values']['totalAE'] ?? 'N/A' }}</td>
-            <td>{{ $resultstructur['T1']['total'][0]['values']['totalCP'] ?? 'N/A' }}</td>
-        </tr>
-    </tfoot>
     </table>
 </body>
-
 </html>

@@ -51,8 +51,12 @@ public function check_sous_prog(Request $request)
     if ($sousprog && $initPort) {
         return response()->json([
             'exists' => true,
+
+            'num_sous_prog'=>$sousprog->num_sous_prog,
             'nom_sous_prog' => $sousprog->nom_sous_prog,
-            'date_update_sousProg' => $sousprog->date_insert_sousProg,
+            'date_insert_sousProg' => $sousprog->date_insert_sousProg,
+            'num_prog' =>$sousprog->num_prog,
+
             'AE_sous_prog' => $sousprog->AE_sous_prog,
             'CP_sous_prog' => $sousprog->CP_sous_prog,
 
@@ -112,8 +116,8 @@ public function create_sou_prog(Request $request)
         // Mise à jour du sous-programme existant
         $sousProgramme->update([
             'nom_sous_prog' => $request->nom_sous_prog,
-            'AE_sous_prog' => $request->AE_sous_prog,
-            'CP_sous_prog' => $request->CP_sous_prog,
+            'AE_sous_prog' => floatval($request->AE_sous_prog),
+            'CP_sous_prog' => floatval($request->CP_sous_prog),
             'date_update_sousProg' => now(),
         ]);
 
