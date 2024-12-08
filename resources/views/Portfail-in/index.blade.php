@@ -423,6 +423,12 @@
         </div>
         </div>
 
+        <div>
+        <label for="Tports">Mouvement</label>
+         <input type="radio" class="form-check-input" id="mvm" name="type_modif" value="mvm" />
+        </div>
+        
+
         <hr>
 
         <div class="add-envoi">
@@ -433,8 +439,6 @@
         <label for="input1">Action a modifier</label>
           <select type="text" class="form-control" id="id_cible" placeholder="Entrer le Nom du Programme">
            <option value="0" >Selectionner Article</option>
-            <option value="1" >Action 01</option>
-            <option value="2" >Action 01</option>
           </select>
         </div>
       </div>

@@ -35,7 +35,14 @@
             margin-bottom: 20px; 
             margin: 0 auto;
         }
-
+    .first-table thead
+    {
+          
+    }
+    .t2
+    {
+        background-color:#DDD9C4;
+    }
     </style>
 </head>
 <body>
@@ -92,12 +99,12 @@
 <table>
         <thead>
             <tr>
-                <th rowspan="2">Code</th>
+                <th rowspan="2" class="t2">Code</th>
                 <th rowspan="2" class="t2" style="width: 900px;">T2. DEPENSES DE FONCTIONNEMENT DES SERVICES </th>
 
-                <th colspan="2">CREDITS OUVERTS</th>
-                <th colspan="2">CREDITS ATTENDUS DEVENUS DISPONIBLES</th>
-                <th colspan="2">TOTAL CREDITS DISPONIBLESS</th>
+                <th colspan="2" class="t2">CREDITS OUVERTS</th>
+                <th colspan="2" class="t2">CREDITS ATTENDUS DEVENUS DISPONIBLES</th>
+                <th colspan="2" class="t2">TOTAL CREDITS DISPONIBLESS</th>
             </tr>
             <tr>
          

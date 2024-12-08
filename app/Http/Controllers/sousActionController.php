@@ -143,11 +143,15 @@ function printdpic($numport)
                                 
                                 array_push($allaction,['actions'=>['code'=>$listsousact->num_sous_action,"nom"=>$listsousact->nom_sous_action,'TotalT'=>$resultats]]);
                                 $all_act= $allaction;
+
                             }
 
                         }
                     }
-                }   
+                    
+
+                }
+
                // dd($allaction);
                 for($i=0 ;$i<count($allaction);$i++)
                 {
@@ -186,7 +190,8 @@ function printdpic($numport)
                 $TtAE4=0;
                 $TtCP4=0;
                 $ttall=[];
-                $allaction=[];
+                $allaction=[];                                
+                $all_act=[];
                 
                 
                
