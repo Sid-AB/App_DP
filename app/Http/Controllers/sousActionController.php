@@ -71,7 +71,7 @@ function allact($numport)
 
                             if(isset($listsousact))
                             {
-                            
+
                                 $resultats = $this->CalculDpia->calculdpiaFromPath($numport, $progm->num_prog, $sprog->num_sous_prog, $listact->num_action,$listsousact->num_sous_action);
                              //   dd($resultats);
                                 array_push($allaction,['actions'=>['actions_num'=>$listsousact->num_sous_action,"actions_name"=>$listsousact->nom_sous_action]]);
@@ -80,12 +80,12 @@ function allact($numport)
 
                         }
                     }
-                }   
+                }
                 array_push($allsous_prog,['sous_programs'=>['sous_progs_num'=>$sprog->num_sous_prog,"sous_progs_name"=>$sprog->nom_sous_prog]]);
             }
-            array_push($all_prog,['programs'=>['progs_num'=>$progm->num_prog,"progs_name"=>$progm->nom_prog]]); 
+            array_push($all_prog,['programs'=>['progs_num'=>$progm->num_prog,"progs_name"=>$progm->nom_prog]]);
         }
-      //  dd($allaction,$allsous_prog,$all_prog); 
+      //  dd($allaction,$allsous_prog,$all_prog);
         if(count($allaction)>0)
         {
         return response()->json([
@@ -124,7 +124,7 @@ function printdpic($numport)
         foreach($sousprog as $sprog)
         {
 
-            
+
                 $act=Action::where('num_sous_prog',$sprog->num_sous_prog)->get();
             //    dd($act);
                 foreach($act as $listact)
@@ -138,9 +138,9 @@ function printdpic($numport)
 
                             if(isset($listsousact))
                             {
-                            
+
                                 $resultats = $this->CalculDpia->calculdpiaFromPath($numport, $progm->num_prog, $sprog->num_sous_prog, $listact->num_action,$listsousact->num_sous_action);
-                                
+
                                 array_push($allaction,['actions'=>['code'=>$listsousact->num_sous_action,"nom"=>$listsousact->nom_sous_action,'TotalT'=>$resultats]]);
                                 $all_act= $allaction;
 
@@ -148,7 +148,7 @@ function printdpic($numport)
 
                         }
                     }
-                    
+
 
                 }
 
@@ -168,17 +168,17 @@ function printdpic($numport)
 
                     $TtAE4+=$actsect['TotalT']['T4']['total'][0]['values']['totalAE'];
                     $TtCP4+=$actsect['TotalT']['T4']['total'][0]['values']['totalCP'];
-                  
+
                 };
-              
+
                 };
-                
+
                 $ttall=['TotalT1_AE'=>$TtAE1,'TotalT1_CP'=>$TtCP1,
                     'TotalT2_AE'=>$TtAE2,'TotalT2_CP'=>$TtCP2,
                     'TotalT3_AE'=>$TtAE3,'TotalT3_CP'=>$TtCP3,
                     'TotalT4_AE'=>$TtAE4,'TotalT4_CP'=>$TtCP4,
                 ];
-                
+
                 array_push($allsous_prog,['sous_programmes'=>['code'=>$sprog->num_sous_prog,"nom"=>$sprog->nom_sous_prog,'actions'=>$all_act,"Total"=>$ttall]]);
                 $all_sous_prog= $allsous_prog;
                 $TtAE1=0;
@@ -190,16 +190,16 @@ function printdpic($numport)
                 $TtAE4=0;
                 $TtCP4=0;
                 $ttall=[];
-                $allaction=[];                                
+                $allaction=[];
                 $all_act=[];
-                
-                
-               
+
+
+
             }
             for ($i=0; $i < count($allsous_prog) ; $i++)
             {
             foreach($allsous_prog[$i] as $sousprog)
-             { 
+             {
                 # code...
                 $TtAE1+=$sousprog['Total']['TotalT1_AE'];
                 $TtCP1+=$sousprog['Total']['TotalT1_CP'];
@@ -219,7 +219,7 @@ function printdpic($numport)
             'TotalT3_AE'=>$TtAE3,'TotalT3_CP'=>$TtCP3,
             'TotalT4_AE'=>$TtAE4,'TotalT4_CP'=>$TtCP4,
         ];
-            array_push($programmes,['programmes'=>['code'=>$progm->num_prog,"nom"=>$progm->nom_prog,"sous_programmes"=>$all_sous_prog,"Total"=>$ttall]]); 
+            array_push($programmes,['programmes'=>['code'=>$progm->num_prog,"nom"=>$progm->nom_prog,"sous_programmes"=>$all_sous_prog,"Total"=>$ttall]]);
             $TtAE1=0;
             $TtCP1=0;
             $TtAE2=0;
@@ -254,17 +254,17 @@ function printdpic($numport)
                                 //DEBUT CHECK
 //===================================================================================
 
-public function check_action(Request $request)
+public function check_sousaction(Request $request)
     {
-        $sousaction = sousAction::where('num_sous_action', $request->num_sous_action)->first();
+        $sousAction = sousAction::where('num_sous_action', $request->num_sous_action)->first();
 
-        if ($sousaction) {
+        if ($sousAction) {
             return response()->json([
                 'exists' => true,
-                'nom_sous_action' => $sousaction->nom_sous_action,
-                'AE_sous_action' => $sousaction->AE_sous_act,
-                'CP_sous_action' => $sousaction->CP_sous_act,
-                'date_insert_sous_action' => $sousaction->date_insert_sous_action
+                'nom_sous_action' => $sousAction->nom_sous_action,
+                'date_insert_sous_action' => $sousAction->date_insert_sous_action,
+                'AE_sous_act'=>$sousAction->AE_sous_action,
+                'CP_sous_act'=>$sousAction->CP_sous_action,
             ]);
         }
 
@@ -274,12 +274,13 @@ public function check_action(Request $request)
 //===================================================================================
                             //FIN CHECK
 //===================================================================================
+
 //===================================================================================
                         // creation sous action
 //===================================================================================
 function create_sousaction(Request $request)
 {
-    //dd($request);
+
  // Récupérer la ligne de la table en fonction de 'numsouaction'
  $sousAction = SousAction::where('num_sous_action', $request->num_act)->first(); // Utilisation de 'numsouaction' pour trouver l'élément
 
@@ -290,68 +291,38 @@ function create_sousaction(Request $request)
     $sousAction->AE_sous_action=floatval($request->AE_sous_act);
     $sousAction->CP_sous_action=floatval($request->CP_sous_act);
    // $sousAction->num_action = $request->num_act;
-    $sousAction->date_insert_sous_action = $request->date_insert_sous_action;
+    $sousAction->date_update_sous_action = $request->date_insert_sous_action;
 
     // Enregistrer les modifications dans la base de données
-    if($sousAction->save())
-   {
-    //dd($sousAction);
-    return response()->json([
-        'success' => true,
-        'message' => 'Sous-Action ajouté avec succès.',
-        'code' => 200,
-    ]);
-}
-    else
-    {
-        return response()->json([
-            'success' => false,
-            'message' => 'Erreur lors de l\'ajout de la sous action.',
-            'code' => 500,
-        ]);
-    }
+    $sousAction->save();
+
 }
 else{
-        //si la sous action existe donc la modifier
-        //dd($request);
-        $sousAction = SousAction::where('num_sous_action', $request->num_sous_action)->first();
-    if ($sousAction) {
-        $sousAction->nom_sous_action = $request->nom_sous_action;
-        $sousAction->AE_sous_action=floatval($request->AE_sous_act);
-        $sousAction->CP_sous_action=floatval($request->CP_sous_act);
-        $sousAction->date_insert_sous_action = $request->date_insert_sous_action;
-        $sousAction->save();
-
-              // Enregistrer le fichier et le lier au portefeuille
-                /*...
-                                                    */
-
-        if ( $sousAction) {
-            return response()->json([
-                'success' => true,
-                'message' => 'Action ajouté avec succès.',
-                'code' => 200,
-            ]);
-        } else {
-            return response()->json([
-                'success' => false,
-                'message' => 'Erreur lors de l\'ajout de l\'action.',
-                'code' => 500,
-            ]);
-        }
-
-    }
-    else {
-        // Gérer le cas où la sous-action n'est pas trouvée
-        return response()->json([
-            'success' => true,
-            'message' => 'exist lors de l\'ajout de la sous action.',
-            'code' => 404,
-        ]);
-
-    }
+      //dd($request);
+    // creer une nouvelle  sous action
+    $sousaction = new sousAction();
+    $sousaction->num_action = $request->num_act;
+    $sousaction->num_sous_action = $request->num_sous_action;
+    $sousaction->nom_sous_action = $request->nom_sous_action;
+    $sousaction->AE_sous_action=floatval($request->AE_sous_act);
+    $sousaction->CP_sous_action=floatval($request->CP_sous_act);
+    $sousaction->date_insert_sous_action = $request->date_insert_sous_action;
+    $sousaction->save();
 }
 
+if ( $sousaction) {
+    return response()->json([
+        'success' => true,
+        'message' => 'Action ajouté avec succès.',
+        'code' => 200,
+    ]);
+} else {
+    return response()->json([
+        'success' => false,
+        'message' => 'Erreur lors de l\'ajout de l\'action.',
+        'code' => 500,
+    ]);
+}
 
 }
 }
