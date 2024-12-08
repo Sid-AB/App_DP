@@ -217,14 +217,14 @@
 
         <tr  class="CONTRÔLE DE COHERENCE">
             <td colspan="2" style="text-align: center; font-weight: bold;">CONTRÔLE DE COHERENCE </td>
-            <td>{{0 }}</td>
-            <td>{{ 0 }}</td>
+            <td>{{ $sousOp['values']['ae_ouvertsousop_NONREPARTIS'] ?? 'N/A' }}</td>
+            <td>{{ $sousOp['values']['ae_attendusousop_NONREPARTIS'] ?? 'N/A' }}</td>
 
-            <td>{{ 0}}</td>
-            <td>{{0 }}</td>
+            <td>{{ $sousOp['values']['cp_ouvertsousop_NONREPARTIS'] ?? 'N/A' }}</td>
+            <td>{{ $sousOp['values']['cp_attendsousuop_NONREPARTIS'] ?? 'N/A' }}</td>
 
-            <td>{{0 }}</td>
-            <td>{{0}}</td>
+            <td>{{ $sousOp['values']['totalAEsousop_NONREPARTIS'] ?? 'N/A' }}</td>
+            <td>{{ $sousOp['values']['totalCPsousop_NONREPARTIS'] ?? 'N/A' }}</td>
         </tr>
 
     </tfoot>
