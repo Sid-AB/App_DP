@@ -7,15 +7,33 @@
     <a class="element" href="http://127.0.0.1:8000">
       <i class="fas fa-tachometer-alt"></i> Tableau du Portefeuille
       </a>
-    <a class="element" href="/Portfail/{id}">
+      @if(isset($port) || isset($allport) || isset($paths))
+      @if(isset($port))
+      <a class="element" href="/Portfail/{{$port}}">
+      @else
+        @if(isset($paths))
+        <a class="element" href="/Portfail/{{$paths['code_port']}}">
+        @else
+      <a class="element" href="/Portfail/{{$allport['id']}}">
+        @endif
+      @endif
       <i class="fas fa-tools"></i> Suivi des Portefeuilles
       </a>
+      @endif
     <a class="element" href="#">
         <i class="fas fa-hourglass"></i> Cumule des Portefeuilles
       </a>
-    <a class="element" href="/testing/{{$port}}/{{$prog}}/{{$sous_prog}}/{{$act}}/{{$act}}/pdf">
-      <i class="fas fa-calendar-check"></i> Clôture du portefeuille a   imprimer
-      </a>
+      @if( isset($port) && isset($prog) && isset($sous_prog) && isset($act))
+      @if(isset($s_act))
+    <a class="element" href="/testing/{{$port}}/{{$prog}}/{{$sous_prog}}/{{$act}}/{{$s_act}}/pdf" target="_blank">
+      <i class="fas fa-calendar-check"></i> DPA a imprimer
+    </a>
+    @else
+    <a class="element" href="/testing/{{$port}}/{{$prog}}/{{$sous_prog}}/{{$act}}/{{$act}}/pdf" target="_blank">
+      <i class="fas fa-calendar-check"></i> DPA a imprimer
+    </a>
+    @endif
+    @endif
       <a class="element" href="/testing/Action/{port}/{prog}/{sous_prog}/{act}/">
         <i class="fas fa-wrench"></i> Détails des Portes
       </a>

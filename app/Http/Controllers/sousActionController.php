@@ -231,7 +231,7 @@ function printdpic($numport)
             $allsous_prog=[];
         }
            //   dd($all_act);
-        if(count($all_act)>0)
+        if(count($programmes)>0)
         {
         /*return response()->json([
             'exists' => true,
@@ -240,8 +240,8 @@ function printdpic($numport)
             'programs'=>$all_prog,
         ]);*/
          $pdf=Pdf::loadView('impression.programmes', compact('programmes'))->setPaper([0, 0, 842, 595]);//lanscape mean orentation
-               return $pdf->download('liste_impression.pdf');
-      // return view('impression.programmes',compact('programmes'));
+               return $pdf->stream('liste_impression.pdf');
+     //  return view('impression.programmes',compact('programmes'));
         }
         else
         {
