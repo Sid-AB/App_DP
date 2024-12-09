@@ -13,8 +13,8 @@
     <a class="element" href="#">
         <i class="fas fa-hourglass"></i> Cumule des Portefeuilles
       </a>
-    <a class="element" href="#">
-      <i class="fas fa-calendar-check"></i> Clôture du portefeuille
+    <a class="element" href="/testing/{{$port}}/{{$prog}}/{{$sous_prog}}/{{$act}}/{{$act}}/pdf">
+      <i class="fas fa-calendar-check"></i> Clôture du portefeuille a   imprimer
       </a>
       <a class="element" href="/testing/Action/{port}/{prog}/{sous_prog}/{act}/">
         <i class="fas fa-wrench"></i> Détails des Portes
