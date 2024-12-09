@@ -38,7 +38,7 @@
       <div class="col-12 tree">
         <ul id="father0">
           <li>
-              <span class="member" id="{{$allport['id']}}">
+              <span class="member next" id="{{$allport['id']}}" style="display:inline-block;">
 
                 <!--  -->
 
@@ -83,13 +83,14 @@
             <ul id="father1" style="display:none;">
             @foreach($allport['prgrammes'] as $portf)
               <li>
-             
-                @if($portf['TotalAE'] == $portf['init_AE'] && $portf['TotalCP'] ==  $portf['init_CP'])
-              <span class="member" id="{{$portf['id_prog']}}">
+              <span class="next" id="{{$portf['id_prog']}}">
+              <div class="edit-zone">
+                <div class="btn_add_svg update-handl"><i class="fas fa-edit" ></div></i>
+              @if($portf['TotalAE'] == $portf['init_AE'] && $portf['TotalCP'] ==  $portf['init_CP'])
+              <div class="member">
                 @else
-                <span class="member alert_func" id="{{$portf['id_prog']}}">
+                <div class="member alert_func">
               @endif
-              <div class="edit-zone"><i class="fas fa-edit update-handl"></i></div>
                 <div class="col-12 col-sm-6" id="kids">  
             <div class="card widget-card border-light shadow-sm">
               <div class="card-body p-1">
@@ -132,16 +133,24 @@
               </div>
             </div>
           </div>
+          </div>
+        </div>
         </span>
               <ul id="father2" style="display:none">
                 @foreach($portf['sous_program'] as $souportf)
                 <li>
+               
+                <span class="next" id="{{$souportf['id_sous_prog']}}">
+              
+                <div class="edit-zone">
+                  <div class="btn_add_svg update-handl">
+                   <i class="fas fa-edit"></i>
+                  </div>
                 @if($souportf['TotalAE'] == $souportf['init_AE'] && $souportf['TotalCP'] == $souportf['init_CP'])
-                <span class="member" id="{{$souportf['id_sous_prog']}}">
+                <div class="member" id="{{$souportf['id_sous_prog']}}">
                 @else
-                <span class="member alert_func" id="{{$souportf['id_sous_prog']}}">
+                <div class="member alert_func" id="{{$souportf['id_sous_prog']}}">
                 @endif
-                <div class="edit-zone"><i class="fas fa-edit update-handl"></i></div>
                 <div class="col-12 col-sm-6">
             <div class="card widget-card border-light shadow-sm">
               <div class="card-body p-1">
@@ -175,6 +184,8 @@
                 </div>
               </div>
             </div>
+            </div>
+            </div>
           </div>
         </span> 
                 <ul id="father3" style="display:none">
@@ -183,9 +194,9 @@
                   @if(count($act['sous_action'])>0)
                   @foreach($act['sous_action'] as $sous_act)
                   @if($sous_act['num_act'] != $act['num_act'])
-                  <span class="member" id="{{$act['num_act']}}">
+                  <span class="member next" id="{{$act['num_act']}}" style="display:inline-block">
                   @else
-                  <span class="member" id="act_{{$act['num_act']}}">
+                  <span class="member next" id="act_{{$act['num_act']}}" style="display:inline-block">
                   @endif
                   @endforeach
                   @endif
@@ -242,7 +253,7 @@
             @foreach($act['sous_action'] as $sous_act)
             @if($sous_act['num_act'] != $act['num_act'])
                   <li>
-                <span class="member" id="sact-{{$sous_act['num_act']}}">
+                <span class="member next" id="sact_{{$sous_act['num_act']}}" style="display:inline-block">
                 <div class="col-12 col-sm-6">
             <div class="card widget-card border-light shadow-sm">
               <div class="card-body p-1">
@@ -289,7 +300,7 @@
           @endif
               @endforeach
               <li>
-                  <span class="member">
+                  <span class="member next">
                   <button class="add-btn" id="{{$act['num_act'] }}_act">
                    <i class="fas fa-plus-circle icon-car" style='font-size:100px; color:#0dcaf0;'></i>
                   </button> 
@@ -298,7 +309,7 @@
                 </li>
                   @endforeach
                   <li>
-                  <span class="member">
+                  <span class="member next">
                   <button class="add-btn" id="{{$souportf['id_sous_prog']}}_sprog">
                    <i class="fas fa-plus-circle icon-car" style='font-size:100px; color:#0dcaf0;'></i>
                   </button> 
@@ -306,7 +317,7 @@
                 </ul>
                 @endforeach
                 <li>
-                <span class="member">
+                <span class="member next">
                 <button class="add-btn" id=" {{$portf['id_prog']}}_prog">
                    <i class="fas fa-plus-circle icon-car" style='font-size:100px; color:#0dcaf0;'></i>
                 </button> 
@@ -315,7 +326,7 @@
               </li>
             @endforeach
             <li>
-                <span class="member">
+                <span class="member next">
                 <button class="add-btn" id="{{$allport['id']}}_all">
                    <i class="fas fa-plus-circle icon-car" style='font-size:100px; color:#0dcaf0;'></i>
                   </button> 
@@ -460,7 +471,7 @@
 <script>
   var path=Array();
   var path3=Array();
- document.querySelectorAll('.member').forEach(member => {
+ document.querySelectorAll('.next').forEach(member => {
   member.addEventListener('dblclick', function(event) {
     const children = member.nextElementSibling;
     if (children) {
@@ -474,7 +485,7 @@
   });
   });
   $(document).ready(function(){
-    $('.member').on('dblclick',function(){
+    $('.next').on('dblclick',function(){
     id=$(this).attr('id');
     
     var index=path.indexOf(id)
@@ -518,6 +529,7 @@ listItemsWithNestedUl.each(function(){
     }
     if(typeact[0] == 'sact')
     {
+      console.log('sub action'+typeact[0])
     $(this).on('click',function(){
      window.location.href='/testing/S_action/'+path3[0]+'/'+path3[1]+'/'+path3[2]+'/'+path3[3]+'/'+typeact[1]+'/'
       })

@@ -159,7 +159,7 @@
 @media (min-width: 30em) {
   .responsive-table tbody th[scope=row] {
     border-left: 1px solid #f5bf0e;
-    border-bottom: 1px solid #f5bf0e;
+   /* border-bottom: 1px solid #f5bf0e;*/
   }
 }
 @media (min-width: 48em) {
@@ -175,7 +175,7 @@
 @media (min-width: 48em) {
   .responsive-table tbody td {
     border-left: 1px solid #f5bf0e;
-    border-bottom: 1px solid #f5bf0e;
+   /* border-bottom: 1px solid #f5bf0e;*/
     text-align: center;
   }
 }
