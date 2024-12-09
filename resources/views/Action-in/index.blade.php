@@ -222,7 +222,7 @@
             
           </div>
           
-          </from>
+          </form>
           <div class="Tsop_btn_handle">
             <div><button  class="btn btn-primary" id="ajt"> Ajouter </button></div>
             <div><button  class="btn btn-primary" id="cancel_ops"> Cancel </button></div>
