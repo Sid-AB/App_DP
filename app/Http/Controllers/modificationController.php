@@ -336,7 +336,34 @@ class modificationController extends Controller
             }
         
         
+        
+            //  récupérer les anciennes valeurs des prog et sous prog
+            $sousProgRetire = SousProgramme::where('num_sous_prog', $validated['Sous_prog_retire'])->first();
+            dd( $sousProgRetire);
+            $sousProgReçoit = SousProgramme::where('num_sous_prog', $validated['sousprogbum_click'])->first();
+            dd($sousProgReçoit);
+ 
+            $ProgRetire = Programme::where('num_prog', $validated['prog_retirer'])->first();
+            dd( $ProgRetire);
+            $ProgReçoit = Programme::where('num_prog', $validated['prognum_click'])->first();
+            dd($sousProgReçoit);
 
+            if (!$sousProgRetire || !$sousProgReçoit ||!$ProgRetire || !$ProgReçoit) {
+                return response()->json(['message' => 'Programme ou sous-programme introuvable'], 404);
+            }
+
+            // calcul des nouvelles valeurs 
+            if ($validated['status'] === 'retire') {
+                $sousProgRetire->AE -= $validated['AE_env_T'];
+                $sousProgRetire->CP -= $validated['CP_env_T'];
+            } elseif ($validated['status'] === 'recoit') {
+                $sousProgReçoit->AE += $validated['AE_env_T'];
+                $sousProgReçoit->CP += $validated['CP_env_T'];
+            }
+
+            // ** Étape 3 : Mettre à jour les nouvelles valeurs dans la base de données **
+            $sousProgRetire->save();
+            $sousProgReçoit->save();
         // insérer les données dans la table modif
         ModificationT::insert([
             'date_modif' => now(),

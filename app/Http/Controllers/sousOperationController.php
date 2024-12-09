@@ -209,7 +209,7 @@ class sousOperationController extends Controller
           // }
              if (isset($resultstructur['T2'])) {
                return view('impression.liste_impression_t2', compact('resultstructur', 'sousProgramme', 'namesT2','portefeuille','prog','action'));
-                 /*$pdf=pdf::loadView('impression.liste_impression_t2', compact('resultstructur', 'sousProgramme', 'namesT2','portefeuille','prog','action'));
+               /*  $pdf=pdf::loadView('impression.liste_impression_t2', compact('resultstructur', 'sousProgramme', 'namesT2','portefeuille','prog','action'));
                return $pdf->stream('liste_impression.pdf');*/
             }
                 elseif (isset($resultstructur['T3'])) {
