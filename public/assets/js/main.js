@@ -271,7 +271,8 @@
                      })
                         }
                          function add_newOPs_T3(id, descr, value, key,) {
-                            var champ='<div><label>AE Reportter</label>'+
+                            var champ='<div><label>intitueler</label><input type="text" class="form-control" id="int-T3"></div>'+
+                                      '<div><label>AE Reportter</label>'+
                                       '<input type="number" class="form-control" id="add_AE_rpor">'+
                                       '<label>AE Notifier</label>'+
                                       '<input type="number" class="form-control" id="add_AE_not">'+
@@ -290,6 +291,7 @@
                             $('#ajt').on('click',function(){
                                 var sopdata_add={
                                     code:id,
+                                    intituel:$('#int-T3').val(),
                                     descrp:$('#dispo').val(),
                                     AE_rpor:$('#add_AE_rpor').val(),
                                     AE_not:$('#add_AE_not').val(),
@@ -301,7 +303,7 @@
                                     _method: "POST",
 
                                 }
-                               
+                                console.log('data T3'+JSON.stringify(sopdata_add))
                                 $.ajax({
                                     url:'',
                                     type:'POST',
@@ -362,19 +364,22 @@
                                 }
                                 var row = '<tr id="ref' + id + '">' +
                                 '<td class="code" >' + id + '</td>' +
-                                '<td>Dispo</td>'+
-                                '<td>Detail</td>'+
-                                '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + descr + '</p></td>' +
-                                '<td class="editable" id="AE_T4">' + value + '</td>' +
-                                '<td class="editable" id="CP_T4">' + 180 + ',000</td>' +
+                                '<td>'+data_add_ops.defi+'</td>'+
+                                '<td>'+data_add_ops.descrp+'</td>'+
+                                '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + data_add_ops.descrp + '</p></td>' +
+                                '<td class="editable" id="AE_T4">' + data_add_ops.AE_T4 + '</td>' +
+                                '<td class="editable" id="CP_T4">' + data_add_ops.CP_T4 + '</td>' +
                                 '</tr>';
                             $('#' + key).after(row);
                             $('#' + key + ' td').each(function () {
                                 $(this).removeClass('editable');
                             })
                                 console.log('data T4'+JSON.stringify(data_add_ops))
+                                $('.Tsop_handler').addClass('Tsop_handler_h')
+                                $('#Tport-vals').empty()
+                                $('#Tport-vals').removeClass('T4')
                             })
-                            $('#cancel-ops').click(function(){
+                            $('#cancel_ops').click(function(){
                                 $('.Tsop_handler').addClass('Tsop_handler_h')
                                 $('#Tport-vals').empty()
                                 $('#Tport-vals').removeClass('T4')
