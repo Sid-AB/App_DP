@@ -48,8 +48,8 @@
                 <div class="row">
                   <div class="col-8">
                     <h5 class="card-title widget-card-title mb-3">Portefeuille</h5>
-                    <h4 class="card-subtitle text-body-secondary m-0"> AE :{{$allport['TotalAE']}}</h4>
-                    <h4 class="card-subtitle text-body-secondary m-0"> CP :{{$allport['TotalCP']}}</h4>
+                    <h4 class="card-subtitle text-body-secondary m-0"> autorisations d'engagement :{{$allport['TotalAE']}}</h4>
+                    <h4 class="card-subtitle text-body-secondary m-0"> crédits de paiement :{{$allport['TotalCP']}}</h4>
                   </div>
                   <div class="col-4">
                     <div class="d-flex justify-content-end">
@@ -95,16 +95,16 @@
             <div class="card widget-card border-light shadow-sm">
               <div class="card-body p-1">
                 <div class="row">
-                  <div class="col-8">
+                  <div class="col-10">
                     <h5 class="card-title widget-card-title mb-3">{{$portf['data']['nom_prog']}}</h5>
                     <h4 class="card-subtitle text-body-secondary m-0">
-                      <p> AE :{{$portf['TotalAE']}}</p><p>{{$portf['init_AE']}}</p>
+                      <p>  autorisations d'engagement :</p><p class="chiffre">{{$portf['init_AE']}}</p>
                     </h4>
                     <h4 class="card-subtitle text-body-secondary m-0">
-                      <p>CP :{{$portf['TotalCP']}}</p><p>{{$portf['init_CP']}}</p>
+                      <p> crédits de paiement :</p><p class="chiffre">{{$portf['init_CP']}}</p>
                     </h4>
                   </div>
-                  <div class="col-4">
+                  <div class="col-2">
                     <div class="d-flex justify-content-end">
                       <div class="lh-1 text-white bg-info rounded-circle p-3 d-flex align-items-center justify-content-center">
                         <i class="bi bi-truck fs-4"></i>
@@ -159,16 +159,19 @@
             <div class="card widget-card border-light shadow-sm">
               <div class="card-body p-1">
                 <div class="row">
-                  <div class="col-8">
+                  <div class="col-10">
                     <h5 class="card-title widget-card-title mb-3">{{$souportf['data']['nom_sous_prog']}}</h5>
                     <h4 class="card-subtitle text-body-secondary m-0">
-                    <p> AE :{{$souportf['TotalAE']}}</p><p>{{$souportf['init_AE']}}</p>
+                    <p> autorisations d'engagement :<p class="chiffre">{{$souportf['init_AE']}}</p></p>
                     </h4>
                     <h4 class="card-subtitle text-body-secondary m-0">
-                    <p> CP :{{$souportf['TotalCP']}}</p><p>{{$souportf['init_CP']}}</p>
+                    <div>
+                     <div> <p>crédits de paiement :</p>
+                      <p class="chiffre">{{$souportf['init_CP']}}</p></div>
+                    </div> 
                     </h4>
                   </div>
-                  <div class="col-4">
+                  <div class="col-2">
                     <div class="d-flex justify-content-end">
                       <div class="lh-1 text-white bg-info rounded-circle p-3 d-flex align-items-center justify-content-center">
                         <i class="bi bi-truck fs-4"></i>
@@ -213,12 +216,12 @@
               <div class="card-body p-1">
                 <div class="row">
                   <div class="col-8">
-                    <h5 class="card-title widget-card-title mb-3">Action: {{$act['num_act'] }}</h5>
+                    <h5 class="card-title widget-card-title mb-3">Action: {{$act['data']['nom_action'] }}</h5>
                     <h4 class="card-subtitle text-body-secondary m-0">
-                    <p> AE :{{$act['TotalAE']}}</p><p>{{$act['init_AE']}}</p>
+                    <p>  autorisations d'engagement :{{$act['TotalAE']}}</p><p>{{$act['init_AE']}}</p>
                     </h4>
                     <h4 class="card-subtitle text-body-secondary m-0">
-                    <p> CP :{{$act['TotalCP']}}</p><p>{{$act['init_CP']}}</p>
+                    <p>  crédits de paiement :{{$act['TotalCP']}}</p><p>{{$act['init_CP']}}</p>
                     </h4>
                   </div>
                   <div class="col-4">
@@ -235,7 +238,7 @@
                       <span class="lh-1 me-3 bg-danger-subtle text-danger rounded-circle p-1 d-flex align-items-center justify-content-center">
                         <i class="bi bi-arrow-right-short bsb-rotate-45"></i>
                       </span>
-                      <div style="display:flex;">
+                      <div style="display:flex;width: 23rem;">
                       @if(count($act['sous_action'])>0)
                       @foreach($act['sous_action'] as $sous_act)
                       @if($sous_act['num_act'] != $act['num_act'])
@@ -272,8 +275,8 @@
                 <div class="row">
                   <div class="col-8">
                     <h5 class="card-title widget-card-title mb-3">Sous Action: {{$sous_act['num_act'] }}</h5>
-                    <h4 class="card-subtitle text-body-secondary m-0">AE : {{$sous_act['TotalAE']}}</h4>
-                    <h4 class="card-subtitle text-body-secondary m-0">CP :{{$sous_act['TotalCP']}}</h4>
+                    <h4 class="card-subtitle text-body-secondary m-0"> autorisations d'engagement : {{$sous_act['TotalAE']}}</h4>
+                    <h4 class="card-subtitle text-body-secondary m-0"> crédits de paiement :{{$sous_act['TotalCP']}}</h4>
                   </div>
                   <div class="col-4">
                     <div class="d-flex justify-content-end">
@@ -492,6 +495,7 @@
         children.style.display = 'none';
       } else {
         children.style.display = 'flex';
+        
       }
     }
   });
@@ -555,7 +559,57 @@ listItemsWithNestedUl.each(function(){
             window.location.href='/creation/from/'+id;
             var  news;
         })
+var idchfri=$('.chiffre')
+idchfri.each(function(){
+  var newl="";
+  var trans=$(this).text();
+  var list
+  var list1
+  var list2
 
+if(trans.length % 3 == 0)
+{
+  list= trans.match(/.{1,3}/g);
+  list.forEach(elemt => {
+            newl+=" "+elemt;
+        });
+        console.log('chrunk slice 2'+JSON.stringify(list) +'data '+trans.length +'data final'+newl)
+        $(this).text(newl)
+        newl="";
+}
+else
+{
+  if(trans.length % 3 == 2)
+{
+  console.log('before'+trans)
+  var first=trans.slice(0,2);
+  trans=trans.slice(2)
+  list= trans.match(/.{1,3}/g);
+  list.forEach(elemt => {
+            newl+=" "+elemt;
+        });
+        console.log('chrunk slice 2'+JSON.stringify(list) +'data '+trans.length +'data final'+newl)
+        $(this).text(first+newl)
+        newl="";
+
+}
+else  
+{
+  console.log('before 3'+trans)
+  var first=trans.slice(0,1);
+  trans=trans.slice(1)
+  list= trans.match(/.{1,3}/g);
+  list.forEach(elemt => {
+            newl+=" "+elemt;
+        });
+        console.log('chrunk slice 3'+JSON.stringify(list) +'data '+trans.length +'data final'+newl)
+        $(this).text(first+newl)
+        newl="";
+  
+}
+}
+
+})
 })
 
 </script>

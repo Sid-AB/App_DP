@@ -289,7 +289,19 @@ $(document).ready(function(){
                     var nom_sou_prog = $('#nom_sousProg').val();
                     var dat_sou_prog = $('#date_insert_sousProg').val()
                     var ae_sou_prog = $('#AE_sousProg').val();
-                    var cp_sou_prog = $('#CP_sousProg').val();
+                    var cp_sou_prog = $('#AE_sousProg').val();
+
+                    var T1_AE_init = $('#T1_AE_init').val()
+                    var T1_CP_init = $('#T1_CP_init').val()
+
+                    var T2_AE_init = $('#T2_AE_init').val()
+                    var T2_CP_init = $('#T2_CP_init').val()
+
+                    var T3_AE_init = $('#T3_AE_init').val()
+                    var T3_CP_init = $('#T3_CP_init').val()
+
+                    var T4_AE_init = $('#T4_AE_init').val()
+                    var T4_CP_init = $('#T4_CP_init').val()
                     var id_prog = path[1];
                     var numsouprog_year = id_prog +'-'+sou_prog ;
                     var nexthop = '<div class="pinfo-handle">' +
@@ -303,8 +315,25 @@ $(document).ready(function(){
                     var formdatasou_prog = {
                         num_sous_prog: numsouprog_year,
                         nom_sous_prog: nom_sou_prog,
+                        AE_sous_prog:ae_sou_prog,
+                        CP_sous_prog:cp_sou_prog,
                         date_insert_sousProg: dat_sou_prog,
                         id_program: id_prog,
+                        T1_AE_init: T1_AE_init,
+                        T1_CP_init: T1_CP_init,
+                        code_t1: 10000,
+
+                        T2_AE_init: T2_AE_init,
+                        T2_CP_init: T2_CP_init,
+                        code_t2: 20000,
+
+                        T3_AE_init: T3_AE_init,
+                        T3_CP_init: T3_CP_init,
+                        code_t3: 30000,
+
+                        T4_AE_init: T4_AE_init,
+                        T4_CP_init: T4_CP_init,
+                        code_t4: 40000,
                         //id_porte: id_port,
                         _token: $('meta[name="csrf-token"]').attr('content'),
                         _method: 'POST'
@@ -344,6 +373,12 @@ $(document).ready(function(){
                                     
                                         alert(response.message)
                                     }
+                                    alert(response.message)
+                                            path.push(numsouprog_year);
+                                            $('.the-path').append(nexthop)
+                                            parent.empty();
+                                            parent.append('<i class="fas fa-wrench"></i>')
+                                             document.getElementById("creati-act").style.display="block";
                              /*   $.ajax({
                                     url:'/init_ports',
                                     type:'POST',
