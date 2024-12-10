@@ -2,12 +2,17 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LES CREDITS DES DEPENSES DE FONCTIONNEMENT</title>
     <style>
-      
+        .table_handler
+        {
+            width: 100%;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
+            
         }
 
         th, td {
@@ -25,8 +30,8 @@
             margin-bottom: 20px;
         }
 
-        .table-diviser {
-        margin: 20px 0; /* la distance entre les 2 tables */
+    .table-diviser {
+        margin: 0px 0; /* la distance entre les 2 tables */
        
     }
 
@@ -96,11 +101,12 @@
 </table>
 
 <div class="table-diviser"></div> 
+<div class="table_handler">
 <table>
         <thead>
             <tr>
                 <th rowspan="2" class="t2">Code</th>
-                <th rowspan="2" class="t2" style="width: 900px;">T2. DEPENSES DE FONCTIONNEMENT DES SERVICES </th>
+                <th rowspan="2" class="t2" >T2. DEPENSES DE FONCTIONNEMENT DES SERVICES </th>
 
                 <th colspan="2" class="t2">CREDITS OUVERTS</th>
                 <th colspan="2" class="t2">CREDITS ATTENDUS DEVENUS DISPONIBLES</th>
@@ -229,5 +235,6 @@
 
     </tfoot>
     </table>
+    </div>
 </body>
 </html>

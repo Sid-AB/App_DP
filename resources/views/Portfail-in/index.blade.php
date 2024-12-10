@@ -97,8 +97,12 @@
                 <div class="row">
                   <div class="col-8">
                     <h5 class="card-title widget-card-title mb-3">{{$portf['data']['nom_prog']}}</h5>
-                    <h4 class="card-subtitle text-body-secondary m-0"> AE :{{$portf['TotalAE']}}</h4>
-                    <h4 class="card-subtitle text-body-secondary m-0"> CP :{{$portf['TotalCP']}}</h4>
+                    <h4 class="card-subtitle text-body-secondary m-0">
+                      <p> AE :{{$portf['TotalAE']}}</p><p>{{$portf['init_AE']}}</p>
+                    </h4>
+                    <h4 class="card-subtitle text-body-secondary m-0">
+                      <p>CP :{{$portf['TotalCP']}}</p><p>{{$portf['init_CP']}}</p>
+                    </h4>
                   </div>
                   <div class="col-4">
                     <div class="d-flex justify-content-end">
@@ -157,8 +161,12 @@
                 <div class="row">
                   <div class="col-8">
                     <h5 class="card-title widget-card-title mb-3">{{$souportf['data']['nom_sous_prog']}}</h5>
-                    <h4 class="card-subtitle text-body-secondary m-0">AE : {{$souportf['TotalAE']}}</h4>
-                    <h4 class="card-subtitle text-body-secondary m-0">CP :{{$souportf['TotalCP']}}</h4>
+                    <h4 class="card-subtitle text-body-secondary m-0">
+                    <p> AE :{{$souportf['TotalAE']}}</p><p>{{$souportf['init_AE']}}</p>
+                    </h4>
+                    <h4 class="card-subtitle text-body-secondary m-0">
+                    <p> CP :{{$souportf['TotalCP']}}</p><p>{{$souportf['init_CP']}}</p>
+                    </h4>
                   </div>
                   <div class="col-4">
                     <div class="d-flex justify-content-end">
@@ -206,8 +214,12 @@
                 <div class="row">
                   <div class="col-8">
                     <h5 class="card-title widget-card-title mb-3">Action: {{$act['num_act'] }}</h5>
-                    <h4 class="card-subtitle text-body-secondary m-0">AE : {{$act['TotalAE']}}</h4>
-                    <h4 class="card-subtitle text-body-secondary m-0">CP :{{$act['TotalCP']}}</h4>
+                    <h4 class="card-subtitle text-body-secondary m-0">
+                    <p> AE :{{$act['TotalAE']}}</p><p>{{$act['init_AE']}}</p>
+                    </h4>
+                    <h4 class="card-subtitle text-body-secondary m-0">
+                    <p> CP :{{$act['TotalCP']}}</p><p>{{$act['init_CP']}}</p>
+                    </h4>
                   </div>
                   <div class="col-4">
                     <div class="d-flex justify-content-end">
@@ -341,7 +353,7 @@
 
  <div class="float-export">
     <div class="folder-box">
-    <a href="/printdpic/{{$allport['id']}}">
+    <a href="/printdpic/{{$allport['id']}}" target="_blank">
     <i class="fas fa-print"></i>
     </a>
     </div>

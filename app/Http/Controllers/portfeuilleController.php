@@ -305,12 +305,12 @@ return response()->json([
 
     }
         if($portefeuille)
-        {
+        {   //dd($request);
             $DPIC = new ConstruireDPIC();
 
             $DPIC->date_creation_dpic = $portefeuille->Date_portefeuille; // elle prend la date de creation du portfeuille
 
-            $DPIC->date_modification_dpic = now(); 
+            $DPIC->date_modification_dpic = now();
             $DPIC->AE_dpic_nv = $portefeuille->AE_portef;
             $DPIC->CP_dpic_nv = $portefeuille->CP_portef;
 
