@@ -55,7 +55,8 @@ class AppServiceProvider extends ServiceProvider
         GroupOperation::observe(GroupOperationObserver::class);
         Operation::observe(OperationObserver::class);
         SousOperation::observe(sousoperationObserver::class);
-        ConstruireDPIA::observe(ConstruireDPIAObserver::class);
+        SousOperation::observe(sousoperationObserver::class);
+        //ConstruireDPIA::observe(ConstruireDPIAObserver::class);
 
     }
 }

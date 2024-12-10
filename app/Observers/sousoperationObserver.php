@@ -29,8 +29,8 @@ class sousoperationObserver
      */
     public function updated(sousoperation $sousoperation): void
     {
-        // Définir l'attribut à exclure
-        $excludedAttributes = ['date_insert_SOUSoperation'];
+         // Définir les attributs à exclure
+        $excludedAttributes = ['date_update_SOUSoperation'];
 
         // Récupérer les changements effectués sur le modèle, en excluant les attributs spécifiés
         $changes = array_diff_key($sousoperation->getChanges(), array_flip($excludedAttributes));
@@ -42,7 +42,6 @@ class sousoperationObserver
         if (!empty($changes)) {
             // Enregistrer les changements dans les logs
             \Log::info("Modifications sur le modèle sousoperation", $changes);
-
             // Utilisez logActivity pour enregistrer l'activité avec les données filtrées
             $this->logActivity('updated', $sousoperation, $changes, $original);
         }
