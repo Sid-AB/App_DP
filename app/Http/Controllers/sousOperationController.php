@@ -208,9 +208,9 @@ class sousOperationController extends Controller
                return $pdf->download('liste_impression.pdf');*/
           // }
              if (isset($resultstructur['T2'])) {
-               return view('impression.liste_impression_t2', compact('resultstructur', 'sousProgramme', 'namesT2','portefeuille','prog','action'));
-               /*  $pdf=pdf::loadView('impression.liste_impression_t2', compact('resultstructur', 'sousProgramme', 'namesT2','portefeuille','prog','action'));
-               return $pdf->stream('liste_impression.pdf');*/
+               //return view('impression.liste_impression_t2', compact('resultstructur', 'sousProgramme', 'namesT2','portefeuille','prog','action'));
+                 $pdf=pdf::loadView('impression.liste_impression_t2', compact('resultstructur', 'sousProgramme', 'namesT2','portefeuille','prog','action'))->setPaper("A4","landscape");
+               return $pdf->stream('liste_impression.pdf');
             }
                 elseif (isset($resultstructur['T3'])) {
                 return view('impression.liste_impression_t3', compact('resultstructur', 'sousProgramme', 'namesT3','portefeuille','prog','action','years'));

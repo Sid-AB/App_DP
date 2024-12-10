@@ -32,8 +32,10 @@
 
     .first-table {
             width: 50%; 
-            margin-bottom: 20px; 
+            margin-bottom:10px; 
             margin: 0 auto;
+           
+
         }
     .first-table thead
     {
@@ -90,9 +92,9 @@
             <td>{{ $resultstructur['T2']['total'][0]['values']['totalCP'] ?? 'N/A' }}</td>
         </tr>
     </thead>
-    <tbody>
+  
        
-    </tbody>
+    
 </table>
 
 <div class="table-diviser"></div> 
@@ -100,11 +102,11 @@
         <thead>
             <tr>
                 <th rowspan="2" class="t2">Code</th>
-                <th rowspan="2" class="t2" style="width: 900px;">T2. DEPENSES DE FONCTIONNEMENT DES SERVICES </th>
+                <th rowspan="2" class="t2" >T2. DEPENSES DE FONCTIONNEMENT DES SERVICES </th>
 
                 <th colspan="2" class="t2">CREDITS OUVERTS</th>
                 <th colspan="2" class="t2">CREDITS ATTENDUS DEVENUS DISPONIBLES</th>
-                <th colspan="2" class="t2">TOTAL CREDITS DISPONIBLESS</th>
+                <th colspan="2" class="t2">TOTAL CREDITS DISPONIBLES</th>
             </tr>
             <tr>
          
