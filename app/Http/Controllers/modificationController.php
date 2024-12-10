@@ -355,7 +355,7 @@ class modificationController extends Controller
             }
 */
             //calcull 
-             if ($sousProgReçoit) {
+         /*    if ($sousProgReçoit) {
                 
                 $sousProgReçoit->AE_sous_prog += $validated['AE_T1'] +  $validated['AE_T2'] +  $validated['AE_T3'] + $validated['AE_T4'];
                 $sousProgReçoit->CP_sous_prog += $validated['CP_T1'] + $validated['CP_T2'] +  $validated['CP_T3'] + $validated['CP_T4'];
@@ -391,7 +391,7 @@ class modificationController extends Controller
                 $ProgRetire->save();
             } 
                
-           
+           */
       
 
             
