@@ -560,6 +560,7 @@ listItemsWithNestedUl.each(function(){
             var  news;
         })
 var idchfri=$('.chiffre')
+
 idchfri.each(function(){
   var newl="";
   var trans=$(this).text();
@@ -579,7 +580,7 @@ if(trans.length % 3 == 0)
 }
 else
 {
-  if(trans.length % 3 == 2)
+  if(trans.length % 3 == 2 && !$(this).empty())
 {
   console.log('before'+trans)
   var first=trans.slice(0,2);
