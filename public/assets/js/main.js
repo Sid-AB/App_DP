@@ -400,8 +400,12 @@
                           */
                          function Update_dpia(T,act)
                          {
-
+                            var old;
                             $(document).ready(function(){
+                                $('.editable').on('click', function () {
+                                    let cell = $(this);  // Reference to the clicked cell
+                                    old = cell.text();
+                                })
                                 $('.editable').dblclick(function(){
                                     var i=0
                                     var ae=0;
@@ -422,8 +426,9 @@
                                      var code = clickedRow.find('td:first-child');
                                      let cell = $(this);  // Reference to the clicked cell
                                      var currentText = cell.text();
+                                    
                                      var exist=false;  // Get current text
-                                     console.log('odl ' + code.text())
+                                     console.log('odl ' + code.text() +'old '+old)
                                      var codesoup=clickedRow.attr('id').split('ref')[1];
                                      // Create an input element and set its value
                                      let input = $('<input type="number" step="0.01" class="form-control"/>').val(currentText);
@@ -1973,15 +1978,9 @@
                                        ;
                                      }
                                      i++
-                                    /* console.log('the lengh' + lengT + 'and the pas' + i)
+                                     console.log('the lengh' + lengT + 'and the pas' + i)
                                      if (i == lengT) {
                                          if ($('.ref' + key + ' td').hasClass("editable")) {
-                                             $('.ref' + key + ' #add_op').append(newbtn)
-                                             $('.ref' + key + ' #add_op').on('click', function () {
-                                                 var ads = key + '1';
-                                                 add_newOPs_T1(ads, 'testing new descr', 2500, key);
-                                                 Edit(id, T)
-                                             })
                                          }
                                      }
 
@@ -2001,18 +2000,13 @@
                                          else {
                                              //   console.log('testing '+key)
                                              if ($('.ref' + preve + ' td').hasClass("editable")) {
-                                                 $('.ref' + preve + ' #add_op').append(newbtn)
-                                                 $('.ref' + preve + ' #add_op').on('click', function () {
-                                                    var newKey=$(this).parent().attr('id');
-                                                     var ads = newKey.split('ref')[1] + '1';
-                                                     add_newOPs_T1(ads, 'testing new descr', 2500, newKey);
-                                                     Edit(id, T)
-                                                 })
+                                              
+                                                
                                              }
                                              preve = current;
                                          }
                                          current = key;
-                                     }*/
+                                     }
 
 
                                  });
@@ -2160,7 +2154,7 @@
                                      // Append the row to the table body
                                      $('#T-tables tbody').append(row);
                                      Edit(id, T)
-                                    /* if (current.length == 0) {
+                                     if (current.length == 0) {
                                          current = key;
                                          preve = current;
                                      }
@@ -2178,14 +2172,6 @@
 
                                              console.log('testing adding ' + preve)
                                              if ($('.ref' + preve + ' td').hasClass("editable")) {
-                                                 $('.ref' + preve + ' #add_op').append(newbtn)
-                                                 $('.ref' + preve + ' #add_op').on('click', function () {
-                                                    var newKey=$(this).parent().attr('id');
-                                                    var ads = newKey.split('ref')[1] + '1';
-                                                    $('.Tsop_handler').removeClass('Tsop_handler_h')
-                                                     add_newOPs_T2(ads, 'testing new descr', 2500, newKey);
-                                                   
-                                                 })
                                              }
 
                                          }
@@ -2195,15 +2181,10 @@
                                      i++
                                      if (i == lengT) {
                                          if ($('.ref' + key + ' td').hasClass("editable")) {
-                                             $('.ref' + key + ' #add_op').append(newbtn)
-                                             $('.ref' + key + ' #add_op').on('click', function () {
-                                                 var ads = key + '1';
-                                                 $('.Tsop_handler').removeClass('Tsop_handler_h')
-                                                 add_newOPs_T2(ads, 'testing new descr', 2500, key);
-                                                 
-                                             })
+                                            
+                                            
                                          }
-                                     }Edit(id, T)*/
+                                     }
                                  });
                                  if(code === 200)
                                     {
