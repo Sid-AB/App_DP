@@ -39,7 +39,22 @@
       
         }
 
-       
+        .head3{
+            background-color:#DCE6F1;
+        }
+       .vert3{
+            background-color:#EBF1DE;
+        }
+
+        .total3{
+          
+          background-color:#EBF1DE;
+
+        }
+
+        .aecp{
+            background-color:#FDE9D9;
+        }
 
     </style>
 </head>

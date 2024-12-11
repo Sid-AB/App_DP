@@ -37,7 +37,16 @@
             margin: 0 auto;
         }
 
-  
+        .head4{
+        background-color:#DCE6F1;
+    }
+    .vert4{
+            background-color:#EBF1DE;
+        }
+    .total4{
+        background-color:#EBF1DE;
+    }
+
  
     </style>
 </head>

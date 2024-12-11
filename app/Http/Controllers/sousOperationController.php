@@ -10,7 +10,10 @@ use App\Models\SousProgramme;
 use App\Models\Portefeuille;
 use Barryvdh\DomPDF\Facade\pdf;
 use Illuminate\Support\Facades\Storage;
+use Barryvdh\Snappy\Facades\SnappyPdf;
+use Mpdf\Mpdf;
 use Carbon\Carbon;
+use App\Jobs\GeneratePDFJob;
 class sousOperationController extends Controller
 {
 
@@ -203,7 +206,7 @@ class sousOperationController extends Controller
       
         if (isset($resultstructur)) {
            //return view
-          $pdf=pdf::loadView
+         $pdf=SnappyPdf::loadView
             ('impression.liste_impression_dpia_4tables_combinées', compact(
                 'resultstructur', 
                 'sousProgramme', 
@@ -215,13 +218,12 @@ class sousOperationController extends Controller
                 'prog', 
                 'action', 
                 'years'
-            ))->setPaper("A3","landscape");
-               return $pdf->stream('liste_impression.pdf',["Attachment" => false]);
+            ))->setPaper("A3","portrait");
+              return $pdf->stream('liste_impression.pdf',["Attachment" => false]);
         } else {
                 throw new \Exception("Aucune donnée trouvée");
             }
-  
-       
+           
          /*if (isset($resultstructur['T1'])) {
                 return view('impression.liste_impression', compact('resultstructur', 'sousProgramme', 'names','portefeuille','prog','action'));
                   /*$pdf=pdf::loadView('impression.liste_impression', compact('resultstructur','sousProgramme','names'));
