@@ -1581,7 +1581,7 @@
 
 
                                                          $('#date_insert_action').on('focusout', function () {
-                                                             alert('out')
+                                                             console.log('out')
                                                              var date_act = $(this).val();
                                                              var num_act = $('#num_act').val();
                                                              //  var date_act=  new Date(date_act).getFullYear();
@@ -1605,7 +1605,7 @@
 
                                                                          }
                                                                          else {
-                                                                             alert('Erreur d`Opération');
+                                                                             console.log('Erreur d`Opération');
 
                                                                          }
                                                                      }

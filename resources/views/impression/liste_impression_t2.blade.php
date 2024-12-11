@@ -64,6 +64,7 @@
         color:white;
         font-size:20px;
     }
+    
     </style>
 </head>
 <body>
@@ -141,7 +142,7 @@
             </tr>
         </thead>
         <tbody>
-      
+        @if(!empty($resultstructur['T2']['groupedData']))
                 @foreach ($resultstructur['T2']['groupedData'] as $groupData)
                 @php
                     // extraire la dernière partie du code grp
@@ -223,34 +224,71 @@
             @endforeach
         @endforeach
         @endforeach
+
+        @else 
+        @foreach ($namesT2 as $code => $name)
+                   
+                <tr>
+                    <td style="text-align: center;" class="code2">{{ $code }}</td>
+                    <td >{{ $name }}</td>
+                  
+                    <td style="text-align: center; ">-</td>
+                    <td style="text-align: center; ">-</td>
+
+                    <td style="text-align: center; ">-</td>
+                    <td style="text-align: center; ">-</td>
+
+                    <td style="text-align: center; ">-</td>
+                    <td style="text-align: center; ">-</td>
+                </tr>
+            @endforeach
+            @endif
     </tbody>
     <tfoot>
-        <tr  class="total2">
-            <td colspan="2" style="text-align: center; font-weight: bold;">TOTAL DES CREDITS </td>
-            <td style="text-align: center; ">{{ $resultstructur['T2']['total'][0]['values']['totalAEouvrtvertical'] ?? 'N/A' }}</td>
-            <td style="text-align: center; ">{{ $resultstructur['T2']['total'][0]['values']['totalCPouvrtvertical'] ?? 'N/A' }}</td>
-
-            <td style="text-align: center; ">{{ $resultstructur['T2']['total'][0]['values']['totalAEattenduvertical'] ?? 'N/A' }}</td>
-            <td style="text-align: center; ">{{ $resultstructur['T2']['total'][0]['values']['totalCPattenduvertical'] ?? 'N/A' }}</td>
-
-            <td style="text-align: center; ">{{ $resultstructur['T2']['total'][0]['values']['totalAE'] ?? 'N/A' }}</td>
-            <td style="text-align: center; ">{{ $resultstructur['T2']['total'][0]['values']['totalCP'] ?? 'N/A' }}</td>
+    @if(!empty($resultstructur['T2']['groupedData']))
+        <tr class="total2">
+            <td colspan="2" style="text-align: center; font-weight: bold;">TOTAL DES CREDITS</td>
+            <td style="text-align: center;">{{ $resultstructur['T2']['total'][0]['values']['totalAEouvrtvertical'] ?? 'N/A' }}</td>
+            <td style="text-align: center;">{{ $resultstructur['T2']['total'][0]['values']['totalCPouvrtvertical'] ?? 'N/A' }}</td>
+            <td style="text-align: center;">{{ $resultstructur['T2']['total'][0]['values']['totalAEattenduvertical'] ?? 'N/A' }}</td>
+            <td style="text-align: center;">{{ $resultstructur['T2']['total'][0]['values']['totalCPattenduvertical'] ?? 'N/A' }}</td>
+            <td style="text-align: center;">{{ $resultstructur['T2']['total'][0]['values']['totalAE'] ?? 'N/A' }}</td>
+            <td style="text-align: center;">{{ $resultstructur['T2']['total'][0]['values']['totalCP'] ?? 'N/A' }}</td>
         </tr>
 
-        <tr  class="controle">
-            <td colspan="2" style="text-align: center; font-weight: bold;">CONTRÔLE DE COHERENCE </td>
-            <td style="text-align: center; ">{{ $sousOp['values']['ae_ouvertsousop_NONREPARTIS'] ?? 'N/A' }}</td>
-            <td style="text-align: center; ">{{ $sousOp['values']['ae_attendusousop_NONREPARTIS'] ?? 'N/A' }}</td>
-
-            <td style="text-align: center; ">{{ $sousOp['values']['cp_ouvertsousop_NONREPARTIS'] ?? 'N/A' }}</td>
-            <td style="text-align: center; ">{{ $sousOp['values']['cp_attendsousuop_NONREPARTIS'] ?? 'N/A' }}</td>
-
-            <td style="text-align: center; ">{{ $sousOp['values']['totalAEsousop_NONREPARTIS'] ?? 'N/A' }}</td>
-            <td style="text-align: center; ">{{ $sousOp['values']['totalCPsousop_NONREPARTIS'] ?? 'N/A' }}</td>
+        <tr class="controle">
+            <td colspan="2" style="text-align: center; font-weight: bold;">CONTRÔLE DE COHERENCE</td>
+            <td style="text-align: center;">{{ $sousOp['values']['ae_ouvertsousop_NONREPARTIS'] ?? 'N/A' }}</td>
+            <td style="text-align: center;">{{ $sousOp['values']['ae_attendusousop_NONREPARTIS'] ?? 'N/A' }}</td>
+            <td style="text-align: center;">{{ $sousOp['values']['cp_ouvertsousop_NONREPARTIS'] ?? 'N/A' }}</td>
+            <td style="text-align: center;">{{ $sousOp['values']['cp_attendsousuop_NONREPARTIS'] ?? 'N/A' }}</td>
+            <td style="text-align: center;">{{ $sousOp['values']['totalAEsousop_NONREPARTIS'] ?? 'N/A' }}</td>
+            <td style="text-align: center;">{{ $sousOp['values']['totalCPsousop_NONREPARTIS'] ?? 'N/A' }}</td>
+        </tr>
+    @else
+        <tr class="total2">
+            <td colspan="2" style="text-align: center; font-weight: bold;">TOTAL DES CREDITS</td>
+            <td style="text-align: center;">-</td>
+            <td style="text-align: center;">-</td>
+            <td style="text-align: center;">-</td>
+            <td style="text-align: center;">-</td>
+            <td style="text-align: center;">-</td>
+            <td style="text-align: center;">-</td>
         </tr>
 
-    </tfoot>
-    </table>
-    </div>
+        <tr class="controle">
+            <td colspan="2" style="text-align: center; font-weight: bold;">CONTRÔLE DE COHERENCE</td>
+            <td style="text-align: center;">-</td>
+            <td style="text-align: center;">-</td>
+            <td style="text-align: center;">-</td>
+            <td style="text-align: center;">-</td>
+            <td style="text-align: center;">-</td>
+            <td style="text-align: center;">-</td>
+        </tr>
+    @endif
+</tfoot>
+
+</table>
+</div>
 </body>
 </html>

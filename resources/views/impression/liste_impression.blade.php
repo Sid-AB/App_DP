@@ -108,9 +108,7 @@
             <td class="headt1" style="text-align: center; ">{{ $resultstructur['T1']['total'][0]['values']['totalCP'] ?? 'N/A' }}</td>
         </tr>
     </thead>
-    <tbody>
-       
-    </tbody>
+    
 </table>
 <div class="table-diviser"></div> 
     <table>
@@ -132,7 +130,7 @@
             </tr>
         </thead>
         <tbody>
-      
+            @if(!empty($resultstructur['T1']['groupedData']))
                 @foreach ($resultstructur['T1']['groupedData'] as $groupData)
                 @php
                     // extraire la dernière partie du code grp
@@ -186,15 +184,38 @@
             @endforeach
         @endforeach
         @endforeach
+        
+        @else
+
+        @foreach ($names as $code => $name)
+                   
+                <tr>
+                    <td style="text-align: center;" class="code1">{{ $code }}</td>
+                    <td >{{ $name }}</td>
+                   
+                    <td style="text-align: center; ">-</td>
+                    <td style="text-align: center; ">-</td>
+                </tr>
+            @endforeach
+        @endif
     </tbody>
     <tfoot>
+    @if(!empty($resultstructur['T1']['groupedData']))
         <tr  class="total1">
             <td colspan="2" style="text-align: center; font-weight: bold;font-size:20px;">TOTAL</td>
             <td style="text-align: center; font-weight: bold;font-size:20px;">{{ $resultstructur['T1']['total'][0]['values']['totalAE'] ?? 'N/A' }}</td>
             <td style="text-align: center; font-weight: bold; font-size:20px;">{{ $resultstructur['T1']['total'][0]['values']['totalCP'] ?? 'N/A' }}</td>
         </tr>
+    @else 
+    <tr  class="total1">
+            <td colspan="2" style="text-align: center; font-weight: bold;font-size:20px;">TOTAL</td>
+            <td style="text-align: center; font-weight: bold;font-size:20px;">-</td>
+            <td style="text-align: center; font-weight: bold; font-size:20px;">-</td>
+        </tr>
+    @endif
     </tfoot>
     </table>
+    </div>
 </body>
 
 </html>
