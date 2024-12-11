@@ -1157,6 +1157,7 @@ transition-timing-function: line;
 {
   border-right: 1px dotted;
   margin-right: 5px ;
+  width: 25rem;
 }
 .T-holder p
 {

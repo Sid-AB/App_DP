@@ -105,6 +105,7 @@ class sousOperationController extends Controller
     
         // fonction prepareer names
         $names= $this->prepareNames($operations);
+       // dd($names);
         $namesT2 = $this->prepareNames($operationsT2);
         $namesT3 = $this->prepareNames($operationsT3);
         $namesT4 = $this->prepareNames($operationsT4);
@@ -137,7 +138,7 @@ class sousOperationController extends Controller
              if (isset($resultats[$t])) {
              
                  $tdata = $resultats[$t];
-             
+                 
                  // chaque grp avec leurs sous operations
                  $groupedData = [];
                  foreach ($tdata['group'] as $group) {
@@ -146,9 +147,10 @@ class sousOperationController extends Controller
                     $groupedData[$groupCode] = [
                         'group' => $group,
                         'operations' => [],
+                    
                     ];
                  }
-               // dd( $groupedData);
+              //  dd( $groupedData);
                foreach ($tdata['operation'] as $operation) {
                 $groupCode = substr($operation['code'], 0, strlen($operation['code']) - 6); //extraire depuis l'op jusqu'à grp 
                 //dd($groupCode);
@@ -156,11 +158,11 @@ class sousOperationController extends Controller
                     //ajouter les op au grp
                     $groupedData[$groupCode]['operations'][] = [
                         'operation' => $operation,
-                        'sousOperations' => [],  
-                    ];
-                }
+                        'sousOperations' => [], 
+                    ]; 
+                    } 
             } 
-          // dd( $groupedData);
+         // dd( $groupedData);
             // les sous operations dans operations 
             foreach ($tdata['sousOperation'] as $sousOp) {
                 $operationCode = substr($sousOp['code'], 0, strlen($sousOp['code']) - 6); // extraire depuis sousOp jusqu'à opération
@@ -199,30 +201,49 @@ class sousOperationController extends Controller
          }
        // dd($resultstructur);
       
-       // dd($resultstructur['T1']);
+        if (isset($resultstructur)) {
+           //return view
+          $pdf=pdf::loadView
+            ('impression.liste_impression_dpia_4tables_combinées', compact(
+                'resultstructur', 
+                'sousProgramme', 
+                'names', 
+                'namesT2', 
+                'namesT3', 
+                'namesT4', 
+                'portefeuille', 
+                'prog', 
+                'action', 
+                'years'
+            ))->setPaper("A3","landscape");
+               return $pdf->stream('liste_impression.pdf',["Attachment" => false]);
+        } else {
+                throw new \Exception("Aucune donnée trouvée");
+            }
   
        
-        /*  if (isset($resultstructur['T1'])) {
+         /*if (isset($resultstructur['T1'])) {
                 return view('impression.liste_impression', compact('resultstructur', 'sousProgramme', 'names','portefeuille','prog','action'));
                   /*$pdf=pdf::loadView('impression.liste_impression', compact('resultstructur','sousProgramme','names'));
-               return $pdf->download('liste_impression.pdf');*/
-          // }
-             /*else*/if (isset($resultstructur['T2'])) {
-               // return view('impression.liste_impression_t2', compact('resultstructur', 'sousProgramme', 'namesT2','portefeuille','prog','action'));
-                  $pdf=pdf::loadView('impression.liste_impression_t2', compact('resultstructur', 'sousProgramme', 'namesT2','portefeuille','prog','action'))->setPaper('A4', 'landscape');
+               return $pdf->download('liste_impression.pdf');
+          }
+             elseif (isset($resultstructur['T2'])) {
+               //return view('impression.liste_impression_t2', compact('resultstructur', 'sousProgramme', 'namesT2','portefeuille','prog','action'));
+                 $pdf=pdf::loadView('impression.liste_impression_t2', compact('resultstructur', 'sousProgramme', 'namesT2','portefeuille','prog','action'))->setPaper("A4","landscape");
                return $pdf->stream('liste_impression.pdf');
-            } //elseif (isset($resultstructur['T3'])) {
-                /*return view('impression.liste_impression_t3', compact('resultstructur', 'sousProgramme', 'namesT3','portefeuille','prog','action','years'));
+            }
+                elseif (isset($resultstructur['T3'])) {
+                return view('impression.liste_impression_t3', compact('resultstructur', 'sousProgramme', 'namesT3','portefeuille','prog','action','years'));
                   /*$pdf=pdf::loadView('impression.liste_impression', compact('resultstructur','sousProgramme','names'));
-               return $pdf->download('liste_impression.pdf');*/
-            //} 
+               return $pdf->download('liste_impression.pdf');
+            } 
              elseif (isset($resultstructur['T4'])) {
                 return view('impression.liste_impression_t4', compact('resultstructur', 'sousProgramme', 'namesT4','portefeuille','prog','action'));
                   /*$pdf=pdf::loadView('impression.liste_impression', compact('resultstructur','sousProgramme','names'));
-               return $pdf->download('liste_impression.pdf');*/
+               return $pdf->download('liste_impression.pdf');
             } else {
                 throw new \Exception("Aucune donnée trouvée ");
-            }
+            }*/
         
         } catch (\Exception $e) { 
             return response()->json(['error' => $e->getMessage()], 400);

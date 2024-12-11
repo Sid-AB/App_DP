@@ -160,7 +160,7 @@
   }
   .card {
     position: relative;
-    width: 20em;
+    width: 25rem;
     background-color: #292929;
     transition: all 0.3s ease-in-out;
   }
@@ -370,4 +370,36 @@ align-items: flex-end;
   background-color: aliceblue;
     width: 150px;
     border-radius: 15px 15px 0px 0px;
+}
+.cal_init
+{
+  display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.AE_CP_holder
+{
+  text-align: start;
+}
+.AE_CP_holder p{
+  text-align: center;
+}
+.split_hr
+{
+  position: absolute;
+    text-align: center;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.87);
+    width: 50px;
+    left: 30%;
+    margin-top: -5px;
+    margin-bottom: 0px;
+}
+.row_cal_init
+{
+  display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+      flex-wrap: wrap;
+
 }
