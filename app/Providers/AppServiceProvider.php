@@ -53,14 +53,12 @@ class AppServiceProvider extends ServiceProvider
         initPort::observe(InitPortObserver::class);
         Action::observe(ActionObserver::class);
         SousAction::observe(SousActionObserver::class);
-<<<<<<< HEAD
         Schema::defaultStringLength(191);
-=======
         GroupOperation::observe(GroupOperationObserver::class);
         Operation::observe(OperationObserver::class);
         SousOperation::observe(sousoperationObserver::class);
         ConstruireDPIA::observe(ConstruireDPIAObserver::class);
->>>>>>> d544e3a00adfe6570554c0b51c2418f474baeedf
 
     }
+
 }
