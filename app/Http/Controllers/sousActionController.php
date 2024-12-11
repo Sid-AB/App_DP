@@ -117,6 +117,15 @@ function printdpic($numport)
     $TtCP3=0;
     $TtAE4=0;
     $TtCP4=0;
+    $TtportT1AE=0;
+    $TtportT1CP=0;
+    $TtportT2AE=0;
+    $TtportT2CP=0;
+    $TtportT3AE=0;
+    $TtportT3CP=0;
+    $TtportT4AE=0;
+    $TtportT4CP=0;
+    $Ttportglob=[];
     $progms=Programme::where("num_portefeuil",$numport)->get();
     foreach($progms as $progm)
     {
@@ -230,7 +239,26 @@ function printdpic($numport)
             $TtCP4=0;
             $allsous_prog=[];
         }
-           //   dd($all_act);
+             // dd($programmes);
+             for ($i=0; $i < count($programmes) ; $i++)
+             {
+        foreach($programmes[$i] as $prog)
+        {
+            $TtportT1AE+=$prog['Total']['TotalT1_AE'];
+            $TtportT1CP+=$prog['Total']['TotalT1_CP'];
+            $TtportT2AE+=$prog['Total']['TotalT2_AE'];
+            $TtportT2CP+=$prog['Total']['TotalT2_CP'];
+            $TtportT3AE+=$prog['Total']['TotalT3_AE'];
+            $TtportT3CP+=$prog['Total']['TotalT3_CP'];
+            $TtportT4AE+=$prog['Total']['TotalT4_AE'];
+            $TtportT4CP+=$prog['Total']['TotalT4_CP'];
+        };
+    };
+        array_push($Ttportglob,['TotalPortT1_AE'=>$TtportT1AE,'TotalPortT1_CP'=>$TtportT1CP,
+                                'TotalPortT2_AE'=>$TtportT2AE,'TotalPortT2_CP'=>$TtportT2CP,
+                                'TotalPortT3_AE'=>$TtportT3AE,'TotalPortT3_CP'=>$TtportT3CP,
+                                'TotalPortT4_AE'=>$TtportT4AE,'TotalPortT4_CP'=>$TtportT4CP]);
+        //dd($Ttportglob);
         if(count($programmes)>0)
         {
         /*return response()->json([
@@ -239,9 +267,9 @@ function printdpic($numport)
             'sous_programs'=>$allsous_prog,
             'programs'=>$all_prog,
         ]);*/
-         $pdf=Pdf::loadView('impression.programmes', compact('programmes'))->setPaper([0, 0, 842, 595]);//lanscape mean orentation
+         $pdf=Pdf::loadView('impression.programmes', compact('programmes','Ttportglob'))->setPaper('A3','landscape');//lanscape mean orentation
                return $pdf->stream('liste_impression.pdf');
-     //  return view('impression.programmes',compact('programmes'));
+       //return view('impression.programmes',compact('programmes','Ttportglob'));
         }
         else
         {

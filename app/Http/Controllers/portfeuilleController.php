@@ -166,7 +166,8 @@ class portfeuilleController extends Controller
                                      // dd($resultats);
 
                                       array_push($allsous_action,['num_act'=>$listsousact->num_sous_action,'init_AE'=>$listsousact->AE_sous_action,'init_CP'=>$listsousact->CP_sous_action,'TotalAE'=>$AE_All_sous_act,'TotalCP'=>$CP_All_sous_act,'data'=>$listsousact,'Tports'=>$resultats]);
-
+                                      $AE_All_sous_act=0;
+                                      $CP_All_sous_act=0;
                                   }
 
                               }
@@ -177,6 +178,8 @@ class portfeuilleController extends Controller
                               }
                           array_push($allaction,['num_act'=>$listact->num_action,'init_AE'=>$listact->AE_action,'init_CP'=>$listact->CP_action,'TotalAE'=>$AE_All_act,'TotalCP'=>$CP_All_act,'data'=>$listact,'sous_action'=>$allsous_action]);
                           $allsous_action=[];
+                          $AE_All_act=0;
+                          $CP_All_act=0;
                           }
                       }
                       foreach($allaction as $sact)
@@ -189,6 +192,8 @@ class portfeuilleController extends Controller
                       array_push($allsous_prog,['id_sous_prog'=>$sprog->num_sous_prog,'init_AE'=>$sprog->AE_sous_prog,'init_CP'=>$sprog->CP_sous_prog,'TotalAE'=>$AE_All_sous_prog,'TotalCP'=>$CP_All_sous_prog,'data'=>$sprog,'Action'=>$allaction]);
                //      dd($allsous_prog);
                       $allaction=[];
+                      $AE_All_sous_prog=0;
+                      $CP_All_sous_prog=0;
               }
 
               foreach($allsous_prog as $sact)
@@ -198,6 +203,8 @@ class portfeuilleController extends Controller
                               }
               array_push($allprogram,['id_prog'=>$progm->num_prog,'init_AE'=>$progm->AE_prog,'init_CP'=>$progm->CP_prog,'TotalAE'=>$AE_All_prog,'TotalCP'=>$CP_All_prog, 'data'=>$progm,'sous_program'=>$allsous_prog]);
               $allsous_prog=[];
+              $AE_All_prog=0;
+              $CP_All_prog=0;
           }
           //dd($art);
           $allport=[
