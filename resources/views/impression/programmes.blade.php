@@ -199,7 +199,14 @@
 
                     <tr class="ttaction-title">
                         <td class="ttaction-title" colspan="2">Total des actions</td>
-                        <td class="ttaction-title" colspan="8"></td>
+                        <td class="ttaction-title">{{ $sousProgramme['Total']['TotalT1_AE']}}</td>
+                        <td class="ttaction-title">{{ $sousProgramme['Total']['TotalT1_CP']}}</td>
+                        <td class="ttaction-title">{{ $sousProgramme['Total']['TotalT2_AE']}}</td>
+                        <td class="ttaction-title">{{ $sousProgramme['Total']['TotalT2_CP']}}</td>
+                        <td class="ttaction-title">{{ $sousProgramme['Total']['TotalT3_AE']}}</td>
+                        <td class="ttaction-title">{{ $sousProgramme['Total']['TotalT3_CP']}}</td>
+                        <td class="ttaction-title">{{ $sousProgramme['Total']['TotalT4_AE']}}</td>
+                        <td class="ttaction-title">{{ $sousProgramme['Total']['TotalT4_CP']}}</td>
                     </tr>
 
 
