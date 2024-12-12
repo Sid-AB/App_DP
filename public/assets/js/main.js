@@ -1168,6 +1168,7 @@
                                                     $(".font-bk").removeClass("back-bk");
                                                     $(".wallet-path").css("display", "flex");
                                                     $(".wallet-handle").empty();
+                                                    $(".wallet-handle").addClass('wallet-hide');
                                                     $("#progam-handle").css("display", "block");
                                                     $("#progam-handle").removeClass("scale-out");
                                                     $("#progam-handle").addClass("scale-visible");
@@ -1188,6 +1189,7 @@
                                             $(".font-bk").removeClass("back-bk");
                                             $(".wallet-path").css("display", "flex");
                                             $(".wallet-handle").empty();
+                                            $(".wallet-handle").addClass('wallet-hide');
                                             $("#progam-handle").css("display", "block");
                                             $("#progam-handle").removeClass("scale-out");
                                             $("#progam-handle").addClass("scale-visible");
@@ -1570,7 +1572,7 @@
 
 
                                                          $('#date_insert_action').on('focusout', function () {
-                                                             alert('out')
+                                                             console.log('out')
                                                              var date_act = $(this).val();
                                                              var num_act = $('#num_act').val();
                                                              //  var date_act=  new Date(date_act).getFullYear();
@@ -1594,7 +1596,7 @@
 
                                                                          }
                                                                          else {
-                                                                             alert('Erreur d`Opération');
+                                                                             console.log('Erreur d`Opération');
 
                                                                          }
                                                                      }
@@ -2410,7 +2412,6 @@
                              var headT = '<tr>' +
                                  '<th><h1>Code</h1></th>' +
                                  '<th><h1>DEPENSES DE TRANSFERT</h1></th>' +
-                                 '<th><h1>Dispos</h1></th>'+
                                  '<th><h1>Detail</h1></th>'+
                                  '<th colspan="2">' +
                                  '<div class="fusion-father">' +
@@ -2436,7 +2437,6 @@
                                      let row = '<tr class="ref'+key+'" id="ref' + key + '">' +
                                          '<td scope="row"  class="code">' + key + '</td>' +
                                          '<td><p>' + value + '</p></td>' +
-                                         '<td>null</td>'+
                                          '<td  id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>null</p></td>'+
                                          '<td class="editable" id="AE_T4">' + 0 + ',00</td>' +
                                          '<td class="editable" id="CP_T4">' + 0 + ',00</td>' +
@@ -2448,7 +2448,7 @@
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.group[ig].code + '">' +
                                                  '<td scope="row" class="code" >' + key + '</td>' +
                                                  '<td><p>' + value + '</p></td>' +
-                                                 '<td>null</td>'+
+                                             
                                                  '<td  id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>null</p></td>'+
                                                  '<td class="editable" id="AE_T4">' + data_T_port.group[ig].values.ae_grpop + '</td>' +
                                                  '<td class="editable" id="CP_T4">' + data_T_port.group[ig].values.cp_grpop + '</td>' +
@@ -2462,7 +2462,7 @@
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.operation[io].code + '">' +
                                                  '<td scope="row" class="code" >' + key + '</td>' +
                                                  '<td ><p>' + value + '</p></td>' +
-                                                 '<td>null</td>'+
+                                                
                                                  '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>null</p></td>'+
                                                  '<td class="editable" id="AE_T4">' + data_T_port.operation[io].values.ae_op + '</td>' +
                                                  '<td class="editable" id="CP_T4">' + data_T_port.operation[io].values.cp_op + '</td>' +
@@ -2476,7 +2476,7 @@
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                                                  '<td scope="row" class="code" >' + key + '</td>' +
                                                  '<td ><p>' + value + '</p></td>' +
-                                                 '<td>null</td>'+
+                                              
                                                  '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>null</p></td>'+
                                                  '<td class="editable" id="AE_T4">' + data_T_port.sousOperation[iso].values.ae_sousop + '</td>' +
                                                  '<td class="editable" id="CP_T4">' + data_T_port.sousOperation[iso].values.cp_sousuop + '</td>' +

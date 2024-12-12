@@ -23,7 +23,7 @@
         }
         th, td {
             border: 1px solid #000;
-            text-align: left;
+           /* text-align: left;*/
             padding: 8px;
         }
 
@@ -41,6 +41,7 @@
         }*/
 
         .program-title {
+            text-align:center;
             font-weight: bold;
             background-color: #DDD9C4; /* Couleur plus sombre pour les programmes principaux */
             color: rgb(8, 8, 8);
@@ -53,7 +54,7 @@
         }
         .ttaction-title {
             font-weight: bold;
-            background-color: #EAF1DD; /* Couleur plus sombre pour les programmes principaux */
+            background-color: #60497A; /* Couleur plus sombre pour les programmes principaux */
             color: rgb(8, 8, 8);
         }
         .event-title {
@@ -72,6 +73,11 @@
             background-color: #31869B   ; /* Couleur totals des actions1..n */
             color: rgb(243, 236, 236);
         }
+        .totals td{
+            font-weight: bold;
+            background-color: #31869B   ; /* Couleur totals des actions1..n */
+            color: rgb(243, 236, 236);
+        }
         .T
         {
         background-color:#DDD9C4;
@@ -80,7 +86,21 @@
    
 </head>
 <body>
-<h1>Programmation des crédits du programme 088+089</h1>
+<h1>Programmation des crédits du programme
+     @for($i=0;$i< count($programmes);$i++)
+     @foreach ($programmes[$i] as $programme)
+     @php
+            $code =explode('-',$programme['code']);
+            $last =count($code)-1;
+            //dd($code);
+            $filcode[$i] = '0'.$code[$last].' ';
+    @endphp
+    @endforeach
+    @endfor
+    @for($i=0;$i< count($filcode);$i++)
+    {{$filcode[$i]}}
+    @endfor
+    </h1>
     <table border="1">
         <thead>
             <tr>
@@ -114,7 +134,7 @@
             //dd($code);
             $code = $code[$last];
             @endphp
-                <tr class="subprogram-title" >
+                <tr class="program-title" >
                     <td>{{ $code }}</td>
                     <td>Programme :{{ $programme['nom'] }}</td>
                     <td>{{ $programme['Total']['TotalT1_AE']}}</td>
@@ -179,7 +199,14 @@
 
                     <tr class="ttaction-title">
                         <td class="ttaction-title" colspan="2">Total des actions</td>
-                        <td class="ttaction-title" colspan="8"></td>
+                        <td class="ttaction-title">{{ $sousProgramme['Total']['TotalT1_AE']}}</td>
+                        <td class="ttaction-title">{{ $sousProgramme['Total']['TotalT1_CP']}}</td>
+                        <td class="ttaction-title">{{ $sousProgramme['Total']['TotalT2_AE']}}</td>
+                        <td class="ttaction-title">{{ $sousProgramme['Total']['TotalT2_CP']}}</td>
+                        <td class="ttaction-title">{{ $sousProgramme['Total']['TotalT3_AE']}}</td>
+                        <td class="ttaction-title">{{ $sousProgramme['Total']['TotalT3_CP']}}</td>
+                        <td class="ttaction-title">{{ $sousProgramme['Total']['TotalT4_AE']}}</td>
+                        <td class="ttaction-title">{{ $sousProgramme['Total']['TotalT4_CP']}}</td>
                     </tr>
 
 
@@ -194,8 +221,17 @@
 
             {{-- Total des actions/crédits ouverts pour tous les programmes --}}
             <tr class="totals">
-                <th class="totals" colspan="2">TOTAL ACTIONS(1)+(2)/CREDITS OUVERTS</th>
-                <th class="totals" colspan="8"></th>
+                <th class="totals" colspan="2">TOTAL ACTIONS/CREDITS OUVERTS</th>
+
+                <td>{{ $Ttportglob[0]['TotalPortT1_AE']}}</td>
+                <td>{{ $Ttportglob[0]['TotalPortT1_CP']}}</td>
+                <td>{{ $Ttportglob[0]['TotalPortT2_AE']}}</td>
+                <td>{{ $Ttportglob[0]['TotalPortT2_CP']}}</td>
+                <td>{{ $Ttportglob[0]['TotalPortT3_AE']}}</td>
+                <td>{{ $Ttportglob[0]['TotalPortT3_CP']}}</td>
+                <td>{{ $Ttportglob[0]['TotalPortT4_AE']}}</td>
+                <td>{{ $Ttportglob[0]['TotalPortT4_CP']}}</td>
+
             </tr>
 
         </tbody>
