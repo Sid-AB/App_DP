@@ -2,12 +2,12 @@
 
 namespace App\Observers;
 
-use App\Models\sousoperation;
+use App\Models\ModificationT;
 use App\Models\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Request;
-class sousoperationObserver
+class ModificationTObserver
 {
      /**
      * Enregistrer une action lorsque le modèle est créé.
@@ -15,10 +15,11 @@ class sousoperationObserver
      * @param Model $model
      * @return void
      */
-    public function created(sousoperation $sousoperation): void
+    public function created(ModificationT $modificationT): void
     {
-                //\Log::info('sousoperation created: ' . get_class($sousoperation));
-                $this->logActivity('created', $sousoperation);
+        \Log::info('modificationT created: ' . get_class($modificationT));
+        echo 'modificationT created: ' . get_class($modificationT) . PHP_EOL;
+        $this->logActivity('created', $modificationT);
     }
 
    /**
@@ -27,24 +28,24 @@ class sousoperationObserver
      * @param \Illuminate\Database\Eloquent\Model $model
      * @return void
      */
-    public function updated(sousoperation $sousoperation): void
+    public function updated(ModificationT $modificationT): void
     {
          // Définir les attributs à exclure
-        $excludedAttributes = ['date_update_SOUSoperation', 'date_insert_SOUSoperation'];
+         $excludedAttributes = ['date_update_modificationT'];
 
-        // Récupérer les changements effectués sur le modèle, en excluant les attributs spécifiés
-        $changes = array_diff_key($sousoperation->getChanges(), array_flip($excludedAttributes));
+         // Récupérer les changements effectués sur le modèle, en excluant les attributs spécifiés
+         $changes = array_diff_key($modificationT->getChanges(), array_flip($excludedAttributes));
 
-        // Récupérer les données originales avant la mise à jour, en excluant les attributs spécifiés
-        $original = array_diff_key($sousoperation->getOriginal(), array_flip($excludedAttributes));
+         // Récupérer les données originales avant la mise à jour, en excluant les attributs spécifiés
+         $original = array_diff_key($modificationT->getOriginal(), array_flip($excludedAttributes));
 
-        // Vérifier s'il reste des changements significatifs
-        if (!empty($changes)) {
-            // Enregistrer les changements dans les logs
-            \Log::info("Modifications sur le modèle sousoperation", $changes);
-            // Utilisez logActivity pour enregistrer l'activité avec les données filtrées
-            $this->logActivity('updated', $sousoperation, $changes, $original);
-        }
+         // Vérifier s'il reste des changements significatifs
+         if (!empty($changes)) {
+             // Enregistrer les changements dans les logs
+             \Log::info("Modifications sur le modèle modificationT", $changes);
+             // Utilisez logActivity pour enregistrer l'activité avec les données filtrées
+             $this->logActivity('updated', $modificationT, $changes, $original);
+         }
     }
 
      /**
@@ -53,9 +54,10 @@ class sousoperationObserver
      * @param \Illuminate\Database\Eloquent\Model $model
      * @return void
      */
-    public function deleted(sousoperation $sousoperation): void
+    public function deleted(ModificationT $modificationT): void
     {
-        $this->logActivity('deleted', $sousoperation);
+        $this->logActivity('deleted', $modificationT);
+
     }
 
 /**
@@ -70,13 +72,16 @@ class sousoperationObserver
     protected function logActivity(string $action, Model $model, array $changed = null, array $original = null)
     {
 
-
+         // Récupérer la valeur originale de 'id_art'
+            $originalIdArt = $model->id_art;
+           // dd($originalIdArt);
          // Construire les données pour les logs
             $data = [
                 'action' => $action,
                 'model' => get_class($model),
                 'model_id' => $model->getKey(),
                 'ip_address' => Request::ip(),
+                'id_art' => $originalIdArt,
             ];
 
             // Si l'action est une mise à jour, séparer les données

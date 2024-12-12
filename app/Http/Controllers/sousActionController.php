@@ -308,7 +308,7 @@ public function check_sousaction(Request $request)
 //===================================================================================
 function create_sousaction(Request $request)
 {
-
+    //dd($request);
  // Récupérer la ligne de la table en fonction de 'numsouaction'
  $sousaction = SousAction::where('num_sous_action', $request->num_act)->first(); // Utilisation de 'numsouaction' pour trouver l'élément
  $sousaction3 = SousAction::where('num_sous_action', $request->num_sous_action)->first(); // Utilisation de 'numsouaction' pour trouver l'élément
@@ -323,7 +323,7 @@ function create_sousaction(Request $request)
     $sousaction->AE_sous_action=floatval($request->AE_sous_act);
     $sousaction->CP_sous_action=floatval($request->CP_sous_act);
    // $sousaction->num_action = $request->num_act;
-    $sousaction->date_update_sous_action = $request->date_insert_sous_action;
+    $sousaction->date_update_sous_action = now();
 
     // Enregistrer les modifications dans la base de données
     $sousaction->save();

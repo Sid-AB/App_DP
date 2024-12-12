@@ -10,6 +10,7 @@ use App\Models\Programme;
 use App\Providers\Schema;
 use App\Models\SousAction;
 use App\Models\Portefeuille;
+use App\Models\ModificationT;
 use App\Models\SousOperation;
 use App\Models\SousProgramme;
 use App\Models\ConstruireDPIA;
@@ -25,6 +26,7 @@ use App\Observers\SousActionObserver;
 use App\Observers\PortefeuilleObserver;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
+use App\Observers\ModificationTObserver;
 use App\Observers\sousoperationObserver;
 use App\Observers\ConstruireDPIAObserver;
 use App\Observers\ConstruireDPICObserver;
@@ -55,7 +57,9 @@ class AppServiceProvider extends ServiceProvider
         GroupOperation::observe(GroupOperationObserver::class);
         Operation::observe(OperationObserver::class);
         SousOperation::observe(sousoperationObserver::class);
-        ConstruireDPIA::observe(ConstruireDPIAObserver::class);
+        SousOperation::observe(sousoperationObserver::class);
+        ModificationT::observe(ModificationTObserver::class);
+        //ConstruireDPIA::observe(ConstruireDPIAObserver::class);
 
     }
 }

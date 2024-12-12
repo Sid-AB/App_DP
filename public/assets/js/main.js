@@ -205,7 +205,7 @@
                             var someae=0;
                             var somecp=0;
                             $('#add_AE_Over').on('change',function(){
-                    
+
                                 someae+=parseInt($(this).val())
                                 $('#some_AE').val(someae);
                             })
@@ -214,7 +214,7 @@
                                 $('#some_AE').val(someae);
                             })
                             $('#add_CP_att').on('change',function(){
-                            
+
                                 somecp+=parseInt($(this).val())
                                 $('#some_CP').val(somecp)
                             })
@@ -260,11 +260,11 @@
                                     }
                                 })
 
-                             
-                            
+
+
                          })
                          $('#cancel_ops').click(function(){
-                                
+
                             $('.Tsop_handler').addClass('Tsop_handler_h')
                             $('#Tport-vals').empty()
                             alert('cancel op')
@@ -334,7 +334,7 @@
                                 })
                             })
                             $('#cancel_ops').click(function(){
-                                
+
                                 $('.Tsop_handler').addClass('Tsop_handler_h')
                                 $('#Tport-vals').empty()
                                 alert('cancel op')
@@ -385,7 +385,7 @@
                                 $('#Tport-vals').removeClass('T4')
                                 alert('cancel op')
                             })
-                            
+
                          }
                          /**
                           *
@@ -426,7 +426,7 @@
                                      var code = clickedRow.find('td:first-child');
                                      let cell = $(this);  // Reference to the clicked cell
                                      var currentText = cell.text();
-                                    
+
                                      var exist=false;  // Get current text
                                      console.log('odl ' + code.text() +'old '+old)
                                      var codesoup=clickedRow.attr('id').split('ref')[1];
@@ -1237,30 +1237,21 @@
                                              console.log('numwall_year path3: ' + JSON.stringify(path3));
                                              $("#file_holder_prog").empty();
                                              // Remplir les champs du formulaire avec les données récupérées
-                                             console.log('response.AE_prog' + response.AE_prog)
+                                             console.log('response.CP_prog' + response.CP_prog)
                                              $('#date_insert_portef').val(response.date_insert_portef).trigger('change');
                                              $('#nom_prog').val(response.nom_prog).trigger('change'); // Remplir et déclencher l'événement change
                                              $('#AE_prog').val(response.AE_prog).trigger('change'); // Remplir et déclencher l'événement change
-                                             $('#CP_prog').val(response.AE_prog).trigger('change'); // Remplir et déclencher l'événement change
+                                             $('#CP_prog').val(response.CP_prog).trigger('change'); // Remplir et déclencher l'événement change
                                              $('#nom_journ').val(response.nom_journal).trigger('change'); // Remplir et déclencher l'événement change
                                              $('#num_journ').val(response.num_journal).trigger('change'); // Remplir et déclencher l'événement change
 
 
-                                             alert('Le portefeuille existe déjà');
+                                             alert('Le programme existe déjà');
 
-                                             //$('.font-bk').removeClass('back-bk')
-                                             //$('.wallet-path').css('display', 'flex')
-                                             //$('.wallet-handle').empty()
-                                             //$('#progam-handle').css('display', 'block')
-                                             //$('#progam-handle').removeClass('scale-out')
-                                             //$('#progam-handle').addClass('scale-visible')
-                                             //$('#w_id').text(num_portefeuil)
-                                         } else {
-                                             //alert('Le portefeuille n\'existe pas.');
                                          }
                                      },
                                      error: function () {
-                                         alert('Erreur lors de la vérification du portefeuille');
+                                         alert('Erreur lors de la vérification du programme');
                                      }
                                  });
                              }
@@ -2002,8 +1993,8 @@
                                          else {
                                              //   console.log('testing '+key)
                                              if ($('.ref' + preve + ' td').hasClass("editable")) {
-                                              
-                                                
+
+
                                              }
                                              preve = current;
                                          }
@@ -2183,8 +2174,8 @@
                                      i++
                                      if (i == lengT) {
                                          if ($('.ref' + key + ' td').hasClass("editable")) {
-                                            
-                                            
+
+
                                          }
                                      }
                                  });
@@ -2357,7 +2348,7 @@
                                                     var ads = newKey.split('ref')[1] + '1';
                                                     $('.Tsop_handler').removeClass('Tsop_handler_h')
                                                      add_newOPs_T3(ads, 'testing new descr', 2500, newKey);
-                                                  
+
                                                  })
                                              }
 
