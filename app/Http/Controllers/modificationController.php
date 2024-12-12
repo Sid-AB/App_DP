@@ -21,7 +21,7 @@ class modificationController extends Controller
     //fct update sous operation et insert dpia ac motif update
     public function updateSousOperation(Request $request)
     {
-       
+
         //récupérer les données de request
         $data = $request->all();
         //dd($data);
@@ -38,13 +38,13 @@ class modificationController extends Controller
         $validated = $request->validate([
             'result.*.code' => 'required|string|exists:sous_operations,code_sous_operation',
         ]);
-        
+
         try {
 
             foreach ($resultats as $resultat) {
                 $code = $resultat['code']; // récupérer le code
-                $values = $resultat['value']; 
-    
+                $values = $resultat['value'];
+
             // récupérer la ligne d'entrée
             $sousOperation = SousOperation::where('code_sous_operation', $code)->firstOrFail();
             //dd($sousOperation);
@@ -76,15 +76,15 @@ class modificationController extends Controller
 
     private function ModifT1(SousOperation $sousOperation, $values)
     {
-       
+
      // dd($values,$sousOperation);
       //extrair le num de portefeuille les 7 premiers chiffres
       $codeSousOperation = $sousOperation->code_sous_operation;
       //dd( $codeSousOperation);
-      $numPortefeuille = substr($codeSousOperation, 0, 7); 
+      $numPortefeuille = substr($codeSousOperation, 0, 7);
       //dd( $numPortefeuille );
       $portefeuille = Portefeuille::where('num_portefeuil', $numPortefeuille)->first();
-  
+
         //update dans sous operation
         $sousOperation->update([
             'AE_sous_operation' => $values['ae'] ?? $sousOperation->AE_sous_operation, //si existe ok sinn aucune modif (ae_sous_op sera utilisé)
@@ -96,7 +96,7 @@ class modificationController extends Controller
         ConstruireDPIA::create([
             'code_sous_operation' =>  $sousOperation->code_sous_operation,
             'motif_dpia' => 'Modification T1',
-            'date_creation_dpia' => $portefeuille ? $portefeuille->Date_portefeuille : null, 
+            'date_creation_dpia' => $portefeuille ? $portefeuille->Date_portefeuille : null,
             'AE_dpia_nv' => $values['ae'] ?? $sousOperation->AE_sous_operation, //si existe ok sinn aucune modif (ae_sous_op sera utilisé)
             'CP_dpia_nv' => $values['cp'] ?? $sousOperation->CP_sous_operation,
             'date_modification_dpia' => now(),
@@ -112,7 +112,7 @@ class modificationController extends Controller
             'CP_consome_dpia' => null,
             'id_rp' => 1,
             'id_ra' => 1,
-          
+
         ]);
     }
 
@@ -121,10 +121,10 @@ class modificationController extends Controller
         //extrair le num de portefeuille les 7 premiers chiffres
       $codeSousOperation = $sousOperation->code_sous_operation;
       //dd( $codeSousOperation);
-      $numPortefeuille = substr($codeSousOperation, 0, 7); 
+      $numPortefeuille = substr($codeSousOperation, 0, 7);
       //dd( $numPortefeuille );
       $portefeuille = Portefeuille::where('num_portefeuil', $numPortefeuille)->first();
-  
+
         $sousOperation->update([
             'AE_ouvert' => $values['ae_ouvert'] ?? $sousOperation->AE_ouvert,
             'AE_atendu' => $values['ae_atendu'] ?? $sousOperation->AE_atendu,
@@ -139,15 +139,15 @@ class modificationController extends Controller
             'motif_dpia' => 'Modification T2',
             'date_creation_dpia' => $portefeuille->Date_portefeuille,
             'date_modification_dpia' => now(),
-           
+
             'AE_dpia_nv' => null,
             'CP_dpia_nv' => null,
-    
+
             'AE_ouvert_dpia' => $values['ae_ouvert'] ?? $sousOperation->AE_ouvert,
             'AE_atendu_dpia' => $values['ae_atendu'] ?? $sousOperation->AE_atendu,
             'CP_ouvert_dpia' => $values['cp_ouvert'] ?? $sousOperation->CP_ouvert,
             'CP_atendu_dpia' => $values['cp_atendu'] ?? $sousOperation->CP_atendu,
-    
+
             'AE_reporte_dpia' => null,
             'AE_notifie_dpia' => null,
             'AE_engage_dpia' => null,
@@ -156,7 +156,7 @@ class modificationController extends Controller
             'CP_consome_dpia' => null,
             'id_rp' => 1,
             'id_ra' => 1,
-         
+
         ]);
     }
 
@@ -165,11 +165,11 @@ class modificationController extends Controller
         //extrair le num de portefeuille les 7 premiers chiffres
       $codeSousOperation = $sousOperation->code_sous_operation;
       //dd( $codeSousOperation);
-      $numPortefeuille = substr($codeSousOperation, 0, 7); 
+      $numPortefeuille = substr($codeSousOperation, 0, 7);
       //dd( $numPortefeuille );
       $portefeuille = Portefeuille::where('num_portefeuil', $numPortefeuille)->first();
-  
-        
+
+
         $sousOperation->update([
             'AE_reporte' => $values['ae_reporte'] ?? $sousOperation->AE_reporte,
             'CP_reporte' => $values['cp_reporte'] ?? $sousOperation->CP_reporte,
@@ -186,15 +186,15 @@ class modificationController extends Controller
            'motif_dpia' => 'Modification T3',
            'date_creation_dpia' => $portefeuille->Date_portefeuille,
            'date_modification_dpia' => now(),
-                           
+
             'AE_dpia_nv' => null,
             'CP_dpia_nv' => null,
-                    
+
             'AE_ouvert_dpia' => null,
             'AE_atendu_dpia' => null,
             'CP_ouvert_dpia' => null,
             'CP_atendu_dpia' => null,
-                    
+
             'AE_reporte_dpia' => $values['ae_reporte'] ?? $sousOperation->AE_reporte,
             'AE_notifie_dpia' =>  $values['ae_notifie'] ?? $sousOperation->AE_notifie,
             'AE_engage_dpia' => $values['ae_engage'] ?? $sousOperation->AE_engage,
@@ -211,7 +211,7 @@ class modificationController extends Controller
         //extrair le num de portefeuille les 7 premiers chiffres
         $codeSousOperation = $sousOperation->code_sous_operation;
         //dd( $codeSousOperation);
-        $numPortefeuille = substr($codeSousOperation, 0, 7); 
+        $numPortefeuille = substr($codeSousOperation, 0, 7);
         //dd( $numPortefeuille );
         $portefeuille = Portefeuille::where('num_portefeuil', $numPortefeuille)->first();
 
@@ -227,15 +227,15 @@ class modificationController extends Controller
             'motif_dpia' => 'Modification T4',
             'date_creation_dpia' => $portefeuille->Date_portefeuille,
             'date_modification_dpia' =>now(),
-                        
+
             'AE_dpia_nv' =>$values['ae'] ?? $sousOperation->AE_sous_operation,
             'CP_dpia_nv' =>$values['cp'] ?? $sousOperation->CP_sous_operation,
-                
+
             'AE_ouvert_dpia' => null,
             'AE_atendu_dpia' => null,
             'CP_ouvert_dpia' => null,
             'CP_atendu_dpia' => null,
-                
+
             'AE_reporte_dpia' => null,
             'AE_notifie_dpia' => null,
             'AE_engage_dpia' => null,
@@ -244,14 +244,14 @@ class modificationController extends Controller
             'CP_consome_dpia' => null,
             'id_rp' => 1,
             'id_ra' => 1,
-                
+
         ]);
     }
 
     //insérer dans la table moddif
     public function insertModif(Request $request)
     {
-        //récupéreer lees données 
+        //récupéreer lees données
         $modifications = $request->all();
         //dd($modifications);
        // dd( $request->input('status') );
@@ -269,7 +269,7 @@ class modificationController extends Controller
             'T_port_env' => 'required|string',
             'AE_env_T' => 'required|numeric',
             'CP_env_T' => 'required|numeric',
-            'Sous_prog_retire' => 'required|string', //sousprogramme li jabna mano l'argent 
+            'Sous_prog_retire' => 'required|string', //sousprogramme li jabna mano l'argent
             'type' => 'required|string',
             'cible_action' => 'required|string',
             'status' => 'required|string',
@@ -281,7 +281,7 @@ class modificationController extends Controller
             //dd( $request );
             $validated=$request;
 
-            //initialiser lees var 
+            //initialiser lees var
             $AE_env_T1 = 0;
             $CP_env_T1 = 0;
 
@@ -302,28 +302,28 @@ class modificationController extends Controller
                     $AE_env_T1 = $validated['AE_env_T'];
                     $CP_env_T1 = $validated['CP_env_T'];
                     $codeT1 =T1::value('code_t1');
-    
+
                     break;
                 case 'T2':
                     $AE_env_T2 = $validated['AE_env_T'];
                     $CP_env_T2 = $validated['CP_env_T'];
                     $codeT2 =T2::value('code_t2');
-                  
+
                     break;
                 case 'T3':
                     $AE_env_T3 = $validated['AE_env_T'];
                     $CP_env_T3 = $validated['CP_env_T'];
                     $codeT3 = T3::value('code_t3');
-                   
+
                     break;
                 case 'T4':
                     $AE_env_T4 = $validated['AE_env_T'];
                     $CP_env_T4 = $validated['CP_env_T'];
                     $codeT4 = T4::value('code_t4');
-                   
+
                     break;
             }
-    
+
             if ($validated['AE_T1'] != 0 || $validated['CP_T1'] != 0) {
                 $codeT1 = T1::value('code_t1');
             }
@@ -336,15 +336,15 @@ class modificationController extends Controller
             if ($validated['AE_T4'] != 0 || $validated['CP_T4'] != 0) {
                 $codeT4 = T4::value('code_t4');
             }
-        
-        
-        
+
+
+
             //  récupérer les anciennes valeurs des prog et sous prog
             $sousProgRetire = SousProgramme::where('num_sous_prog', $validated['Sous_prog_retire'])->first();
            // dd( $sousProgRetire);
             $sousProgReçoit = SousProgramme::where('num_sous_prog', $validated['sousprogbum_click'])->first();
            // dd($sousProgReçoit);
- 
+
             $ProgRetire = Programme::where('num_prog', $validated['prog_retirer'])->first();
            //dd( $ProgRetire);
             $ProgReçoit = Programme::where('num_prog', $validated['prognum_click'])->first();
@@ -354,9 +354,9 @@ class modificationController extends Controller
                 return response()->json(['message' => 'Programme ou sous-programme introuvable'], 404);
             }
 */
-            //calcull 
+            //calcull
          /*    if ($sousProgReçoit) {
-                
+
                 $sousProgReçoit->AE_sous_prog += $validated['AE_T1'] +  $validated['AE_T2'] +  $validated['AE_T3'] + $validated['AE_T4'];
                 $sousProgReçoit->CP_sous_prog += $validated['CP_T1'] + $validated['CP_T2'] +  $validated['CP_T3'] + $validated['CP_T4'];
                 $sousProgReçoit->date_update_sousProg = now();
@@ -369,15 +369,15 @@ class modificationController extends Controller
                 dd( $ProgReçoit);
                 $ProgReçoit->save();
             }   else {//progrecoit
-              
+
                     $ProgReçoit->AE_prog += $validated['AE_T1']+ $validated['AE_T2'] +  $validated['AE_T3'] + $validated['AE_T4'];
                     $ProgReçoit->CP_prog += $validated['CP_T1'] +  $validated['CP_T2'] + $validated['CP_T3'] + $validated['CP_T4'];
                     $ProgReçoit->date_update_portef = now();
                     //dd( $ProgReçoit);
                     $ProgReçoit->save();
                 }
-            
-            
+
+
             if ($sousProgRetire) {
                 $sousProgRetire->AE_sous_prog -=  $validated['AE_env_T'];
                 $sousProgRetire->CP_sous_prog -= $validated['CP_env_T'];
@@ -389,14 +389,14 @@ class modificationController extends Controller
                 $ProgRetire->CP_prog -= $sousProgRetire->CP_sous_prog;
                 $ProgRetire->date_update_portef= now();
                 $ProgRetire->save();
-            } 
-               
-           */
-      
+            }
 
-            
+           */
+
+
+
         // insérer les données dans la table modif
-        ModificationT::insert([
+        ModificationT::create([
             'date_modif' => now(),
 
             'AE_envoi_t1' => $AE_env_T1,
@@ -408,7 +408,7 @@ class modificationController extends Controller
             'AE_envoi_t4' => $AE_env_T4,
             'CP_envoi_t4' =>  $CP_env_T4,
 
-           
+
             'AE_recoit_t1' => $validated['AE_T1'] ,
             'CP_recoit_t1' => $validated['CP_T1'],
             'AE_recoit_t2' => $validated['AE_T2'],
@@ -420,27 +420,27 @@ class modificationController extends Controller
 
             'situation_modif' => $validated['status'],
             'type_modif' => $validated['type'],
-            'id_art' => $validated['ref'], 
+            'id_art' => $validated['ref'],
             'num_sous_prog'=> $validated['sousprogbum_click'],
             'num_prog'=>$validated['prognum_click'],
 
             'num_sous_prog_retire'=> $validated['Sous_prog_retire'],
             'num_prog_retire'=> $validated['prog_retirer'],
             'action_modifie'=> $validated['cible_action'],
-            
+
 
             'code_t1' => $codeT1,
             'code_t2' => $codeT2,
             'code_t3' => $codeT3,
             'code_t4' => $codeT4,
 
-          
+
               ]);
 
-           
-    
+
+
 
     return response()->json(['message' => 'Modifications insérées avec succès'], 200);
 }
-       
+
 }

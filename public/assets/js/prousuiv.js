@@ -174,7 +174,40 @@ $('#date_insert_action').on('focusout', function () {
 
 //=======================FIN CHECK action ==================================
 
+//===============CHECK SOUS ACTION=====================//
+$('#date_insert_sou_action').on('focusout', function () {
+    //alert('out')
+    var date_sousact = $(this).val();
+    var num_sousact = $('#num_sous_action').val();
+    //  var date_act=  new Date(date_act).getFullYear();
+    var numsousact_year = path[3] +'-'+num_sousact ;
+    console.log('numsousact_year' + numsousact_year + ' with ' + JSON.stringify(path))
+    if (date_sousact && num_sousact) {
+        $.ajax({
+            url: '/check-sousaction',  // Route pour vérifier l'existence du programme
+            type: 'GET',
+            data: {
+                num_sous_action: numsousact_year,
+            },
+            success: function (response) {
+                if (response.exists) {
+                    console.log("response.nom_sous_action", response.nom_sous_action);
+                    $('#nom_sous_action').val(response.nom_sous_action).trigger('change'); // Remplir et déclencher l'événement change
+                     $('#date_insert_sou_action').val(response.date_insert_sous_action).trigger('change'); // Remplir et déclencher l'événement change
+                    $('#AE_sous_act').val(response.AE_sous_act).trigger('change'); // Remplir et déclencher l'événement change
+                    $('#CP_sous_act').val(response.CP_sous_act).trigger('change'); // Remplir et déclencher l'événement change
+                    alert('L`Action existe déjà');
 
+                }
+                else {
+                    alert('Erreur d`Opération');
+
+                }
+            }
+        })
+    }
+})
+ //=============== FIN CHECK SOUS ACTION================//
 
 
 
@@ -298,8 +331,8 @@ $('#date_insert_action').on('focusout', function () {
                                                     // Ajout de l'événement d'ajout pour la sous-action
                                                     $('#add-prg4').on('click', function () {
                                                         console.log('inside sous_action')
-                                                        var nom_sous_act = $('#nom_sous_act').val();
-                                                        var num_sous_act = $('#num_sous_act').val();
+                                                        var nom_sous_act = $('#nom_sous_action').val();
+                                                        var num_sous_act = $('#num_sous_action').val();
                                                         var dat_inst = $('#date_insert_sou_action').val();
                                                         var AE_sous_act = $('#AE_sous_act').val()
                                                         var CP_sous_act = $('#CP_sous_act').val()
@@ -399,9 +432,9 @@ $('#date_insert_action').on('focusout', function () {
     {
         console.log($('#AE_sous_act').val()+ 'fdyudg');
         console.log('inside sous_action')
-        var nom_sous_act = $('#nom_s_act').val();
-        var num_sous_act = $('#num_s_act').val();
-        var dat_inst = $('#date_insert_action').val();
+        var nom_sous_act = $('#nom_sous_action').val();
+        var num_sous_act = $('#num_sous_action').val();
+        var dat_inst = $('#date_insert_sou_action').val();
         var AE_sous_act = $('#AE_sous_act').val()
         var CP_sous_act = $('#CP_sous_act').val()
         var numaction_year = path[3];

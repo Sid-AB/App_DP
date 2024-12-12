@@ -17,7 +17,8 @@ class ModificationTObserver
      */
     public function created(ModificationT $modificationT): void
     {
-        //\Log::info('modificationT created: ' . get_class($modificationT));
+        \Log::info('modificationT created: ' . get_class($modificationT));
+        echo 'modificationT created: ' . get_class($modificationT) . PHP_EOL;
         $this->logActivity('created', $modificationT);
     }
 
@@ -72,8 +73,8 @@ class ModificationTObserver
     {
 
          // Récupérer la valeur originale de 'id_art'
-            $originalIdArt = $model->getOriginal('id_art');
-
+            $originalIdArt = $model->id_art;
+           // dd($originalIdArt);
          // Construire les données pour les logs
             $data = [
                 'action' => $action,
