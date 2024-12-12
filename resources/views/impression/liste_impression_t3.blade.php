@@ -145,7 +145,7 @@
                 @endphp
             <tr class="group-row">
                 <td style="text-align: center; " class="code">{{$codegrp}}</td>
-                <td colspan="3">{{$namesT3[$codegrp] }}</td>
+                <td colspan="3" style=" font-weight: bold; ">{{$namesT3[$codegrp] }}</td>
                 <!--td>{{$namesT3[$codegrp ] ?? Néant}}</td> 
 
                 <td>{{$namesT3[$codegrp ]  ?? Néant }}</td--> 

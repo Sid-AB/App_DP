@@ -142,7 +142,7 @@ public function create_sou_prog(Request $request)
     // Vérifier si le sous-programme existe
     $sousProgramme = SousProgramme::where('num_sous_prog', $request->num_sous_prog)->first();
     $initPort = initPort::where('num_sous_prog', $request->num_sous_prog)->first();
-
+ 
     if ($sousProgramme) {
         // Mise à jour du sous-programme existant
         $sousProgramme->update([

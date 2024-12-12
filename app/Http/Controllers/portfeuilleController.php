@@ -290,6 +290,8 @@ public function check_portef(Request $request)
         $portefeuille->id_min =1;//periodiquement
         $portefeuille->save();
 
+        $this->updateOrCreateDPIC($portefeuille, true);//mettre à jr dpic
+
 return response()->json([
     'success' => true,
     'message' => 'Portefeuille ajouté ou modifié avec succès.',
@@ -311,79 +313,40 @@ return response()->json([
         $portefeuille->save();
 
     }
-        if($portefeuille)
-        {   //dd($request);
-            $DPIC = new ConstruireDPIC();
-
-            $DPIC->date_creation_dpic = $portefeuille->Date_portefeuille; // elle prend la date de creation du portfeuille
-
-            $DPIC->date_modification_dpic = now();
-            $DPIC->AE_dpic_nv = $portefeuille->AE_portef;
-            $DPIC->CP_dpic_nv = $portefeuille->CP_portef;
-
-            $DPIC->id_rff = 1; //apres elle sera avec auth:user il prend le compte qui est deja authentifié
-            $DPIC->id_rp = 1;
-            $DPIC->save();
-            return response()->json([
-                'success' => true,
-                'message' => 'Portefeuille ajouté ou modifié avec succès.',
-                'code' => 200,
-            ]);
-        } else {
-            return response()->json([
-                'success' => false,
-                'message' => 'Erreur lors de l\'ajout du portefeuille.',
-                'code' => 500,
-            ]);
-        }
+    $this->updateOrCreateDPIC($portefeuille, false); 
 
 
     }
 //======================================================================================
                                 // FIN creation du portefeuille
 //===================================================================================
-
 //======================================================================================
-                                // Modification du portefeuille
+                                //  creation dpic ou mettre à jour 
 //===================================================================================
-function update_portef(Request $request)
+public function updateOrCreateDPIC(Portefeuille $portefeuille, bool $isUpdate)
 {
-
-     // Validation des données
-     $request->validate([
-        'num_journal' => 'required',
-        'nom_journal' => 'required',
-        'AE_portef' => 'required',
-        'CP_portef' => 'required',
-        'Date_portefeuille' => 'required|date',
-    ]);
-
-
-    // Récupérer la ligne de la table en fonction de 'numsouaction'
-    $portefeuille = Portefeuille::where('num_portefeuil', $request->num_portefeuil)->first();
-    $portefeuille = new Portefeuille();
-    $portefeuille->nom_journal = $request->nom_journal;
-    $portefeuille->num_journal = $request->num_journal;
-    $portefeuille->AE_portef = $request->AE_portef;
-    $portefeuille->CP_portef = $request->CP_portef;
-    $portefeuille->Date_portefeuille = $request->Date_portefeuille;
-    $portefeuille->id_min =1;//periodiquement
-    $portefeuille->save();
-
-    if($portefeuille)
-        {
-            return response()->json([
-                'success' => true,
-                'message' => 'Portefeuille modifié avec succès.',
-                'code' => 200,
-            ]);
-        } else {
-            return response()->json([
-                'success' => false,
-                'message' => 'Erreur lors de l\'ajout du portefeuille.',
-                'code' => 500,
-            ]);
-        }
+    // Recherche d'un DPIC existant pour la même date
+    $DPIC = ConstruireDPIC::whereDate('date_creation_dpic', $portefeuille->Date_portefeuille)->first();
+    
+    if ($DPIC && $isUpdate) {
+        //mise à jr 
+        $DPIC->date_modification_dpic = now();
+        $DPIC->AE_dpic_nv = $portefeuille->AE_portef;
+        $DPIC->CP_dpic_nv = $portefeuille->CP_portef;
+        $DPIC->id_rff = 1; //apres elle sera avec auth:user il prend le compte qui est deja authentifié
+        $DPIC->id_rp = 1;
+        $DPIC->save();
+    } else {
+        //ceer un nv dpic
+        $DPIC = new ConstruireDPIC();
+        $DPIC->date_creation_dpic = $portefeuille->Date_portefeuille;
+        $DPIC->date_modification_dpic = now();
+        $DPIC->AE_dpic_nv = $portefeuille->AE_portef;
+        $DPIC->CP_dpic_nv = $portefeuille->CP_portef;
+        $DPIC->id_rff = 1; //apres elle sera avec auth:user il prend le compte qui est deja authentifié
+        $DPIC->id_rp = 1;
+        $DPIC->save();
+    }
 }
 //======================================================================================
                                 // FIN Modification du portefeuille/ upload fille pdf

@@ -291,17 +291,17 @@ $(document).ready(function(){
                     var ae_sou_prog = $('#AE_sousProg').val();
                     var cp_sou_prog = $('#AE_sousProg').val();
 
-                    var T1_AE_init = $('#T1_AE_init').val()
-                    var T1_CP_init = $('#T1_CP_init').val()
+                    var T1_AE_init = $('#T1_AE_sous_prog').val()
+                    var T1_CP_init = $('#T1_CP_sous_prog').val()
 
-                    var T2_AE_init = $('#T2_AE_init').val()
-                    var T2_CP_init = $('#T2_CP_init').val()
+                    var T2_AE_init = $('#T2_AE_sous_prog').val()
+                    var T2_CP_init = $('#T2_CP_sous_prog').val()
 
-                    var T3_AE_init = $('#T3_AE_init').val()
-                    var T3_CP_init = $('#T3_CP_init').val()
+                    var T3_AE_init = $('#T3_AE_sous_prog').val()
+                    var T3_CP_init = $('#T3_CP_sous_prog').val()
 
-                    var T4_AE_init = $('#T4_AE_init').val()
-                    var T4_CP_init = $('#T4_CP_init').val()
+                    var T4_AE_init = $('#T4_AE_sous_prog').val()
+                    var T4_CP_init = $('#T4_CP_sous_prog').val()
                     var id_prog = path[1];
                     var numsouprog_year = id_prog +'-'+sou_prog ;
                     var nexthop = '<div class="pinfo-handle">' +

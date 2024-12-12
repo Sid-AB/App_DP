@@ -127,7 +127,7 @@
                 @endphp
                 <tr class="group-row">
                 <td class="code">{{$codegrp}}</td>
-                <td>{{ $namesT4[$codegrp ] ?? 'Nom non trouvé' }}</td>
+                <td style=" font-weight: bold; ">{{ $namesT4[$codegrp ] ?? 'Nom non trouvé' }}</td>
                 <td class="vert4">{{ $namesT4[$codegrp ] ?? 'Nom non trouvé' }}</td>
                 <td class="aecp">{{ $groupData['group']['values']['ae_grpop'] ?? 'N/A' }}</td>
                 <td class="aecp">{{ $groupData['group']['values']['cp_grpop'] ?? 'N/A' }}</td>
