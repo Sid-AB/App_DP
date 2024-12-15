@@ -316,7 +316,7 @@ return response()->json([
         $portefeuille->save();
 
     }
-    $this->updateOrCreateDPIC($portefeuille, false); 
+    $this->updateOrCreateDPIC($portefeuille, false);
 
 
     }
@@ -324,15 +324,15 @@ return response()->json([
                                 // FIN creation du portefeuille
 //===================================================================================
 //======================================================================================
-                                //  creation dpic ou mettre à jour 
+                                //  creation dpic ou mettre à jour
 //===================================================================================
 public function updateOrCreateDPIC(Portefeuille $portefeuille, bool $isUpdate)
 {
     // Recherche d'un DPIC existant pour la même date
     $DPIC = ConstruireDPIC::whereDate('date_creation_dpic', $portefeuille->Date_portefeuille)->first();
-    
+
     if ($DPIC && $isUpdate) {
-        //mise à jr 
+        //mise à jr
         $DPIC->date_modification_dpic = now();
         $DPIC->AE_dpic_nv = $portefeuille->AE_portef;
         $DPIC->CP_dpic_nv = $portefeuille->CP_portef;
