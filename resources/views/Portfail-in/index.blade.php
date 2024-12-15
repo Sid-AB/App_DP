@@ -215,10 +215,10 @@
                   <div class="col-8">
                     <h5 class="card-title widget-card-title mb-3">Action: {{$act['data']['nom_action'] }}</h5>
                     <h4 class="card-subtitle text-body-secondary m-0">
-                    <p>  autorisations d'engagement :{{$act['TotalAE']}}</p><p>{{$act['init_AE']}}</p>
+                    <p>  autorisations d'engagement :{{$act['TotalAE']}}</p>
                     </h4>
                     <h4 class="card-subtitle text-body-secondary m-0">
-                    <p>  crédits de paiement :{{$act['TotalCP']}}</p><p>{{$act['init_CP']}}</p>
+                    <p>  crédits de paiement :{{$act['TotalCP']}}</p>
                     </h4>
                   </div>
                   <div class="col-4">
