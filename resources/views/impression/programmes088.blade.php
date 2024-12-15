@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tableau CREDITS 088 + 089</title>
+    <title>Tableau CREDITS 088 </title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,7 +12,7 @@
         }
 
         table {
-            background-color:#fff;  
+            background-color:#fff;
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
@@ -37,7 +37,7 @@
         }
 
      /*   tr:hover {
-            background-color: #0c0a0a;  Effet survol 
+            background-color: #0c0a0a;  Effet survol
         }*/
 
         .program-title {
@@ -67,7 +67,7 @@
             background-color: #00B050; /* Couleur eventuels credits */
             color: rgb(245, 238, 238);
         }
-        
+
         .totals {
             font-weight: bold;
             background-color: #31869B   ; /* Couleur totals des actions1..n */
@@ -83,10 +83,10 @@
         background-color:#DDD9C4;
         }
     </style>
-   
+
 </head>
 <body>
-<h1>Programmation des crédits du programme
+<h1>Programmation des crédits du programme 088
      @for($i=0;$i< count($programmes);$i++)
      @foreach ($programmes[$i] as $programme)
      @php
@@ -167,7 +167,7 @@
                         <td>{{ $sousProgramme['Total']['TotalT3_CP']}}</td>
                         <td>{{ $sousProgramme['Total']['TotalT4_AE']}}</td>
                         <td>{{ $sousProgramme['Total']['TotalT4_CP']}}</td>
-                      
+
                     </tr>
 
                     {{-- Boucle sur les actions pour chaque sous-programme --}}

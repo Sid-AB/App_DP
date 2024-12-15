@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tableau CREDITS 088 </title>
+    <title>Tableau CREDIT 089</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -86,7 +86,7 @@
 
 </head>
 <body>
-<h1>Programmation des crédits du programme 088
+<h1>Programmation des crédits du programme 089
      @for($i=0;$i< count($programmes);$i++)
      @foreach ($programmes[$i] as $programme)
      @php
@@ -195,3 +195,47 @@
                     @endforeach
                     @endfor
                     @endif
+
+
+                    <tr class="ttaction-title">
+                        <td class="ttaction-title" colspan="2">Total des actions</td>
+                        <td class="ttaction-title">{{ $sousProgramme['Total']['TotalT1_AE']}}</td>
+                        <td class="ttaction-title">{{ $sousProgramme['Total']['TotalT1_CP']}}</td>
+                        <td class="ttaction-title">{{ $sousProgramme['Total']['TotalT2_AE']}}</td>
+                        <td class="ttaction-title">{{ $sousProgramme['Total']['TotalT2_CP']}}</td>
+                        <td class="ttaction-title">{{ $sousProgramme['Total']['TotalT3_AE']}}</td>
+                        <td class="ttaction-title">{{ $sousProgramme['Total']['TotalT3_CP']}}</td>
+                        <td class="ttaction-title">{{ $sousProgramme['Total']['TotalT4_AE']}}</td>
+                        <td class="ttaction-title">{{ $sousProgramme['Total']['TotalT4_CP']}}</td>
+                    </tr>
+
+
+                    <tr class="event-title">
+                        <td colspan="2">Eventuels crédits non répartis</td>
+                        <td colspan="8"></td>
+                    </tr>
+                @endforeach
+                @endfor
+            @endforeach
+            @endfor
+
+            {{-- Total des actions/crédits ouverts pour tous les programmes --}}
+            <tr class="totals">
+                <th class="totals" colspan="2">TOTAL ACTIONS/CREDITS OUVERTS</th>
+
+                <td>{{ $Ttportglob[0]['TotalPortT1_AE']}}</td>
+                <td>{{ $Ttportglob[0]['TotalPortT1_CP']}}</td>
+                <td>{{ $Ttportglob[0]['TotalPortT2_AE']}}</td>
+                <td>{{ $Ttportglob[0]['TotalPortT2_CP']}}</td>
+                <td>{{ $Ttportglob[0]['TotalPortT3_AE']}}</td>
+                <td>{{ $Ttportglob[0]['TotalPortT3_CP']}}</td>
+                <td>{{ $Ttportglob[0]['TotalPortT4_AE']}}</td>
+                <td>{{ $Ttportglob[0]['TotalPortT4_CP']}}</td>
+
+            </tr>
+
+        </tbody>
+    </table>
+
+</body>
+</html>
