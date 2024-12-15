@@ -1589,7 +1589,7 @@
                                                                      success: function (response) {
                                                                          if (response.exists) {
                                                                              $('#nom_act').val(response.nom_action).trigger('change'); // Remplir et déclencher l'événement change
-                                                                              //$('#date_insert_action').val(response.date_insert_action).trigger('change'); // Remplir et déclencher l'événement change
+                                                                              $('#date_insert_action').val(response.date_insert_action).trigger('change'); // Remplir et déclencher l'événement change
                                                                              $('#AE_act').val(response.AE_act).trigger('change'); // Remplir et déclencher l'événement change
                                                                              $('#CP_act').val(response.CP_act).trigger('change'); // Remplir et déclencher l'événement change
                                                                              alert('L`Action existe déjà');
@@ -1828,8 +1828,16 @@
                                                                             }
                                                                              path.push(numaction_year);
                                                                              path3.push(num_act);
-                                                                             // console.log('path: ' + JSON.stringify(path));
-                                                                             window.location.href = 'testing/Action/' + path[0] + '/' + path[1] + '/' + path[2] + '/' + path[3];
+                                                                             console.log('response.num_sous_action: ' + response.num_sous_action);
+                                                                             if (response.num_sous_action) {
+                                                                                path.push(response.num_sous_action);
+                                                                                // console.log('path: ' + JSON.stringify(path));
+                                                                                window.location.href = '/testing/S_action/' + path.join('/');
+                                                                            }else{
+                                                                                // console.log('path: ' + JSON.stringify(path));
+                                                                            window.location.href = '/testing/Action/' + path.join('/');
+                                                                            }
+
                                                                          }
                                                                      },
                                                                      error: function (response) {
@@ -2448,7 +2456,7 @@
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.group[ig].code + '">' +
                                                  '<td scope="row" class="code" >' + key + '</td>' +
                                                  '<td><p>' + value + '</p></td>' +
-                                             
+
                                                  '<td  id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>null</p></td>'+
                                                  '<td class="editable" id="AE_T4">' + data_T_port.group[ig].values.ae_grpop + '</td>' +
                                                  '<td class="editable" id="CP_T4">' + data_T_port.group[ig].values.cp_grpop + '</td>' +
@@ -2462,7 +2470,7 @@
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.operation[io].code + '">' +
                                                  '<td scope="row" class="code" >' + key + '</td>' +
                                                  '<td ><p>' + value + '</p></td>' +
-                                                
+
                                                  '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>null</p></td>'+
                                                  '<td class="editable" id="AE_T4">' + data_T_port.operation[io].values.ae_op + '</td>' +
                                                  '<td class="editable" id="CP_T4">' + data_T_port.operation[io].values.cp_op + '</td>' +
@@ -2476,7 +2484,7 @@
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                                                  '<td scope="row" class="code" >' + key + '</td>' +
                                                  '<td ><p>' + value + '</p></td>' +
-                                              
+
                                                  '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>null</p></td>'+
                                                  '<td class="editable" id="AE_T4">' + data_T_port.sousOperation[iso].values.ae_sousop + '</td>' +
                                                  '<td class="editable" id="CP_T4">' + data_T_port.sousOperation[iso].values.cp_sousuop + '</td>' +
