@@ -354,19 +354,19 @@ class modificationController extends Controller
                 return response()->json(['message' => 'Programme ou sous-programme introuvable'], 404);
             }
 */
-            //calcull
-         /*    if ($sousProgReçoit) {
-
+            //calcull 
+          if ($sousProgReçoit) {
+                
                 $sousProgReçoit->AE_sous_prog += $validated['AE_T1'] +  $validated['AE_T2'] +  $validated['AE_T3'] + $validated['AE_T4'];
                 $sousProgReçoit->CP_sous_prog += $validated['CP_T1'] + $validated['CP_T2'] +  $validated['CP_T3'] + $validated['CP_T4'];
                 $sousProgReçoit->date_update_sousProg = now();
                 //dd( $sousProgReçoit);
                 $sousProgReçoit->save();
 
-                $ProgReçoit->AE_prog += $sousProgReçoit;
-                $ProgReçoit->CP_prog += $sousProgReçoit;
+                $ProgReçoit->AE_prog += $validated['AE_T1'] +  $validated['AE_T2'] +  $validated['AE_T3'] + $validated['AE_T4'];
+                $ProgReçoit->CP_prog += $validated['CP_T1'] + $validated['CP_T2'] +  $validated['CP_T3'] + $validated['CP_T4'];
                 $ProgReçoit->date_update_portef = now();
-                dd( $ProgReçoit);
+                //dd( $ProgReçoit);
                 $ProgReçoit->save();
             }   else {//progrecoit
 
@@ -384,16 +384,27 @@ class modificationController extends Controller
                 $sousProgRetire->date_update_sousProg = now();
                // dd( $sousProgRetire);
                 $sousProgRetire->save();
-
-                $ProgRetire->AE_prog -= $sousProgRetire->AE_sous_prog ;
-                $ProgRetire->CP_prog -= $sousProgRetire->CP_sous_prog;
+              
+                //soustraire de son programme 
+               /* $programAssocie = Programme::where('num_prog', $sousProgRetire->num_prog)->first();
+               // dd($programAssocie);
+                if ($programAssocie) {
+                    $programAssocie->AE_prog -= $validated['AE_env_T'];
+                    $programAssocie->CP_prog -= $validated['CP_env_T'];
+                    $programAssocie->date_update_portef = now();
+                    $programAssocie->save();
+                }*/
+               
+            }
+            if($ProgRetire){
+                $ProgRetire->AE_prog -= $validated['AE_env_T'] ;
+                $ProgRetire->CP_prog -= $validated['CP_env_T'];
                 $ProgRetire->date_update_portef= now();
                 $ProgRetire->save();
             }
-
-           */
-
-
+               
+           
+      
 
         // insérer les données dans la table modif
         ModificationT::create([

@@ -488,37 +488,37 @@ $('#date_insert_sou_action').on('focusout', function () {
                         var ae_sou_prog = $('#AE_sous_prog').val();
                         var cp_sou_prog = $('#CP_sous_prog').val();
 
-                        var T1_AE_init = $('#T1_AE_init').val()
-                        var T1_CP_init = $('#T1_CP_init').val()
+                    var T1_AE_init = $('#T1_AE_sous_prog').val()
+                    var T1_CP_init = $('#T1_CP_sous_prog').val()
 
-                        var T2_AE_init = $('#T2_AE_init').val()
-                        var T2_CP_init = $('#T2_CP_init').val()
+                    var T2_AE_init = $('#T2_AE_sous_prog').val()
+                    var T2_CP_init = $('#T2_CP_sous_prog').val()
 
-                        var T3_AE_init = $('#T3_AE_init').val()
-                        var T3_CP_init = $('#T3_CP_init').val()
+                    var T3_AE_init = $('#T3_AE_sous_prog').val()
+                    var T3_CP_init = $('#T3_CP_sous_prog').val()
 
-                        var T4_AE_init = $('#T4_AE_init').val()
-                        var T4_CP_init = $('#T4_CP_init').val()
-                        var id_prog = path[1];
-                        var numsouprog_year = id_prog +'-'+sou_prog ;
-                        var nexthop = '<div class="pinfo-handle">' +
-                            '<i class="fas fa-wallet"></i>' +
-                            '<p >S_Program :</p>' +
-                            '<p>' + sou_prog + '</p>' +
-                            '</div>' +
-                            ' <div class="next-handle">' +
-                            '<i class="fas fa-angle-double-right waiting-icon"></i>' +
-                            '</div>'
-                        var formdatasou_prog = {
-                            num_sous_prog: numsouprog_year,
-                            nom_sous_prog: nom_sou_prog,
-                            AE_sous_prog:ae_sou_prog,
-                            CP_sous_prog:cp_sou_prog,
-                            date_insert_sousProg: dat_sou_prog,
-                            id_program: id_prog,
-                            T1_AE_init: T1_AE_init,
-                            T1_CP_init: T1_CP_init,
-                            code_t1: 10000,
+                    var T4_AE_init = $('#T4_AE_sous_prog').val()
+                    var T4_CP_init = $('#T4_CP_sous_prog').val()
+                    var id_prog = path[1];
+                    var numsouprog_year = id_prog +'-'+sou_prog ;
+                    var nexthop = '<div class="pinfo-handle">' +
+                        '<i class="fas fa-wallet"></i>' +
+                        '<p >S_Program :</p>' +
+                        '<p>' + sou_prog + '</p>' +
+                        '</div>' +
+                        ' <div class="next-handle">' +
+                        '<i class="fas fa-angle-double-right waiting-icon"></i>' +
+                        '</div>'
+                    var formdatasou_prog = {
+                        num_sous_prog: numsouprog_year,
+                        nom_sous_prog: nom_sou_prog,
+                        AE_sous_prog:ae_sou_prog,
+                        CP_sous_prog:cp_sou_prog,
+                        date_insert_sousProg: dat_sou_prog,
+                        id_program: id_prog,
+                        T1_AE_init: T1_AE_init,
+                        T1_CP_init: T1_CP_init,
+                        code_t1: 10000,
 
                             T2_AE_init: T2_AE_init,
                             T2_CP_init: T2_CP_init,

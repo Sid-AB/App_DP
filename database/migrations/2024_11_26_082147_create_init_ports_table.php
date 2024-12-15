@@ -15,7 +15,7 @@ return new class extends Migration
             $table->integer('id_init')->primary()->autoIncrement();
 
             $table->Date('date_init');
-            $table->Date('date_update_init')->nullable();
+            $table->DateTime('date_update_init')->nullable();
 
             $table->float('AE_init_t1')->default(0.0);
             $table->float('CP_init_t1')->default(0.0);
