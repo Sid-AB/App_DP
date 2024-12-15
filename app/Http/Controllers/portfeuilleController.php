@@ -105,6 +105,7 @@ class portfeuilleController extends Controller
           $progms=Programme::where('num_portefeuil',$id)->get();
           $allprogram=[];
           $allsous_prog=[];
+          $allsous_progr=[];
           $allaction=[];
           $allsous_action=[];
           $resultats=0;
@@ -177,6 +178,7 @@ class portfeuilleController extends Controller
                                 $CP_All_act+=$sact['TotalCP'];
                               }
                           array_push($allaction,['num_act'=>$listact->num_action,'init_AE'=>$listact->AE_action,'init_CP'=>$listact->CP_action,'TotalAE'=>$AE_All_act,'TotalCP'=>$CP_All_act,'data'=>$listact,'sous_action'=>$allsous_action]);
+                         
                           $allsous_action=[];
                           $AE_All_act=0;
                           $CP_All_act=0;
@@ -202,11 +204,12 @@ class portfeuilleController extends Controller
                                 $CP_All_prog+=$sact['TotalCP'];
                               }
               array_push($allprogram,['id_prog'=>$progm->num_prog,'init_AE'=>$progm->AE_prog,'init_CP'=>$progm->CP_prog,'TotalAE'=>$AE_All_prog,'TotalCP'=>$CP_All_prog, 'data'=>$progm,'sous_program'=>$allsous_prog]);
+              array_push($allsous_progr,$allsous_prog);
               $allsous_prog=[];
               $AE_All_prog=0;
               $CP_All_prog=0;
           }
-          //dd($art);
+           //   dd($allsous_progr);
           $allport=[
               'id'=>$id,
               'TotalAE'=>$por->AE_portef,
@@ -215,7 +218,7 @@ class portfeuilleController extends Controller
           ];
          //  dd($allprogram[1]['sous_program'][2]);
       // Passer les données à la vue
-      return view('Portfail-in.index', compact('allport','art'));
+      return view('Portfail-in.index', compact('allport','art','allsous_progr'));
 
 
     // Passer les données à la vue
@@ -313,7 +316,7 @@ return response()->json([
         $portefeuille->save();
 
     }
-    $this->updateOrCreateDPIC($portefeuille, false); 
+    $this->updateOrCreateDPIC($portefeuille, false);
 
 
     }
@@ -321,15 +324,15 @@ return response()->json([
                                 // FIN creation du portefeuille
 //===================================================================================
 //======================================================================================
-                                //  creation dpic ou mettre à jour 
+                                //  creation dpic ou mettre à jour
 //===================================================================================
 public function updateOrCreateDPIC(Portefeuille $portefeuille, bool $isUpdate)
 {
     // Recherche d'un DPIC existant pour la même date
     $DPIC = ConstruireDPIC::whereDate('date_creation_dpic', $portefeuille->Date_portefeuille)->first();
-    
+
     if ($DPIC && $isUpdate) {
-        //mise à jr 
+        //mise à jr
         $DPIC->date_modification_dpic = now();
         $DPIC->AE_dpic_nv = $portefeuille->AE_portef;
         $DPIC->CP_dpic_nv = $portefeuille->CP_portef;

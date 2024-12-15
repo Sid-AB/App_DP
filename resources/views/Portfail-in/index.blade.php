@@ -41,15 +41,15 @@
               <span class="member next" id="{{$allport['id']}}" style="display:inline-block;">
 
                 <!--  -->
-
+             
                 <div class="col-12 col-sm-6">
             <div class="card widget-card border-light shadow-sm">
               <div class="card-body p-1">
                 <div class="row">
                   <div class="col-8">
                     <h5 class="card-title widget-card-title mb-3">Portefeuille</h5>
-                    <h4 class="card-subtitle text-body-secondary m-0">  Autorisations d’engagement :{{$allport['TotalAE']}}</h4>
-                    <h4 class="card-subtitle text-body-secondary m-0"> Crédits de paiement :{{$allport['TotalCP']}}</h4>
+                    <h4 class="card-subtitle text-body-secondary m-0">  Autorisations d’engagement :<p class="chiffre">{{$allport['TotalAE']}}</p></h4>
+                    <h4 class="card-subtitle text-body-secondary m-0"> Crédits de paiement :<p class="chiffre">{{$allport['TotalCP']}}</p></h4>
                   </div>
                   <div class="col-4">
                     <div class="d-flex justify-content-end">
@@ -85,7 +85,6 @@
               <li>
               <span class="next" id="{{$portf['id_prog']}}">
               <div class="edit-zone">
-                <div class="btn_add_svg update-handl"><i class="fas fa-edit" ></div></i>
               @if($portf['TotalAE'] == $portf['init_AE'] && $portf['TotalCP'] ==  $portf['init_CP'])
               <div class="member">
                 @else
@@ -147,9 +146,7 @@
                 <span class="next" id="{{$souportf['id_sous_prog']}}">
               
                 <div class="edit-zone">
-                  <div class="btn_add_svg update-handl">
-                   <i class="fas fa-edit"></i>
-                  </div>
+                  
                 @if($souportf['TotalAE'] == $souportf['init_AE'] && $souportf['TotalCP'] == $souportf['init_CP'])
                 <div class="member" id="{{$souportf['id_sous_prog']}}">
                 @else
@@ -368,7 +365,24 @@
   <div>
     <p> Modfication : <p id="id_sprog_modif"></p></p>
     <form id="update_art_handler">
-    <div class="form-group">
+    <div class="Radio-ids">
+        <div>
+        <label for="Tports">Interieur</label>
+         <input type="radio" class="form-check-input" id="intr" name="type_modif" value="inter" />
+        </div>
+        <div>
+        <label for="Tports">Exterieur</label>
+         <input type="radio" class="form-check-input" id="extr" name="type_modif" value="exter" />
+        </div>
+        </div>
+
+        <div class="exter_type">
+     
+        </div>
+        
+
+        <hr>
+        <div class="form-group">
           <label for="input1">Article</label>
           <select type="text" class="form-control" id="id" placeholder="Entrer le Nom du Programme">
            <option value="0" >Selectionner Article</option>
@@ -378,6 +392,20 @@
           </select>
         </div>
         <hr>
+
+        <div class="form-group">
+          <label id="dif" for="input1">Sous Programmes</label>
+          <select type="text" class="form-control" id="id_env" placeholder="Entrer le Nom du Programme">
+           <option value="0" >Selectionner Sous Porgramme</option>
+           @foreach($allsous_progr as $souportf)
+           @foreach($souportf as $sp)
+           <option value="{{$sp['id_sous_prog']}}" >{{$sp['data']['nom_sous_prog']}}</option>
+           @endforeach
+           @endforeach
+          </select>
+          <div id="prog_env"></div>
+        </div>
+  
         <div class="form-group">
         <fieldset>
         <legend>Choisir Les Port</legend>
@@ -435,26 +463,6 @@
          </div>
         </fieldset>
         </div>
-        <hr>
-
-
-        <div class="Radio-ids">
-        <div>
-        <label for="Tports">Interieur</label>
-         <input type="radio" class="form-check-input" id="intr" name="type_modif" value="inter" />
-        </div>
-        <div>
-        <label for="Tports">Exterieur</label>
-         <input type="radio" class="form-check-input" id="extr" name="type_modif" value="exter" />
-        </div>
-        </div>
-
-        <div>
-        <label for="Tports">Mouvement</label>
-         <input type="radio" class="form-check-input" id="mvm" name="type_modif" value="mvm" />
-        </div>
-        
-
         <hr>
 
         <div class="add-envoi">
@@ -589,7 +597,7 @@ else
   list.forEach(elemt => {
             newl+=" "+elemt;
         });
-        console.log('chrunk slice 2'+JSON.stringify(list) +'data '+trans.length +'data final'+newl)
+        console.log('chrunk slice 3'+JSON.stringify(list) +'data '+trans.length +'data final'+newl)
         $(this).text(first+newl)
         newl="";
 
@@ -597,8 +605,8 @@ else
 else  
 {
   console.log('before 3'+trans)
-  var first=trans.slice(0,1);
-  trans=trans.slice(1)
+  var first=trans.slice(0,2);
+  trans=trans.slice(2)
   list= trans.match(/.{1,3}/g);
   list.forEach(elemt => {
             newl+=" "+elemt;

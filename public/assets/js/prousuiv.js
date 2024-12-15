@@ -408,13 +408,17 @@ $('#date_insert_sou_action').on('focusout', function () {
                                                     path3.push(num_act);
 
                                                     console.log('response.num_sous_action: ' + response.num_sous_action);
-                                                    if (response.num_sous_action) {
+
+                                                    if (response.num_sous_action && response.count_sous_action < 2) {
                                                         path.push(response.num_sous_action);
                                                         // console.log('path: ' + JSON.stringify(path));
                                                         window.location.href = '/testing/S_action/' + path.join('/');
-                                                    }else{
+                                                    } else if (response.count_sous_action >= 2) {
+                                                        console.log('response.num_sous_action: ' + response.num_sous_action);
+                                                        window.location.href = '/Portfail/' + response.numPortef;
+                                                    } else {
                                                         // console.log('path: ' + JSON.stringify(path));
-                                                    window.location.href = '/testing/Action/' + path.join('/');
+                                                        window.location.href = '/testing/Action/' + path.join('/');
                                                     }
 
 
