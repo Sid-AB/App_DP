@@ -11,7 +11,7 @@ class Log extends Model
 
    // Les colonnes de la table qui peuvent être assignées en masse
    protected $fillable = [
-       'action', 'model', 'model_id', 'original', 'changed', 'ip_address'
+       'action', 'model', 'model_id', 'original', 'changed', 'ip_address', 'id_art'
    ];
 
    // Indiquer que les données 'original' et 'changed' sont au format JSON

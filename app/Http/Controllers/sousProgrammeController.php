@@ -48,6 +48,7 @@ public function check_sous_prog(Request $request)
     $sousprog = SousProgramme::where('num_sous_prog', $request->num_sous_prog)->first();
     $initPort = initPort::where('num_sous_prog', $request->num_sous_prog)->first();
     // Vérification des données
+    //dd($sousprog);
     if ($sousprog && $initPort) {
         return response()->json([
             'exists' => true,
@@ -72,6 +73,36 @@ public function check_sous_prog(Request $request)
             'T4_AE_init' => $initPort->AE_init_t4,
             'T4_CP_init' => $initPort->CP_init_t4,
         ]);
+    }
+    else
+    {
+        if(!isset($initPort))
+        {
+            return response()->json([
+                'exists' => true,
+    
+                'num_sous_prog'=>$sousprog->num_sous_prog,
+                'nom_sous_prog' => $sousprog->nom_sous_prog,
+                'date_insert_sousProg' => $sousprog->date_insert_sousProg,
+                'num_prog' =>$sousprog->num_prog,
+    
+                'AE_sous_prog' =>$sousprog->AE_sous_prog,
+                'CP_sous_prog' => $sousprog->CP_sous_prog,
+    
+                'T1_AE_init' => 0,
+                'T1_CP_init' => 0,
+    
+                'T2_AE_init' => 0,
+                'T2_CP_init' =>0,
+    
+                'T3_AE_init' => 0,
+                'T3_CP_init' => 0,
+    
+                'T4_AE_init' => 0,
+                'T4_CP_init' =>0,
+            ]);
+        }
+
     }
 
 
@@ -111,7 +142,7 @@ public function create_sou_prog(Request $request)
     // Vérifier si le sous-programme existe
     $sousProgramme = SousProgramme::where('num_sous_prog', $request->num_sous_prog)->first();
     $initPort = initPort::where('num_sous_prog', $request->num_sous_prog)->first();
-
+ 
     if ($sousProgramme) {
         // Mise à jour du sous-programme existant
         $sousProgramme->update([
@@ -135,18 +166,9 @@ public function create_sou_prog(Request $request)
                 'date_update_init' => now(),
             ]);
         }
-    } else {
-        // Création d'un nouveau sous-programme
-        $sousProgramme = SousProgramme::create([
-            'num_sous_prog' => $request->num_sous_prog,
-            'num_prog' => $request->id_program,
-            'nom_sous_prog' => $request->nom_sous_prog,
-            'AE_sous_prog' => $request->AE_sous_prog,
-            'CP_sous_prog' => $request->CP_sous_prog,
-            'date_insert_sousProg' => $request->date_insert_sousProg,
-        ]);
-
-        // Création des données dans init_ports
+        else
+        {
+              // Création des données dans init_ports
         initPort::create([
             'num_sous_prog' => $request->num_sous_prog,
             'date_init' => $request->date_insert_sousProg,
@@ -162,7 +184,36 @@ public function create_sou_prog(Request $request)
             'CP_init_t3' => $request->T3_CP_init,
             'AE_init_t4' => $request->T4_AE_init,
             'CP_init_t4' => $request->T4_CP_init,
+        ]);  
+        }
+    } else {
+        // Création d'un nouveau sous-programme
+        $sousProgramme = SousProgramme::create([
+            'num_sous_prog' => $request->num_sous_prog,
+            'num_prog' => $request->id_program,
+            'nom_sous_prog' => $request->nom_sous_prog,
+            'AE_sous_prog' => $request->AE_sous_prog,
+            'CP_sous_prog' => $request->CP_sous_prog,
+            'date_insert_sousProg' => $request->date_insert_sousProg,
         ]);
+    // Création des données dans init_ports
+    initPort::create([
+        'num_sous_prog' => $request->num_sous_prog,
+        'date_init' => $request->date_insert_sousProg,
+        'code_t1' => $request->code_t1,
+        'code_t2' => $request->code_t2,
+        'code_t3' => $request->code_t3,
+        'code_t4' => $request->code_t4,
+        'AE_init_t1' => $request->T1_AE_init,
+        'CP_init_t1' => $request->T1_CP_init,
+        'AE_init_t2' => $request->T2_AE_init,
+        'CP_init_t2' => $request->T2_CP_init,
+        'AE_init_t3' => $request->T3_AE_init,
+        'CP_init_t3' => $request->T3_CP_init,
+        'AE_init_t4' => $request->T4_AE_init,
+        'CP_init_t4' => $request->T4_CP_init,
+    ]);
+    
     }
 
     // Vérification finale

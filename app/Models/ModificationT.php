@@ -17,8 +17,8 @@ class ModificationT extends Model
        'id_modif','date_modif','AE_envoi_t1','CP_envoi_t1','AE_envoi_t2'
 ,'CP_envoi_t2','AE_envoi_t3','CP_envoi_t3','AE_envoi_t4','CP_envoi_t4',
 'code_t1','code_t2','code_t3','code_t4','id_art','AE_recoit_t1','CP_recoit_t1'
-,'AE_recoit_t2','CP_recoit_t2','AE_recoit_t3','CP_recoit_t3','AE_recoit_t4','CP_recoit_t4','num_sous_prog_click','num_prog_click','num_sous_prog_retire','num_prog_retire'
- ,'action_modifie'];
+,'AE_recoit_t2','num_prog', 'situation_modif','type_modif','CP_recoit_t2','AE_recoit_t3','CP_recoit_t3','AE_recoit_t4','CP_recoit_t4','num_sous_prog_click','num_prog_click','num_sous_prog_retire','num_prog_retire'
+ ,'action_modifie', 'code_t1', 'code_t2','code_t3','code_t4'];
 
 
     public function articles()

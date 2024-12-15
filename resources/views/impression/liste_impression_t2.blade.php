@@ -64,7 +64,6 @@
         color:white;
         font-size:20px;
     }
-    
     </style>
 </head>
 <body>
@@ -79,10 +78,10 @@
                     $codeprg = end($code_prog);
                 @endphp
         <tr>
-            <th style="text-align: center; ">PROGRAMME {{ $prog->nom_prog }}</th>
-            <th style="text-align: center; ">Code</th>
-            <td style="text-align: center; ">{{ $codeprg }}</th>
-            <th colspan="2" class ="headt2" style="text-align: center; ">T2 DANS LE DPIC</th>
+            <th style="text-align:center; ">PROGRAMME {{ $prog->nom_prog }}</th>
+            <th style="text-align:center; ">Code</th>
+            <td style="text-align:center; ">{{ $codeprg }}</th>
+            <th colspan="2" class ="headt2" style="text-align:center; ">T2 DANS LE DPIC</th>
         </tr>
 
 
@@ -92,11 +91,11 @@
                     $code_sousprog = explode('-', $sousProgramme->num_sous_prog);
                     $codesousprg = end($code_sousprog);
                 @endphp
-            <th style="text-align: center; ">Sous-programme {{ $sousProgramme->nom_sous_prog }}</th>
-            <th style="text-align: center; ">Code</th>
-            <td style="text-align: center; ">{{ $codesousprg}}</th>
-            <th class="headt2" style="text-align: center; ">AE </th>
-            <th class="headt2" style="text-align: center; ">CP </th>
+            <th style="text-align:center; ">Sous-programme {{ $sousProgramme->nom_sous_prog }}</th>
+            <th style="text-align:center; ">Code</th>
+            <td style="text-align:center; ">{{ $codesousprg}}</th>
+            <th class="headt2" style="text-align:center; ">AE </th>
+            <th class="headt2" style="text-align:center; ">CP </th>
         </tr>
 
         <tr>
@@ -224,12 +223,12 @@
             @endforeach
         @endforeach
         @endforeach
-
+        
         @else 
         @foreach ($namesT2 as $code => $name)
                    
                 <tr>
-                    <td style="text-align: center;" class="code2">{{ $code }}</td>
+                    <td style="text-align: center;" class="code">{{ $code }}</td>
                     <td >{{ $name }}</td>
                   
                     <td style="text-align: center; ">-</td>

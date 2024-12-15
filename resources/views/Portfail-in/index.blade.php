@@ -48,8 +48,8 @@
                 <div class="row">
                   <div class="col-8">
                     <h5 class="card-title widget-card-title mb-3">Portefeuille</h5>
-                    <h4 class="card-subtitle text-body-secondary m-0"> autorisations d'engagement :{{$allport['TotalAE']}}</h4>
-                    <h4 class="card-subtitle text-body-secondary m-0"> crédits de paiement :{{$allport['TotalCP']}}</h4>
+                    <h4 class="card-subtitle text-body-secondary m-0">  Autorisations d’engagement :{{$allport['TotalAE']}}</h4>
+                    <h4 class="card-subtitle text-body-secondary m-0"> Crédits de paiement :{{$allport['TotalCP']}}</h4>
                   </div>
                   <div class="col-4">
                     <div class="d-flex justify-content-end">
