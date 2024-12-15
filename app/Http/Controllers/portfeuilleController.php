@@ -343,47 +343,4 @@ return response()->json([
                                 // FIN creation du portefeuille
 //===================================================================================
 
-//======================================================================================
-                                // Modification du portefeuille
-//===================================================================================
-function update_portef(Request $request)
-{
-
-     // Validation des données
-     $request->validate([
-        'num_journal' => 'required',
-        'nom_journal' => 'required',
-        'AE_portef' => 'required',
-        'CP_portef' => 'required',
-        'Date_portefeuille' => 'required|date',
-    ]);
-
-
-    // Récupérer la ligne de la table en fonction de 'numsouaction'
-    $portefeuille = Portefeuille::where('num_portefeuil', $request->num_portefeuil)->first();
-    $portefeuille = new Portefeuille();
-    $portefeuille->nom_journal = $request->nom_journal;
-    $portefeuille->num_journal = $request->num_journal;
-    $portefeuille->AE_portef = $request->AE_portef;
-    $portefeuille->CP_portef = $request->CP_portef;
-    $portefeuille->Date_portefeuille = $request->Date_portefeuille;
-    $portefeuille->id_min =1;//periodiquement
-    $portefeuille->save();
-
-    if($portefeuille)
-        {
-            return response()->json([
-                'success' => true,
-                'message' => 'Portefeuille modifié avec succès.',
-                'code' => 200,
-            ]);
-        } else {
-            return response()->json([
-                'success' => false,
-                'message' => 'Erreur lors de l\'ajout du portefeuille.',
-                'code' => 500,
-            ]);
-        }
-}
-
 }

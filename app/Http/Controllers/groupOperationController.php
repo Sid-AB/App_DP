@@ -32,8 +32,8 @@ class groupOperationController extends Controller
 if($T==1)
 {
     // Récupérer les données du formulaire
-    $aeData = $request->input('ae');
-    $cpData = $request->input('cp');
+    $aeData = $request->code('ae');
+    $cpData = $request->code('cp');
 
     // Chemin vers le fichier JSON dans public/assets/titre
     $jsonFilePath = public_path('assets/Titre/dataT1.json');
@@ -219,7 +219,7 @@ foreach ($jsonData as $codeStr => $nom) {
             }
 
         // Sinon, il s'agit d'une sous-opération
-        else {
+        elseif($code % 10 == 0){
             $codeOp = floor($code / 100) * 100;
 
             // Insertion dans la table sousoperation
@@ -267,6 +267,23 @@ foreach ($jsonData as $codeStr => $nom) {
               }
 
         }
+        // si c est un dispositif
+        else{
+            // Vérifie si le dernier caractère est une lettre (A-Z) ou un chiffre (0-9) et le supprime
+            if (preg_match('/[A-Z0-9]$/i', $code)) {
+                $codeOp = substr($code, 0, -1);
+            }
+            //$codeOp = floor($code / 100) * 100;
+            dd($codeOp);
+            // Insertion dans la table sousoperation
+            $sousoperation= sousoperation::updateOrCreate(
+                ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code],
+                ['code_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp, 'nom_sous_operation' => $nom,'code_t1' =>10000,
+                 'AE_sous_operation' => floatval(str_replace(',', '', $ae)),
+                  'CP_sous_operation' => floatval(str_replace(',', '', $cp))
+                  , 'date_insert_SOUSoperation' => $currentDateTime]
+            );
+        }
     }
 
     return response()->json([
@@ -286,10 +303,10 @@ foreach ($jsonData as $codeStr => $nom) {
 //===================================================================================
 elseif ($T == 2) {
     // Récupérer les données du formulaire
-    $aeDataOuvert = $request->input('ae_ouvert');
-    $cpDataOuvert = $request->input('cp_ouvert');
-    $aeDataAttendu = $request->input('ae_attendu');
-    $cpDataAttendu = $request->input('cp_attendu');
+    $aeDataOuvert = $request->code('ae_ouvert');
+    $cpDataOuvert = $request->code('cp_ouvert');
+    $aeDataAttendu = $request->code('ae_attendu');
+    $cpDataAttendu = $request->code('cp_attendu');
     // $currentDateTime = Carbon::now();
 
     // Chemin vers le fichier JSON dans public/titre
@@ -623,7 +640,7 @@ elseif ($T == 2) {
             }
 
         // Sinon, il s'agit d'une sous-opération
-        }else {
+        }elseif($code % 10 == 0) {
             $codeOp = floor($code / 100) * 100;
 
             // Insertion dans la table sousoperation
@@ -684,6 +701,23 @@ elseif ($T == 2) {
 
 
         }
+        // si c est un dispositif
+        else{
+            // Vérifie si le dernier caractère est une lettre (A-Z) ou un chiffre (0-9) et le supprime
+            if (preg_match('/[A-Z0-9]$/i', $code)) {
+                $codeOp = substr($code, 0, -1);
+            }
+            //$codeOp = floor($code / 100) * 100;
+            dd($codeOp);
+            // Insertion dans la table sousoperation
+            $sousoperation= sousoperation::updateOrCreate(
+                ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code],
+                ['code_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp, 'nom_sous_operation' => $nom,'code_t1' =>10000,
+                 'AE_sous_operation' => floatval(str_replace(',', '', $ae)),
+                  'CP_sous_operation' => floatval(str_replace(',', '', $cp))
+                  , 'date_insert_SOUSoperation' => $currentDateTime]
+            );
+        }
     } // fin boucle
 
     //dd($request);
@@ -705,13 +739,13 @@ elseif ($T == 2) {
 elseif ($T==3) {
     //dd($request);
        // Récupérer les données du formulaire
-       $aeDataReporte = $request->input('ae_reporte');
-       $aeDataNotifie = $request->input('ae_notifie');
-       $aeDataEngage = $request->input('ae_engage');
+       $aeDataReporte = $request->code('ae_reporte');
+       $aeDataNotifie = $request->code('ae_notifie');
+       $aeDataEngage = $request->code('ae_engage');
 
-       $cpDataReporte = $request->input('cp_reporte');
-       $cpDataNotifie = $request->input('cp_notifie');
-       $cpDataConsome = $request->input('cp_consome');
+       $cpDataReporte = $request->code('cp_reporte');
+       $cpDataNotifie = $request->code('cp_notifie');
+       $cpDataConsome = $request->code('cp_consome');
   // Chemin vers le fichier JSON dans public/titre
   $jsonFilePath = public_path('assets/Titre/dataT3.json');
 
@@ -926,7 +960,7 @@ foreach ($jsonData as $codeStr => $nom) {
 
                    // dd( $DPIA);
           }
-        }else{
+        }elseif($code % 10 == 0){
             $codeOp = floor($code / 100) * 100;
             // Insérer dans sousoperation avec un code spécifique
             $sousoperation=sousoperation::updateOrCreate(
@@ -987,6 +1021,23 @@ foreach ($jsonData as $codeStr => $nom) {
 
                    // dd( $DPIA);
           }
+          // si c est un dispositif
+            else{
+                // Vérifie si le dernier caractère est une lettre (A-Z) ou un chiffre (0-9) et le supprime
+                if (preg_match('/[A-Z0-9]$/i', $code)) {
+                    $codeOp = substr($code, 0, -1);
+                }
+                //$codeOp = floor($code / 100) * 100;
+                dd($codeOp);
+                // Insertion dans la table sousoperation
+                $sousoperation= sousoperation::updateOrCreate(
+                    ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code],
+                    ['code_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp, 'nom_sous_operation' => $nom,'code_t1' =>10000,
+                     'AE_sous_operation' => floatval(str_replace(',', '', $ae)),
+                      'CP_sous_operation' => floatval(str_replace(',', '', $cp))
+                      , 'date_insert_SOUSoperation' => $currentDateTime]
+                );
+            }
         }
 
         return response()->json([
@@ -1006,8 +1057,8 @@ foreach ($jsonData as $codeStr => $nom) {
 else{
 // Récupérer les données du formulaire
 //dd($request);
-$aeData = $request->input('ae');
-$cpData = $request->input('cp');
+$aeData = $request->code('ae');
+$cpData = $request->code('cp');
 
   // Chemin vers le fichier JSON dans public/titre
   $jsonFilePath = public_path('assets/Titre/dataT4.json');
@@ -1202,7 +1253,7 @@ if (!$nom) {
 
    }
    // Sinon, il s'agit d'une sous-opération
-   else {
+   elseif($code % 10 == 0) {
        $codeOp = floor($code / 100) * 100;
 
        // Insertion dans la table sousoperation
@@ -1371,6 +1422,23 @@ if (!$nom) {
       }
       // dd( $DPIA);
    }
+}
+ // si c est un dispositif
+ else{
+    // Vérifie si le dernier caractère est une lettre (A-Z) ou un chiffre (0-9) et le supprime
+    if (preg_match('/[A-Z0-9]$/i', $code)) {
+        $codeOp = substr($code, 0, -1);
+    }
+    //$codeOp = floor($code / 100) * 100;
+    dd($codeOp);
+    // Insertion dans la table sousoperation
+    $sousoperation= sousoperation::updateOrCreate(
+        ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code],
+        ['code_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp, 'nom_sous_operation' => $nom,'code_t1' =>10000,
+         'AE_sous_operation' => floatval(str_replace(',', '', $ae)),
+          'CP_sous_operation' => floatval(str_replace(',', '', $cp))
+          , 'date_insert_SOUSoperation' => $currentDateTime]
+    );
 }
 }
 return response()->json([

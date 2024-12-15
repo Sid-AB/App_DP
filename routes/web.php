@@ -26,6 +26,7 @@ Route::get('/', function () {
 Route::get('/testing',function (){
 return view('test.carsoule');
 });
+
 //===============ROUTE PORTEFEUILLE==============================
 Route::controller(portfeuilleController::class)->group(function(){
     Route::get('/Portfail/{id}','affich_portef')->name('home.portfail');
