@@ -19,10 +19,14 @@
       @endif
       <i class="fas fa-tools"></i> Suivi des Portefeuilles
       </a>
+      <a class="element" href="#">
+      <div class="update-handl" style="display: flex;align-items: flex-start;justify-content: flex-start;flex-wrap: nowrap;">
+        <i class="fas fa-edit"></i>
+        <h6 >Creation Modifcation</h6>
+      </div>
+    </a>
       @endif
-    <a class="element" href="#">
-        <i class="fas fa-hourglass"></i> Cumule des Portefeuilles
-      </a>
+   
       @if( isset($port) && isset($prog) && isset($sous_prog) && isset($act))
       @if(isset($s_act))
     <a class="element" href="/testing/{{$port}}/{{$prog}}/{{$sous_prog}}/{{$act}}/{{$s_act}}/pdf" target="_blank">
