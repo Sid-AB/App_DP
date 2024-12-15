@@ -19,12 +19,14 @@
       @endif
       <i class="fas fa-tools"></i> Suivi des Portefeuilles
       </a>
+      @if( !isset($port) && !isset($prog) && !isset($sous_prog) && !isset($act))
       <a class="element" href="#">
       <div class="update-handl" style="display: flex;align-items: flex-start;justify-content: flex-start;flex-wrap: nowrap;">
         <i class="fas fa-edit"></i>
         <h6 >Creation Modifcation</h6>
       </div>
     </a>
+    @endif
       @endif
    
       @if( isset($port) && isset($prog) && isset($sous_prog) && isset($act))

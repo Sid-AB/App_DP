@@ -527,7 +527,7 @@
                                            }
                                         }
 
-                                        if (newText != 0 && newText != '' && newText != null) {
+                                        if (newText != 0 && newText != '' && newText != null && newText != '0') {
                                             mount_chang = true
 
                                             if (mount_chang == true) {
@@ -645,6 +645,10 @@
                                         }
                                         else {
                                             cell.empty();
+                                            if(old == 0 || old == "0" || old == '' || old === null)
+                                                {
+                                                   old='0';
+                                                }
                                             cell.text(old)
                                         }
                                     })
@@ -870,6 +874,10 @@
                                          }
                                          else {
                                              cell.empty();
+                                             if(old == 0 || old == "0" || old == '' || old === null)
+                                             {
+                                                old='0';
+                                             }
                                              cell.text(old)
                                          }
                                          // Set the new value back to the cell
