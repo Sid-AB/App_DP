@@ -1306,15 +1306,27 @@ transition-timing-function: line;
 {
   flex-direction: column;
 }
-.reload {
+.reload-handle
+{
   z-index: 100;
-  bottom: 50%;
-  left: 50%;
+    bottom: 0;
+
+    position: fixed;
+
+    width: 100%;
+    height: 100%;
+    background-color: #22222294;
+}
+.reload {
   position: fixed;
+  top: 50%;
+  text-align: center;
+  right: 45%;
+  z-index: 100;
   border-radius: 25% ;
   width: 100px;
   height: 100px;
-  background-color: #22222294;  
+  background-color: #686868c7;  
 }
 
 @keyframes rotation {
