@@ -118,14 +118,6 @@
   .update-handl
   {
     text-align: center;
-    top: 20px;
-    left: 15px;
-    z-index: 0;
-  }
-  .update-handl:hover
-  {
-    box-shadow: 2px 2px 2px 2px #999;
-    cursor: pointer;
   }
 
   /**---- card items*/
@@ -401,5 +393,13 @@ align-items: flex-end;
       justify-content: space-around;
       align-items: center;
       flex-wrap: wrap;
+
+}
+.exter_type
+{
+  
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 
 }

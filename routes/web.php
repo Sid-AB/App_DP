@@ -48,9 +48,10 @@ Route::controller( programmeControlleur::class)->group(function(){
 
 //===============ROUTE SOUS PROGRAMME==============================
 Route::controller(sousProgrammeController::class)->group(function(){
-    Route::get('/SousProgramme/{num_prog}','affich_sou_prog')->name('home.sousProgramme');
+    Route::get('/SousProgramme','affich_sou_prog')->name('home.sousProgramme');
     Route::post('/creationSousProg','create_sou_prog')->name('creation.souProgramme');
     Route::get('/check-sousprog','check_sous_prog')->name('check.sousprog');
+    Route::get('/progrma_from_sous/{num_sous_prog}','getprog')->name('get.program');
 
 });
 
