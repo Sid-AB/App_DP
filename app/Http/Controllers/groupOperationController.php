@@ -965,10 +965,6 @@ foreach ($jsonData as $codeStr => $nom) {
             //dd($code % 10 == 0);
             $codeOp = floor($code / 100) * 100;
             //dd("codeop", $codeOp);
-
-            // Insérer dans sousoperation avec un code spécifique
-            $var=$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code;
-            dd($var);
             $sousoperation=sousoperation::updateOrCreate(
                 ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
                 ['code_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp,
@@ -1034,7 +1030,7 @@ foreach ($jsonData as $codeStr => $nom) {
                     // Supprimer tout ce qui suit le premier tiret (y compris le tiret)
                     $codeOp = explode('-', $code)[0];
                 }
-                dd("soussou", $codeOp);
+               // dd("soussou", $codeOp);
                 // Insertion dans la table sousoperation
                 $sousoperation= sousoperation::updateOrCreate(
                     ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code],

@@ -39,7 +39,7 @@ class sousOperationController extends Controller
         {
             $act=$act1[1];
         }
-            $act=Action::where('num_action',intval($act))->first();
+            $act=Action::where('num_action',$act)->first();
             $sprog=SousProgramme::where('num_sous_prog',$act->num_sous_prog)->first();
             $progms=Programme::where('num_prog',$sprog->num_prog)->first();
             $act=$act->num_action;
@@ -73,11 +73,11 @@ class sousOperationController extends Controller
         {
             $s_act=$s_act1[1];
         }
-        $s_act=SousAction::where('num_sous_action',intval($s_act))->first();
+        $s_act=SousAction::where('num_sous_action',$s_act)->first();
         $act=Action::where('num_action',$s_act->num_action)->first();
         $sprog=SousProgramme::where('num_sous_prog',$act->num_sous_prog)->first();
         $progms=Programme::where('num_prog',$sprog->num_prog)->first();
-        
+
         $s_act=$s_act->num_sous_action;
         $act=$act->num_action;
         $sous_prog=$sprog->num_sous_prog;

@@ -1306,4 +1306,24 @@ transition-timing-function: line;
 {
   flex-direction: column;
 }
+.reload {
+  z-index: 100;
+  bottom: 50%;
+  left: 50%;
+  position: fixed;
+  border-radius: 25% ;
+  width: 100px;
+  height: 100px;
+  background-color: #22222294;  
+}
+
+@keyframes rotation {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.reload-hidden
+{
+  display: none;
+}
 /***------------------------------ end --------------------***/
