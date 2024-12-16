@@ -215,7 +215,7 @@
       <div class="Tsop_add_handle">
           <form>
           <div class="form-group">
-            <label for="desp">Dispositive ou bien la description</label>
+            <label class="desp">Dispositive ou bien la description</label>
             <input type="text" class="form-control" id="dispo" placeholder="Entrer La description">
           </div>
           <div class="form-group" id="Tport-vals">
@@ -245,6 +245,7 @@
   var jsonpath3="{{asset('assets/Titre/dataT3.json')}}"
   var jsonpath4="{{asset('assets/Titre/dataT4.json')}}"
   var yearport="{{$years}}"
+  var counter=0;
   @if(isset($s_act))
   var path3=['{{$port}}','{{$prog}}','{{$sous_prog}}','{{$act}}','{{$s_act}}']
   @else

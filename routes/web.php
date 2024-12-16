@@ -94,8 +94,8 @@ Route::controller(opeartionController::class)->group(function(){
 
 //===============ROUTE SOUS OPERATION==============================
 Route::controller(sousOperationController::class)->group(function(){
-    Route::get('/testing/Action/{port}/{prog}/{sous_prog}/{act}','AffichePortsAction');
-    Route::get('/testing/S_action/{port}/{prog}/{sous_prog}/{act}/{s_act}','AffichePortsSousAct');
+    Route::get('/testing/Action/{act}','AffichePortsAction');
+    Route::get('/testing/S_action/{s_act}','AffichePortsSousAct');
     Route::get('/testing/{port}/{prog}/{sous_prog}/{act}/{s_act}/pdf','impressionpdf');
     Route::get('/testing/{port}/{prog}/{sous_prog}/{act}/pdf','impressionpdf');
 });

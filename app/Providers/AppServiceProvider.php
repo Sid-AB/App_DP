@@ -7,7 +7,7 @@ use App\Models\Action;
 use App\Models\initPort;
 use App\Models\Operation;
 use App\Models\Programme;
-use App\Providers\Schema;
+use Illuminate\Support\Facades\Schema;
 use App\Models\SousAction;
 use App\Models\Portefeuille;
 use App\Models\ModificationT;
@@ -32,6 +32,7 @@ use App\Observers\ConstruireDPIAObserver;
 use App\Observers\ConstruireDPICObserver;
 use App\Observers\GroupOperationObserver;
 
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -54,6 +55,7 @@ class AppServiceProvider extends ServiceProvider
         initPort::observe(InitPortObserver::class);
         Action::observe(ActionObserver::class);
         SousAction::observe(SousActionObserver::class);
+        Schema::defaultStringLength(191);
         GroupOperation::observe(GroupOperationObserver::class);
         Operation::observe(OperationObserver::class);
         SousOperation::observe(sousoperationObserver::class);
@@ -62,4 +64,5 @@ class AppServiceProvider extends ServiceProvider
         //ConstruireDPIA::observe(ConstruireDPIAObserver::class);
 
     }
+
 }
