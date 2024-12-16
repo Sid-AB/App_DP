@@ -6,8 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;  
 use App\Services\CalculDpia;
 use App\Models\SousOperation;
-use App\Models\SousProgramme;
+
 use App\Models\Portefeuille;
+use App\Models\Programme;
+use App\Models\SousProgramme;
+use App\Models\Action;
+use App\Models\SousAction;
 use Barryvdh\DomPDF\Facade\pdf;
 use Illuminate\Support\Facades\Storage;
 use Barryvdh\Snappy\Facades\SnappyPdf;
@@ -25,18 +29,26 @@ class sousOperationController extends Controller
     }
 
 
-    function AffichePortsAction ($port,$prog,$sous_prog,$act)
+    function AffichePortsAction ($act)
     {
 
         $act1=explode('_',$act);
-        $years=Portefeuille::where('num_portefeuil',$port)->firstOrFail();
-        $years = Carbon::parse($years->Date_portefeuille)->year;
+        
         //dd($act1);
         if(count($act1) > 1)
         {
             $act=$act1[1];
         }
-      //  dd($port,$prog,$sous_prog,$act);
+            $act=Action::where('num_action',$act)->first();
+            $sprog=SousProgramme::where('num_sous_prog',$act->num_sous_prog)->first();
+            $progms=Programme::where('num_prog',$sprog->num_prog)->first();
+            $act=$act->num_action;
+            $sous_prog=$sprog->num_sous_prog;
+            $prog=$progms->num_prog;
+            $port=$progms->num_portefeuil;
+            $years=Portefeuille::where('num_portefeuil',$port)->firstOrFail();
+            $years = Carbon::parse($years->Date_portefeuille)->year;
+ 
             try{
         $resultats = $this->CalculDpia->calculdpiaFromPath($port, $prog, $sous_prog, $act,$act);
         //dd($resultats);
@@ -61,6 +73,19 @@ class sousOperationController extends Controller
         {
             $s_act=$s_act1[1];
         }
+        $s_act=SousAction::where('num_sous_action',$s_act)->first();
+        $act=Action::where('num_action',$s_act->num_action)->first();
+        $sprog=SousProgramme::where('num_sous_prog',$act->num_sous_prog)->first();
+        $progms=Programme::where('num_prog',$sprog->num_prog)->first();
+
+        $s_act=$s_act->num_sous_action;
+        $act=$act->num_action;
+        $sous_prog=$sprog->num_sous_prog;
+        $prog=$progms->num_prog;
+        $port=$progms->num_portefeuil;
+        $years=Portefeuille::where('num_portefeuil',$port)->firstOrFail();
+        $years = Carbon::parse($years->Date_portefeuille)->year;
+
       //dd($port,$prog,$sous_prog,$act,$s_act);
       //$resultats = $this->CalculDpia->calculdpiaFromPath($port, $prog, $sous_prog, $act,$s_act);
      // dd($resultats);
