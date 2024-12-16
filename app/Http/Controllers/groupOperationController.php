@@ -32,9 +32,9 @@ class groupOperationController extends Controller
 if($T==1)
 {
     // Récupérer les données du formulaire
-    $aeData = $request->code('ae');
-    $cpData = $request->code('cp');
-
+    //dd($request);
+    $aeData = $request->input('ae');
+    $cpData = $request->input('cp');
     // Chemin vers le fichier JSON dans public/assets/titre
     $jsonFilePath = public_path('assets/Titre/dataT1.json');
 
@@ -269,11 +269,11 @@ foreach ($jsonData as $codeStr => $nom) {
         }
         // si c est un dispositif
         else{
-            // Vérifie si le dernier caractère est une lettre (A-Z) ou un chiffre (0-9) et le supprime
-            if (preg_match('/[A-Z0-9]$/i', $code)) {
-                $codeOp = substr($code, 0, -1);
+            // Vérifier si la variable contient un seul tiret
+            if (strpos($code, '-') !== false) {
+                // Supprimer tout ce qui suit le premier tiret (y compris le tiret)
+                $codeOp = explode('-', $code)[0];
             }
-            //$codeOp = floor($code / 100) * 100;
             dd($codeOp);
             // Insertion dans la table sousoperation
             $sousoperation= sousoperation::updateOrCreate(
@@ -303,10 +303,10 @@ foreach ($jsonData as $codeStr => $nom) {
 //===================================================================================
 elseif ($T == 2) {
     // Récupérer les données du formulaire
-    $aeDataOuvert = $request->code('ae_ouvert');
-    $cpDataOuvert = $request->code('cp_ouvert');
-    $aeDataAttendu = $request->code('ae_attendu');
-    $cpDataAttendu = $request->code('cp_attendu');
+    $aeDataOuvert = $request->input('ae_ouvert');
+    $cpDataOuvert = $request->input('cp_ouvert');
+    $aeDataAttendu = $request->input('ae_attendu');
+    $cpDataAttendu = $request->input('cp_attendu');
     // $currentDateTime = Carbon::now();
 
     // Chemin vers le fichier JSON dans public/titre
@@ -703,11 +703,11 @@ elseif ($T == 2) {
         }
         // si c est un dispositif
         else{
-            // Vérifie si le dernier caractère est une lettre (A-Z) ou un chiffre (0-9) et le supprime
-            if (preg_match('/[A-Z0-9]$/i', $code)) {
-                $codeOp = substr($code, 0, -1);
+            // Vérifier si la variable contient un seul tiret
+            if (strpos($code, '-') !== false) {
+                // Supprimer tout ce qui suit le premier tiret (y compris le tiret)
+                $codeOp = explode('-', $code)[0];
             }
-            //$codeOp = floor($code / 100) * 100;
             dd($codeOp);
             // Insertion dans la table sousoperation
             $sousoperation= sousoperation::updateOrCreate(
@@ -739,13 +739,14 @@ elseif ($T == 2) {
 elseif ($T==3) {
     //dd($request);
        // Récupérer les données du formulaire
-       $aeDataReporte = $request->code('ae_reporte');
-       $aeDataNotifie = $request->code('ae_notifie');
-       $aeDataEngage = $request->code('ae_engage');
+       $aeDataReporte = $request->input('ae_reporte');
+      // dd($aeDataReporte);
+       $aeDataNotifie = $request->input('ae_notifie');
+       $aeDataEngage = $request->input('ae_engage');
 
-       $cpDataReporte = $request->cp_reporte;
-       $cpDataNotifie = $request->cp_notifie;
-       $cpDataConsome = $request->cp_consome;
+       $cpDataReporte = $request->input('cp_reporte');
+       $cpDataNotifie = $request->input('cp_notifie');
+       $cpDataConsome = $request->input('cp_consome');
   // Chemin vers le fichier JSON dans public/titre
   $jsonFilePath = public_path('assets/Titre/dataT3.json');
 
@@ -961,13 +962,16 @@ foreach ($jsonData as $codeStr => $nom) {
                    // dd( $DPIA);
           }
         }elseif($code % 10 == 0){
+            //dd($code % 10 == 0);
             $codeOp = floor($code / 100) * 100;
+            //dd("codeop", $codeOp);
+
             // Insérer dans sousoperation avec un code spécifique
             $var=$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code;
             dd($var);
             $sousoperation=sousoperation::updateOrCreate(
                 ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
-                ['code_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code,
+                ['code_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp,
                 'nom_sous_operation' => $nom,
                 'code_t3' => 30000,
 
@@ -1025,12 +1029,12 @@ foreach ($jsonData as $codeStr => $nom) {
           }
           // si c est un dispositif
             else{
-                // Vérifie si le dernier caractère est une lettre (A-Z) ou un chiffre (0-9) et le supprime
-                if (preg_match('/[A-Z0-9]$/i', $code)) {
-                    $codeOp = substr($code, 0, -1);
+                // Vérifier si la variable contient un seul tiret
+                if (strpos($code, '-') !== false) {
+                    // Supprimer tout ce qui suit le premier tiret (y compris le tiret)
+                    $codeOp = explode('-', $code)[0];
                 }
-                //$codeOp = floor($code / 100) * 100;
-                dd($codeOp);
+                dd("soussou", $codeOp);
                 // Insertion dans la table sousoperation
                 $sousoperation= sousoperation::updateOrCreate(
                     ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code],
@@ -1059,8 +1063,8 @@ foreach ($jsonData as $codeStr => $nom) {
 else{
 // Récupérer les données du formulaire
 //dd($request);
-$aeData = $request->ae;
-$cpData = $request->cp;
+$aeData = $request->input('ae');
+$cpData = $request->input('cp');
 
   // Chemin vers le fichier JSON dans public/titre
   $jsonFilePath = public_path('assets/Titre/dataT4.json');
@@ -1307,7 +1311,8 @@ if (!$nom) {
                }
                // dd( $DPIA);
 
-
+//reste a verifier
+/*
         if ($currentIndex !== false && isset($keys[$currentIndex + 1])) {
             $nextKey = $keys[$currentIndex + 1]; // Obtenir la clé suivante
             $nextItem = $jsonData[$nextKey]; // Obtenir l'élément suivant par sa clé
@@ -1317,6 +1322,7 @@ if (!$nom) {
 
         // Si la ligne suivante n'est pas une sous-opération
         if ($nextCode && ($nextCode % 100 == 0 || $nextCode % 1000 == 0)) {
+        dd($code);
             // Insérer dans sousoperation avec un code spécifique
            $sousoperation= sousoperation::updateOrCreate(
                 ['code_sous_operation' =>  $code.$codeOp.$codeGp.$s_act], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
@@ -1423,15 +1429,15 @@ if (!$nom) {
           dd('Portefeuille non trouvé');
       }
       // dd( $DPIA);
-   }
+   } *///reste a verifier
 }
  // si c est un dispositif
  else{
-    // Vérifie si le dernier caractère est une lettre (A-Z) ou un chiffre (0-9) et le supprime
-    if (preg_match('/[A-Z0-9]$/i', $code)) {
-        $codeOp = substr($code, 0, -1);
+       // Vérifier si la variable contient un seul tiret
+       if (strpos($code, '-') !== false) {
+        // Supprimer tout ce qui suit le premier tiret (y compris le tiret)
+        $codeOp = explode('-', $code)[0];
     }
-    //$codeOp = floor($code / 100) * 100;
     dd($codeOp);
     // Insertion dans la table sousoperation
     $sousoperation= sousoperation::updateOrCreate(
