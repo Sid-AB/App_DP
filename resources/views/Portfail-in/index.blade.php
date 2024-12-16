@@ -97,10 +97,10 @@
                   <div class="col-10">
                     <h5 class="card-title widget-card-title mb-3">{{$portf['data']['nom_prog']}}</h5>
                     <h4 class="card-subtitle text-body-secondary m-0">
-                      <p>  autorisations d'engagement :</p><p class="chiffre">{{$portf['init_AE']}}</p>
+                      <p> Autorisations d’engagement:</p><p class="chiffre">{{$portf['init_AE']}}</p>
                     </h4>
                     <h4 class="card-subtitle text-body-secondary m-0">
-                      <p> crédits de paiement :</p><p class="chiffre">{{$portf['init_CP']}}</p>
+                      <p> Crédits de paiement :</p><p class="chiffre">{{$portf['init_CP']}}</p>
                     </h4>
                   </div>
                   <div class="col-2">
@@ -159,11 +159,11 @@
                   <div class="col-10">
                     <h5 class="card-title widget-card-title mb-3">{{$souportf['data']['nom_sous_prog']}}</h5>
                     <h4 class="card-subtitle text-body-secondary m-0">
-                    <p> autorisations d'engagement :<p class="chiffre">{{$souportf['init_AE']}}</p></p>
+                    <p> Autorisations d’engagement:<p class="chiffre">{{$souportf['init_AE']}}</p></p>
                     </h4>
                     <h4 class="card-subtitle text-body-secondary m-0">
                     <div>
-                     <div> <p>crédits de paiement :</p>
+                     <div> <p>Crédits de paiement:</p>
                       <p class="chiffre">{{$souportf['init_CP']}}</p></div>
                     </div> 
                     </h4>
@@ -215,10 +215,10 @@
                   <div class="col-8">
                     <h5 class="card-title widget-card-title mb-3">Action: {{$act['data']['nom_action'] }}</h5>
                     <h4 class="card-subtitle text-body-secondary m-0">
-                    <p>  autorisations d'engagement :{{$act['TotalAE']}}</p>
+                    <p>  Autorisations d’engagement :{{$act['TotalAE']}}</p><p>{{$act['init_AE']}}</p>
                     </h4>
                     <h4 class="card-subtitle text-body-secondary m-0">
-                    <p>  crédits de paiement :{{$act['TotalCP']}}</p>
+                    <p>  Crédits de paiement :{{$act['TotalCP']}}</p><p>{{$act['init_CP']}}</p>
                     </h4>
                   </div>
                   <div class="col-4">
@@ -272,8 +272,8 @@
                 <div class="row">
                   <div class="col-8">
                     <h5 class="card-title widget-card-title mb-3">Sous Action: {{$sous_act['num_act'] }}</h5>
-                    <h4 class="card-subtitle text-body-secondary m-0"> autorisations d'engagement : {{$sous_act['TotalAE']}}</h4>
-                    <h4 class="card-subtitle text-body-secondary m-0"> crédits de paiement :{{$sous_act['TotalCP']}}</h4>
+                    <h4 class="card-subtitle text-body-secondary m-0"> Autorisations d’engagement : {{$sous_act['TotalAE']}}</h4>
+                    <h4 class="card-subtitle text-body-secondary m-0"> Crédits de paiement :{{$sous_act['TotalCP']}}</h4>
                   </div>
                   <div class="col-4">
                     <div class="d-flex justify-content-end">

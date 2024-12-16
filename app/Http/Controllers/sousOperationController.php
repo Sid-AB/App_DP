@@ -219,7 +219,7 @@ class sousOperationController extends Controller
                 'action', 
                 'years'
             ))->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1.25);  // Augmenter la résolution pour améliorer la lisibilité du texte
-              return $pdf->stream('liste_impression.pdf',["Attachment" => false]);
+              return $pdf->stream('liste_impression.pdf');
         } else {
                 throw new \Exception("Aucune donnée trouvée");
             }
