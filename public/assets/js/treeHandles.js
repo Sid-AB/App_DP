@@ -15,8 +15,8 @@ $(document).ready(function(){
   var type;
   let selectTret ='T0';
   let  selectedHobby='t'
-  let selectedprogret ='0';
-  let selectdsousret='0';
+  let selectedprogret ='';
+  let selectdsousret='';
   var prognum='';
   var sousprogbum='';
   var progs={};

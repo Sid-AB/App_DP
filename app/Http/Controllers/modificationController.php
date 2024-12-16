@@ -68,9 +68,11 @@ class modificationController extends Controller
             }
         }
 
-            return response()->json(['message' => 'Mise à jour réussie et ajout dans ConstruireDPIA'], 200);
+            return response()->json(['message' => 'Mise à jour réussie et ajout dans ConstruireDPIA',
+           'code'=>200]);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Erreur lors de la mise à jour ou de l\'ajout', 'details' => $e->getMessage()], 500);
+            return response()->json(['error' => 'Erreur lors de la mise à jour ou de l\'ajout', 'details' => $e->getMessage(),
+        'code'=>500]);
         }
     }
 
@@ -278,7 +280,7 @@ class modificationController extends Controller
             //'sousprogbum_click'=>'string', //sousprog clickable ou reçoit l'argent
             ]);*/
 
-            dd( $request );
+           // dd( $request );
             $validated=$request;
 
             //initialiser lees var

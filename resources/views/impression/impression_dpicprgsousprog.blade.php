@@ -153,7 +153,7 @@
                  @endphp
                     <tr class="subprogram-title">
                         <td>{{ $code }}</td>
-                        <td>Sous Programme: {{ $sousProgramme['nom'] }}</td>
+                        <td>Sous Programme:{{ $sousProgramme['nom'] }}</td>
                         <td>{{ $sousProgramme['Total']['TotalT1_AE']}}</td>
                         <td>{{ $sousProgramme['Total']['TotalT1_CP']}}</td>
                         <td>{{ $sousProgramme['Total']['TotalT2_AE']}}</td>
