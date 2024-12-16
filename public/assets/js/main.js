@@ -764,9 +764,7 @@
                                                              var cpDataOuvert = $(this).find('td').eq(3).text();
                                                              var aeDataAttendu = $(this).find('td').eq(4).text();
                                                              var cpDataAttendu = $(this).find('td').eq(5).text();
-                                                          /* var someae = parseFloat(aeDataOuvert) + parseFloat(aeDataAttendu);
-                                                             var somecp = parseFloat(cpDataOuvert) + parseFloat(cpDataAttendu);
-                                                             */
+
                                                              // Ajoute les valeurs dans les objets
                                                              data.ae_ouvert[code] = aeDataOuvert;
                                                              data.cp_ouvert[code] = cpDataOuvert;
@@ -800,8 +798,8 @@
                                                          if (tid == 'T_port4' || tid == 'T4') {
 
                                                              var code = $(this).find('td').eq(0).text();
-                                                             var aeValue = $(this).find('td').eq(2).text();
-                                                             var cpValue = $(this).find('td').eq(3).text();
+                                                             var aeValue = $(this).find('td').eq(3).text();
+                                                             var cpValue = $(this).find('td').eq(4).text();
                                                              // Ajoute les valeurs dans les objets
                                                              data.ae[code] = aeValue;
                                                              data.cp[code] = cpValue;
