@@ -739,13 +739,13 @@ elseif ($T == 2) {
 elseif ($T==3) {
     //dd($request);
        // Récupérer les données du formulaire
-       $aeDataReporte = $request->code('ae_reporte');
-       $aeDataNotifie = $request->code('ae_notifie');
-       $aeDataEngage = $request->code('ae_engage');
+       $aeDataReporte = $request->ae_reporte;
+       $aeDataNotifie = $request->ae_notifie;
+       $aeDataEngage = $request->ae_engage;
 
-       $cpDataReporte = $request->code('cp_reporte');
-       $cpDataNotifie = $request->code('cp_notifie');
-       $cpDataConsome = $request->code('cp_consome');
+       $cpDataReporte = $request->cp_reporte;
+       $cpDataNotifie = $request->cp_notifie;
+       $cpDataConsome = $request->cp_consome;
   // Chemin vers le fichier JSON dans public/titre
   $jsonFilePath = public_path('assets/Titre/dataT3.json');
 
@@ -815,14 +815,14 @@ foreach ($jsonData as $codeStr => $nom) {
           // Vérifier si le code représente une opération
           elseif ($code % 100 == 0) {
               $codeGp = floor($code / 1000) * 1000;
-
+                
               // Insertion dans la table operation
-              Operation::updateOrCreate(
+                  Operation::updateOrCreate(
                   ['code_operation' =>$s_act.'-'.$codeGp.'-'.$code],
                   ['code_grp_operation' => $s_act.'-'.$codeGp, 'nom_operation' => $nom,
                   'date_insert_operation' => $currentDateTime]
               );
-
+             
                /*// Vérifier la ligne suivante
                $nextItem = $jsonData[$i + 1];
                $nextCode = $nextItem['code'] ?? null;*/
@@ -963,6 +963,8 @@ foreach ($jsonData as $codeStr => $nom) {
         }elseif($code % 10 == 0){
             $codeOp = floor($code / 100) * 100;
             // Insérer dans sousoperation avec un code spécifique
+            $var=$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code;
+            dd($var);
             $sousoperation=sousoperation::updateOrCreate(
                 ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
                 ['code_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code,
@@ -1057,8 +1059,8 @@ foreach ($jsonData as $codeStr => $nom) {
 else{
 // Récupérer les données du formulaire
 //dd($request);
-$aeData = $request->code('ae');
-$cpData = $request->code('cp');
+$aeData = $request->ae;
+$cpData = $request->cp;
 
   // Chemin vers le fichier JSON dans public/titre
   $jsonFilePath = public_path('assets/Titre/dataT4.json');
