@@ -739,8 +739,8 @@ elseif ($T == 2) {
 elseif ($T==3) {
     //dd($request);
        // Récupérer les données du formulaire
-       $aeDataReporte = $request->code('ae_reporte');
-       dd($aeDataReporte);
+       $aeDataReporte = $request->$ae_reporte;
+       //dd($aeDataReporte);
        $aeDataNotifie = $request->code('ae_notifie');
        $aeDataEngage = $request->code('ae_engage');
 

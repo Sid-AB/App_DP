@@ -348,7 +348,11 @@ $('#button-71').on('click',function(){
     data:datamodif,
     success:function(response)
     {
-
+      console.log('Réponse du serveur:', response);
+    },
+    error: function(xhr, status, error) {
+        console.log('Erreur AJAX:', status, error);
+        console.log('Détails de la réponse:', xhr.responseText);
     }
   })
 
