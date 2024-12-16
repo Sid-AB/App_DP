@@ -32,53 +32,13 @@
             color: rgb(10, 10, 10);
         }
 
-        tr:nth-child(even) {
-            background-color: #fff; /* Ligne alternative */
-        }
+       
 
      /*   tr:hover {
             background-color: #0c0a0a;  Effet survol 
         }*/
 
-        .program-title {
-            text-align:center;
-            font-weight: bold;
-          /*  background-color: #DDD9C4; /* Couleur plus sombre pour les programmes principaux */
-            color: rgb(8, 8, 8);
-        }
-
-        .subprogram-title {
-            font-weight: bold;
-            background-color: #fff; /* Couleur grise pour les sous-programmes */
-            color: rgb(17, 16, 16);
-           
-        }
-        .ttaction-title {
-            font-weight: bold;
-            background-color: #60497A; /* Couleur plus sombre pour les programmes principaux */
-            color: rgb(8, 8, 8);
-        }
-        .event-title {
-            font-weight: bold;
-            background-color: #00B050; /* Couleur eventuels credits */
-            color: rgb(245, 238, 238);
-        }
-        .event-title td {
-            font-weight: bold;
-            background-color: #00B050; /* Couleur eventuels credits */
-            color: rgb(245, 238, 238);
-        }
-        
-        .totals {
-            font-weight: bold;
-            background-color: #31869B   ; /* Couleur totals des actions1..n */
-            color: rgb(243, 236, 236);
-        }
-        .totals td{
-            font-weight: bold;
-            background-color: #31869B   ; /* Couleur totals des actions1..n */
-            color: rgb(243, 236, 236);
-        }
+     
         .T
         {
         background-color:#DDD9C4;
@@ -95,7 +55,7 @@
    
 </head>
 <body>
-<h1>LES CREDITS DU PORTEFEUILLE DE PROGRAMMES
+<h1>
      @for($i=0;$i< count($programmes);$i++)
      @foreach ($programmes[$i] as $programme)
      @php
@@ -131,16 +91,16 @@
             <tr>
                 <th class="T">Code</th>
                 <th class="T">LES PROGRAMME ET SES SOUS PROGRAMMES</th>
-                <th>AE</th>
-                <th>CP</th>
-                <th>AE</th>
-                <th>CP</th>
-                <th>AE</th>
-                <th>CP</th>
-                <th>AE</th>
-                <th>CP</th>
-                <th>AE</th>
-                <th>CP</th>
+                <th style="text-align:center; ">AE</th>
+                <th style="text-align:center; ">CP</th>
+                <th style="text-align:center; ">AE</th>
+                <th style="text-align:center; ">CP</th>
+                <th style="text-align:center; ">AE</th>
+                <th style="text-align:center; ">CP</th>
+                <th style="text-align:center; ">AE</th>
+                <th style="text-align:center; ">CP</th>
+                <th style="text-align:center; ">AE</th>
+                <th style="text-align:center; ">CP</th>
             </tr>
         </thead>
         <tbody>
@@ -154,7 +114,7 @@
             //dd($code);
             $code = $code[$last];
             @endphp
-                <tr class="program-title" >
+                <tr  >
                     <td class="head">{{ $code }}</td>
                     <td class="head">Programme :{{ $programme['nom'] }}</td>
                     <td>{{ $programme['Total']['TotalT1_AE']}}</td>
@@ -166,8 +126,8 @@
                     <td>{{ $programme['Total']['TotalT4_AE']}}</td>
                     <td>{{ $programme['Total']['TotalT4_CP']}}</td>
 
-                    <td>{{ $programme['Total']['TotalT4_AE']}}</td>
-                    <td>{{ $programme['Total']['TotalT4_CP']}}</td>
+                    <td>{{ $programme['Total']['TotalT1_AE']+$programme['Total']['TotalT2_AE']+ $programme['Total']['TotalT3_AE']+$programme['Total']['TotalT4_AE']}}</td>
+                    <td>{{ $programme['Total']['TotalT1_CP']+$programme['Total']['TotalT2_CP']+$programme['Total']['TotalT3_CP'] +$programme['Total']['TotalT4_CP']}}</td>
 
                 </tr>
 
@@ -192,8 +152,9 @@
                         <td>{{ $sousProgramme['Total']['TotalT4_AE']}}</td>
                         <td>{{ $sousProgramme['Total']['TotalT4_CP']}}</td>
 
-                        <td>{{ $sousProgramme['Total']['TotalT4_AE']}}</td>
-                        <td>{{ $sousProgramme['Total']['TotalT4_CP']}}</td>
+                        <td>{{ $sousProgramme['Total']['TotalT1_AE']+$sousProgramme['Total']['TotalT2_AE']+ $sousProgramme['Total']['TotalT3_AE']+$sousProgramme['Total']['TotalT4_AE']}}</td>
+                    <td>{{ $sousProgramme['Total']['TotalT1_CP']+$sousProgramme['Total']['TotalT2_CP']+$sousProgramme['Total']['TotalT3_CP'] +$sousProgramme['Total']['TotalT4_CP']}}</td>
+
                       
                     </tr>
 
@@ -201,20 +162,20 @@
                 @endfor
             @endforeach
             @endfor
-            <tr class="totals">
-                <th class="totals" colspan="2">TOTAL (1) DES CREDITS OUVERTS PAR LA LOI DE FINANCES DE L'ANNEE POUR LE PORTEFUILLE </th>
+            <tr >
+                <th colspan="2">TOTAL (1) DES CREDITS OUVERTS PAR LA LOI DE FINANCES DE L'ANNEE POUR LE PORTEFUILLE </th>
 
                 <td class="vert3">{{ $Ttportglob[0]['TotalPortT1_AE']}}</td>
                 <td class="vert3">{{ $Ttportglob[0]['TotalPortT1_CP']}}</td>
                 <td class="vert3">{{ $Ttportglob[0]['TotalPortT2_AE']}}</td>
                 <td class="vert3">{{ $Ttportglob[0]['TotalPortT2_CP']}}</td>
-                <td> {{ $Ttportglob[0]['TotalPortT3_AE']}}</td>
-                <td>{{ $Ttportglob[0]['TotalPortT3_CP']}}</td>
-                <td>{{ $Ttportglob[0]['TotalPortT4_AE']}}</td>
-                <td>{{ $Ttportglob[0]['TotalPortT4_CP']}}</td>
+                <td class="vert3"> {{ $Ttportglob[0]['TotalPortT3_AE']}}</td>
+                <td class="vert3">{{ $Ttportglob[0]['TotalPortT3_CP']}}</td>
+                <td class="vert3">{{ $Ttportglob[0]['TotalPortT4_AE']}}</td>
+                <td class="vert3">{{ $Ttportglob[0]['TotalPortT4_CP']}}</td>
 
-                <td>{{ $Ttportglob[0]['TotalPortT4_AE']}}</td>
-                <td>{{ $Ttportglob[0]['TotalPortT4_CP']}}</td>
+                <td class="vert3">{{$Ttportglob[0]['TotalPortT1_AE']+ $Ttportglob[0]['TotalPortT2_AE']+$Ttportglob[0]['TotalPortT3_AE']+$Ttportglob[0]['TotalPortT4_AE']}}</td>
+                <td class="vert3">{{$Ttportglob[0]['TotalPortT1_CP']+$Ttportglob[0]['TotalPortT2_CP']+$Ttportglob[0]['TotalPortT3_CP']+$Ttportglob[0]['TotalPortT4_CP'] }}</td>
 
             
 
