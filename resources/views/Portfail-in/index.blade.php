@@ -200,13 +200,11 @@
                 @foreach($souportf['Action'] as $act)
                   <li>
                   @if(count($act['sous_action'])>0)
-                  @foreach($act['sous_action'] as $sous_act)
-                  @if($sous_act['num_act'] != $act['num_act'])
+                  
                   <span class="member next" id="{{$act['num_act']}}" style="display:inline-block">
                   @else
                   <span class="member next" id="act_{{$act['num_act']}}" style="display:inline-block">
-                  @endif
-                  @endforeach
+                 
                   @endif
                 <div class="col-12 col-sm-6">
             <div class="card widget-card border-light shadow-sm">
@@ -289,7 +287,7 @@
                       <span class="lh-1 me-3 bg-danger-subtle text-danger rounded-circle p-1 d-flex align-items-center justify-content-center">
                         <i class="bi bi-arrow-right-short bsb-rotate-45"></i>
                       </span>
-                      <div class="Port-info-holder">
+                      <div class="Port-info-holder" style="display:flex;width: 23rem;">
                       @foreach($sous_act['Tports'] as $key=>$values)
                        <div class="T-holder"> 
                         <p class="fs-7 mb-0">{{$key}} </p>
