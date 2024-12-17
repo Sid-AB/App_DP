@@ -273,6 +273,7 @@
                         }
                          function add_newOPs_T3(id, descr, value, key,) {
                             id=id+'-'+counter;
+                            $("#dispo").text('');
                             $('.desp').text('Intituler');
                             var champ='<div><label>AE Reportter</label>'+
                                       '<input type="number" class="form-control" id="add_AE_rpor">'+
@@ -345,6 +346,7 @@
 
                          function add_newOPs_T4(id, value, key,) {
                             id=id+'-'+counter;
+                            $("#dispo").val('');
                             $('.desp').text('Dispositive');
                             $('#Tport-vals').addClass('T4')
                             var champ='<label>definition</label><input type="text" class="form-control" id="def_T4">'+
@@ -382,6 +384,8 @@
                                 $('.Tsop_handler').addClass('Tsop_handler_h')
                                 $('#Tport-vals').empty()
                                 $('#Tport-vals').removeClass('T4')
+                                $("#dispo").text('');
+                                $('#Tport-vals').empty();
                             })
                             $('#cancel_ops').click(function(){
                                 $('.Tsop_handler').addClass('Tsop_handler_h')
