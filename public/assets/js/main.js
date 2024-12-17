@@ -84,7 +84,6 @@
 
                          var click = 0;
                          var iupdate=1;
-                         var iupdate=1;
                          var changing_mist = new Object();
                          var value_chng = new Array()
                          var  dataupdate=new Array();
@@ -412,7 +411,7 @@
                                     old = cell.text();
                                 })
                                 $('.editable').dblclick(function(){
-                                    var i=0
+
                                     var ae=0;
                                     var cp=0;
                                     var ae_ouvert =0
@@ -620,33 +619,7 @@
 
                                             console.log('i insert '+JSON.stringify(dataupdate))
                                             }
-                                            $("#changin-up").on('click',function()
-                                            {
-                                                console.log('click once')
-                                                i++
-                                                if( i === 1)
-                                                    {
-                                               $.ajax({
-                                                    url:'/update',
-                                                    type:'POST',
-                                                    data:{
-                                                        Tport:T,
-                                                        result:dataupdate,
-                                                        _token: $('meta[name="csrf-token"]').attr("content"),
-                                                        _method: "POST",},
-                                                        success:function(response)
-                                                        {
 
-                                                        }
-
-                                                })
-                                                    }
-                                                   console.log('testing'+JSON.stringify(dataupdate))
-                                                   $('.change_app').empty()
-
-                                                //dataupdate=[];
-                                                click=0;
-                                            })
                                         }
                                         }
                                         else {
@@ -659,6 +632,46 @@
                                         }
                                     })
 
+
+
+                                })
+                                $('.change_app').on('click',function(){
+                                    var idbtn=$(this).children('#changin-up').attr('id');
+                                    if(idbtn =='changin-up' )
+                                    {
+                                        console.log('i insert '+JSON.stringify(dataupdate))
+                                        console.log('click once'+iupdate);
+
+
+                                        console.log('click after'+iupdate);
+                               $.ajax({
+                                    url:'/update',
+                                    type:'POST',
+                                    data:{
+                                        Tport:T,
+                                        result:dataupdate,
+                                        _token: $('meta[name="csrf-token"]').attr("content"),
+                                        _method: "POST",},
+                                        success:function(response)
+                                        {
+                                            if(response.code == 200)
+                                                {
+                                            dataupdate.forEach(elemnt=>{
+                                                console.log('green add to '+elemnt.code)
+                                                $('#ref'+elemnt.code).addClass('row-updated');
+                                                dataupdate=new Array();
+                                            })
+                                            }
+                                        }
+
+
+                                })
+
+                                   console.log('testing'+JSON.stringify(dataupdate))
+                                   $('.change_app').empty()
+                                click=0;
+
+                                    }
                                 })
                                 })
                             i=0;
@@ -893,6 +906,144 @@
                                              input.blur();  // Trigger blur event to save and exit input mode
                                          }
                                      });
+
+                                     $('.change_app').on('click',function(){
+                                        var idbtn=$(this).children('#changin').attr('id');
+                                        if(idbtn == 'changin')
+                                        {
+ // value_chng=new Array()
+ $('#reloading').removeClass('reload-hidden')
+ //    alert('changing success')
+ $('#T-tables tbody tr').each(function () {
+
+     if (tid == 'T_port1' || tid == 'T1') {
+
+         var code = $(this).find('td').eq(0).text();
+         var aeValue = $(this).find('td').eq(2).text();
+         var cpValue = $(this).find('td').eq(3).text();
+         // Ajoute les valeurs dans les objets
+         data.ae[code] = aeValue;
+         data.cp[code] = cpValue;
+         console.log('Data of T1'+JSON.stringify(data));
+
+
+     }
+     if (tid == 'T_port2' || tid == 'T2') {
+
+         var code = $(this).find('td').eq(0).text();
+         var aeDataOuvert = $(this).find('td').eq(2).text();
+         var cpDataOuvert = $(this).find('td').eq(3).text();
+         var aeDataAttendu = $(this).find('td').eq(4).text();
+         var cpDataAttendu = $(this).find('td').eq(5).text();
+      /* var someae = parseFloat(aeDataOuvert) + parseFloat(aeDataAttendu);
+         var somecp = parseFloat(cpDataOuvert) + parseFloat(cpDataAttendu);
+         */
+         // Ajoute les valeurs dans les objets
+         data.ae_ouvert[code] = aeDataOuvert;
+         data.cp_ouvert[code] = cpDataOuvert;
+         data.ae_attendu[code] = aeDataAttendu;
+         data.cp_attendu[code] = cpDataAttendu;
+
+     }
+     if (tid == 'T_port3' || tid == 'T3' || T == 3) {
+
+         var code = $(this).find('td').eq(0).text();
+         var aeDataReporte = $(this).find('td').eq(3).text();
+         var aeDataNotifie = $(this).find('td').eq(4).text();
+         var aeDataEngage = $(this).find('td').eq(5).text();
+
+         var cpDataReporte = $(this).find('td').eq(6).text();
+         var cpDataNotifie = $(this).find('td').eq(7).text();
+         var cpDataEngage = $(this).find('td').eq(8).text();
+
+
+         // Ajoute les valeurs dans les objets
+         //console.log("ddcss");
+         data.ae_reporte[code] = aeDataReporte;
+         data.ae_notifie[code] = aeDataNotifie;
+         data.ae_engage[code] = aeDataEngage;
+
+         data.cp_reporte[code] = cpDataReporte;
+         data.cp_notifie[code] = cpDataNotifie;
+         data.cp_consome[code] = cpDataEngage;
+
+     }
+     if (tid == 'T_port4' || tid == 'T4') {
+
+         var code = $(this).find('td').eq(0).text();
+         var aeValue = $(this).find('td').eq(3).text();
+         var cpValue = $(this).find('td').eq(4).text();
+         // Ajoute les valeurs dans les objets
+         data.ae[code] = aeValue;
+         data.cp[code] = cpValue;
+        console.log('T4'+JSON.stringify(data))
+
+     }
+     // value_chng.push(rw);
+ })
+
+ $('.change_app').empty()
+ //  console.log('path' + JSON.stringify(path))
+ //console.log('path' + JSON.stringify(path3))
+ //var url=   '/testing/Action/' + path.join('/');
+ console.log(" eat " + path3.length)
+ if (path3.length > 4) {
+    console.log('URL plus' + url)
+     var url = '/testing/S_action/' + path3[0] + '/' + path3[1] + '/' + path3[2] + '/' + path3[3] + '/' + path3[4] + '/' + T;
+     //var id_sous_action= path[4];
+ } else {
+
+     // var id_sous_action= path[3];
+     var url = '/testing/S_action/' + path3[0] + '/' + path3[1] + '/' + path3[2] + '/' + path3[3] + '/' + path3[3] + '/' + T;
+     console.log('URL less' + url)
+ }
+
+ $.ajax({
+     url: url,
+     type: 'GET',
+     data: {
+         ae: data.ae,
+         cp: data.cp,
+
+         ae_ouvert: data.ae_ouvert,
+         cp_ouvert: data.cp_ouvert,
+         ae_attendu: data.ae_attendu,
+         cp_attendu: data.cp_attendu,
+
+         ae_reporte: data.ae_reporte,
+         ae_notifie: data.ae_notifie,
+         ae_engage: data.ae_engage,
+         cp_reporte: data.cp_reporte,
+         cp_notifie: data.cp_notifie,
+         cp_consome: data.cp_consome,
+         //id_sous_action: id_sous_action,
+         _token: $('meta[name="csrf-token"]').attr('content'),
+         _method: "GET"
+     },
+     success: function (response) {
+         if (response.code == 200 || response.code == 404) {
+
+             window.location.reload();
+         }
+         else
+         {
+            console.log(response.message)
+         }
+     },
+     error: function (response) {
+         console.log('error')
+     }
+
+
+ });
+ click = 0;
+
+                                        }
+                                     })
+                                     $('#changin').on('click', function () {
+
+                                    })
+
                                  });
 
                              });
@@ -2549,8 +2700,11 @@
                                  if(code === 200)
                                     {
                                        dataupdate=[]
-                                       Update_dpia(T,id_s_act);
+
+                                       Update_dpia(T,iupdate);
+
                                        console.log('testing new update function')
+
                                     }
                              }).fail(function () {
                                  console.error('Error loading JSON file.');
