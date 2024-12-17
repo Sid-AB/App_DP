@@ -504,27 +504,28 @@
                                                 }
                                                 if(clickid == 'AE_rpor')
                                                 {
-                                                    element.value.ae_reporte=ae_reporte
+                                                    element.value.ae_reporte=newText
+                                                    console.log('AE T3 old :'+ element.value.ae_reporte+'new is '+newText)
                                                 }
                                                 if(clickid == 'AE_not')
                                                 {
-                                                    element.value.ae_notifie=ae_notifie
+                                                    element.value.ae_notifie=newText
                                                 }
                                                 if(clickid == 'AE_enga')
                                                 {
-                                                    element.value.ae_engage=ae_engage
+                                                    element.value.ae_engage=newText
                                                 }
                                                 if(clickid == 'CP_rpor')
                                                 {
-                                                element.value.cp_reporte=cp_reporte
+                                                element.value.cp_reporte=newText
                                                 }
                                                 if(clickid == 'CP_not')
                                                 {
-                                                element.value.cp_notifie=cp_notifie
+                                                element.value.cp_notifie=newText
                                                 }
                                                 if(clickid == 'CP_consom')
                                                 {
-                                                element.value.cp_consome=cp_consome
+                                                element.value.cp_consome=newText
                                                 }
                                                 exist=true;
                                              }
@@ -559,7 +560,7 @@
                                                 }
                                                 if(clickid == 'AE_Over')
                                                 {
-                                                     ae_ouvert=newText
+                                                 ae_ouvert=newText
                                                 }
                                                 if(clickid == 'AE_att')
                                                 {
@@ -575,15 +576,15 @@
                                                 }
                                                 if(clickid == 'AE_rpor')
                                                     {
-                                                       ae_reporte=newText
+                                                    ae_reporte=newText
                                                     }
                                                     if(clickid == 'AE_not')
                                                     {
-                                                       ae_notifie=newText
+                                                    ae_notifie=newText
                                                     }
                                                     if(clickid == 'AE_enga')
                                                     {
-                                                        ae_engage=newText
+                                                    ae_engage=newText
                                                     }
                                                     if(clickid == 'CP_rpor')
                                                     {
@@ -638,6 +639,7 @@
                                     var idbtn=$(this).children('#changin-up').attr('id');
                                     if(idbtn =='changin-up' )
                                     {
+                                        console.log('i insert '+JSON.stringify(dataupdate))
                                         console.log('click once'+iupdate);
                                         
                                      
@@ -652,8 +654,16 @@
                                         _method: "POST",},
                                         success:function(response)
                                         {
-                                            
+                                            if(response.code == 200)
+                                                {
+                                            dataupdate.forEach(elemnt=>{
+                                                console.log('green add to '+elemnt.code)
+                                                $('#ref'+elemnt.code).addClass('row-updated');
+                                                dataupdate=new Array();
+                                            })
+                                            }
                                         }
+
 
                                 })
                                    
