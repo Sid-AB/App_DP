@@ -50,9 +50,10 @@ class sousOperationController extends Controller
           
         $years=Portefeuille::where('num_portefeuil',$port)->firstOrFail();
         $years = Carbon::parse($years->Date_portefeuille)->year;
-        $resultats = $this->CalculDpia->calculdpiaFromPath($port, $prog, $sous_prog, $act,$act);
+       
             try{
-                dd($port, $prog, $sous_prog, $act,$act);
+                $resultats = $this->CalculDpia->calculdpiaFromPath($port, $prog, $sous_prog, $act,$act);
+                //dd($port, $prog, $sous_prog, $act,$act);
        
         //dd($resultats);
            return view('Action-in.index',compact('port','prog','sous_prog','act','resultats','years'));

@@ -200,11 +200,7 @@
                 @foreach($souportf['Action'] as $act)
                   <li>
                   @if(count($act['sous_action'])>0)
-                  
-                  <span class="member next" id="{{$act['num_act']}}" style="display:inline-block">
-                  @else
                   <span class="member next" id="act_{{$act['num_act']}}" style="display:inline-block">
-                 
                   @endif
                 <div class="col-12 col-sm-6">
             <div class="card widget-card border-light shadow-sm">
