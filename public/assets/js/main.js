@@ -411,7 +411,7 @@
                                     old = cell.text();
                                 })
                                 $('.editable').dblclick(function(){
-                                    
+
                                     var ae=0;
                                     var cp=0;
                                     var ae_ouvert =0
@@ -619,7 +619,7 @@
 
                                             console.log('i insert '+JSON.stringify(dataupdate))
                                             }
-                                          
+
                                         }
                                         }
                                         else {
@@ -632,7 +632,7 @@
                                         }
                                     })
 
-                                 
+
 
                                 })
                                 $('.change_app').on('click',function(){
@@ -641,8 +641,8 @@
                                     {
                                         console.log('i insert '+JSON.stringify(dataupdate))
                                         console.log('click once'+iupdate);
-                                        
-                                     
+
+
                                         console.log('click after'+iupdate);
                                $.ajax({
                                     url:'/update',
@@ -666,11 +666,11 @@
 
 
                                 })
-                                   
+
                                    console.log('testing'+JSON.stringify(dataupdate))
                                    $('.change_app').empty()
                                 click=0;
-                           
+
                                     }
                                 })
                                 })
@@ -1022,7 +1022,7 @@
      },
      success: function (response) {
          if (response.code == 200 || response.code == 404) {
-            
+
              window.location.reload();
          }
          else
@@ -1041,7 +1041,7 @@
                                         }
                                      })
                                      $('#changin').on('click', function () {
-                                       
+
                                     })
 
                                  });
@@ -2751,11 +2751,11 @@
                                  if(code === 200)
                                     {
                                        dataupdate=[]
-                                   
+
                                        Update_dpia(T,iupdate);
-                                      
+
                                        console.log('testing new update function')
-                                   
+
                                     }
                              }).fail(function () {
                                  console.error('Error loading JSON file.');
