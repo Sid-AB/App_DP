@@ -39,6 +39,7 @@ class sousOperationController extends Controller
         {
             $act=$act1[1];
         }
+   
             $act=Action::where('num_action',$act)->first();
             $sprog=SousProgramme::where('num_sous_prog',$act->num_sous_prog)->first();
             $progms=Programme::where('num_prog',$sprog->num_prog)->first();
@@ -46,11 +47,13 @@ class sousOperationController extends Controller
             $sous_prog=$sprog->num_sous_prog;
             $prog=$progms->num_prog;
             $port=$progms->num_portefeuil;
-            $years=Portefeuille::where('num_portefeuil',$port)->firstOrFail();
-            $years = Carbon::parse($years->Date_portefeuille)->year;
- 
-            try{
+          
+        $years=Portefeuille::where('num_portefeuil',$port)->firstOrFail();
+        $years = Carbon::parse($years->Date_portefeuille)->year;
         $resultats = $this->CalculDpia->calculdpiaFromPath($port, $prog, $sous_prog, $act,$act);
+            try{
+                dd($port, $prog, $sous_prog, $act,$act);
+       
         //dd($resultats);
            return view('Action-in.index',compact('port','prog','sous_prog','act','resultats','years'));
    
@@ -73,6 +76,7 @@ class sousOperationController extends Controller
         {
             $s_act=$s_act1[1];
         }
+
         $s_act=SousAction::where('num_sous_action',$s_act)->first();
         $act=Action::where('num_action',$s_act->num_action)->first();
         $sprog=SousProgramme::where('num_sous_prog',$act->num_sous_prog)->first();
@@ -83,6 +87,7 @@ class sousOperationController extends Controller
         $sous_prog=$sprog->num_sous_prog;
         $prog=$progms->num_prog;
         $port=$progms->num_portefeuil;
+    
         $years=Portefeuille::where('num_portefeuil',$port)->firstOrFail();
         $years = Carbon::parse($years->Date_portefeuille)->year;
 

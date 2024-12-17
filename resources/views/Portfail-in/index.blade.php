@@ -546,7 +546,7 @@ listItemsWithNestedUl.each(function(){
     if(typeact[0] =='act')
     {
       $(this).on('click',function(){
-      window.location.href='/testing/Action/'+typeact[1]+'/'
+        window.location.href='/testing/Action/'+path3[0]+'/'+path3[1]+'/'+path3[2]+'/'+typeact[1]+'/'
       })
     
     }
@@ -554,7 +554,7 @@ listItemsWithNestedUl.each(function(){
     {
       console.log('sub action'+typeact[0])
     $(this).on('click',function(){
-     window.location.href='/testing/S_action/'+typeact[1]+'/'
+     window.location.href='/testing/S_action/'+path3[0]+'/'+path3[1]+'/'+path3[2]+'/'+path3[3]+'/'+typeact[1]+'/'
       })
    
     }
