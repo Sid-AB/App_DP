@@ -455,8 +455,9 @@
                                             var testaeover = clickedRow.find('td').eq(2).text();//aeovert
                                             var someae = 0;
                                             var somecp = 0;
+                                            var wit = $(this).parent().attr('id');
                                             if (newText != 0 && newText != '' && newText != null ) {
-                                                var wit = $(this).parent().attr('id');
+                                               
                                                 console.log('ae -> ' + testaeover + 'cp ->' + testcpover + ' ae ett -> ' + testaeattendu + ' cp ett ->' + testcpattendu + 'value change ->' + JSON.stringify(wit))
                                                 if (wit == 'CP_att') {
                                                     testcpattendu = newText
@@ -498,16 +499,42 @@
                                                 clickedRow.find('td').eq(6).text(someae);
                                                 clickedRow.find('td').eq(7).text(somecp);
                                             } else
-                                        {
-                                            alert(newText)
-                                            if (wit == 'AE_Over') {
+                                            {
+                                                console.log('deminuis'+old+'of '+wit)
+                                                if (wit == 'CP_att') {
+                                                    testcpattendu = newText
+                                                    sommevertCPatt=parseFloat(sommevertCPatt)-parseFloat(old)
+                                                  somecp-=newText
+                                                   
+                                                }
+                                                if (wit == 'AE_att') {
+                                                    someae-=newText
+                                                    sommevertAEatt=parseFloat(sommevertAEatt)-parseFloat(old)
+                                            
+                                                }
+                                                if (wit == 'AE_Over') {
+                                            
+                                                    someae-=newText
+                                                    sommevertAEovr=parseFloat(sommevertAEovr)-parseFloat(old)
+                                                   
+                                                }
+                                                if (wit == 'CP_Over') {
+                                                   
+                                                    somecp-=newText
+                                                    sommevertCPovr=parseFloat(sommevertCPovr)-parseFloat(old)
+                                             
+                                                }
                                                 
-                                                sommevertCPovr=parseFloat(sommevertCPovr)-parseFloat(old)
-                                                $('#foot_AE_Over').text(sommevertAEovr);
-                                                
-                                                console.log('new AE_Over'+sommevertAEovr)
+                                            
+                                                 $('#foot_AE_att').text(sommevertAEatt);
+                                                 $('#foot_CP_att').text(sommevertCPatt);
+                                                 $('#foot_AE_Over').text(sommevertAEovr);
+                                                 $('#foot_CP_Over').text(sommevertCPovr);
+
+                                           
+                                                clickedRow.find('td').eq(6).text(someae);
+                                                clickedRow.find('td').eq(7).text(somecp);
                                             }
-                                        }
                                         }
                                        
                                         if(dataupdate.length > 0)
@@ -663,7 +690,7 @@
                                         }
                                         else {
                                             cell.empty();
-                                            if(old == 0 || old == "0" || old == '' || old === null)
+                                            if(old == 0 || old == "0" || old == '' || old === null || newText == 0 )
                                                 {
                                                    old='0';
                                                 }
