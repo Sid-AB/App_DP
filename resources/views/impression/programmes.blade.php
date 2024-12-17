@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tableau CREDITS 088 </title>
     <style>
-        body {
+     body {
             font-family: Arial, sans-serif;
             margin: 20px;
             background-color: #fff;
         }
 
         table {
-            font-size: 12px; /* Réduction de la taille globale de la police */
-            width: 90%; /* Ajuste la largeur globale */
-            margin: 20px auto; /* Centre les tableaux et ajoute un espacement vertical */
+            background-color:#fff;  
+            width: 100%;
             border-collapse: collapse;
+            margin-bottom: 20px;
         }
         thead th
         {
@@ -24,14 +24,17 @@
         th, td {
             border: 1px solid #000;
            /* text-align: left;*/
-            padding: 8px;
+           padding: 13px 20px;
+           text-align: center;
+       
         }
 
         th {
-            background-color: #DDD9C4; /* Couleur en-têtes */
+           /* background-color: #DDD9C4; /* Couleur en-têtes */
             color: rgb(10, 10, 10);
         }
 
+       
         tr:nth-child(even) {
             background-color: #fff; /* Ligne alternative */
         }
@@ -43,8 +46,9 @@
         .program-title {
             text-align:center;
             font-weight: bold;
-            background-color: #DDD9C4; /* Couleur plus sombre pour les programmes principaux */
+           /* background-color: #DDD9C4; /* Couleur plus sombre pour les programmes principaux */
             color: rgb(8, 8, 8);
+           
         }
 
         .subprogram-title {
@@ -55,7 +59,7 @@
         .ttaction-title {
             font-weight: bold;
             background-color: #60497A; /* Couleur plus sombre pour les programmes principaux */
-            color: rgb(8, 8, 8);
+            color:white;
         }
         .event-title {
             font-weight: bold;
@@ -82,11 +86,44 @@
         {
         background-color:#DDD9C4;
         }
+
+           h1 {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
     </style>
 
 </head>
 <body>
-    <h1>Programmation des crédits des programmes 088+089</h1>
+    <h1>
+        @for($i=0;$i< count($programmes);$i++)
+        @foreach ($programmes[$i] as $programme)
+        @php
+                $code =explode('-',$programme['code']);
+                $last =count($code)-1;
+            // dd($code);
+                $filcode[$i] = '0'.$code[$last].' ';
+                //dd($filcode);
+        @endphp
+        @endforeach
+        @endfor
+    <p> LA PROGRAMMTION DES CREDITS DES PROGRAMMES ( 
+    @for($i=0;$i< count($filcode);$i++)
+    {{$filcode[$i]}} 
+    @if ($i < count($filcode) - 1)
+            + {{-- ajouter + pour separer les prgrms --}}
+        @endif
+    @endfor
+    ):
+    </p>
+   
+    </h1>
 
     {{-- Boucle sur les programmes --}}
     @for($i = 0; $i < count($programmes); $i++)
@@ -108,8 +145,8 @@
                         <th colspan="2" class="T">T4</th>
                     </tr>
                     <tr>
-                        <th>Code</th>
-                        <th>Le Programme/Sous-programmes/Actions</th>
+                        <th class="T">Code</th>
+                        <th class="T">Le Programme/Sous-programmes/Actions</th>
                         <th>AE</th>
                         <th>CP</th>
                         <th>AE</th>
@@ -122,9 +159,9 @@
                 </thead>
                 <tbody>
                     {{-- Ligne principale pour le programme --}}
-                    <tr class="program-title">
-                        <td>{{ $code }}</td>
-                        <td>Programme : {{ $programme['nom'] }}</td>
+                    <tr >
+                        <td class="program-title" >{{ '0' .$code }}</td>
+                        <td class="program-title">Programme :  {{ $programme['nom'] }}</td>
                         <td>{{ $programme['Total']['TotalT1_AE'] }}</td>
                         <td>{{ $programme['Total']['TotalT1_CP'] }}</td>
                         <td>{{ $programme['Total']['TotalT2_AE'] }}</td>
@@ -144,9 +181,9 @@
                                 $code = $code[$last];
                             @endphp
 
-                            <tr class="subprogram-title">
-                                <td>{{ $code }}</td>
-                                <td>Sous Programme : {{ $sousProgramme['nom'] }}</td>
+                            <tr>
+                                <td class="subprogram-title">{{ $code }}</td>
+                                <td class="subprogram-title"> Sous Programme : {{ $sousProgramme['nom'] }}</td>
                                 <td>{{ $sousProgramme['Total']['TotalT1_AE'] }}</td>
                                 <td>{{ $sousProgramme['Total']['TotalT1_CP'] }}</td>
                                 <td>{{ $sousProgramme['Total']['TotalT2_AE'] }}</td>
@@ -167,7 +204,7 @@
                                             $code = $code[$last];
                                         @endphp
 
-                                        <tr class="subprogram-title">
+                                        <tr >
                                             <td>{{ $code }}</td>
                                             <td>Action : {{ $action['nom'] }}</td>
                                             <td>{{ $action['TotalT']['T1']['total'][0]['values']['totalAE'] }}</td>
@@ -185,7 +222,7 @@
 
                             {{-- Total des actions pour le sous-programme --}}
                             <tr class="ttaction-title">
-                                <td class="ttaction-title" colspan="2">Total des actions</td>
+                                <td class="ttaction-title"colspan="2">Total des actions</td>
                                 <td class="ttaction-title">{{ $sousProgramme['Total']['TotalT1_AE'] }}</td>
                                 <td class="ttaction-title">{{ $sousProgramme['Total']['TotalT1_CP'] }}</td>
                                 <td class="ttaction-title">{{ $sousProgramme['Total']['TotalT2_AE'] }}</td>
@@ -201,7 +238,15 @@
                     {{-- Section "Eventuels crédits non répartis" --}}
                     <tr class="event-title">
                         <td colspan="2">Eventuels crédits non répartis</td>
-                        <td colspan="8"></td>
+                        <td >0 </td>
+                        <td >0</td>
+                        <td >0</td>
+                        <td >0</td>
+                        <td >0</td>
+                        <td >0</td>
+                        <td >0</td>
+                        <td >0</td>
+
                     </tr>
 
                     {{-- Total des actions/crédits ouverts pour le programme --}}

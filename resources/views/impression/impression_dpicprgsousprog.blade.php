@@ -57,10 +57,12 @@
 
         .head{
         background-color:#DCE6F1;
+        font-weight: bold;
     }
 
     .vert3{
             background-color:#EBF1DE;
+            font-weight: bold;
         }
     </style>
    
@@ -92,7 +94,7 @@
     <table >
         <thead>
             <tr>
-            <th  style="border: none; background: white;"   colspan="2" ></th>
+            <th  style="border: none; background: white; "   colspan="2" ></th>
                 <th colspan="2" class="T">T1</th>
                 <th colspan="2" class="T">T2</th>
                 <th colspan="2" class="T">T3</th>
@@ -102,14 +104,14 @@
             <tr>
                 <th class="T">Code</th>
                 <th class="T">LES PROGRAMME ET SES SOUS PROGRAMMES</th>
-                <th style="text-align:center; ">AE</th>
+                <th style="text-align:center;  ">AE</th>
                 <th style="text-align:center; ">CP</th>
-                <th style="text-align:center; ">AE</th>
+                <th style="text-align:center;  ">AE</th>
                 <th style="text-align:center; ">CP</th>
-                <th style="text-align:center; ">AE</th>
-                <th style="text-align:center; ">CP</th>
-                <th style="text-align:center; ">AE</th>
-                <th style="text-align:center; ">CP</th>
+                <th style="text-align:center;  ">AE</th>
+                <th style="text-align:center;  ">CP</th>
+                <th style="text-align:center;">AE</th>
+                <th style="text-align:center;  ">CP</th>
                 <th style="text-align:center; ">AE</th>
                 <th style="text-align:center; ">CP</th>
             </tr>
@@ -126,19 +128,19 @@
             $code = $code[$last];
             @endphp
                 <tr  >
-                    <td class="head">{{ $code }}</td>
+                    <td class="head">{{ '0'.$code }}</td>
                     <td class="head">Programme: {{ $programme['nom'] }}</td>
-                    <td >{{ $programme['Total']['TotalT1_AE']}}</td>
-                    <td>{{ $programme['Total']['TotalT1_CP']}}</td>
-                    <td>{{ $programme['Total']['TotalT2_AE']}}</td>
-                    <td>{{ $programme['Total']['TotalT2_CP']}}</td>
-                    <td>{{ $programme['Total']['TotalT3_AE']}}</td>
-                    <td>{{ $programme['Total']['TotalT3_CP']}}</td>
-                    <td>{{ $programme['Total']['TotalT4_AE']}}</td>
-                    <td>{{ $programme['Total']['TotalT4_CP']}}</td>
+                    <td style=" font-weight: bold;">{{ $programme['Total']['TotalT1_AE']}}</td>
+                    <td  style=" font-weight: bold;">{{ $programme['Total']['TotalT1_CP']}}</td>
+                    <td  style=" font-weight: bold;">{{ $programme['Total']['TotalT2_AE']}}</td>
+                    <td  style=" font-weight: bold;">{{ $programme['Total']['TotalT2_CP']}}</td>
+                    <td style=" font-weight: bold;">{{ $programme['Total']['TotalT3_AE']}}</td>
+                    <td style=" font-weight: bold;">{{ $programme['Total']['TotalT3_CP']}}</td>
+                    <td style=" font-weight: bold;">{{ $programme['Total']['TotalT4_AE']}}</td>
+                    <td style=" font-weight: bold;">{{ $programme['Total']['TotalT4_CP']}}</td>
 
-                    <td>{{ $programme['Total']['TotalT1_AE']+$programme['Total']['TotalT2_AE']+ $programme['Total']['TotalT3_AE']+$programme['Total']['TotalT4_AE']}}</td>
-                    <td>{{ $programme['Total']['TotalT1_CP']+$programme['Total']['TotalT2_CP']+$programme['Total']['TotalT3_CP'] +$programme['Total']['TotalT4_CP']}}</td>
+                    <td style=" font-weight: bold;">{{ $programme['Total']['TotalT1_AE']+$programme['Total']['TotalT2_AE']+ $programme['Total']['TotalT3_AE']+$programme['Total']['TotalT4_AE']}}</td>
+                    <td style=" font-weight: bold;">{{ $programme['Total']['TotalT1_CP']+$programme['Total']['TotalT2_CP']+$programme['Total']['TotalT3_CP'] +$programme['Total']['TotalT4_CP']}}</td>
 
                 </tr>
 
@@ -153,7 +155,7 @@
                  @endphp
                     <tr class="subprogram-title">
                         <td>{{ $code }}</td>
-                        <td>Sous Programme:{{ $sousProgramme['nom'] }}</td>
+                        <td >Sous Programme:{{ $sousProgramme['nom'] }}</td>
                         <td>{{ $sousProgramme['Total']['TotalT1_AE']}}</td>
                         <td>{{ $sousProgramme['Total']['TotalT1_CP']}}</td>
                         <td>{{ $sousProgramme['Total']['TotalT2_AE']}}</td>
