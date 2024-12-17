@@ -147,6 +147,7 @@
   <tfoot></tfoot>
             </table>
         </div>
+</div>
     </div>
  <div class="container">
  <div class="grid-container" id="Tport-handle">

@@ -435,42 +435,81 @@
                                      console.log('odl ' + code.text() +'old '+old)
                                      var codesoup=clickedRow.attr('id').split('ref')[1];
                                      // Create an input element and set its value
-                                     let input = $('<input type="number" step="0.01" class="form-control"/>').val(currentText);
+                                     let input = $('<input type="number" step="0.01" class="form-control" min="0"/>').val(currentText);
                                      cell.html(input);  // Replace the cell content with the input
 
                                      input.focus();
                                      input.blur(function()
                                     {
                                         let newText = $(this).val();
+                                        console.log('zero'+newText)
                                         if (T == '2') {
+                                            var sommevertAEatt=$('#foot_AE_att').text();
+                                            var sommevertCPatt=$('#foot_CP_att').text();
+                                            var sommevertAEovr=$('#foot_AE_Over').text();
+                                            var sommevertCPovr=$('#foot_CP_Over').text();
+                                            console.log('footer info'+sommevertAEatt+'--'+sommevertCPatt+'--'+sommevertAEovr+'--'+sommevertCPovr)
                                             var testcpattendu = clickedRow.find('td').eq(5).text();//cpattendu
                                             var testaeattendu = clickedRow.find('td').eq(4).text();//aeattendu
                                             var testcpover = clickedRow.find('td').eq(3).text();//cpovert
                                             var testaeover = clickedRow.find('td').eq(2).text();//aeovert
                                             var someae = 0;
                                             var somecp = 0;
-                                            if (newText != 0 && newText != '' && newText != null) {
+                                            if (newText != 0 && newText != '' && newText != null ) {
                                                 var wit = $(this).parent().attr('id');
                                                 console.log('ae -> ' + testaeover + 'cp ->' + testcpover + ' ae ett -> ' + testaeattendu + ' cp ett ->' + testcpattendu + 'value change ->' + JSON.stringify(wit))
                                                 if (wit == 'CP_att') {
                                                     testcpattendu = newText
+                                                    sommevertCPatt=parseFloat(sommevertCPatt)-parseFloat(old)
+                                                    sommevertCPatt=parseFloat(sommevertCPatt)+parseFloat(newText)
+                                                    console.log('new AE_Over'+sommevertCPatt)
                                                 }
                                                 if (wit == 'AE_att') {
                                                     testaeattendu = newText
+                                                   
+                                                       
+                                                        sommevertAEatt=parseFloat(sommevertAEatt)-parseFloat(old)
+                                                        sommevertAEatt=parseFloat(sommevertAEatt)+parseFloat(newText)
+                                                    
+                                                   
+                                                    console.log('new AE_Over'+sommevertAEatt)
                                                 }
                                                 if (wit == 'AE_Over') {
                                                     testaeover = newText
+                                                    sommevertAEovr=parseFloat(sommevertAEovr)-parseFloat(old)
+                                                    sommevertAEovr=parseFloat(sommevertAEovr)+parseFloat(newText)
+                                                    console.log('new AE_Over'+sommevertAEovr)
                                                 }
                                                 if (wit == 'CP_Over') {
                                                     testcpover = newText
+                                                    sommevertCPovr=parseFloat(sommevertCPovr)-parseFloat(old)
+                                                    sommevertCPovr=parseFloat(sommevertCPovr)+parseFloat(newText)
+                                                    console.log('new CP_Over'+sommevertCPovr)
                                                 }
                                                 somecp = parseFloat(testcpattendu) + parseFloat(testcpover)
                                                 someae = parseFloat(testaeattendu) + parseFloat(testaeover);
                                                 console.log('ae' + someae + ' cp ' + somecp)
+                                                 $('#foot_AE_att').text(sommevertAEatt);
+                                             $('#foot_CP_att').text(sommevertCPatt);
+                                             $('#foot_AE_Over').text(sommevertAEovr);
+                                             $('#foot_CP_Over').text(sommevertCPovr);
+
+                                             console.log('footer info'+sommevertAEatt+'--'+sommevertCPatt+'--'+sommevertAEovr+'--'+sommevertCPovr)
                                                 clickedRow.find('td').eq(6).text(someae);
                                                 clickedRow.find('td').eq(7).text(somecp);
+                                            } else
+                                        {
+                                            alert(newText)
+                                            if (wit == 'AE_Over') {
+                                                
+                                                sommevertCPovr=parseFloat(sommevertCPovr)-parseFloat(old)
+                                                $('#foot_AE_Over').text(sommevertAEovr);
+                                                
+                                                console.log('new AE_Over'+sommevertAEovr)
                                             }
                                         }
+                                        }
+                                       
                                         if(dataupdate.length > 0)
                                         {
                                            for (let index = 0; index < dataupdate.length; index++) {
@@ -2040,13 +2079,16 @@
                           */
 
                          function T1_table(id, T, id_s_act, port,code) {
-
+                            $('#T-tables tfoot').empty();
                              var current = new Array();
                              var preve = new Array();
                              var newbtn = '<i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i>'
                              var data_T_port = new Array();
                              console.log('T is' + T)
                              $('#Tport-handle').addClass('scale-out');
+                             var tfooter='<tr><td colspan="2">Total</td>'+
+                                         '<td id="foot_AE_T1">' + 0 + '</td>' +
+                                         '<td id="foot_CP_T1">' + 0 + '</td>';
                              setTimeout(() => {
                                  // Add the class to hide the table
                                  $('#Tport-handle').addClass('scale-hidden');
@@ -2063,17 +2105,22 @@
                                      if (response.code === 200) {
                                          console.log('data' + JSON.stringify(Object.keys(response.results)).length)
                                          data_T_port = response.results;
-                                         var tfooter='<tfoot><tr><td colspan="2">Total</td>'+
-                                         '<td id="AE_T1">' + data_T_port.total[0].values.totalAE + '</td>' +
-                                         '<td id="CP_T1">' + data_T_port.total[0].values.totalCP + '</td>' +
-                                         '</tfoot>';
-                                         $('#T-tables').append(tfooter);
+                                        tfooter='<tr><td colspan="2">Total</td>'+
+                                         '<td id="foot_AE_T1">' + data_T_port.total[0].values.totalAE + '</td>' +
+                                         '<td id="foot_CP_T1">' + data_T_port.total[0].values.totalCP + '</td>';
+                                        
                                      }
                                      else {
                                          alert(response.message);
                                      }
+                                     $('#T-tables tfoot').append(tfooter);
                                  }
                              })
+                         }
+                            else
+                         {
+                          
+                             $('#T-tables tfoot').append(tfooter);
                          }
 
                              var headT = '<tr>' +
@@ -2083,6 +2130,7 @@
                                  '<th><h1>CP</h1></th>' +
                                  '</tr>';
                              $('#T-tables thead').append(headT)
+                            
                              $.getJSON(jsonpath1, function (data) {
                                  // Loop through each item in the JSON data
                                  var lengT = Object.keys(data).length
@@ -2140,6 +2188,7 @@
                                      // Append the row to the table body
 
                                      $('#T-tables tbody').append(row);
+                                
                                      if(code !== 200)
                                      {
                                         console.log('testing')
@@ -2187,11 +2236,19 @@
                              });
                          }
                          function T2_table(id, T, id_s_act, port,code) {
+                            $('#T-tables tfoot').empty();
                              var current = new Array();
                              var preve = new Array();
                              var data_T_port = new Array();
                              var newbtn = '<i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i>'
                              $('#Tport-handle').addClass('scale-out');
+                             var tfooter='<tr><td colspan="2">Total</td>'+
+                             '<td  id="foot_AE_Over">'+0 + '</td>' +
+                             '<td  id="foot_CP_Over">'+0+ '</td>' +
+                             '<td  id="foot_AE_att">'+0+ '</td>' +
+                             '<td  id="foot_CP_att">'+0+ '</td>' +
+                             '<td  id="foot_AE_TT">'+0+ '</td>' +
+                             '<td  id="foot_CP_TT">'+0+ '</td> </tr>' ;
                              setTimeout(() => {
                                  // Add the class to hide the table
                                  $('#Tport-handle').addClass('scale-hidden');
@@ -2206,24 +2263,30 @@
                                  type: 'GET',
                                  success: function (response) {
                                      if (response.code === 200) {
+                                       
                                          console.log('data' + JSON.stringify(Object.keys(response.results)).length)
                                          data_T_port = response.results;
-                                         var tfooter='<tfoot><tr><td colspan="2">Total</td>'+
+                                        tfooter='<tr><td colspan="2">Total</td>'+
                                          '<td  id="foot_AE_Over">'+data_T_port.total[0].values.totalAEouvrtvertical + '</td>' +
                                          '<td  id="foot_CP_Over">'+data_T_port.total[0].values.totalCPouvrtvertical + '</td>' +
                                          '<td  id="foot_AE_att">'+data_T_port.total[0].values.totalAEattenduvertical + '</td>' +
                                          '<td  id="foot_CP_att">'+data_T_port.total[0].values.totalCPattenduvertical + '</td>' +
                                          '<td  id="foot_AE_TT">'+data_T_port.total[0].values.totalAE + '</td>' +
-                                         '<td  id="foot_CP_TT">'+data_T_port.total[0].values.totalCP + '</td> </tr>' +
-                                         '</tfoot>';
-                                         $('#T-tables').append(tfooter);
+                                         '<td  id="foot_CP_TT">'+data_T_port.total[0].values.totalCP + '</td> </tr>' ;
+                                         
+                                         
                                      }
                                      else {
                                          alert(response.message);
                                      }
+                                     $('#T-tables tfoot').append(tfooter);
                                  }
                              })
                          }
+                         else
+                            {
+                                $('#T-tables tfoot').append(tfooter);
+                            }
 
                              var headT = '<tr>' +
                                  '<th colspan="2"><h1>T Description</h1></th>' +
@@ -2256,6 +2319,7 @@
                                  '</th>' +
                                  '</tr>';
                              $('#T-tables thead').append(headT)
+                          
                              $.getJSON(jsonpath2, function (data) {
                                  // Loop through each item in the JSON data
                                  var lengT = Object.keys(data).length
@@ -2375,6 +2439,7 @@
                              });
                          }
                          function T3_table(id, T, id_s_act, port,code) {
+                            $('#T-tables tfoot').empty();
                              var current = new Array();
                              var preve = new Array();
                              var data_T_port = new Array();
@@ -2386,6 +2451,13 @@
                              var cprTpt=0;
                              var cpnTpt=0;
                              var cpcTpt=0;
+                             var tfooter='<tr><td colspan="3">Total</td>'+
+                                         '<td  id="foot_AE_rpor">'+0 + '</td>' +
+                                         '<td  id="foot_AE_not">'+0 + '</td>' +
+                                         '<td  id="foot_AE_enga">'+0 + '</td>' +
+                                         '<td  id="foot_CP_rpor">'+0 + '</td>' +
+                                         '<td  id="foot_CP_not">'+0 + '</td>' +
+                                         '<td  id="foot_CP_consom">'+0 + '</td> </tr>' ;
                              var newbtn = '<i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i>'
                              console.log('data is')
                              $('#Tport-handle').addClass('scale-out');
@@ -2402,6 +2474,7 @@
                                  type: 'GET',
                                  success: function (response) {
                                      if (response.code === 200) {
+                                    
                                          console.log('data' + JSON.stringify(Object.keys(response.results)).length)
                                          data_T_port = response.results;
                                          console.log(data_T_port.total[0].values.totalAEnotifievertical)
@@ -2411,21 +2484,26 @@
                                          cprTpt=data_T_port.total[0].values.totalCPreportevertical
                                          cpnTpt=data_T_port.total[0].values.totalCPnotifievertical
                                          cpcTpt=data_T_port.total[0].values.totalCPconsomevertical
-                                         var tfooter='<tr><td colspan="3">Total</td>'+
-                                         '<td  id="AE_rpor">'+aerTpt + '</td>' +
-                                         '<td  id="AE_not">'+aenTpt + '</td>' +
-                                         '<td  id="AE_enga">'+aeeTpt + '</td>' +
-                                         '<td  id="CP_rpor">'+cprTpt + '</td>' +
-                                         '<td  id="CP_not">'+cpnTpt + '</td>' +
-                                         '<td  id="CP_consom">'+cpcTpt + '</td> </tr>' ;
+                                        tfooter='<tr><td colspan="3">Total</td>'+
+                                         '<td  id="foot_AE_rpor">'+aerTpt + '</td>' +
+                                         '<td  id="foot_AE_not">'+aenTpt + '</td>' +
+                                         '<td  id="foot_AE_enga">'+aeeTpt + '</td>' +
+                                         '<td  id="foot_CP_rpor">'+cprTpt + '</td>' +
+                                         '<td  id="foot_CP_not">'+cpnTpt + '</td>' +
+                                         '<td  id="foot_CP_consom">'+cpcTpt + '</td> </tr>' ;
+                                        
                                          
-                                         $('#T-tables tfoot').append(tfooter);
                                      }
                                      else {
                                          alert(response.message);
                                      }
+                                     $('#T-tables tfoot').append(tfooter);
                                  }
                              })}
+                             else
+                            {
+                                $('#T-tables tfoot').append(tfooter);
+                            }
                                 var lasty=parseInt(yearport) - 1
                              var headT = '<tr>' +
                                  '<th><h1>code</h1></th>' +
@@ -2448,6 +2526,8 @@
                                
                                  
                              $('#T-tables thead').append(headT)
+                         
+                           
                              $.getJSON(jsonpath3, function (data) {
                                  // Loop through each item in the JSON data
                                  var lengT = Object.keys(data).length
@@ -2594,13 +2674,14 @@
                              
                          }
                          function T4_table(id, T, id_s_act, port,code) {
+                            $('#T-tables tfoot').empty();
                              var current = new Array();
                              var preve = new Array();
                              var data_T_port = new Array();
                              var newbtn = '<i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i>'
                              var tfooter='<tr><td colspan="3">Total</td>'+
-                             '<td id="AE_T4">' + 0+ '</td>' +
-                             '<td id="CP_T4">' + 0 + '</td>';  
+                             '<td id="foot_AE_T4">' + 0+ '</td>' +
+                             '<td id="foot_CP_T4">' + 0 + '</td>';  
                              console.log('data is')
                              $('#Tport-handle').addClass('scale-out');
                              setTimeout(() => {
@@ -2616,19 +2697,27 @@
                                  type: 'GET',
                                  success: function (response) {
                                      if (response.code === 200) {
+                                     
+                                        
                                          console.log('data' + JSON.stringify(Object.keys(response.results)).length)
                                          data_T_port = response.results;
                                         tfooter='<tr><td colspan="3">Total</td>'+
-                                         '<td id="AE_T4">' + data_T_port.total[0].values.totalAE + '</td>' +
-                                         '<td id="CP_T4">' + data_T_port.total[0].values.totalCP + '</td> </tr>';  
+                                         '<td id="foot_AE_T4">' + data_T_port.total[0].values.totalAE + '</td>' +
+                                         '<td id="foot_CP_T4">' + data_T_port.total[0].values.totalCP + '</td> </tr>';  
 
-                                         $('#T-tables tfoot').append(tfooter);
+                                        
                                      }
                                      else {
                                          alert(response.message);
                                      }
+                                     $('#T-tables tfoot').append(tfooter);
                                  }
-                             })}
+                             })
+                            }
+                            else
+                            {
+                                $('#T-tables tfoot').append(tfooter);
+                            }
 
                              var headT = '<tr>' +
                                  '<th><h1>Code</h1></th>' +
@@ -2645,7 +2734,7 @@
                                  '</th>' +
                                  '</tr>';
                              $('#T-tables thead').append(headT)
-                             $('#T-tables tfoot').append(tfooter);
+                             
                              var i = 0;
                              var ig = 0;
                              var io = 0;
