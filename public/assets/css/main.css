@@ -1338,4 +1338,8 @@ transition-timing-function: line;
 {
   display: none;
 }
+.row-updated
+{
+  background-color: #30eb01c2;
+}
 /***------------------------------ end --------------------***/
