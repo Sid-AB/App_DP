@@ -24,9 +24,9 @@ class modificationController extends Controller
 
         //récupérer les données de request
         $data = $request->all();
-      //  dd($request);
+       // dd($request);
         // déterminer le type de données reçues est ce qu'ils sont T ou les valeurs qui sont dans tableau T[]
-        $Tport = $data['Tport']; //arrey_key_first permet de récupérer la clé principale du tableau (t1 t2 t3 t4...)
+        $Tport = $data['Tport']; 
         $resultats = $data['result']; //les valeurs [code_sous_op,ae et cp]
         //dd($Tport);
         //dd( $resultats );
