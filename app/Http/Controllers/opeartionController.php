@@ -120,6 +120,7 @@ class opeartionController extends Controller
             }
             }*/
                 //retourner results
+               // dd($resultats[$T]);
                 return response()->json([
                     'code' =>200, //success
                     'message' => 'Données récupérées avec succès.',

@@ -1340,6 +1340,7 @@ transition-timing-function: line;
 }
 .row-updated
 {
-  background-color: #30eb01c2;
+ 
+  background-color: #ffc107ab  !important;
 }
 /***------------------------------ end --------------------***/

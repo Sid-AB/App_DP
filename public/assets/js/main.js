@@ -505,7 +505,7 @@
                                                 if(clickid == 'AE_rpor')
                                                 {
                                                     element.value.ae_reporte=newText
-                                                    console.log('AE T3 old :'+ element.value.ae_reporte+'new is '+newText)
+                                                 
                                                 }
                                                 if(clickid == 'AE_not')
                                                 {
@@ -2063,6 +2063,11 @@
                                      if (response.code === 200) {
                                          console.log('data' + JSON.stringify(Object.keys(response.results)).length)
                                          data_T_port = response.results;
+                                         var tfooter='<tfoot><tr><td colspan="2">Total</td>'+
+                                         '<td id="AE_T1">' + data_T_port.total[0].values.totalAE + '</td>' +
+                                         '<td id="CP_T1">' + data_T_port.total[0].values.totalCP + '</td>' +
+                                         '</tfoot>';
+                                         $('#T-tables').append(tfooter);
                                      }
                                      else {
                                          alert(response.message);
@@ -2203,6 +2208,15 @@
                                      if (response.code === 200) {
                                          console.log('data' + JSON.stringify(Object.keys(response.results)).length)
                                          data_T_port = response.results;
+                                         var tfooter='<tfoot><tr><td colspan="2">Total</td>'+
+                                         '<td  id="foot_AE_Over">'+data_T_port.total[0].values.totalAEouvrtvertical + '</td>' +
+                                         '<td  id="foot_CP_Over">'+data_T_port.total[0].values.totalCPouvrtvertical + '</td>' +
+                                         '<td  id="foot_AE_att">'+data_T_port.total[0].values.totalAEattenduvertical + '</td>' +
+                                         '<td  id="foot_CP_att">'+data_T_port.total[0].values.totalCPattenduvertical + '</td>' +
+                                         '<td  id="foot_AE_TT">'+data_T_port.total[0].values.totalAE + '</td>' +
+                                         '<td  id="foot_CP_TT">'+data_T_port.total[0].values.totalCP + '</td> </tr>' +
+                                         '</tfoot>';
+                                         $('#T-tables').append(tfooter);
                                      }
                                      else {
                                          alert(response.message);
@@ -2364,6 +2378,14 @@
                              var current = new Array();
                              var preve = new Array();
                              var data_T_port = new Array();
+
+                             var aerTpt=0;
+                             var aenTpt=0;
+                             var aeeTpt=0;
+
+                             var cprTpt=0;
+                             var cpnTpt=0;
+                             var cpcTpt=0;
                              var newbtn = '<i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i>'
                              console.log('data is')
                              $('#Tport-handle').addClass('scale-out');
@@ -2382,6 +2404,22 @@
                                      if (response.code === 200) {
                                          console.log('data' + JSON.stringify(Object.keys(response.results)).length)
                                          data_T_port = response.results;
+                                         console.log(data_T_port.total[0].values.totalAEnotifievertical)
+                                         aerTpt=data_T_port.total[0].values.totalAEreportevertical
+                                         aenTpt=data_T_port.total[0].values.totalAEnotifievertical
+                                         aeeTpt=data_T_port.total[0].values.totalAEengagevertical
+                                         cprTpt=data_T_port.total[0].values.totalCPreportevertical
+                                         cpnTpt=data_T_port.total[0].values.totalCPnotifievertical
+                                         cpcTpt=data_T_port.total[0].values.totalCPconsomevertical
+                                         var tfooter='<tr><td colspan="3">Total</td>'+
+                                         '<td  id="AE_rpor">'+aerTpt + '</td>' +
+                                         '<td  id="AE_not">'+aenTpt + '</td>' +
+                                         '<td  id="AE_enga">'+aeeTpt + '</td>' +
+                                         '<td  id="CP_rpor">'+cprTpt + '</td>' +
+                                         '<td  id="CP_not">'+cpnTpt + '</td>' +
+                                         '<td  id="CP_consom">'+cpcTpt + '</td> </tr>' ;
+                                         
+                                         $('#T-tables tfoot').append(tfooter);
                                      }
                                      else {
                                          alert(response.message);
@@ -2406,6 +2444,9 @@
                                  '</div>' +
                                  '</th>' +
                                  '</tr>';
+                                 
+                               
+                                 
                              $('#T-tables thead').append(headT)
                              $.getJSON(jsonpath3, function (data) {
                                  // Loop through each item in the JSON data
@@ -2441,12 +2482,12 @@
                                                  '<td scope="row"  class="code">' + key + '</td>' +
                                                  '<td><p>' + val[0] + '</p> </td>' +
                                                  '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
-                                                 '<td class="editable" id="AE_rpor">' + data_T_port.group[ig].values.ae_reportegrpop + '</td>' +
-                                                 '<td class="editable" id="AE_not">' + data_T_port.group[ig].values.ae_notifiegrpop + ',000</td>' +
-                                                 '<td class="editable" id="AE_enga">' + data_T_port.group[ig].values.ae_engagegrpop + '</td>' +
-                                                 '<td class="editable" id="CP_rpor">' + data_T_port.group[ig].values.cp_reportegrpop + ',000</td>' +
+                                                 '<td class="editable" id="AE_rpor">' + data_T_port.group[ig].values.ae_reportegrpop + ',00</td>' +
+                                                 '<td class="editable" id="AE_not">' + data_T_port.group[ig].values.ae_notifiegrpop + ',00</td>' +
+                                                 '<td class="editable" id="AE_enga">' + data_T_port.group[ig].values.ae_engagegrpop + ',00</td>' +
+                                                 '<td class="editable" id="CP_rpor">' + data_T_port.group[ig].values.cp_reportegrpop + ',00</td>' +
                                                  '<td class="editable" id="CP_not">' + data_T_port.group[ig].values.cp_notifiegrpop + '</td>' +
-                                                 '<td class="editable" id="CP_consom">' + data_T_port.group[ig].values.cp_consomegrpop + ',000</td>' +
+                                                 '<td class="editable" id="CP_consom">' + data_T_port.group[ig].values.cp_consomegrpop + ',00</td>' +
                                                  '</tr>';
                                              ig++;
                                          }
@@ -2550,12 +2591,16 @@
                              }).fail(function () {
                                  console.error('Error loading JSON file.');
                              });
+                             
                          }
                          function T4_table(id, T, id_s_act, port,code) {
                              var current = new Array();
                              var preve = new Array();
                              var data_T_port = new Array();
                              var newbtn = '<i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i>'
+                             var tfooter='<tr><td colspan="3">Total</td>'+
+                             '<td id="AE_T4">' + 0+ '</td>' +
+                             '<td id="CP_T4">' + 0 + '</td>';  
                              console.log('data is')
                              $('#Tport-handle').addClass('scale-out');
                              setTimeout(() => {
@@ -2573,6 +2618,11 @@
                                      if (response.code === 200) {
                                          console.log('data' + JSON.stringify(Object.keys(response.results)).length)
                                          data_T_port = response.results;
+                                        tfooter='<tr><td colspan="3">Total</td>'+
+                                         '<td id="AE_T4">' + data_T_port.total[0].values.totalAE + '</td>' +
+                                         '<td id="CP_T4">' + data_T_port.total[0].values.totalCP + '</td> </tr>';  
+
+                                         $('#T-tables tfoot').append(tfooter);
                                      }
                                      else {
                                          alert(response.message);
@@ -2595,6 +2645,7 @@
                                  '</th>' +
                                  '</tr>';
                              $('#T-tables thead').append(headT)
+                             $('#T-tables tfoot').append(tfooter);
                              var i = 0;
                              var ig = 0;
                              var io = 0;

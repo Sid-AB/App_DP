@@ -29,7 +29,7 @@ class sousOperationController extends Controller
     }
 
 
-    function AffichePortsAction ($act)
+    function AffichePortsAction ($port,$prog,$sous_prog,$act)
     {
 
         $act1=explode('_',$act);
