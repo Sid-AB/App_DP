@@ -24,7 +24,7 @@ class modificationController extends Controller
 
         //récupérer les données de request
         $data = $request->all();
-        //dd($data);
+      //  dd($request);
         // déterminer le type de données reçues est ce qu'ils sont T ou les valeurs qui sont dans tableau T[]
         $Tport = $data['Tport']; //arrey_key_first permet de récupérer la clé principale du tableau (t1 t2 t3 t4...)
         $resultats = $data['result']; //les valeurs [code_sous_op,ae et cp]
@@ -68,9 +68,11 @@ class modificationController extends Controller
             }
         }
 
-            return response()->json(['message' => 'Mise à jour réussie et ajout dans ConstruireDPIA'], 200);
+            return response()->json(['message' => 'Mise à jour réussie et ajout dans ConstruireDPIA',
+           'code'=>200]);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Erreur lors de la mise à jour ou de l\'ajout', 'details' => $e->getMessage()], 500);
+            return response()->json(['error' => 'Erreur lors de la mise à jour ou de l\'ajout', 'details' => $e->getMessage(),
+        'code'=>500]);
         }
     }
 
@@ -256,7 +258,7 @@ class modificationController extends Controller
         //dd($modifications);
        // dd( $request->input('status') );
             // valider les données reçues
-            $request -> validate([
+          /*  $request -> validate([
             'ref' => 'required|integer',
             'AE_T1' => 'required|numeric',//reçoit
             'CP_T1' => 'required|numeric',
@@ -276,9 +278,9 @@ class modificationController extends Controller
             'prognum_click'=>'required|string',  //programme clickable ou reçoit l'argent
             'prog_retirer'=>'required|string',
             //'sousprogbum_click'=>'string', //sousprog clickable ou reçoit l'argent
-            ]);
+            ]);*/
 
-            //dd( $request );
+           // dd( $request );
             $validated=$request;
 
             //initialiser lees var
@@ -355,55 +357,84 @@ class modificationController extends Controller
             }
 */
             //calcull 
-          if ($sousProgReçoit) {
+            if( $validated['type']=="inter"){
+                if ($sousProgReçoit) {
                 
-                $sousProgReçoit->AE_sous_prog += $validated['AE_T1'] +  $validated['AE_T2'] +  $validated['AE_T3'] + $validated['AE_T4'];
-                $sousProgReçoit->CP_sous_prog += $validated['CP_T1'] + $validated['CP_T2'] +  $validated['CP_T3'] + $validated['CP_T4'];
-                $sousProgReçoit->date_update_sousProg = now();
-                //dd( $sousProgReçoit);
-                $sousProgReçoit->save();
+                    $sousProgReçoit->AE_sous_prog += $validated['AE_T1'] +  $validated['AE_T2'] +  $validated['AE_T3'] + $validated['AE_T4'];
+                    $sousProgReçoit->CP_sous_prog += $validated['CP_T1'] + $validated['CP_T2'] +  $validated['CP_T3'] + $validated['CP_T4'];
+                    $sousProgReçoit->date_update_sousProg = now();
+                    //dd( $sousProgReçoit);
+                    $sousProgReçoit->save();
 
-                $ProgReçoit->AE_prog += $validated['AE_T1'] +  $validated['AE_T2'] +  $validated['AE_T3'] + $validated['AE_T4'];
-                $ProgReçoit->CP_prog += $validated['CP_T1'] + $validated['CP_T2'] +  $validated['CP_T3'] + $validated['CP_T4'];
-                $ProgReçoit->date_update_portef = now();
-                //dd( $ProgReçoit);
-                $ProgReçoit->save();
-            }   else {//progrecoit
+                }   
 
-                    $ProgReçoit->AE_prog += $validated['AE_T1']+ $validated['AE_T2'] +  $validated['AE_T3'] + $validated['AE_T4'];
-                    $ProgReçoit->CP_prog += $validated['CP_T1'] +  $validated['CP_T2'] + $validated['CP_T3'] + $validated['CP_T4'];
-                    $ProgReçoit->date_update_portef = now();
-                    //dd( $ProgReçoit);
-                    $ProgReçoit->save();
+                if ($sousProgRetire) {
+                    $sousProgRetire->AE_sous_prog -=  $validated['AE_env_T'];
+                    $sousProgRetire->CP_sous_prog -= $validated['CP_env_T'];
+                    $sousProgRetire->date_update_sousProg = now();
+                // dd( $sousProgRetire);
+                    $sousProgRetire->save();
+   
                 }
+            
+                if ($ProgReçoit ==$ProgRetire) {
+                
+                    $ProgReçoit->AE_prog += $validated['AE_T1'] + $validated['AE_T2'] + $validated['AE_T3'] + $validated['AE_T4'];
+                    $ProgReçoit->CP_prog += $validated['CP_T1'] +$validated['CP_T2'] +$validated['CP_T3'] +$validated['CP_T4'];
+                
+                    $ProgRetire->AE_prog -=$validated['AE_env_T'];
+                    $ProgRetire->CP_prog -= $validated['CP_env_T'];
+                
+                
+                    $ProgReçoit->date_update_portef = now();
+                    $ProgRetire->date_update_portef = now();
+            
+         
+                } else {
+                      
+                            $ProgReçoit->AE_prog += $validated['AE_T1'] + $validated['AE_T2'] + $validated['AE_T3'] + $validated['AE_T4'];
+                            $ProgReçoit->CP_prog += $validated['CP_T1'] + $validated['CP_T2'] + $validated['CP_T3'] + $validated['CP_T4'];
+                            $ProgReçoit->date_update_portef = now();
+                            $ProgReçoit->save();
+                       
+    
+                         
+                            $ProgRetire->AE_prog -= $validated['AE_env_T'];
+                            $ProgRetire->CP_prog -= $validated['CP_env_T'];
+                            $ProgRetire->date_update_portef = now();
+                            $ProgRetire->save();
+                        
+                    }
+        
+    } elseif ($validated['type'] == "exter" && $validated['type_extr'] == "res") {
+        $sousProgReçoit->AE_sous_prog += $validated['AE_T1'] +  $validated['AE_T2'] +  $validated['AE_T3'] + $validated['AE_T4'];
+        $sousProgReçoit->CP_sous_prog += $validated['CP_T1'] + $validated['CP_T2'] +  $validated['CP_T3'] + $validated['CP_T4'];
+        $sousProgReçoit->date_update_sousProg = now();
+        //dd( $sousProgReçoit);
+        $sousProgReçoit->save();
 
+        
+        $ProgReçoit->AE_prog += $validated['AE_T1'] + $validated['AE_T2'] + $validated['AE_T3'] + $validated['AE_T4'];
+        $ProgReçoit->CP_prog += $validated['CP_T1'] + $validated['CP_T2'] + $validated['CP_T3'] + $validated['CP_T4'];
+        $ProgReçoit->date_update_portef = now();
+        $ProgReçoit->save();
+        //dd( $ProgReçoit);
+        }elseif ($validated['type'] == "exter" && $validated['type_extr'] == "env") {
+            $sousProgReçoit->AE_sous_prog -= $validated['AE_T1'] +  $validated['AE_T2'] +  $validated['AE_T3'] + $validated['AE_T4'];
+            $sousProgReçoit->CP_sous_prog -= $validated['CP_T1'] + $validated['CP_T2'] +  $validated['CP_T3'] + $validated['CP_T4'];
+            $sousProgReçoit->date_update_sousProg = now();
+            //dd( $sousProgReçoit);
+            $sousProgReçoit->save();
+    
+            
+            $ProgReçoit->AE_prog -= $validated['AE_T1'] + $validated['AE_T2'] + $validated['AE_T3'] + $validated['AE_T4'];
+            $ProgReçoit->CP_prog -= $validated['CP_T1'] + $validated['CP_T2'] + $validated['CP_T3'] + $validated['CP_T4'];
+            $ProgReçoit->date_update_portef = now();
+            $ProgReçoit->save();
 
-            if ($sousProgRetire) {
-                $sousProgRetire->AE_sous_prog -=  $validated['AE_env_T'];
-                $sousProgRetire->CP_sous_prog -= $validated['CP_env_T'];
-                $sousProgRetire->date_update_sousProg = now();
-               // dd( $sousProgRetire);
-                $sousProgRetire->save();
-              
-                //soustraire de son programme 
-               /* $programAssocie = Programme::where('num_prog', $sousProgRetire->num_prog)->first();
-               // dd($programAssocie);
-                if ($programAssocie) {
-                    $programAssocie->AE_prog -= $validated['AE_env_T'];
-                    $programAssocie->CP_prog -= $validated['CP_env_T'];
-                    $programAssocie->date_update_portef = now();
-                    $programAssocie->save();
-                }*/
-               
-            }
-            if($ProgRetire){
-                $ProgRetire->AE_prog -= $validated['AE_env_T'] ;
-                $ProgRetire->CP_prog -= $validated['CP_env_T'];
-                $ProgRetire->date_update_portef= now();
-                $ProgRetire->save();
-            }
-               
-           
+        }else {
+
+        }
       
 
         // insérer les données dans la table modif

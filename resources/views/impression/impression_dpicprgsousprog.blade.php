@@ -24,7 +24,9 @@
         th, td {
             border: 1px solid #000;
            /* text-align: left;*/
-            padding: 8px;
+           padding: 14px ;
+           text-align: center;
+       
         }
 
         th {
@@ -37,6 +39,15 @@
      /*   tr:hover {
             background-color: #0c0a0a;  Effet survol 
         }*/
+        h1 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
 
      
         .T
@@ -116,8 +127,8 @@
             @endphp
                 <tr  >
                     <td class="head">{{ $code }}</td>
-                    <td class="head">Programme :{{ $programme['nom'] }}</td>
-                    <td>{{ $programme['Total']['TotalT1_AE']}}</td>
+                    <td class="head">Programme: {{ $programme['nom'] }}</td>
+                    <td >{{ $programme['Total']['TotalT1_AE']}}</td>
                     <td>{{ $programme['Total']['TotalT1_CP']}}</td>
                     <td>{{ $programme['Total']['TotalT2_AE']}}</td>
                     <td>{{ $programme['Total']['TotalT2_CP']}}</td>
@@ -142,7 +153,7 @@
                  @endphp
                     <tr class="subprogram-title">
                         <td>{{ $code }}</td>
-                        <td>Sous Programme :{{ $sousProgramme['nom'] }}</td>
+                        <td>Sous Programme:{{ $sousProgramme['nom'] }}</td>
                         <td>{{ $sousProgramme['Total']['TotalT1_AE']}}</td>
                         <td>{{ $sousProgramme['Total']['TotalT1_CP']}}</td>
                         <td>{{ $sousProgramme['Total']['TotalT2_AE']}}</td>

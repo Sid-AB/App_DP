@@ -816,14 +816,14 @@ foreach ($jsonData as $codeStr => $nom) {
           // Vérifier si le code représente une opération
           elseif ($code % 100 == 0) {
               $codeGp = floor($code / 1000) * 1000;
-
+                
               // Insertion dans la table operation
-              Operation::updateOrCreate(
+                  Operation::updateOrCreate(
                   ['code_operation' =>$s_act.'-'.$codeGp.'-'.$code],
                   ['code_grp_operation' => $s_act.'-'.$codeGp, 'nom_operation' => $nom,
                   'date_insert_operation' => $currentDateTime]
               );
-
+             
                /*// Vérifier la ligne suivante
                $nextItem = $jsonData[$i + 1];
                $nextCode = $nextItem['code'] ?? null;*/
@@ -965,8 +965,6 @@ foreach ($jsonData as $codeStr => $nom) {
             //dd($code % 10 == 0);
             $codeOp = floor($code / 100) * 100;
             //dd("codeop", $codeOp);
-
-            // Insérer dans sousoperation avec un code spécifique
             $sousoperation=sousoperation::updateOrCreate(
                 ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
                 ['code_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp,
@@ -1032,7 +1030,7 @@ foreach ($jsonData as $codeStr => $nom) {
                     // Supprimer tout ce qui suit le premier tiret (y compris le tiret)
                     $codeOp = explode('-', $code)[0];
                 }
-                dd("soussou", $codeOp);
+               // dd("soussou", $codeOp);
                 // Insertion dans la table sousoperation
                 $sousoperation= sousoperation::updateOrCreate(
                     ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code],

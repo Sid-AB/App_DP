@@ -98,10 +98,10 @@
             @endphp
 
             {{-- Nouveau tableau pour chaque programme --}}
-            <table border="1">
+            <table >
                 <thead>
                     <tr>
-                        <th class="subprogram-title" colspan=2></th>
+                        <th  style="border: none; background: white;"  colspan=2></th>
                         <th colspan="2" class="T">T1</th>
                         <th colspan="2" class="T">T2</th>
                         <th colspan="2" class="T">T3</th>

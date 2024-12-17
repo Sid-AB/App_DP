@@ -15,8 +15,8 @@ $(document).ready(function(){
   var type;
   let selectTret ='T0';
   let  selectedHobby='t'
-  let selectedprogret ='0';
-  let selectdsousret='0';
+  let selectedprogret ='';
+  let selectdsousret='';
   var prognum='';
   var sousprogbum='';
   var progs={};
@@ -348,7 +348,11 @@ $('#button-71').on('click',function(){
     data:datamodif,
     success:function(response)
     {
-
+      console.log('Réponse du serveur:', response);
+    },
+    error: function(xhr, status, error) {
+        console.log('Erreur AJAX:', status, error);
+        console.log('Détails de la réponse:', xhr.responseText);
     }
   })
 
