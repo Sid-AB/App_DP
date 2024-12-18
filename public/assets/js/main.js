@@ -797,6 +797,7 @@
                              $(document).ready(function () {
                                  var old;
                                  var data = {
+                                    disp:{},
                                      ae: {},
                                      cp: {},
                                      ae_ouvert: {},
@@ -808,7 +809,9 @@
                                      ae_engage: {},
                                      cp_reporte: {},
                                      cp_notifie: {},
-                                     cp_consome: {}
+                                     cp_consome: {},
+                                     descrp:{},
+                                     intituel:{}
                                  };
                                  // Add double-click event to all cells with the class "editable"
                                  $('.editable').on('click', function () {
@@ -1061,6 +1064,8 @@
      if (tid == 'T_port3' || tid == 'T3' || T == 3) {
 
          var code = $(this).find('td').eq(0).text();
+         var descrip=$(this).find('td').eq(1).text();
+         var intituel=$(this).find('td').eq(2).text();
          var aeDataReporte = $(this).find('td').eq(3).text();
          var aeDataNotifie = $(this).find('td').eq(4).text();
          var aeDataEngage = $(this).find('td').eq(5).text();
@@ -1070,8 +1075,10 @@
          var cpDataEngage = $(this).find('td').eq(8).text();
 
 
-         // Ajoute les valeurs dans les objets
+         // Ajoute les valeurs dans les objet
          //console.log("ddcss");
+         data.descrp[code]=descrip
+         data.intituel[code]=intituel
          data.ae_reporte[code] = aeDataReporte;
          data.ae_notifie[code] = aeDataNotifie;
          data.ae_engage[code] = aeDataEngage;
@@ -1084,9 +1091,13 @@
      if (tid == 'T_port4' || tid == 'T4') {
 
          var code = $(this).find('td').eq(0).text();
+         var descr= $(this).find('td').eq(1).text();
+         var dispo= $(this).find('td').eq(2).text()
          var aeValue = $(this).find('td').eq(3).text();
          var cpValue = $(this).find('td').eq(4).text();
          // Ajoute les valeurs dans les objets
+         data.descrp[code]=descr;
+         data.disp[code]=dispo;
          data.ae[code] = aeValue;
          data.cp[code] = cpValue;
         console.log('T4'+JSON.stringify(data))
