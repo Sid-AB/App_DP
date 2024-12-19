@@ -294,9 +294,21 @@ function add_newOPs_T3(id, value, key,) {
                   $('.Tsop_handler').empty();
                   $('#add_sops').trigger('reset');
                   $('.Tsop_handler').addClass('Tsop_handler_h')
+                  mount_chang = true
+
+                  if (mount_chang == true) {
+                      console.log('tesing ' + newText)
+                      click++;
+                      if (click == 1) {
+                          var buttons = '<button class="btn btn-primary" id="changin-up"> appliquer</button>'
+                          click++
+                      }
+                      $('.change_app').append(buttons)
+                    }
    })
    $('#cancel_ops').click(function(){
 
+       $('.change_app').empty()
        $('.Tsop_handler').addClass('Tsop_handler_h')
        $('#Tport-vals').empty()
        $('.Tsop_handler').empty();
@@ -337,6 +349,9 @@ function add_newOPs_T4(id, value, key,) {
    ;
    $('.Tsop_handler').append(champ);
    $('#ajt').click(function(){
+    mount_chang=true;
+    var buttons = '<button class="btn btn-primary" id="changin-up"> appliquer</button>'  
+    $('.change_app').append(buttons)
        var data_add_ops={
            code:id,
            descrp:$('#dispo').val(),
@@ -346,8 +361,9 @@ function add_newOPs_T4(id, value, key,) {
            _token: $('meta[name="csrf-token"]').attr("content"),
            _method: "POST",
        }
+       newid=id.split('-');
        var row = '<tr id="ref' + id + '">' +
-       '<td class="code" >' + id + '</td>' +
+       '<td class="code" >' +newid[newid.length-2]+'-'+ newid[newid.length-1] + '</td>' +
        '<td>'+data_add_ops.defi+'</td>'+
        '<td ><p>' + data_add_ops.descrp + '</p></td>' +
        '<td id="AE_T4">' + data_add_ops.AE_T4 + '</td>' +
@@ -358,6 +374,7 @@ function add_newOPs_T4(id, value, key,) {
   /* $('#' + key + ' td').each(function () {
        $(this).removeClass('editable');
    })*/
+ 
        console.log('data T4'+JSON.stringify(data_add_ops))
         $('#Tport-vals').removeClass('T4')
         $("#dispo").val('');
@@ -2864,17 +2881,17 @@ function T4_table(id, T, id_s_act, port,code) {
                    '<td class="editable" id="AE_T4">' + data_T_port.sousOperation[iso].values.ae_sousop + '</td>' +
                    '<td class="editable" id="CP_T4">' + data_T_port.sousOperation[iso].values.cp_sousuop + '</td>' +
                    '</tr>';
-               iso++;  
-               $('#T-tables tbody').append(row);
-               row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
-               '<td scope="row" class="code" >' + key + '</td>' +
-               '<td ><p>' + value + '</p></td>' +
+                     iso++;  
+                     $('#T-tables tbody').append(row);
+                    row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
+                    '<td scope="row" class="code" >' + key + '</td>' +
+                    '<td ><p>' + value + '</p></td>' +
 
-               '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>null</p></td>'+
-               '<td class="editable" id="AE_T4">' + data_T_port.sousOperation[iso].values.ae_sousop + '</td>' +
-               '<td class="editable" id="CP_T4">' + data_T_port.sousOperation[iso].values.cp_sousuop + '</td>' +
-               '</tr>';
-           iso++;
+                    '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>null</p></td>'+
+                    '<td class="editable" id="AE_T4">' + data_T_port.sousOperation[iso].values.ae_sousop + '</td>' +
+                    '<td class="editable" id="CP_T4">' + data_T_port.sousOperation[iso].values.cp_sousuop + '</td>' +
+                    '</tr>';
+                    iso++;
                
            }
                 }
@@ -2928,7 +2945,6 @@ function T4_table(id, T, id_s_act, port,code) {
               dataupdate=[]
 
               Update_dpia(T,iupdate);
-
               console.log('testing new update function')
 
            }
