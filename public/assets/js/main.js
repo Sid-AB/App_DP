@@ -164,13 +164,16 @@
                          }
 
                          function splitcode(str, length) {
-                             let result = [];
-                             for (let i = 0; i < str.length; i += length) {
-                                 let chunk = str.substring(i, i + length);
-                                 result.push({ substring: chunk, length: chunk.length });
-                             }
-                             return result;
-                         }
+                            let result = [];
+                            for (let i = 0; i < str.length; i += length) {
+                                let chunk = str.substring(i, i + length);
+                                result.push({ substring: chunk, length: chunk.length });
+                            }
+                            var testing =str.split("-");
+                            var last=testing.length-1
+                          
+                            return testing[last];
+                        }
 
 
                          function add_newOPs_T1(id, descr, value, key,) {
@@ -362,6 +365,7 @@
 
                                 $('.Tsop_handler').addClass('Tsop_handler_h')
                                 $('#Tport-vals').empty()
+                                $('.Tsop_handler').empty();
                                 alert('cancel op')
                             })
                          }
@@ -2235,7 +2239,7 @@
                                          if(Object.keys(data_T_port).length > 0 ){
                                      if (data_T_port.group.length > 0 && data_T_port.group.length > ig) {
                                         var land=data_T_port.group[ig].code.length-5
-                                         if (key == splitcode(data_T_port.group[ig].code, land)[1].substring) {
+                                         if (key == splitcode(data_T_port.group[ig].code, land)) {
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.group[ig].code + '">' +
                                                  '<td scope="row" class="code" >' + key + '</td>' +
                                                  '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
@@ -2247,7 +2251,7 @@
                                      }
                                      if (data_T_port.operation.length > 0 && data_T_port.operation.length > io) {
                                         var land=data_T_port.operation[io].code.length-5
-                                         if (key == splitcode(data_T_port.operation[io].code, land)[1].substring) {
+                                         if (key == splitcode(data_T_port.operation[io].code, land)) {
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.operation[io].code + '">' +
                                                  '<td scope="row"  class="code" >' + key + '</td>' +
                                                  '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
@@ -2259,7 +2263,7 @@
                                      }
                                      if (data_T_port.sousOperation.length > 0 && data_T_port.sousOperation.length > iso) {
                                         var land=data_T_port.sousOperation[iso].code.length-5
-                                         if (key == splitcode(data_T_port.sousOperation[iso].code, land)[1].substring) {
+                                         if (key == splitcode(data_T_port.sousOperation[iso].code, land)) {
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                                                  '<td scope="row"  class="code" >' + key + '</td>' +
                                                  '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
@@ -2431,7 +2435,7 @@
                                      if(Object.keys(data_T_port).length > 0){
                                      if (codegr.length > 0 && data_T_port.group.length > ig) {
                                         var land=data_T_port.group[ig].code.length-5
-                                         if (key == splitcode(data_T_port.group[ig].code, land)[1].substring) {
+                                         if (key == splitcode(data_T_port.group[ig].code, land)) {
                                              row = '<tr class="ref' + key + '" id="ref'+data_T_port.group[ig].code+'">' +
                                                  '<td scope="row"  class="code">' + key + '</td>' +
                                                  '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"> <p>' + value + '</p> </td>' +
@@ -2447,7 +2451,7 @@
                                      }
                                      if (codeop.length > 0 && data_T_port.operation.length > io) {
                                         var land=data_T_port.operation[io].code.length-5
-                                         if (key == splitcode(data_T_port.operation[io].code, land)[1].substring) {
+                                         if (key == splitcode(data_T_port.operation[io].code, land)) {
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.operation[io].code + '">' +
                                                  '<td scope="row"  class="code">' + key + '</td>' +
                                                  '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"> <p>' + value + '</p> </td>' +
@@ -2463,7 +2467,7 @@
                                      }
                                      if (codesop.length > 0 && data_T_port.sousOperation.length > iso) {
                                         var land=data_T_port.sousOperation[iso].code.length-5
-                                         if (key == splitcode(data_T_port.sousOperation[iso].code, land)[1].substring) {
+                                         if (key == splitcode(data_T_port.sousOperation[iso].code, land)) {
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                                                  '<td scope="row"  class="code">' + key + '</td>' +
                                                  '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"> <p>' + value + '</p> </td>' +
@@ -2642,7 +2646,7 @@
                                      if (data_T_port.group.length > 0 && data_T_port.group.length > ig) {
                                         var land=data_T_port.group[ig].code.length-5;
                                         console.log('T3'+JSON.stringify(data_T_port.group) +' length'+land)
-                                         if (key == splitcode(data_T_port.group[ig].code, land)[1].substring) {
+                                         if (key == splitcode(data_T_port.group[ig].code, land)) {
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.group[ig].code + '">' +
                                                  '<td scope="row"  class="code">' + key + '</td>' +
                                                  '<td><p>' + val[0] + '</p> </td>' +
@@ -2660,7 +2664,7 @@
                                      if (data_T_port.operation.length > 0 && data_T_port.operation.length > io) {
                                         var land=data_T_port.operation[io].code.length-5;
 
-                                         if (key == splitcode(data_T_port.operation[io].code, land)[1].substring) {
+                                         if (key == splitcode(data_T_port.operation[io].code, land)) {
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.operation[io].code + '">' +
                                                  '<td scope="row"  class="code">' + key + '</td>' +
                                                  '<td><p>' + val[0] + '</p> </td>' +
@@ -2677,7 +2681,7 @@
                                      }
                                      if (data_T_port.sousOperation.length > 0 && data_T_port.sousOperation.length > iso) {
                                         var land=data_T_port.sousOperation[iso].code.length-5;
-                                         if (key == splitcode(data_T_port.sousOperation[iso].code, land)[1].substring) {
+                                         if (key == splitcode(data_T_port.sousOperation[iso].code, land)) {
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                                                  '<td scope="row"  class="code">' + key + '</td>' +
                                                  '<td><p>' + val[0] + '</p> </td>' +
@@ -2690,6 +2694,21 @@
                                                  '<td class="editable" id="CP_consom">' + data_T_port.sousOperation[iso].values.cp_consomesousop + ',000</td>' +
                                                  '</tr>';
                                              iso++;
+                                         }else
+                                         {
+                                            newofkey =splitcode(data_T_port.sousOperation[iso].code, land)
+                                            row = '<tr class="ref'+newofkey+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
+                                            '<td scope="row"  class="code">' + newofkey + '</td>' +
+                                            '<td><p>' + val[0] + '</p> </td>' +
+                                            '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
+                                            '<td class="editable" id="AE_rpor">' + data_T_port.sousOperation[iso].values.ae_reportesousop + '</td>' +
+                                            '<td class="editable" id="AE_not">' + data_T_port.sousOperation[iso].values.ae_notifiesousop + ',000</td>' +
+                                            '<td class="editable" id="AE_enga">' + data_T_port.sousOperation[iso].values.ae_engagesousop + '</td>' +
+                                            '<td class="editable" id="CP_rpor">' + data_T_port.sousOperation[iso].values.cp_reportesousuop + ',000</td>' +
+                                            '<td class="editable" id="CP_not">' + data_T_port.sousOperation[iso].values.cp_notifiesousop + '</td>' +
+                                            '<td class="editable" id="CP_consom">' + data_T_port.sousOperation[iso].values.cp_consomesousop + ',000</td>' +
+                                            '</tr>';
+                                            iso++;
                                          }
                                      }
                                      }
@@ -2722,7 +2741,7 @@
                                                  $('.ref' + preve + ' #add_op').append(newbtn)
                                                  $('.ref' + preve + ' #add_op').on('click', function () {
                                                     var newKey=$(this).parent().attr('id');
-                                                    var ads = newKey.split('ref')[1] + '1';
+                                                    var ads = newKey.split('ref')[1]
                                                     $('.Tsop_handler').removeClass('Tsop_handler_h')
                                                      add_newOPs_T3(ads, 2500, newKey);
 
@@ -2739,7 +2758,7 @@
                                              $('.ref' + key + ' #add_op').append(newbtn)
                                              $('.ref' + key + ' #add_op').on('click', function () {
                                                 var newKey=$(this).parent().attr('id');
-                                                var ads = newKey.split('ref')[1] + '1';
+                                                var ads = newKey.split('ref')[1]
                                                 $('.Tsop_handler').removeClass('Tsop_handler_h')
                                                  add_newOPs_T3(ads, 2500, preve);
                                              })
@@ -2840,7 +2859,7 @@
                                      if(Object.keys(data_T_port).length > 0){
                                      if (data_T_port.group.length > 0 && data_T_port.group.length > ig) {
                                         var land=data_T_port.group[ig].code.length-5;
-                                         if (key == splitcode(data_T_port.group[ig].code, land)[1].substring) {
+                                         if (key == splitcode(data_T_port.group[ig].code, land)) {
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.group[ig].code + '">' +
                                                  '<td scope="row" class="code" >' + key + '</td>' +
                                                  '<td><p>' + value + '</p></td>' +
@@ -2854,7 +2873,7 @@
                                      }
                                      if (data_T_port.operation.length > 0 && data_T_port.operation.length > io) {
                                         var land=data_T_port.operation[io].code.length-5;
-                                         if (key == splitcode(data_T_port.operation[io].code, land)[1].substring) {
+                                         if (key == splitcode(data_T_port.operation[io].code, land)) {
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.operation[io].code + '">' +
                                                  '<td scope="row" class="code" >' + key + '</td>' +
                                                  '<td ><p>' + value + '</p></td>' +
@@ -2868,7 +2887,7 @@
                                      }
                                      if (data_T_port.sousOperation.length > 0 && data_T_port.sousOperation.length > iso) {
                                         var land=data_T_port.sousOperation[iso].code.length-5;
-                                         if (key == splitcode(data_T_port.sousOperation[iso].code, land)[1].substring) {
+                                         if (key == splitcode(data_T_port.sousOperation[iso].code, land)) {
                                              row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                                                  '<td scope="row" class="code" >' + key + '</td>' +
                                                  '<td ><p>' + value + '</p></td>' +
@@ -2879,7 +2898,19 @@
                                                  '</tr>';
                                              iso++;
                                          }
-                                     }}
+                                         else{
+                                            newofkey =splitcode(data_T_port.sousOperation[iso].code, land)
+                                            row = '<tr class="ref'+newofkey+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
+                                            '<td scope="row" class="code" >' + newofkey + '</td>' +
+                                            '<td ><p>' + value + '</p></td>' +
+                                            '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>null</p></td>'+
+                                            '<td class="editable" id="AE_T4">' + data_T_port.sousOperation[iso].values.ae_sousop + '</td>' +
+                                            '<td class="editable" id="CP_T4">' + data_T_port.sousOperation[iso].values.cp_sousuop + '</td>' +
+                                            '</tr>';
+                                        iso++;
+                                         }
+                                     }
+                                    }
                                      // Append the row to the table body
 
                                      $('#T-tables tbody').append(row);
