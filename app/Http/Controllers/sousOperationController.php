@@ -144,7 +144,7 @@ class sousOperationController extends Controller
         $namesT2 = $this->prepareNames($operationsT2);
         $namesT3 = $this->prepareNames($operationsT3);
         $namesT4 = $this->prepareNames($operationsT4);
- 
+            //dd($namesT3);
         //envoyer le sousprogramme dans compact avec son code  
            $sousProgramme = SousProgramme::where('num_sous_prog', $sous_prog)->first();
           //dd($sousProgramme );

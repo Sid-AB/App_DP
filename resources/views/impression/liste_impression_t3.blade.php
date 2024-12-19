@@ -181,13 +181,13 @@
                 @if (count($operationData['sousOperations']) > 0)
                    <tr class="operation-row with-sousop">
                   
-                   <td rowspan={{$totalOperations}} class="code"></td>        <!--td class="code">{{ $codeop }}</td-->
+                   <!--td rowspan={{$totalOperations}} class="code"></td-->        <td class="code">{{ $codeop }}</td>
     
-                   <td >{{$namesT3[$codegrp]}}</td>
+                   <td >{{$namesT3[$codeop]}}</td>
+                   <td ></td>   <td ></td>
+                   <!--td >{{$nomfirst ?? Néant}}</td--> 
 
-                   <td >{{$nomfirst ?? Néant}}</td> 
-
-                   <td class="vert3">{{$nom  ?? Néant }}</td> 
+                   <!--td class="vert3">{{$nom  ?? Néant }}</td--> 
 
                 <td class="aecp " style="text-align: center; ">{{ $operationData['operation']['values']['ae_reporteop'] ?? 'N/A' }}</td>
                 <td class="aecp " style="text-align: center; ">{{ $operationData['operation']['values']['ae_notifieop'] ?? 'N/A' }}</td>
@@ -200,12 +200,15 @@
               
                @else
                 <tr class="operation-row">
-              
-                   <td  class="code" ></td>      <!--td class="code">{{ $codeop }}</td-->
+                <td class="code">{{ $codeop }}</td>
+    
+    <td >{{$namesT3[$codeop]}}</td>
+    <td ></td>   <td ></td>
+                   <!--td  class="code" ></td>      <td class="code">{{ $codeop }}</td>
                    <td  >{{$namesT3[$codegrp]}}</td>
                    <td >{{$nomfirst ?? Néant}}</td> 
 
-                   <td class="vert3">{{$nom ?? Néant }}</td> 
+                   <td class="vert3">{{$nom ?? Néant }}</td--> 
 
 
                     <td class="aecp " style="text-align: center; ">{{ $operationData['operation']['values']['ae_reporteop'] ?? 'N/A' }}</td>
@@ -226,21 +229,25 @@
                     // extraire la dernière partie du code de la sous-opération
                     $code_separer = explode('-', $sousOp['code']);
                     $codeextr = end($code_separer);
-
-                    $nom_sepa=explode('-', $namesT3[$codeop ]);
+                 //  dd($codeextr);
+                    $nom_sepa=explode('-', $namesT3[$codeextr ]);
                       $nom=end($nom_sepa);
 
-                    $nom_separ=explode('-', $namesT3[$codeop ]);
+                    $nom_separ=explode('-', $namesT3[$codeextr ]);
                     $nomfirst=reset($nom_separ);
                 @endphp
                 <tr>
-                    <td style="text-align: center; " class="code">{{ $codeextr }}</td>
+                <td class="code">{{ $codeextr }}</td>
+    
+    <td >{{$namesT3[$codeextr]}}</td>
+    <td ></td>   <td ></td>
+                    <!--td style="text-align: center; " class="code">{{ $codeextr }}</td>
 
                     <td>{{$namesT3[$codegrp]}}</td>
 
                     <td>{{$nomfirst ?? Néant}}</td> 
 
-                    <td class="vert3">{{$nom ?? Néant}}</td> 
+                    <td class="vert3">{{$nom ?? Néant}}</td--> 
 
                     <td class="aecp " style="text-align: center; ">{{ $sousOp['values']['ae_reportesousop'] ?? 'N/A' }}</td>
                     <td class="aecp " style="text-align: center; ">{{ $sousOp['values']['ae_notifiesousop'] ?? 'N/A' }}</td>
