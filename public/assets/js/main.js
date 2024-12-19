@@ -352,6 +352,7 @@ function add_newOPs_T4(id, value, key,) {
     mount_chang=true;
     var buttons = '<button class="btn btn-primary" id="changin-up"> appliquer</button>'  
     $('.change_app').append(buttons)
+    console.log('')
        var data_add_ops={
            code:id,
            descrp:$('#dispo').val(),
