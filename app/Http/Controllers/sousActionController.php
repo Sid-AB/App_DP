@@ -273,8 +273,8 @@ function printdpic($numport)
 
        /* $pdf=SnappyPdf::loadView('impression.impression_dpicprgsousprog', compact('programmes','Ttportglob'))
          ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1.5);//lanscape mean orentation
-               return $pdf->stream('impression_dpic.pdf');*/
-       //return view('impression.programmes',compact('programmes','Ttportglob'));
+               return $pdf->stream('impression_dpic.pdf');
+       //return view('impression.programmes',compact('programmes','Ttportglob'));*/
         }
         else
         {
