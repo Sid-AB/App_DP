@@ -1343,4 +1343,12 @@ transition-timing-function: line;
  
   background-color: #ffc107ab  !important;
 }
+.T3-ops_inpt_handle
+{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-evenly;
+
+}
 /***------------------------------ end --------------------***/

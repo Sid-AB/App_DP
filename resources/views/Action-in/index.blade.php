@@ -214,22 +214,7 @@
  </div>
 
     <div class="Tsop_handler Tsop_handler_h">
-      <div class="Tsop_add_handle">
-          <form>
-          <div class="form-group">
-            <label class="desp">Dispositive ou bien la description</label>
-            <input type="text" class="form-control" id="dispo" placeholder="Entrer La description">
-          </div>
-          <div class="form-group" id="Tport-vals">
-            
-          </div>
-          
-          </form>
-          <div class="Tsop_btn_handle">
-            <div><button  class="btn btn-primary" id="ajt"> Ajouter </button></div>
-            <div><button  class="btn btn-primary" id="cancel_ops"> Cancel </button></div>
-          </div>
-     </div>
+      
     </div>
 
 

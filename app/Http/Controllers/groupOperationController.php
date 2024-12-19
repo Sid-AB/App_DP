@@ -737,7 +737,7 @@ elseif ($T == 2) {
                             // insertion T3
 //===================================================================================
 elseif ($T==3) {
-    //dd($request);
+    dd($request);
        // Récupérer les données du formulaire
        $aeDataReporte = $request->input('ae_reporte');
       // dd($aeDataReporte);
@@ -1429,6 +1429,7 @@ if (!$nom) {
 }
  // si c est un dispositif
  else{
+    dd($request);
        // Vérifier si la variable contient un seul tiret
        if (strpos($code, '-') !== false) {
         // Supprimer tout ce qui suit le premier tiret (y compris le tiret)
