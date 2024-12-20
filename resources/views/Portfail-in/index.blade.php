@@ -48,8 +48,8 @@
                 <div class="row">
                   <div class="col-8">
                     <h5 class="card-title widget-card-title mb-3">Portefeuille</h5>
-                    <h4 class="card-subtitle text-body-secondary m-0">  Autorisations d’engagement :{{$allport['TotalAE']}}</h4>
-                    <h4 class="card-subtitle text-body-secondary m-0"> Crédits de paiement :{{$allport['TotalCP']}}</h4>
+                    <h4 class="card-subtitle text-body-secondary m-0">  Autorisations d’engagement :<p class="chiffre">{{$allport['TotalAE']}}</p></h4>
+                    <h4 class="card-subtitle text-body-secondary m-0"> Crédits de paiement :<p class="chiffre">{{$allport['TotalCP']}}</p></h4>
                   </div>
                   <div class="col-4">
                     <div class="d-flex justify-content-end">
@@ -365,10 +365,61 @@
 <div class="modif-contiant">
 </div>
 <div class="modif-handler" style="display:none;">
+
+
+<div class="back-flw"><i class="fas fa-arrow-left" ></i></div>
+<div class="card-group">
+  <div class="card mall5" id="wall_to_wall">
+    <div>
+      <div class="modif-icon-hndl">
+      <i class="fas fa-wallet"></i> 
+      <i class="fas fa-arrow-right" ></i>
+      <i class="fas fa-wallet"></i>
+      </div>
+    </div>
+    <div class="card-body" >
+      <h5 class="card-title">Portfail ver Portfail</h5>
+      <p class="card-text">une description sur Operation.</p>
+    </div>
+    <div class="card-footer">
+      <small class="text-muted">Last updated 3 mins ago</small>
+    </div>
+  </div>
+  <div class="card mall5" id="prog_to_prog">
   <div>
-    <p> Modfication : <p id="id_sprog_modif"></p></p>
-    <form id="update_art_handler">
-    <div class="form-group">
+      <div class="modif-icon-hndl">
+      <i class="fas fa-folder-open"></i>
+      <i class="fas fa-arrow-right" ></i>
+      <i class="fas fa-folder-open"></i>
+      </div>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Programme vers Programee</h5>
+      <p class="card-text">une description sur Operation.</p>
+    </div>
+    <div class="card-footer">
+      <small class="text-muted">Last updated 3 mins ago</small>
+    </div>
+  </div>
+  <div class="card mall5"  id="sprog_to_sprog">
+  <div>
+      <div class="modif-icon-hndl">
+      <i class="far fa-copy"></i>
+      <i class="fas fa-arrow-right" ></i>
+      <i class="far fa-copy"></i>
+      </div>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Sous Programme ver Sous Programme</h5>
+      <p class="card-text">une description sur Operation.</p>
+    </div>
+    <div class="card-footer">
+      <small class="text-muted">Last updated 3 mins ago</small>
+    </div>
+  </div>
+</div>
+<form id="update_art_handler" class="hidden">
+<div class="form-group">
           <label for="input1">Article</label>
           <select type="text" class="form-control" id="id" placeholder="Entrer le Nom du Programme">
            <option value="0" >Selectionner Article</option>
@@ -376,7 +427,28 @@
            <option value="{{$actelement['id_art']}}" >{{$actelement['nom_art'].' / '.$actelement['code_art']}}</option>
            @endforeach
           </select>
+</div>
+  
+        <div class="form-group">
+         <div class="Radio-ids">
+          <div>
+          <label for="Tports">un seul modification</label>
+          <input type="radio" class="form-check-input" id="single" name="multi_modif" value="single" />
+          </div>
+        <div>
+         <label for="Tports">multiple modifications</label>
+         <input type="radio" class="form-check-input" id="multi" name="multi_modif" value="muti" />
         </div>
+        </div>
+        </div>
+  <div id="modif-dif"></div>
+</form>
+
+<!--  the old modif -->
+  <!--div>
+    <p> Modfication : <p id="id_sprog_modif"></p></p>
+    <form id="update_art_handler">
+    
         <hr>
         <div class="form-group">
         <fieldset>
@@ -467,9 +539,10 @@
            <option value="0" >Selectionner Article</option>
           </select>
         </div>
-      </div>
+  </div-->
     </form>
-    <button class="button-70" id="button-71" role="button">modifier</button></div>
+    <!--button class="button-70" id="button-71" role="button">modifier</button-->
+  </div>
   </div>
  </div>
 

@@ -1306,4 +1306,19 @@ transition-timing-function: line;
 {
   flex-direction: column;
 }
+.modif-icon-hndl
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.modif-icon-hndl svg
+{
+font-size: 48px;
+}
+.mall5
+{
+  margin: 5px;
+  border-radius: 10px 10px 10px 10px;
+}
 /***------------------------------ end --------------------***/
