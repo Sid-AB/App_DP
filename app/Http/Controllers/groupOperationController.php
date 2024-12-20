@@ -32,9 +32,9 @@ class groupOperationController extends Controller
 if($T==1)
 {
     // Récupérer les données du formulaire
+    //dd($request);
     $aeData = $request->input('ae');
     $cpData = $request->input('cp');
-
     // Chemin vers le fichier JSON dans public/assets/titre
     $jsonFilePath = public_path('assets/Titre/dataT1.json');
 
@@ -219,7 +219,7 @@ foreach ($jsonData as $codeStr => $nom) {
             }
 
         // Sinon, il s'agit d'une sous-opération
-        else {
+        elseif($code % 10 == 0){
             $codeOp = floor($code / 100) * 100;
 
             // Insertion dans la table sousoperation
@@ -266,6 +266,23 @@ foreach ($jsonData as $codeStr => $nom) {
                   dd('Portefeuille non trouvé');
               }
 
+        }
+        // si c est un dispositif
+        else{
+            // Vérifier si la variable contient un seul tiret
+            if (strpos($code, '-') !== false) {
+                // Supprimer tout ce qui suit le premier tiret (y compris le tiret)
+                $codeOp = explode('-', $code)[0];
+            }
+            dd($codeOp);
+            // Insertion dans la table sousoperation
+            $sousoperation= sousoperation::updateOrCreate(
+                ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code],
+                ['code_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp, 'nom_sous_operation' => $nom,'code_t1' =>10000,
+                 'AE_sous_operation' => floatval(str_replace(',', '', $ae)),
+                  'CP_sous_operation' => floatval(str_replace(',', '', $cp))
+                  , 'date_insert_SOUSoperation' => $currentDateTime]
+            );
         }
     }
 
@@ -623,7 +640,7 @@ elseif ($T == 2) {
             }
 
         // Sinon, il s'agit d'une sous-opération
-        }else {
+        }elseif($code % 10 == 0) {
             $codeOp = floor($code / 100) * 100;
 
             // Insertion dans la table sousoperation
@@ -684,6 +701,23 @@ elseif ($T == 2) {
 
 
         }
+        // si c est un dispositif
+        else{
+            // Vérifier si la variable contient un seul tiret
+            if (strpos($code, '-') !== false) {
+                // Supprimer tout ce qui suit le premier tiret (y compris le tiret)
+                $codeOp = explode('-', $code)[0];
+            }
+            dd($codeOp);
+            // Insertion dans la table sousoperation
+            $sousoperation= sousoperation::updateOrCreate(
+                ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code],
+                ['code_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp, 'nom_sous_operation' => $nom,'code_t1' =>10000,
+                 'AE_sous_operation' => floatval(str_replace(',', '', $ae)),
+                  'CP_sous_operation' => floatval(str_replace(',', '', $cp))
+                  , 'date_insert_SOUSoperation' => $currentDateTime]
+            );
+        }
     } // fin boucle
 
     //dd($request);
@@ -703,9 +737,10 @@ elseif ($T == 2) {
                             // insertion T3
 //===================================================================================
 elseif ($T==3) {
-    //dd($request);
+    dd($request);
        // Récupérer les données du formulaire
        $aeDataReporte = $request->input('ae_reporte');
+      // dd($aeDataReporte);
        $aeDataNotifie = $request->input('ae_notifie');
        $aeDataEngage = $request->input('ae_engage');
 
@@ -781,14 +816,14 @@ foreach ($jsonData as $codeStr => $nom) {
           // Vérifier si le code représente une opération
           elseif ($code % 100 == 0) {
               $codeGp = floor($code / 1000) * 1000;
-
+                
               // Insertion dans la table operation
-              Operation::updateOrCreate(
+                  Operation::updateOrCreate(
                   ['code_operation' =>$s_act.'-'.$codeGp.'-'.$code],
                   ['code_grp_operation' => $s_act.'-'.$codeGp, 'nom_operation' => $nom,
                   'date_insert_operation' => $currentDateTime]
               );
-
+             
                /*// Vérifier la ligne suivante
                $nextItem = $jsonData[$i + 1];
                $nextCode = $nextItem['code'] ?? null;*/
@@ -926,12 +961,13 @@ foreach ($jsonData as $codeStr => $nom) {
 
                    // dd( $DPIA);
           }
-        }else{
+        }elseif($code % 10 == 0){
+            //dd($code % 10 == 0);
             $codeOp = floor($code / 100) * 100;
-            // Insérer dans sousoperation avec un code spécifique
+            //dd("codeop", $codeOp);
             $sousoperation=sousoperation::updateOrCreate(
                 ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
-                ['code_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code,
+                ['code_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp,
                 'nom_sous_operation' => $nom,
                 'code_t3' => 30000,
 
@@ -987,6 +1023,23 @@ foreach ($jsonData as $codeStr => $nom) {
 
                    // dd( $DPIA);
           }
+          // si c est un dispositif
+            else{
+                // Vérifier si la variable contient un seul tiret
+                if (strpos($code, '-') !== false) {
+                    // Supprimer tout ce qui suit le premier tiret (y compris le tiret)
+                    $codeOp = explode('-', $code)[0];
+                }
+               // dd("soussou", $codeOp);
+                // Insertion dans la table sousoperation
+                $sousoperation= sousoperation::updateOrCreate(
+                    ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code],
+                    ['code_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp, 'nom_sous_operation' => $nom,'code_t1' =>10000,
+                     'AE_sous_operation' => floatval(str_replace(',', '', $ae)),
+                      'CP_sous_operation' => floatval(str_replace(',', '', $cp))
+                      , 'date_insert_SOUSoperation' => $currentDateTime]
+                );
+            }
         }
 
         return response()->json([
@@ -1202,7 +1255,7 @@ if (!$nom) {
 
    }
    // Sinon, il s'agit d'une sous-opération
-   else {
+   elseif($code % 10 == 0) {
        $codeOp = floor($code / 100) * 100;
 
        // Insertion dans la table sousoperation
@@ -1254,7 +1307,8 @@ if (!$nom) {
                }
                // dd( $DPIA);
 
-
+//reste a verifier
+/*
         if ($currentIndex !== false && isset($keys[$currentIndex + 1])) {
             $nextKey = $keys[$currentIndex + 1]; // Obtenir la clé suivante
             $nextItem = $jsonData[$nextKey]; // Obtenir l'élément suivant par sa clé
@@ -1264,6 +1318,7 @@ if (!$nom) {
 
         // Si la ligne suivante n'est pas une sous-opération
         if ($nextCode && ($nextCode % 100 == 0 || $nextCode % 1000 == 0)) {
+        dd($code);
             // Insérer dans sousoperation avec un code spécifique
            $sousoperation= sousoperation::updateOrCreate(
                 ['code_sous_operation' =>  $code.$codeOp.$codeGp.$s_act], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
@@ -1370,7 +1425,25 @@ if (!$nom) {
           dd('Portefeuille non trouvé');
       }
       // dd( $DPIA);
-   }
+   } *///reste a verifier
+}
+ // si c est un dispositif
+ else{
+    dd($request);
+       // Vérifier si la variable contient un seul tiret
+       if (strpos($code, '-') !== false) {
+        // Supprimer tout ce qui suit le premier tiret (y compris le tiret)
+        $codeOp = explode('-', $code)[0];
+    }
+    dd($codeOp);
+    // Insertion dans la table sousoperation
+    $sousoperation= sousoperation::updateOrCreate(
+        ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code],
+        ['code_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp, 'nom_sous_operation' => $nom,'code_t1' =>10000,
+         'AE_sous_operation' => floatval(str_replace(',', '', $ae)),
+          'CP_sous_operation' => floatval(str_replace(',', '', $cp))
+          , 'date_insert_SOUSoperation' => $currentDateTime]
+    );
 }
 }
 return response()->json([

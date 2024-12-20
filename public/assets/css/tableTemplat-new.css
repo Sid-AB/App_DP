@@ -1,6 +1,20 @@
 .container-T {
   margin: 5% 3%;
 }
+.responsive-table tfoot
+{
+background-color: #000001;
+color: #ffffff;
+}
+.responsive-table tfoot tr
+{
+border: 1px solid rgba(255, 162, 0, 1);
+}
+.responsive-table tfoot tr td
+{
+border: 1px solid rgba(255, 162, 0, 1);
+text-align: center;
+}
 @media (min-width: 48em) {
   .container-T {
     margin: 2%;

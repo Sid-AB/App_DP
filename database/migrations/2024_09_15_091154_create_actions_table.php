@@ -21,7 +21,8 @@ return new class extends Migration
             $table->Date('date_insert_action');
             $table->DateTime('date_update_action')->nullable();
 
-
+            $table->float('AE_action_NONREPARTIS')->default(0.0);
+            $table->float('CP_action_NONREPARTIS')->default(0.0);
             $table->integer('id_ra');
             $table->foreign('id_ra')->references('id_ra')->on('respo__actions');
 

@@ -41,7 +41,7 @@
               <span class="member next" id="{{$allport['id']}}" style="display:inline-block;">
 
                 <!--  -->
-
+             
                 <div class="col-12 col-sm-6">
             <div class="card widget-card border-light shadow-sm">
               <div class="card-body p-1">
@@ -85,7 +85,6 @@
               <li>
               <span class="next" id="{{$portf['id_prog']}}">
               <div class="edit-zone">
-                <div class="btn_add_svg update-handl"><i class="fas fa-edit" ></div></i>
               @if($portf['TotalAE'] == $portf['init_AE'] && $portf['TotalCP'] ==  $portf['init_CP'])
               <div class="member">
                 @else
@@ -98,10 +97,10 @@
                   <div class="col-10">
                     <h5 class="card-title widget-card-title mb-3">{{$portf['data']['nom_prog']}}</h5>
                     <h4 class="card-subtitle text-body-secondary m-0">
-                      <p>  autorisations d'engagement :</p><p class="chiffre">{{$portf['init_AE']}}</p>
+                      <p> Autorisations d’engagement:</p><p class="chiffre">{{$portf['init_AE']}}</p>
                     </h4>
                     <h4 class="card-subtitle text-body-secondary m-0">
-                      <p> crédits de paiement :</p><p class="chiffre">{{$portf['init_CP']}}</p>
+                      <p> Crédits de paiement :</p><p class="chiffre">{{$portf['init_CP']}}</p>
                     </h4>
                   </div>
                   <div class="col-2">
@@ -147,9 +146,7 @@
                 <span class="next" id="{{$souportf['id_sous_prog']}}">
               
                 <div class="edit-zone">
-                  <div class="btn_add_svg update-handl">
-                   <i class="fas fa-edit"></i>
-                  </div>
+                  
                 @if($souportf['TotalAE'] == $souportf['init_AE'] && $souportf['TotalCP'] == $souportf['init_CP'])
                 <div class="member" id="{{$souportf['id_sous_prog']}}">
                 @else
@@ -162,11 +159,11 @@
                   <div class="col-10">
                     <h5 class="card-title widget-card-title mb-3">{{$souportf['data']['nom_sous_prog']}}</h5>
                     <h4 class="card-subtitle text-body-secondary m-0">
-                    <p> autorisations d'engagement :<p class="chiffre">{{$souportf['init_AE']}}</p></p>
+                    <p> Autorisations d’engagement:<p class="chiffre">{{$souportf['init_AE']}}</p></p>
                     </h4>
                     <h4 class="card-subtitle text-body-secondary m-0">
                     <div>
-                     <div> <p>crédits de paiement :</p>
+                     <div> <p>Crédits de paiement:</p>
                       <p class="chiffre">{{$souportf['init_CP']}}</p></div>
                     </div> 
                     </h4>
@@ -203,13 +200,7 @@
                 @foreach($souportf['Action'] as $act)
                   <li>
                   @if(count($act['sous_action'])>0)
-                  @foreach($act['sous_action'] as $sous_act)
-                  @if($sous_act['num_act'] != $act['num_act'])
-                  <span class="member next" id="{{$act['num_act']}}" style="display:inline-block">
-                  @else
                   <span class="member next" id="act_{{$act['num_act']}}" style="display:inline-block">
-                  @endif
-                  @endforeach
                   @endif
                 <div class="col-12 col-sm-6">
             <div class="card widget-card border-light shadow-sm">
@@ -218,10 +209,10 @@
                   <div class="col-8">
                     <h5 class="card-title widget-card-title mb-3">Action: {{$act['data']['nom_action'] }}</h5>
                     <h4 class="card-subtitle text-body-secondary m-0">
-                    <p>  autorisations d'engagement :{{$act['TotalAE']}}</p><p>{{$act['init_AE']}}</p>
+                    <p>  Autorisations d’engagement :{{$act['TotalAE']}}</p><p>{{$act['init_AE']}}</p>
                     </h4>
                     <h4 class="card-subtitle text-body-secondary m-0">
-                    <p>  crédits de paiement :{{$act['TotalCP']}}</p><p>{{$act['init_CP']}}</p>
+                    <p>  Crédits de paiement :{{$act['TotalCP']}}</p><p>{{$act['init_CP']}}</p>
                     </h4>
                   </div>
                   <div class="col-4">
@@ -275,8 +266,8 @@
                 <div class="row">
                   <div class="col-8">
                     <h5 class="card-title widget-card-title mb-3">Sous Action: {{$sous_act['num_act'] }}</h5>
-                    <h4 class="card-subtitle text-body-secondary m-0"> autorisations d'engagement : {{$sous_act['TotalAE']}}</h4>
-                    <h4 class="card-subtitle text-body-secondary m-0"> crédits de paiement :{{$sous_act['TotalCP']}}</h4>
+                    <h4 class="card-subtitle text-body-secondary m-0"> Autorisations d’engagement : {{$sous_act['TotalAE']}}</h4>
+                    <h4 class="card-subtitle text-body-secondary m-0"> Crédits de paiement :{{$sous_act['TotalCP']}}</h4>
                   </div>
                   <div class="col-4">
                     <div class="d-flex justify-content-end">
@@ -292,7 +283,7 @@
                       <span class="lh-1 me-3 bg-danger-subtle text-danger rounded-circle p-1 d-flex align-items-center justify-content-center">
                         <i class="bi bi-arrow-right-short bsb-rotate-45"></i>
                       </span>
-                      <div class="Port-info-holder">
+                      <div class="Port-info-holder" style="display:flex;width: 23rem;">
                       @foreach($sous_act['Tports'] as $key=>$values)
                        <div class="T-holder"> 
                         <p class="fs-7 mb-0">{{$key}} </p>
@@ -387,39 +378,26 @@
   </div>
   <div class="card mall5" id="prog_to_prog">
   <div>
-      <div class="modif-icon-hndl">
-      <i class="fas fa-folder-open"></i>
-      <i class="fas fa-arrow-right" ></i>
-      <i class="fas fa-folder-open"></i>
-      </div>
-    </div>
-    <div class="card-body">
-      <h5 class="card-title">Programme vers Programee</h5>
-      <p class="card-text">une description sur Operation.</p>
-    </div>
-    <div class="card-footer">
-      <small class="text-muted">Last updated 3 mins ago</small>
-    </div>
-  </div>
-  <div class="card mall5"  id="sprog_to_sprog">
-  <div>
-      <div class="modif-icon-hndl">
-      <i class="far fa-copy"></i>
-      <i class="fas fa-arrow-right" ></i>
-      <i class="far fa-copy"></i>
-      </div>
-    </div>
-    <div class="card-body">
-      <h5 class="card-title">Sous Programme ver Sous Programme</h5>
-      <p class="card-text">une description sur Operation.</p>
-    </div>
-    <div class="card-footer">
-      <small class="text-muted">Last updated 3 mins ago</small>
-    </div>
-  </div>
-</div>
-<form id="update_art_handler" class="hidden">
-<div class="form-group">
+    <p> Modfication : <p id="id_sprog_modif"></p></p>
+    <form id="update_art_handler">
+    <div class="Radio-ids">
+        <div>
+        <label for="Tports">Interieur</label>
+         <input type="radio" class="form-check-input" id="intr" name="type_modif" value="inter" />
+        </div>
+        <div>
+        <label for="Tports">Exterieur</label>
+         <input type="radio" class="form-check-input" id="extr" name="type_modif" value="exter" />
+        </div>
+        </div>
+
+        <div class="exter_type">
+     
+        </div>
+        
+
+        <hr>
+        <div class="form-group">
           <label for="input1">Article</label>
           <select type="text" class="form-control" id="id" placeholder="Entrer le Nom du Programme">
            <option value="0" >Selectionner Article</option>
@@ -450,6 +428,20 @@
     <form id="update_art_handler">
     
         <hr>
+
+        <div class="form-group">
+          <label id="dif" for="input1">Sous Programmes</label>
+          <select type="text" class="form-control" id="id_env" placeholder="Entrer le Nom du Programme">
+           <option value="0" >Selectionner Sous Porgramme</option>
+           @foreach($allsous_progr as $souportf)
+           @foreach($souportf as $sp)
+           <option value="{{$sp['id_sous_prog']}}" >{{$sp['data']['nom_sous_prog']}}</option>
+           @endforeach
+           @endforeach
+          </select>
+          <div id="prog_env"></div>
+        </div>
+  
         <div class="form-group">
         <fieldset>
         <legend>Choisir Les Port</legend>
@@ -509,26 +501,6 @@
         </div>
         <hr>
 
-
-        <div class="Radio-ids">
-        <div>
-        <label for="Tports">Interieur</label>
-         <input type="radio" class="form-check-input" id="intr" name="type_modif" value="inter" />
-        </div>
-        <div>
-        <label for="Tports">Exterieur</label>
-         <input type="radio" class="form-check-input" id="extr" name="type_modif" value="exter" />
-        </div>
-        </div>
-
-        <div>
-        <label for="Tports">Mouvement</label>
-         <input type="radio" class="form-check-input" id="mvm" name="type_modif" value="mvm" />
-        </div>
-        
-
-        <hr>
-
         <div class="add-envoi">
 
         </div>
@@ -576,7 +548,6 @@
   $(document).ready(function(){
     $('.next').on('dblclick',function(){
     id=$(this).attr('id');
-    
     var index=path.indexOf(id)
     if( index !== -1)
     {
@@ -612,7 +583,7 @@ listItemsWithNestedUl.each(function(){
     if(typeact[0] =='act')
     {
       $(this).on('click',function(){
-  window.location.href='/testing/Action/'+path3[0]+'/'+path3[1]+'/'+path3[2]+'/'+path3[3]+'/'
+        window.location.href='/testing/Action/'+path3[0]+'/'+path3[1]+'/'+path3[2]+'/'+typeact[1]+'/'
       })
     
     }
@@ -662,7 +633,7 @@ else
   list.forEach(elemt => {
             newl+=" "+elemt;
         });
-        console.log('chrunk slice 2'+JSON.stringify(list) +'data '+trans.length +'data final'+newl)
+        console.log('chrunk slice 3'+JSON.stringify(list) +'data '+trans.length +'data final'+newl)
         $(this).text(first+newl)
         newl="";
 
@@ -670,8 +641,8 @@ else
 else  
 {
   console.log('before 3'+trans)
-  var first=trans.slice(0,1);
-  trans=trans.slice(1)
+  var first=trans.slice(0,2);
+  trans=trans.slice(2)
   list= trans.match(/.{1,3}/g);
   list.forEach(elemt => {
             newl+=" "+elemt;

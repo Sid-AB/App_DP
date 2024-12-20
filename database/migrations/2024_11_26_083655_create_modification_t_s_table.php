@@ -67,7 +67,7 @@ return new class extends Migration
             $table->string('num_sous_prog')->nullable();
             $table->foreign('num_sous_prog')->references('num_sous_prog')->on('sous_programmes');
 
-            $table->string('num_prog');
+            $table->string('num_prog')->nullable();
             $table->foreign('num_prog')->references('num_prog')->on('programmes');
 
             $table->string('num_sous_prog_retire')->nullable();

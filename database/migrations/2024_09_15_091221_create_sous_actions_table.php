@@ -21,6 +21,8 @@ return new class extends Migration
             $table->Date('date_insert_sous_action');
             $table->DateTime('date_update_sous_action')->nullable();
 
+            $table->float('AE_sousaction_NONREPARTIS')->default(0.0);
+            $table->float('CP_sousaction_NONREPARTIS')->default(0.0);
 
             $table->string('num_action');
             $table->foreign('num_action')->references('num_action')->on('actions');

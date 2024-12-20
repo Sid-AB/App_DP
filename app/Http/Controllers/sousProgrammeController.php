@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\initPort;
 use Illuminate\Http\Request;
 use App\Models\SousProgramme;
+use App\Models\Programme;
 use App\Http\Controllers\Controller;
 
 class sousProgrammeController extends Controller
@@ -14,11 +15,11 @@ class sousProgrammeController extends Controller
 //===================================================================================
                             //affichage du SousProgramme
 //===================================================================================
-    function affich_sou_prog($num_prog)
+    function affich_sou_prog()
     {
         // Récupérer les SousProgramme qui ont le même num_prog
-            $SousProgramme = SousProgramme::where('num_prog', $num_prog)->get();
-            //dd($SousProgramme);
+            $SousProgramme = SousProgramme::get();
+           // dd($SousProgramme);
         // Vérifier si des SousProgramme existent
             if ($SousProgramme->isEmpty()) {
                  return response()->json([
@@ -36,7 +37,7 @@ class sousProgrammeController extends Controller
             }
 
         // Retourner les SousProgramme à la vue
-             return view('Portfail-in.index', compact('SousProgramme'));
+           //  return view('Portfail-in.index', compact('SousProgramme'));
     }
 
 //===================================================================================
@@ -232,6 +233,20 @@ public function create_sou_prog(Request $request)
     ]);
 }
 
+function getprog($num_sous_prog)
+{
+    $prog=Programme::where('num_sous_prog',$num_sous_prog)
+            ->join('sous_programmes','programmes.num_prog',"=","sous_programmes.num_prog")
+            ->firstOrFail();
+            //dd($prog);
+            if(isset($prog))
+            {
+            return response()->json( ['exists'=> true,'prog'=>$prog]);
+            }else
+            {
 
+                return response()->json( ['exist'=> false]);
+            }
+}
 
 }

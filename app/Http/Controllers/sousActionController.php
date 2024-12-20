@@ -12,7 +12,7 @@ use App\Models\SousProgramme;
 use Illuminate\Http\Request;
 use App\Services\CalculDpia;
 
-
+use Barryvdh\Snappy\Facades\SnappyPdf;
 class sousActionController extends Controller
 {
     protected $CalculDpia;
@@ -267,9 +267,14 @@ function printdpic($numport)
             'sous_programs'=>$allsous_prog,
             'programs'=>$all_prog,
         ]);*/
-         $pdf=Pdf::loadView('impression.programmes', compact('programmes','Ttportglob'))->setPaper('A3','landscape');//lanscape mean orentation
-               return $pdf->stream('liste_impression.pdf');
-       //return view('impression.programmes',compact('programmes','Ttportglob'));
+         $pdf=SnappyPdf::loadView('impression.programmes', compact('programmes','Ttportglob'))
+         ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1.5);//lanscape mean orentation
+               return $pdf->stream('impression_dpic.pdf');
+
+       /* $pdf=SnappyPdf::loadView('impression.impression_dpicprgsousprog', compact('programmes','Ttportglob'))
+         ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1.5);//lanscape mean orentation
+               return $pdf->stream('impression_dpic.pdf');
+       //return view('impression.programmes',compact('programmes','Ttportglob'));*/
         }
         else
         {
