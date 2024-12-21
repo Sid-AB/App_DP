@@ -275,7 +275,7 @@ function add_newOPs_T3(id, value, key,) {
        })*/
 
            var row = '<tr id="ref' + id + '">' +
-                   '<td class="code">' + id + '</td>' +
+                   '<td class="code" colspan="2">' + id + '</td>' +
                    '<td>' + sopdata_add.descrp + '</td>' +
                    '<td>' + sopdata_add.intituel + '</td>' +
                    '<td class="editable" id="AE_rpor">' + sopdata_add.AE_rpor + '</td>' +
