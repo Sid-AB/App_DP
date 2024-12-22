@@ -569,6 +569,105 @@ function Update_dpia(T,iupdate)
                        clickedRow.find('td').eq(7).text(somecp);
                    }
                }
+               else
+               {
+                if( T= '3')
+                {
+                    var sommevertAErepor=$('#foot_AE_rpor').text();
+                    var sommevertAEnot=$('#foot_AE_not').text();
+                    var sommevertAEenga=$('#foot_AE_enga').text();
+                    var sommevertCPrpor=$('#foot_CP_rpor').text();
+                    var sommevertCPnot=$('#foot_CP_not').text();
+                    var sommevertCPconsum=$('#foot_CP_consom').text();
+                  
+                   
+                    var wit = $(this).parent().attr('id');
+                    if (newText != 0 && newText != '' && newText != null ) {
+                       // console.log('ae -> ' + testaeover + 'cp ->' + testcpover + ' ae ett -> ' + testaeattendu + ' cp ett ->' + testcpattendu + 'value change ->' + JSON.stringify(wit))
+                        if (wit == 'AE_rpor') {
+                            
+                            sommevertAErepor=parseFloat(sommevertAErepor)-parseFloat(old)
+                            sommevertAErepor=parseFloat(sommevertAErepor)+parseFloat(newText)
+    
+                        }
+                        if (wit == 'AE_not') {
+                               
+                            sommevertAEnot=parseFloat(sommevertAEnot)-parseFloat(old)
+                            sommevertAEnot=parseFloat(sommevertAEnot)+parseFloat(newText)
+                        }
+                        if(wit == 'AE_enga')
+                        { 
+                            sommevertAEenga=parseFloat(sommevertAEenga)-parseFloat(old)
+                            sommevertAEenga=parseFloat(sommevertAEenga)+parseFloat(newText)
+
+                        }
+                        if (wit == 'CP_rpor') {
+                            sommevertCPrpor=parseFloat(sommevertCPrpor)-parseFloat(old)
+                            sommevertCPrpor=parseFloat(sommevertCPrpor)+parseFloat(newText)
+                        }
+                        if (wit == 'CP_not') {
+                            sommevertCPnot=parseFloat(sommevertCPnot)-parseFloat(old)
+                            sommevertCPnot=parseFloat(sommevertCPnot)+parseFloat(newText)
+                        }
+                        if (wit == 'CP_consom') {
+                            sommevertCPconsum=parseFloat(sommevertCPconsum)-parseFloat(old)
+                            sommevertCPconsum=parseFloat(sommevertCPconsum)+parseFloat(newText)
+                        }
+    
+
+                        $('#foot_AE_rpor').text(sommevertAErepor);
+                        $('#foot_AE_not').text(sommevertAEnot);
+                        $('#foot_AE_enga').text(sommevertAEenga);
+                        $('#foot_CP_rpor').text(sommevertCPrpor);
+                        $('#foot_CP_not').text(sommevertCPnot);
+                        $('#foot_CP_consom').text(sommevertCPconsum);
+ 
+               
+                    } else
+                    {
+                  
+                        if (wit == 'AE_rpor') {
+                            
+                            sommevertAErepor=parseFloat(sommevertAErepor)-parseFloat(old)
+                          
+    
+                        }
+                        if (wit == 'AE_not') {
+                               
+                            sommevertAEnot=parseFloat(sommevertAEnot)-parseFloat(old)
+                            
+                        }
+                        if(wit == 'AE_enga')
+                        { 
+                            sommevertAEenga=parseFloat(sommevertAEenga)-parseFloat(old)
+                           
+
+                        }
+                        if (wit == 'CP_rpor') {
+                            sommevertCPrpor=parseFloat(sommevertCPrpor)-parseFloat(old)
+                           
+                        }
+                        if (wit == 'CP_not') {
+                            sommevertCPnot=parseFloat(sommevertCPnot)-parseFloat(old)
+                          
+                        }
+                        if (wit == 'CP_consom') {
+                            sommevertCPconsum=parseFloat(sommevertCPconsum)-parseFloat(old)
+                           
+                        }
+                        
+                    
+                        $('#foot_AE_rpor').text(sommevertAErepor);
+                        $('#foot_AE_not').text(sommevertAEnot);
+                        $('#foot_AE_enga').text(sommevertAEenga);
+                        $('#foot_CP_rpor').text(sommevertCPrpor);
+                        $('#foot_CP_not').text(sommevertCPnot);
+                        $('#foot_CP_consom').text(sommevertCPconsum);
+                    
+                    }
+                }
+
+               }
               
                if(dataupdate.length > 0)
                {
@@ -2525,7 +2624,7 @@ function T3_table(id, T, id_s_act, port,code) {
     var cprTpt=0;
     var cpnTpt=0;
     var cpcTpt=0;
-    var tfooter='<tr><td colspan="3">Total</td>'+
+    var tfooter='<tr><td colspan="4">Total</td>'+
                 '<td  id="foot_AE_rpor">'+0 + '</td>' +
                 '<td  id="foot_AE_not">'+0 + '</td>' +
                 '<td  id="foot_AE_enga">'+0 + '</td>' +
@@ -2558,7 +2657,7 @@ if(code == 200){
                 cprTpt=data_T_port.total[0].values.totalCPreportevertical
                 cpnTpt=data_T_port.total[0].values.totalCPnotifievertical
                 cpcTpt=data_T_port.total[0].values.totalCPconsomevertical
-               tfooter='<tr><td colspan="3">Total</td>'+
+               tfooter='<tr><td colspan="4">Total</td>'+
                 '<td  id="foot_AE_rpor">'+aerTpt + '</td>' +
                 '<td  id="foot_AE_not">'+aenTpt + '</td>' +
                 '<td  id="foot_AE_enga">'+aeeTpt + '</td>' +
