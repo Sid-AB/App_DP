@@ -454,6 +454,8 @@ function Update_dpia(T,iupdate)
                    var sommevertCPatt=$('#foot_CP_att').text();
                    var sommevertAEovr=$('#foot_AE_Over').text();
                    var sommevertCPovr=$('#foot_CP_Over').text();
+                   var sommevertAETT=$('#foot_AE_TT').text();
+                   var sommevertCPTT=$('#foot_CP_TT').text();
                    console.log('footer info'+sommevertAEatt+'--'+sommevertCPatt+'--'+sommevertAEovr+'--'+sommevertCPovr)
                    var testcpattendu = clickedRow.find('td').eq(5).text();//cpattendu
                    var testaeattendu = clickedRow.find('td').eq(4).text();//aeattendu
@@ -463,12 +465,16 @@ function Update_dpia(T,iupdate)
                    var somecp = 0;
                    var wit = $(this).parent().attr('id');
                    if (newText != 0 && newText != '' && newText != null ) {
-                      
+                     someae = clickedRow.find('td').eq(6).text();
+                     somecp = clickedRow.find('td').eq(7).text();
                        console.log('ae -> ' + testaeover + 'cp ->' + testcpover + ' ae ett -> ' + testaeattendu + ' cp ett ->' + testcpattendu + 'value change ->' + JSON.stringify(wit))
                        if (wit == 'CP_att') {
                            testcpattendu = newText
                            sommevertCPatt=parseFloat(sommevertCPatt)-parseFloat(old)
+                           sommevertCPTT=parseFloat(sommevertCPTT)-parseFloat(old)
                            sommevertCPatt=parseFloat(sommevertCPatt)+parseFloat(newText)
+                           sommevertCPTT=parseFloat(sommevertCPTT)+parseFloat(newText)
+                           somecp-=parseFloat(old)
                            console.log('new AE_Over'+sommevertCPatt)
                        }
                        if (wit == 'AE_att') {
@@ -476,58 +482,76 @@ function Update_dpia(T,iupdate)
                           
                               
                                sommevertAEatt=parseFloat(sommevertAEatt)-parseFloat(old)
+                               sommevertAETT =parseFloat(sommevertAETT)-parseFloat(old)
                                sommevertAEatt=parseFloat(sommevertAEatt)+parseFloat(newText)
-                           
+                               sommevertAETT=parseFloat(sommevertAETT)+parseFloat(newText)
+                               someae-=parseFloat(old)
                           
                            console.log('new AE_Over'+sommevertAEatt)
                        }
                        if (wit == 'AE_Over') {
                            testaeover = newText
                            sommevertAEovr=parseFloat(sommevertAEovr)-parseFloat(old)
+                           sommevertAETT =parseFloat(sommevertAETT)-parseFloat(old)
                            sommevertAEovr=parseFloat(sommevertAEovr)+parseFloat(newText)
+                           sommevertAETT=parseFloat(sommevertAETT)+parseFloat(newText)
+                           someae-=parseFloat(old)
                            console.log('new AE_Over'+sommevertAEovr)
                        }
                        if (wit == 'CP_Over') {
                            testcpover = newText
                            sommevertCPovr=parseFloat(sommevertCPovr)-parseFloat(old)
+                           sommevertCPTT=parseFloat(sommevertCPTT)-parseFloat(old)
+                           somecp-=parseFloat(old)
                            sommevertCPovr=parseFloat(sommevertCPovr)+parseFloat(newText)
+                           sommevertCPTT=parseFloat(sommevertCPTT)+parseFloat(newText)
                            console.log('new CP_Over'+sommevertCPovr)
                        }
                        somecp = parseFloat(testcpattendu) + parseFloat(testcpover)
                        someae = parseFloat(testaeattendu) + parseFloat(testaeover);
                        console.log('ae' + someae + ' cp ' + somecp)
-                        $('#foot_AE_att').text(sommevertAEatt);
+                    $('#foot_AE_att').text(sommevertAEatt);
                     $('#foot_CP_att').text(sommevertCPatt);
                     $('#foot_AE_Over').text(sommevertAEovr);
                     $('#foot_CP_Over').text(sommevertCPovr);
+                    $('#foot_AE_TT').text(sommevertAETT);
+                    $('#foot_CP_TT').text(sommevertCPTT);
 
                     console.log('footer info'+sommevertAEatt+'--'+sommevertCPatt+'--'+sommevertAEovr+'--'+sommevertCPovr)
                        clickedRow.find('td').eq(6).text(someae);
                        clickedRow.find('td').eq(7).text(somecp);
                    } else
                    {
+                    someae = clickedRow.find('td').eq(6).text();
+                    somecp = clickedRow.find('td').eq(7).text();
                        console.log('deminuis'+old+'of '+wit)
                        if (wit == 'CP_att') {
                            testcpattendu = newText
                            sommevertCPatt=parseFloat(sommevertCPatt)-parseFloat(old)
-                         somecp-=newText
+                           sommevertCPTT=parseFloat(sommevertCPTT)-parseFloat(old)
+                           somecp-=parseInt(old)
                           
                        }
                        if (wit == 'AE_att') {
-                           someae-=newText
+                            testaeattendu = newText
+                           someae-=parseInt(old)
                            sommevertAEatt=parseFloat(sommevertAEatt)-parseFloat(old)
+                           sommevertAETT =parseFloat(sommevertAETT)-parseFloat(old)
                    
                        }
                        if (wit == 'AE_Over') {
-                   
-                           someae-=newText
+                             testaeover = newText
+                           someae-=parseInt(old)
                            sommevertAEovr=parseFloat(sommevertAEovr)-parseFloat(old)
+                           sommevertCPTT=parseFloat(sommevertCPTT)-parseFloat(old)
                           
                        }
                        if (wit == 'CP_Over') {
-                          
-                           somecp-=newText
+                           testcpover = newText
+                           somecp-=parseInt(old)
                            sommevertCPovr=parseFloat(sommevertCPovr)-parseFloat(old)
+                           sommevertAETT =parseFloat(sommevertAETT)-parseFloat(old)
+                           
                     
                        }
                        
@@ -536,8 +560,11 @@ function Update_dpia(T,iupdate)
                         $('#foot_CP_att').text(sommevertCPatt);
                         $('#foot_AE_Over').text(sommevertAEovr);
                         $('#foot_CP_Over').text(sommevertCPovr);
-
-                  
+                        $('#foot_AE_TT').text(sommevertAETT);
+                        $('#foot_CP_TT').text(sommevertCPTT);
+                       
+                        somecp = parseFloat(testcpattendu) + parseFloat(testcpover)
+                        someae = parseFloat(testaeattendu) + parseFloat(testaeover);
                        clickedRow.find('td').eq(6).text(someae);
                        clickedRow.find('td').eq(7).text(somecp);
                    }
@@ -2663,9 +2690,10 @@ if(code == 200){
                 { 
                    if(splitcode(data_T_port.sousOperation[iso].code, land).length < 5 )
                    {
-                    $('#T-tables tbody').append(row);
+                   
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                     '<td scope="row"  class="code" >' + key + '</td>' +
+                    '<td>'  +    val[0] + '</td>' +
                     '<td>  - </td>' +
                     '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
                     '<td class="editable" id="AE_rpor">' + data_T_port.sousOperation[iso].values.ae_reportesousop + '</td>' +
@@ -2676,9 +2704,11 @@ if(code == 200){
                     '<td class="editable" id="CP_consom">' + data_T_port.sousOperation[iso].values.cp_consomesousop + '</td>' +
                     '</tr>';
                     iso++;
+                     $('#T-tables tbody').append(row);
                        only_def(data_T_port.sousOperation[iso].code)
                    row = '<tr class="ref'+splitcode(data_T_port.sousOperation[iso].code, land)+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                    '<td scope="row"  class="code" >' +key+"-"+splitcode(data_T_port.sousOperation[iso].code, land) + '</td>' +
+                   '<td>'  +    val[0] + '</td>' +
                    '<td id="def"> </td>' +
                    '<td id="sous_def" style="display: flex;align-items: center; justify-content: space-between;"></td>' +
                    '<td class="editable" id="AE_rpor">' + data_T_port.sousOperation[iso].values.ae_reportesousop + '</td>' +
