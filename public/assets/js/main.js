@@ -348,11 +348,10 @@ function add_newOPs_T4(id, value, key,) {
    '</div>'
    ;
    $('.Tsop_handler').append(champ);
+ 
    $('#ajt').click(function(){
     mount_chang=true;
-    var buttons = '<button class="btn btn-primary" id="changin-up"> appliquer</button>'  
-    $('.change_app').append(buttons)
-    console.log('')
+   
        var data_add_ops={
            code:id,
            descrp:$('#dispo').val(),
@@ -376,6 +375,10 @@ function add_newOPs_T4(id, value, key,) {
        $(this).removeClass('editable');
    })*/
  
+       var buttons = '<button class="btn btn-primary" id="changin-up"> appliquer</button>'  
+       $('.change_app').append(buttons)
+       console.log('addbtn'+buttons);
+
        console.log('data T4'+JSON.stringify(data_add_ops))
         $('#Tport-vals').removeClass('T4')
         $("#dispo").val('');
@@ -2938,17 +2941,19 @@ function T4_table(id, T, id_s_act, port,code) {
                 }
                 current = key;
             }
-
-            Edit(id, T)
+            if(code === 200)
+                {
+                   dataupdate=[]
+                   Update_dpia(T,iupdate);
+                   console.log('testing new update function')
+     
+                }else
+                {
+                    Edit(id, T)
+                }
+            
         });
-        if(code === 200)
-           {
-              dataupdate=[]
-
-              Update_dpia(T,iupdate);
-              console.log('testing new update function')
-
-           }
+        
     }).fail(function () {
         console.error('Error loading JSON file.');
     });
