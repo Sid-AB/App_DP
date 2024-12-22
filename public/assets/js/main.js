@@ -275,7 +275,7 @@ function add_newOPs_T3(id, value, key,) {
        })*/
 
            var row = '<tr id="ref' + id + '">' +
-                   '<td class="code" colspan="2">' + id + '</td>' +
+                   '<td class="code">' + id + '</td>' +
                    '<td>' + sopdata_add.descrp + '</td>' +
                    '<td>' + sopdata_add.intituel + '</td>' +
                    '<td class="editable" id="AE_rpor">' + sopdata_add.AE_rpor + '</td>' +
@@ -2663,9 +2663,22 @@ if(code == 200){
                 { 
                    if(splitcode(data_T_port.sousOperation[iso].code, land).length < 5 )
                    {
+                    $('#T-tables tbody').append(row);
+                    row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
+                    '<td scope="row"  class="code" >' + key + '</td>' +
+                    '<td>  - </td>' +
+                    '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
+                    '<td class="editable" id="AE_rpor">' + data_T_port.sousOperation[iso].values.ae_reportesousop + '</td>' +
+                    '<td class="editable" id="AE_not">' + data_T_port.sousOperation[iso].values.ae_notifiesousop + '</td>' +
+                    '<td class="editable" id="AE_enga">' + data_T_port.sousOperation[iso].values.ae_engagesousop + '</td>' +
+                    '<td class="editable" id="CP_rpor">' + data_T_port.sousOperation[iso].values.cp_reportesousuop + '</td>' +
+                    '<td class="editable" id="CP_not">' + data_T_port.sousOperation[iso].values.cp_notifiesousop + '</td>' +
+                    '<td class="editable" id="CP_consom">' + data_T_port.sousOperation[iso].values.cp_consomesousop + '</td>' +
+                    '</tr>';
+                    iso++;
                        only_def(data_T_port.sousOperation[iso].code)
                    row = '<tr class="ref'+splitcode(data_T_port.sousOperation[iso].code, land)+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
-                   '<td scope="row"  class="code" colspan=2>' +key+"-"+splitcode(data_T_port.sousOperation[iso].code, land) + '</td>' +
+                   '<td scope="row"  class="code" >' +key+"-"+splitcode(data_T_port.sousOperation[iso].code, land) + '</td>' +
                    '<td id="def"> </td>' +
                    '<td id="sous_def" style="display: flex;align-items: center; justify-content: space-between;"></td>' +
                    '<td class="editable" id="AE_rpor">' + data_T_port.sousOperation[iso].values.ae_reportesousop + '</td>' +
@@ -2676,19 +2689,7 @@ if(code == 200){
                    '<td class="editable" id="CP_consom">' + data_T_port.sousOperation[iso].values.cp_consomesousop + '</td>' +
                    '</tr>';
                    iso++;
-                   $('#T-tables tbody').append(row);
-                   row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
-                   '<td scope="row"  class="code" >' + key + '</td>' +
-                   '<td>  - </td>' +
-                   '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
-                   '<td class="editable" id="AE_rpor">' + data_T_port.sousOperation[iso].values.ae_reportesousop + '</td>' +
-                   '<td class="editable" id="AE_not">' + data_T_port.sousOperation[iso].values.ae_notifiesousop + '</td>' +
-                   '<td class="editable" id="AE_enga">' + data_T_port.sousOperation[iso].values.ae_engagesousop + '</td>' +
-                   '<td class="editable" id="CP_rpor">' + data_T_port.sousOperation[iso].values.cp_reportesousuop + '</td>' +
-                   '<td class="editable" id="CP_not">' + data_T_port.sousOperation[iso].values.cp_notifiesousop + '</td>' +
-                   '<td class="editable" id="CP_consom">' + data_T_port.sousOperation[iso].values.cp_consomesousop + '</td>' +
-                   '</tr>';
-               iso++;
+                 
                }
                 }
             }
