@@ -356,6 +356,27 @@
 <div class="modif-contiant">
 </div>
 <div class="modif-handler" style="display:none;">
+
+
+<div class="back-flw"><i class="fas fa-arrow-left" ></i></div>
+<div class="card-group">
+  <div class="card mall5" id="wall_to_wall">
+    <div>
+      <div class="modif-icon-hndl">
+      <i class="fas fa-wallet"></i> 
+      <i class="fas fa-arrow-right" ></i>
+      <i class="fas fa-wallet"></i>
+      </div>
+    </div>
+    <div class="card-body" >
+      <h5 class="card-title">Portfail ver Portfail</h5>
+      <p class="card-text">une description sur Operation.</p>
+    </div>
+    <div class="card-footer">
+      <small class="text-muted">Last updated 3 mins ago</small>
+    </div>
+  </div>
+  <div class="card mall5" id="prog_to_prog">
   <div>
     <p> Modfication : <p id="id_sprog_modif"></p></p>
     <form id="update_art_handler">
@@ -384,7 +405,28 @@
            <option value="{{$actelement['id_art']}}" >{{$actelement['nom_art'].' / '.$actelement['code_art']}}</option>
            @endforeach
           </select>
+</div>
+  
+        <div class="form-group">
+         <div class="Radio-ids">
+          <div>
+          <label for="Tports">un seul modification</label>
+          <input type="radio" class="form-check-input" id="single" name="multi_modif" value="single" />
+          </div>
+        <div>
+         <label for="Tports">multiple modifications</label>
+         <input type="radio" class="form-check-input" id="multi" name="multi_modif" value="muti" />
         </div>
+        </div>
+        </div>
+  <div id="modif-dif"></div>
+</form>
+
+<!--  the old modif -->
+  <!--div>
+    <p> Modfication : <p id="id_sprog_modif"></p></p>
+    <form id="update_art_handler">
+    
         <hr>
 
         <div class="form-group">
@@ -469,9 +511,10 @@
            <option value="0" >Selectionner Article</option>
           </select>
         </div>
-      </div>
+  </div-->
     </form>
-    <button class="button-70" id="button-71" role="button">modifier</button></div>
+    <!--button class="button-70" id="button-71" role="button">modifier</button-->
+  </div>
   </div>
  </div>
 

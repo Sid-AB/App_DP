@@ -275,7 +275,7 @@ function add_newOPs_T3(id, value, key,) {
        })*/
 
            var row = '<tr id="ref' + id + '">' +
-                   '<td class="code">' + id + '</td>' +
+                   '<td class="code" colspan="2">' + id + '</td>' +
                    '<td>' + sopdata_add.descrp + '</td>' +
                    '<td>' + sopdata_add.intituel + '</td>' +
                    '<td class="editable" id="AE_rpor">' + sopdata_add.AE_rpor + '</td>' +
@@ -2555,6 +2555,7 @@ if(code == 200){
     var headT = '<tr>' +
         '<th><h1>code</h1></th>' +
         '<th><h1>T Description</h1></th>' +
+        '<th><h1>Numero de Decision</h1></th>' +
         '<th><h1>Intitule de L`Operation</h1></th>' +
         '<th colspan="6">' +
         '<div class="fusion-father">' +
@@ -2590,6 +2591,7 @@ if(code == 200){
             let row = '<tr class="ref'+key+'" id="ref' + key + '">' +
                 '<td scope="row"  class="code">' + key + '</td>' +
                 '<td><p>' + val[0] + '</p> </td>' +
+                '<td> - </td>' +
                 '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
                 '<td class="editable" id="AE_rpor">' + 0 + '</td>' +
                 '<td class="editable" id="AE_not">' + 0 + '</td>' +
@@ -2608,6 +2610,7 @@ if(code == 200){
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.group[ig].code + '">' +
                         '<td scope="row"  class="code">' + key + '</td>' +
                         '<td><p>' + val[0] + '</p> </td>' +
+                        '<td> - </td>' +
                         '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
                         '<td class="editable" id="AE_rpor">' + data_T_port.group[ig].values.ae_reportegrpop + ',00</td>' +
                         '<td class="editable" id="AE_not">' + data_T_port.group[ig].values.ae_notifiegrpop + ',00</td>' +
@@ -2626,6 +2629,7 @@ if(code == 200){
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.operation[io].code + '">' +
                         '<td scope="row"  class="code">' + key + '</td>' +
                         '<td><p>' + val[0] + '</p> </td>' +
+                        '<td> - </td>' +
                         '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
                         '<td class="editable" id="AE_rpor">' + data_T_port.operation[io].values.ae_reporteop + '</td>' +
                         '<td class="editable" id="AE_not">' + data_T_port.operation[io].values.ae_notifieop + '</td>' +
@@ -2644,6 +2648,7 @@ if(code == 200){
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                         '<td scope="row"  class="code">' + key + '</td>' +
                         '<td><p>' +    val[0] + '</p> </td>' +
+                        '<td> -  </td>' +
                         '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
                         '<td class="editable" id="AE_rpor">' + data_T_port.sousOperation[iso].values.ae_reportesousop + '</td>' +
                         '<td class="editable" id="AE_not">' + data_T_port.sousOperation[iso].values.ae_notifiesousop + '</td>' +
@@ -2660,7 +2665,7 @@ if(code == 200){
                    {
                        only_def(data_T_port.sousOperation[iso].code)
                    row = '<tr class="ref'+splitcode(data_T_port.sousOperation[iso].code, land)+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
-                   '<td scope="row"  class="code">' +key+"-"+splitcode(data_T_port.sousOperation[iso].code, land) + '</td>' +
+                   '<td scope="row"  class="code" colspan=2>' +key+"-"+splitcode(data_T_port.sousOperation[iso].code, land) + '</td>' +
                    '<td id="def"> </td>' +
                    '<td id="sous_def" style="display: flex;align-items: center; justify-content: space-between;"></td>' +
                    '<td class="editable" id="AE_rpor">' + data_T_port.sousOperation[iso].values.ae_reportesousop + '</td>' +
@@ -2673,8 +2678,8 @@ if(code == 200){
                    iso++;
                    $('#T-tables tbody').append(row);
                    row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
-                   '<td scope="row"  class="code">' + key + '</td>' +
-                   '<td><p>' +val[0] + '</p> </td>' +
+                   '<td scope="row"  class="code" >' + key + '</td>' +
+                   '<td>  - </td>' +
                    '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
                    '<td class="editable" id="AE_rpor">' + data_T_port.sousOperation[iso].values.ae_reportesousop + '</td>' +
                    '<td class="editable" id="AE_not">' + data_T_port.sousOperation[iso].values.ae_notifiesousop + '</td>' +
