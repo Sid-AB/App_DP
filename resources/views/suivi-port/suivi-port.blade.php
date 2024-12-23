@@ -4,15 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tableau CREDITS 088 </title>
+    <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+<link href="{{asset('assets/css/main.css')}}" rel="stylesheet"/>
+<link href="{{asset('assets/css/jquery.dataTables.min.css')}}" rel="stylesheet"/>
+<link href="{{asset('assets/bootstrap-5.0.2/css/bootstrap.css')}}" rel="stylesheet"/>
+<link href="{{asset('assets/fontawesome-free/css/all.css')}}" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+<link
+        rel="stylesheet"
+        href="https://unpkg.com/@patternfly/patternfly/patternfly.css"
+        crossorigin="anonymous"
+      >
     <style>
-     body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #fff;
-        }
-
         table {
-            background-color:#fff;  
+            background-color:#ffffff00;  
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
@@ -28,6 +33,10 @@
            text-align: center;
        
         }
+        table tbody
+        {
+            background-color:#fff; 
+        }
 
         th {
            /* background-color: #DDD9C4; /* Couleur en-têtes */
@@ -38,7 +47,9 @@
         tr:nth-child(even) {
             background-color: #fff; /* Ligne alternative */
         }
-
+        tr.selected {
+        background-color:rgb(255, 237, 79) !important;
+    }
      /*   tr:hover {
             background-color: #0c0a0a;  Effet survol
         }*/
@@ -96,11 +107,19 @@
             font-size: 1.2em;
             margin-bottom: 30px;
         }
-
+        
+        #ModiftT_wrapper
+        {
+            background-color: white;
+            width: 96%;
+          padding: 10px;
+}
+        }
     </style>
 
 </head>
 <body>
+@include('side_bar.side-barV1') 
     <h1>
         @for($i=0;$i< count($programmes);$i++)
         @foreach ($programmes[$i] as $programme)
@@ -138,7 +157,7 @@
             <table >
                 <thead>
                     <tr>
-                        <th  style="border: none; background: white;"  colspan=2></th>
+                        <th  style="border: none; background: #ffffff00;"  colspan=2></th>
                         <th colspan="2" class="T">T1</th>
                         <th colspan="2" class="T">T2</th>
                         <th colspan="2" class="T">T3</th>
@@ -273,13 +292,13 @@
 
     <!--<< at tis point start the dataTables js -->
 
-        <div>
-            <tabl eclass="table" id="usersTable">
+        <div clas="Modift-handle">
+            <table class="table" id="ModiftT">
                 <thead>
                     <tr>
                         <th>#</th>
                         <th>id_prog</th>
-                        <th>id_sous_prog</th>
+                        <th>id_sous prog</th>
                         <th>code T</th>
                         <th>T 1 AE</th>
                         <th>T 1 CP</th>
@@ -289,44 +308,54 @@
                         <th>T 3 CP</th>
                         <th>T 4 AE</th>
                         <th>T 4 CP</th>
-                        <th>situation_modif</th>
-                        <th>type_modif</th>
-                        <th>Date_modif </th>
+                        <th>situation modif</th>
+                        <th>type modif</th>
+                        <th>Date modif </th>
                         <th>Action modifie</th>
-                        <th>id_prog_retire</th>
-                        <th>id_sous_prog_retire</th>
+                        <th>id_prog retire</th>
+                        <th>id_sous_prog retire</th>
                     </tr>
                 </thead>
                 <tbody>
                    
                         @foreach($moficat_program as $porg)
-                            @foreach($porg['result'] as $result)
+                            @foreach($porg['reslut'] as $result)
                             <tr id="{{$porg['code']}}">
                             <th>#</th>
                             <th>{{$porg['nom']}} </th>
-                            <th>id_sous_prog</th>
-                            <th>code T</th>
-                            <th>T 1 AE</th>
-                            <th>T 1 CP</th>
-                            <th>T 2 AE</th>
-                            <th>T 2 CP</th>
-                            <th>T 3 AE</th>
-                            <th>T 3 CP</th>
-                            <th>T 4 AE</th>
-                            <th>T 4 CP</th>
-                            <th>situation_modif</th>
-                            <th>type_modif</th>
-                            <th>Date_modif </th>
-                            <th>Action modifie</th>
-                            <th>id_prog_retire</th>
-                            <th>id_sous_prog_retire</th>
+                            <th>{{result['num_sous_prog']}}</th>
+                            <th>{{result['code_t4'].'-'.code_t3.'-'.code_t2.'-'.code_t1}} </th>
+                            <th>{{result['AE_recoit_t1']}} </th>
+                            <th>{{result['CP_recoit_t1']}} </th>
+                            <th>{{result['AE_recoit_t2']}} </th>
+                            <th>{{result['CP_recoit_t2']}} </th>
+                            <th>{{result['AE_recoit_t3']}} </th>
+                            <th>{{result['CP_recoit_t3']}} </th>
+                            <th>{{result['AE_recoit_t4']}} </th>
+                            <th>{{result['CP_recoit_t4']}} </th>
+                            <th>{{result['situation_modif']}} </th>
+                            <th>{{result['type_modif']}} </th>
+                            <th>{{result['date_modif']}}  </th>
+                            <th>{{result['action_modifie']}} </th>
+                            <th id="">{{result['num_prog_retire']}} </th>
+                            <th>{{result['num_sous_prog_retire']}}</th>
                             </tr>
                             @endforeach
                         @endforeach
-                    
                 </tbody>
             </table>
         </div>
-
+        <script src="{{asset('assets/bootstrap-5.0.2/js/bootstrap.js')}}"></script>
+        <script src="{{asset('assets/fontawesome-free/js/all.js')}}"></script>
+        <script src="{{asset('assets/js/jquery-3.7.1.min.js')}}"></script>
+        <script src="{{asset('assets/js/jquery.dataTables.min.js')}}"></script>
+        <script>
+        $(document).ready(function() {
+           var tabls= $('#ModiftT').DataTable();
+           $('#ModiftT tbody').on('click', 'tr', function() {
+            $(this).toggleClass('selected');
+        });
+        });
+    </script>
     </body>
 </html>

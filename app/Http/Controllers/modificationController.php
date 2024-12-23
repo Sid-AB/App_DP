@@ -674,7 +674,7 @@ function affiche_modif($numport)
              * 
             */
             
-            dd($moficat_program);
+            //dd($moficat_program);
 
 
 
