@@ -40,9 +40,20 @@
     </a>
     @endif
     @endif
-      <a class="element" href="/testing/Action/{port}/{prog}/{sous_prog}/{act}/">
-        <i class="fas fa-wrench"></i> Détails des Portes
+
+      @if(isset($port) || isset($allport) || isset($paths))
+      @if(isset($port))
+      <a class="element" href="/affiche_transacation/{{$port}}">
+      @else
+        @if(isset($paths))
+        <a class="element" href="/affiche_transacation/{{$paths['code_port']}}">
+        @else
+      <a class="element" href="/affiche_transacation/{{$allport['id']}}">
+        @endif
+      @endif
+        <i class="fas fa-wrench"></i> Suivi Des Transaction Du Portfail
       </a>
+      @endif
   </div>
   <div class="menu-container-btn">
     <div class="menu-toggle-btn">

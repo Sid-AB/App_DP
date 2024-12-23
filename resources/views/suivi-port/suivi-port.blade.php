@@ -271,6 +271,62 @@
 
 
 
+    <!--<< at tis point start the dataTables js -->
+
+        <div>
+            <tabl eclass="table" id="usersTable">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>id_prog</th>
+                        <th>id_sous_prog</th>
+                        <th>code T</th>
+                        <th>T 1 AE</th>
+                        <th>T 1 CP</th>
+                        <th>T 2 AE</th>
+                        <th>T 2 CP</th>
+                        <th>T 3 AE</th>
+                        <th>T 3 CP</th>
+                        <th>T 4 AE</th>
+                        <th>T 4 CP</th>
+                        <th>situation_modif</th>
+                        <th>type_modif</th>
+                        <th>Date_modif </th>
+                        <th>Action modifie</th>
+                        <th>id_prog_retire</th>
+                        <th>id_sous_prog_retire</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   
+                        @foreach($moficat_program as $porg)
+                            @foreach($porg['result'] as $result)
+                            <tr id="{{$porg['code']}}">
+                            <th>#</th>
+                            <th>{{$porg['nom']}} </th>
+                            <th>id_sous_prog</th>
+                            <th>code T</th>
+                            <th>T 1 AE</th>
+                            <th>T 1 CP</th>
+                            <th>T 2 AE</th>
+                            <th>T 2 CP</th>
+                            <th>T 3 AE</th>
+                            <th>T 3 CP</th>
+                            <th>T 4 AE</th>
+                            <th>T 4 CP</th>
+                            <th>situation_modif</th>
+                            <th>type_modif</th>
+                            <th>Date_modif </th>
+                            <th>Action modifie</th>
+                            <th>id_prog_retire</th>
+                            <th>id_sous_prog_retire</th>
+                            </tr>
+                            @endforeach
+                        @endforeach
+                    
+                </tbody>
+            </table>
+        </div>
 
     </body>
 </html>

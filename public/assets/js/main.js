@@ -246,6 +246,8 @@ function add_newOPs_T3(id, value, key,) {
   
    $('.Tsop_handler').append(champ);
    $('#ajt').on('click',function(){
+    var buttons = '<button class="btn btn-primary" id="changin-up"> appliquer</button>'
+    $('.change_app').append(buttons)
        var sopdata_add={
            code:id,
            intituel:$('#int-T3').val(),
@@ -260,6 +262,8 @@ function add_newOPs_T3(id, value, key,) {
            _method: "POST",
 
        }
+       dataupdate.push({code:id,value:{ae_notifie:sopdata_add.AE_not,ae_reporte:sopdata_add.AE_rpor,ae_engage:sopdata_add.AE_enga,
+        cp_notifie:sopdata_add.CP_not,cp_reporte:sopdata_add.CP_rpor,cp_consome:sopdata_add.CP_consom}})
        console.log('data T3'+JSON.stringify(sopdata_add))
        /*$.ajax({
            url:'',
@@ -273,9 +277,12 @@ function add_newOPs_T3(id, value, key,) {
                }
            }
        })*/
-
+            
+            var idsfinal=id.split("-")
+            var lng=idsfinal.length
            var row = '<tr id="ref' + id + '">' +
-                   '<td class="code">' + id + '</td>' +
+                   '<td class="code">' +idsfinal[lng-2]+'-'+idsfinal[lng-2]-1 + '</td>' +
+                   '<td>' + value + '</td>' +
                    '<td>' + sopdata_add.descrp + '</td>' +
                    '<td>' + sopdata_add.intituel + '</td>' +
                    '<td class="editable" id="AE_rpor">' + sopdata_add.AE_rpor + '</td>' +
@@ -297,17 +304,16 @@ function add_newOPs_T3(id, value, key,) {
                   mount_chang = true
 
                   if (mount_chang == true) {
-                      console.log('tesing ' + newText)
+                      
                       click++;
                       if (click == 1) {
-                          var buttons = '<button class="btn btn-primary" id="changin-up"> appliquer</button>'
+                         
                           click++
                       }
-                      $('.change_app').append(buttons)
+                   
                     }
    })
    $('#cancel_ops').click(function(){
-
        $('.change_app').empty()
        $('.Tsop_handler').addClass('Tsop_handler_h')
        $('#Tport-vals').empty()
@@ -317,7 +323,8 @@ function add_newOPs_T3(id, value, key,) {
 }
 
 function add_newOPs_T4(id, value, key,) {
-   id=id+'-'+counter;
+ 
+    $('.change_app').append(buttons)
    $("#dispo").val('');
    $('.desp').text('Dispositive');
    $('#Tport-vals').addClass('T4')
@@ -351,7 +358,9 @@ function add_newOPs_T4(id, value, key,) {
  
    $('#ajt').click(function(){
     mount_chang=true;
-   
+    $('.change_app').empty()
+    id=id+'-'+counter;
+    var buttons = '<button class="btn btn-primary" id="changin-up"> appliquer</button>'
        var data_add_ops={
            code:id,
            descrp:$('#dispo').val(),
@@ -374,11 +383,6 @@ function add_newOPs_T4(id, value, key,) {
   /* $('#' + key + ' td').each(function () {
        $(this).removeClass('editable');
    })*/
- 
-       var buttons = '<button class="btn btn-primary" id="changin-up"> appliquer</button>'  
-       $('.change_app').append(buttons)
-       console.log('addbtn'+buttons);
-
        console.log('data T4'+JSON.stringify(data_add_ops))
         $('#Tport-vals').removeClass('T4')
         $("#dispo").val('');
@@ -734,7 +738,7 @@ function Update_dpia(T,iupdate)
                    mount_chang = true
 
                    if (mount_chang == true) {
-                       console.log('tesing ' + newText)
+                       
                        click++;
                        if (click == 1) {
                            var buttons = '<button class="btn btn-primary" id="changin-up"> appliquer</button>'
@@ -953,7 +957,7 @@ function Edit(tid, T) {
                     mount_chang = true
 
                     if (mount_chang == true) {
-                        console.log('tesing ' + newText)
+                        
                         click++;
                         if (click == 1) {
                             var buttons = '<button class="btn btn-primary" id="changin"> appliquer</button>'

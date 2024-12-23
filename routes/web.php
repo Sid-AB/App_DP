@@ -71,6 +71,7 @@ Route::controller(sousActionController::class)->group(function(){
     Route::post('/creationsousAction','create_sousaction')->name('creation.sousaction');
     Route::get('/allaction/{numport}','allact')->name('action.lists');
     Route::get('/printdpic/{numport}','printdpic')->name('print-dpic.lists');
+
     Route::get('/check-sousaction','check_sousaction')->name('check.sousaction');
 });
 
@@ -103,6 +104,7 @@ Route::controller(sousOperationController::class)->group(function(){
 Route::controller(modificationController::class)->group(function(){
     Route::post('/update','updateSousOperation');
     Route::post('/updateModif','insertModif');
+    Route::get('/affiche_transacation/{numport}','affiche_modif')->name('affich-trans');
 
 
 });
