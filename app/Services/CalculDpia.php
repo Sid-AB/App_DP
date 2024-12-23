@@ -31,7 +31,11 @@ class CalculDpia
             'Programme.SousProgramme.Action.SousAction.GroupOperation.Operation'
         ])
         ->first();
+<<<<<<< HEAD
    //dd($portefeuille);
+=======
+   //    dd($portefeuille);
+>>>>>>> c1177971a7df81b15b42f1e652dd1c0689918c3d
     //dd($portefeuille);
         // récupérer le portefeuille à partir du chemin
     /*  $portefeuille = Portefeuille::where('num_portefeuil', $port)
@@ -226,7 +230,16 @@ if (!empty($portefeuille)) {
                                                     'ae_attendusousop' => $sousopAeattendu,
                                                     'cp_ouvertsousop' => $sousopCpouvert,
                                                     'cp_attendsousuop' => $sousopCpattendu,
-                                                   ]  ];
+                                                    'ae_ouvertsousop_NONREPARTIS' => $sousOperation->AE_ouvert_NONREPARTIS,
+                                                    'ae_attendusousop_NONREPARTIS' => $sousOperation->AE_atendu_NONREPARTIS,
+                                                    'cp_ouvertsousop_NONREPARTIS' => $sousOperation->CP_ouvert_NONREPARTIS,
+                                                    'cp_attendsousuop_NONREPARTIS' => $sousOperation->CP_atendu_NONREPARTIS,
+                                                    'totalAEsousop' => $totalSousAeGlobal,
+                                                    'totalCPsousop' => $totalSousCpGlobal,
+
+                                                    'totalAEsousop_NONREPARTIS' =>  $sousOperation->AE_ouvert_NONREPARTIS+ $sousOperation->AE_atendu_NONREPARTIS,
+                                                    'totalCPsousop_NONREPARTIS' => $sousOperation->CP_ouvert_NONREPARTIS+ $sousOperation->CP_atendu_NONREPARTIS,
+                                                ]  ];
                                           }
     
    
@@ -265,7 +278,16 @@ if (!empty($portefeuille)) {
                                                    'cp_notifiesousop' => $operationCPNotife,
                                                    'cp_consomesousop' => $operationCPConsome,
 
-                                                   
+                                                   'ae_reportesousop_NONREPARTIS' =>  $sousOperation->AE_reporte_NONREPARTIS,
+                                                   'ae_notifiesousop_NONREPARTIS' => $sousOperation->AE_notifie_NONREPARTIS,
+                                                   'ae_engagesousop_NONREPARTIS' => $sousOperation->AE_engage_NONREPARTIS,
+                                                   'cp_reportesousuop_NONREPARTIS' => $sousOperation->CP_reporte_NONREPARTIS,
+                                                   'cp_notifiesousop_NONREPARTIS' => $sousOperation->CP_notifie_NONREPARTIS,
+                                                   'cp_consomesousop_NONREPARTIS' => $sousOperation->CP_consome_NONREPARTIS,
+
+                                                   'totalae_NONREPARTIS'=>$sousOperation->AE_reporte_NONREPARTIS+$sousOperation->AE_notifie_NONREPARTIS+$sousOperation->AE_engage_NONREPARTIS,
+                                                   'totalcp_NONREPARTIS'=>$sousOperation->CP_reporte_NONREPARTIS+$sousOperation->CP_notifie_NONREPARTIS+$sousOperation->CP_consome_NONREPARTIS,
+
 
                                                ]  ];
                                            }
@@ -287,7 +309,9 @@ if (!empty($portefeuille)) {
                                                     'ae_sousop' => $sousopAe,
                                                     'cp_sousuop' => $sousopcP,
 
-                                                 
+                                                    'ae_sousop_NONREPARTIS' => $sousOperation->AE_sous_operation,
+                                                    'cp_sousuop_NONREPARTIS' => $sousOperation->CP_sous_operation,
+                                                  
     
                                                 ]  ];
                                           }
@@ -308,7 +332,8 @@ if (!empty($portefeuille)) {
                                                       'ae_sousop' => $sousopAet4,
                                                       'cp_sousuop' => $sousopcPt4,
 
-                                                     
+                                                      'ae_sousop_NONREPARTIS' => $sousOperation->AE_sous_operation,
+                                                      'cp_sousuop_NONREPARTIS' => $sousOperation->CP_sous_operation,
     
                                                   ]  ];
                                             }

@@ -41,6 +41,7 @@ class sousOperationController extends Controller
         }
    
             $act=Action::where('num_action',$act)->first();
+            $s_act=SousAction::where('num_action',$act)->first();
             $sprog=SousProgramme::where('num_sous_prog',$act->num_sous_prog)->first();
             $sact=SousAction::where('num_action',$act->num_action)->first();
             $progms=Programme::where('num_prog',$sprog->num_prog)->first();
