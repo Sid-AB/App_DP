@@ -209,6 +209,7 @@ $('#cancel_ops').click(function(){
 })
 }
 function add_newOPs_T3(id, value, key,) {
+    $('.change_app').empty()
    id=id+'-'+counter;
    $("#dispo").text('');
    $('.desp').text('Intituler');
@@ -246,7 +247,7 @@ function add_newOPs_T3(id, value, key,) {
   
    $('.Tsop_handler').append(champ);
    $('#ajt').on('click',function(){
-    var buttons = '<button class="btn btn-primary" id="changin-up"> appliquer</button>'
+    var buttons = '<button class="btn btn-primary" id="changin"> appliquer</button>'
     $('.change_app').append(buttons)
        var sopdata_add={
            code:id,
@@ -263,7 +264,7 @@ function add_newOPs_T3(id, value, key,) {
 
        }
        dataupdate.push({code:id,value:{ae_notifie:sopdata_add.AE_not,ae_reporte:sopdata_add.AE_rpor,ae_engage:sopdata_add.AE_enga,
-        cp_notifie:sopdata_add.CP_not,cp_reporte:sopdata_add.CP_rpor,cp_consome:sopdata_add.CP_consom}})
+        cp_notifie:sopdata_add.CP_not,cp_reporte:sopdata_add.CP_rpor,cp_consome:sopdata_add.CP_consom,desc:sopdata_add.descrp,intitule:sopdata_add.intituel}})
        console.log('data T3'+JSON.stringify(sopdata_add))
        /*$.ajax({
            url:'',
@@ -281,8 +282,8 @@ function add_newOPs_T3(id, value, key,) {
             var idsfinal=id.split("-")
             var lng=idsfinal.length
            var row = '<tr id="ref' + id + '">' +
-                   '<td class="code">' +idsfinal[lng-2]+'-'+idsfinal[lng-2]-1 + '</td>' +
-                   '<td>' + value + '</td>' +
+                   '<td class="code">' +idsfinal[lng-2]+'-'+idsfinal[lng-1] + '</td>' +
+                   '<td> - </td>' +
                    '<td>' + sopdata_add.descrp + '</td>' +
                    '<td>' + sopdata_add.intituel + '</td>' +
                    '<td class="editable" id="AE_rpor">' + sopdata_add.AE_rpor + '</td>' +
@@ -292,6 +293,7 @@ function add_newOPs_T3(id, value, key,) {
                    '<td class="editable" id="CP_not">' + sopdata_add.CP_not + '</td>' +
                    '<td class="editable" id="CP_consom">' + sopdata_add.CP_consom + '</td>' +
                    '</tr>';
+                  
                $('#' + key).after(row);
              /*  $('#' + key + ' td').each(function () {
                    $(this).removeClass('editable');
@@ -323,8 +325,7 @@ function add_newOPs_T3(id, value, key,) {
 }
 
 function add_newOPs_T4(id, value, key,) {
- 
-    $('.change_app').append(buttons)
+    $('.change_app').empty()
    $("#dispo").val('');
    $('.desp').text('Dispositive');
    $('#Tport-vals').addClass('T4')
@@ -358,9 +359,10 @@ function add_newOPs_T4(id, value, key,) {
  
    $('#ajt').click(function(){
     mount_chang=true;
-    $('.change_app').empty()
+   
     id=id+'-'+counter;
-    var buttons = '<button class="btn btn-primary" id="changin-up"> appliquer</button>'
+    var buttons = '<button class="btn btn-primary" id="changin"> appliquer</button>'
+    $('.change_app').append(buttons)
        var data_add_ops={
            code:id,
            descrp:$('#dispo').val(),
@@ -380,6 +382,7 @@ function add_newOPs_T4(id, value, key,) {
        '</tr>';
        counter++
    $('#' + key).after(row);
+   dataupdate.push({code:id,value:{ae:data_add_ops.AE_T4,cp:data_add_ops.CP_T4,dispo:data_add_ops.descrp,defi:data_add_ops.defi}})
   /* $('#' + key + ' td').each(function () {
        $(this).removeClass('editable');
    })*/
@@ -741,7 +744,7 @@ function Update_dpia(T,iupdate)
                        
                        click++;
                        if (click == 1) {
-                           var buttons = '<button class="btn btn-primary" id="changin-up"> appliquer</button>'
+                           var buttons = '<button class="btn btn-primary" id="changin"> appliquer</button>'
                            click++
                        }
                        $('.change_app').append(buttons)
@@ -838,8 +841,8 @@ function Update_dpia(T,iupdate)
 
        })
        $('.change_app').on('click',function(){
-           var idbtn=$(this).children('#changin-up').attr('id');
-           if(idbtn =='changin-up' )
+           var idbtn=$(this).children('#changin').attr('id');
+           if(idbtn =='changin' )
            {
                console.log('i insert '+JSON.stringify(dataupdate))
                console.log('click once'+iupdate);
@@ -2107,7 +2110,7 @@ $("#add-prg").on('click', function () {
 
                                                                    }
                                                                    else {
-                                                                       alert('Erreur d`Opération');
+                                                                       //alert('Erreur d`Opération');
 
                                                                    }
                                                                }
@@ -3014,34 +3017,32 @@ function T4_table(id, T, id_s_act, port,code) {
                     iso++;
                 }
                 else{
-                   if(splitcode(data_T_port.sousOperation[iso].code, land).length < 5 )
-                   {
-                       only_def(data_T_port.sousOperation[iso].code)
-                      row = '<tr class="ref'+data_T_port.sousOperation[iso].code+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
-                   '<td scope="row" class="code" >' +key+"-"+splitcode(data_T_port.sousOperation[iso].code, land)+ '</td>' +
-                   '<td id="def"></td>' +
-                   '<td id="sous_def" ></td>'+
-                   '<td class="editable" id="AE_T4">' + data_T_port.sousOperation[iso].values.ae_sousop + '</td>' +
-                   '<td class="editable" id="CP_T4">' + data_T_port.sousOperation[iso].values.cp_sousuop + '</td>' +
-                   '</tr>';
-                     iso++;  
-                     $('#T-tables tbody').append(row);
-                    row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
-                    '<td scope="row" class="code" >' + key + '</td>' +
-                    '<td ><p>' + value + '</p></td>' +
-
-                    '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>null</p></td>'+
-                    '<td class="editable" id="AE_T4">' + data_T_port.sousOperation[iso].values.ae_sousop + '</td>' +
-                    '<td class="editable" id="CP_T4">' + data_T_port.sousOperation[iso].values.cp_sousuop + '</td>' +
-                    '</tr>';
-                    iso++;
-               
-           }
+                    var sousou=true
+                    while (sousou) {
+                        if(splitcode(data_T_port.sousOperation[iso].code, land).length < 5 )
+                            {
+                             
+                            only_def(data_T_port.sousOperation[iso].code)
+                            row = '<tr class="ref'+data_T_port.sousOperation[iso].code+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
+                            '<td scope="row" class="code" >' +key+"-"+splitcode(data_T_port.sousOperation[iso].code, land)+ '</td>' +
+                            '<td id="def"></td>' +
+                            '<td id="sous_def" ></td>'+
+                            '<td class="editable" id="AE_T4">' + data_T_port.sousOperation[iso].values.ae_sousop + '</td>' +
+                            '<td class="editable" id="CP_T4">' + data_T_port.sousOperation[iso].values.cp_sousuop + '</td>' +
+                            '</tr>';
+                            iso++;  
+                            $('#T-tables tbody').append(row);
+                        }
+                    else
+                    {
+                        sousou=false
+                    }
+                    }
+                  
                 }
             }
            }
             // Append the row to the table body
-
             $('#T-tables tbody').append(row);
 
             if (current.length == 0) {

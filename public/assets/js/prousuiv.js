@@ -141,7 +141,7 @@ $('#date_insert_sousProg').on('focusout', function () {
 //======================= CHECK action ==================================
 
 $('#date_insert_action').on('focusout', function () {
-    alert('out')
+    //alert('out')
     var date_act = $(this).val();
     var num_act = $('#num_act').val();
     //  var date_act=  new Date(date_act).getFullYear();
@@ -164,7 +164,7 @@ $('#date_insert_action').on('focusout', function () {
 
                 }
                 else {
-                    alert('Erreur d`Opération');
+                 //   alert('Erreur d`Opération');
 
                 }
             }
