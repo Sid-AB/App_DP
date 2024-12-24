@@ -1353,6 +1353,7 @@ transition-timing-function: line;
 }
 .Modift-handle
         {
+          width: 100%;
             display: flex;
             flex-direction: row;
             text-align: center;
