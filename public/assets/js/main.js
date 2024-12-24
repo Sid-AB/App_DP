@@ -209,6 +209,7 @@ $('#cancel_ops').click(function(){
 })
 }
 function add_newOPs_T3(id, value, key,) {
+    $('.change_app').empty()
    id=id+'-'+counter;
    $("#dispo").text('');
    $('.desp').text('Intituler');
@@ -246,7 +247,7 @@ function add_newOPs_T3(id, value, key,) {
   
    $('.Tsop_handler').append(champ);
    $('#ajt').on('click',function(){
-    var buttons = '<button class="btn btn-primary" id="changin-up"> appliquer</button>'
+    var buttons = '<button class="btn btn-primary" id="changin"> appliquer</button>'
     $('.change_app').append(buttons)
        var sopdata_add={
            code:id,
@@ -282,7 +283,7 @@ function add_newOPs_T3(id, value, key,) {
             var lng=idsfinal.length
            var row = '<tr id="ref' + id + '">' +
                    '<td class="code">' +idsfinal[lng-2]+'-'+idsfinal[lng-1] + '</td>' +
-                   '<td>' + value + '</td>' +
+                   '<td> - </td>' +
                    '<td>' + sopdata_add.descrp + '</td>' +
                    '<td>' + sopdata_add.intituel + '</td>' +
                    '<td class="editable" id="AE_rpor">' + sopdata_add.AE_rpor + '</td>' +
@@ -292,7 +293,7 @@ function add_newOPs_T3(id, value, key,) {
                    '<td class="editable" id="CP_not">' + sopdata_add.CP_not + '</td>' +
                    '<td class="editable" id="CP_consom">' + sopdata_add.CP_consom + '</td>' +
                    '</tr>';
-                   console.log(row)
+                  
                $('#' + key).after(row);
              /*  $('#' + key + ' td').each(function () {
                    $(this).removeClass('editable');
@@ -360,7 +361,7 @@ function add_newOPs_T4(id, value, key,) {
     mount_chang=true;
    
     id=id+'-'+counter;
-    var buttons = '<button class="btn btn-primary" id="changin-up"> appliquer</button>'
+    var buttons = '<button class="btn btn-primary" id="changin"> appliquer</button>'
     $('.change_app').append(buttons)
        var data_add_ops={
            code:id,
@@ -743,7 +744,7 @@ function Update_dpia(T,iupdate)
                        
                        click++;
                        if (click == 1) {
-                           var buttons = '<button class="btn btn-primary" id="changin-up"> appliquer</button>'
+                           var buttons = '<button class="btn btn-primary" id="changin"> appliquer</button>'
                            click++
                        }
                        $('.change_app').append(buttons)
@@ -840,8 +841,8 @@ function Update_dpia(T,iupdate)
 
        })
        $('.change_app').on('click',function(){
-           var idbtn=$(this).children('#changin-up').attr('id');
-           if(idbtn =='changin-up' )
+           var idbtn=$(this).children('#changin').attr('id');
+           if(idbtn =='changin' )
            {
                console.log('i insert '+JSON.stringify(dataupdate))
                console.log('click once'+iupdate);
@@ -2109,7 +2110,7 @@ $("#add-prg").on('click', function () {
 
                                                                    }
                                                                    else {
-                                                                       alert('Erreur d`Opération');
+                                                                       //alert('Erreur d`Opération');
 
                                                                    }
                                                                }
