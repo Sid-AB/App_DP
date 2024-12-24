@@ -281,7 +281,7 @@ function add_newOPs_T3(id, value, key,) {
             var idsfinal=id.split("-")
             var lng=idsfinal.length
            var row = '<tr id="ref' + id + '">' +
-                   '<td class="code">' +idsfinal[lng-2]+'-'+idsfinal[lng-2]-1 + '</td>' +
+                   '<td class="code">' +idsfinal[lng-2]+'-'+idsfinal[lng-1] + '</td>' +
                    '<td>' + value + '</td>' +
                    '<td>' + sopdata_add.descrp + '</td>' +
                    '<td>' + sopdata_add.intituel + '</td>' +
@@ -292,6 +292,7 @@ function add_newOPs_T3(id, value, key,) {
                    '<td class="editable" id="CP_not">' + sopdata_add.CP_not + '</td>' +
                    '<td class="editable" id="CP_consom">' + sopdata_add.CP_consom + '</td>' +
                    '</tr>';
+                   console.log(row)
                $('#' + key).after(row);
              /*  $('#' + key + ' td').each(function () {
                    $(this).removeClass('editable');
@@ -323,8 +324,7 @@ function add_newOPs_T3(id, value, key,) {
 }
 
 function add_newOPs_T4(id, value, key,) {
- 
-    $('.change_app').append(buttons)
+    $('.change_app').empty()
    $("#dispo").val('');
    $('.desp').text('Dispositive');
    $('#Tport-vals').addClass('T4')
@@ -358,9 +358,10 @@ function add_newOPs_T4(id, value, key,) {
  
    $('#ajt').click(function(){
     mount_chang=true;
-    $('.change_app').empty()
+   
     id=id+'-'+counter;
     var buttons = '<button class="btn btn-primary" id="changin-up"> appliquer</button>'
+    $('.change_app').append(buttons)
        var data_add_ops={
            code:id,
            descrp:$('#dispo').val(),
