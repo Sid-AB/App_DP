@@ -263,7 +263,7 @@ function add_newOPs_T3(id, value, key,) {
 
        }
        dataupdate.push({code:id,value:{ae_notifie:sopdata_add.AE_not,ae_reporte:sopdata_add.AE_rpor,ae_engage:sopdata_add.AE_enga,
-        cp_notifie:sopdata_add.CP_not,cp_reporte:sopdata_add.CP_rpor,cp_consome:sopdata_add.CP_consom}})
+        cp_notifie:sopdata_add.CP_not,cp_reporte:sopdata_add.CP_rpor,cp_consome:sopdata_add.CP_consom,desc:sopdata_add.descrp,intitule:sopdata_add.intituel}})
        console.log('data T3'+JSON.stringify(sopdata_add))
        /*$.ajax({
            url:'',
@@ -380,6 +380,7 @@ function add_newOPs_T4(id, value, key,) {
        '</tr>';
        counter++
    $('#' + key).after(row);
+   dataupdate.push({code:id,value:{ae:data_add_ops.AE_T4,cp:data_add_ops.CP_T4,dispo:data_add_ops.descrp,defi:data_add_ops.defi}})
   /* $('#' + key + ' td').each(function () {
        $(this).removeClass('editable');
    })*/
@@ -3014,34 +3015,32 @@ function T4_table(id, T, id_s_act, port,code) {
                     iso++;
                 }
                 else{
-                   if(splitcode(data_T_port.sousOperation[iso].code, land).length < 5 )
-                   {
-                       only_def(data_T_port.sousOperation[iso].code)
-                      row = '<tr class="ref'+data_T_port.sousOperation[iso].code+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
-                   '<td scope="row" class="code" >' +key+"-"+splitcode(data_T_port.sousOperation[iso].code, land)+ '</td>' +
-                   '<td id="def"></td>' +
-                   '<td id="sous_def" ></td>'+
-                   '<td class="editable" id="AE_T4">' + data_T_port.sousOperation[iso].values.ae_sousop + '</td>' +
-                   '<td class="editable" id="CP_T4">' + data_T_port.sousOperation[iso].values.cp_sousuop + '</td>' +
-                   '</tr>';
-                     iso++;  
-                     $('#T-tables tbody').append(row);
-                    row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
-                    '<td scope="row" class="code" >' + key + '</td>' +
-                    '<td ><p>' + value + '</p></td>' +
-
-                    '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>null</p></td>'+
-                    '<td class="editable" id="AE_T4">' + data_T_port.sousOperation[iso].values.ae_sousop + '</td>' +
-                    '<td class="editable" id="CP_T4">' + data_T_port.sousOperation[iso].values.cp_sousuop + '</td>' +
-                    '</tr>';
-                    iso++;
-               
-           }
+                    var sousou=true
+                    while (sousou) {
+                        if(splitcode(data_T_port.sousOperation[iso].code, land).length < 5 )
+                            {
+                             
+                            only_def(data_T_port.sousOperation[iso].code)
+                            row = '<tr class="ref'+data_T_port.sousOperation[iso].code+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
+                            '<td scope="row" class="code" >' +key+"-"+splitcode(data_T_port.sousOperation[iso].code, land)+ '</td>' +
+                            '<td id="def"></td>' +
+                            '<td id="sous_def" ></td>'+
+                            '<td class="editable" id="AE_T4">' + data_T_port.sousOperation[iso].values.ae_sousop + '</td>' +
+                            '<td class="editable" id="CP_T4">' + data_T_port.sousOperation[iso].values.cp_sousuop + '</td>' +
+                            '</tr>';
+                            iso++;  
+                            $('#T-tables tbody').append(row);
+                        }
+                    else
+                    {
+                        sousou=false
+                    }
+                    }
+                  
                 }
             }
            }
             // Append the row to the table body
-
             $('#T-tables tbody').append(row);
 
             if (current.length == 0) {
