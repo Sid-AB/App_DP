@@ -111,10 +111,10 @@
         #ModiftT_wrapper
         {
             background-color: white;
-            width: 96%;
+            
           padding: 10px;
 }
-        }
+        
     </style>
 
 </head>
@@ -318,30 +318,36 @@
                 </thead>
                 <tbody>
                    
-                        @foreach($moficat_program as $porg)
-                            @foreach($porg['reslut'] as $result)
-                            <tr id="{{$porg['code']}}">
-                            <th>#</th>
-                            <th>{{$porg['nom']}} </th>
-                            <th>{{result['num_sous_prog']}}</th>
-                            <th>{{result['code_t4'].'-'.code_t3.'-'.code_t2.'-'.code_t1}} </th>
-                            <th>{{result['AE_recoit_t1']}} </th>
-                            <th>{{result['CP_recoit_t1']}} </th>
-                            <th>{{result['AE_recoit_t2']}} </th>
-                            <th>{{result['CP_recoit_t2']}} </th>
-                            <th>{{result['AE_recoit_t3']}} </th>
-                            <th>{{result['CP_recoit_t3']}} </th>
-                            <th>{{result['AE_recoit_t4']}} </th>
-                            <th>{{result['CP_recoit_t4']}} </th>
-                            <th>{{result['situation_modif']}} </th>
-                            <th>{{result['type_modif']}} </th>
-                            <th>{{result['date_modif']}}  </th>
-                            <th>{{result['action_modifie']}} </th>
-                            <th id="">{{result['num_prog_retire']}} </th>
-                            <th>{{result['num_sous_prog_retire']}}</th>
+                        @for($i=0;$i< count($moficat_program); $i++)
+                            @for($j=0;$j< count($moficat_program[$i]['reslut']); $j++)
+                            
+                            <tr id="{{$moficat_program[$i]['code_prog']}}">
+                            <th>{{$j}}</th>
+                            <th>{{$moficat_program[$i]['nom_prog']}} </th>
+                           <th>{{$moficat_program[$i]['reslut'][$j]['num_sous_prog']}}</th>
+                            <th>{{$moficat_program[$i]['reslut'][$j]['code_t1'].'-'.
+                                $moficat_program[$i]['reslut'][$j]['code_t2'].'-'.
+                                $moficat_program[$i]['reslut'][$j]['code_t3'].'-'.
+                                $moficat_program[$i]['reslut'][$j]['code_t4']    
+                            }} </th>
+                            <th>{{$moficat_program[$i]['reslut'][$j]['AE_recoit_t1']}} </th>
+                            <th>{{$moficat_program[$i]['reslut'][$j]['CP_recoit_t1']}} </th>
+                            <th>{{$moficat_program[$i]['reslut'][$j]['AE_recoit_t2']}} </th>
+                            <th>{{$moficat_program[$i]['reslut'][$j]['CP_recoit_t2']}} </th>
+                            <th>{{$moficat_program[$i]['reslut'][$j]['AE_recoit_t3']}} </th>
+                            <th>{{$moficat_program[$i]['reslut'][$j]['CP_recoit_t3']}} </th>
+                            <th>{{$moficat_program[$i]['reslut'][$j]['AE_recoit_t4']}} </th>
+                            <th>{{$moficat_program[$i]['reslut'][$j]['CP_recoit_t4']}} </th>
+                            <th>{{$moficat_program[$i]['reslut'][$j]['situation_modif']}} </th>
+                            <th>{{$moficat_program[$i]['reslut'][$j]['type_modif']}} </th>
+                            <th>{{$moficat_program[$i]['reslut'][$j]['date_modif']}}  </th>
+                            <th>{{$moficat_program[$i]['reslut'][$j]['action_modifie']}} </th>
+                            <th id="">{{$moficat_program[$i]['reslut'][$j]['num_prog_retire']}} </th>
+                            <th>{{$moficat_program[$i]['reslut'][$j]['num_sous_prog_retire']}}</th>
                             </tr>
-                            @endforeach
-                        @endforeach
+                          
+                            @endfor
+                        @endfor
                 </tbody>
             </table>
         </div>

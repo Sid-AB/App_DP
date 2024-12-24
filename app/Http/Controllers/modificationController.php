@@ -659,7 +659,7 @@ function affiche_modif($numport)
                                 'TotalPortT2_AE'=>$TtportT2AE,'TotalPortT2_CP'=>$TtportT2CP,
                                 'TotalPortT3_AE'=>$TtportT3AE,'TotalPortT3_CP'=>$TtportT3CP,
                                 'TotalPortT4_AE'=>$TtportT4AE,'TotalPortT4_CP'=>$TtportT4CP]);
-        //dd($Ttportglob);
+       // dd($moficat_program);
         if(count($programmes)>0)
         {
         /*return response()->json([

@@ -31,7 +31,11 @@ class CalculDpia
             'Programme.SousProgramme.Action.SousAction.GroupOperation.Operation'
         ])
         ->first();
+<<<<<<< HEAD
    //    dd($portefeuille);
+=======
+   //dd($portefeuille);
+>>>>>>> 14a5cb207bbdd13566a2591403a126b172796cee
     //dd($portefeuille);
         // récupérer le portefeuille à partir du chemin
     /*  $portefeuille = Portefeuille::where('num_portefeuil', $port)
