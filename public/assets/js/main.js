@@ -368,7 +368,7 @@ function add_newOPs_T4(id, value, key,) {
        var data_add_ops={
            code:id,
            descrp:$('#dispo').val(),
-           defi:$('#def_T4').val(),
+          // defi:$('#def_T4').val(),
            AE_T4:$('#add_AE_T4').val(),
            CP_T4:$('#add_CP_T4').val(),
            _token: $('meta[name="csrf-token"]').attr("content"),
@@ -384,7 +384,7 @@ function add_newOPs_T4(id, value, key,) {
        '</tr>';
        counter++
    $('#' + key).after(row);
-   dataupdate.push({code:id,value:{ae:data_add_ops.AE_T4,cp:data_add_ops.CP_T4,dispo:data_add_ops.descrp,defi:data_add_ops.defi}})
+   dataupdate.push({code:id,value:{ae:data_add_ops.AE_T4,cp:data_add_ops.CP_T4,dispo:data_add_ops.descrp}})
   /* $('#' + key + ' td').each(function () {
        $(this).removeClass('editable');
    })*/
