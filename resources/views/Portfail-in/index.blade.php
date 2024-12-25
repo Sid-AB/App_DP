@@ -230,7 +230,7 @@
                         <i class="bi bi-arrow-right-short bsb-rotate-45"></i>
                       </span>
                       <div style="display:flex;width: 23rem;">
-                      @if(count($act['sous_action'])>0)
+                      @if(count($act['sous_action'])>1)
                       @foreach($act['sous_action'] as $sous_act)
                       @if($sous_act['num_act'] != $act['num_act'])
                         <p class="fs-7 mb-0">Sous Action :{{$sous_act['num_act']}} </p>
@@ -256,8 +256,9 @@
           </div>
         </span>
             <ul id="father4" style="display:none;">
+            @if(count($act['sous_action']) > 1 )
             @foreach($act['sous_action'] as $sous_act)
-            @if($sous_act['num_act'] != $act['num_act'])
+           
                   <li>
                 <span class="member next" id="sact_{{$sous_act['num_act']}}" style="display:inline-block">
                 <div class="col-12 col-sm-6">
@@ -300,11 +301,10 @@
               </div>
             </div>
           </div>
-        </span>
-          @else
-          
-          @endif
+        </span>     
+         
               @endforeach
+              @endif
               <li>
                   <span class="member next">
                   <button class="add-btn" id="{{$act['num_act'] }}_act">

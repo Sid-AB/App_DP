@@ -280,6 +280,7 @@ function add_newOPs_T3(id, value, key,) {
        })*/
             
             var idsfinal=id.split("-")
+            console.log('split -'+idsfinal)
             var lng=idsfinal.length
            var row = '<tr id="ref' + id + '">' +
                    '<td class="code">' +idsfinal[lng-2]+'-'+idsfinal[lng-1] + '</td>' +
