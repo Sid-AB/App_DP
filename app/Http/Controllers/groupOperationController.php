@@ -737,7 +737,7 @@ elseif ($T == 2) {
                             // insertion T3
 //===================================================================================
 elseif ($T==3) {
-    dd($request);
+    //dd($request);
        // Récupérer les données du formulaire
        $aeDataReporte = $request->input('ae_reporte');
       // dd($aeDataReporte);

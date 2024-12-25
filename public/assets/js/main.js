@@ -210,7 +210,7 @@ $('#cancel_ops').click(function(){
 }
 function add_newOPs_T3(id, value, key,) {
     $('.change_app').empty()
-   id=id+'-'+counter;
+
    $("#dispo").text('');
    $('.desp').text('Intituler');
    var champ='<div class="Tsop_add_handle">'+
@@ -247,6 +247,7 @@ function add_newOPs_T3(id, value, key,) {
   
    $('.Tsop_handler').append(champ);
    $('#ajt').on('click',function(){
+    id=id+'-'+counter;
     var buttons = '<button class="btn btn-primary" id="changin"> appliquer</button>'
     $('.change_app').append(buttons)
        var sopdata_add={
@@ -295,6 +296,7 @@ function add_newOPs_T3(id, value, key,) {
                    '</tr>';
                   
                $('#' + key).after(row);
+               counter++
              /*  $('#' + key + ' td').each(function () {
                    $(this).removeClass('editable');
                })*/

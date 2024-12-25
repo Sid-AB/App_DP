@@ -200,7 +200,7 @@ $('#date_insert_sou_action').on('focusout', function () {
 
                 }
                 else {
-                    alert('Erreur d`Opération');
+                   // alert('Erreur d`Opération');
 
                 }
             }
