@@ -1044,7 +1044,7 @@ foreach ($jsonData as $codeStr => $nom) {
                 $operation = Operation::where('code_operation', 'like', "%-{$codeOp}")->first();
                 // Récupérer la valeur de "code_operation"
                 $codeOp2 = $operation->code_operation;
-                dd($codeOp2);
+                //dd($codeOp2);
 
 
             $sousoperation=sousoperation::updateOrCreate(
