@@ -1208,7 +1208,7 @@ console.log('URL plus' + url)
 var url = '/testing/S_action/' + path3[0] + '/' + path3[1] + '/' + path3[2] + '/' + path3[3] + '/' + path3[4] + '/' + T;
 //var id_sous_action= path[4];
 } else {
-
+    console.log('path' + JSON.stringify(path3))
 // var id_sous_action= path[3];
 var url = '/testing/S_action/' + path3[0] + '/' + path3[1] + '/' + path3[2] + '/' + path3[3] + '/' + path3[3] + '/' + T;
 console.log('URL less' + url)
@@ -2211,8 +2211,8 @@ $("#add-prg").on('click', function () {
                                                     path.push(numaction_year);
                                                     path3.push(num_act);
                                                     console.log('response.num_sous_action: ' + response.num_sous_action);
+                                                    path.push(response.num_sous_action);
                                                     if (response.num_sous_action) {
-                                                       path.push(response.num_sous_action);
                                                        // console.log('path: ' + JSON.stringify(path));
                                                        window.location.href = '/testing/S_action/' + path.join('/');
                                                    }else{

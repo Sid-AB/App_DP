@@ -9,6 +9,7 @@ use App\Models\Operation;
 use App\Models\SousOperation;
 use App\Models\ConstruireDPIA;
 use App\Models\ConstruireDPIC;
+use App\Models\sousaction;
 use Carbon\Carbon;
 class groupOperationController extends Controller
 {
@@ -19,7 +20,8 @@ class groupOperationController extends Controller
 {
    $currentDateTime = Carbon::now();
    $port=intval($port);
-  // dd($port);
+   $s_act = sousaction::where('num_action', $s_act)->value('num_sous_action');
+  //dd($s_act);
 
     //$year = date('Y'); // Récupérer l'année actuelle
     //$sousaction=$s_act.$act.$sous_prog.$prog.$port.$year;

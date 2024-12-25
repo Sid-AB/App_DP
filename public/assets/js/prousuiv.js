@@ -408,9 +408,9 @@ $('#date_insert_sou_action').on('focusout', function () {
                                                     path3.push(num_act);
 
                                                     console.log('response.num_sous_action: ' + response.num_sous_action);
+                                                    path.push(response.num_sous_action);
 
                                                     if (response.num_sous_action && response.count_sous_action < 2) {
-                                                        path.push(response.num_sous_action);
                                                         // console.log('path: ' + JSON.stringify(path));
                                                         window.location.href = '/testing/S_action/' + path.join('/');
                                                     } else if (response.count_sous_action >= 2) {
