@@ -1012,6 +1012,7 @@ foreach ($jsonData as $codeStr => $nom) {
     // le tableau du dispositif
     // Deuxième boucle : insérer ou mettre à jour le cas du dispositif
     $tableau9Colonnes = $request->input('tableau_9'); // Récupérer les données du tableau avec 9 colonnes [code, dispo, intitul, ae et cp report, ae et cp notifi, ae et cp engage]
+    dd( $request);
     foreach ($tableau9Colonnes as $ligne) {
         // Vérifiez si chaque ligne contient bien 9 colonnes
         if (count($ligne) === 9) {
