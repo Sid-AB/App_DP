@@ -1156,15 +1156,15 @@ data.cp_attendu[code] = cpDataAttendu;
 if (tid == 'T_port3' || tid == 'T3' || T == 3) {
 
 var code = $(this).find('td').eq(0).text();
-var descrip=$(this).find('td').eq(1).text();
-var intituel=$(this).find('td').eq(2).text();
-var aeDataReporte = $(this).find('td').eq(3).text();
-var aeDataNotifie = $(this).find('td').eq(4).text();
-var aeDataEngage = $(this).find('td').eq(5).text();
+var descrip=$(this).find('td').eq(2).text();
+var intituel=$(this).find('td').eq(3).text();
+var aeDataReporte = $(this).find('td').eq(4).text();
+var aeDataNotifie = $(this).find('td').eq(5).text();
+var aeDataEngage = $(this).find('td').eq(6).text();
 
-var cpDataReporte = $(this).find('td').eq(6).text();
-var cpDataNotifie = $(this).find('td').eq(7).text();
-var cpDataEngage = $(this).find('td').eq(8).text();
+var cpDataReporte = $(this).find('td').eq(7).text();
+var cpDataNotifie = $(this).find('td').eq(8).text();
+var cpDataEngage = $(this).find('td').eq(9).text();
 
 
 // Ajoute les valeurs dans les objet
