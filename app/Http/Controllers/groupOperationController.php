@@ -650,8 +650,6 @@ elseif ($T == 2) {
                     'code_operation' => $s_act.'-'.$codeGp.'-'.$codeOp,
                     'nom_sous_operation' => $nom,
                     'code_t2' => 20000,
-                    //'AE_sous_operation' => floatval(str_replace(',', '', $ae_attendu)) + floatval(str_replace(',', '', $ae_ouvert)),
-                    //'CP_sous_operation' => floatval(str_replace(',', '', $cp_attendu)) + floatval(str_replace(',', '', $cp_ouvert)),
                     'AE_atendu' => floatval(str_replace(',', '', $ae_attendu)),
                     'AE_ouvert' => floatval(str_replace(',', '', $ae_ouvert)),
                     'CP_ouvert' => floatval(str_replace(',', '', $cp_ouvert)),
@@ -701,24 +699,10 @@ elseif ($T == 2) {
 
 
         }
-        // si c est un dispositif
-        else{
-            // Vérifier si la variable contient un seul tiret
-            if (strpos($code, '-') !== false) {
-                // Supprimer tout ce qui suit le premier tiret (y compris le tiret)
-                $codeOp = explode('-', $code)[0];
-            }
-            dd($codeOp);
-            // Insertion dans la table sousoperation
-            $sousoperation= sousoperation::updateOrCreate(
-                ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code],
-                ['code_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp, 'nom_sous_operation' => $nom,'code_t1' =>10000,
-                 'AE_sous_operation' => floatval(str_replace(',', '', $ae)),
-                  'CP_sous_operation' => floatval(str_replace(',', '', $cp))
-                  , 'date_insert_SOUSoperation' => $currentDateTime]
-            );
-        }
+        
     } // fin boucle
+
+
 
     //dd($request);
     return response()->json([
@@ -1023,24 +1007,55 @@ foreach ($jsonData as $codeStr => $nom) {
 
                    // dd( $DPIA);
           }
-          // si c est un dispositif
-            else{
-                // Vérifier si la variable contient un seul tiret
-                if (strpos($code, '-') !== false) {
-                    // Supprimer tout ce qui suit le premier tiret (y compris le tiret)
-                    $codeOp = explode('-', $code)[0];
-                }
-               // dd("soussou", $codeOp);
-                // Insertion dans la table sousoperation
-                $sousoperation= sousoperation::updateOrCreate(
-                    ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code],
-                    ['code_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp, 'nom_sous_operation' => $nom,'code_t1' =>10000,
-                     'AE_sous_operation' => floatval(str_replace(',', '', $ae)),
-                      'CP_sous_operation' => floatval(str_replace(',', '', $cp))
-                      , 'date_insert_SOUSoperation' => $currentDateTime]
-                );
-            }
+         
         }
+    // le tableau du dispositif
+    // Deuxième boucle : insérer ou mettre à jour le cas du dispositif
+    $tableau9Colonnes = $request->input('tableau_9'); // Récupérer les données du tableau avec 9 colonnes [code, dispo, intitul, ae et cp report, ae et cp notifi, ae et cp engage]
+    foreach ($tableau9Colonnes as $ligne) {
+        // Vérifiez si chaque ligne contient bien 9 colonnes
+        if (count($ligne) === 9) {
+            $intitule = $ligne[0]; // Première colonne
+            $descriptif = $ligne[1]; // Deuxième colonne
+            $code = $ligne[2];      // Troisième colonne (code_operation)
+            $ae_reporte = $ligne[3];
+            $cp_reporte = $ligne[4];
+            $ae_notifie = $ligne[5];
+            $cp_notifie = $ligne[6];
+            $ae_engage = $ligne[7];
+            $cp_consome = $ligne[8];
+
+            // Fusionner l'intitulé et le descriptif avec un underscore
+            $nomFusionne = $intitule . '_' . $descriptif;
+
+            //recupe le code operation
+            if (strpos($code, '-') !== false) {
+                // Supprimer tout ce qui suit le premier tiret (y compris le tiret)
+                $codeOp = explode('-', $code)[0];
+            }
+            // Rechercher la ligne où la colonne `codeOp` contient le code spécifique
+                $codeOp2 = Operation::where('code_operation', 'like', "%-{$codeOp}")->first();
+
+            // Insérer ou mettre à jour dans la table `SousOperation`
+            $sousoperation=sousoperation::updateOrCreate(
+                ['code_sous_operation' =>$codeOp2. '-'.$code], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
+                ['code_operation' =>$codeOp2,
+                'nom_sous_operation' => $nomFusionne,
+                'code_t3' => 30000,
+
+                'AE_reporte' => floatval(str_replace(',', '', $ae_reporte)),
+                'AE_notifie' =>floatval(str_replace(',', '', $ae_notifie)) ,
+                'AE_engage' => floatval(str_replace(',', '', $ae_engage)),
+
+                'CP_reporte' => floatval(str_replace(',', '', $cp_reporte)),
+                'CP_notifie' =>floatval(str_replace(',', '', $cp_notifie)),
+                'CP_consome' => floatval(str_replace(',', '', $cp_consome))
+                , 'date_insert_SOUSoperation' => $currentDateTime]
+            );
+            
+            
+        }
+    }
 
         return response()->json([
           'success' => true,
@@ -1261,8 +1276,11 @@ if (!$nom) {
        // Insertion dans la table sousoperation
        $sousoperation=sousoperation::updateOrCreate(
            ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code ],
-           ['code_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp, 'nom_sous_operation' => $nom
-           ,'code_t4' => 40000, 'date_insert_SOUSoperation' => $currentDateTime]
+           ['code_operation' =>$s_act.'-'.$codeGp.'-'.$code, 'nom_sous_operation' => $nom,
+           'AE_sous_operation' => floatval(str_replace(',', '',  $ae)),
+           'code_t4' => 40000,
+           'CP_sous_operation' =>floatval(str_replace(',', '',  $cp))
+           , 'date_insert_SOUSoperation' => $currentDateTime]
        );
               // creation de la table  construireDPIA
               $portefeuille = Portefeuille::where('num_portefeuil', $port)->first();
@@ -1307,145 +1325,50 @@ if (!$nom) {
                }
                // dd( $DPIA);
 
-//reste a verifier
-/*
-        if ($currentIndex !== false && isset($keys[$currentIndex + 1])) {
-            $nextKey = $keys[$currentIndex + 1]; // Obtenir la clé suivante
-            $nextItem = $jsonData[$nextKey]; // Obtenir l'élément suivant par sa clé
 
-            // Récupérer le code correspondant au nom suivant
-            $nextCode = $nextKey; // La clé suivante est déjà le code
+}
+}// fin boucle
 
-        // Si la ligne suivante n'est pas une sous-opération
-        if ($nextCode && ($nextCode % 100 == 0 || $nextCode % 1000 == 0)) {
-        dd($code);
-            // Insérer dans sousoperation avec un code spécifique
-           $sousoperation= sousoperation::updateOrCreate(
-                ['code_sous_operation' =>  $code.$codeOp.$codeGp.$s_act], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
-                ['code_operation' => $codeOp.$codeGp.$s_act, 'nom_sous_operation' => $nom,
-                'AE_sous_operation' => floatval(str_replace(',', '',  $ae)),
-                'code_t4' => 40000,
-                'CP_sous_operation' =>floatval(str_replace(',', '',  $cp))
-                , 'date_insert_SOUSoperation' => $currentDateTime]
-            );
+   // le tableau du dispositif
+    // Deuxième boucle : insérer ou mettre à jour le cas du dispositif
+    $tableau5Colonnes = $request->input('tableau_5'); // Récupérer les données du tableau avec 5 colonnes [code, dispo, intitul, ae et cp ]
+    foreach ($tableau5Colonnes as $ligne) {
+        // Vérifiez si chaque ligne contient bien 9 colonnes
+        if (count($ligne) === 5) {
+            $intitule = $ligne[0]; // Première colonne
+            $descriptif = $ligne[1]; // Deuxième colonne
+            $code = $ligne[2];      // Troisième colonne (code_operation)
+            $ae = $ligne[3];
+            $cp = $ligne[4];
 
-             // creation de la table  construireDPIA
-             $portefeuille = Portefeuille::where('num_portefeuil', $port)->first();
-             // dd($portefeuille);
+            // Fusionner l'intitulé et le descriptif avec un underscore
+            $nomFusionne = $intitule . '_' . $descriptif;
 
-              if ($portefeuille) {
-                  // Création de la table ConstruireDPIA
-                  ConstruireDPIA::updateOrCreate(
+            //recupe le code operation
+            if (strpos($code, '-') !== false) {
+                // Supprimer tout ce qui suit le premier tiret (y compris le tiret)
+                $codeOp = explode('-', $code)[0];
+            }
+            // Rechercher la ligne où la colonne `codeOp` contient le code spécifique
+                $codeOp2 = Operation::where('code_operation', 'like', "%-{$codeOp}")->first();
 
-                    [
-                        'code_sous_operation' => $sousoperation->code_sous_operation,
-                        'id_rp' => 1,
-                        'id_ra' => 1,
-                    ],
-
-                    [
-                        'date_creation_dpia' => $portefeuille->Date_portefeuille,
-                        'date_modification_dpia' =>now(),
-                        'motif_dpia' => 'Création de DPIA (T4) à partir du portefeuille',
-
-                        'AE_dpia_nv' => $sousoperation->AE_sous_operation,
-                        'CP_dpia_nv' => $sousoperation->CP_sous_operation,
-
-                        'AE_ouvert_dpia' => null,
-                        'AE_atendu_dpia' => null,
-                        'CP_ouvert_dpia' => null,
-                        'CP_atendu_dpia' => null,
-
-                        'AE_reporte_dpia' => null,
-                        'AE_notifie_dpia' => null,
-                        'AE_engage_dpia' => null,
-                        'CP_reporte_dpia' => null,
-                        'CP_notifie_dpia' => null,
-                        'CP_consome_dpia' => null,
-
-
-                    ]
-                );
-              } else {
-                  // si le portefeuille n'existe pas
-                  dd('Portefeuille non trouvé');
-              }
-              // dd( $DPIA);
-        }
-   }
-   else{
-     $sousoperation=sousoperation::updateOrCreate(
-        ['code_sous_operation' =>  $code.$codeOp.$codeGp.$s_act], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
-        ['code_operation' => $codeOp.$codeGp.$s_act, 'nom_sous_operation' => $nom,
+            // Insérer ou mettre à jour dans la table `SousOperation`
+            // Insertion dans la table sousoperation
+       $sousoperation=sousoperation::updateOrCreate(
+        ['code_sous_operation' =>$codeOp2.'-'.$code ],
+        ['code_operation' =>$codeOp2, 
+        'nom_sous_operation' => $nomFusionne,
         'AE_sous_operation' => floatval(str_replace(',', '',  $ae)),
         'code_t4' => 40000,
         'CP_sous_operation' =>floatval(str_replace(',', '',  $cp))
         , 'date_insert_SOUSoperation' => $currentDateTime]
     );
-
-     // creation de la table  construireDPIA
-     $portefeuille = Portefeuille::where('num_portefeuil', $port)->first();
-     // dd($portefeuille);
-
-      if ($portefeuille) {
-          // Création de la table ConstruireDPIA
-         ConstruireDPIA::updateOrCreate(
-
-                    [
-                        'code_sous_operation' => $sousoperation->code_sous_operation,
-                        'id_rp' => 1,
-                        'id_ra' => 1,
-                    ],
-
-                    [
-                        'date_creation_dpia' => $portefeuille->Date_portefeuille,
-                        'date_modification_dpia' =>now(),
-                        'motif_dpia' => 'Création de DPIA (T4) à partir du portefeuille',
-
-                        'AE_dpia_nv' => $sousoperation->AE_sous_operation,
-                        'CP_dpia_nv' => $sousoperation->CP_sous_operation,
-
-                        'AE_ouvert_dpia' => null,
-                        'AE_atendu_dpia' => null,
-                        'CP_ouvert_dpia' => null,
-                        'CP_atendu_dpia' => null,
-
-                        'AE_reporte_dpia' => null,
-                        'AE_notifie_dpia' => null,
-                        'AE_engage_dpia' => null,
-                        'CP_reporte_dpia' => null,
-                        'CP_notifie_dpia' => null,
-                        'CP_consome_dpia' => null,
-
-
-                    ]
-                );
-      } else {
-          // si le portefeuille n'existe pas
-          dd('Portefeuille non trouvé');
-      }
-      // dd( $DPIA);
-   } *///reste a verifier
-}
- // si c est un dispositif
- else{
-    dd($request);
-       // Vérifier si la variable contient un seul tiret
-       if (strpos($code, '-') !== false) {
-        // Supprimer tout ce qui suit le premier tiret (y compris le tiret)
-        $codeOp = explode('-', $code)[0];
+            
+            
+        }
     }
-    dd($codeOp);
-    // Insertion dans la table sousoperation
-    $sousoperation= sousoperation::updateOrCreate(
-        ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code],
-        ['code_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp, 'nom_sous_operation' => $nom,'code_t1' =>10000,
-         'AE_sous_operation' => floatval(str_replace(',', '', $ae)),
-          'CP_sous_operation' => floatval(str_replace(',', '', $cp))
-          , 'date_insert_SOUSoperation' => $currentDateTime]
-    );
-}
-}
+
+
 return response()->json([
     'success' => true,
     'message' => 'Données insérées avec succès !',
