@@ -1351,4 +1351,14 @@ transition-timing-function: line;
   justify-content: space-evenly;
 
 }
+.Modift-handle
+        {
+          width: 100%;
+            display: flex;
+            flex-direction: row;
+            text-align: center;
+            align-items: center;
+            align-self: center;
+            align-content: center;
+        }
 /***------------------------------ end --------------------***/
