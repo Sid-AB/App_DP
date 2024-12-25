@@ -267,23 +267,7 @@ foreach ($jsonData as $codeStr => $nom) {
               }
 
         }
-        // si c est un dispositif
-        else{
-            // Vérifier si la variable contient un seul tiret
-            if (strpos($code, '-') !== false) {
-                // Supprimer tout ce qui suit le premier tiret (y compris le tiret)
-                $codeOp = explode('-', $code)[0];
-            }
-            dd($codeOp);
-            // Insertion dans la table sousoperation
-            $sousoperation= sousoperation::updateOrCreate(
-                ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code],
-                ['code_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp, 'nom_sous_operation' => $nom,'code_t1' =>10000,
-                 'AE_sous_operation' => floatval(str_replace(',', '', $ae)),
-                  'CP_sous_operation' => floatval(str_replace(',', '', $cp))
-                  , 'date_insert_SOUSoperation' => $currentDateTime]
-            );
-        }
+        
     }
 
     return response()->json([
