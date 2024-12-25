@@ -94,17 +94,17 @@ public function check_action(Request $request)
               // Enregistrer le fichier et le lier au portefeuille
                 /*...
                                                     */
-         $num_sousact = sousaction::where('num_action', $request->num_action)->first();
+         $num_sousact = sousaction::where('num_action', $request->num_action)->value('num_sous_action');
             // Récupérer l'action en chargeant les relations nécessaires
                 $action = Action::with('SousProgramme.Programme')
                 ->where('num_action', $request->num_action)
                 ->first();
          $numPortef = $action->sousProgramme->programme->num_portefeuil ?? null;
          $count_sousact = sousaction::where('num_action', $request->num_action)->count();
-        // dd($numPortef);
+        //dd($num_sousact);
          if ($action) {
              return response()->json([
-                 'num_sous_action' => $num_sousact ? $num_sousact->num_sous_action : null,
+                 'num_sous_action' => $num_sousact,
                  'count_sous_action' => $count_sousact,
                  'numPortef' => $numPortef,
                  'success' => true,
