@@ -705,10 +705,12 @@ elseif ($T == 2) {
                             // insertion T3
 //===================================================================================
 elseif ($T==3) {
-    dd($request);
+    //dd($request);
        // Récupérer les données du formulaire
+       $intitule = $request->input('intitule');
+       $descr = $request->input('descr');
+
        $aeDataReporte = $request->input('ae_reporte');
-      // dd($aeDataReporte);
        $aeDataNotifie = $request->input('ae_notifie');
        $aeDataEngage = $request->input('ae_engage');
 
@@ -992,25 +994,46 @@ foreach ($jsonData as $codeStr => $nom) {
                    // dd( $DPIA);
           }
          
-        }
-    // le tableau du dispositif
-    // Deuxième boucle : insérer ou mettre à jour le cas du dispositif
-    $tableau9Colonnes = $request->input('tableau_9'); // Récupérer les données du tableau avec 9 colonnes [code, dispo, intitul, ae et cp report, ae et cp notifi, ae et cp engage]
-    foreach ($tableau9Colonnes as $ligne) {
-        // Vérifiez si chaque ligne contient bien 9 colonnes
-        if (count($ligne) === 9) {
-            $intitule = $ligne[0]; // Première colonne
-            $descriptif = $ligne[1]; // Deuxième colonne
-            $code = $ligne[2];      // Troisième colonne (code_operation)
-            $ae_reporte = $ligne[3];
-            $cp_reporte = $ligne[4];
-            $ae_notifie = $ligne[5];
-            $cp_notifie = $ligne[6];
-            $ae_engage = $ligne[7];
-            $cp_consome = $ligne[8];
+        }// fin boucle
 
-            // Fusionner l'intitulé et le descriptif avec un underscore
-            $nomFusionne = $intitule . '_' . $descriptif;
+        // Deuxième boucle : insérer ou mettre à jour le cas du dispositif
+        foreach ($intitule as $code => $value_intitu) {
+            if(strpos($code, '-') !== false){
+            //dd($code);
+            
+            
+            // Recup l discr
+            if (array_key_exists($code, $descr)) {
+                $value_descr = $descr[$code];
+            }
+            // Recup l ae_reporte
+            if (array_key_exists($code, $aeDataReporte)) {
+                $value_ae_reporte = $aeDataReporte[$code];
+            }
+            // Recup l ae_reporte
+            if (array_key_exists($code, $cpDataReporte)) {
+                $value_cp_reporte = $cpDataReporte[$code];
+            }
+            // Recup l ae_notifie
+            if (array_key_exists($code, $aeDataNotifie)) {
+                $value_ae_notifie = $aeDataNotifie[$code];
+            }
+            // Recup l cp_notifie
+            if (array_key_exists($code, $cpDataNotifie)) {
+                $value_cp_notifie = $cpDataNotifie[$code];
+            }
+            // Recup l ae_engage
+            if (array_key_exists($code, $aeDataEngage)) {
+                $value_ae_engage = $aeDataEngage[$code];
+            }
+            // Recup l cp_consome
+            if (array_key_exists($code, $cpDataConsome)) {
+                $value_cp_consome = $cpDataConsome[$code];
+            }
+
+            //Fusion des deux descr et intitule
+            $nom= $value_intitu. '_'.$value_descr;
+            //dd($nom);
 
             //recupe le code operation
             if (strpos($code, '-') !== false) {
@@ -1018,28 +1041,31 @@ foreach ($jsonData as $codeStr => $nom) {
                 $codeOp = explode('-', $code)[0];
             }
             // Rechercher la ligne où la colonne `codeOp` contient le code spécifique
-                $codeOp2 = Operation::where('code_operation', 'like', "%-{$codeOp}")->first();
+                $operation = Operation::where('code_operation', 'like', "%-{$codeOp}")->first();
+                // Récupérer la valeur de "code_operation"
+                $codeOp2 = $operation->code_operation;
+                //dd($codeOp2);
 
-            // Insérer ou mettre à jour dans la table `SousOperation`
+
             $sousoperation=sousoperation::updateOrCreate(
                 ['code_sous_operation' =>$codeOp2. '-'.$code], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
                 ['code_operation' =>$codeOp2,
-                'nom_sous_operation' => $nomFusionne,
+                'nom_sous_operation' => $nom,
                 'code_t3' => 30000,
 
-                'AE_reporte' => floatval(str_replace(',', '', $ae_reporte)),
-                'AE_notifie' =>floatval(str_replace(',', '', $ae_notifie)) ,
-                'AE_engage' => floatval(str_replace(',', '', $ae_engage)),
+                'AE_reporte' => floatval(str_replace(',', '',$value_ae_reporte)),
+                'AE_notifie' =>floatval(str_replace(',', '', $value_ae_notifie)) ,
+                'AE_engage' => floatval(str_replace(',', '', $value_ae_engage)),
 
-                'CP_reporte' => floatval(str_replace(',', '', $cp_reporte)),
-                'CP_notifie' =>floatval(str_replace(',', '', $cp_notifie)),
-                'CP_consome' => floatval(str_replace(',', '', $cp_consome))
+                'CP_reporte' => floatval(str_replace(',', '', $value_cp_reporte)),
+                'CP_notifie' =>floatval(str_replace(',', '',  $value_cp_notifie)),
+                'CP_consome' => floatval(str_replace(',', '', $value_cp_consome))
                 , 'date_insert_SOUSoperation' => $currentDateTime]
             );
-            
-            
-        }
+          }
     }
+        
+    
 
         return response()->json([
           'success' => true,
@@ -1056,8 +1082,12 @@ foreach ($jsonData as $codeStr => $nom) {
                             // insertion T4
 //===================================================================================
 else{
+    //dd($request);
+
 // Récupérer les données du formulaire
-//dd($request);
+$dispo = $request->input('dispo');
+$descr = $request->input('descr');
+
 $aeData = $request->input('ae');
 $cpData = $request->input('cp');
 
@@ -1260,7 +1290,8 @@ if (!$nom) {
        // Insertion dans la table sousoperation
        $sousoperation=sousoperation::updateOrCreate(
            ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code ],
-           ['code_operation' =>$s_act.'-'.$codeGp.'-'.$code, 'nom_sous_operation' => $nom,
+           ['code_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp,
+            'nom_sous_operation' => $nom,
            'AE_sous_operation' => floatval(str_replace(',', '',  $ae)),
            'code_t4' => 40000,
            'CP_sous_operation' =>floatval(str_replace(',', '',  $cp))
@@ -1313,44 +1344,50 @@ if (!$nom) {
 }
 }// fin boucle
 
-   // le tableau du dispositif
     // Deuxième boucle : insérer ou mettre à jour le cas du dispositif
-    $tableau5Colonnes = $request->input('tableau_5'); // Récupérer les données du tableau avec 5 colonnes [code, dispo, intitul, ae et cp ]
-    foreach ($tableau5Colonnes as $ligne) {
-        // Vérifiez si chaque ligne contient bien 9 colonnes
-        if (count($ligne) === 5) {
-            $intitule = $ligne[0]; // Première colonne
-            $descriptif = $ligne[1]; // Deuxième colonne
-            $code = $ligne[2];      // Troisième colonne (code_operation)
-            $ae = $ligne[3];
-            $cp = $ligne[4];
+    foreach ($dispo as $code => $value_dispo) {
+        if(strpos($code, '-') !== false){
+        //dd($code);
+        // Recup l discr
+        if (array_key_exists($code, $descr)) {
+            $value_descr = $descr[$code];
+        }
+        // Recup l ae_reporte
+        if (array_key_exists($code, $aeData)) {
+            $value_ae = $aeData[$code];
+        }
+        // Recup l ae_reporte
+        if (array_key_exists($code, $cpData)) {
+            $value_cp = $cpData[$code];
+        }
+        
+        //Fusion des deux descr et intitule
+        $nom= $value_dispo. '_'.$value_descr;
+        //dd($value_cp);
+        //recupe le code operation
+        if (strpos($code, '-') !== false) {
+            // Supprimer tout ce qui suit le premier tiret (y compris le tiret)
+            $codeOp = explode('-', $code)[0];
+        }
+        // Rechercher la ligne où la colonne `codeOp` contient le code spécifique
+            $operation = Operation::where('code_operation', 'like', "%-{$codeOp}")->first();
+            // Récupérer la valeur de "code_operation"
+            $codeOp2 = $operation->code_operation;
+            //dd($codeOp2);
 
-            // Fusionner l'intitulé et le descriptif avec un underscore
-            $nomFusionne = $intitule . '_' . $descriptif;
-
-            //recupe le code operation
-            if (strpos($code, '-') !== false) {
-                // Supprimer tout ce qui suit le premier tiret (y compris le tiret)
-                $codeOp = explode('-', $code)[0];
-            }
-            // Rechercher la ligne où la colonne `codeOp` contient le code spécifique
-                $codeOp2 = Operation::where('code_operation', 'like', "%-{$codeOp}")->first();
-
-            // Insérer ou mettre à jour dans la table `SousOperation`
-            // Insertion dans la table sousoperation
+        // Insertion dans la table sousoperation
        $sousoperation=sousoperation::updateOrCreate(
         ['code_sous_operation' =>$codeOp2.'-'.$code ],
         ['code_operation' =>$codeOp2, 
-        'nom_sous_operation' => $nomFusionne,
-        'AE_sous_operation' => floatval(str_replace(',', '',  $ae)),
+        'nom_sous_operation' => $nom,
+        'AE_sous_operation' => floatval(str_replace(',', '',  $value_ae)),
         'code_t4' => 40000,
-        'CP_sous_operation' =>floatval(str_replace(',', '',  $cp))
+        'CP_sous_operation' =>floatval(str_replace(',', '',  $value_cp))
         , 'date_insert_SOUSoperation' => $currentDateTime]
     );
-            
-            
-        }
-    }
+      }
+}
+   
 
 
 return response()->json([
