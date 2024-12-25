@@ -200,7 +200,7 @@ $('#date_insert_sou_action').on('focusout', function () {
 
                 }
                 else {
-                    alert('Erreur d`Opération');
+                   // alert('Erreur d`Opération');
 
                 }
             }
@@ -362,7 +362,7 @@ $('#date_insert_sou_action').on('focusout', function () {
                                                                     console.log('path: ' + JSON.stringify(path));
 
                                                                     // Redirection vers la page suivante après l'ajout de la sous-action
-                                                                    alert('testing')
+                                                                  //  alert('testing')
                                                                     window.location.href = '/testing/S_action/' + path.join('/');
                                                                 }
                                                             },
@@ -468,7 +468,7 @@ $('#date_insert_sou_action').on('focusout', function () {
                     console.log('path: ' + JSON.stringify(path));
 
                     // Redirection vers la page suivante après l'ajout de la sous-action
-                    alert('testing')
+                  //  alert('testing')
                     window.location.href = '/testing/S_action/' + path.join('/');
                 }
             },
