@@ -257,12 +257,12 @@
 
         <tr class="controle">
             <td colspan="2" style="text-align: center; font-weight: bold;">CONTRÔLE DE COHERENCE</td>
-            <td style="text-align: center;">{{ $sousOp['values']['ae_ouvertsousop_NONREPARTIS'] ?? 'N/A' }}</td>
-            <td style="text-align: center;">{{ $sousOp['values']['ae_attendusousop_NONREPARTIS'] ?? 'N/A' }}</td>
-            <td style="text-align: center;">{{ $sousOp['values']['cp_ouvertsousop_NONREPARTIS'] ?? 'N/A' }}</td>
-            <td style="text-align: center;">{{ $sousOp['values']['cp_attendsousuop_NONREPARTIS'] ?? 'N/A' }}</td>
-            <td style="text-align: center;">{{ $sousOp['values']['totalAEsousop_NONREPARTIS'] ?? 'N/A' }}</td>
-            <td style="text-align: center;">{{ $sousOp['values']['totalCPsousop_NONREPARTIS'] ?? 'N/A' }}</td>
+            <td style="text-align: center;">{{0 }}</td>
+            <td style="text-align: center;">{{0 }}</td>
+            <td style="text-align: center;">{{0 }}</td>
+            <td style="text-align: center;">{{0 }}</td>
+            <td style="text-align: center;">{{0 }}</td>
+            <td style="text-align: center;">{{0 }}</td>
         </tr>
     @else
         <tr class="total2">
