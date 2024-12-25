@@ -1,3 +1,138 @@
+//reste a verifier
+/*
+        if ($currentIndex !== false && isset($keys[$currentIndex + 1])) {
+            $nextKey = $keys[$currentIndex + 1]; // Obtenir la clé suivante
+            $nextItem = $jsonData[$nextKey]; // Obtenir l'élément suivant par sa clé
+
+            // Récupérer le code correspondant au nom suivant
+            $nextCode = $nextKey; // La clé suivante est déjà le code
+
+        // Si la ligne suivante n'est pas une sous-opération
+        if ($nextCode && ($nextCode % 100 == 0 || $nextCode % 1000 == 0)) {
+        dd($code);
+            // Insérer dans sousoperation avec un code spécifique
+           $sousoperation= sousoperation::updateOrCreate(
+                ['code_sous_operation' =>  $code.$codeOp.$codeGp.$s_act], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
+                ['code_operation' => $codeOp.$codeGp.$s_act, 'nom_sous_operation' => $nom,
+                'AE_sous_operation' => floatval(str_replace(',', '',  $ae)),
+                'code_t4' => 40000,
+                'CP_sous_operation' =>floatval(str_replace(',', '',  $cp))
+                , 'date_insert_SOUSoperation' => $currentDateTime]
+            );
+
+             // creation de la table  construireDPIA
+             $portefeuille = Portefeuille::where('num_portefeuil', $port)->first();
+             // dd($portefeuille);
+
+              if ($portefeuille) {
+                  // Création de la table ConstruireDPIA
+                  ConstruireDPIA::updateOrCreate(
+
+                    [
+                        'code_sous_operation' => $sousoperation->code_sous_operation,
+                        'id_rp' => 1,
+                        'id_ra' => 1,
+                    ],
+
+                    [
+                        'date_creation_dpia' => $portefeuille->Date_portefeuille,
+                        'date_modification_dpia' =>now(),
+                        'motif_dpia' => 'Création de DPIA (T4) à partir du portefeuille',
+
+                        'AE_dpia_nv' => $sousoperation->AE_sous_operation,
+                        'CP_dpia_nv' => $sousoperation->CP_sous_operation,
+
+                        'AE_ouvert_dpia' => null,
+                        'AE_atendu_dpia' => null,
+                        'CP_ouvert_dpia' => null,
+                        'CP_atendu_dpia' => null,
+
+                        'AE_reporte_dpia' => null,
+                        'AE_notifie_dpia' => null,
+                        'AE_engage_dpia' => null,
+                        'CP_reporte_dpia' => null,
+                        'CP_notifie_dpia' => null,
+                        'CP_consome_dpia' => null,
+
+
+                    ]
+                );
+              } else {
+                  // si le portefeuille n'existe pas
+                  dd('Portefeuille non trouvé');
+              }
+              // dd( $DPIA);
+        }
+   }
+   else{
+     $sousoperation=sousoperation::updateOrCreate(
+        ['code_sous_operation' =>  $code.$codeOp.$codeGp.$s_act], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
+        ['code_operation' => $codeOp.$codeGp.$s_act, 'nom_sous_operation' => $nom,
+        'AE_sous_operation' => floatval(str_replace(',', '',  $ae)),
+        'code_t4' => 40000,
+        'CP_sous_operation' =>floatval(str_replace(',', '',  $cp))
+        , 'date_insert_SOUSoperation' => $currentDateTime]
+    );
+
+     // creation de la table  construireDPIA
+     $portefeuille = Portefeuille::where('num_portefeuil', $port)->first();
+     // dd($portefeuille);
+
+      if ($portefeuille) {
+          // Création de la table ConstruireDPIA
+         ConstruireDPIA::updateOrCreate(
+
+                    [
+                        'code_sous_operation' => $sousoperation->code_sous_operation,
+                        'id_rp' => 1,
+                        'id_ra' => 1,
+                    ],
+
+                    [
+                        'date_creation_dpia' => $portefeuille->Date_portefeuille,
+                        'date_modification_dpia' =>now(),
+                        'motif_dpia' => 'Création de DPIA (T4) à partir du portefeuille',
+
+                        'AE_dpia_nv' => $sousoperation->AE_sous_operation,
+                        'CP_dpia_nv' => $sousoperation->CP_sous_operation,
+
+                        'AE_ouvert_dpia' => null,
+                        'AE_atendu_dpia' => null,
+                        'CP_ouvert_dpia' => null,
+                        'CP_atendu_dpia' => null,
+
+                        'AE_reporte_dpia' => null,
+                        'AE_notifie_dpia' => null,
+                        'AE_engage_dpia' => null,
+                        'CP_reporte_dpia' => null,
+                        'CP_notifie_dpia' => null,
+                        'CP_consome_dpia' => null,
+
+
+                    ]
+                );
+      } else {
+          // si le portefeuille n'existe pas
+          dd('Portefeuille non trouvé');
+      }
+      // dd( $DPIA);
+   } *///reste a verifier
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*   var nexthop='<div class="pinfo-handle">'+
                               '<i class="fas fa-wallet"></i>'+
                               '<p >ACTION :</p>'+
