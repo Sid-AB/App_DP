@@ -20,8 +20,9 @@ class groupOperationController extends Controller
 {
    $currentDateTime = Carbon::now();
    $port=intval($port);
-   $s_act = sousaction::where('num_action', $s_act)->value('num_sous_action');
-  //dd($s_act);
+   if($act==$s_act){
+     $s_act = sousaction::where('num_action', $s_act)->value('num_sous_action');
+    }
 
     //$year = date('Y'); // Récupérer l'année actuelle
     //$sousaction=$s_act.$act.$sous_prog.$prog.$port.$year;
