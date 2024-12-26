@@ -450,6 +450,7 @@ function Update_dpia(T,iupdate)
             var exist=false;  // Get current text
             console.log('odl ' + code.text() +'old '+old)
             var codesoup=clickedRow.attr('id').split('ref')[1];
+            console.log('sis -'+JSON.stringify(codesoup))
             // Create an input element and set its value
             let input = $('<input type="number" step="0.01" class="form-control" min="0"/>').val(currentText);
             cell.html(input);  // Replace the cell content with the input
@@ -867,7 +868,8 @@ function Update_dpia(T,iupdate)
                    dataupdate.forEach(elemnt=>{
                        console.log('green add to '+elemnt.code)
                        $('#ref'+elemnt.code).addClass('row-updated');
-                       dataupdate=new Array();
+
+                       dataupdate=Array();
                    })
                    }
                }
@@ -2889,8 +2891,9 @@ if(code == 200){
         });
         if(code === 200)
         {
+           
+           Update_dpia(T,iupdate);
            dataupdate=[]
-           Update_dpia(T,id_s_act);
            console.log('testing new update function')
         }
     }).fail(function () {

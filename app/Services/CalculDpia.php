@@ -30,7 +30,7 @@ class CalculDpia
         ->with([
             'Programme.SousProgramme.Action.SousAction.GroupOperation.Operation'
         ])
-        ->first();
+           ->first();
    //dd($portefeuille);
     //dd($portefeuille);
         // récupérer le portefeuille à partir du chemin
