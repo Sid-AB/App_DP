@@ -89,12 +89,9 @@ public function check_action(Request $request)
             $sousaction->date_update_sous_action = now();
             $sousaction->save();
         }
-
-
-              // Enregistrer le fichier et le lier au portefeuille
-                /*...
-                                                    */
+                                   
          $num_sousact = sousaction::where('num_action', $request->num_action)->value('num_sous_action');
+         //dd($num_sousact);
             // Récupérer l'action en chargeant les relations nécessaires
                 $action = Action::with('SousProgramme.Programme')
                 ->where('num_action', $request->num_action)
@@ -102,7 +99,7 @@ public function check_action(Request $request)
          $numPortef = $action->sousProgramme->programme->num_portefeuil ?? null;
          $count_sousact = sousaction::where('num_action', $request->num_action)->count();
         //dd($num_sousact);
-         if ($action) {
+         if ($action && $num_sousact) {
              return response()->json([
                  'num_sous_action' => $num_sousact,
                  'count_sous_action' => $count_sousact,
@@ -149,12 +146,21 @@ public function check_action(Request $request)
         // dd($sousaction);
          $sousaction->save();
 
-              // Enregistrer le fichier et le lier au portefeuille
-                /*...
-                                                    */
+         $num_sousact = sousaction::where('num_action', $request->num_action)->value('num_sous_action');
+         //dd($num_sousact);
+            // Récupérer l'action en chargeant les relations nécessaires
+                $action = Action::with('SousProgramme.Programme')
+                ->where('num_action', $request->num_action)
+                ->first();
+         $numPortef = $action->sousProgramme->programme->num_portefeuil ?? null;
+         $count_sousact = sousaction::where('num_action', $request->num_action)->count();
+        //dd($num_sousact);
 
               if ( $action && $sousaction) {
                   return response()->json([
+                        'num_sous_action' => $num_sousact,
+                        'count_sous_action' => $count_sousact,
+                        'numPortef' => $numPortef,
                       'success' => true,
                       'message' => 'Action ajouté avec succès.',
                       'code' => 200,
