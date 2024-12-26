@@ -210,7 +210,7 @@ $('#cancel_ops').click(function(){
 }
 function add_newOPs_T3(id, value, key,) {
     $('.change_app').empty()
-   id=id+'-'+counter;
+
    $("#dispo").text('');
    $('.desp').text('Intituler');
    var champ='<div class="Tsop_add_handle">'+
@@ -247,6 +247,7 @@ function add_newOPs_T3(id, value, key,) {
   
    $('.Tsop_handler').append(champ);
    $('#ajt').on('click',function(){
+    id=id+'-'+counter;
     var buttons = '<button class="btn btn-primary" id="changin"> appliquer</button>'
     $('.change_app').append(buttons)
        var sopdata_add={
@@ -296,6 +297,7 @@ function add_newOPs_T3(id, value, key,) {
                    '</tr>';
                   
                $('#' + key).after(row);
+               counter++
              /*  $('#' + key + ' td').each(function () {
                    $(this).removeClass('editable');
                })*/
@@ -367,7 +369,7 @@ function add_newOPs_T4(id, value, key,) {
        var data_add_ops={
            code:id,
            descrp:$('#dispo').val(),
-           defi:$('#def_T4').val(),
+          // defi:$('#def_T4').val(),
            AE_T4:$('#add_AE_T4').val(),
            CP_T4:$('#add_CP_T4').val(),
            _token: $('meta[name="csrf-token"]').attr("content"),
@@ -383,7 +385,7 @@ function add_newOPs_T4(id, value, key,) {
        '</tr>';
        counter++
    $('#' + key).after(row);
-   dataupdate.push({code:id,value:{ae:data_add_ops.AE_T4,cp:data_add_ops.CP_T4,dispo:data_add_ops.descrp,defi:data_add_ops.defi}})
+   dataupdate.push({code:id,value:{ae:data_add_ops.AE_T4,cp:data_add_ops.CP_T4,dispo:data_add_ops.descrp}})
   /* $('#' + key + ' td').each(function () {
        $(this).removeClass('editable');
    })*/

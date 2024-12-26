@@ -219,8 +219,9 @@
                                     @foreach ($sousProgramme['actions'][$k] as $action)
                                         @php
                                             $code = explode('-', $action['code']);
-                                            $last = count($code) - 1;
+                                            $last = count($code) -2;
                                             $code = $code[$last];
+                                            //dd($code);
                                         @endphp
 
                                         <tr >

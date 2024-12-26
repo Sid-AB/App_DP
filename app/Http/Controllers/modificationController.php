@@ -39,7 +39,7 @@ class modificationController extends Controller
 
         //récupérer les données de request
         $data = $request->all();
-       // dd($request);
+       //dd($request);
         // déterminer le type de données reçues est ce qu'ils sont T ou les valeurs qui sont dans tableau T[]
         $Tport = $data['Tport']; 
         $resultats = $data['result']; //les valeurs [code_sous_op,ae et cp]
@@ -51,7 +51,7 @@ class modificationController extends Controller
         }
 
         $validated = $request->validate([
-            'result.*.code' => 'required|string|exists:sous_operations,code_sous_operation',
+            'result.*.code' => 'required|string',
         ]);
 
         try {
@@ -61,9 +61,10 @@ class modificationController extends Controller
                 $values = $resultat['value'];
 
             // récupérer la ligne d'entrée
-            $sousOperation = SousOperation::where('code_sous_operation', $code)->firstOrFail();
+            $sousOperation = SousOperation::where('code_sous_operation', $code)->first();
             //dd($sousOperation);
            // modification d'aprés les t
+           if ($sousOperation) {
             switch ($Tport) {
                 case '1':
                     $this->ModifT1($sousOperation, $values);
@@ -81,10 +82,166 @@ class modificationController extends Controller
                     $this->ModifT4($sousOperation, $values);
                     break;
             }
-        }
+        } else {
+            switch ($Tport) {
+                
+                case '3':
+                    // vérifier si le code est > 9 parties séparé par - 
+                    $parts = explode('-', $code);
+                    //dd($parts);
+                    $code_operation = implode('-', array_slice($parts, 0, 8));
+                    //dd($code_operation );
+                    if (count($parts) > 8) {
+                      // insertion d'une nouvelle sous-opération
+                        $sous=SousOperation::create([
+                            'code_sous_operation' => $code,
+                            'nom_sous_operation'=>'',
+                            'desc' => $values['desc'] ?? 'Description non fournie',
+                            'intitule' => $values['intitule'] ?? 'Intitulé non fourni',
+                            'ae_notifie' => $values['ae_notifie'] ?? 0,
+                            'ae_reporte' => $values['ae_reporte'] ?? 0,
+                            'ae_engage' => $values['ae_engage'] ?? 0,
+                            'cp_notifie' => $values['cp_notifie'] ?? 0,
+                            'cp_reporte' => $values['cp_reporte'] ?? 0,
+                            'cp_consome' => $values['cp_consome'] ?? 0,
+                            'date_insert_SOUSoperation' =>now(),
+                            'code_t3'=>30000,
+                            'code_operation'=> $code_operation,
+                            'date_update_SOUSoperation'=>now()
+                        ]);
+                       // dd($sous);
+                    // insérer dans ConstruireDPIA
+                    ConstruireDPIA::create([
+                        'code_sous_operation' =>  $sousOperation->code_sous_operation,
+                        'motif_dpia' => 'Modification T3 insert intitule et num decision',
+                        'date_creation_dpia' => $portefeuille->Date_portefeuille,
+                        'date_modification_dpia' => now(),
+            
+                        'AE_dpia_nv' => null,
+                        'CP_dpia_nv' => null,
+            
+                        'AE_ouvert_dpia' => null,
+                        'AE_atendu_dpia' => null,
+                        'CP_ouvert_dpia' => null,
+                        'CP_atendu_dpia' => null,
+            
+                        'AE_reporte_dpia' => $values['ae_reporte'] ?? $sousOperation->AE_reporte,
+                        'AE_notifie_dpia' =>  $values['ae_notifie'] ?? $sousOperation->AE_notifie,
+                        'AE_engage_dpia' => $values['ae_engage'] ?? $sousOperation->AE_engage,
+                        'CP_reporte_dpia' => $values['cp_reporte'] ?? $sousOperation->CP_reporte,
+                        'CP_notifie_dpia' => $values['cp_notifie'] ?? $sousOperation->CP_notifie,
+                        'CP_consome_dpia' => $values['cp_consome'] ?? $sousOperation->CP_consome,
+                        'id_rp' => 1,
+                        'id_ra' => 1,
+                    ]);
+                        
+                    } elseif (count($parts) > 7) {
+                        $sousOperation = SousOperation::create([
+                            'code_sous_operation' => $code_sous_operation,
+                            'nom_sous_operation' => '',
+                            'desc' => $values['desc'] ?? 'Description non fournie',
+                            'intitule' => $values['intitule'] ?? 'Intitulé non fourni',
+                            'ae_notifie' => $values['ae_notifie'] ?? 0,
+                            'ae_reporte' => $values['ae_reporte'] ?? 0,
+                            'ae_engage' => $values['ae_engage'] ?? 0,
+                            'cp_notifie' => $values['cp_notifie'] ?? 0,
+                            'cp_reporte' => $values['cp_reporte'] ?? 0,
+                            'cp_consome' => $values['cp_consome'] ?? 0,
+                            'date_insert_SOUSoperation' => now(),
+                            'code_t3' => 30000,
+                            'code_operation' => $code_operation,
+                            'date_update_SOUSoperation' => now(),
+                        ]);
+        
+                        ConstruireDPIA::create([
+                            'code_sous_operation' => $sousOperation->code_sous_operation,
+                            'motif_dpia' => 'Modification T3 - insert intitule et num decision',
+                            'date_creation_dpia' => $portefeuille->Date_portefeuille ?? now(),
+                            'date_modification_dpia' => now(),
+                            'AE_dpia_nv' => null,
+                            'CP_dpia_nv' => null,
+                            'AE_ouvert_dpia' => null,
+                            'AE_atendu_dpia' => null,
+                            'CP_ouvert_dpia' => null,
+                            'CP_atendu_dpia' => null,
+                            'AE_reporte_dpia' => $values['ae_reporte'] ?? $sousOperation->ae_reporte,
+                            'AE_notifie_dpia' => $values['ae_notifie'] ?? $sousOperation->ae_notifie,
+                            'AE_engage_dpia' => $values['ae_engage'] ?? $sousOperation->ae_engage,
+                            'CP_reporte_dpia' => $values['cp_reporte'] ?? $sousOperation->cp_reporte,
+                            'CP_notifie_dpia' => $values['cp_notifie'] ?? $sousOperation->cp_notifie,
+                            'CP_consome_dpia' => $values['cp_consome'] ?? $sousOperation->cp_consome,
+                            'id_rp' => 1,
+                            'id_ra' => 1,
+                        ]);
+                    }else {
+                // code non valide 
+                return response()->json([
+                    'message' => 'erreur code non valide  : ' . $code,
+                    'code'=> 500] );
+                }
+                break;
 
-            return response()->json(['message' => 'Mise à jour réussie et ajout dans ConstruireDPIA',
-           'code'=>200]);
+                case '4':
+                      // vérifier si le code est > 9 parties séparé par - 
+                      $parts = explode('-', $code);
+                      //dd($parts);
+                      $code_operation = implode('-', array_slice($parts, 0, 8));
+                      //dd($code_operation );
+                      if (count($parts) > 7) {
+                        // insertion d'une nouvelle sous-opération
+                          $sous=SousOperation::create([
+                              'code_sous_operation' => $code,
+                              'nom_sous_operation'=>'',
+                              'dispo' => $values['dispo'] ?? 'Dispositif non fournie',
+                              'AE_sous_operation' => $values['ae'] ?? 0,
+                              'CP_sous_operation' => $values['cp'] ?? 0,
+                              'date_insert_SOUSoperation' =>now(),
+                              'code_t4'=>40000,
+                              'code_operation'=> $code_operation,
+                              'date_update_SOUSoperation'=>now()
+                          ]);
+                          //dd($sous);
+                      // insérer dans ConstruireDPIA
+                      ConstruireDPIA::create([
+                          'code_sous_operation' =>  $sousOperation->code_sous_operation,
+                          'motif_dpia' => 'Modification T4 insert dispositif',
+                          'date_creation_dpia' => $portefeuille->Date_portefeuille,
+                          'date_modification_dpia' => now(),
+              
+                          'AE_dpia_nv' => $values['ae'] ?? $sousOperation->AE_sous_operation, //si existe ok sinn aucune modif (ae_sous_op sera utilisé)
+                          'CP_dpia_nv' => $values['cp'] ?? $sousOperation->CP_sous_operation,
+              
+                          'AE_ouvert_dpia' => null,
+                          'AE_atendu_dpia' => null,
+                          'CP_ouvert_dpia' => null,
+                          'CP_atendu_dpia' => null,
+
+                          'AE_reporte_dpia' => null,
+                          'AE_notifie_dpia' => null,
+                          'AE_engage_dpia' => null,
+                          'CP_reporte_dpia' => null,
+                          'CP_notifie_dpia' => null,
+                          'CP_consome_dpia' => null,
+                          
+                          'id_rp' => 1,
+                          'id_ra' => 1,
+                      ]);
+                          
+                      } else {
+                  // code non valide 
+                  return response()->json([
+                      'message' => 'erreur code non valide  : ' . $code,
+                      'code'=> 500] );
+                  }
+                  break;
+            }
+        }
+    }
+
+        return response()->json([
+            'message' => 'Mise à jour réussie et ajout dans ConstruireDPIA',
+            'code' => 200,
+        ]);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Erreur lors de la mise à jour ou de l\'ajout', 'details' => $e->getMessage(),
         'code'=>500]);
