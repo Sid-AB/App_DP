@@ -1044,17 +1044,22 @@ foreach ($jsonData as $codeStr => $nom) {
                 $codeOp = explode('-', $code)[0];
                 //dd($codeOp );
             }
+<<<<<<< HEAD
             
             // Rechercher la ligne où la colonne `codeOp` contient le code spécifique
                 $operation = Operation::where('code_operation', 'like', "%-{$codeOp}")->first();
                 // Récupérer la valeur de "code_operation"
                 $codeOp2 = $operation->code_operation;
                 //dd($codeOp2);
+=======
+            $codeGp = strval(floor($codeOp / 1000) * 1000);
+            
+>>>>>>> d06022b555f843b293a074a0d202a49b2098b4f8
 
 
             $sousoperation=sousoperation::updateOrCreate(
-                ['code_sous_operation' =>$codeOp2. '-'.$code], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
-                ['code_operation' =>$codeOp2,
+                ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp. '-'.$code], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
+                ['code_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp,
                 'nom_sous_operation' => $nom,
                 'code_t3' => 30000,
 
@@ -1067,6 +1072,7 @@ foreach ($jsonData as $codeStr => $nom) {
                 'CP_consome' => floatval(str_replace(',', '', $value_cp_consome))
                 , 'date_insert_SOUSoperation' => $currentDateTime]
             );
+            //dd($sousoperation);
           }
     }
         
@@ -1374,16 +1380,13 @@ if (!$nom) {
             // Supprimer tout ce qui suit le premier tiret (y compris le tiret)
             $codeOp = explode('-', $code)[0];
         }
-        // Rechercher la ligne où la colonne `codeOp` contient le code spécifique
-            $operation = Operation::where('code_operation', 'like', "%-{$codeOp}")->first();
-            // Récupérer la valeur de "code_operation"
-            $codeOp2 = $operation->code_operation;
-            //dd($codeOp2);
+        $codeGp = strval(floor($codeOp / 1000) * 1000);
+       
 
         // Insertion dans la table sousoperation
        $sousoperation=sousoperation::updateOrCreate(
-        ['code_sous_operation' =>$codeOp2.'-'.$code ],
-        ['code_operation' =>$codeOp2, 
+        ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code ],
+        ['code_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp, 
         'nom_sous_operation' => $nom,
         'AE_sous_operation' => floatval(str_replace(',', '',  $value_ae)),
         'code_t4' => 40000,

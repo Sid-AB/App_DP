@@ -331,8 +331,8 @@ $('#date_insert_sou_action').on('focusout', function () {
                                                     // Ajout de l'événement d'ajout pour la sous-action
                                                     $('#add-prg4').on('click', function () {
                                                         console.log('inside sous_action')
-                                                        var nom_sous_act = $('#nom_sous_action').val();
-                                                        var num_sous_act = $('#num_sous_action').val();
+                                                        var nom_sous_act = $('#nom_sous_act').val();
+                                                        var num_sous_act = $('#num_sous_act').val();
                                                         var dat_inst = $('#date_insert_sou_action').val();
                                                         var AE_sous_act = $('#AE_sous_act').val()
                                                         var CP_sous_act = $('#CP_sous_act').val()
@@ -409,7 +409,8 @@ $('#date_insert_sou_action').on('focusout', function () {
 
                                                     console.log('response.num_sous_action: ' + response.num_sous_action);
                                                     path.push(response.num_sous_action);
-
+                                                    console.log('response.num_sous_action: ' +response.num_sous_action);
+                                                    console.log('path: ' + JSON.stringify(path));
                                                     if (response.num_sous_action && response.count_sous_action < 2) {
                                                         // console.log('path: ' + JSON.stringify(path));
                                                         window.location.href = '/testing/S_action/' + path.join('/');
@@ -436,8 +437,8 @@ $('#date_insert_sou_action').on('focusout', function () {
     {
         console.log($('#AE_sous_act').val()+ 'fdyudg');
         console.log('inside sous_action')
-        var nom_sous_act = $('#nom_sous_action').val();
-        var num_sous_act = $('#num_sous_action').val();
+        var nom_sous_act = $('#nom_sous_act').val();
+        var num_sous_act = $('#num_sous_act').val();
         var dat_inst = $('#date_insert_sou_action').val();
         var AE_sous_act = $('#AE_sous_act').val()
         var CP_sous_act = $('#CP_sous_act').val()
