@@ -1361,4 +1361,8 @@ transition-timing-function: line;
             align-self: center;
             align-content: center;
         }
+#logoCSS3 img
+{
+  width: 205px;
+}
 /***------------------------------ end --------------------***/

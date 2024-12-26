@@ -35,7 +35,7 @@
       <i class="fas fa-calendar-check"></i> DPA à imprimer
     </a>
     @else
-    <a class="element" href="/testing/{{$port}}/{{$prog}}/{{$sous_prog}}/{{$act}}/{{$act}}/pdf" target="_blank">
+    <a class="element" href="/testing/{{$port}}/{{$prog}}/{{$sous_prog}}/{{$act}}/{{$sact}}/pdf" target="_blank">
       <i class="fas fa-calendar-check"></i> DPA à imprimer
     </a>
     @endif

@@ -1041,31 +1041,35 @@ foreach ($jsonData as $codeStr => $nom) {
             //recupe le code operation
             if (strpos($code, '-') !== false) {
                 // Supprimer tout ce qui suit le premier tiret (y compris le tiret)
-                $codeOp = explode('-', $code)[0];
+                $code2 = explode('-', $code)[0];
             }
-            //dd($codeOp);
-            if ($codeOp % 1000 == 0) {
-                $codeGp=$codeOp;
+            //dd($code2);
+            if ($code2 % 1000 == 0) {
+                $codeGp=$codeOp=$code2;
                 // Insertion dans la table operation
                 Operation::updateOrCreate(
-                    ['code_operation' =>$s_act.'-'.$codeOp.'-'.$codeOp],
-                    ['code_grp_operation' => $s_act.'-'.$codeOp, 
+                    ['code_operation' =>$s_act.'-'.$code2.'-'.$code2],
+                    ['code_grp_operation' => $s_act.'-'.$code2, 
                     'nom_operation' => 'Dispo',
                     'date_insert_operation' => $currentDateTime]
                 );
             }
-            elseif ($codeOp % 100 == 0) {
-                $codeGp = strval(floor($codeOp / 1000) * 1000);
+            elseif ($code2 % 100 == 0) {
+                $codeGp = strval(floor($code2 / 1000) * 1000);
+                $codeOp=$code2;
+                //dd($code2, $codeOp);
             }
             else {
-                $codeOp = strval(floor($codeOp / 100) * 100);
+                $codeOp = strval(floor($code2 / 100) * 100);
                 $codeGp = strval(floor($codeOp / 1000) * 1000);
-                $codeSp = explode('-', $code)[0];
-               // dd($codeGp, $codeOp,$codeSp, $code);
+                //$codeSp = explode('-', $code)[0];
             }
-            if ($codeSp) {
+            //dd($codeGp, $codeOp, $code2, $code);
+            if(($code2 == $codeOp)&& ($codeOp != $codeGp)){
+                //dd($codeGp, $codeOp, $code2, $code);
+
                 $sousoperation=sousoperation::updateOrCreate(
-                    ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp. '-'.$codeSp.'-'.$code], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
+                    ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$code], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
                     ['code_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp,
                     'nom_sous_operation' => $nom,
                     'code_t3' => 30000,
@@ -1081,7 +1085,7 @@ foreach ($jsonData as $codeStr => $nom) {
                 );
             }else{
                 $sousoperation=sousoperation::updateOrCreate(
-                    ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp. '-'.$code], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
+                    ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
                     ['code_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp,
                     'nom_sous_operation' => $nom,
                     'code_t3' => 30000,
@@ -1119,7 +1123,7 @@ foreach ($jsonData as $codeStr => $nom) {
                             // insertion T4
 //===================================================================================
 else{
-    //dd($request);
+    dd($request);
 
 // Récupérer les données du formulaire
 $dispo = $request->input('dispo');
@@ -1404,31 +1408,44 @@ if (!$nom) {
         //recupe le code operation
         if (strpos($code, '-') !== false) {
             // Supprimer tout ce qui suit le premier tiret (y compris le tiret)
-            $codeOp = explode('-', $code)[0];
+            $code2 = explode('-', $code)[0];
         }
 
-        if ($codeOp % 1000 == 0) {
-            $codeGp=$codeOp;
+        if ($code2 % 1000 == 0) {
+            $codeGp=$codeOp=$code2;
             // Insertion dans la table operation
             Operation::updateOrCreate(
-                ['code_operation' =>$s_act.'-'.$codeOp.'-'.$codeOp],
-                ['code_grp_operation' => $s_act.'-'.$codeOp, 
+                ['code_operation' =>$s_act.'-'.$code2.'-'.$code2],
+                ['code_grp_operation' => $s_act.'-'.$code2, 
                 'nom_operation' => 'Dispo',
                 'date_insert_operation' => $currentDateTime]
             );
-            //dd($codeGp, $codeOp, $code);
         }
-        elseif ($codeOp % 100 == 0) {
+        elseif ($code2 % 100 == 0) {
+            $codeGp = strval(floor($code2 / 1000) * 1000);
+            $codeOp=$code2;
+            //dd($code2, $codeOp);
+        }
+        else {
+            $codeOp = strval(floor($code2 / 100) * 100);
             $codeGp = strval(floor($codeOp / 1000) * 1000);
+            //$codeSp = explode('-', $code)[0];
         }
-        else{
-            $codeOp = strval(floor($codeOp / 100) * 100);
-            $codeGp = strval(floor($codeOp / 1000) * 1000);
-        }
-       
 
+       
+        if(($code2 == $codeOp)&& ($codeOp != $codeGp)){
         // Insertion dans la table sousoperation
        $sousoperation=sousoperation::updateOrCreate(
+        ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$code ],
+        ['code_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp, 
+        'nom_sous_operation' => $nom,
+        'AE_sous_operation' => floatval(str_replace(',', '',  $value_ae)),
+        'code_t4' => 40000,
+        'CP_sous_operation' =>floatval(str_replace(',', '',  $value_cp))
+        , 'date_insert_SOUSoperation' => $currentDateTime]
+    );
+}else{
+    $sousoperation=sousoperation::updateOrCreate(
         ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code ],
         ['code_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp, 
         'nom_sous_operation' => $nom,
@@ -1437,6 +1454,7 @@ if (!$nom) {
         'CP_sous_operation' =>floatval(str_replace(',', '',  $value_cp))
         , 'date_insert_SOUSoperation' => $currentDateTime]
     );
+}
       }
 }
    
