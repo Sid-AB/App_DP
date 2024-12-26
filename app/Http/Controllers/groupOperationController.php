@@ -1063,23 +1063,41 @@ foreach ($jsonData as $codeStr => $nom) {
                 $codeSp = explode('-', $code)[0];
                // dd($codeGp, $codeOp,$codeSp, $code);
             }
+            if ($codeSp) {
+                $sousoperation=sousoperation::updateOrCreate(
+                    ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp. '-'.$codeSp.'-'.$code], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
+                    ['code_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp,
+                    'nom_sous_operation' => $nom,
+                    'code_t3' => 30000,
+    
+                    'AE_reporte' => floatval(str_replace(',', '',$value_ae_reporte)),
+                    'AE_notifie' =>floatval(str_replace(',', '', $value_ae_notifie)) ,
+                    'AE_engage' => floatval(str_replace(',', '', $value_ae_engage)),
+    
+                    'CP_reporte' => floatval(str_replace(',', '', $value_cp_reporte)),
+                    'CP_notifie' =>floatval(str_replace(',', '',  $value_cp_notifie)),
+                    'CP_consome' => floatval(str_replace(',', '', $value_cp_consome))
+                    , 'date_insert_SOUSoperation' => $currentDateTime]
+                );
+            }else{
+                $sousoperation=sousoperation::updateOrCreate(
+                    ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp. '-'.$code], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
+                    ['code_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp,
+                    'nom_sous_operation' => $nom,
+                    'code_t3' => 30000,
+    
+                    'AE_reporte' => floatval(str_replace(',', '',$value_ae_reporte)),
+                    'AE_notifie' =>floatval(str_replace(',', '', $value_ae_notifie)) ,
+                    'AE_engage' => floatval(str_replace(',', '', $value_ae_engage)),
+    
+                    'CP_reporte' => floatval(str_replace(',', '', $value_cp_reporte)),
+                    'CP_notifie' =>floatval(str_replace(',', '',  $value_cp_notifie)),
+                    'CP_consome' => floatval(str_replace(',', '', $value_cp_consome))
+                    , 'date_insert_SOUSoperation' => $currentDateTime]
+                );
+            }
+
             
-
-            $sousoperation=sousoperation::updateOrCreate(
-                ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp. '-'.$code], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
-                ['code_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp,
-                'nom_sous_operation' => $nom,
-                'code_t3' => 30000,
-
-                'AE_reporte' => floatval(str_replace(',', '',$value_ae_reporte)),
-                'AE_notifie' =>floatval(str_replace(',', '', $value_ae_notifie)) ,
-                'AE_engage' => floatval(str_replace(',', '', $value_ae_engage)),
-
-                'CP_reporte' => floatval(str_replace(',', '', $value_cp_reporte)),
-                'CP_notifie' =>floatval(str_replace(',', '',  $value_cp_notifie)),
-                'CP_consome' => floatval(str_replace(',', '', $value_cp_consome))
-                , 'date_insert_SOUSoperation' => $currentDateTime]
-            );
             //dd($sousoperation);
           }
     }
