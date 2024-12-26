@@ -166,7 +166,7 @@
                     $code_grpsepar = explode('-', $operationData['operation']['code']);
                      $codeop = end( $code_grpsepar);
                      //dd($operationData);
-
+                  
                      $nom_sepa=explode('-', $namesT3[$codeop ]);
                       $nom=end($nom_sepa);
 
@@ -202,8 +202,8 @@
                 <tr class="operation-row">
                 <td class="code">{{ $codeop }}</td>
     
-    <td >{{$namesT3[$codeop]}}</td>
-    <td ></td>   <td ></td>
+                <td >{{$namesT3[$codeop]}}</td>
+                <td ></td>   <td ></td>
                    <!--td  class="code" ></td>      <td class="code">{{ $codeop }}</td>
                    <td  >{{$namesT3[$codegrp]}}</td>
                    <td >{{$nomfirst ?? Néant}}</td> 
@@ -228,6 +228,7 @@
             @php
                     // extraire la dernière partie du code de la sous-opération
                     $code_separer = explode('-', $sousOp['code']);
+                    dd(  $code_separer);
                     $codeextr = end($code_separer);
                  //  dd($codeextr);
                     $nom_sepa=explode('-', $namesT3[$codeextr ]);
