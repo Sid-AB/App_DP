@@ -232,7 +232,7 @@
                       <div style="display:flex;width: 23rem;">
                       @if(count($act['sous_action'])>1)
                       @foreach($act['sous_action'] as $sous_act)
-                      @if($sous_act['num_act'] != $act['num_act'])
+                      @if(count($act['sous_action'])>=2)
                         <p class="fs-7 mb-0">Sous Action :{{$sous_act['num_act']}} </p>
                        @else
                        @foreach($sous_act['Tports'] as $key=>$values)
