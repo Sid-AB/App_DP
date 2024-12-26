@@ -62,7 +62,7 @@ class sousOperationController extends Controller
                 //dd($port, $prog, $sous_prog, $act,$act);
        
         //dd($resultats);
-           return view('Action-in.index',compact('port','prog','sous_prog','act','resultats','years'));
+           return view('Action-in.index',compact('port','prog','sous_prog','act','sact','resultats','years'));
    
        } catch (\Exception $e) {
            // en cas d'erreur retourner un message d'erreur 
