@@ -199,7 +199,7 @@
                 <ul id="father3" style="display:none">
                 @foreach($souportf['Action'] as $act)
                   <li>
-                  @if(count($act['sous_action'])>1)
+                  @if(count($act['sous_action'])>0)
                   <span class="member next" id="act_{{$act['num_act']}}" style="display:inline-block">
                   @endif
                 <div class="col-12 col-sm-6">
@@ -230,9 +230,9 @@
                         <i class="bi bi-arrow-right-short bsb-rotate-45"></i>
                       </span>
                       <div style="display:flex;width: 23rem;">
-                      @if(count($act['sous_action']) > 1)
+                      @if(count($act['sous_action'])>1)
                       @foreach($act['sous_action'] as $sous_act)
-                      @if(count($act['sous_action']) > 1)
+                      @if($sous_act['num_act'] != $act['num_act'])
                         <p class="fs-7 mb-0">Sous Action :{{$sous_act['num_act']}} </p>
                        @else
                        @foreach($sous_act['Tports'] as $key=>$values)
