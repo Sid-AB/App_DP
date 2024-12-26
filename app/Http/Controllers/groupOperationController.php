@@ -1043,8 +1043,24 @@ foreach ($jsonData as $codeStr => $nom) {
                 // Supprimer tout ce qui suit le premier tiret (y compris le tiret)
                 $codeOp = explode('-', $code)[0];
             }
-            $codeGp = strval(floor($codeOp / 1000) * 1000);
-            
+            if ($codeOp % 1000 == 0) {
+                $codeGp=$codeOp;
+                // Insertion dans la table operation
+                Operation::updateOrCreate(
+                    ['code_operation' =>$s_act.'-'.$codeOp.'-'.$codeOp],
+                    ['code_grp_operation' => $s_act.'-'.$codeOp, 
+                    'nom_operation' => 'Dispo',
+                    'date_insert_operation' => $currentDateTime]
+                );
+                //dd($codeGp, $codeOp, $code);
+            }
+            elseif ($codeOp % 100 == 0) {
+                $codeGp = strval(floor($codeOp / 1000) * 1000);
+            }
+            elseif ($codeOp %10==0) {
+                $codeOp = strval(floor($codeOp / 100) * 100);
+                $codeGp = strval(floor($codeOp / 1000) * 1000);
+            }
 
 
             $sousoperation=sousoperation::updateOrCreate(
@@ -1370,7 +1386,25 @@ if (!$nom) {
             // Supprimer tout ce qui suit le premier tiret (y compris le tiret)
             $codeOp = explode('-', $code)[0];
         }
-        $codeGp = strval(floor($codeOp / 1000) * 1000);
+
+        if ($codeOp % 1000 == 0) {
+            $codeGp=$codeOp;
+            // Insertion dans la table operation
+            Operation::updateOrCreate(
+                ['code_operation' =>$s_act.'-'.$codeOp.'-'.$codeOp],
+                ['code_grp_operation' => $s_act.'-'.$codeOp, 
+                'nom_operation' => 'Dispo',
+                'date_insert_operation' => $currentDateTime]
+            );
+            //dd($codeGp, $codeOp, $code);
+        }
+        elseif ($codeOp % 100 == 0) {
+            $codeGp = strval(floor($codeOp / 1000) * 1000);
+        }
+        elseif ($codeOp %10==0) {
+            $codeOp = strval(floor($codeOp / 100) * 100);
+            $codeGp = strval(floor($codeOp / 1000) * 1000);
+        }
        
 
         // Insertion dans la table sousoperation
