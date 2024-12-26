@@ -1042,19 +1042,9 @@ foreach ($jsonData as $codeStr => $nom) {
             if (strpos($code, '-') !== false) {
                 // Supprimer tout ce qui suit le premier tiret (y compris le tiret)
                 $codeOp = explode('-', $code)[0];
-                //dd($codeOp );
             }
-<<<<<<< HEAD
-            
-            // Rechercher la ligne où la colonne `codeOp` contient le code spécifique
-                $operation = Operation::where('code_operation', 'like', "%-{$codeOp}")->first();
-                // Récupérer la valeur de "code_operation"
-                $codeOp2 = $operation->code_operation;
-                //dd($codeOp2);
-=======
             $codeGp = strval(floor($codeOp / 1000) * 1000);
             
->>>>>>> d06022b555f843b293a074a0d202a49b2098b4f8
 
 
             $sousoperation=sousoperation::updateOrCreate(
