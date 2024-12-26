@@ -210,7 +210,7 @@ $('#cancel_ops').click(function(){
 }
 function add_newOPs_T3(id, value, key,) {
     $('.change_app').empty()
-   id=id+'-'+counter;
+
    $("#dispo").text('');
    $('.desp').text('Intituler');
    var champ='<div class="Tsop_add_handle">'+
@@ -247,6 +247,7 @@ function add_newOPs_T3(id, value, key,) {
   
    $('.Tsop_handler').append(champ);
    $('#ajt').on('click',function(){
+    id=id+'-'+counter;
     var buttons = '<button class="btn btn-primary" id="changin"> appliquer</button>'
     $('.change_app').append(buttons)
        var sopdata_add={
@@ -296,6 +297,7 @@ function add_newOPs_T3(id, value, key,) {
                    '</tr>';
                   
                $('#' + key).after(row);
+               counter++
              /*  $('#' + key + ' td').each(function () {
                    $(this).removeClass('editable');
                })*/
@@ -367,7 +369,7 @@ function add_newOPs_T4(id, value, key,) {
        var data_add_ops={
            code:id,
            descrp:$('#dispo').val(),
-           defi:$('#def_T4').val(),
+          // defi:$('#def_T4').val(),
            AE_T4:$('#add_AE_T4').val(),
            CP_T4:$('#add_CP_T4').val(),
            _token: $('meta[name="csrf-token"]').attr("content"),
@@ -383,7 +385,7 @@ function add_newOPs_T4(id, value, key,) {
        '</tr>';
        counter++
    $('#' + key).after(row);
-   dataupdate.push({code:id,value:{ae:data_add_ops.AE_T4,cp:data_add_ops.CP_T4,dispo:data_add_ops.descrp,defi:data_add_ops.defi}})
+   dataupdate.push({code:id,value:{ae:data_add_ops.AE_T4,cp:data_add_ops.CP_T4,dispo:data_add_ops.descrp}})
   /* $('#' + key + ' td').each(function () {
        $(this).removeClass('editable');
    })*/
@@ -448,6 +450,7 @@ function Update_dpia(T,iupdate)
             var exist=false;  // Get current text
             console.log('odl ' + code.text() +'old '+old)
             var codesoup=clickedRow.attr('id').split('ref')[1];
+            console.log('sis -'+JSON.stringify(codesoup))
             // Create an input element and set its value
             let input = $('<input type="number" step="0.01" class="form-control" min="0"/>').val(currentText);
             cell.html(input);  // Replace the cell content with the input
@@ -865,7 +868,8 @@ function Update_dpia(T,iupdate)
                    dataupdate.forEach(elemnt=>{
                        console.log('green add to '+elemnt.code)
                        $('#ref'+elemnt.code).addClass('row-updated');
-                       dataupdate=new Array();
+
+                       dataupdate=Array();
                    })
                    }
                }
@@ -2887,8 +2891,9 @@ if(code == 200){
         });
         if(code === 200)
         {
+           
+           Update_dpia(T,iupdate);
            dataupdate=[]
-           Update_dpia(T,id_s_act);
            console.log('testing new update function')
         }
     }).fail(function () {
