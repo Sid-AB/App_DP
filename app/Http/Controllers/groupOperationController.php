@@ -222,7 +222,7 @@ foreach ($jsonData as $codeStr => $nom) {
             }
 
         // Sinon, il s'agit d'une sous-opération
-        elseif($code % 10 == 0){
+        else{
             $codeOp = floor($code / 100) * 100;
 
             // Insertion dans la table sousoperation
@@ -627,7 +627,7 @@ elseif ($T == 2) {
             }
 
         // Sinon, il s'agit d'une sous-opération
-        }elseif($code % 10 == 0) {
+        }else {
             $codeOp = floor($code / 100) * 100;
 
             // Insertion dans la table sousoperation
@@ -934,7 +934,7 @@ foreach ($jsonData as $codeStr => $nom) {
 
                    // dd( $DPIA);
           }
-        }elseif($code % 10 == 0){
+        }else{
             //dd($code % 10 == 0);
             $codeOp = floor($code / 100) * 100;
             //dd("codeop", $codeOp);
@@ -1043,6 +1043,7 @@ foreach ($jsonData as $codeStr => $nom) {
                 // Supprimer tout ce qui suit le premier tiret (y compris le tiret)
                 $codeOp = explode('-', $code)[0];
             }
+            //dd($codeOp);
             if ($codeOp % 1000 == 0) {
                 $codeGp=$codeOp;
                 // Insertion dans la table operation
@@ -1052,16 +1053,17 @@ foreach ($jsonData as $codeStr => $nom) {
                     'nom_operation' => 'Dispo',
                     'date_insert_operation' => $currentDateTime]
                 );
-                //dd($codeGp, $codeOp, $code);
             }
             elseif ($codeOp % 100 == 0) {
                 $codeGp = strval(floor($codeOp / 1000) * 1000);
             }
-            elseif ($codeOp %10==0) {
+            else {
                 $codeOp = strval(floor($codeOp / 100) * 100);
                 $codeGp = strval(floor($codeOp / 1000) * 1000);
+                $codeSp = explode('-', $code)[0];
+               // dd($codeGp, $codeOp,$codeSp, $code);
             }
-
+            
 
             $sousoperation=sousoperation::updateOrCreate(
                 ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp. '-'.$code], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
@@ -1301,7 +1303,7 @@ if (!$nom) {
 
    }
    // Sinon, il s'agit d'une sous-opération
-   elseif($code % 10 == 0) {
+   else {
        $codeOp = floor($code / 100) * 100;
 
        // Insertion dans la table sousoperation
@@ -1401,7 +1403,7 @@ if (!$nom) {
         elseif ($codeOp % 100 == 0) {
             $codeGp = strval(floor($codeOp / 1000) * 1000);
         }
-        elseif ($codeOp %10==0) {
+        else{
             $codeOp = strval(floor($codeOp / 100) * 100);
             $codeGp = strval(floor($codeOp / 1000) * 1000);
         }
