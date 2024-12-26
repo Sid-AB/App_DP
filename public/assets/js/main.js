@@ -217,9 +217,9 @@ function add_newOPs_T3(id, value, key,) {
    '<form id="add_sops">'+
    '<div class="form-group">'+
    '<label class="desp">descrption</label>'+
-    '<input type="text" class="form-control" id="dispo" placeholder="Entrer La description">'+
+    '<input type="text" class="form-control" id="dispo" placeholder="Entrer  N° DE DECISION INSCRIPTION">'+
     '<label class="desp">Intituler</label>'+
-    '<input type="text" class="form-control" id="int-T3" placeholder="Entrer La description">'+
+    '<input type="text" class="form-control" id="int-T3" placeholder="Entrer INTITULE ">'+
     '</div>'+
     '<div class="T3-ops_inpt_handle">' +
     '<div><label>AE Reportter</label>'+
@@ -336,17 +336,16 @@ function add_newOPs_T4(id, value, key,) {
    var champ='<div class="Tsop_add_handle">'+
                '<form id="add_sops">'+
                '<div class="form-group">'+
-               '<label class="desp">Dispositive ou bien la description</label>'+
-            '<input type="text" class="form-control" id="dispo" placeholder="Entrer La description">'+
+               '<label class="desp">Dispositif </label>'+
+            '<input type="text" class="form-control" id="dispo" placeholder="Entrer Dispositif">'+
            '</div>'+
 
            '<div class="form-group" id="Tport-vals">'+
-           '<label>definition</label><input type="text" class="form-control" id="def_T4">'+
              '<div><label>AE</label>'+
             '<input type="number" class="form-control" id="add_AE_T4">'+
             '</div>'+
             '<div>'+
-            '<label>CP Reporter</label>'+
+            '<label>CP </label>'+
            '<input type="number" class="form-control" id="add_CP_T4">'+
            '</div>'+
            '</div>'+

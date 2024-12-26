@@ -228,7 +228,7 @@
             @php
                     // extraire la dernière partie du code de la sous-opération
                     $code_separer = explode('-', $sousOp['code']);
-                    dd(  $code_separer);
+                    //dd(  $code_separer);
                     $codeextr = end($code_separer);
                  //  dd($codeextr);
                     $nom_sepa=explode('-', $namesT3[$codeextr ]);
@@ -236,12 +236,12 @@
 
                     $nom_separ=explode('-', $namesT3[$codeextr ]);
                     $nomfirst=reset($nom_separ);
-                @endphp
+                @endphp  
                 <tr>
                 <td class="code">{{ $codeextr }}</td>
     
-    <td >{{$namesT3[$codeextr]}}</td>
-    <td ></td>   <td ></td>
+                    <td >{{$namesT3[$codeextr]}}</td>
+                    <td ></td>   <td ></td>
                     <!--td style="text-align: center; " class="code">{{ $codeextr }}</td>
 
                     <td>{{$namesT3[$codegrp]}}</td>
