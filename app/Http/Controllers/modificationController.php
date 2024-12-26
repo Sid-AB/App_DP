@@ -88,7 +88,7 @@ class modificationController extends Controller
                 case '3':
                     // vérifier si le code est > 9 parties séparé par - 
                     $parts = explode('-', $code);
-                    dd($parts);
+                    //dd($parts);
                     $code_operation = implode('-', array_slice($parts, 0, 8));
                     //dd($code_operation );
                     if (count($parts) > 8) {
@@ -109,7 +109,7 @@ class modificationController extends Controller
                             'code_operation'=> $code_operation,
                             'date_update_SOUSoperation'=>now()
                         ]);
-                        dd($sous);
+                       // dd($sous);
                     // insérer dans ConstruireDPIA
                     ConstruireDPIA::create([
                         'code_sous_operation' =>  $sousOperation->code_sous_operation,
