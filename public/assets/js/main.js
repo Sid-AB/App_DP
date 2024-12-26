@@ -866,7 +866,7 @@ function Update_dpia(T,iupdate)
                    dataupdate.forEach(elemnt=>{
                        console.log('green add to '+elemnt.code)
                        $('#ref'+elemnt.code).addClass('row-updated');
-                       
+
                        dataupdate=Array();
                    })
                    }
@@ -2889,8 +2889,9 @@ if(code == 200){
         });
         if(code === 200)
         {
+           
+           Update_dpia(T,iupdate);
            dataupdate=[]
-           Update_dpia(T,id_s_act);
            console.log('testing new update function')
         }
     }).fail(function () {
