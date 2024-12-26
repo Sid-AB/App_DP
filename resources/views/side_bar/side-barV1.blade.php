@@ -1,7 +1,7 @@
 <input type="checkbox" id="menu-toggle" checked>
 <div class="menu dflex">
   <div id="logoCSS3" class="text-center">
-    <i class="fa fa-css3"></i>
+    <img src="{{asset('assets/img/logo_ministere.svg')}}"/>
   </div>
   <div class="elements-container dflex">
     <a class="element" href="http://127.0.0.1:8000">
