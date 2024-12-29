@@ -1480,8 +1480,8 @@ $(document).ready(function () {
 
                         // Remplir les champs du formulaire avec les données récupérées
                         $('#date_crt_portf').val(response.Date_portefeuille).trigger('change'); // Remplir et déclencher l'événement change
-                        $('#AE_portef').val(response.AE_portef).trigger('change'); // Remplir et déclencher l'événement change
-                        $('#CP_portef').val(response.CP_portef).trigger('change'); // Remplir et déclencher l'événement change
+                        $('#AE_portef').val(ValAccountingFigures(response.AE_portef)).trigger('change'); // Remplir et déclencher l'événement change
+                        $('#CP_portef').val(ValAccountingFigures(response.CP_portef)).trigger('change'); // Remplir et déclencher l'événement change
                         $('#nom_journ').val(response.nom_journal).trigger('change'); // Remplir et déclencher l'événement change
                         $('#num_journ').val(response.num_journal).trigger('change'); // Remplir et déclencher l'événement change
 
@@ -1658,8 +1658,8 @@ $("#date_insert_portef").on('focusout', function () {
                     console.log('response.CP_prog' + response.CP_prog)
                     $('#date_insert_portef').val(response.date_insert_portef).trigger('change');
                     $('#nom_prog').val(response.nom_prog).trigger('change'); // Remplir et déclencher l'événement change
-                    $('#AE_prog').val(response.AE_prog).trigger('change'); // Remplir et déclencher l'événement change
-                    $('#CP_prog').val(response.CP_prog).trigger('change'); // Remplir et déclencher l'événement change
+                    $('#AE_prog').val(ValAccountingFigures(response.AE_prog)).trigger('change'); // Remplir et déclencher l'événement change
+                    $('#CP_prog').val(ValAccountingFigures(response.CP_prog)).trigger('change'); // Remplir et déclencher l'événement change
                     $('#nom_journ').val(response.nom_journal).trigger('change'); // Remplir et déclencher l'événement change
                     $('#num_journ').val(response.num_journal).trigger('change'); // Remplir et déclencher l'événement change
 
@@ -2034,8 +2034,8 @@ $("#add-prg").on('click', function () {
                                                 if (response.exists) {
                                                     $('#nom_act').val(response.nom_action).trigger('change'); // Remplir et déclencher l'événement change
                                                      $('#date_insert_action').val(response.date_insert_action).trigger('change'); // Remplir et déclencher l'événement change
-                                                    $('#AE_act').val(response.AE_act).trigger('change'); // Remplir et déclencher l'événement change
-                                                    $('#CP_act').val(response.CP_act).trigger('change'); // Remplir et déclencher l'événement change
+                                                    $('#AE_act').val(ValAccountingFigures(response.AE_act)).trigger('change'); // Remplir et déclencher l'événement change
+                                                    $('#CP_act').val(ValAccountingFigures(response.CP_act)).trigger('change'); // Remplir et déclencher l'événement change
                                                     alert('L`Action existe déjà');
 
                                                 }
@@ -2166,8 +2166,8 @@ $("#add-prg").on('click', function () {
                                                                    if (response.exists) {
                                                                        $('#nom_sous_act').val(response.nom_sous_action).trigger('change'); // Remplir et déclencher l'événement change
                                                                         $('#date_insert_sou_action').val(response.date_insert_sous_action).trigger('change'); // Remplir et déclencher l'événement change
-                                                                       $('#AE_sous_act').val(response.AE_sous_act).trigger('change'); // Remplir et déclencher l'événement change
-                                                                       $('#CP_sous_act').val(response.CP_sous_act).trigger('change'); // Remplir et déclencher l'événement change
+                                                                       $('#AE_sous_act').val(ValAccountingFigures(response.AE_sous_act)).trigger('change'); // Remplir et déclencher l'événement change
+                                                                       $('#CP_sous_act').val(ValAccountingFigures(response.CP_sous_act)).trigger('change'); // Remplir et déclencher l'événement change
                                                                        alert('L`Action existe déjà');
 
                                                                    }
