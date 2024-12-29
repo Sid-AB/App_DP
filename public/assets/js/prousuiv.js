@@ -258,6 +258,19 @@ $('#date_insert_sou_action').on('focusout', function () {
                                         var dat_inst = $('#date_insert_action').val();
                                         var AE_act = $('#AE_act').val()
                                         var CP_act = $('#CP_act').val()
+
+                                        var T1_AE_init = $('#T1_AE_init').val()
+                                        var T1_CP_init = $('#T1_CP_init').val()
+                    
+                                        var T2_AE_init = $('#T2_AE_init').val()
+                                        var T2_CP_init = $('#T2_CP_init').val()
+                    
+                                        var T3_AE_init = $('#T3_AE_init').val()
+                                        var T3_CP_init = $('#T3_CP_init').val()
+                    
+                                        var T4_AE_init = $('#T4_AE_init').val()
+                                        var T4_CP_init = $('#T4_CP_init').val()
+
                                         var id_sou_prog = path[2];
                                         var numaction_year = id_sou_prog +'-'+num_act ;
                                         var nexthop = '<div class="pinfo-handle">' +
@@ -273,6 +286,23 @@ $('#date_insert_sou_action').on('focusout', function () {
                                             num_action: numaction_year,
                                             nom_action: nom_act,
                                             date_insert_action: dat_inst,
+
+                                            T1_AE_init: T1_AE_init,
+                                            T1_CP_init: T1_CP_init,
+                                            code_t1: 10000,
+                    
+                                                T2_AE_init: T2_AE_init,
+                                                T2_CP_init: T2_CP_init,
+                                                code_t2: 20000,
+                    
+                                                T3_AE_init: T3_AE_init,
+                                                T3_CP_init: T3_CP_init,
+                                                code_t3: 30000,
+                    
+                                                T4_AE_init: T4_AE_init,
+                                                T4_CP_init: T4_CP_init,
+                                                code_t4: 40000,
+
                                             id_sous_prog: path[2],
                                             AE_act: AE_act,
                                             CP_act: CP_act,
@@ -334,8 +364,11 @@ $('#date_insert_sou_action').on('focusout', function () {
                                                         var nom_sous_act = $('#nom_sous_act').val();
                                                         var num_sous_act = $('#num_sous_act').val();
                                                         var dat_inst = $('#date_insert_sou_action').val();
+                                                        
                                                         var AE_sous_act = $('#AE_sous_act').val()
                                                         var CP_sous_act = $('#CP_sous_act').val()
+
+                                                       
                                                         var numaction_year = path[3];
                                                         var numsousaction_year = numaction_year +'-'+num_sous_act ;
                                                         // Création du formData pour la sous-action
@@ -343,6 +376,9 @@ $('#date_insert_sou_action').on('focusout', function () {
                                                             num_sous_action: numsousaction_year,
                                                             nom_sous_action: nom_sous_act,
                                                             date_insert_sous_action: dat_inst,
+
+                                                
+
                                                             num_act: path[3],
                                                             AE_sous_act: AE_sous_act,
                                                             CP_sous_act: CP_sous_act,
@@ -384,6 +420,19 @@ $('#date_insert_sou_action').on('focusout', function () {
                                         var dat_inst = $('#date_insert_action').val();
                                         var AE_act = $('#AE_act').val()
                                         var CP_act = $('#CP_act').val()
+
+                                        var T1_AE_init = $('#T1_AE_init_AC').val()
+                                        var T1_CP_init = $('#T1_CP_init_AC').val()
+                    
+                                        var T2_AE_init = $('#T2_AE_init_AC').val()
+                                        var T2_CP_init = $('#T2_CP_init_AC').val()
+                    
+                                        var T3_AE_init = $('#T3_AE_init_AC').val()
+                                        var T3_CP_init = $('#T3_CP_init_AC').val()
+                    
+                                        var T4_AE_init = $('#T4_AE_init_AC').val()
+                                        var T4_CP_init = $('#T4_CP_init_AC').val()
+
                                         var id_sou_prog = path[2];
                                         var numaction_year = id_sou_prog +'-'+num_act ;
 
@@ -394,6 +443,23 @@ $('#date_insert_sou_action').on('focusout', function () {
                                             id_sous_prog: id_sou_prog,
                                             AE_act: AE_act,
                                             CP_act: CP_act,
+
+                                            T1_AE_init: T1_AE_init,
+                                            T1_CP_init: T1_CP_init,
+                                            code_t1: 10000,
+                    
+                                                T2_AE_init: T2_AE_init,
+                                                T2_CP_init: T2_CP_init,
+                                                code_t2: 20000,
+                    
+                                                T3_AE_init: T3_AE_init,
+                                                T3_CP_init: T3_CP_init,
+                                                code_t3: 30000,
+                    
+                                                T4_AE_init: T4_AE_init,
+                                                T4_CP_init: T4_CP_init,
+                                                code_t4: 40000,
+
                                             _token: $('meta[name="csrf-token"]').attr('content'),
                                             _method: 'POST'
                                         };
@@ -489,17 +555,17 @@ $('#date_insert_sou_action').on('focusout', function () {
                         var ae_sou_prog = $('#AE_sous_prog').val();
                         var cp_sou_prog = $('#CP_sous_prog').val();
 
-                    var T1_AE_init = $('#T1_AE_sous_prog').val()
-                    var T1_CP_init = $('#T1_CP_sous_prog').val()
+                    var T1_AE_init = $('#T1_AE_init').val()
+                    var T1_CP_init = $('#T1_CP_init').val()
 
-                    var T2_AE_init = $('#T2_AE_sous_prog').val()
-                    var T2_CP_init = $('#T2_CP_sous_prog').val()
+                    var T2_AE_init = $('#T2_AE_init').val()
+                    var T2_CP_init = $('#T2_CP_init').val()
 
-                    var T3_AE_init = $('#T3_AE_sous_prog').val()
-                    var T3_CP_init = $('#T3_CP_sous_prog').val()
+                    var T3_AE_init = $('#T3_AE_init').val()
+                    var T3_CP_init = $('#T3_CP_init').val()
 
-                    var T4_AE_init = $('#T4_AE_sous_prog').val()
-                    var T4_CP_init = $('#T4_CP_sous_prog').val()
+                    var T4_AE_init = $('#T4_AE_init').val()
+                    var T4_CP_init = $('#T4_CP_init').val()
                     var id_prog = path[1];
                     var numsouprog_year = id_prog +'-'+sou_prog ;
                     var nexthop = '<div class="pinfo-handle">' +
@@ -517,6 +583,7 @@ $('#date_insert_sou_action').on('focusout', function () {
                         CP_sous_prog:cp_sou_prog,
                         date_insert_sousProg: dat_sou_prog,
                         id_program: id_prog,
+
                         T1_AE_init: T1_AE_init,
                         T1_CP_init: T1_CP_init,
                         code_t1: 10000,

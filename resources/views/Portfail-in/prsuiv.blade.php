@@ -119,6 +119,31 @@ Object.entries(paths).forEach(([code,value])=>{
                         <label for="input1">CP pour Action</label>
                         <input type="number" class="form-control" id="CP_act" placeholder="Entrer CP Action">
                         </div>
+
+                        <div class="ports_init">
+                        <div class="form-group">
+                                 <label for="input1">T1 pour ACTION</label>
+                                 <input type="number" class="form-control" id="T1_AE_init_AC"   placeholder="Entrer T1 AE Sous Programme">
+                                 <input type="number" class="form-control" id="T1_CP_init_AC"   placeholder="Entrer T1 CP Sous Programme">
+                                 </div>
+                                 <div class="form-group">
+                                 <label for="input1">T2 pour ACTION</label>
+                                 <input type="number" class="form-control" id="T2_AE_init_AC"   placeholder="Entrer T2 AE Sous Programme">
+                                 <input type="number" class="form-control" id="T2_CP_init_AC"   placeholder="Entrer T2 CP Sous Programme">
+                                 </div>
+                                 <div class="form-group">
+                                 <label for="input1">T3 pour ACTION</label>
+                                 <input type="number" class="form-control" id="T3_AE_init_AC"   placeholder="Entrer T3 AE Sous Programme">
+                                 <input type="number" class="form-control" id="T3_CP_init_AC"   placeholder="Entrer T3 CP Sous Programme">
+                                 </div>
+                                 <div class="form-group">
+                                 <label for="input1">T4 pour ACTION</label>
+                                 <input type="number" class="form-control" id="T4_AE_init_AC"   placeholder="Entrer T4 AE Sous Programme">
+                                 <input type="number" class="form-control" id="T4_CP_init_AC"   placeholder="Entrer T4 CP Sous Programme">
+                                 </div>
+
+                        </div>
+
                         </form>
                         <br>
                         <div id="confirm-holder">
@@ -211,6 +236,31 @@ Object.entries(paths).forEach(([code,value])=>{
                         <label for="input1">CP pour Action</label>
                         <input type="number" class="form-control" id="CP_act" placeholder="Entrer CP Action">
                         </div>
+
+                        <div class="ports_init">
+                        <div class="form-group">
+                                 <label for="input1">T1 pour ACTION</label>
+                                 <input type="number" class="form-control" id="T1_AE_init_AC"   placeholder="Entrer T1 AE Sous Programme">
+                                 <input type="number" class="form-control" id="T1_CP_init_AC"   placeholder="Entrer T1 CP Sous Programme">
+                                 </div>
+                                 <div class="form-group">
+                                 <label for="input1">T2 pour ACTION</label>
+                                 <input type="number" class="form-control" id="T2_AE_init_AC"   placeholder="Entrer T2 AE Sous Programme">
+                                 <input type="number" class="form-control" id="T2_CP_init_AC"   placeholder="Entrer T2 CP Sous Programme">
+                                 </div>
+                                 <div class="form-group">
+                                 <label for="input1">T3 pour ACTION</label>
+                                 <input type="number" class="form-control" id="T3_AE_init_AC"   placeholder="Entrer T3 AE Sous Programme">
+                                 <input type="number" class="form-control" id="T3_CP_init_AC"   placeholder="Entrer T3 CP Sous Programme">
+                                 </div>
+                                 <div class="form-group">
+                                 <label for="input1">T4 pour ACTION</label>
+                                 <input type="number" class="form-control" id="T4_AE_init_AC"   placeholder="Entrer T4 AE Sous Programme">
+                                 <input type="number" class="form-control" id="T4_CP_init_AC"   placeholder="Entrer T4 CP Sous Programme">
+                                 </div>
+
+                        </div>
+
                         </form>
                         <br>
                         <div id="confirm-holder">
@@ -306,7 +356,7 @@ Object.entries(paths).forEach(([code,value])=>{
                                  <input type="number" class="form-control" id="T4_CP_init"   placeholder="Entrer T4 CP Sous Programme">
                                  </div>
 
-                                 </div>
+                        </div>
                         </form>
                         <br>
                         <div id="confirm-holder">
@@ -340,6 +390,32 @@ Object.entries(paths).forEach(([code,value])=>{
                         <label for="input1">CP pour Action</label>
                         <input type="number" class="form-control" id="CP_act" placeholder="Entrer CP Action">
                         </div>
+
+                        
+                        <div class="ports_init">
+                        <div class="form-group">
+                                 <label for="input1">T1 pour ACTION</label>
+                                 <input type="number" class="form-control" id="T1_AE_init_AC"   placeholder="Entrer T1 AE Sous Programme">
+                                 <input type="number" class="form-control" id="T1_CP_init_AC"   placeholder="Entrer T1 CP Sous Programme">
+                                 </div>
+                                 <div class="form-group">
+                                 <label for="input1">T2 pour ACTION</label>
+                                 <input type="number" class="form-control" id="T2_AE_init_AC"   placeholder="Entrer T2 AE Sous Programme">
+                                 <input type="number" class="form-control" id="T2_CP_init_AC"   placeholder="Entrer T2 CP Sous Programme">
+                                 </div>
+                                 <div class="form-group">
+                                 <label for="input1">T3 pour ACTION</label>
+                                 <input type="number" class="form-control" id="T3_AE_init_AC"   placeholder="Entrer T3 AE Sous Programme">
+                                 <input type="number" class="form-control" id="T3_CP_init_AC"   placeholder="Entrer T3 CP Sous Programme">
+                                 </div>
+                                 <div class="form-group">
+                                 <label for="input1">T4 pour ACTION</label>
+                                 <input type="number" class="form-control" id="T4_AE_init_AC"   placeholder="Entrer T4 AE Sous Programme">
+                                 <input type="number" class="form-control" id="T4_CP_init_AC"   placeholder="Entrer T4 CP Sous Programme">
+                                 </div>
+
+                        </div>
+
                         </form>
                         <br>
                         <div id="confirm-holder">
