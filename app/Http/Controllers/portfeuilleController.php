@@ -286,8 +286,8 @@ public function check_portef(Request $request)
         if ($portefeuille) {
         $portefeuille->nom_journal = $request->nom_journal;
         $portefeuille->num_journal = $request->num_journal;
-        $portefeuille->AE_portef = $request->AE_portef;
-        $portefeuille->CP_portef = $request->CP_portef;
+        $portefeuille->AE_portef = floatval(str_replace(',', '', $request->AE_portef));
+        $portefeuille->CP_portef = floatval(str_replace(',', '', $request->CP_portef));
         $portefeuille->Date_portefeuille = $request->Date_portefeuille;
         $portefeuille->Date_update_portefeuille = Carbon::now();
         $portefeuille->id_min =1;//periodiquement

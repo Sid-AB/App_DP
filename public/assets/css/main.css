@@ -4,7 +4,7 @@ html, body {
   margin: 0 auto;
   min-height: 100vh;
   background-size: cover;
-  background-image: url("https://image.freepik.com/foto-gratis/fondo-abstracto-3d-poli-baja_1048-9819.jpg");
+  background-image: url("/assets/img/1.jpeg");
   background-repeat: repeat;
 }
 .progress-stepper {
@@ -1350,5 +1350,19 @@ transition-timing-function: line;
   flex-direction: row;
   justify-content: space-evenly;
 
+}
+.Modift-handle
+        {
+          width: 100%;
+            display: flex;
+            flex-direction: row;
+            text-align: center;
+            align-items: center;
+            align-self: center;
+            align-content: center;
+        }
+#logoCSS3 img
+{
+  width: 205px;
 }
 /***------------------------------ end --------------------***/

@@ -1,4 +1,39 @@
 console.log('testing'+JSON.stringify(path))
+
+function formatAccountingFigures(input) {
+    // Remove non-numeric characters except for "."
+    let value = input.value.replace(/[^0-9.]/g, '');
+
+    // Split the input into integer and decimal parts
+    let parts = value.split('.');
+    let integerPart = parts[0];
+    let decimalPart = parts[1] ? '.' + parts[1] : '';
+
+    // Add commas to the integer part
+    integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+    // Combine integer and decimal parts
+    input.value = integerPart + decimalPart;
+}
+
+function ValAccountingFigures(inputs) {
+    if (isNaN(inputs)) {
+        return ''; // Return an empty string for invalid numbers
+    }
+
+    // Convert number to a fixed decimal string (optional)
+    let formattedNumber = inputs.toFixed(2); // Keeps two decimal places
+
+    // Split the number into integer and decimal parts
+    let [integerPart, decimalPart] = formattedNumber.split('.');
+
+    // Add commas to the integer part
+    integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+    // Combine integer and decimal parts
+    return integerPart + '.' + decimalPart;
+}
+
 function upload_file(id_file,id_relat)
 {
 
@@ -66,8 +101,8 @@ $("#date_insert_portef").on('focusout', function () {
                     console.log('response.AE_prog' + response.AE_prog)
                     $('#date_insert_portef').val(response.date_insert_portef).trigger('change');
                     $('#nom_prog').val(response.nom_prog).trigger('change'); // Remplir et déclencher l'événement change
-                    $('#AE_prog').val(response.AE_prog).trigger('change'); // Remplir et déclencher l'événement change
-                    $('#CP_prog').val(response.CP_prog).trigger('change'); // Remplir et déclencher l'événement change
+                    $('#AE_prog').val(ValAccountingFigures(response.AE_prog)).trigger('change'); // Remplir et déclencher l'événement change
+                    $('#CP_prog').val(ValAccountingFigures(response.CP_prog)).trigger('change'); // Remplir et déclencher l'événement change
                     $('#nom_journ').val(response.nom_journal).trigger('change'); // Remplir et déclencher l'événement change
                     $('#num_journ').val(response.num_journal).trigger('change'); // Remplir et déclencher l'événement change
 
@@ -101,7 +136,7 @@ $('#date_insert_sousProg').on('focusout', function () {
             url: '/check-sousprog',  // Route pour vérifier l'existence du programme
             type: 'GET',
             data: {
-                num_sous_prog: num_sou_program,
+                num_sous_prog: num_sou_prog,
             },
             success: function (response) {
                if (response.exists) {
@@ -109,20 +144,20 @@ $('#date_insert_sousProg').on('focusout', function () {
 
                    // Remplir les champs du formulaire avec les données récupérées
                    $('#nom_sous_prog').val(response.nom_sous_prog).trigger('change');
-                   $('#AE_sous_prog').val(response.AE_sous_prog).trigger('change');
-                   $('#CP_sous_prog').val(response.CP_sous_prog).trigger('change');
+                   $('#AE_sous_prog').val(ValAccountingFigures(response.AE_sous_prog)).trigger('change');
+                   $('#CP_sous_prog').val(ValAccountingFigures(response.CP_sous_prog)).trigger('change');
 
-                   $('#T1_AE_init').val(response.T1_AE_init).trigger('change');
-                   $('#T1_CP_init').val(response.T1_CP_init).trigger('change');
+                   $('#T1_AE_init').val(ValAccountingFigures(response.T1_AE_init)).trigger('change');
+                   $('#T1_CP_init').val(ValAccountingFigures(response.T1_CP_init)).trigger('change');
 
-                   $('#T2_AE_init').val(response.T2_AE_init).trigger('change');
-                   $('#T2_CP_init').val(response.T2_CP_init).trigger('change');
+                   $('#T2_AE_init').val(ValAccountingFigures(response.T2_AE_init)).trigger('change');
+                   $('#T2_CP_init').val(ValAccountingFigures(response.T2_CP_init)).trigger('change');
 
-                   $('#T3_AE_init').val(response.T3_AE_init).trigger('change');
-                   $('#T3_CP_init').val(response.T3_CP_init).trigger('change');
+                   $('#T3_AE_init').val(ValAccountingFigures(response.T3_AE_init)).trigger('change');
+                   $('#T3_CP_init').val(ValAccountingFigures(response.T3_CP_init)).trigger('change');
 
-                   $('#T4_AE_init').val(response.T4_AE_init).trigger('change');
-                   $('#T4_CP_init').val(response.T4_CP_init).trigger('change');
+                   $('#T4_AE_init').val(ValAccountingFigures(response.T4_AE_init)).trigger('change');
+                   $('#T4_CP_init').val(ValAccountingFigures(response.T4_CP_init)).trigger('change');
 
                    alert('Le sous-programme existe déjà.');
                }  else {
@@ -141,7 +176,7 @@ $('#date_insert_sousProg').on('focusout', function () {
 //======================= CHECK action ==================================
 
 $('#date_insert_action').on('focusout', function () {
-    alert('out')
+    //alert('out')
     var date_act = $(this).val();
     var num_act = $('#num_act').val();
     //  var date_act=  new Date(date_act).getFullYear();
@@ -158,13 +193,13 @@ $('#date_insert_action').on('focusout', function () {
                 if (response.exists) {
                     $('#nom_act').val(response.nom_action).trigger('change'); // Remplir et déclencher l'événement change
                     $('#date_insert_action').val(response.date_insert_action).trigger('change'); // Remplir et déclencher l'événement change
-                    $('#AE_act').val(response.AE_act).trigger('change'); // Remplir et déclencher l'événement change
-                    $('#CP_act').val(response.CP_act).trigger('change'); // Remplir et déclencher l'événement change
+                    $('#AE_act').val(ValAccountingFigures(response.AE_act)).trigger('change'); // Remplir et déclencher l'événement change
+                    $('#CP_act').val(ValAccountingFigures(response.CP_act)).trigger('change'); // Remplir et déclencher l'événement change
                     alert('L`Action existe déjà');
 
                 }
                 else {
-                    alert('Erreur d`Opération');
+                 //   alert('Erreur d`Opération');
 
                 }
             }
@@ -194,13 +229,13 @@ $('#date_insert_sou_action').on('focusout', function () {
                     console.log("response.nom_sous_action", response.nom_sous_action);
                     $('#nom_sous_action').val(response.nom_sous_action).trigger('change'); // Remplir et déclencher l'événement change
                      $('#date_insert_sou_action').val(response.date_insert_sous_action).trigger('change'); // Remplir et déclencher l'événement change
-                    $('#AE_sous_act').val(response.AE_sous_act).trigger('change'); // Remplir et déclencher l'événement change
-                    $('#CP_sous_act').val(response.CP_sous_act).trigger('change'); // Remplir et déclencher l'événement change
+                    $('#AE_sous_act').val(ValAccountingFigures(response.AE_sous_act)).trigger('change'); // Remplir et déclencher l'événement change
+                    $('#CP_sous_act').val(ValAccountingFigures(response.CP_sous_act)).trigger('change'); // Remplir et déclencher l'événement change
                     alert('L`Action existe déjà');
 
                 }
                 else {
-                    alert('Erreur d`Opération');
+                   // alert('Erreur d`Opération');
 
                 }
             }
@@ -258,6 +293,19 @@ $('#date_insert_sou_action').on('focusout', function () {
                                         var dat_inst = $('#date_insert_action').val();
                                         var AE_act = $('#AE_act').val()
                                         var CP_act = $('#CP_act').val()
+
+                                        var T1_AE_init = $('#T1_AE_init').val()
+                                        var T1_CP_init = $('#T1_CP_init').val()
+                    
+                                        var T2_AE_init = $('#T2_AE_init').val()
+                                        var T2_CP_init = $('#T2_CP_init').val()
+                    
+                                        var T3_AE_init = $('#T3_AE_init').val()
+                                        var T3_CP_init = $('#T3_CP_init').val()
+                    
+                                        var T4_AE_init = $('#T4_AE_init').val()
+                                        var T4_CP_init = $('#T4_CP_init').val()
+
                                         var id_sou_prog = path[2];
                                         var numaction_year = id_sou_prog +'-'+num_act ;
                                         var nexthop = '<div class="pinfo-handle">' +
@@ -273,6 +321,23 @@ $('#date_insert_sou_action').on('focusout', function () {
                                             num_action: numaction_year,
                                             nom_action: nom_act,
                                             date_insert_action: dat_inst,
+
+                                            T1_AE_init: T1_AE_init,
+                                            T1_CP_init: T1_CP_init,
+                                            code_t1: 10000,
+                    
+                                                T2_AE_init: T2_AE_init,
+                                                T2_CP_init: T2_CP_init,
+                                                code_t2: 20000,
+                    
+                                                T3_AE_init: T3_AE_init,
+                                                T3_CP_init: T3_CP_init,
+                                                code_t3: 30000,
+                    
+                                                T4_AE_init: T4_AE_init,
+                                                T4_CP_init: T4_CP_init,
+                                                code_t4: 40000,
+
                                             id_sous_prog: path[2],
                                             AE_act: AE_act,
                                             CP_act: CP_act,
@@ -331,11 +396,14 @@ $('#date_insert_sou_action').on('focusout', function () {
                                                     // Ajout de l'événement d'ajout pour la sous-action
                                                     $('#add-prg4').on('click', function () {
                                                         console.log('inside sous_action')
-                                                        var nom_sous_act = $('#nom_sous_action').val();
-                                                        var num_sous_act = $('#num_sous_action').val();
+                                                        var nom_sous_act = $('#nom_sous_act').val();
+                                                        var num_sous_act = $('#num_sous_act').val();
                                                         var dat_inst = $('#date_insert_sou_action').val();
+                                                        
                                                         var AE_sous_act = $('#AE_sous_act').val()
                                                         var CP_sous_act = $('#CP_sous_act').val()
+
+                                                       
                                                         var numaction_year = path[3];
                                                         var numsousaction_year = numaction_year +'-'+num_sous_act ;
                                                         // Création du formData pour la sous-action
@@ -343,6 +411,9 @@ $('#date_insert_sou_action').on('focusout', function () {
                                                             num_sous_action: numsousaction_year,
                                                             nom_sous_action: nom_sous_act,
                                                             date_insert_sous_action: dat_inst,
+
+                                                
+
                                                             num_act: path[3],
                                                             AE_sous_act: AE_sous_act,
                                                             CP_sous_act: CP_sous_act,
@@ -362,7 +433,7 @@ $('#date_insert_sou_action').on('focusout', function () {
                                                                     console.log('path: ' + JSON.stringify(path));
 
                                                                     // Redirection vers la page suivante après l'ajout de la sous-action
-                                                                    alert('testing')
+                                                                  //  alert('testing')
                                                                     window.location.href = '/testing/S_action/' + path.join('/');
                                                                 }
                                                             },
@@ -384,6 +455,19 @@ $('#date_insert_sou_action').on('focusout', function () {
                                         var dat_inst = $('#date_insert_action').val();
                                         var AE_act = $('#AE_act').val()
                                         var CP_act = $('#CP_act').val()
+
+                                        var T1_AE_init = $('#T1_AE_init_AC').val()
+                                        var T1_CP_init = $('#T1_CP_init_AC').val()
+                    
+                                        var T2_AE_init = $('#T2_AE_init_AC').val()
+                                        var T2_CP_init = $('#T2_CP_init_AC').val()
+                    
+                                        var T3_AE_init = $('#T3_AE_init_AC').val()
+                                        var T3_CP_init = $('#T3_CP_init_AC').val()
+                    
+                                        var T4_AE_init = $('#T4_AE_init_AC').val()
+                                        var T4_CP_init = $('#T4_CP_init_AC').val()
+
                                         var id_sou_prog = path[2];
                                         var numaction_year = id_sou_prog +'-'+num_act ;
 
@@ -394,6 +478,23 @@ $('#date_insert_sou_action').on('focusout', function () {
                                             id_sous_prog: id_sou_prog,
                                             AE_act: AE_act,
                                             CP_act: CP_act,
+
+                                            T1_AE_init: T1_AE_init,
+                                            T1_CP_init: T1_CP_init,
+                                            code_t1: 10000,
+                    
+                                                T2_AE_init: T2_AE_init,
+                                                T2_CP_init: T2_CP_init,
+                                                code_t2: 20000,
+                    
+                                                T3_AE_init: T3_AE_init,
+                                                T3_CP_init: T3_CP_init,
+                                                code_t3: 30000,
+                    
+                                                T4_AE_init: T4_AE_init,
+                                                T4_CP_init: T4_CP_init,
+                                                code_t4: 40000,
+
                                             _token: $('meta[name="csrf-token"]').attr('content'),
                                             _method: 'POST'
                                         };
@@ -408,9 +509,10 @@ $('#date_insert_sou_action').on('focusout', function () {
                                                     path3.push(num_act);
 
                                                     console.log('response.num_sous_action: ' + response.num_sous_action);
-
+                                                    path.push(response.num_sous_action);
+                                                    console.log('response.num_sous_action: ' +response.num_sous_action);
+                                                    console.log('path: ' + JSON.stringify(path));
                                                     if (response.num_sous_action && response.count_sous_action < 2) {
-                                                        path.push(response.num_sous_action);
                                                         // console.log('path: ' + JSON.stringify(path));
                                                         window.location.href = '/testing/S_action/' + path.join('/');
                                                     } else if (response.count_sous_action >= 2) {
@@ -436,8 +538,8 @@ $('#date_insert_sou_action').on('focusout', function () {
     {
         console.log($('#AE_sous_act').val()+ 'fdyudg');
         console.log('inside sous_action')
-        var nom_sous_act = $('#nom_sous_action').val();
-        var num_sous_act = $('#num_sous_action').val();
+        var nom_sous_act = $('#nom_sous_act').val();
+        var num_sous_act = $('#num_sous_act').val();
         var dat_inst = $('#date_insert_sou_action').val();
         var AE_sous_act = $('#AE_sous_act').val()
         var CP_sous_act = $('#CP_sous_act').val()
@@ -468,7 +570,7 @@ $('#date_insert_sou_action').on('focusout', function () {
                     console.log('path: ' + JSON.stringify(path));
 
                     // Redirection vers la page suivante après l'ajout de la sous-action
-                    alert('testing')
+                  //  alert('testing')
                     window.location.href = '/testing/S_action/' + path.join('/');
                 }
             },
@@ -488,17 +590,17 @@ $('#date_insert_sou_action').on('focusout', function () {
                         var ae_sou_prog = $('#AE_sous_prog').val();
                         var cp_sou_prog = $('#CP_sous_prog').val();
 
-                    var T1_AE_init = $('#T1_AE_sous_prog').val()
-                    var T1_CP_init = $('#T1_CP_sous_prog').val()
+                    var T1_AE_init = $('#T1_AE_init').val()
+                    var T1_CP_init = $('#T1_CP_init').val()
 
-                    var T2_AE_init = $('#T2_AE_sous_prog').val()
-                    var T2_CP_init = $('#T2_CP_sous_prog').val()
+                    var T2_AE_init = $('#T2_AE_init').val()
+                    var T2_CP_init = $('#T2_CP_init').val()
 
-                    var T3_AE_init = $('#T3_AE_sous_prog').val()
-                    var T3_CP_init = $('#T3_CP_sous_prog').val()
+                    var T3_AE_init = $('#T3_AE_init').val()
+                    var T3_CP_init = $('#T3_CP_init').val()
 
-                    var T4_AE_init = $('#T4_AE_sous_prog').val()
-                    var T4_CP_init = $('#T4_CP_sous_prog').val()
+                    var T4_AE_init = $('#T4_AE_init').val()
+                    var T4_CP_init = $('#T4_CP_init').val()
                     var id_prog = path[1];
                     var numsouprog_year = id_prog +'-'+sou_prog ;
                     var nexthop = '<div class="pinfo-handle">' +
@@ -516,6 +618,7 @@ $('#date_insert_sou_action').on('focusout', function () {
                         CP_sous_prog:cp_sou_prog,
                         date_insert_sousProg: dat_sou_prog,
                         id_program: id_prog,
+
                         T1_AE_init: T1_AE_init,
                         T1_CP_init: T1_CP_init,
                         code_t1: 10000,

@@ -52,7 +52,9 @@ return new class extends Migration
 
             $table->string('num_sous_prog');
             $table->foreign('num_sous_prog')->references('num_sous_prog')->on('sous_programmes');
-
+            
+            $table->string('num_action')->nullable();
+            $table->foreign('num_action')->references('num_action')->on('actions');
 
 
         });

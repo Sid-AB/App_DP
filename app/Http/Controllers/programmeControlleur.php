@@ -81,8 +81,8 @@ class programmeControlleur extends Controller
         $programme = Programme::where('num_prog', $request->num_prog)->first();
         if ($programme) {
             $programme->nom_prog = $request->nom_prog;
-            $programme->AE_prog=floatval($request->ae_prog);
-            $programme->CP_prog=floatval($request->cp_prog);
+            $programme->AE_prog=floatval(str_replace(',', '', $request->ae_prog));
+            $programme->CP_prog=floatval(str_replace(',', '', $request->cp_prog));
             $programme->date_update_portef = Carbon::now();
             $programme->save();
             //dd($programme);
@@ -98,8 +98,8 @@ class programmeControlleur extends Controller
         $programme->num_prog = $request->num_prog;
         $programme->num_portefeuil = $request->num_portefeuil;
         $programme->nom_prog = $request->nom_prog;
-        $programme->ae_prog=floatval($request->ae_prog);
-        $programme->cp_prog=floatval($request->cp_prog);
+        $programme->ae_prog=floatval(str_replace(',', '', $request->ae_prog));
+        $programme->cp_prog=floatval(str_replace(',', '', $request->cp_prog));
         $programme->date_insert_portef = $request->date_insert_portef;
         $programme->id_rp = 1; //periodiquement
 

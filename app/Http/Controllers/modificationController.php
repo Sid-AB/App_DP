@@ -8,23 +8,38 @@ use App\Models\Portefeuille;
 use App\Models\ModificationT;
 use App\Models\ConstruireDPIA;
 use App\Models\SousProgramme;
-use App\Models\Programme;
+use App\Models\Programme; 
+use App\Models\Action;
+
+use App\Models\SousAction;
+
 use App\Models\T1;
 use App\Models\T2;
 use App\Models\T3;
 use App\Models\T4;
+
+use App\Services\CalculDpia;
+
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class modificationController extends Controller
 {
+
+    protected $CalculDpia;
+
+    public function __construct(CalculDpia $CalculDpia)
+    {
+        $this->CalculDpia = $CalculDpia;
+    }
     //fct update sous operation et insert dpia ac motif update
     public function updateSousOperation(Request $request)
     {
 
         //récupérer les données de request
         $data = $request->all();
-       // dd($request);
+       //dd($request);
         // déterminer le type de données reçues est ce qu'ils sont T ou les valeurs qui sont dans tableau T[]
         $Tport = $data['Tport']; 
         $resultats = $data['result']; //les valeurs [code_sous_op,ae et cp]
@@ -36,7 +51,7 @@ class modificationController extends Controller
         }
 
         $validated = $request->validate([
-            'result.*.code' => 'required|string|exists:sous_operations,code_sous_operation',
+            'result.*.code' => 'required|string',
         ]);
 
         try {
@@ -46,9 +61,10 @@ class modificationController extends Controller
                 $values = $resultat['value'];
 
             // récupérer la ligne d'entrée
-            $sousOperation = SousOperation::where('code_sous_operation', $code)->firstOrFail();
+            $sousOperation = SousOperation::where('code_sous_operation', $code)->first();
             //dd($sousOperation);
            // modification d'aprés les t
+           if ($sousOperation) {
             switch ($Tport) {
                 case '1':
                     $this->ModifT1($sousOperation, $values);
@@ -66,10 +82,166 @@ class modificationController extends Controller
                     $this->ModifT4($sousOperation, $values);
                     break;
             }
-        }
+        } else {
+            switch ($Tport) {
+                
+                case '3':
+                    // vérifier si le code est > 9 parties séparé par - 
+                    $parts = explode('-', $code);
+                    //dd($parts);
+                    $code_operation = implode('-', array_slice($parts, 0, 8));
+                    //dd($code_operation );
+                    if (count($parts) > 8) {
+                      // insertion d'une nouvelle sous-opération
+                        $sous=SousOperation::create([
+                            'code_sous_operation' => $code,
+                            'nom_sous_operation'=>'',
+                            'desc' => $values['desc'] ?? 'Description non fournie',
+                            'intitule' => $values['intitule'] ?? 'Intitulé non fourni',
+                            'ae_notifie' => floatval(str_replace(',', '', $values['ae_notifie'])) ?? 0,
+                            'ae_reporte' => floatval(str_replace(',', '', $values['ae_reporte'])) ?? 0,
+                            'ae_engage' => floatval(str_replace(',', '', $values['ae_engage'])) ?? 0,
+                            'cp_notifie' => floatval(str_replace(',', '', $values['cp_notifie'])) ?? 0,
+                            'cp_reporte' => floatval(str_replace(',', '', $values['cp_reporte'])) ?? 0,
+                            'cp_consome' => floatval(str_replace(',', '', $values['cp_consome'])) ?? 0,
+                            'date_insert_SOUSoperation' =>now(),
+                            'code_t3'=>30000,
+                            'code_operation'=> $code_operation,
+                            'date_update_SOUSoperation'=>now()
+                        ]);
+                       // dd($sous);
+                    // insérer dans ConstruireDPIA
+                    ConstruireDPIA::create([
+                        'code_sous_operation' =>  $sousOperation->code_sous_operation,
+                        'motif_dpia' => 'Modification T3 insert intitule et num decision',
+                        'date_creation_dpia' => $portefeuille->Date_portefeuille,
+                        'date_modification_dpia' => now(),
+            
+                        'AE_dpia_nv' => null,
+                        'CP_dpia_nv' => null,
+            
+                        'AE_ouvert_dpia' => null,
+                        'AE_atendu_dpia' => null,
+                        'CP_ouvert_dpia' => null,
+                        'CP_atendu_dpia' => null,
+            
+                        'AE_reporte_dpia' => floatval(str_replace(',', '', $values['ae_reporte'])) ?? $sousOperation->AE_reporte,
+                        'AE_notifie_dpia' =>  floatval(str_replace(',', '', $values['ae_notifie'])) ?? $sousOperation->AE_notifie,
+                        'AE_engage_dpia' => floatval(str_replace(',', '', $values['ae_engage'])) ?? $sousOperation->AE_engage,
+                        'CP_reporte_dpia' => floatval(str_replace(',', '', $values['cp_reporte'])) ?? $sousOperation->CP_reporte,
+                        'CP_notifie_dpia' => floatval(str_replace(',', '', $values['cp_notifie'])) ?? $sousOperation->CP_notifie,
+                        'CP_consome_dpia' => floatval(str_replace(',', '', $values['cp_consome'])) ?? $sousOperation->CP_consome,
+                        'id_rp' => 1,
+                        'id_ra' => 1,
+                    ]);
+                        
+                    } elseif (count($parts) > 7) {
+                        $sousOperation = SousOperation::create([
+                            'code_sous_operation' => $code_sous_operation,
+                            'nom_sous_operation' => '',
+                            'desc' => $values['desc'] ?? 'Description non fournie',
+                            'intitule' => $values['intitule'] ?? 'Intitulé non fourni',
+                            'ae_notifie' => floatval(str_replace(',', '', $values['ae_notifie'])) ?? 0,
+                            'ae_reporte' => floatval(str_replace(',', '', $values['ae_reporte'])) ?? 0,
+                            'ae_engage' => floatval(str_replace(',', '', $values['ae_engage'])) ?? 0,
+                            'cp_notifie' => floatval(str_replace(',', '', $values['cp_notifie'])) ?? 0,
+                            'cp_reporte' => floatval(str_replace(',', '', $values['cp_reporte'])) ?? 0,
+                            'cp_consome' => floatval(str_replace(',', '', $values['cp_consome'] ))?? 0,
+                            'date_insert_SOUSoperation' => now(),
+                            'code_t3' => 30000,
+                            'code_operation' => $code_operation,
+                            'date_update_SOUSoperation' => now(),
+                        ]);
+        
+                        ConstruireDPIA::create([
+                            'code_sous_operation' => $sousOperation->code_sous_operation,
+                            'motif_dpia' => 'Modification T3 - insert intitule et num decision',
+                            'date_creation_dpia' => $portefeuille->Date_portefeuille ?? now(),
+                            'date_modification_dpia' => now(),
+                            'AE_dpia_nv' => null,
+                            'CP_dpia_nv' => null,
+                            'AE_ouvert_dpia' => null,
+                            'AE_atendu_dpia' => null,
+                            'CP_ouvert_dpia' => null,
+                            'CP_atendu_dpia' => null,
+                            'AE_reporte_dpia' => floatval(str_replace(',', '', $values['ae_reporte'])) ?? $sousOperation->ae_reporte,
+                            'AE_notifie_dpia' => floatval(str_replace(',', '', $values['ae_notifie'])) ?? $sousOperation->ae_notifie,
+                            'AE_engage_dpia' => floatval(str_replace(',', '', $values['ae_engage'])) ?? $sousOperation->ae_engage,
+                            'CP_reporte_dpia' => floatval(str_replace(',', '', $values['cp_reporte'])) ?? $sousOperation->cp_reporte,
+                            'CP_notifie_dpia' => floatval(str_replace(',', '', $values['cp_notifie'])) ?? $sousOperation->cp_notifie,
+                            'CP_consome_dpia' => floatval(str_replace(',', '', $values['cp_consome'])) ?? $sousOperation->cp_consome,
+                            'id_rp' => 1,
+                            'id_ra' => 1,
+                        ]);
+                    }else {
+                // code non valide 
+                return response()->json([
+                    'message' => 'erreur code non valide  : ' . $code,
+                    'code'=> 500] );
+                }
+                break;
 
-            return response()->json(['message' => 'Mise à jour réussie et ajout dans ConstruireDPIA',
-           'code'=>200]);
+                case '4':
+                      // vérifier si le code est > 9 parties séparé par - 
+                      $parts = explode('-', $code);
+                      //dd($parts);
+                      $code_operation = implode('-', array_slice($parts, 0, 8));
+                      //dd($code_operation );
+                      if (count($parts) > 7) {
+                        // insertion d'une nouvelle sous-opération
+                          $sous=SousOperation::create([
+                              'code_sous_operation' => $code,
+                              'nom_sous_operation'=>'',
+                              'dispo' => $values['dispo'] ?? 'Dispositif non fournie',
+                              'AE_sous_operation' => floatval(str_replace(',', '', $values['ae'])) ?? 0,
+                              'CP_sous_operation' => floatval(str_replace(',', '', $values['cp'])) ?? 0,
+                              'date_insert_SOUSoperation' =>now(),
+                              'code_t4'=>40000,
+                              'code_operation'=> $code_operation,
+                              'date_update_SOUSoperation'=>now()
+                          ]);
+                          //dd($sous);
+                      // insérer dans ConstruireDPIA
+                      ConstruireDPIA::create([
+                          'code_sous_operation' =>  $sousOperation->code_sous_operation,
+                          'motif_dpia' => 'Modification T4 insert dispositif',
+                          'date_creation_dpia' => $portefeuille->Date_portefeuille,
+                          'date_modification_dpia' => now(),
+              
+                          'AE_dpia_nv' => floatval(str_replace(',', '', $values['ae'])) ?? $sousOperation->AE_sous_operation, //si existe ok sinn aucune modif (ae_sous_op sera utilisé)
+                          'CP_dpia_nv' => floatval(str_replace(',', '', $values['cp'])) ?? $sousOperation->CP_sous_operation,
+              
+                          'AE_ouvert_dpia' => null,
+                          'AE_atendu_dpia' => null,
+                          'CP_ouvert_dpia' => null,
+                          'CP_atendu_dpia' => null,
+
+                          'AE_reporte_dpia' => null,
+                          'AE_notifie_dpia' => null,
+                          'AE_engage_dpia' => null,
+                          'CP_reporte_dpia' => null,
+                          'CP_notifie_dpia' => null,
+                          'CP_consome_dpia' => null,
+                          
+                          'id_rp' => 1,
+                          'id_ra' => 1,
+                      ]);
+                          
+                      } else {
+                  // code non valide 
+                  return response()->json([
+                      'message' => 'erreur code non valide  : ' . $code,
+                      'code'=> 500] );
+                  }
+                  break;
+            }
+        }
+    }
+
+        return response()->json([
+            'message' => 'Mise à jour réussie et ajout dans ConstruireDPIA',
+            'code' => 200,
+        ]);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Erreur lors de la mise à jour ou de l\'ajout', 'details' => $e->getMessage(),
         'code'=>500]);
@@ -89,8 +261,8 @@ class modificationController extends Controller
 
         //update dans sous operation
         $sousOperation->update([
-            'AE_sous_operation' => $values['ae'] ?? $sousOperation->AE_sous_operation, //si existe ok sinn aucune modif (ae_sous_op sera utilisé)
-            'CP_sous_operation' => $values['cp'] ?? $sousOperation->CP_sous_operation,
+            'AE_sous_operation' => floatval(str_replace(',', '', $values['ae'])) ?? $sousOperation->AE_sous_operation, //si existe ok sinn aucune modif (ae_sous_op sera utilisé)
+            'CP_sous_operation' => floatval(str_replace(',', '', $values['cp'])) ?? $sousOperation->CP_sous_operation,
             'date_update_SOUSoperation' => now(),
         ]);
         //dd($sousOperation);
@@ -99,8 +271,8 @@ class modificationController extends Controller
             'code_sous_operation' =>  $sousOperation->code_sous_operation,
             'motif_dpia' => 'Modification T1',
             'date_creation_dpia' => $portefeuille ? $portefeuille->Date_portefeuille : null,
-            'AE_dpia_nv' => $values['ae'] ?? $sousOperation->AE_sous_operation, //si existe ok sinn aucune modif (ae_sous_op sera utilisé)
-            'CP_dpia_nv' => $values['cp'] ?? $sousOperation->CP_sous_operation,
+            'AE_dpia_nv' => floatval(str_replace(',', '', $values['ae'])) ?? $sousOperation->AE_sous_operation, //si existe ok sinn aucune modif (ae_sous_op sera utilisé)
+            'CP_dpia_nv' => floatval(str_replace(',', '', $values['cp'])) ?? $sousOperation->CP_sous_operation,
             'date_modification_dpia' => now(),
             'AE_ouvert_dpia' => null,
             'AE_atendu_dpia' => null,
@@ -128,10 +300,10 @@ class modificationController extends Controller
       $portefeuille = Portefeuille::where('num_portefeuil', $numPortefeuille)->first();
 
         $sousOperation->update([
-            'AE_ouvert' => $values['ae_ouvert'] ?? $sousOperation->AE_ouvert,
-            'AE_atendu' => $values['ae_atendu'] ?? $sousOperation->AE_atendu,
-            'CP_ouvert' => $values['cp_ouvert'] ?? $sousOperation->CP_ouvert,
-            'CP_atendu' => $values['cp_attendu'] ?? $sousOperation->CP_atendu,
+            'AE_ouvert' => floatval(str_replace(',', '', $values['ae_ouvert'])) ?? $sousOperation->AE_ouvert,
+            'AE_atendu' => floatval(str_replace(',', '', $values['ae_atendu'])) ?? $sousOperation->AE_atendu,
+            'CP_ouvert' => floatval(str_replace(',', '', $values['cp_ouvert'])) ?? $sousOperation->CP_ouvert,
+            'CP_atendu' => floatval(str_replace(',', '', $values['cp_attendu'])) ?? $sousOperation->CP_atendu,
             'date_update_SOUSoperation' => now(),
         ]);
 
@@ -145,10 +317,10 @@ class modificationController extends Controller
             'AE_dpia_nv' => null,
             'CP_dpia_nv' => null,
 
-            'AE_ouvert_dpia' => $values['ae_ouvert'] ?? $sousOperation->AE_ouvert,
-            'AE_atendu_dpia' => $values['ae_atendu'] ?? $sousOperation->AE_atendu,
-            'CP_ouvert_dpia' => $values['cp_ouvert'] ?? $sousOperation->CP_ouvert,
-            'CP_atendu_dpia' => $values['cp_atendu'] ?? $sousOperation->CP_atendu,
+            'AE_ouvert_dpia' => floatval(str_replace(',', '', $values['ae_ouvert'])) ?? $sousOperation->AE_ouvert,
+            'AE_atendu_dpia' => floatval(str_replace(',', '', $values['ae_atendu'])) ?? $sousOperation->AE_atendu,
+            'CP_ouvert_dpia' => floatval(str_replace(',', '', $values['cp_ouvert'])) ?? $sousOperation->CP_ouvert,
+            'CP_atendu_dpia' => floatval(str_replace(',', '', $values['cp_atendu'])) ?? $sousOperation->CP_atendu,
 
             'AE_reporte_dpia' => null,
             'AE_notifie_dpia' => null,
@@ -173,12 +345,12 @@ class modificationController extends Controller
 
 
         $sousOperation->update([
-            'AE_reporte' => $values['ae_reporte'] ?? $sousOperation->AE_reporte,
-            'CP_reporte' => $values['cp_reporte'] ?? $sousOperation->CP_reporte,
-            'AE_notifie' => $values['ae_notifie'] ?? $sousOperation->AE_notifie,
-            'CP_notifie' => $values['cp_notifie'] ?? $sousOperation->CP_notifie,
-            'AE_engage' => $values['ae_engage'] ?? $sousOperation->AE_engage,
-            'CP_consome' => $values['cp_consome'] ?? $sousOperation->CP_consome,
+            'AE_reporte' => floatval(str_replace(',', '', $values['ae_reporte'])) ?? $sousOperation->AE_reporte,
+            'CP_reporte' => floatval(str_replace(',', '', $values['cp_reporte'])) ?? $sousOperation->CP_reporte,
+            'AE_notifie' => floatval(str_replace(',', '', $values['ae_notifie'])) ?? $sousOperation->AE_notifie,
+            'CP_notifie' => floatval(str_replace(',', '', $values['cp_notifie'])) ?? $sousOperation->CP_notifie,
+            'AE_engage' => floatval(str_replace(',', '', $values['ae_engage'])) ?? $sousOperation->AE_engage,
+            'CP_consome' => floatval(str_replace(',', '', $values['cp_consome'])) ?? $sousOperation->CP_consome,
             'date_update_SOUSoperation' => now(),
         ]);
 
@@ -197,12 +369,12 @@ class modificationController extends Controller
             'CP_ouvert_dpia' => null,
             'CP_atendu_dpia' => null,
 
-            'AE_reporte_dpia' => $values['ae_reporte'] ?? $sousOperation->AE_reporte,
-            'AE_notifie_dpia' =>  $values['ae_notifie'] ?? $sousOperation->AE_notifie,
-            'AE_engage_dpia' => $values['ae_engage'] ?? $sousOperation->AE_engage,
-            'CP_reporte_dpia' => $values['cp_reporte'] ?? $sousOperation->CP_reporte,
-            'CP_notifie_dpia' => $values['cp_notifie'] ?? $sousOperation->CP_notifie,
-            'CP_consome_dpia' => $values['cp_consome'] ?? $sousOperation->CP_consome,
+            'AE_reporte_dpia' => floatval(str_replace(',', '', $values['ae_reporte'])) ?? $sousOperation->AE_reporte,
+            'AE_notifie_dpia' =>  floatval(str_replace(',', '', $values['ae_notifie'])) ?? $sousOperation->AE_notifie,
+            'AE_engage_dpia' => floatval(str_replace(',', '', $values['ae_engage'])) ?? $sousOperation->AE_engage,
+            'CP_reporte_dpia' => floatval(str_replace(',', '', $values['cp_reporte'])) ?? $sousOperation->CP_reporte,
+            'CP_notifie_dpia' => floatval(str_replace(',', '', $values['cp_notifie'])) ?? $sousOperation->CP_notifie,
+            'CP_consome_dpia' => floatval(str_replace(',', '', $values['cp_consome'])) ?? $sousOperation->CP_consome,
             'id_rp' => 1,
             'id_ra' => 1,
         ]);
@@ -218,8 +390,8 @@ class modificationController extends Controller
         $portefeuille = Portefeuille::where('num_portefeuil', $numPortefeuille)->first();
 
         $sousOperation->update([
-            'AE_sous_operation' => $values['ae'] ?? $sousOperation->AE_sous_operation,
-            'CP_sous_operation' => $values['cp'] ?? $sousOperation->CP_sous_operation,
+            'AE_sous_operation' => floatval(str_replace(',', '', $values['ae'])) ?? $sousOperation->AE_sous_operation,
+            'CP_sous_operation' => floatval(str_replace(',', '', $values['cp'])) ?? $sousOperation->CP_sous_operation,
             'date_update_SOUSoperation' => now(),
         ]);
 
@@ -230,8 +402,8 @@ class modificationController extends Controller
             'date_creation_dpia' => $portefeuille->Date_portefeuille,
             'date_modification_dpia' =>now(),
 
-            'AE_dpia_nv' =>$values['ae'] ?? $sousOperation->AE_sous_operation,
-            'CP_dpia_nv' =>$values['cp'] ?? $sousOperation->CP_sous_operation,
+            'AE_dpia_nv' =>floatval(str_replace(',', '', $values['ae'])) ?? $sousOperation->AE_sous_operation,
+            'CP_dpia_nv' =>floatval(str_replace(',', '', $values['cp'])) ?? $sousOperation->CP_sous_operation,
 
             'AE_ouvert_dpia' => null,
             'AE_atendu_dpia' => null,
@@ -483,6 +655,198 @@ class modificationController extends Controller
 
 
     return response()->json(['message' => 'Modifications insérées avec succès'], 200);
+}
+function affiche_modif($numport)
+{
+    $moficat_program=[];
+    $allaction=[];
+    $all_act=[];
+    $allsous_prog=[];
+    $programmes=[];
+    $ttall=[];
+    $TtAE1=0;
+    $TtCP1=0;
+    $TtAE2=0;
+    $TtCP2=0;
+    $TtAE3=0;
+    $TtCP3=0;
+    $TtAE4=0;
+    $TtCP4=0;
+    $TtportT1AE=0;
+    $TtportT1CP=0;
+    $TtportT2AE=0;
+    $TtportT2CP=0;
+    $TtportT3AE=0;
+    $TtportT3CP=0;
+    $TtportT4AE=0;
+    $TtportT4CP=0;
+    $Ttportglob=[];
+    $progms=Programme::where("num_portefeuil",$numport)->get();
+    foreach($progms as $progm)
+    {
+        $sousprog=SousProgramme::where('num_prog',$progm->num_prog)->get();
+        foreach($sousprog as $sprog)
+        {
+
+
+                $act=Action::where('num_sous_prog',$sprog->num_sous_prog)->get();
+            //    dd($act);
+                foreach($act as $listact)
+                {
+                    if(isset($listact))
+                    {
+                        $sous_act=SousAction::where('num_action',$listact->num_action)->get();
+                      //  dd($sous_act);
+                        foreach($sous_act as $listsousact)
+                        {
+
+                            if(isset($listsousact))
+                            {
+
+                                $resultats = $this->CalculDpia->calculdpiaFromPath($numport, $progm->num_prog, $sprog->num_sous_prog, $listact->num_action,$listsousact->num_sous_action);
+
+                                array_push($allaction,['actions'=>['code'=>$listsousact->num_sous_action,"nom"=>$listsousact->nom_sous_action,'TotalT'=>$resultats]]);
+                                $all_act= $allaction;
+
+                            }
+
+                        }
+                    }
+
+
+                }
+
+               // dd($allaction);
+                for($i=0 ;$i<count($allaction);$i++)
+                {
+                foreach($allaction[$i] as $actsect)
+                {
+                    $TtAE1+=$actsect['TotalT']['T1']['total'][0]['values']['totalAE'];
+                    $TtCP1+=$actsect['TotalT']['T1']['total'][0]['values']['totalCP'];
+
+                    $TtAE2+=$actsect['TotalT']['T2']['total'][0]['values']['totalAE'];
+                    $TtCP2+=$actsect['TotalT']['T2']['total'][0]['values']['totalCP'];
+
+                    $TtAE3+=$actsect['TotalT']['T3']['total'][0]['values']['totalAE'];
+                    $TtCP3+=$actsect['TotalT']['T3']['total'][0]['values']['totalCP'];
+
+                    $TtAE4+=$actsect['TotalT']['T4']['total'][0]['values']['totalAE'];
+                    $TtCP4+=$actsect['TotalT']['T4']['total'][0]['values']['totalCP'];
+
+                };
+
+                };
+
+                $ttall=['TotalT1_AE'=>$TtAE1,'TotalT1_CP'=>$TtCP1,
+                    'TotalT2_AE'=>$TtAE2,'TotalT2_CP'=>$TtCP2,
+                    'TotalT3_AE'=>$TtAE3,'TotalT3_CP'=>$TtCP3,
+                    'TotalT4_AE'=>$TtAE4,'TotalT4_CP'=>$TtCP4,
+                ];
+
+                array_push($allsous_prog,['sous_programmes'=>['code'=>$sprog->num_sous_prog,"nom"=>$sprog->nom_sous_prog,'actions'=>$all_act,"Total"=>$ttall]]);
+                $all_sous_prog= $allsous_prog;
+                $TtAE1=0;
+                $TtCP1=0;
+                $TtAE2=0;
+                $TtCP2=0;
+                $TtAE3=0;
+                $TtCP3=0;
+                $TtAE4=0;
+                $TtCP4=0;
+                $ttall=[];
+                $allaction=[];
+                $all_act=[];
+
+
+
+            }
+            for ($i=0; $i < count($allsous_prog) ; $i++)
+            {
+            foreach($allsous_prog[$i] as $sousprog)
+             {
+                # code...
+                $TtAE1+=$sousprog['Total']['TotalT1_AE'];
+                $TtCP1+=$sousprog['Total']['TotalT1_CP'];
+
+                $TtAE2+=$sousprog['Total']['TotalT2_AE'];
+                $TtCP2+=$sousprog['Total']['TotalT2_CP'];
+
+                $TtAE3+=$sousprog['Total']['TotalT3_AE'];
+                $TtCP3+=$sousprog['Total']['TotalT3_CP'];
+
+                $TtAE4+=$sousprog['Total']['TotalT4_AE'];
+                $TtCP4+=$sousprog['Total']['TotalT4_CP'];
+            }
+        }
+            $ttall=['TotalT1_AE'=>$TtAE1,'TotalT1_CP'=>$TtCP1,
+            'TotalT2_AE'=>$TtAE2,'TotalT2_CP'=>$TtCP2,
+            'TotalT3_AE'=>$TtAE3,'TotalT3_CP'=>$TtCP3,
+            'TotalT4_AE'=>$TtAE4,'TotalT4_CP'=>$TtCP4,
+        ];
+            array_push($programmes,['programmes'=>['code'=>$progm->num_prog,"nom"=>$progm->nom_prog,"sous_programmes"=>$all_sous_prog,"Total"=>$ttall]]);
+            $TtAE1=0;
+            $TtCP1=0;
+            $TtAE2=0;
+            $TtCP2=0;
+            $TtAE3=0;
+            $TtCP3=0;
+            $TtAE4=0;
+            $TtCP4=0;
+            $allsous_prog=[];
+        }
+             // dd($programmes);
+             
+             for ($i=0; $i < count($programmes) ; $i++)
+             {
+        foreach($programmes[$i] as $prog)
+        {
+            $TtportT1AE+=$prog['Total']['TotalT1_AE'];
+            $TtportT1CP+=$prog['Total']['TotalT1_CP'];
+            $TtportT2AE+=$prog['Total']['TotalT2_AE'];
+            $TtportT2CP+=$prog['Total']['TotalT2_CP'];
+            $TtportT3AE+=$prog['Total']['TotalT3_AE'];
+            $TtportT3CP+=$prog['Total']['TotalT3_CP'];
+            $TtportT4AE+=$prog['Total']['TotalT4_AE'];
+            $TtportT4CP+=$prog['Total']['TotalT4_CP'];
+            $modiflist=ModificationT::where('num_prog',$prog['code'])->join('articles','modification_t_s.id_art','=','articles.id_art')->get();
+            array_push($moficat_program,['reslut'=>$modiflist,'code_prog'=>$prog['code'],'nom_prog'=>$prog['nom']]);
+        };
+    };
+        array_push($Ttportglob,['TotalPortT1_AE'=>$TtportT1AE,'TotalPortT1_CP'=>$TtportT1CP,
+                                'TotalPortT2_AE'=>$TtportT2AE,'TotalPortT2_CP'=>$TtportT2CP,
+                                'TotalPortT3_AE'=>$TtportT3AE,'TotalPortT3_CP'=>$TtportT3CP,
+                                'TotalPortT4_AE'=>$TtportT4AE,'TotalPortT4_CP'=>$TtportT4CP]);
+       // dd($moficat_program);
+        if(count($programmes)>0)
+        {
+        /*return response()->json([
+            'exists' => true,
+            'actions'=>$allaction,
+            'sous_programs'=>$allsous_prog,
+            'programs'=>$all_prog,
+        ]);*/
+           
+            /***
+             *  Modif table
+             * 
+            */
+            
+            //dd($moficat_program);
+
+
+
+        return view('suivi-port.suivi-port', compact('programmes','Ttportglob','moficat_program'));
+         
+       /* $pdf=SnappyPdf::loadView('impression.impression_dpicprgsousprog', compact('programmes','Ttportglob'))
+         ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1.5);//lanscape mean orentation
+               return $pdf->stream('impression_dpic.pdf');
+       //return view('impression.programmes',compact('programmes','Ttportglob'));*/
+        }
+        else
+        {
+            response()->json(['exists' => false]);
+        }
+
 }
 
 }

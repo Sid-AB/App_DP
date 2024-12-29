@@ -1,7 +1,7 @@
 <input type="checkbox" id="menu-toggle" checked>
 <div class="menu dflex">
   <div id="logoCSS3" class="text-center">
-    <i class="fa fa-css3"></i>
+    <img src="{{asset('assets/img/logo_ministere.svg')}}"/>
   </div>
   <div class="elements-container dflex">
     <a class="element" href="http://127.0.0.1:8000">
@@ -32,17 +32,28 @@
       @if( isset($port) && isset($prog) && isset($sous_prog) && isset($act))
       @if(isset($s_act))
     <a class="element" href="/testing/{{$port}}/{{$prog}}/{{$sous_prog}}/{{$act}}/{{$s_act}}/pdf" target="_blank">
-      <i class="fas fa-calendar-check"></i> DPA a imprimer
+      <i class="fas fa-calendar-check"></i> DPA à imprimer
     </a>
     @else
-    <a class="element" href="/testing/{{$port}}/{{$prog}}/{{$sous_prog}}/{{$act}}/{{$act}}/pdf" target="_blank">
-      <i class="fas fa-calendar-check"></i> DPA a imprimer
+    <a class="element" href="/testing/{{$port}}/{{$prog}}/{{$sous_prog}}/{{$act}}/{{$sact}}/pdf" target="_blank">
+      <i class="fas fa-calendar-check"></i> DPA à imprimer
     </a>
     @endif
     @endif
-      <a class="element" href="/testing/Action/{port}/{prog}/{sous_prog}/{act}/">
-        <i class="fas fa-wrench"></i> Détails des Portes
+
+      @if(isset($port) || isset($allport) || isset($paths))
+      @if(isset($port))
+      <a class="element" href="/affiche_transacation/{{$port}}">
+      @else
+        @if(isset($paths))
+        <a class="element" href="/affiche_transacation/{{$paths['code_port']}}">
+        @else
+      <a class="element" href="/affiche_transacation/{{$allport['id']}}">
+        @endif
+      @endif
+        <i class="fas fa-wrench"></i> Suivi Des Transaction Du Portfail
       </a>
+      @endif
   </div>
   <div class="menu-container-btn">
     <div class="menu-toggle-btn">

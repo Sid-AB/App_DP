@@ -41,22 +41,28 @@ class sousOperationController extends Controller
         }
    
             $act=Action::where('num_action',$act)->first();
+            $s_act=SousAction::where('num_action',$act)->first();
             $sprog=SousProgramme::where('num_sous_prog',$act->num_sous_prog)->first();
+            $sact=SousAction::where('num_action',$act->num_action)->first();
             $progms=Programme::where('num_prog',$sprog->num_prog)->first();
             $act=$act->num_action;
+            $sact=$sact->num_sous_action;
             $sous_prog=$sprog->num_sous_prog;
             $prog=$progms->num_prog;
             $port=$progms->num_portefeuil;
           
         $years=Portefeuille::where('num_portefeuil',$port)->firstOrFail();
         $years = Carbon::parse($years->Date_portefeuille)->year;
-       
+         if(!isset($sact)){
+            $sact=$act;
+         }
+         //dd($port, $prog, $sous_prog, $act,$sact);
             try{
-                $resultats = $this->CalculDpia->calculdpiaFromPath($port, $prog, $sous_prog, $act,$act);
+                $resultats = $this->CalculDpia->calculdpiaFromPath($port, $prog, $sous_prog, $act,$sact);
                 //dd($port, $prog, $sous_prog, $act,$act);
        
         //dd($resultats);
-           return view('Action-in.index',compact('port','prog','sous_prog','act','resultats','years'));
+           return view('Action-in.index',compact('port','prog','sous_prog','act','sact','resultats','years'));
    
        } catch (\Exception $e) {
            // en cas d'erreur retourner un message d'erreur 
@@ -199,11 +205,13 @@ class sousOperationController extends Controller
          // dd( $groupedData);
             // les sous operations dans operations 
             foreach ($tdata['sousOperation'] as $sousOp) {
-                $operationCode = substr($sousOp['code'], 0, strlen($sousOp['code']) - 6); // extraire depuis sousOp jusqu'à opération
-                $sousOpSuffix = substr($sousOp['code'], -5); //extraire les 5 chiffres de sousop
+                $operationCode = substr($sousOp['code'], 0, strlen($sousOp['code']) - 6);
+               // dd($operationCode); // extraire depuis sousOp jusqu'à opération
+                $sousOpSuffix = substr($sousOp['code'], -5);
+                //dd($sousOpSuffix); //extraire les 5 chiffres de sousop
                 $sousOpThird = substr($sousOpSuffix, 2, 1); //extraire le 3eme chiffre commencé par la fin 
-
-               //dd($operationCode ,$sousOpSuffix,$sousOpThird);
+                //dd($sousOpThird);
+               
                 foreach ($groupedData as $groupCode => $groupData) {
                     foreach ($groupData['operations'] as $code => $operationData) { //0=>operationdata
                          // extraire les 5  chiffres de l'op
