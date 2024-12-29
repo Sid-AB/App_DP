@@ -205,11 +205,13 @@ class sousOperationController extends Controller
          // dd( $groupedData);
             // les sous operations dans operations 
             foreach ($tdata['sousOperation'] as $sousOp) {
-                $operationCode = substr($sousOp['code'], 0, strlen($sousOp['code']) - 6); // extraire depuis sousOp jusqu'à opération
-                $sousOpSuffix = substr($sousOp['code'], -5); //extraire les 5 chiffres de sousop
+                $operationCode = substr($sousOp['code'], 0, strlen($sousOp['code']) - 6);
+               // dd($operationCode); // extraire depuis sousOp jusqu'à opération
+                $sousOpSuffix = substr($sousOp['code'], -5);
+                //dd($sousOpSuffix); //extraire les 5 chiffres de sousop
                 $sousOpThird = substr($sousOpSuffix, 2, 1); //extraire le 3eme chiffre commencé par la fin 
-
-               //dd($operationCode ,$sousOpSuffix,$sousOpThird);
+                //dd($sousOpThird);
+               
                 foreach ($groupedData as $groupCode => $groupData) {
                     foreach ($groupData['operations'] as $code => $operationData) { //0=>operationdata
                          // extraire les 5  chiffres de l'op

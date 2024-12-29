@@ -1123,7 +1123,7 @@ foreach ($jsonData as $codeStr => $nom) {
                             // insertion T4
 //===================================================================================
 else{
-    dd($request);
+    //dd($request);
 
 // Récupérer les données du formulaire
 $dispo = $request->input('dispo');
