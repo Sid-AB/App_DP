@@ -1853,6 +1853,32 @@ $("#add-prg").on('click', function () {
                         '<label for="input1">CP pour Action</label>' +
                         '<input type="number" class="form-control" id="CP_act" placeholder="Entrer CP Action">' +
                         '</div>' +
+                        '<div class="init_holder">'+
+                        '<div class="T_init_port">'+
+                        '<div class="ports_init">'+
+                        '<div class="form-group">' +
+                        '<label for="input1">T1 pour Sous Programme</label>' +
+                        '<input type="number" class="form-control" id="T1_AE_init"   placeholder="Entrer T1 AE Sous Programme">' +
+                        '<input type="number" class="form-control" id="T1_CP_init"   placeholder="Entrer T1 CP Sous Programme">' +
+                        '</div>' +
+                        '<div class="form-group">' +
+                        '<label for="input1">T2 pour Sous Programme</label>' +
+                        '<input type="number" class="form-control" id="T2_AE_init"   placeholder="Entrer T2 AE Sous Programme">' +
+                        '<input type="number" class="form-control" id="T2_CP_init"   placeholder="Entrer T2 CP Sous Programme">' +
+                        '</div>' +
+                        '<div class="form-group">' +
+                        '<label for="input1">T3 pour Sous Programme</label>' +
+                        '<input type="number" class="form-control" id="T3_AE_init"   placeholder="Entrer T3 AE Sous Programme">' +
+                        '<input type="number" class="form-control" id="T3_CP_init"   placeholder="Entrer T3 CP Sous Programme">' +
+                        '</div>' +
+                        '<div class="form-group">' +
+                        '<label for="input1">T4 pour Sous Programme</label>' +
+                        '<input type="number" class="form-control" id="T4_AE_init"   placeholder="Entrer T4 AE Sous Programme">' +
+                        '<input type="number" class="form-control" id="T4_CP_init"   placeholder="Entrer T4 CP Sous Programme">' +
+                        '</div>' +
+                        '</div>'+
+                        '</div>'+
+                        '</div>'+
                         ' </form>' +
                         ' <br>' +
                         '<div id="confirm-holder_sprog">' +
@@ -2186,6 +2212,18 @@ $("#add-prg").on('click', function () {
                                         var AE_act = $('#AE_act').val()
                                         var CP_act = $('#CP_act').val()
                                         var dat_inst = $('#date_insert_action').val();
+                                        var T1_AE_init = $('#T1_AE_init').val()
+                                        var T1_CP_init = $('#T1_CP_init').val()
+                    
+                                        var T2_AE_init = $('#T2_AE_init').val()
+                                        var T2_CP_init = $('#T2_CP_init').val()
+                    
+                                        var T3_AE_init = $('#T3_AE_init').val()
+                                        var T3_CP_init = $('#T3_CP_init').val()
+                    
+                                        var T4_AE_init = $('#T4_AE_init').val()
+                                        var T4_CP_init = $('#T4_CP_init').val()
+                    
                                         var id_sou_prog = path[2];
                                         var numaction_year = id_sou_prog +'-'+num_act ;
                                         var formdata_act = {
@@ -2193,6 +2231,23 @@ $("#add-prg").on('click', function () {
                                             nom_action: nom_act,
                                             AE_act: AE_act,
                                             CP_act: CP_act,
+
+                                            T1_AE_init: T1_AE_init,
+                                            T1_CP_init: T1_CP_init,
+                                             code_t1: 10000,
+
+                                            T2_AE_init: T2_AE_init,
+                                            T2_CP_init: T2_CP_init,
+                                            code_t2: 20000,
+
+                                            T3_AE_init: T3_AE_init,
+                                            T3_CP_init: T3_CP_init,
+                                            code_t3: 30000,
+
+                                            T4_AE_init: T4_AE_init,
+                                            T4_CP_init: T4_CP_init,
+                                            code_t4: 40000,
+
                                             date_insert_action: dat_inst,
                                             id_sous_prog: id_sou_prog,
                                             //id_prog: path[1],
