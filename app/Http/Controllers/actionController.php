@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\SousAction;
 use App\Models\SousProgramme;
 use App\Models\Programme;
+use App\Models\initPort;
 
 class actionController extends Controller
 {
@@ -39,17 +40,61 @@ class actionController extends Controller
 public function check_action(Request $request)
     {
         $action = Action::where('num_action', $request->num_action)->first();
+        $initPort = initPort::where('num_action', $request->num_action)->first();
+        //dd($initPort);
         //dd($request);
-        if ($action) {
+        if ($action  && $initPort) {
             return response()->json([
                 'exists' => true,
+                'num_action' => $action->num_action,
                 'nom_action' => $action->nom_action,
                 'date_insert_action' => $action->date_insert_action,
                 'AE_act'=>$action->AE_action,
                 'CP_act'=>$action->CP_action,
-            ]);
-        }
 
+                
+                'T1_AE_init' => $initPort->AE_init_t1,
+                'T1_CP_init' => $initPort->CP_init_t1,
+
+                'T2_AE_init' => $initPort->AE_init_t2,
+                'T2_CP_init' => $initPort->CP_init_t2,
+
+                'T3_AE_init' => $initPort->AE_init_t3,
+                'T3_CP_init' => $initPort->CP_init_t3,
+
+                'T4_AE_init' => $initPort->AE_init_t4,
+                'T4_CP_init' => $initPort->CP_init_t4,
+            ]);
+            dd($initPort->CP_init_t4);
+        }
+        else
+        {
+            if(!isset($initPort))
+            {
+                return response()->json([
+                    'exists' => true,
+        
+                    'num_action' => $action->num_action,
+                    'nom_action' => $action->nom_action,
+                    'date_insert_action' => $action->date_insert_action,
+                    'AE_act'=>$action->AE_action,
+                    'CP_act'=>$action->CP_action,
+            
+                    'T1_AE_init' => 0,
+                    'T1_CP_init' => 0,
+        
+                    'T2_AE_init' => 0,
+                    'T2_CP_init' =>0,
+        
+                    'T3_AE_init' => 0,
+                    'T3_CP_init' => 0,
+        
+                    'T4_AE_init' => 0,
+                    'T4_CP_init' =>0,
+                ]);
+            }
+    
+        }
         return response()->json(['exists' => false]);
     }
 
@@ -62,6 +107,7 @@ public function check_action(Request $request)
 //===================================================================================
     function create_action(Request $request)
     {
+       //dd($request);
         // Validation des données
         $request->validate([
             'num_action' => 'required',
@@ -72,6 +118,7 @@ public function check_action(Request $request)
         $action = action::where('num_action', $request->num_action)->first();
         $num_act= $request->num_action .'-01';
         //dd($num_act);
+        $initPort = initPort::where('num_sous_prog', $request->num_sous_prog)->first();
         $sousaction = sousaction::where('num_sous_action', $request->num_act)->first();
         //dd($sousaction);
     if ($action) {
@@ -89,6 +136,42 @@ public function check_action(Request $request)
             $sousaction->date_update_sous_action = now();
             $sousaction->save();
         }
+            if ($initPort) {
+                // Mise à jour des données dans init_ports
+                $initPort->update([
+                    'AE_init_t1' => $request->T1_AE_init,
+                    'CP_init_t1' => $request->T1_CP_init,
+                    'AE_init_t2' => $request->T2_AE_init,
+                    'CP_init_t2' => $request->T2_CP_init,
+                    'AE_init_t3' => $request->T3_AE_init,
+                    'CP_init_t3' => $request->T3_CP_init,
+                    'AE_init_t4' => $request->T4_AE_init,
+                    'CP_init_t4' => $request->T4_CP_init,
+                    'date_update_init' => now(),
+                ]);
+            }
+            else
+            {
+                // Création des données dans init_ports
+            initPort::create([
+                'num_sous_prog' => $request->id_sous_prog,
+                'num_action' => $request->num_action,
+                'date_init' => $request->date_insert_action,
+                'date_update_init' => now(),
+                'code_t1' => $request->code_t1,
+                'code_t2' => $request->code_t2,
+                'code_t3' => $request->code_t3,
+                'code_t4' => $request->code_t4,
+                'AE_init_t1' => $request->T1_AE_init,
+                'CP_init_t1' => $request->T1_CP_init,
+                'AE_init_t2' => $request->T2_AE_init,
+                'CP_init_t2' => $request->T2_CP_init,
+                'AE_init_t3' => $request->T3_AE_init,
+                'CP_init_t3' => $request->T3_CP_init,
+                'AE_init_t4' => $request->T4_AE_init,
+                'CP_init_t4' => $request->T4_CP_init,
+            ]);  
+            }
                                    
          $num_sousact = sousaction::where('num_action', $request->num_action)->value('num_sous_action');
          //dd($num_sousact);
@@ -148,6 +231,8 @@ public function check_action(Request $request)
 
          $num_sousact = sousaction::where('num_action', $request->num_action)->value('num_sous_action');
          //dd($num_sousact);
+
+         
             // Récupérer l'action en chargeant les relations nécessaires
                 $action = Action::with('SousProgramme.Programme')
                 ->where('num_action', $request->num_action)
@@ -156,6 +241,27 @@ public function check_action(Request $request)
          $count_sousact = sousaction::where('num_action', $request->num_action)->count();
         //dd($num_sousact);
 
+          // Création des données dans init_ports
+          initPort::create([
+            'num_sous_prog' => $request->id_sous_prog,
+            'num_action' => $request->num_action,
+            'date_init' => $request->date_insert_action,
+            'date_update_init' => now(),
+            'code_t1' => $request->code_t1,
+            'code_t2' => $request->code_t2,
+            'code_t3' => $request->code_t3,
+            'code_t4' => $request->code_t4,
+            'AE_init_t1' => $request->T1_AE_init,
+            'CP_init_t1' => $request->T1_CP_init,
+            'AE_init_t2' => $request->T2_AE_init,
+            'CP_init_t2' => $request->T2_CP_init,
+            'AE_init_t3' => $request->T3_AE_init,
+            'CP_init_t3' => $request->T3_CP_init,
+            'AE_init_t4' => $request->T4_AE_init,
+            'CP_init_t4' => $request->T4_CP_init,
+
+        ]);
+    
               if ( $action && $sousaction) {
                   return response()->json([
                         'num_sous_action' => $num_sousact,
@@ -172,6 +278,14 @@ public function check_action(Request $request)
                       'code' => 500,
                   ]);
               }
+
+              if ($action && (!$initPort || $initPort->exists)) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Action mis à jour avec succès.',
+                    'code' => 200,
+                ]);
+            }
           }
     }
 
