@@ -10,6 +10,21 @@ var  dataupdate=new Array();
  * this function for adding button et makalah -_- ;
  */
 
+function formatAccountingFigures(input) {
+    // Remove non-numeric characters except for "."
+    let value = input.value.replace(/[^0-9.]/g, '');
+
+    // Split the input into integer and decimal parts
+    let parts = value.split('.');
+    let integerPart = parts[0];
+    let decimalPart = parts[1] ? '.' + parts[1] : '';
+
+    // Add commas to the integer part
+    integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+    // Combine integer and decimal parts
+    input.value = integerPart + decimalPart;
+}
 function only_def(id)
 {
    var localverb;
@@ -1857,23 +1872,23 @@ $("#add-prg").on('click', function () {
                         '<div class="ports_init">'+
                         '<div class="form-group">' +
                         '<label for="input1">T1 pour Sous Programme</label>' +
-                        '<input type="number" class="form-control" id="T1_AE_init"   placeholder="Entrer T1 AE Sous Programme">' +
-                        '<input type="number" class="form-control" id="T1_CP_init"   placeholder="Entrer T1 CP Sous Programme">' +
+                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T1_AE_init_AC"   placeholder="Entrer T1 AE Sous Programme">' +
+                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T1_CP_init_AC"   placeholder="Entrer T1 CP Sous Programme">' +
                         '</div>' +
                         '<div class="form-group">' +
                         '<label for="input1">T2 pour Sous Programme</label>' +
-                        '<input type="number" class="form-control" id="T2_AE_init"   placeholder="Entrer T2 AE Sous Programme">' +
-                        '<input type="number" class="form-control" id="T2_CP_init"   placeholder="Entrer T2 CP Sous Programme">' +
+                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T2_AE_init_AC"   placeholder="Entrer T2 AE Sous Programme">' +
+                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T2_CP_init_AC"   placeholder="Entrer T2 CP Sous Programme">' +
                         '</div>' +
                         '<div class="form-group">' +
                         '<label for="input1">T3 pour Sous Programme</label>' +
-                        '<input type="number" class="form-control" id="T3_AE_init"   placeholder="Entrer T3 AE Sous Programme">' +
-                        '<input type="number" class="form-control" id="T3_CP_init"   placeholder="Entrer T3 CP Sous Programme">' +
+                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T3_AE_init_AC"   placeholder="Entrer T3 AE Sous Programme">' +
+                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T3_CP_init_AC"   placeholder="Entrer T3 CP Sous Programme">' +
                         '</div>' +
                         '<div class="form-group">' +
                         '<label for="input1">T4 pour Sous Programme</label>' +
-                        '<input type="number" class="form-control" id="T4_AE_init"   placeholder="Entrer T4 AE Sous Programme">' +
-                        '<input type="number" class="form-control" id="T4_CP_init"   placeholder="Entrer T4 CP Sous Programme">' +
+                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T4_AE_init_AC"   placeholder="Entrer T4 AE Sous Programme">' +
+                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T4_CP_init_AC"   placeholder="Entrer T4 CP Sous Programme">' +
                         '</div>' +
                         '</div>'+
                         '</div>'+

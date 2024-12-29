@@ -50,7 +50,7 @@ public function check_sous_prog(Request $request)
     $sousprog = SousProgramme::where('num_sous_prog', $request->num_sous_prog)->first();
     $initPort = initPort::where('num_sous_prog', $request->num_sous_prog)->first();
     // Vérification des données
-    //dd($sousprog);
+    
     if ($sousprog && $initPort) {
         return response()->json([
             'exists' => true,
@@ -78,8 +78,10 @@ public function check_sous_prog(Request $request)
     }
     else
     {
-        if(!isset($initPort))
+       
+        if(isset($initPort) )
         {
+            dd($initPort);
             return response()->json([
                 'exists' => true,
     
@@ -104,6 +106,7 @@ public function check_sous_prog(Request $request)
                 'T4_CP_init' =>0,
             ]);
         }
+
 
     }
 
