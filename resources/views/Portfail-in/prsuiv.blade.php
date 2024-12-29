@@ -78,11 +78,11 @@ Object.entries(paths).forEach(([code,value])=>{
                         </div>
                         <div class="form-group" id="ElAE_act">
                         <label for="input1">AE pour Sous ACTION</label>
-                        <input type="number" class="form-control" id="AE_sous_act" placeholder="Entrer AE sous Action ">
+                        <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="AE_sous_act" placeholder="Entrer AE sous Action ">
                         </div>
                         <div class="form-group" id="ElCP_act">
                         <label for="input1">CP pour Sous_ACTION</label>
-                        <input type="number" class="form-control" id="CP_sous_act" placeholder="Entrer CP sous Action">
+                        <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="CP_sous_act" placeholder="Entrer CP sous Action">
                         </div>
                         </form>
                         <br>
@@ -113,33 +113,33 @@ Object.entries(paths).forEach(([code,value])=>{
                         </div>
                         <div class="form-group" id="ElAE_act">
                         <label for="input1">AE pour Action</label>
-                        <input type="number" class="form-control" id="AE_act" placeholder="Entrer AE Action">
+                        <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="AE_act" placeholder="Entrer AE Action">
                         </div>
                         <div class="form-group" id="ElCP_act">
                         <label for="input1">CP pour Action</label>
-                        <input type="number" class="form-control" id="CP_act" placeholder="Entrer CP Action">
+                        <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="CP_act" placeholder="Entrer CP Action">
                         </div>
 
                         <div class="ports_init">
                         <div class="form-group">
                                  <label for="input1">T1 pour ACTION</label>
-                                 <input type="number" class="form-control" id="T1_AE_init_AC"   placeholder="Entrer T1 AE Sous Programme">
-                                 <input type="number" class="form-control" id="T1_CP_init_AC"   placeholder="Entrer T1 CP Sous Programme">
+                                 <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T1_AE_init_AC"   placeholder="Entrer T1 AE Sous Programme">
+                                 <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T1_CP_init_AC"   placeholder="Entrer T1 CP Sous Programme">
                                  </div>
                                  <div class="form-group">
                                  <label for="input1">T2 pour ACTION</label>
-                                 <input type="number" class="form-control" id="T2_AE_init_AC"   placeholder="Entrer T2 AE Sous Programme">
-                                 <input type="number" class="form-control" id="T2_CP_init_AC"   placeholder="Entrer T2 CP Sous Programme">
+                                 <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T2_AE_init_AC"   placeholder="Entrer T2 AE Sous Programme">
+                                 <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T2_CP_init_AC"   placeholder="Entrer T2 CP Sous Programme">
                                  </div>
                                  <div class="form-group">
                                  <label for="input1">T3 pour ACTION</label>
-                                 <input type="number" class="form-control" id="T3_AE_init_AC"   placeholder="Entrer T3 AE Sous Programme">
-                                 <input type="number" class="form-control" id="T3_CP_init_AC"   placeholder="Entrer T3 CP Sous Programme">
+                                 <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T3_AE_init_AC"   placeholder="Entrer T3 AE Sous Programme">
+                                 <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T3_CP_init_AC"   placeholder="Entrer T3 CP Sous Programme">
                                  </div>
                                  <div class="form-group">
                                  <label for="input1">T4 pour ACTION</label>
-                                 <input type="number" class="form-control" id="T4_AE_init_AC"   placeholder="Entrer T4 AE Sous Programme">
-                                 <input type="number" class="form-control" id="T4_CP_init_AC"   placeholder="Entrer T4 CP Sous Programme">
+                                 <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T4_AE_init_AC"   placeholder="Entrer T4 AE Sous Programme">
+                                 <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T4_CP_init_AC"   placeholder="Entrer T4 CP Sous Programme">
                                  </div>
 
                         </div>
@@ -174,32 +174,32 @@ Object.entries(paths).forEach(([code,value])=>{
                         </div>
                         <div class="form-group" id="ElAE_act">
                         <label for="input1">AE pour Sous Programme</label>
-                        <input type="number" class="form-control" id="AE_sous_prog" placeholder="Entrer AE sous Programme">
+                        <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="AE_sous_prog" placeholder="Entrer AE sous Programme">
                         </div>
                         <div class="form-group" id="ElCP_act">
                         <label for="input1">CP pour Sous Programme</label>
-                        <input type="number" class="form-control" id="CP_sous_prog" placeholder="Entrer CP sous Programme">
+                        <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="CP_sous_prog" placeholder="Entrer CP sous Programme">
                         </div>
                         <div class="ports_init">
                         <div class="form-group">
                                  <label for="input1">T1 pour Sous Programme</label>
-                                 <input type="number" class="form-control" id="T1_AE_init"   placeholder="Entrer T1 AE Sous Programme">
-                                 <input type="number" class="form-control" id="T1_CP_init"   placeholder="Entrer T1 CP Sous Programme">
+                                 <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T1_AE_init"   placeholder="Entrer T1 AE Sous Programme">
+                                 <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T1_CP_init"   placeholder="Entrer T1 CP Sous Programme">
                                  </div>
                                  <div class="form-group">
                                  <label for="input1">T2 pour Sous Programme</label>
-                                 <input type="number" class="form-control" id="T2_AE_init"   placeholder="Entrer T2 AE Sous Programme">
-                                 <input type="number" class="form-control" id="T2_CP_init"   placeholder="Entrer T2 CP Sous Programme">
+                                 <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T2_AE_init"   placeholder="Entrer T2 AE Sous Programme">
+                                 <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T2_CP_init"   placeholder="Entrer T2 CP Sous Programme">
                                  </div>
                                  <div class="form-group">
                                  <label for="input1">T3 pour Sous Programme</label>
-                                 <input type="number" class="form-control" id="T3_AE_init"   placeholder="Entrer T3 AE Sous Programme">
-                                 <input type="number" class="form-control" id="T3_CP_init"   placeholder="Entrer T3 CP Sous Programme">
+                                 <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T3_AE_init"   placeholder="Entrer T3 AE Sous Programme">
+                                 <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T3_CP_init"   placeholder="Entrer T3 CP Sous Programme">
                                  </div>
                                  <div class="form-group">
                                  <label for="input1">T4 pour Sous Programme</label>
-                                 <input type="number" class="form-control" id="T4_AE_init"   placeholder="Entrer T4 AE Sous Programme">
-                                 <input type="number" class="form-control" id="T4_CP_init"   placeholder="Entrer T4 CP Sous Programme">
+                                 <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T4_AE_init"   placeholder="Entrer T4 AE Sous Programme">
+                                 <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T4_CP_init"   placeholder="Entrer T4 CP Sous Programme">
                                  </div>
 
                                  </div>
@@ -230,33 +230,33 @@ Object.entries(paths).forEach(([code,value])=>{
                         </div>
                         <div class="form-group" id="ElAE_act">
                         <label for="input1">AE pour Action</label>
-                        <input type="number" class="form-control" id="AE_act" placeholder="Entrer AE Action">
+                        <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="AE_act" placeholder="Entrer AE Action">
                         </div>
                         <div class="form-group" id="ElCP_act">
                         <label for="input1">CP pour Action</label>
-                        <input type="number" class="form-control" id="CP_act" placeholder="Entrer CP Action">
+                        <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="CP_act" placeholder="Entrer CP Action">
                         </div>
 
                         <div class="ports_init">
                         <div class="form-group">
                                  <label for="input1">T1 pour ACTION</label>
-                                 <input type="number" class="form-control" id="T1_AE_init_AC"   placeholder="Entrer T1 AE Sous Programme">
-                                 <input type="number" class="form-control" id="T1_CP_init_AC"   placeholder="Entrer T1 CP Sous Programme">
+                                 <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T1_AE_init_AC"   placeholder="Entrer T1 AE Sous Programme">
+                                 <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T1_CP_init_AC"   placeholder="Entrer T1 CP Sous Programme">
                                  </div>
                                  <div class="form-group">
                                  <label for="input1">T2 pour ACTION</label>
-                                 <input type="number" class="form-control" id="T2_AE_init_AC"   placeholder="Entrer T2 AE Sous Programme">
-                                 <input type="number" class="form-control" id="T2_CP_init_AC"   placeholder="Entrer T2 CP Sous Programme">
+                                 <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T2_AE_init_AC"   placeholder="Entrer T2 AE Sous Programme">
+                                 <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T2_CP_init_AC"   placeholder="Entrer T2 CP Sous Programme">
                                  </div>
                                  <div class="form-group">
                                  <label for="input1">T3 pour ACTION</label>
-                                 <input type="number" class="form-control" id="T3_AE_init_AC"   placeholder="Entrer T3 AE Sous Programme">
-                                 <input type="number" class="form-control" id="T3_CP_init_AC"   placeholder="Entrer T3 CP Sous Programme">
+                                 <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T3_AE_init_AC"   placeholder="Entrer T3 AE Sous Programme">
+                                 <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T3_CP_init_AC"   placeholder="Entrer T3 CP Sous Programme">
                                  </div>
                                  <div class="form-group">
                                  <label for="input1">T4 pour ACTION</label>
-                                 <input type="number" class="form-control" id="T4_AE_init_AC"   placeholder="Entrer T4 AE Sous Programme">
-                                 <input type="number" class="form-control" id="T4_CP_init_AC"   placeholder="Entrer T4 CP Sous Programme">
+                                 <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T4_AE_init_AC"   placeholder="Entrer T4 AE Sous Programme">
+                                 <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T4_CP_init_AC"   placeholder="Entrer T4 CP Sous Programme">
                                  </div>
 
                         </div>
@@ -293,11 +293,11 @@ Object.entries(paths).forEach(([code,value])=>{
                         </div>
                         <div class="form-group" id="ElAE_act">
                         <label for="input1">AE pour le Programme</label>
-                        <input type="number" class="form-control" id="AE_prog" placeholder="Entrer AE sous Programme">
+                        <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="AE_prog" placeholder="Entrer AE sous Programme">
                         </div>
                         <div class="form-group" id="ElCP_act">
                         <label for="input1">CP pour le Programme</label>
-                        <input type="number" class="form-control" id="CP_prog" placeholder="Entrer CP sous Programme">
+                        <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="CP_prog" placeholder="Entrer CP sous Programme">
                         </div>
                         </form>
                         <br>
@@ -328,32 +328,32 @@ Object.entries(paths).forEach(([code,value])=>{
                         </div>
                         <div class="form-group" id="ElAE_act">
                         <label for="input1">AE pour Sous Programme</label>
-                        <input type="number" class="form-control" id="AE_sous_prog" placeholder="Entrer AE sous Programme">
+                        <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="AE_sous_prog" placeholder="Entrer AE sous Programme">
                         </div>
                         <div class="form-group" id="ElCP_act">
                         <label for="input1">CP pour Sous Programme</label>
-                        <input type="number" class="form-control" id="CP_sous_prog" placeholder="Entrer CP sous Programme">
+                        <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="CP_sous_prog" placeholder="Entrer CP sous Programme">
                         </div>
                         <div class="ports_init">
                         <div class="form-group">
                                  <label for="input1">T1 pour Sous Programme</label>
-                                 <input type="number" class="form-control" id="T1_AE_init"   placeholder="Entrer T1 AE Sous Programme">
-                                 <input type="number" class="form-control" id="T1_CP_init"   placeholder="Entrer T1 CP Sous Programme">
+                                 <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T1_AE_init"   placeholder="Entrer T1 AE Sous Programme">
+                                 <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T1_CP_init"   placeholder="Entrer T1 CP Sous Programme">
                                  </div>
                                  <div class="form-group">
                                  <label for="input1">T2 pour Sous Programme</label>
-                                 <input type="number" class="form-control" id="T2_AE_init"   placeholder="Entrer T2 AE Sous Programme">
-                                 <input type="number" class="form-control" id="T2_CP_init"   placeholder="Entrer T2 CP Sous Programme">
+                                 <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T2_AE_init"   placeholder="Entrer T2 AE Sous Programme">
+                                 <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T2_CP_init"   placeholder="Entrer T2 CP Sous Programme">
                                  </div>
                                  <div class="form-group">
                                  <label for="input1">T3 pour Sous Programme</label>
-                                 <input type="number" class="form-control" id="T3_AE_init"   placeholder="Entrer T3 AE Sous Programme">
-                                 <input type="number" class="form-control" id="T3_CP_init"   placeholder="Entrer T3 CP Sous Programme">
+                                 <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T3_AE_init"   placeholder="Entrer T3 AE Sous Programme">
+                                 <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T3_CP_init"   placeholder="Entrer T3 CP Sous Programme">
                                  </div>
                                  <div class="form-group">
                                  <label for="input1">T4 pour Sous Programme</label>
-                                 <input type="number" class="form-control" id="T4_AE_init"   placeholder="Entrer T4 AE Sous Programme">
-                                 <input type="number" class="form-control" id="T4_CP_init"   placeholder="Entrer T4 CP Sous Programme">
+                                 <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T4_AE_init"   placeholder="Entrer T4 AE Sous Programme">
+                                 <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T4_CP_init"   placeholder="Entrer T4 CP Sous Programme">
                                  </div>
 
                         </div>
@@ -384,34 +384,34 @@ Object.entries(paths).forEach(([code,value])=>{
                         </div>
                         <div class="form-group" id="ElAE_act">
                         <label for="input1">AE pour Action</label>
-                        <input type="number" class="form-control" id="AE_act" placeholder="Entrer AE Action">
+                        <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="AE_act" placeholder="Entrer AE Action">
                         </div>
                         <div class="form-group" id="ElCP_act">
                         <label for="input1">CP pour Action</label>
-                        <input type="number" class="form-control" id="CP_act" placeholder="Entrer CP Action">
+                        <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="CP_act" placeholder="Entrer CP Action">
                         </div>
 
                         
                         <div class="ports_init">
                         <div class="form-group">
                                  <label for="input1">T1 pour ACTION</label>
-                                 <input type="number" class="form-control" id="T1_AE_init_AC"   placeholder="Entrer T1 AE Sous Programme">
-                                 <input type="number" class="form-control" id="T1_CP_init_AC"   placeholder="Entrer T1 CP Sous Programme">
+                                 <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T1_AE_init_AC"   placeholder="Entrer T1 AE Sous Programme">
+                                 <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T1_CP_init_AC"   placeholder="Entrer T1 CP Sous Programme">
                                  </div>
                                  <div class="form-group">
                                  <label for="input1">T2 pour ACTION</label>
-                                 <input type="number" class="form-control" id="T2_AE_init_AC"   placeholder="Entrer T2 AE Sous Programme">
-                                 <input type="number" class="form-control" id="T2_CP_init_AC"   placeholder="Entrer T2 CP Sous Programme">
+                                 <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T2_AE_init_AC"   placeholder="Entrer T2 AE Sous Programme">
+                                 <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T2_CP_init_AC"   placeholder="Entrer T2 CP Sous Programme">
                                  </div>
                                  <div class="form-group">
                                  <label for="input1">T3 pour ACTION</label>
-                                 <input type="number" class="form-control" id="T3_AE_init_AC"   placeholder="Entrer T3 AE Sous Programme">
-                                 <input type="number" class="form-control" id="T3_CP_init_AC"   placeholder="Entrer T3 CP Sous Programme">
+                                 <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T3_AE_init_AC"   placeholder="Entrer T3 AE Sous Programme">
+                                 <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T3_CP_init_AC"   placeholder="Entrer T3 CP Sous Programme">
                                  </div>
                                  <div class="form-group">
                                  <label for="input1">T4 pour ACTION</label>
-                                 <input type="number" class="form-control" id="T4_AE_init_AC"   placeholder="Entrer T4 AE Sous Programme">
-                                 <input type="number" class="form-control" id="T4_CP_init_AC"   placeholder="Entrer T4 CP Sous Programme">
+                                 <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T4_AE_init_AC"   placeholder="Entrer T4 AE Sous Programme">
+                                 <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T4_CP_init_AC"   placeholder="Entrer T4 CP Sous Programme">
                                  </div>
 
                         </div>

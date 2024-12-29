@@ -1,4 +1,21 @@
 console.log('testing'+JSON.stringify(path))
+
+function formatAccountingFigures(input) {
+    // Remove non-numeric characters except for "."
+    let value = input.value.replace(/[^0-9.]/g, '');
+
+    // Split the input into integer and decimal parts
+    let parts = value.split('.');
+    let integerPart = parts[0];
+    let decimalPart = parts[1] ? '.' + parts[1] : '';
+
+    // Add commas to the integer part
+    integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+    // Combine integer and decimal parts
+    input.value = integerPart + decimalPart;
+}
+
 function upload_file(id_file,id_relat)
 {
 
@@ -101,7 +118,7 @@ $('#date_insert_sousProg').on('focusout', function () {
             url: '/check-sousprog',  // Route pour vérifier l'existence du programme
             type: 'GET',
             data: {
-                num_sous_prog: num_sou_program,
+                num_sous_prog: num_sou_prog,
             },
             success: function (response) {
                if (response.exists) {
