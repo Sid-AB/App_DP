@@ -25,6 +25,23 @@ function formatAccountingFigures(input) {
     // Combine integer and decimal parts
     input.value = integerPart + decimalPart;
 }
+function ValAccountingFigures(inputs) {
+    if (isNaN(inputs)) {
+        return ''; // Return an empty string for invalid numbers
+    }
+
+    // Convert number to a fixed decimal string (optional)
+    let formattedNumber = inputs.toFixed(2); // Keeps two decimal places
+
+    // Split the number into integer and decimal parts
+    let [integerPart, decimalPart] = formattedNumber.split('.');
+
+    // Add commas to the integer part
+    integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+    // Combine integer and decimal parts
+    return integerPart + '.' + decimalPart;
+}
 function only_def(id)
 {
    var localverb;
@@ -1787,20 +1804,20 @@ $("#add-prg").on('click', function () {
 
                                    // Remplir les champs du formulaire avec les données récupérées
                                    $('#nom_sous_prog').val(response.nom_sous_prog).trigger('change');
-                                   $('#AE_sous_prog').val(response.AE_sous_prog).trigger('change');
-                                   $('#CP_sous_prog').val(response.CP_sous_prog).trigger('change');
+                                   $('#AE_sous_prog').val(ValAccountingFigures(response.AE_sous_prog))  .trigger('change');
+                                   $('#CP_sous_prog').val(ValAccountingFigures(response.CP_sous_prog)).trigger('change');
 
-                                   $('#T1_AE_init').val(response.T1_AE_init).trigger('change');
-                                   $('#T1_CP_init').val(response.T1_CP_init).trigger('change');
+                                   $('#T1_AE_init').val(ValAccountingFigures(response.T1_AE_init)).trigger('change');
+                                   $('#T1_CP_init').val(ValAccountingFigures(response.T1_CP_init)).trigger('change');
 
-                                   $('#T2_AE_init').val(response.T2_AE_init).trigger('change');
-                                   $('#T2_CP_init').val(response.T2_CP_init).trigger('change');
+                                   $('#T2_AE_init').val(ValAccountingFigures(response.T2_AE_init)).trigger('change');
+                                   $('#T2_CP_init').val(ValAccountingFigures(response.T2_CP_init)).trigger('change');
 
-                                   $('#T3_AE_init').val(response.T3_AE_init).trigger('change');
-                                   $('#T3_CP_init').val(response.T3_CP_init).trigger('change');
+                                   $('#T3_AE_init').val(ValAccountingFigures(response.T3_AE_init)).trigger('change');
+                                   $('#T3_CP_init').val(ValAccountingFigures(response.T3_CP_init)).trigger('change');
 
-                                   $('#T4_AE_init').val(response.T4_AE_init).trigger('change');
-                                   $('#T4_CP_init').val(response.T4_CP_init).trigger('change');
+                                   $('#T4_AE_init').val(ValAccountingFigures(response.T4_AE_init)).trigger('change');
+                                   $('#T4_CP_init').val(ValAccountingFigures(response.T4_CP_init)).trigger('change');
 
                                    alert('Le sous-programme existe déjà.');
                                }  else {
