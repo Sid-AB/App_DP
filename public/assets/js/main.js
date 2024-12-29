@@ -2226,17 +2226,17 @@ $("#add-prg").on('click', function () {
                                         var AE_act = $('#AE_act').val()
                                         var CP_act = $('#CP_act').val()
                                         var dat_inst = $('#date_insert_action').val();
-                                        var T1_AE_init = $('#T1_AE_init').val()
-                                        var T1_CP_init = $('#T1_CP_init').val()
+                                        var T1_AE_init = $('#T1_AE_init_AC').val()
+                                        var T1_CP_init = $('#T1_CP_init_AC').val()
                     
-                                        var T2_AE_init = $('#T2_AE_init').val()
-                                        var T2_CP_init = $('#T2_CP_init').val()
+                                        var T2_AE_init = $('#T2_AE_init_AC').val()
+                                        var T2_CP_init = $('#T2_CP_init_AC').val()
                     
-                                        var T3_AE_init = $('#T3_AE_init').val()
-                                        var T3_CP_init = $('#T3_CP_init').val()
+                                        var T3_AE_init = $('#T3_AE_init_AC').val()
+                                        var T3_CP_init = $('#T3_CP_init_AC').val()
                     
-                                        var T4_AE_init = $('#T4_AE_init').val()
-                                        var T4_CP_init = $('#T4_CP_init').val()
+                                        var T4_AE_init = $('#T4_AE_init_AC').val()
+                                        var T4_CP_init = $('#T4_CP_init_AC').val()
                     
                                         var id_sou_prog = path[2];
                                         var numaction_year = id_sou_prog +'-'+num_act ;
@@ -2246,20 +2246,20 @@ $("#add-prg").on('click', function () {
                                             AE_act: AE_act,
                                             CP_act: CP_act,
 
-                                            T1_AE_init: T1_AE_init,
-                                            T1_CP_init: T1_CP_init,
+                                            T1_AE_init_AC: T1_AE_init,
+                                            T1_CP_init_AC: T1_CP_init,
                                              code_t1: 10000,
 
-                                            T2_AE_init: T2_AE_init,
-                                            T2_CP_init: T2_CP_init,
+                                            T2_AE_init_AC: T2_AE_init,
+                                            T2_CP_init_AC: T2_CP_init,
                                             code_t2: 20000,
 
-                                            T3_AE_init: T3_AE_init,
-                                            T3_CP_init: T3_CP_init,
+                                            T3_AE_init_AC: T3_AE_init,
+                                            T3_CP_init_AC: T3_CP_init,
                                             code_t3: 30000,
 
-                                            T4_AE_init: T4_AE_init,
-                                            T4_CP_init: T4_CP_init,
+                                            T4_AE_init_AC: T4_AE_init,
+                                            T4_CP_init_AC: T4_CP_init,
                                             code_t4: 40000,
 
                                             date_insert_action: dat_inst,

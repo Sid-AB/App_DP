@@ -41,8 +41,8 @@ public function check_action(Request $request)
     {
         $action = Action::where('num_action', $request->num_action)->first();
         $initPort = initPort::where('num_action', $request->num_action)->first();
-        //dd($initPort);
-        //dd($request);
+      //  dd($initPort);
+       // dd($request);
         if ($action  && $initPort) {
             return response()->json([
                 'exists' => true,
@@ -59,13 +59,13 @@ public function check_action(Request $request)
                 'T2_AE_init' => $initPort->AE_init_t2,
                 'T2_CP_init' => $initPort->CP_init_t2,
 
-                'T3_AE_init' => $initPort->AE_init_t3,
+                'T3_AE_init'    => $initPort->AE_init_t3,
                 'T3_CP_init' => $initPort->CP_init_t3,
 
                 'T4_AE_init' => $initPort->AE_init_t4,
                 'T4_CP_init' => $initPort->CP_init_t4,
             ]);
-            dd($initPort->CP_init_t4);
+          
         }
         else
         {
@@ -139,14 +139,14 @@ public function check_action(Request $request)
             if ($initPort) {
                 // Mise à jour des données dans init_ports
                 $initPort->update([
-                    'AE_init_t1' => $request->T1_AE_init,
-                    'CP_init_t1' => $request->T1_CP_init,
-                    'AE_init_t2' => $request->T2_AE_init,
-                    'CP_init_t2' => $request->T2_CP_init,
-                    'AE_init_t3' => $request->T3_AE_init,
-                    'CP_init_t3' => $request->T3_CP_init,
-                    'AE_init_t4' => $request->T4_AE_init,
-                    'CP_init_t4' => $request->T4_CP_init,
+                    'AE_init_t1' =>floatval(str_replace (',', '', $request->T1_AE_init_AC)),
+                    'CP_init_t1' => floatval(str_replace (',', '', $request->T1_CP_init_AC)),
+                    'AE_init_t2' => floatval(str_replace (',', '', $request->T2_AE_init_AC)),
+                    'CP_init_t2' => floatval(str_replace (',', '', $request->T2_CP_init_AC)),
+                    'AE_init_t3' => floatval(str_replace (',', '', $request->T3_AE_init_AC)),
+                    'CP_init_t3' => floatval(str_replace (',', '', $request->T3_CP_init_AC)),
+                    'AE_init_t4' => floatval(str_replace (',', '', $request->T4_AE_init_AC)),
+                    'CP_init_t4' => floatval(str_replace (',', '', $request->T4_CP_init_AC)),
                     'date_update_init' => now(),
                 ]);
             }
@@ -162,14 +162,14 @@ public function check_action(Request $request)
                 'code_t2' => $request->code_t2,
                 'code_t3' => $request->code_t3,
                 'code_t4' => $request->code_t4,
-                'AE_init_t1' => $request->T1_AE_init,
-                'CP_init_t1' => $request->T1_CP_init,
-                'AE_init_t2' => $request->T2_AE_init,
-                'CP_init_t2' => $request->T2_CP_init,
-                'AE_init_t3' => $request->T3_AE_init,
-                'CP_init_t3' => $request->T3_CP_init,
-                'AE_init_t4' => $request->T4_AE_init,
-                'CP_init_t4' => $request->T4_CP_init,
+                'AE_init_t1' => floatval(str_replace (',', '',$request->T1_AE_init_AC)),
+                'CP_init_t1' => floatval(str_replace (',', '',$request->T1_CP_init_AC)),
+                'AE_init_t2' => floatval(str_replace (',', '',$request->T2_AE_init_AC)),
+                'CP_init_t2' => floatval(str_replace (',', '',$request->T2_CP_init_AC)),
+                'AE_init_t3' => floatval(str_replace (',', '',$request->T3_AE_init_AC)),
+                'CP_init_t3' =>floatval(str_replace (',', '', $request->T3_CP_init_AC)),
+                'AE_init_t4' => floatval(str_replace (',', '',$request->T4_AE_init_AC)),
+                'CP_init_t4' => floatval(str_replace (',', '',$request->T4_CP_init_AC)),
             ]);  
             }
                                    
@@ -251,14 +251,14 @@ public function check_action(Request $request)
             'code_t2' => $request->code_t2,
             'code_t3' => $request->code_t3,
             'code_t4' => $request->code_t4,
-            'AE_init_t1' => $request->T1_AE_init,
-            'CP_init_t1' => $request->T1_CP_init,
-            'AE_init_t2' => $request->T2_AE_init,
-            'CP_init_t2' => $request->T2_CP_init,
-            'AE_init_t3' => $request->T3_AE_init,
-            'CP_init_t3' => $request->T3_CP_init,
-            'AE_init_t4' => $request->T4_AE_init,
-            'CP_init_t4' => $request->T4_CP_init,
+            'AE_init_t1' => floatval(str_replace (',', '',$request->T1_AE_init_AC)),
+            'CP_init_t1' => floatval(str_replace (',', '',$request->T1_CP_init_AC)),
+            'AE_init_t2' => floatval(str_replace (',', '',$request->T2_AE_init_AC)),
+            'CP_init_t2' => floatval(str_replace (',', '',$request->T2_CP_init_AC)),
+            'AE_init_t3' => floatval(str_replace (',', '',$request->T3_AE_init_AC)),
+            'CP_init_t3' => floatval(str_replace (',', '',$request->T3_CP_init_AC)),
+            'AE_init_t4' => floatval(str_replace (',', '',$request->T4_AE_init_AC)),
+            'CP_init_t4' =>floatval(str_replace (',', '', $request->T4_CP_init_AC)),
 
         ]);
     
