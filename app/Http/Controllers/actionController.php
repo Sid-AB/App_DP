@@ -123,16 +123,16 @@ public function check_action(Request $request)
         //dd($sousaction);
     if ($action) {
         $action->nom_action = $request->nom_action;
-        $action->AE_action=floatval($request->AE_act);
-        $action->CP_action=floatval($request->CP_act);
+        $action->AE_action=floatval(str_replace(',', '', $request->AE_act));
+        $action->CP_action=floatval(str_replace(',', '', $request->CP_act));
         $action->id_ra = 1;//periodiquement
         $action->date_update_action = now();
         $action->save();
 
         if ($sousaction) {
             $sousaction->nom_sous_action = $request->nom_action;
-            $sousaction->AE_sous_action=floatval($request->AE_act);
-            $sousaction->CP_sous_action=floatval($request->CP_act);
+            $sousaction->AE_sous_action=floatval(str_replace(',', '', $request->AE_act));
+            $sousaction->CP_sous_action=floatval(str_replace(',', '', $request->CP_act));
             $sousaction->date_update_sous_action = now();
             $sousaction->save();
         }
@@ -207,8 +207,8 @@ public function check_action(Request $request)
         $action->num_action = $request->num_action;
         $action->num_sous_prog =$request->id_sous_prog;
         $action->nom_action = $request->nom_action;
-        $action->AE_action=floatval($request->AE_act);
-        $action->CP_action=floatval($request->CP_act);
+        $action->AE_action=floatval(str_replace(',', '', $request->AE_act));
+        $action->CP_action=floatval(str_replace(',', '', $request->CP_act));
         $action->id_ra = 1;//periodiquement
         $action->date_insert_action = $request->date_insert_action;
 
@@ -222,8 +222,8 @@ public function check_action(Request $request)
          $sousaction->num_action = $request->num_action;
          $sousaction->num_sous_action = $num_act;
          $sousaction->nom_sous_action = $request->nom_action;
-         $sousaction->AE_sous_action=floatval($request->AE_act);
-         $sousaction->CP_sous_action=floatval($request->CP_act);
+         $sousaction->AE_sous_action=floatval(str_replace(',', '', $request->AE_act));
+         $sousaction->CP_sous_action=floatval(str_replace(',', '', $request->CP_act));
          $sousaction->date_insert_sous_action = $request->date_insert_action;
 
         // dd($sousaction);

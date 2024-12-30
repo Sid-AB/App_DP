@@ -217,7 +217,7 @@ Object.entries(paths).forEach(([code,value])=>{
     <div class="form-container" id="creati-act" style="display:none">
     <form >
                         <div class="form-group">
-                        <label for="input1">Code dACTION</label>
+                        <label for="input1">Code D 'ACTION</label>
                         <input type="text" class="form-control" id="num_act" placeholder="Entrer le Code dACTION">
                         </div>
                         <div class="form-group">

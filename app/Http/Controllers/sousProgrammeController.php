@@ -152,22 +152,22 @@ public function create_sou_prog(Request $request)
         // Mise à jour du sous-programme existant
         $sousProgramme->update([
             'nom_sous_prog' => $request->nom_sous_prog,
-            'AE_sous_prog' => floatval($request->AE_sous_prog),
-            'CP_sous_prog' => floatval($request->CP_sous_prog),
+            'AE_sous_prog' =>floatval(str_replace(',', '', $request->AE_sous_prog)),
+            'CP_sous_prog' => floatval(str_replace(',', '', $request->CP_sous_prog)),
             'date_update_sousProg' => now(),
         ]);
 
         if ($initPort) {
             // Mise à jour des données dans init_ports
             $initPort->update([
-                'AE_init_t1' => $request->T1_AE_init,
-                'CP_init_t1' => $request->T1_CP_init,
-                'AE_init_t2' => $request->T2_AE_init,
-                'CP_init_t2' => $request->T2_CP_init,
-                'AE_init_t3' => $request->T3_AE_init,
-                'CP_init_t3' => $request->T3_CP_init,
-                'AE_init_t4' => $request->T4_AE_init,
-                'CP_init_t4' => $request->T4_CP_init,
+                'AE_init_t1' => floatval(str_replace(',', '', $request->T1_AE_init)),
+                'CP_init_t1' => floatval(str_replace(',', '', $request->T1_CP_init)),
+                'AE_init_t2' => floatval(str_replace(',', '', $request->T2_AE_init)),
+                'CP_init_t2' => floatval(str_replace(',', '', $request->T2_CP_init)),
+                'AE_init_t3' => floatval(str_replace(',', '', $request->T3_AE_init)),
+                'CP_init_t3' => floatval(str_replace(',', '', $request->T3_CP_init)),
+                'AE_init_t4' => floatval(str_replace(',', '', $request->T4_AE_init)),
+                'CP_init_t4' => floatval(str_replace(',', '', $request->T4_CP_init)),
                 'date_update_init' => now(),
             ]);
         }
@@ -181,14 +181,14 @@ public function create_sou_prog(Request $request)
             'code_t2' => $request->code_t2,
             'code_t3' => $request->code_t3,
             'code_t4' => $request->code_t4,
-            'AE_init_t1' => $request->T1_AE_init,
-            'CP_init_t1' => $request->T1_CP_init,
-            'AE_init_t2' => $request->T2_AE_init,
-            'CP_init_t2' => $request->T2_CP_init,
-            'AE_init_t3' => $request->T3_AE_init,
-            'CP_init_t3' => $request->T3_CP_init,
-            'AE_init_t4' => $request->T4_AE_init,
-            'CP_init_t4' => $request->T4_CP_init,
+            'AE_init_t1' => floatval(str_replace(',', '', $request->T1_AE_init)),
+            'CP_init_t1' => floatval(str_replace(',', '', $request->T1_CP_init)),
+            'AE_init_t2' => floatval(str_replace(',', '', $request->T2_AE_init)),
+            'CP_init_t2' => floatval(str_replace(',', '', $request->T2_CP_init)),
+            'AE_init_t3' => floatval(str_replace(',', '', $request->T3_AE_init)),
+            'CP_init_t3' => floatval(str_replace(',', '', $request->T3_CP_init)),
+            'AE_init_t4' => floatval(str_replace(',', '', $request->T4_AE_init)),
+            'CP_init_t4' => floatval(str_replace(',', '', $request->T4_CP_init)),
         ]);  
         }
     } else {
@@ -197,8 +197,8 @@ public function create_sou_prog(Request $request)
             'num_sous_prog' => $request->num_sous_prog,
             'num_prog' => $request->id_program,
             'nom_sous_prog' => $request->nom_sous_prog,
-            'AE_sous_prog' => $request->AE_sous_prog,
-            'CP_sous_prog' => $request->CP_sous_prog,
+            'AE_sous_prog' => floatval(str_replace(',', '', $request->AE_sous_prog)),
+            'CP_sous_prog' => floatval(str_replace(',', '', $request->CP_sous_prog)),
             'date_insert_sousProg' => $request->date_insert_sousProg,
         ]);
     // Création des données dans init_ports
@@ -209,14 +209,14 @@ public function create_sou_prog(Request $request)
         'code_t2' => $request->code_t2,
         'code_t3' => $request->code_t3,
         'code_t4' => $request->code_t4,
-        'AE_init_t1' => $request->T1_AE_init,
-        'CP_init_t1' => $request->T1_CP_init,
-        'AE_init_t2' => $request->T2_AE_init,
-        'CP_init_t2' => $request->T2_CP_init,
-        'AE_init_t3' => $request->T3_AE_init,
-        'CP_init_t3' => $request->T3_CP_init,
-        'AE_init_t4' => $request->T4_AE_init,
-        'CP_init_t4' => $request->T4_CP_init,
+        'AE_init_t1' => floatval(str_replace(',', '', $request->T1_AE_init)),
+        'CP_init_t1' => floatval(str_replace(',', '', $request->T1_CP_init)),
+        'AE_init_t2' => floatval(str_replace(',', '', $request->T2_AE_init)),
+        'CP_init_t2' => floatval(str_replace(',', '', $request->T2_CP_init)),
+        'AE_init_t3' => floatval(str_replace(',', '', $request->T3_AE_init)),
+        'CP_init_t3' => floatval(str_replace(',', '', $request->T3_CP_init)),
+        'AE_init_t4' => floatval(str_replace(',', '', $request->T4_AE_init)),
+        'CP_init_t4' => floatval(str_replace(',', '', $request->T4_CP_init)),
     ]);
     
     }
