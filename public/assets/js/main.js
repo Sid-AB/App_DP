@@ -1544,8 +1544,8 @@ $(document).ready(function () {
             Date_portefeuille: $("#date_crt_portf").val(),
             nom_journal: $("#nom_journ").val(),
             num_journal: parseInt($("#num_journ").val()),
-            AE_portef: parseFloat($("#AE_portef").val()),
-            CP_portef: parseFloat($("#CP_portef").val()),
+            AE_portef: $("#AE_portef").val(),
+            CP_portef: $("#CP_portef").val(),
             //year: year,
             _token: $('meta[name="csrf-token"]').attr("content"),
             _method: "POST",
@@ -1677,8 +1677,8 @@ $("#date_insert_portef").on('focusout', function () {
 $("#add-prg").on('click', function () {
     var id_prog = $('#num_prog').val();
     var nom_prog = $('#nom_prog').val();
-    var ae_prog = parseFloat($('#AE_prog').val())
-    var cp_prog = parseFloat($('#CP_prog').val())
+    var ae_prog = $('#AE_prog').val()
+    var cp_prog = $('#CP_prog').val()
     var numprog_year =path[0] +'-'+ id_prog;
     console.log("path[0]",path[0] );
     console.log("id_prog",id_prog );
@@ -1688,8 +1688,8 @@ $("#add-prg").on('click', function () {
     var formprogdata = {
         num_prog: numprog_year,
         nom_prog: nom_prog,
-        ae_prog: parseFloat(ae_prog),
-        cp_prog: parseFloat(cp_prog),
+        ae_prog: ae_prog,
+        cp_prog: cp_prog,
         num_portefeuil: path[0],
         date_insert_portef: date_sort_jour,
         _token: $('meta[name="csrf-token"]').attr('content'),

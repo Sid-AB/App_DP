@@ -271,6 +271,7 @@ public function check_portef(Request $request)
 //===================================================================================
     function creat_portef(Request $request)
     {
+        dd($request);
 
          // Validation des données
          $request->validate([
