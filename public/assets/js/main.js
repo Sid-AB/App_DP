@@ -3199,7 +3199,7 @@ $(document).ready(function () {
         var T = 1;
         console.log('len' + path3.length + ' act ' + indic)
         $.ajax({
-            url: '/testing/codeSousOperation/' + path3[indic],
+            url: '/testing/codeSousOperation/' + ssact,
             type: 'GET',
             success: function (response) {
                 if (response.code == 200 && response.t1_exists==1) {
@@ -3222,7 +3222,7 @@ $(document).ready(function () {
         var id = $(this).attr('id');
         console.log('len' + path3.length + ' act ' + indic)
         $.ajax({
-            url: '/testing/codeSousOperation/' + path3[indic],
+            url: '/testing/codeSousOperation/' + ssact,
             type: 'GET',
             success: function (response) {
                 if (response.code == 200 && response.t2_exists==1) {
@@ -3250,7 +3250,7 @@ $(document).ready(function () {
         var id = $(this).attr('id');
         var T = 3;
         $.ajax({
-            url: '/testing/codeSousOperation/' + path3[indic],
+            url: '/testing/codeSousOperation/' + ssact,
             type: 'GET',
             success: function (response) {
                 if (response.code == 200 && response.t3_exists==1) {
@@ -3275,7 +3275,7 @@ $(document).ready(function () {
         var id = $(this).attr('id');
         var T = 4;
         $.ajax({
-            url: '/testing/codeSousOperation/' + path3[indic],
+            url: '/testing/codeSousOperation/' + ssact,
             type: 'GET',
             success: function (response) {
                 if (response.code == 200 && response.t4_exists==1) {
