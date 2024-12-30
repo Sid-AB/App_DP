@@ -271,14 +271,14 @@ public function check_portef(Request $request)
 //===================================================================================
     function creat_portef(Request $request)
     {
+        //dd(floatval(str_replace(',', '', $request->AE_portef)));
 
          // Validation des données
          $request->validate([
             //'file' => 'required|file|mimes:jpg,png,pdf|max:2048', // Validation du fichier
             'num_journal' => 'required',
             'nom_journal' => 'required',
-            'AE_portef' => 'required',
-            'CP_portef' => 'required',
+           
             'Date_portefeuille' => 'required|date',
         ]);
         //si le portefeuiille existe donc le modifier
@@ -309,8 +309,8 @@ return response()->json([
         $portefeuille->num_portefeuil = $request->num_portefeuil;
         $portefeuille->nom_journal = $request->nom_journal;
         $portefeuille->num_journal = $request->num_journal;
-        $portefeuille->AE_portef = $request->AE_portef;
-        $portefeuille->CP_portef = $request->CP_portef;
+        $portefeuille->AE_portef = floatval(str_replace(',', '',$request->AE_portef));
+        $portefeuille->CP_portef = floatval(str_replace(',', '',$request->CP_portef));
         $portefeuille->Date_portefeuille = $request->Date_portefeuille;
         $portefeuille->id_min =1;//periodiquement
         $portefeuille->save();

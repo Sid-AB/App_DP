@@ -1484,7 +1484,7 @@ $(document).ready(function () {
                         $('#CP_portef').val(ValAccountingFigures(response.CP_portef)).trigger('change'); // Remplir et déclencher l'événement change
                         $('#nom_journ').val(response.nom_journal).trigger('change'); // Remplir et déclencher l'événement change
                         $('#num_journ').val(response.num_journal).trigger('change'); // Remplir et déclencher l'événement change
-
+                        $('#add-wallet').text('Modifier')
                         console.log(response.Date_portefeuille);
                         alert('Le portefeuille existe déjà');
 
@@ -1544,8 +1544,8 @@ $(document).ready(function () {
             Date_portefeuille: $("#date_crt_portf").val(),
             nom_journal: $("#nom_journ").val(),
             num_journal: parseInt($("#num_journ").val()),
-            AE_portef: parseFloat($("#AE_portef").val()),
-            CP_portef: parseFloat($("#CP_portef").val()),
+            AE_portef: $("#AE_portef").val(),
+            CP_portef: $("#CP_portef").val(),
             //year: year,
             _token: $('meta[name="csrf-token"]').attr("content"),
             _method: "POST",
@@ -1662,6 +1662,7 @@ $("#date_insert_portef").on('focusout', function () {
                     $('#CP_prog').val(ValAccountingFigures(response.CP_prog)).trigger('change'); // Remplir et déclencher l'événement change
                     $('#nom_journ').val(response.nom_journal).trigger('change'); // Remplir et déclencher l'événement change
                     $('#num_journ').val(response.num_journal).trigger('change'); // Remplir et déclencher l'événement change
+                    $('#add-prg').text('Modifier')
 
 
                     alert('Le programme existe déjà');
@@ -1677,8 +1678,8 @@ $("#date_insert_portef").on('focusout', function () {
 $("#add-prg").on('click', function () {
     var id_prog = $('#num_prog').val();
     var nom_prog = $('#nom_prog').val();
-    var ae_prog = parseFloat($('#AE_prog').val())
-    var cp_prog = parseFloat($('#CP_prog').val())
+    var ae_prog = $('#AE_prog').val()
+    var cp_prog = $('#CP_prog').val()
     var numprog_year =path[0] +'-'+ id_prog;
     console.log("path[0]",path[0] );
     console.log("id_prog",id_prog );
@@ -1688,8 +1689,8 @@ $("#add-prg").on('click', function () {
     var formprogdata = {
         num_prog: numprog_year,
         nom_prog: nom_prog,
-        ae_prog: parseFloat(ae_prog),
-        cp_prog: parseFloat(cp_prog),
+        ae_prog: ae_prog,
+        cp_prog: cp_prog,
         num_portefeuil: path[0],
         date_insert_portef: date_sort_jour,
         _token: $('meta[name="csrf-token"]').attr('content'),
@@ -1780,8 +1781,7 @@ $("#add-prg").on('click', function () {
                 $('.next-handle svg').addClass('complet-icon')
                 $('.the-path').append(nexthop)
                 $('#progam-handle').append(prg2)
-                $('#confirm-holder').empty()
-                $('#confirm-holder').append('<i class="fas fa-wrench"></i>')
+                $(this).text('Modifier')
 
                 // Vérifie l'existence du programme lorsque le champ de programme perd le focus
                 $('#date_insert_sousProg').on('focusout', function () {
@@ -1818,7 +1818,7 @@ $("#add-prg").on('click', function () {
 
                                    $('#T4_AE_init').val(ValAccountingFigures(response.T4_AE_init)).trigger('change');
                                    $('#T4_CP_init').val(ValAccountingFigures(response.T4_CP_init)).trigger('change');
-
+                                   $('#add-prg2').text('Modifier')
                                    alert('Le sous-programme existe déjà.');
                                }  else {
                                     // alert('Le programme n\'existe pas.');
@@ -2009,8 +2009,7 @@ $("#add-prg").on('click', function () {
                                 $('.next-handle svg').addClass('complet-icon')
                                 $('.the-path').append(nexthop)
                                 $('#progam-handle').append(prg3)
-                                $('#confirm-holder_sprog').empty()
-                                $('#confirm-holder_sprog').append('<i class="fas fa-wrench"></i>')
+                                $(this).text('Modifier')
                                 focus_()
 
 
@@ -2036,6 +2035,7 @@ $("#add-prg").on('click', function () {
                                                      $('#date_insert_action').val(response.date_insert_action).trigger('change'); // Remplir et déclencher l'événement change
                                                     $('#AE_act').val(ValAccountingFigures(response.AE_act)).trigger('change'); // Remplir et déclencher l'événement change
                                                     $('#CP_act').val(ValAccountingFigures(response.CP_act)).trigger('change'); // Remplir et déclencher l'événement change
+                                                    $('#add-prg3').text('Modifier')
                                                     alert('L`Action existe déjà');
 
                                                 }
@@ -2108,11 +2108,11 @@ $("#add-prg").on('click', function () {
                                                    }
                                                     path.push(numaction_year);
                                                     path3.push(num_act);
-                                                    $('#confirm-holder_act').empty()
-                                                    $('#confirm-holder_act').append('<i class="fas fa-wrench"></i>')
+                                                  /*  $('#confirm-holder_act').empty()
+                                                    $('#confirm-holder_act').append('<i class="fas fa-wrench"></i>')*/
+                                                    $(this).text('Modifier')
                                                     console.log('A path: ' + JSON.stringify(path));
-                                                    $('#confirm-holder_act').empty()
-                                                    $('#confirm-holder_act').append('<i class="fas fa-wrench"></i>')
+                                                    
                                                     // Création du formulaire pour la sous-action après l'ajout de l'action
                                                     var prg4 = `<div class="form-container" id="creati-act">
                                                            <form>
@@ -2168,6 +2168,7 @@ $("#add-prg").on('click', function () {
                                                                         $('#date_insert_sou_action').val(response.date_insert_sous_action).trigger('change'); // Remplir et déclencher l'événement change
                                                                        $('#AE_sous_act').val(ValAccountingFigures(response.AE_sous_act)).trigger('change'); // Remplir et déclencher l'événement change
                                                                        $('#CP_sous_act').val(ValAccountingFigures(response.CP_sous_act)).trigger('change'); // Remplir et déclencher l'événement change
+                                                                       $('#add-prg4').text('Modifier')
                                                                        alert('L`Action existe déjà');
 
                                                                    }
@@ -3204,13 +3205,13 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.code == 200 && response.t1_exists==1) {
                     alert('Exist')
-                    T1_table(id, T, path3[indic], path3[0],response.code)
+                    T1_table(id, T, ssact, path3[0],response.code)
                     $('#T_port1').addClass('heilighter')
                 }
                 else {
                     alert('New')
                     code =404
-                    T1_table(id, T, path3[indic], path3[0],code)
+                    T1_table(id, T, ssact, path3[0],code)
                 }
             }
         })
@@ -3229,14 +3230,14 @@ $(document).ready(function () {
                     alert('Exist')
 
 
-                    T2_table(id, T, path3[indic], path3[0],response.code)
+                    T2_table(id, T, ssact, path3[0],response.code)
                     $('#T_port2').addClass('heilighter')
                 }
                 else {
                     alert('New')
 
                    code=404
-                    T2_table(id, T, path3[indic], path3[0],code)
+                    T2_table(id, T, ssact, path3[0],code)
                 }
             }
         })
@@ -3256,13 +3257,13 @@ $(document).ready(function () {
                 if (response.code == 200 && response.t3_exists==1) {
                     alert('Exist')
 
-                    T3_table(id, T, path3[indic], path3[0],response.code)
+                    T3_table(id, T, ssact, path3[0],response.code)
                     $('#T_port3').addClass('heilighter')
                 }
                 else {
                     alert('New')
                     code =404
-                    T3_table(id, T, path3[indic], path3[0],code)
+                    T3_table(id, T, ssact, path3[0],code)
                 }
             }
         })
@@ -3281,13 +3282,13 @@ $(document).ready(function () {
                 if (response.code == 200 && response.t4_exists==1) {
                     alert('Exist')
 
-                    T4_table(id, T, path3[indic], path3[0],response.code)
+                    T4_table(id, T, ssact, path3[0],response.code)
                     $('#T_port4').addClass('heilighter')
                 }
                 else {
                     alert('New')
                     code =404
-                    T4_table(id, T, path3[indic], path3[0],code)
+                    T4_table(id, T, ssact, path3[0],code)
                 }
             }
         })
@@ -3307,18 +3308,18 @@ $(document).ready(function () {
             var T = 1;
             console.log('len' + path3.length + ' act ' + indic)
             $.ajax({
-                url: '/testing/codeSousOperation/' + path3[indic],
+                url: '/testing/codeSousOperation/' + ssact,
                 type: 'GET',
                 success: function (response) {
                     if (response.code == 200 && response.t1_exists==1) {
                         alert('Exist')
 
-                        T1_table(id, T, path3[indic], path3[0],response.code)
+                        T1_table(id, T, ssact, path3[0],response.code)
                     }
                     else {
                         alert('New')
                         code =404
-                        T1_table(id, T, path3[indic], path3[0],code)
+                        T1_table(id, T, ssact, path3[0],code)
                     }
                 }
             })
@@ -3330,18 +3331,18 @@ $(document).ready(function () {
            var id = $(this).attr('id');
            var T = 2;
             $.ajax({
-                url: '/testing/codeSousOperation/' + path3[indic],
+                url: '/testing/codeSousOperation/' + ssact,
                 type: 'GET',
                 success: function (response) {
                     if (response.code == 200 && response.t2_exists==1) {
                         alert('Exist')
 
-                        T2_table(id, T, path3[indic], path3[0],response.code)
+                        T2_table(id, T, ssact, path3[0],response.code)
                     }
                     else {
                         alert('New')
                                code=404
-                        T2_table(id, T, path3[indic], path3[0],code)
+                        T2_table(id, T, ssact, path3[0],code)
                     }
                 }
             })
@@ -3359,12 +3360,12 @@ $(document).ready(function () {
                     if (response.code == 200 && response.t3_exists==1) {
                         alert('Exist')
 
-                        T3_table(id, T, path3[indic], path3[0],response.code)
+                        T3_table(id, T, ssact, path3[0],response.code)
                     }
                     else {
                         alert('New')
                         code =404
-                        T3_table(id, T, path3[indic], path3[0],code)
+                        T3_table(id, T, ssact, path3[0],code)
                     }
                 }
             })
@@ -3378,18 +3379,18 @@ $(document).ready(function () {
            var id = $(this).attr('id');
            var T = 4;
             $.ajax({
-                url: '/testing/codeSousOperation/' + path3[indic],
+                url: '/testing/codeSousOperation/' + ssact,
                 type: 'GET',
                 success: function (response) {
                     if (response.code == 200 && response.t4_exists==1) {
                         alert('Exist')
 
-                        T4_table(id, T, path3[indic], path3[0],response.code)
+                        T4_table(id, T, ssact, path3[0],response.code)
                     }
                     else {
                         alert('New')
                         code =404
-                        T4_table(id, T, path3[indic], path3[0],code)
+                        T4_table(id, T, ssact, path3[0],code)
                     }
                 }
             })
