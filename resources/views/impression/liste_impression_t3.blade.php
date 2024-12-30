@@ -230,18 +230,31 @@
                     $code_separer = explode('-', $sousOp['code']);
                     //dd(  $code_separer);
                     $codeextr = end($code_separer);
-                 //  dd($codeextr);
-                    $nom_sepa=explode('-', $namesT3[$codeextr ]);
-                      $nom=end($nom_sepa);
+                   //dd($codeextr);
+                   if ( strlen($codeextr) < 5){
+                        $nomComplet = DB::table('sous_operations')->where('code_sous_operation', 'like', "%-$codeextr")
+                        ->value('nom_sous_operation') ?? 'Nom introuvable';
 
-                    $nom_separ=explode('-', $namesT3[$codeextr ]);
-                    $nomfirst=reset($nom_separ);
+                        $nom_sepa = explode('-', $nomComplet);
+                        $decision = end($nom_sepa);
+                        $intitule = reset($nom_sepa);
+                        dd($intitule);
+
+                    } else{
+                        $nom_sepa=explode('-', $namesT3[$codeextr ]);
+                        $nom=end($nom_sepa);
+
+                        $nom_separ=explode('-', $namesT3[$codeextr ]);
+                        $nomfirst=reset($nom_separ);
+                    }
+                  
                 @endphp  
                 <tr>
                 <td class="code">{{ $codeextr }}</td>
     
                     <td >{{$namesT3[$codeextr]}}</td>
-                    <td ></td>   <td ></td>
+                    <td >{{ $decision ?? ''}}</td>  
+                    <td >{{ $intitule ?? ''}}</td>
                     <!--td style="text-align: center; " class="code">{{ $codeextr }}</td>
 
                     <td>{{$namesT3[$codegrp]}}</td>
@@ -262,7 +275,8 @@
         @endforeach
         @endforeach
 
-        @else
+        @else 
+        <!--si vide-->
             
                 @foreach ($namesT3 as $code => $name)
                    @php
@@ -275,8 +289,8 @@
                 <tr>
                     <td style="text-align: center;" class="code">{{ $code }}</td>
                     <td >{{ $name }}</td>
-                    <td >{{$namee ??'Néant'}}</td>
-                    <td class="vert3">{{  $namee  ??'Néant'}}</td>
+                    <td ></td>
+                    <td class="vert3"></td>
                     <td class="aecp" style="text-align: center;"> - </td>
                     <td class="aecp" style="text-align: center;">-</td>
                     <td class="aecp" style="text-align: center;">-</td>
