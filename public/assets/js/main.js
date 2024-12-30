@@ -3204,13 +3204,13 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.code == 200 && response.t1_exists==1) {
                     alert('Exist')
-                    T1_table(id, T, path3[indic], path3[0],response.code)
+                    T1_table(id, T, ssact, path3[0],response.code)
                     $('#T_port1').addClass('heilighter')
                 }
                 else {
                     alert('New')
                     code =404
-                    T1_table(id, T, path3[indic], path3[0],code)
+                    T1_table(id, T, ssact, path3[0],code)
                 }
             }
         })
@@ -3229,14 +3229,14 @@ $(document).ready(function () {
                     alert('Exist')
 
 
-                    T2_table(id, T, path3[indic], path3[0],response.code)
+                    T2_table(id, T, ssact, path3[0],response.code)
                     $('#T_port2').addClass('heilighter')
                 }
                 else {
                     alert('New')
 
                    code=404
-                    T2_table(id, T, path3[indic], path3[0],code)
+                    T2_table(id, T, ssact, path3[0],code)
                 }
             }
         })
@@ -3256,13 +3256,13 @@ $(document).ready(function () {
                 if (response.code == 200 && response.t3_exists==1) {
                     alert('Exist')
 
-                    T3_table(id, T, path3[indic], path3[0],response.code)
+                    T3_table(id, T, ssact, path3[0],response.code)
                     $('#T_port3').addClass('heilighter')
                 }
                 else {
                     alert('New')
                     code =404
-                    T3_table(id, T, path3[indic], path3[0],code)
+                    T3_table(id, T, ssact, path3[0],code)
                 }
             }
         })
@@ -3281,13 +3281,13 @@ $(document).ready(function () {
                 if (response.code == 200 && response.t4_exists==1) {
                     alert('Exist')
 
-                    T4_table(id, T, path3[indic], path3[0],response.code)
+                    T4_table(id, T, ssact, path3[0],response.code)
                     $('#T_port4').addClass('heilighter')
                 }
                 else {
                     alert('New')
                     code =404
-                    T4_table(id, T, path3[indic], path3[0],code)
+                    T4_table(id, T, ssact, path3[0],code)
                 }
             }
         })
@@ -3307,18 +3307,18 @@ $(document).ready(function () {
             var T = 1;
             console.log('len' + path3.length + ' act ' + indic)
             $.ajax({
-                url: '/testing/codeSousOperation/' + path3[indic],
+                url: '/testing/codeSousOperation/' + ssact,
                 type: 'GET',
                 success: function (response) {
                     if (response.code == 200 && response.t1_exists==1) {
                         alert('Exist')
 
-                        T1_table(id, T, path3[indic], path3[0],response.code)
+                        T1_table(id, T, ssact, path3[0],response.code)
                     }
                     else {
                         alert('New')
                         code =404
-                        T1_table(id, T, path3[indic], path3[0],code)
+                        T1_table(id, T, ssact, path3[0],code)
                     }
                 }
             })
@@ -3330,18 +3330,18 @@ $(document).ready(function () {
            var id = $(this).attr('id');
            var T = 2;
             $.ajax({
-                url: '/testing/codeSousOperation/' + path3[indic],
+                url: '/testing/codeSousOperation/' + ssact,
                 type: 'GET',
                 success: function (response) {
                     if (response.code == 200 && response.t2_exists==1) {
                         alert('Exist')
 
-                        T2_table(id, T, path3[indic], path3[0],response.code)
+                        T2_table(id, T, ssact, path3[0],response.code)
                     }
                     else {
                         alert('New')
                                code=404
-                        T2_table(id, T, path3[indic], path3[0],code)
+                        T2_table(id, T, ssact, path3[0],code)
                     }
                 }
             })
@@ -3359,12 +3359,12 @@ $(document).ready(function () {
                     if (response.code == 200 && response.t3_exists==1) {
                         alert('Exist')
 
-                        T3_table(id, T, path3[indic], path3[0],response.code)
+                        T3_table(id, T, ssact, path3[0],response.code)
                     }
                     else {
                         alert('New')
                         code =404
-                        T3_table(id, T, path3[indic], path3[0],code)
+                        T3_table(id, T, ssact, path3[0],code)
                     }
                 }
             })
@@ -3378,18 +3378,18 @@ $(document).ready(function () {
            var id = $(this).attr('id');
            var T = 4;
             $.ajax({
-                url: '/testing/codeSousOperation/' + path3[indic],
+                url: '/testing/codeSousOperation/' + ssact,
                 type: 'GET',
                 success: function (response) {
                     if (response.code == 200 && response.t4_exists==1) {
                         alert('Exist')
 
-                        T4_table(id, T, path3[indic], path3[0],response.code)
+                        T4_table(id, T, ssact, path3[0],response.code)
                     }
                     else {
                         alert('New')
                         code =404
-                        T4_table(id, T, path3[indic], path3[0],code)
+                        T4_table(id, T, ssact, path3[0],code)
                     }
                 }
             })
