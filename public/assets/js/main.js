@@ -1662,6 +1662,7 @@ $("#date_insert_portef").on('focusout', function () {
                     $('#CP_prog').val(ValAccountingFigures(response.CP_prog)).trigger('change'); // Remplir et déclencher l'événement change
                     $('#nom_journ').val(response.nom_journal).trigger('change'); // Remplir et déclencher l'événement change
                     $('#num_journ').val(response.num_journal).trigger('change'); // Remplir et déclencher l'événement change
+                    $('#add-wallet').text('Edite')
 
 
                     alert('Le programme existe déjà');
@@ -1780,8 +1781,7 @@ $("#add-prg").on('click', function () {
                 $('.next-handle svg').addClass('complet-icon')
                 $('.the-path').append(nexthop)
                 $('#progam-handle').append(prg2)
-                $('#confirm-holder').empty()
-                $('#confirm-holder').append('<i class="fas fa-wrench"></i>')
+                $(this).text('Modifier')
 
                 // Vérifie l'existence du programme lorsque le champ de programme perd le focus
                 $('#date_insert_sousProg').on('focusout', function () {
@@ -1818,7 +1818,7 @@ $("#add-prg").on('click', function () {
 
                                    $('#T4_AE_init').val(ValAccountingFigures(response.T4_AE_init)).trigger('change');
                                    $('#T4_CP_init').val(ValAccountingFigures(response.T4_CP_init)).trigger('change');
-
+                                   $('#add-prg').text('Modifier')
                                    alert('Le sous-programme existe déjà.');
                                }  else {
                                     // alert('Le programme n\'existe pas.');
@@ -2009,8 +2009,7 @@ $("#add-prg").on('click', function () {
                                 $('.next-handle svg').addClass('complet-icon')
                                 $('.the-path').append(nexthop)
                                 $('#progam-handle').append(prg3)
-                                $('#confirm-holder_sprog').empty()
-                                $('#confirm-holder_sprog').append('<i class="fas fa-wrench"></i>')
+                                $(this).text('Modifier')
                                 focus_()
 
 
@@ -2036,6 +2035,7 @@ $("#add-prg").on('click', function () {
                                                      $('#date_insert_action').val(response.date_insert_action).trigger('change'); // Remplir et déclencher l'événement change
                                                     $('#AE_act').val(ValAccountingFigures(response.AE_act)).trigger('change'); // Remplir et déclencher l'événement change
                                                     $('#CP_act').val(ValAccountingFigures(response.CP_act)).trigger('change'); // Remplir et déclencher l'événement change
+                                                    $('#add-prg3').text('Modifier')
                                                     alert('L`Action existe déjà');
 
                                                 }
@@ -2108,11 +2108,11 @@ $("#add-prg").on('click', function () {
                                                    }
                                                     path.push(numaction_year);
                                                     path3.push(num_act);
-                                                    $('#confirm-holder_act').empty()
-                                                    $('#confirm-holder_act').append('<i class="fas fa-wrench"></i>')
+                                                  /*  $('#confirm-holder_act').empty()
+                                                    $('#confirm-holder_act').append('<i class="fas fa-wrench"></i>')*/
+                                                    $(this).text('Modifier')
                                                     console.log('A path: ' + JSON.stringify(path));
-                                                    $('#confirm-holder_act').empty()
-                                                    $('#confirm-holder_act').append('<i class="fas fa-wrench"></i>')
+                                                    
                                                     // Création du formulaire pour la sous-action après l'ajout de l'action
                                                     var prg4 = `<div class="form-container" id="creati-act">
                                                            <form>
@@ -2168,6 +2168,7 @@ $("#add-prg").on('click', function () {
                                                                         $('#date_insert_sou_action').val(response.date_insert_sous_action).trigger('change'); // Remplir et déclencher l'événement change
                                                                        $('#AE_sous_act').val(ValAccountingFigures(response.AE_sous_act)).trigger('change'); // Remplir et déclencher l'événement change
                                                                        $('#CP_sous_act').val(ValAccountingFigures(response.CP_sous_act)).trigger('change'); // Remplir et déclencher l'événement change
+                                                                       $('#add-prg4').text('Modifier')
                                                                        alert('L`Action existe déjà');
 
                                                                    }
