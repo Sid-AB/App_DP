@@ -1484,7 +1484,7 @@ $(document).ready(function () {
                         $('#CP_portef').val(ValAccountingFigures(response.CP_portef)).trigger('change'); // Remplir et déclencher l'événement change
                         $('#nom_journ').val(response.nom_journal).trigger('change'); // Remplir et déclencher l'événement change
                         $('#num_journ').val(response.num_journal).trigger('change'); // Remplir et déclencher l'événement change
-
+                        $('#add-wallet').text('Modifier')
                         console.log(response.Date_portefeuille);
                         alert('Le portefeuille existe déjà');
 
@@ -1662,7 +1662,7 @@ $("#date_insert_portef").on('focusout', function () {
                     $('#CP_prog').val(ValAccountingFigures(response.CP_prog)).trigger('change'); // Remplir et déclencher l'événement change
                     $('#nom_journ').val(response.nom_journal).trigger('change'); // Remplir et déclencher l'événement change
                     $('#num_journ').val(response.num_journal).trigger('change'); // Remplir et déclencher l'événement change
-                    $('#add-wallet').text('Edite')
+                    $('#add-prg').text('Modifier')
 
 
                     alert('Le programme existe déjà');
@@ -1818,7 +1818,7 @@ $("#add-prg").on('click', function () {
 
                                    $('#T4_AE_init').val(ValAccountingFigures(response.T4_AE_init)).trigger('change');
                                    $('#T4_CP_init').val(ValAccountingFigures(response.T4_CP_init)).trigger('change');
-                                   $('#add-prg').text('Modifier')
+                                   $('#add-prg2').text('Modifier')
                                    alert('Le sous-programme existe déjà.');
                                }  else {
                                     // alert('Le programme n\'existe pas.');
