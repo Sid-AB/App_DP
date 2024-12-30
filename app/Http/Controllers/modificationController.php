@@ -98,12 +98,12 @@ class modificationController extends Controller
                             'nom_sous_operation'=>'',
                             'desc' => $values['desc'] ?? 'Description non fournie',
                             'intitule' => $values['intitule'] ?? 'Intitulé non fourni',
-                            'ae_notifie' => $values['ae_notifie'] ?? 0,
-                            'ae_reporte' => $values['ae_reporte'] ?? 0,
-                            'ae_engage' => $values['ae_engage'] ?? 0,
-                            'cp_notifie' => $values['cp_notifie'] ?? 0,
-                            'cp_reporte' => $values['cp_reporte'] ?? 0,
-                            'cp_consome' => $values['cp_consome'] ?? 0,
+                            'ae_notifie' => floatval(str_replace(',', '', $values['ae_notifie'])) ?? 0,
+                            'ae_reporte' => floatval(str_replace(',', '', $values['ae_reporte'])) ?? 0,
+                            'ae_engage' => floatval(str_replace(',', '', $values['ae_engage'])) ?? 0,
+                            'cp_notifie' => floatval(str_replace(',', '', $values['cp_notifie'])) ?? 0,
+                            'cp_reporte' => floatval(str_replace(',', '', $values['cp_reporte'])) ?? 0,
+                            'cp_consome' => floatval(str_replace(',', '', $values['cp_consome'])) ?? 0,
                             'date_insert_SOUSoperation' =>now(),
                             'code_t3'=>30000,
                             'code_operation'=> $code_operation,
@@ -125,12 +125,12 @@ class modificationController extends Controller
                         'CP_ouvert_dpia' => null,
                         'CP_atendu_dpia' => null,
             
-                        'AE_reporte_dpia' => $values['ae_reporte'] ?? $sousOperation->AE_reporte,
-                        'AE_notifie_dpia' =>  $values['ae_notifie'] ?? $sousOperation->AE_notifie,
-                        'AE_engage_dpia' => $values['ae_engage'] ?? $sousOperation->AE_engage,
-                        'CP_reporte_dpia' => $values['cp_reporte'] ?? $sousOperation->CP_reporte,
-                        'CP_notifie_dpia' => $values['cp_notifie'] ?? $sousOperation->CP_notifie,
-                        'CP_consome_dpia' => $values['cp_consome'] ?? $sousOperation->CP_consome,
+                        'AE_reporte_dpia' => floatval(str_replace(',', '', $values['ae_reporte'])) ?? $sousOperation->AE_reporte,
+                        'AE_notifie_dpia' =>  floatval(str_replace(',', '', $values['ae_notifie'])) ?? $sousOperation->AE_notifie,
+                        'AE_engage_dpia' => floatval(str_replace(',', '', $values['ae_engage'])) ?? $sousOperation->AE_engage,
+                        'CP_reporte_dpia' => floatval(str_replace(',', '', $values['cp_reporte'])) ?? $sousOperation->CP_reporte,
+                        'CP_notifie_dpia' => floatval(str_replace(',', '', $values['cp_notifie'])) ?? $sousOperation->CP_notifie,
+                        'CP_consome_dpia' => floatval(str_replace(',', '', $values['cp_consome'])) ?? $sousOperation->CP_consome,
                         'id_rp' => 1,
                         'id_ra' => 1,
                     ]);
@@ -141,12 +141,12 @@ class modificationController extends Controller
                             'nom_sous_operation' => '',
                             'desc' => $values['desc'] ?? 'Description non fournie',
                             'intitule' => $values['intitule'] ?? 'Intitulé non fourni',
-                            'ae_notifie' => $values['ae_notifie'] ?? 0,
-                            'ae_reporte' => $values['ae_reporte'] ?? 0,
-                            'ae_engage' => $values['ae_engage'] ?? 0,
-                            'cp_notifie' => $values['cp_notifie'] ?? 0,
-                            'cp_reporte' => $values['cp_reporte'] ?? 0,
-                            'cp_consome' => $values['cp_consome'] ?? 0,
+                            'ae_notifie' => floatval(str_replace(',', '', $values['ae_notifie'])) ?? 0,
+                            'ae_reporte' => floatval(str_replace(',', '', $values['ae_reporte'])) ?? 0,
+                            'ae_engage' => floatval(str_replace(',', '', $values['ae_engage'])) ?? 0,
+                            'cp_notifie' => floatval(str_replace(',', '', $values['cp_notifie'])) ?? 0,
+                            'cp_reporte' => floatval(str_replace(',', '', $values['cp_reporte'])) ?? 0,
+                            'cp_consome' => floatval(str_replace(',', '', $values['cp_consome'] ))?? 0,
                             'date_insert_SOUSoperation' => now(),
                             'code_t3' => 30000,
                             'code_operation' => $code_operation,
@@ -164,12 +164,12 @@ class modificationController extends Controller
                             'AE_atendu_dpia' => null,
                             'CP_ouvert_dpia' => null,
                             'CP_atendu_dpia' => null,
-                            'AE_reporte_dpia' => $values['ae_reporte'] ?? $sousOperation->ae_reporte,
-                            'AE_notifie_dpia' => $values['ae_notifie'] ?? $sousOperation->ae_notifie,
-                            'AE_engage_dpia' => $values['ae_engage'] ?? $sousOperation->ae_engage,
-                            'CP_reporte_dpia' => $values['cp_reporte'] ?? $sousOperation->cp_reporte,
-                            'CP_notifie_dpia' => $values['cp_notifie'] ?? $sousOperation->cp_notifie,
-                            'CP_consome_dpia' => $values['cp_consome'] ?? $sousOperation->cp_consome,
+                            'AE_reporte_dpia' => floatval(str_replace(',', '', $values['ae_reporte'])) ?? $sousOperation->ae_reporte,
+                            'AE_notifie_dpia' => floatval(str_replace(',', '', $values['ae_notifie'])) ?? $sousOperation->ae_notifie,
+                            'AE_engage_dpia' => floatval(str_replace(',', '', $values['ae_engage'])) ?? $sousOperation->ae_engage,
+                            'CP_reporte_dpia' => floatval(str_replace(',', '', $values['cp_reporte'])) ?? $sousOperation->cp_reporte,
+                            'CP_notifie_dpia' => floatval(str_replace(',', '', $values['cp_notifie'])) ?? $sousOperation->cp_notifie,
+                            'CP_consome_dpia' => floatval(str_replace(',', '', $values['cp_consome'])) ?? $sousOperation->cp_consome,
                             'id_rp' => 1,
                             'id_ra' => 1,
                         ]);
@@ -193,8 +193,8 @@ class modificationController extends Controller
                               'code_sous_operation' => $code,
                               'nom_sous_operation'=>'',
                               'dispo' => $values['dispo'] ?? 'Dispositif non fournie',
-                              'AE_sous_operation' => $values['ae'] ?? 0,
-                              'CP_sous_operation' => $values['cp'] ?? 0,
+                              'AE_sous_operation' => floatval(str_replace(',', '', $values['ae'])) ?? 0,
+                              'CP_sous_operation' => floatval(str_replace(',', '', $values['cp'])) ?? 0,
                               'date_insert_SOUSoperation' =>now(),
                               'code_t4'=>40000,
                               'code_operation'=> $code_operation,
@@ -208,8 +208,8 @@ class modificationController extends Controller
                           'date_creation_dpia' => $portefeuille->Date_portefeuille,
                           'date_modification_dpia' => now(),
               
-                          'AE_dpia_nv' => $values['ae'] ?? $sousOperation->AE_sous_operation, //si existe ok sinn aucune modif (ae_sous_op sera utilisé)
-                          'CP_dpia_nv' => $values['cp'] ?? $sousOperation->CP_sous_operation,
+                          'AE_dpia_nv' => floatval(str_replace(',', '', $values['ae'])) ?? $sousOperation->AE_sous_operation, //si existe ok sinn aucune modif (ae_sous_op sera utilisé)
+                          'CP_dpia_nv' => floatval(str_replace(',', '', $values['cp'])) ?? $sousOperation->CP_sous_operation,
               
                           'AE_ouvert_dpia' => null,
                           'AE_atendu_dpia' => null,
@@ -261,8 +261,8 @@ class modificationController extends Controller
 
         //update dans sous operation
         $sousOperation->update([
-            'AE_sous_operation' => $values['ae'] ?? $sousOperation->AE_sous_operation, //si existe ok sinn aucune modif (ae_sous_op sera utilisé)
-            'CP_sous_operation' => $values['cp'] ?? $sousOperation->CP_sous_operation,
+            'AE_sous_operation' => floatval(str_replace(',', '', $values['ae'])) ?? $sousOperation->AE_sous_operation, //si existe ok sinn aucune modif (ae_sous_op sera utilisé)
+            'CP_sous_operation' => floatval(str_replace(',', '', $values['cp'])) ?? $sousOperation->CP_sous_operation,
             'date_update_SOUSoperation' => now(),
         ]);
         //dd($sousOperation);
@@ -271,8 +271,8 @@ class modificationController extends Controller
             'code_sous_operation' =>  $sousOperation->code_sous_operation,
             'motif_dpia' => 'Modification T1',
             'date_creation_dpia' => $portefeuille ? $portefeuille->Date_portefeuille : null,
-            'AE_dpia_nv' => $values['ae'] ?? $sousOperation->AE_sous_operation, //si existe ok sinn aucune modif (ae_sous_op sera utilisé)
-            'CP_dpia_nv' => $values['cp'] ?? $sousOperation->CP_sous_operation,
+            'AE_dpia_nv' => floatval(str_replace(',', '', $values['ae'])) ?? $sousOperation->AE_sous_operation, //si existe ok sinn aucune modif (ae_sous_op sera utilisé)
+            'CP_dpia_nv' => floatval(str_replace(',', '', $values['cp'])) ?? $sousOperation->CP_sous_operation,
             'date_modification_dpia' => now(),
             'AE_ouvert_dpia' => null,
             'AE_atendu_dpia' => null,
@@ -300,10 +300,10 @@ class modificationController extends Controller
       $portefeuille = Portefeuille::where('num_portefeuil', $numPortefeuille)->first();
 
         $sousOperation->update([
-            'AE_ouvert' => $values['ae_ouvert'] ?? $sousOperation->AE_ouvert,
-            'AE_atendu' => $values['ae_atendu'] ?? $sousOperation->AE_atendu,
-            'CP_ouvert' => $values['cp_ouvert'] ?? $sousOperation->CP_ouvert,
-            'CP_atendu' => $values['cp_attendu'] ?? $sousOperation->CP_atendu,
+            'AE_ouvert' => floatval(str_replace(',', '', $values['ae_ouvert'])) ?? $sousOperation->AE_ouvert,
+            'AE_atendu' => floatval(str_replace(',', '', $values['ae_atendu'])) ?? $sousOperation->AE_atendu,
+            'CP_ouvert' => floatval(str_replace(',', '', $values['cp_ouvert'])) ?? $sousOperation->CP_ouvert,
+            'CP_atendu' => floatval(str_replace(',', '', $values['cp_attendu'])) ?? $sousOperation->CP_atendu,
             'date_update_SOUSoperation' => now(),
         ]);
 
@@ -317,10 +317,10 @@ class modificationController extends Controller
             'AE_dpia_nv' => null,
             'CP_dpia_nv' => null,
 
-            'AE_ouvert_dpia' => $values['ae_ouvert'] ?? $sousOperation->AE_ouvert,
-            'AE_atendu_dpia' => $values['ae_atendu'] ?? $sousOperation->AE_atendu,
-            'CP_ouvert_dpia' => $values['cp_ouvert'] ?? $sousOperation->CP_ouvert,
-            'CP_atendu_dpia' => $values['cp_atendu'] ?? $sousOperation->CP_atendu,
+            'AE_ouvert_dpia' => floatval(str_replace(',', '', $values['ae_ouvert'])) ?? $sousOperation->AE_ouvert,
+            'AE_atendu_dpia' => floatval(str_replace(',', '', $values['ae_atendu'])) ?? $sousOperation->AE_atendu,
+            'CP_ouvert_dpia' => floatval(str_replace(',', '', $values['cp_ouvert'])) ?? $sousOperation->CP_ouvert,
+            'CP_atendu_dpia' => floatval(str_replace(',', '', $values['cp_atendu'])) ?? $sousOperation->CP_atendu,
 
             'AE_reporte_dpia' => null,
             'AE_notifie_dpia' => null,
@@ -345,12 +345,12 @@ class modificationController extends Controller
 
 
         $sousOperation->update([
-            'AE_reporte' => $values['ae_reporte'] ?? $sousOperation->AE_reporte,
-            'CP_reporte' => $values['cp_reporte'] ?? $sousOperation->CP_reporte,
-            'AE_notifie' => $values['ae_notifie'] ?? $sousOperation->AE_notifie,
-            'CP_notifie' => $values['cp_notifie'] ?? $sousOperation->CP_notifie,
-            'AE_engage' => $values['ae_engage'] ?? $sousOperation->AE_engage,
-            'CP_consome' => $values['cp_consome'] ?? $sousOperation->CP_consome,
+            'AE_reporte' => floatval(str_replace(',', '', $values['ae_reporte'])) ?? $sousOperation->AE_reporte,
+            'CP_reporte' => floatval(str_replace(',', '', $values['cp_reporte'])) ?? $sousOperation->CP_reporte,
+            'AE_notifie' => floatval(str_replace(',', '', $values['ae_notifie'])) ?? $sousOperation->AE_notifie,
+            'CP_notifie' => floatval(str_replace(',', '', $values['cp_notifie'])) ?? $sousOperation->CP_notifie,
+            'AE_engage' => floatval(str_replace(',', '', $values['ae_engage'])) ?? $sousOperation->AE_engage,
+            'CP_consome' => floatval(str_replace(',', '', $values['cp_consome'])) ?? $sousOperation->CP_consome,
             'date_update_SOUSoperation' => now(),
         ]);
 
@@ -369,12 +369,12 @@ class modificationController extends Controller
             'CP_ouvert_dpia' => null,
             'CP_atendu_dpia' => null,
 
-            'AE_reporte_dpia' => $values['ae_reporte'] ?? $sousOperation->AE_reporte,
-            'AE_notifie_dpia' =>  $values['ae_notifie'] ?? $sousOperation->AE_notifie,
-            'AE_engage_dpia' => $values['ae_engage'] ?? $sousOperation->AE_engage,
-            'CP_reporte_dpia' => $values['cp_reporte'] ?? $sousOperation->CP_reporte,
-            'CP_notifie_dpia' => $values['cp_notifie'] ?? $sousOperation->CP_notifie,
-            'CP_consome_dpia' => $values['cp_consome'] ?? $sousOperation->CP_consome,
+            'AE_reporte_dpia' => floatval(str_replace(',', '', $values['ae_reporte'])) ?? $sousOperation->AE_reporte,
+            'AE_notifie_dpia' =>  floatval(str_replace(',', '', $values['ae_notifie'])) ?? $sousOperation->AE_notifie,
+            'AE_engage_dpia' => floatval(str_replace(',', '', $values['ae_engage'])) ?? $sousOperation->AE_engage,
+            'CP_reporte_dpia' => floatval(str_replace(',', '', $values['cp_reporte'])) ?? $sousOperation->CP_reporte,
+            'CP_notifie_dpia' => floatval(str_replace(',', '', $values['cp_notifie'])) ?? $sousOperation->CP_notifie,
+            'CP_consome_dpia' => floatval(str_replace(',', '', $values['cp_consome'])) ?? $sousOperation->CP_consome,
             'id_rp' => 1,
             'id_ra' => 1,
         ]);
@@ -390,8 +390,8 @@ class modificationController extends Controller
         $portefeuille = Portefeuille::where('num_portefeuil', $numPortefeuille)->first();
 
         $sousOperation->update([
-            'AE_sous_operation' => $values['ae'] ?? $sousOperation->AE_sous_operation,
-            'CP_sous_operation' => $values['cp'] ?? $sousOperation->CP_sous_operation,
+            'AE_sous_operation' => floatval(str_replace(',', '', $values['ae'])) ?? $sousOperation->AE_sous_operation,
+            'CP_sous_operation' => floatval(str_replace(',', '', $values['cp'])) ?? $sousOperation->CP_sous_operation,
             'date_update_SOUSoperation' => now(),
         ]);
 
@@ -402,8 +402,8 @@ class modificationController extends Controller
             'date_creation_dpia' => $portefeuille->Date_portefeuille,
             'date_modification_dpia' =>now(),
 
-            'AE_dpia_nv' =>$values['ae'] ?? $sousOperation->AE_sous_operation,
-            'CP_dpia_nv' =>$values['cp'] ?? $sousOperation->CP_sous_operation,
+            'AE_dpia_nv' =>floatval(str_replace(',', '', $values['ae'])) ?? $sousOperation->AE_sous_operation,
+            'CP_dpia_nv' =>floatval(str_replace(',', '', $values['cp'])) ?? $sousOperation->CP_sous_operation,
 
             'AE_ouvert_dpia' => null,
             'AE_atendu_dpia' => null,

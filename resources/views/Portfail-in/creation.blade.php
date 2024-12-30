@@ -63,11 +63,11 @@
                     </div>
                     <div class="form-group">
                         <label for="AE_portef">AE pour Portefeuille</label>
-                        <input type="number" class="form-control" id="AE_portef" placeholder="Entrer AE Portefeuille">
+                        <input type="text" class="form-control" id="AE_portef" placeholder="Entrer AE Portefeuille" oninput="formatAccountingFigures(this)">
                     </div>
                     <div class="form-group">
                         <label for="CP_portef">CP pour Portefeuille</label>
-                        <input type="number" class="form-control" id="CP_portef" placeholder="Entrer CP Portefeuille">
+                        <input type="text" class="form-control" id="CP_portef" placeholder="Entrer CP Portefeuille" oninput="formatAccountingFigures(this)">
                     </div>
                     <div class="form-group" id="file_holder">
                         <!--label for="inputFile">Journal scanner</label-->
@@ -106,11 +106,11 @@
         </div>
         <div class="form-group">
           <label for="inputDate">AE pour Programme</label>
-          <input type="number" class="form-control" id="AE_prog" placeholder="Entrer AE Programme">
+          <input type="text" class="form-control" id="AE_prog" placeholder="Entrer AE Programme" oninput="formatAccountingFigures(this)">
         </div>
         <div class="form-group">
           <label for="inputDate">CP pour Programme</label>
-          <input type="number" class="form-control" id="CP_prog" placeholder="Entrer CP Programme">
+          <input type="text" class="form-control" id="CP_prog" placeholder="Entrer CP Programme" oninput="formatAccountingFigures(this)">
         </div>
         </form>
 

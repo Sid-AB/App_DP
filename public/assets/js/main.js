@@ -10,6 +10,38 @@ var  dataupdate=new Array();
  * this function for adding button et makalah -_- ;
  */
 
+function formatAccountingFigures(input) {
+    // Remove non-numeric characters except for "."
+    let value = input.value.replace(/[^0-9.]/g, '');
+
+    // Split the input into integer and decimal parts
+    let parts = value.split('.');
+    let integerPart = parts[0];
+    let decimalPart = parts[1] ? '.' + parts[1] : '';
+
+    // Add commas to the integer part
+    integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+    // Combine integer and decimal parts
+    input.value = integerPart + decimalPart;
+}
+function ValAccountingFigures(inputs) {
+    if (isNaN(inputs)) {
+        return ''; // Return an empty string for invalid numbers
+    }
+
+    // Convert number to a fixed decimal string (optional)
+    let formattedNumber = inputs.toFixed(2); // Keeps two decimal places
+
+    // Split the number into integer and decimal parts
+    let [integerPart, decimalPart] = formattedNumber.split('.');
+
+    // Add commas to the integer part
+    integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+    // Combine integer and decimal parts
+    return integerPart + '.' + decimalPart;
+}
 function only_def(id)
 {
    var localverb;
@@ -114,8 +146,8 @@ function add_newOPs_T1(id, descr, value, key,) {
     var row = '<tr id="ref' + id + '">' +
         '<td class="code" >' + id + '</td>' +
         '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + descr + '</p></td>' +
-        '<td class="editable" id="AE_T1">' + value + '</td>' +
-        '<td class="editable" id="CP_T1">' + 180 + '</td>' +
+        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T1">' + value + '</td>' +
+        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T1">' + 180 + '</td>' +
         '</tr>';
 
     $('#' + key).after(row);
@@ -125,19 +157,19 @@ function add_newOPs_T1(id, descr, value, key,) {
 }
 function add_newOPs_T2(id, descr, value, key) {
    var champ='<div><label>AE Overture</label>'+
-   '<input type="number" class="form-control" id="add_AE_Over">'+
+   '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="add_AE_Over">'+
    '<label>AE Attendu</label>'+
-   '<input type="number" class="form-control" id="add_AE_att">'+
+   '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="add_AE_att">'+
    '<label>AE Total</label>'+
-   '<input type="number" class="form-control" id="some_AE" disabled>'+
+   '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="some_AE" disabled>'+
    '</div>'+
    '<div>'+
    '<label>CP Overture</label>'+
-   '<input type="number" class="form-control" id="add_CP_Over">'+
+   '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="add_CP_Over">'+
    '<label>CP Attendu</label>'+
-   '<input type="number" class="form-control" id="add_CP_att">'+
+   '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="add_CP_att">'+
    '<label>CP Toral</label>'+
-   '<input type="number" class="form-control" id="some_CP" disabled>'+
+   '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="some_CP" disabled>'+
    '</div>';
    $('#Tport-vals').append(champ);
    var someae=0;
@@ -184,10 +216,10 @@ function add_newOPs_T2(id, descr, value, key) {
                var row = '<tr class="ref'+id+'" id="ref' + id + '">' +
                '<td class="code">' + id + '</td>' +
                '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"> <p>' + descr + '</p> </td>' +
-               '<td class="editable" id="AE_Over">' + value + '</td>' +
-               '<td class="editable" id="CP_Over">' + 180 + '</td>' +
-               '<td class="editable" id="AE_att">' + value + '</td>' +
-               '<td class="editable" id="CP_att">' + 180 + '</td>' +
+               '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_Over">' + value + '</td>' +
+               '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_Over">' + 180 + '</td>' +
+               '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_att">' + value + '</td>' +
+               '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_att">' + 180 + '</td>' +
                '<td  id="AE_TT" diseabled>' + some + '</td>' +
                '<td  id="CP_TT" diseabled>' + 360 + '</td>' +
                '</tr>';
@@ -223,19 +255,19 @@ function add_newOPs_T3(id, value, key,) {
     '</div>'+
     '<div class="T3-ops_inpt_handle">' +
     '<div><label>AE Reportter</label>'+
-             '<input type="number" class="form-control" id="add_AE_rpor">'+
+             '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="add_AE_rpor">'+
              '<label>AE Notifier</label>'+
-             '<input type="number" class="form-control" id="add_AE_not">'+
+             '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="add_AE_not">'+
              '<label>AE Engager</label>'+
-             '<input type="number" class="form-control" id="add_AE_enga">'+
+             '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="add_AE_enga">'+
              '</div>'+
              '<div>'+
              '<label>CP Reporter</label>'+
-             '<input type="number" class="form-control" id="add_CP_rpor">'+
+             '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="add_CP_rpor">'+
              '<label>CP Notifier</label>'+
-             '<input type="number" class="form-control" id="add_CP_not">'+
+             '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="add_CP_not">'+
              '<label>CP Consumer</label>'+
-             '<input type="number" class="form-control" id="add_CP_consom">'+
+             '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="add_CP_consom">'+
              '</div>'+
    '</div>'+
 '</form>'+
@@ -288,12 +320,12 @@ function add_newOPs_T3(id, value, key,) {
                    '<td> - </td>' +
                    '<td>' + sopdata_add.descrp + '</td>' +
                    '<td>' + sopdata_add.intituel + '</td>' +
-                   '<td class="editable" id="AE_rpor">' + sopdata_add.AE_rpor + '</td>' +
-                   '<td class="editable" id="AE_not">' + sopdata_add.AE_not + '</td>' +
-                   '<td class="editable" id="AE_enga">' + sopdata_add.AE_enga + '</td>' +
-                   '<td class="editable" id="CP_rpor">' + sopdata_add.CP_rpor + '</td>' +
-                   '<td class="editable" id="CP_not">' + sopdata_add.CP_not + '</td>' +
-                   '<td class="editable" id="CP_consom">' + sopdata_add.CP_consom + '</td>' +
+                   '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' + sopdata_add.AE_rpor + '</td>' +
+                   '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' + sopdata_add.AE_not + '</td>' +
+                   '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' + sopdata_add.AE_enga + '</td>' +
+                   '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_rpor">' + sopdata_add.CP_rpor + '</td>' +
+                   '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_not">' + sopdata_add.CP_not + '</td>' +
+                   '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' + sopdata_add.CP_consom + '</td>' +
                    '</tr>';
                   
                $('#' + key).after(row);
@@ -342,11 +374,11 @@ function add_newOPs_T4(id, value, key,) {
 
            '<div class="form-group" id="Tport-vals">'+
              '<div><label>AE</label>'+
-            '<input type="number" class="form-control" id="add_AE_T4">'+
+            '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="add_AE_T4">'+
             '</div>'+
             '<div>'+
             '<label>CP </label>'+
-           '<input type="number" class="form-control" id="add_CP_T4">'+
+           '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="add_CP_T4">'+
            '</div>'+
            '</div>'+
 
@@ -451,7 +483,7 @@ function Update_dpia(T,iupdate)
             var codesoup=clickedRow.attr('id').split('ref')[1];
             console.log('sis -'+JSON.stringify(codesoup))
             // Create an input element and set its value
-            let input = $('<input type="number" step="0.01" class="form-control" min="0"/>').val(currentText);
+            let input = $('<input type="text" oninput="formatAccountingFigures(this)" step="0.01" class="form-control" min="0"/>').val(currentText);
             cell.html(input);  // Replace the cell content with the input
 
             input.focus();
@@ -922,7 +954,7 @@ function Edit(tid, T) {
             var currentText = cell.text();  // Get current text
             console.log('odl ' + code.text())
             // Create an input element and set its value
-            let input = $('<input type="number" step="0.01" class="form-control"/>').val(currentText);
+            let input = $('<input type="text" oninput="formatAccountingFigures(this)" step="0.01" class="form-control"/>').val(currentText);
             cell.html(input);  // Replace the cell content with the input
 
             input.focus();  // Focus on the input immediately
@@ -1448,8 +1480,8 @@ $(document).ready(function () {
 
                         // Remplir les champs du formulaire avec les données récupérées
                         $('#date_crt_portf').val(response.Date_portefeuille).trigger('change'); // Remplir et déclencher l'événement change
-                        $('#AE_portef').val(response.AE_portef).trigger('change'); // Remplir et déclencher l'événement change
-                        $('#CP_portef').val(response.CP_portef).trigger('change'); // Remplir et déclencher l'événement change
+                        $('#AE_portef').val(ValAccountingFigures(response.AE_portef)).trigger('change'); // Remplir et déclencher l'événement change
+                        $('#CP_portef').val(ValAccountingFigures(response.CP_portef)).trigger('change'); // Remplir et déclencher l'événement change
                         $('#nom_journ').val(response.nom_journal).trigger('change'); // Remplir et déclencher l'événement change
                         $('#num_journ').val(response.num_journal).trigger('change'); // Remplir et déclencher l'événement change
 
@@ -1626,8 +1658,8 @@ $("#date_insert_portef").on('focusout', function () {
                     console.log('response.CP_prog' + response.CP_prog)
                     $('#date_insert_portef').val(response.date_insert_portef).trigger('change');
                     $('#nom_prog').val(response.nom_prog).trigger('change'); // Remplir et déclencher l'événement change
-                    $('#AE_prog').val(response.AE_prog).trigger('change'); // Remplir et déclencher l'événement change
-                    $('#CP_prog').val(response.CP_prog).trigger('change'); // Remplir et déclencher l'événement change
+                    $('#AE_prog').val(ValAccountingFigures(response.AE_prog)).trigger('change'); // Remplir et déclencher l'événement change
+                    $('#CP_prog').val(ValAccountingFigures(response.CP_prog)).trigger('change'); // Remplir et déclencher l'événement change
                     $('#nom_journ').val(response.nom_journal).trigger('change'); // Remplir et déclencher l'événement change
                     $('#num_journ').val(response.num_journal).trigger('change'); // Remplir et déclencher l'événement change
 
@@ -1679,34 +1711,34 @@ $("#add-prg").on('click', function () {
         '</div>' +
         '<div class="form-group">' +
         '<label for="input1">AE pour Sous Programme</label>' +
-        '<input type="number" class="form-control" id="AE_sous_prog"   placeholder="Entrer AE Sous Programme">' +
+        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="AE_sous_prog"   placeholder="Entrer AE Sous Programme">' +
         '</div>' +
         '<div class="form-group">' +
         '<label for="input1">CP pour Sous Programme</label>' +
-        '<input type="number" class="form-control" id="CP_sous_prog"  placeholder=" Entrer CP Sous Programme">' +
+        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="CP_sous_prog"  placeholder=" Entrer CP Sous Programme">' +
         '</div>' +
         '<div class="init_holder">'+
         '<div class="T_init_port">'+
         '<div class="ports_init">'+
         '<div class="form-group">' +
         '<label for="input1">T1 pour Sous Programme</label>' +
-        '<input type="number" class="form-control" id="T1_AE_init"   placeholder="Entrer T1 AE Sous Programme">' +
-        '<input type="number" class="form-control" id="T1_CP_init"   placeholder="Entrer T1 CP Sous Programme">' +
+        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T1_AE_init"   placeholder="Entrer T1 AE Sous Programme">' +
+        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T1_CP_init"   placeholder="Entrer T1 CP Sous Programme">' +
         '</div>' +
         '<div class="form-group">' +
         '<label for="input1">T2 pour Sous Programme</label>' +
-        '<input type="number" class="form-control" id="T2_AE_init"   placeholder="Entrer T2 AE Sous Programme">' +
-        '<input type="number" class="form-control" id="T2_CP_init"   placeholder="Entrer T2 CP Sous Programme">' +
+        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T2_AE_init"   placeholder="Entrer T2 AE Sous Programme">' +
+        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T2_CP_init"   placeholder="Entrer T2 CP Sous Programme">' +
         '</div>' +
         '<div class="form-group">' +
         '<label for="input1">T3 pour Sous Programme</label>' +
-        '<input type="number" class="form-control" id="T3_AE_init"   placeholder="Entrer T3 AE Sous Programme">' +
-        '<input type="number" class="form-control" id="T3_CP_init"   placeholder="Entrer T3 CP Sous Programme">' +
+        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T3_AE_init"   placeholder="Entrer T3 AE Sous Programme">' +
+        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T3_CP_init"   placeholder="Entrer T3 CP Sous Programme">' +
         '</div>' +
         '<div class="form-group">' +
         '<label for="input1">T4 pour Sous Programme</label>' +
-        '<input type="number" class="form-control" id="T4_AE_init"   placeholder="Entrer T4 AE Sous Programme">' +
-        '<input type="number" class="form-control" id="T4_CP_init"   placeholder="Entrer T4 CP Sous Programme">' +
+        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T4_AE_init"   placeholder="Entrer T4 AE Sous Programme">' +
+        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T4_CP_init"   placeholder="Entrer T4 CP Sous Programme">' +
         '</div>' +
         '</div>'+
         '</div>'+
@@ -1772,20 +1804,20 @@ $("#add-prg").on('click', function () {
 
                                    // Remplir les champs du formulaire avec les données récupérées
                                    $('#nom_sous_prog').val(response.nom_sous_prog).trigger('change');
-                                   $('#AE_sous_prog').val(response.AE_sous_prog).trigger('change');
-                                   $('#CP_sous_prog').val(response.CP_sous_prog).trigger('change');
+                                   $('#AE_sous_prog').val(ValAccountingFigures(response.AE_sous_prog))  .trigger('change');
+                                   $('#CP_sous_prog').val(ValAccountingFigures(response.CP_sous_prog)).trigger('change');
 
-                                   $('#T1_AE_init').val(response.T1_AE_init).trigger('change');
-                                   $('#T1_CP_init').val(response.T1_CP_init).trigger('change');
+                                   $('#T1_AE_init').val(ValAccountingFigures(response.T1_AE_init)).trigger('change');
+                                   $('#T1_CP_init').val(ValAccountingFigures(response.T1_CP_init)).trigger('change');
 
-                                   $('#T2_AE_init').val(response.T2_AE_init).trigger('change');
-                                   $('#T2_CP_init').val(response.T2_CP_init).trigger('change');
+                                   $('#T2_AE_init').val(ValAccountingFigures(response.T2_AE_init)).trigger('change');
+                                   $('#T2_CP_init').val(ValAccountingFigures(response.T2_CP_init)).trigger('change');
 
-                                   $('#T3_AE_init').val(response.T3_AE_init).trigger('change');
-                                   $('#T3_CP_init').val(response.T3_CP_init).trigger('change');
+                                   $('#T3_AE_init').val(ValAccountingFigures(response.T3_AE_init)).trigger('change');
+                                   $('#T3_CP_init').val(ValAccountingFigures(response.T3_CP_init)).trigger('change');
 
-                                   $('#T4_AE_init').val(response.T4_AE_init).trigger('change');
-                                   $('#T4_CP_init').val(response.T4_CP_init).trigger('change');
+                                   $('#T4_AE_init').val(ValAccountingFigures(response.T4_AE_init)).trigger('change');
+                                   $('#T4_CP_init').val(ValAccountingFigures(response.T4_CP_init)).trigger('change');
 
                                    alert('Le sous-programme existe déjà.');
                                }  else {
@@ -1846,34 +1878,34 @@ $("#add-prg").on('click', function () {
                         '</div>' +
                         '<div class="form-group" id="ElAE_act">' +
                         '<label for="input1">AE pour Action</label>' +
-                        '<input type="number" class="form-control" id="AE_act" placeholder="Entrer AE Action">' +
+                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="AE_act" placeholder="Entrer AE Action">' +
                         '</div>' +
                         '<div class="form-group" id="ElCP_act">' +
                         '<label for="input1">CP pour Action</label>' +
-                        '<input type="number" class="form-control" id="CP_act" placeholder="Entrer CP Action">' +
+                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="CP_act" placeholder="Entrer CP Action">' +
                         '</div>' +
                         '<div class="init_holder">'+
                         '<div class="T_init_port">'+
                         '<div class="ports_init">'+
                         '<div class="form-group">' +
                         '<label for="input1">T1 pour Sous Programme</label>' +
-                        '<input type="number" class="form-control" id="T1_AE_init"   placeholder="Entrer T1 AE Sous Programme">' +
-                        '<input type="number" class="form-control" id="T1_CP_init"   placeholder="Entrer T1 CP Sous Programme">' +
+                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T1_AE_init_AC"   placeholder="Entrer T1 AE Sous Programme">' +
+                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T1_CP_init_AC"   placeholder="Entrer T1 CP Sous Programme">' +
                         '</div>' +
                         '<div class="form-group">' +
                         '<label for="input1">T2 pour Sous Programme</label>' +
-                        '<input type="number" class="form-control" id="T2_AE_init"   placeholder="Entrer T2 AE Sous Programme">' +
-                        '<input type="number" class="form-control" id="T2_CP_init"   placeholder="Entrer T2 CP Sous Programme">' +
+                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T2_AE_init_AC"   placeholder="Entrer T2 AE Sous Programme">' +
+                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T2_CP_init_AC"   placeholder="Entrer T2 CP Sous Programme">' +
                         '</div>' +
                         '<div class="form-group">' +
                         '<label for="input1">T3 pour Sous Programme</label>' +
-                        '<input type="number" class="form-control" id="T3_AE_init"   placeholder="Entrer T3 AE Sous Programme">' +
-                        '<input type="number" class="form-control" id="T3_CP_init"   placeholder="Entrer T3 CP Sous Programme">' +
+                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T3_AE_init_AC"   placeholder="Entrer T3 AE Sous Programme">' +
+                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T3_CP_init_AC"   placeholder="Entrer T3 CP Sous Programme">' +
                         '</div>' +
                         '<div class="form-group">' +
                         '<label for="input1">T4 pour Sous Programme</label>' +
-                        '<input type="number" class="form-control" id="T4_AE_init"   placeholder="Entrer T4 AE Sous Programme">' +
-                        '<input type="number" class="form-control" id="T4_CP_init"   placeholder="Entrer T4 CP Sous Programme">' +
+                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T4_AE_init_AC"   placeholder="Entrer T4 AE Sous Programme">' +
+                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T4_CP_init_AC"   placeholder="Entrer T4 CP Sous Programme">' +
                         '</div>' +
                         '</div>'+
                         '</div>'+
@@ -2002,8 +2034,8 @@ $("#add-prg").on('click', function () {
                                                 if (response.exists) {
                                                     $('#nom_act').val(response.nom_action).trigger('change'); // Remplir et déclencher l'événement change
                                                      $('#date_insert_action').val(response.date_insert_action).trigger('change'); // Remplir et déclencher l'événement change
-                                                    $('#AE_act').val(response.AE_act).trigger('change'); // Remplir et déclencher l'événement change
-                                                    $('#CP_act').val(response.CP_act).trigger('change'); // Remplir et déclencher l'événement change
+                                                    $('#AE_act').val(ValAccountingFigures(response.AE_act)).trigger('change'); // Remplir et déclencher l'événement change
+                                                    $('#CP_act').val(ValAccountingFigures(response.CP_act)).trigger('change'); // Remplir et déclencher l'événement change
                                                     alert('L`Action existe déjà');
 
                                                 }
@@ -2098,11 +2130,11 @@ $("#add-prg").on('click', function () {
                                                             </div>
                                                                <div class="form-group">
                                                                 <label for="AE_sous_act">AE pour Sous Action</label>
-                                                                <input type="number" class="form-control" id="AE_sous_act" placeholder="Entrer AE Sous Action">
+                                                                <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="AE_sous_act" placeholder="Entrer AE Sous Action">
                                                             </div>
                                                             <div class="form-group">
                                                               <label for="CP_sous_act">CP pour Sous Action</label>
-                                                            <input type="number" class="form-control" id="CP_sous_act" placeholder="Entrer CP Sous Action">
+                                                            <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="CP_sous_act" placeholder="Entrer CP Sous Action">
                                                                </div>
 
                                                                </form>
@@ -2134,8 +2166,8 @@ $("#add-prg").on('click', function () {
                                                                    if (response.exists) {
                                                                        $('#nom_sous_act').val(response.nom_sous_action).trigger('change'); // Remplir et déclencher l'événement change
                                                                         $('#date_insert_sou_action').val(response.date_insert_sous_action).trigger('change'); // Remplir et déclencher l'événement change
-                                                                       $('#AE_sous_act').val(response.AE_sous_act).trigger('change'); // Remplir et déclencher l'événement change
-                                                                       $('#CP_sous_act').val(response.CP_sous_act).trigger('change'); // Remplir et déclencher l'événement change
+                                                                       $('#AE_sous_act').val(ValAccountingFigures(response.AE_sous_act)).trigger('change'); // Remplir et déclencher l'événement change
+                                                                       $('#CP_sous_act').val(ValAccountingFigures(response.CP_sous_act)).trigger('change'); // Remplir et déclencher l'événement change
                                                                        alert('L`Action existe déjà');
 
                                                                    }
@@ -2211,17 +2243,17 @@ $("#add-prg").on('click', function () {
                                         var AE_act = $('#AE_act').val()
                                         var CP_act = $('#CP_act').val()
                                         var dat_inst = $('#date_insert_action').val();
-                                        var T1_AE_init = $('#T1_AE_init').val()
-                                        var T1_CP_init = $('#T1_CP_init').val()
+                                        var T1_AE_init = $('#T1_AE_init_AC').val()
+                                        var T1_CP_init = $('#T1_CP_init_AC').val()
                     
-                                        var T2_AE_init = $('#T2_AE_init').val()
-                                        var T2_CP_init = $('#T2_CP_init').val()
+                                        var T2_AE_init = $('#T2_AE_init_AC').val()
+                                        var T2_CP_init = $('#T2_CP_init_AC').val()
                     
-                                        var T3_AE_init = $('#T3_AE_init').val()
-                                        var T3_CP_init = $('#T3_CP_init').val()
+                                        var T3_AE_init = $('#T3_AE_init_AC').val()
+                                        var T3_CP_init = $('#T3_CP_init_AC').val()
                     
-                                        var T4_AE_init = $('#T4_AE_init').val()
-                                        var T4_CP_init = $('#T4_CP_init').val()
+                                        var T4_AE_init = $('#T4_AE_init_AC').val()
+                                        var T4_CP_init = $('#T4_CP_init_AC').val()
                     
                                         var id_sou_prog = path[2];
                                         var numaction_year = id_sou_prog +'-'+num_act ;
@@ -2231,20 +2263,20 @@ $("#add-prg").on('click', function () {
                                             AE_act: AE_act,
                                             CP_act: CP_act,
 
-                                            T1_AE_init: T1_AE_init,
-                                            T1_CP_init: T1_CP_init,
+                                            T1_AE_init_AC: T1_AE_init,
+                                            T1_CP_init_AC: T1_CP_init,
                                              code_t1: 10000,
 
-                                            T2_AE_init: T2_AE_init,
-                                            T2_CP_init: T2_CP_init,
+                                            T2_AE_init_AC: T2_AE_init,
+                                            T2_CP_init_AC: T2_CP_init,
                                             code_t2: 20000,
 
-                                            T3_AE_init: T3_AE_init,
-                                            T3_CP_init: T3_CP_init,
+                                            T3_AE_init_AC: T3_AE_init,
+                                            T3_CP_init_AC: T3_CP_init,
                                             code_t3: 30000,
 
-                                            T4_AE_init: T4_AE_init,
-                                            T4_CP_init: T4_CP_init,
+                                            T4_AE_init_AC: T4_AE_init,
+                                            T4_CP_init_AC: T4_CP_init,
                                             code_t4: 40000,
 
                                             date_insert_action: dat_inst,
@@ -2383,8 +2415,8 @@ function T1_table(id, T, id_s_act, port,code) {
             let row = '<tr class="ref'+key+'" id="ref' + key + '">' +
                 '<td scope="row" class="code" >' + key + '</td>' +
                 '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
-                '<td class="editable" id="AE_T1">' + 0 + '</td>' +
-                '<td class="editable" id="CP_T1">' + 0 + '</td>' +
+                '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T1">' + 0 + '</td>' +
+                '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T1">' + 0 + '</td>' +
                 '</tr>';
                 if(Object.keys(data_T_port).length > 0 ){
             if (data_T_port.group.length > 0 && data_T_port.group.length > ig) {
@@ -2393,8 +2425,8 @@ function T1_table(id, T, id_s_act, port,code) {
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.group[ig].code + '">' +
                         '<td scope="row" class="code" >' + key + '</td>' +
                         '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
-                        '<td class="editable" id="AE_T1">' + data_T_port.group[ig].values.ae_grpop + '</td>' +
-                        '<td class="editable" id="CP_T1">' + data_T_port.group[ig].values.cp_grpop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T1">' + data_T_port.group[ig].values.ae_grpop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T1">' + data_T_port.group[ig].values.cp_grpop + '</td>' +
                         '</tr>';
                     ig++;
                 }
@@ -2405,8 +2437,8 @@ function T1_table(id, T, id_s_act, port,code) {
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.operation[io].code + '">' +
                         '<td scope="row"  class="code" >' + key + '</td>' +
                         '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
-                        '<td class="editable" id="AE_T1">' + data_T_port.operation[io].values.ae_op + '</td>' +
-                        '<td class="editable" id="CP_T1">' + data_T_port.operation[io].values.cp_op + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T1">' + data_T_port.operation[io].values.ae_op + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T1">' + data_T_port.operation[io].values.cp_op + '</td>' +
                         '</tr>';
                     io++;
                 }
@@ -2417,8 +2449,8 @@ function T1_table(id, T, id_s_act, port,code) {
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                         '<td scope="row"  class="code" >' + key + '</td>' +
                         '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
-                        '<td class="editable" id="AE_T1">' + data_T_port.sousOperation[iso].values.ae_sousop + '</td>' +
-                        '<td class="editable" id="CP_T1">' + data_T_port.sousOperation[iso].values.cp_sousuop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T1">' + data_T_port.sousOperation[iso].values.ae_sousop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T1">' + data_T_port.sousOperation[iso].values.cp_sousuop + '</td>' +
                         '</tr>';
                     iso++;
                 }
@@ -2571,10 +2603,10 @@ else
             let row = '<tr class="ref'+key+'" id="ref' + key + '">' +
                 '<td scope="row"  class="code">' + key + '</td>' +
                 '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"> <p>' + value + '</p> </td>' +
-                '<td class="editable" id="AE_Over">' + 0 + '</td>' +
-                '<td class="editable" id="CP_Over">' + 0 + '</td>' +
-                '<td class="editable" id="AE_att">' + 0 + '</td>' +
-                '<td class="editable" id="CP_att">' + 0 + '</td>' +
+                '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_Over">' + 0 + '</td>' +
+                '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_Over">' + 0 + '</td>' +
+                '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_att">' + 0 + '</td>' +
+                '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_att">' + 0 + '</td>' +
                 '<td  class="someae" id="AE_TT">' + 0 + '</td>' +
                 '<td  class="somecp" id="CP_TT">' + 0 + '</td>' +
                 '</tr>';
@@ -2589,10 +2621,10 @@ else
                     row = '<tr class="ref' + key + '" id="ref'+data_T_port.group[ig].code+'">' +
                         '<td scope="row"  class="code">' + key + '</td>' +
                         '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"> <p>' + value + '</p> </td>' +
-                        '<td class="editable" id="AE_Over">' + data_T_port.group[ig].values.ae_ouvertgrpop + '</td>' +
-                        '<td class="editable" id="CP_Over">' + data_T_port.group[ig].values.cp_ouvertgrpop + '</td>' +
-                        '<td class="editable" id="AE_att">' + data_T_port.group[ig].values.ae_attendugrpop + '</td>' +
-                        '<td class="editable" id="CP_att">' + data_T_port.group[ig].values.cp_attendugrpop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_Over">' + data_T_port.group[ig].values.ae_ouvertgrpop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_Over">' + data_T_port.group[ig].values.cp_ouvertgrpop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_att">' + data_T_port.group[ig].values.ae_attendugrpop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_att">' + data_T_port.group[ig].values.cp_attendugrpop + '</td>' +
                         '<td  class="someae" id="AE_TT">' + data_T_port.group[ig].values.totalAEgrpop + '</td>' +
                         '<td  class="somecp" id="CP_TT">' + data_T_port.group[ig].values.totalCPgrpop + '</td>' +
                         '</tr>';
@@ -2605,10 +2637,10 @@ else
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.operation[io].code + '">' +
                         '<td scope="row"  class="code">' + key + '</td>' +
                         '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"> <p>' + value + '</p> </td>' +
-                        '<td class="editable" id="AE_Over">' + data_T_port.operation[io].values.ae_ouvertop + '</td>' +
-                        '<td class="editable" id="CP_Over">' + data_T_port.operation[io].values.cp_ouvertop + '</td>' +
-                        '<td class="editable" id="AE_att">' + data_T_port.operation[io].values.ae_attenduop + '</td>' +
-                        '<td class="editable" id="CP_att">' + data_T_port.operation[io].values.cp_attenduop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_Over">' + data_T_port.operation[io].values.ae_ouvertop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_Over">' + data_T_port.operation[io].values.cp_ouvertop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_att">' + data_T_port.operation[io].values.ae_attenduop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_att">' + data_T_port.operation[io].values.cp_attenduop + '</td>' +
                         '<td  class="someae" id="AE_TT">' + data_T_port.operation[io].values.totalAEop + '</td>' +
                         '<td  class="somecp" id="CP_TT">' + data_T_port.operation[io].values.totalCPop + '</td>' +
                         '</tr>';
@@ -2621,10 +2653,10 @@ else
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                         '<td scope="row"  class="code">' + key + '</td>' +
                         '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"> <p>' + value + '</p> </td>' +
-                        '<td class="editable" id="AE_Over">' + data_T_port.sousOperation[iso].values.ae_ouvertsousop + '</td>' +
-                        '<td class="editable" id="CP_Over">' + data_T_port.sousOperation[iso].values.cp_ouvertsousop + '</td>' +
-                        '<td class="editable" id="AE_att">' + data_T_port.sousOperation[iso].values.ae_attendusousop + '</td>' +
-                        '<td class="editable" id="CP_att">' + data_T_port.sousOperation[iso].values.cp_attendsousuop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_Over">' + data_T_port.sousOperation[iso].values.ae_ouvertsousop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_Over">' + data_T_port.sousOperation[iso].values.cp_ouvertsousop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_att">' + data_T_port.sousOperation[iso].values.ae_attendusousop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_att">' + data_T_port.sousOperation[iso].values.cp_attendsousuop + '</td>' +
                         '<td  class="someae" id="AE_TT">' + data_T_port.sousOperation[iso].values.totalAEsousop + '</td>' +
                         '<td  class="somecp" id="CP_TT">' + data_T_port.sousOperation[iso].values.totalCPsousop + '</td>' +
                         '</tr>';
@@ -2785,12 +2817,12 @@ if(code == 200){
                 '<td><p>' + val[0] + '</p> </td>' +
                 '<td> - </td>' +
                 '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
-                '<td class="editable" id="AE_rpor">' + 0 + '</td>' +
-                '<td class="editable" id="AE_not">' + 0 + '</td>' +
-                '<td class="editable" id="AE_enga">' + 0 + '</td>' +
-                '<td class="editable" id="CP_rpor">' + 0 + '</td>' +
-                '<td class="editable" id="CP_not">' + 0 + '</td>' +
-                '<td class="editable" id="CP_consom">' + 0 + '</td>' +
+                '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' + 0 + '</td>' +
+                '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' + 0 + '</td>' +
+                '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' + 0 + '</td>' +
+                '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_rpor">' + 0 + '</td>' +
+                '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_not">' + 0 + '</td>' +
+                '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' + 0 + '</td>' +
                 '</tr>';
 
             if(Object.keys(data_T_port).length > 0){
@@ -2804,12 +2836,12 @@ if(code == 200){
                         '<td><p>' + val[0] + '</p> </td>' +
                         '<td> - </td>' +
                         '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
-                        '<td class="editable" id="AE_rpor">' + data_T_port.group[ig].values.ae_reportegrpop + ',00</td>' +
-                        '<td class="editable" id="AE_not">' + data_T_port.group[ig].values.ae_notifiegrpop + ',00</td>' +
-                        '<td class="editable" id="AE_enga">' + data_T_port.group[ig].values.ae_engagegrpop + ',00</td>' +
-                        '<td class="editable" id="CP_rpor">' + data_T_port.group[ig].values.cp_reportegrpop + ',00</td>' +
-                        '<td class="editable" id="CP_not">' + data_T_port.group[ig].values.cp_notifiegrpop + '</td>' +
-                        '<td class="editable" id="CP_consom">' + data_T_port.group[ig].values.cp_consomegrpop + ',00</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' + data_T_port.group[ig].values.ae_reportegrpop + ',00</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' + data_T_port.group[ig].values.ae_notifiegrpop + ',00</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' + data_T_port.group[ig].values.ae_engagegrpop + ',00</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_rpor">' + data_T_port.group[ig].values.cp_reportegrpop + ',00</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_not">' + data_T_port.group[ig].values.cp_notifiegrpop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' + data_T_port.group[ig].values.cp_consomegrpop + ',00</td>' +
                         '</tr>';
                     ig++;
                 }
@@ -2823,12 +2855,12 @@ if(code == 200){
                         '<td><p>' + val[0] + '</p> </td>' +
                         '<td> - </td>' +
                         '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
-                        '<td class="editable" id="AE_rpor">' + data_T_port.operation[io].values.ae_reporteop + '</td>' +
-                        '<td class="editable" id="AE_not">' + data_T_port.operation[io].values.ae_notifieop + '</td>' +
-                        '<td class="editable" id="AE_enga">' + data_T_port.operation[io].values.ae_engageop + '</td>' +
-                        '<td class="editable" id="CP_rpor">' + data_T_port.operation[io].values.cp_reporteop + '</td>' +
-                        '<td class="editable" id="CP_not">' + data_T_port.operation[io].values.cp_notifieop + '</td>' +
-                        '<td class="editable" id="CP_consom">' + data_T_port.operation[io].values.cp_consomeop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' + data_T_port.operation[io].values.ae_reporteop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' + data_T_port.operation[io].values.ae_notifieop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' + data_T_port.operation[io].values.ae_engageop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_rpor">' + data_T_port.operation[io].values.cp_reporteop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_not">' + data_T_port.operation[io].values.cp_notifieop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' + data_T_port.operation[io].values.cp_consomeop + '</td>' +
                         '</tr>';
                     io++;
                 }
@@ -2842,12 +2874,12 @@ if(code == 200){
                         '<td><p>' +    val[0] + '</p> </td>' +
                         '<td> -  </td>' +
                         '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
-                        '<td class="editable" id="AE_rpor">' + data_T_port.sousOperation[iso].values.ae_reportesousop + '</td>' +
-                        '<td class="editable" id="AE_not">' + data_T_port.sousOperation[iso].values.ae_notifiesousop + '</td>' +
-                        '<td class="editable" id="AE_enga">' + data_T_port.sousOperation[iso].values.ae_engagesousop + '</td>' +
-                        '<td class="editable" id="CP_rpor">' + data_T_port.sousOperation[iso].values.cp_reportesousuop + '</td>' +
-                        '<td class="editable" id="CP_not">' + data_T_port.sousOperation[iso].values.cp_notifiesousop + '</td>' +
-                        '<td class="editable" id="CP_consom">' + data_T_port.sousOperation[iso].values.cp_consomesousop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' + data_T_port.sousOperation[iso].values.ae_reportesousop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' + data_T_port.sousOperation[iso].values.ae_notifiesousop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' + data_T_port.sousOperation[iso].values.ae_engagesousop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_rpor">' + data_T_port.sousOperation[iso].values.cp_reportesousuop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_not">' + data_T_port.sousOperation[iso].values.cp_notifiesousop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' + data_T_port.sousOperation[iso].values.cp_consomesousop + '</td>' +
                         '</tr>';
                     iso++;
                 }
@@ -2861,12 +2893,12 @@ if(code == 200){
                     '<td>'  +    val[0] + '</td>' +
                     '<td>  - </td>' +
                     '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
-                    '<td class="editable" id="AE_rpor">' + data_T_port.sousOperation[iso].values.ae_reportesousop + '</td>' +
-                    '<td class="editable" id="AE_not">' + data_T_port.sousOperation[iso].values.ae_notifiesousop + '</td>' +
-                    '<td class="editable" id="AE_enga">' + data_T_port.sousOperation[iso].values.ae_engagesousop + '</td>' +
-                    '<td class="editable" id="CP_rpor">' + data_T_port.sousOperation[iso].values.cp_reportesousuop + '</td>' +
-                    '<td class="editable" id="CP_not">' + data_T_port.sousOperation[iso].values.cp_notifiesousop + '</td>' +
-                    '<td class="editable" id="CP_consom">' + data_T_port.sousOperation[iso].values.cp_consomesousop + '</td>' +
+                    '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' + data_T_port.sousOperation[iso].values.ae_reportesousop + '</td>' +
+                    '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' + data_T_port.sousOperation[iso].values.ae_notifiesousop + '</td>' +
+                    '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' + data_T_port.sousOperation[iso].values.ae_engagesousop + '</td>' +
+                    '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_rpor">' + data_T_port.sousOperation[iso].values.cp_reportesousuop + '</td>' +
+                    '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_not">' + data_T_port.sousOperation[iso].values.cp_notifiesousop + '</td>' +
+                    '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' + data_T_port.sousOperation[iso].values.cp_consomesousop + '</td>' +
                     '</tr>';
                     iso++;
                      $('#T-tables tbody').append(row);
@@ -2876,12 +2908,12 @@ if(code == 200){
                    '<td>'  +    val[0] + '</td>' +
                    '<td id="def"> </td>' +
                    '<td id="sous_def" style="display: flex;align-items: center; justify-content: space-between;"></td>' +
-                   '<td class="editable" id="AE_rpor">' + data_T_port.sousOperation[iso].values.ae_reportesousop + '</td>' +
-                   '<td class="editable" id="AE_not">' + data_T_port.sousOperation[iso].values.ae_notifiesousop + '</td>' +
-                   '<td class="editable" id="AE_enga">' + data_T_port.sousOperation[iso].values.ae_engagesousop + '</td>' +
-                   '<td class="editable" id="CP_rpor">' + data_T_port.sousOperation[iso].values.cp_reportesousuop + '</td>' +
-                   '<td class="editable" id="CP_not">' + data_T_port.sousOperation[iso].values.cp_notifiesousop + '</td>' +
-                   '<td class="editable" id="CP_consom">' + data_T_port.sousOperation[iso].values.cp_consomesousop + '</td>' +
+                   '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' + data_T_port.sousOperation[iso].values.ae_reportesousop + '</td>' +
+                   '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' + data_T_port.sousOperation[iso].values.ae_notifiesousop + '</td>' +
+                   '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' + data_T_port.sousOperation[iso].values.ae_engagesousop + '</td>' +
+                   '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_rpor">' + data_T_port.sousOperation[iso].values.cp_reportesousuop + '</td>' +
+                   '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_not">' + data_T_port.sousOperation[iso].values.cp_notifiesousop + '</td>' +
+                   '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' + data_T_port.sousOperation[iso].values.cp_consomesousop + '</td>' +
                    '</tr>';
                    iso++;
                  
@@ -3031,8 +3063,8 @@ function T4_table(id, T, id_s_act, port,code) {
                 '<td scope="row"  class="code">' + key + '</td>' +
                 '<td><p>' + value + '</p></td>' +
                 '<td  id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>null</p></td>'+
-                '<td class="editable" id="AE_T4">' + 0 + ',00</td>' +
-                '<td class="editable" id="CP_T4">' + 0 + ',00</td>' +
+                '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T4">' + 0 + ',00</td>' +
+                '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T4">' + 0 + ',00</td>' +
                 '</tr>';
             if(Object.keys(data_T_port).length > 0){
             if (data_T_port.group.length > 0 && data_T_port.group.length > ig) {
@@ -3043,8 +3075,8 @@ function T4_table(id, T, id_s_act, port,code) {
                         '<td><p>' + value + '</p></td>' +
 
                         '<td  id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>null</p></td>'+
-                        '<td class="editable" id="AE_T4">' + data_T_port.group[ig].values.ae_grpop + '</td>' +
-                        '<td class="editable" id="CP_T4">' + data_T_port.group[ig].values.cp_grpop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T4">' + data_T_port.group[ig].values.ae_grpop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T4">' + data_T_port.group[ig].values.cp_grpop + '</td>' +
                         '</tr>';
                     ig++;
                 }
@@ -3057,8 +3089,8 @@ function T4_table(id, T, id_s_act, port,code) {
                         '<td ><p>' + value + '</p></td>' +
 
                         '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>null</p></td>'+
-                        '<td class="editable" id="AE_T4">' + data_T_port.operation[io].values.ae_op + '</td>' +
-                        '<td class="editable" id="CP_T4">' + data_T_port.operation[io].values.cp_op + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T4">' + data_T_port.operation[io].values.ae_op + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T4">' + data_T_port.operation[io].values.cp_op + '</td>' +
                         '</tr>';
                     io++;
                 }
@@ -3071,8 +3103,8 @@ function T4_table(id, T, id_s_act, port,code) {
                         '<td ><p>' + value + '</p></td>' +
 
                         '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>null</p></td>'+
-                        '<td class="editable" id="AE_T4">' + data_T_port.sousOperation[iso].values.ae_sousop + '</td>' +
-                        '<td class="editable" id="CP_T4">' + data_T_port.sousOperation[iso].values.cp_sousuop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T4">' + data_T_port.sousOperation[iso].values.ae_sousop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T4">' + data_T_port.sousOperation[iso].values.cp_sousuop + '</td>' +
                         '</tr>';
                     iso++;
                 }
@@ -3087,8 +3119,8 @@ function T4_table(id, T, id_s_act, port,code) {
                             '<td scope="row" class="code" >' +key+"-"+splitcode(data_T_port.sousOperation[iso].code, land)+ '</td>' +
                             '<td id="def"></td>' +
                             '<td id="sous_def" ></td>'+
-                            '<td class="editable" id="AE_T4">' + data_T_port.sousOperation[iso].values.ae_sousop + '</td>' +
-                            '<td class="editable" id="CP_T4">' + data_T_port.sousOperation[iso].values.cp_sousuop + '</td>' +
+                            '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T4">' + data_T_port.sousOperation[iso].values.ae_sousop + '</td>' +
+                            '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T4">' + data_T_port.sousOperation[iso].values.cp_sousuop + '</td>' +
                             '</tr>';
                             iso++;  
                             $('#T-tables tbody').append(row);
@@ -3167,7 +3199,7 @@ $(document).ready(function () {
         var T = 1;
         console.log('len' + path3.length + ' act ' + indic)
         $.ajax({
-            url: '/testing/codeSousOperation/' + path3[indic],
+            url: '/testing/codeSousOperation/' + ssact,
             type: 'GET',
             success: function (response) {
                 if (response.code == 200 && response.t1_exists==1) {
@@ -3190,7 +3222,7 @@ $(document).ready(function () {
         var id = $(this).attr('id');
         console.log('len' + path3.length + ' act ' + indic)
         $.ajax({
-            url: '/testing/codeSousOperation/' + path3[indic],
+            url: '/testing/codeSousOperation/' + ssact,
             type: 'GET',
             success: function (response) {
                 if (response.code == 200 && response.t2_exists==1) {
@@ -3218,7 +3250,7 @@ $(document).ready(function () {
         var id = $(this).attr('id');
         var T = 3;
         $.ajax({
-            url: '/testing/codeSousOperation/' + path3[indic],
+            url: '/testing/codeSousOperation/' + ssact,
             type: 'GET',
             success: function (response) {
                 if (response.code == 200 && response.t3_exists==1) {
@@ -3243,7 +3275,7 @@ $(document).ready(function () {
         var id = $(this).attr('id');
         var T = 4;
         $.ajax({
-            url: '/testing/codeSousOperation/' + path3[indic],
+            url: '/testing/codeSousOperation/' + ssact,
             type: 'GET',
             success: function (response) {
                 if (response.code == 200 && response.t4_exists==1) {

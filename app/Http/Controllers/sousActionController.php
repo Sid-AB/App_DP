@@ -325,8 +325,8 @@ function create_sousaction(Request $request)
     // Mise à jour des autres champs
     $sousaction->num_sous_action = $request->num_sous_action;
     $sousaction->nom_sous_action = $request->nom_sous_action;
-    $sousaction->AE_sous_action=floatval($request->AE_sous_act);
-    $sousaction->CP_sous_action=floatval($request->CP_sous_act);
+    $sousaction->AE_sous_action=floatval(str_replace(',', '', $request->AE_sous_act));
+    $sousaction->CP_sous_action=floatval(str_replace(',', '', $request->CP_sous_act));
    // $sousaction->num_action = $request->num_act;
     $sousaction->date_update_sous_action = now();
 
@@ -341,8 +341,8 @@ else{
     $sousaction->num_action = $request->num_act;
     $sousaction->num_sous_action = $request->num_sous_action;
     $sousaction->nom_sous_action = $request->nom_sous_action;
-    $sousaction->AE_sous_action=floatval($request->AE_sous_act);
-    $sousaction->CP_sous_action=floatval($request->CP_sous_act);
+    $sousaction->AE_sous_action=floatval(str_replace(',', '', $request->AE_sous_act));
+    $sousaction->CP_sous_action=floatval(str_replace(',', '', $request->CP_sous_act));
     $sousaction->date_insert_sous_action = $request->date_insert_sous_action;
     $sousaction->save();
 }
