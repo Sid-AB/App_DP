@@ -173,6 +173,8 @@ class sousOperationController extends Controller
         $action=$sousProgramme->Action->first();
       //  dd($action);
             // pour bien structurer les données de resultats (calcul dpia)
+            $intitule = null;
+            $decision=null;
          $resultstructur = [];
          foreach (['T1', 'T2', 'T3', 'T4'] as $t) {
              if (isset($resultats[$t])) {
@@ -202,11 +204,56 @@ class sousOperationController extends Controller
                     ]; 
                     } 
             } 
-         // dd( $groupedData);
+            // dd( $groupedData);
             // les sous operations dans operations 
             foreach ($tdata['sousOperation'] as $sousOp) {
+                //dd($sousOp['code'] );
+                $sousOpCodeLength = strlen($sousOp['code']);
+                //dd($sousOpCodeLength );
+                if ($sousOpCodeLength > 35) { //operation =35
+                    // extraire  la dernière partie du code apres 35 -...
+                    $lastPartOfCode = substr($sousOp['code'], 35);
+                   // dd($lastPartOfCode);
+                    if (strlen($lastPartOfCode) > 6) {
+                        // récupérer le nom 
+                        $nomComplet = DB::table('sous_operations')
+                            ->where('code_sous_operation', 'like', "%-$lastPartOfCode")
+                            ->value('nom_sous_operation');
+                       // dd($nomComplet);
+                        
+                        if ($nomComplet) {
+                            // la chaine avec -
+                            $nom_sepa = explode('-', $nomComplet);
+                
+                            // récupérer le 1er "intitule" et last  "décision"
+                            $intitule = reset($nom_sepa);
+                            $decision = end($nom_sepa);
+                
+                        
+                          //  dd( $intitule, $decision);
+                        }
+                    }
+                    elseif (strlen($lastPartOfCode) > 1 && strlen($lastPartOfCode) < 5) {
+                        $nomComplet = DB::table('sous_operations')
+                        ->where('code_sous_operation', 'like', "%-$lastPartOfCode")
+                        ->value('nom_sous_operation');
+                         // dd($nomComplet);
+                        if ($nomComplet) {
+                            // la chaine avec -
+                            $nom_sepa = explode('-', $nomComplet);
+                
+                            // récupérer le 1er "intitule" et last  "décision"
+                            $intitule = reset($nom_sepa);
+                            $decision = end($nom_sepa);
+             
+                     
+                       //  dd( $intitule, $decision);
+                     }
+                     }   
+
+                    }
                 $operationCode = substr($sousOp['code'], 0, strlen($sousOp['code']) - 6);
-               // dd($operationCode); // extraire depuis sousOp jusqu'à opération
+               //dd($operationCode); // extraire depuis sousOp jusqu'à opération
                 $sousOpSuffix = substr($sousOp['code'], -5);
                 //dd($sousOpSuffix); //extraire les 5 chiffres de sousop
                 $sousOpThird = substr($sousOpSuffix, 2, 1); //extraire le 3eme chiffre commencé par la fin 
@@ -231,7 +278,7 @@ class sousOperationController extends Controller
                         }
                     } 
                 }
-            }
+            } 
             //dd($sousOp['code'] );
            // dd( $operationData['operation']['code'] );
             $resultstructur[$t] = [
@@ -256,7 +303,7 @@ class sousOperationController extends Controller
                 'portefeuille', 
                 'prog', 
                 'action', 
-                'years'
+                'years','intitule','decision'
             ))->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1.25);  // Augmenter la résolution pour améliorer la lisibilité du texte
               return $pdf->stream('liste_impression.pdf');
         } else {

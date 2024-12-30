@@ -184,7 +184,8 @@
                    <!--td rowspan={{$totalOperations}} class="code"></td-->        <td class="code">{{ $codeop }}</td>
     
                    <td >{{$namesT3[$codeop]}}</td>
-                   <td ></td>   <td ></td>
+                   <td >{{ $decision }}</td>  
+                   <td >{{ $intitule }}</td>
                    <!--td >{{$nomfirst ?? Néant}}</td--> 
 
                    <!--td class="vert3">{{$nom  ?? Néant }}</td--> 
@@ -203,7 +204,8 @@
                 <td class="code">{{ $codeop }}</td>
     
                 <td >{{$namesT3[$codeop]}}</td>
-                <td ></td>   <td ></td>
+                <td >{{ $decision }}</td>  
+                <td >{{ $intitule }}</td>
                    <!--td  class="code" ></td>      <td class="code">{{ $codeop }}</td>
                    <td  >{{$namesT3[$codegrp]}}</td>
                    <td >{{$nomfirst ?? Néant}}</td> 
@@ -228,33 +230,25 @@
             @php
                     // extraire la dernière partie du code de la sous-opération
                     $code_separer = explode('-', $sousOp['code']);
-                    //dd(  $code_separer);
+                  // dd($sousOp) ;//dd(  $code_separer);
                     $codeextr = end($code_separer);
                    //dd($codeextr);
-                   if ( strlen($codeextr) < 5){
-                        $nomComplet = DB::table('sous_operations')->where('code_sous_operation', 'like', "%-$codeextr")
-                        ->value('nom_sous_operation') ?? 'Nom introuvable';
-
-                        $nom_sepa = explode('-', $nomComplet);
-                        $decision = end($nom_sepa);
-                        $intitule = reset($nom_sepa);
-                        dd($intitule);
-
-                    } else{
+                  
+                  
                         $nom_sepa=explode('-', $namesT3[$codeextr ]);
                         $nom=end($nom_sepa);
 
                         $nom_separ=explode('-', $namesT3[$codeextr ]);
                         $nomfirst=reset($nom_separ);
-                    }
+                    
                   
                 @endphp  
                 <tr>
                 <td class="code">{{ $codeextr }}</td>
     
                     <td >{{$namesT3[$codeextr]}}</td>
-                    <td >{{ $decision ?? ''}}</td>  
-                    <td >{{ $intitule ?? ''}}</td>
+                    <td >{{ $decision}}</td>  
+                    <td >{{ $intitule}}</td>
                     <!--td style="text-align: center; " class="code">{{ $codeextr }}</td>
 
                     <td>{{$namesT3[$codegrp]}}</td>
@@ -272,6 +266,8 @@
                     <td class="aecp " style="text-align: center; ">{{ $sousOp['values']['cp_consomesousop'] ?? 'N/A' }}</td>
                 </tr>
             @endforeach
+            
+  
         @endforeach
         @endforeach
 
@@ -282,7 +278,7 @@
                    @php
                       $nom_sepa=explode('-', $namesT3[$code  ]);
                       $nom=end($nom_sepa);
-
+                 
                     $nom_separ=explode('-', $namesT3[$code  ]);
                     $nomfirst=reset($nom_separ);
                    @endphp
@@ -300,7 +296,7 @@
                 </tr>
             @endforeach
         @endif
-
+    
     </tbody>
     <tfoot>
        @if(!empty($resultstructur['T3']['groupedData']))
