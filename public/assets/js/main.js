@@ -1712,11 +1712,11 @@ $("#add-prg").on('click', function () {
         '</div>' +
         '<div class="form-group">' +
         '<label for="input1">AE pour Sous Programme</label>' +
-        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="AE_sous_prog"   placeholder="Entrer AE Sous Programme">' +
+        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="AE_sous_prog"   placeholder="Entrer AE Sous Programme" disabled>' +
         '</div>' +
         '<div class="form-group">' +
         '<label for="input1">CP pour Sous Programme</label>' +
-        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="CP_sous_prog"  placeholder=" Entrer CP Sous Programme">' +
+        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="CP_sous_prog"  placeholder=" Entrer CP Sous Programme" disabled>' +
         '</div>' +
         '<div class="init_holder">'+
         '<div class="T_init_port">'+
@@ -1831,6 +1831,47 @@ $("#add-prg").on('click', function () {
                     }
                 });
                 focus_()
+
+                someAE_TT=0;
+                someCP_TT=0;
+
+                    /**   ----------------------------------------------- some AE T ---------------*/
+
+                $('#T1_AE_init').on('focusout',function(){
+                    console.log('TT '+someAE_TT)
+                    someAE_TT+=parseFloat($(this).val())
+                    $('#AE_sous_prog').text(ValAccountingFigures(someAE_TT))
+                })
+                $('#T2_AE_init').on('focusout',function(){
+                    console.log('TT '+someAE_TT)
+                    someAE_TT+=parseFloat($(this).val())
+                    $('#AE_sous_prog').text(ValAccountingFigures(someAE_TT))
+                })
+                $('#T3_AE_init').on('focusout',function(){
+                    console.log('TT '+someAE_TT)
+                    someAE_TT+=parseFloat($(this).val())
+                    $('#AE_sous_prog').text(ValAccountingFigures(someAE_TT))
+                })
+                $('#T4_AE_init').on('focusout',function(){
+                    someAE_TT+=parseFloat($(this).val())
+                    $('#AE_sous_prog').text(ValAccountingFigures(someAE_TT))
+                    console.log('TT '+someAE_TT)
+                })
+                /**  ------------------------------------------------------ rnf ---------------- */
+                /**------------------------------------ Some CP T */
+
+                $('#T1_CP_init').on('focusout',function(){
+
+                })
+                $('#T2_CP_init').on('focusout',function(){
+                    
+                })
+                $('#T3_CP_init').on('focusout',function(){
+                    
+                })
+                $('#T4_CP_init').on('focusout',function(){
+                    
+                })
                 /**  sous prog insert */
                 $('#add-prg2').on('click', function () {
                     var sou_prog = $('#num_sous_prog').val()
