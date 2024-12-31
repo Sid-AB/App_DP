@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -134,13 +135,17 @@
 
         </thead>
         <tbody>
-            @if(!empty($resultstructur['T3']['groupedData']))
+       
+         @php dd($resultstructur['T3']['groupedData']);@endphp
+       <!-- -->
+            @if(isset($resultstructur['T3']['groupedData']))
                 @foreach ($resultstructur['T3']['groupedData'] as $groupData)
                 @php
                     // extraire la dernière partie du code grp
                     $code_grpsepar = explode('-', $groupData['group']['code']);
+                    //dd(  $code_grpsepar);
                     $codegrp = end($code_grpsepar);
-
+                    //dd($codegrp);
                  $i=0;
                 @endphp
             <tr class="group-row">
@@ -184,8 +189,7 @@
                    <!--td rowspan={{$totalOperations}} class="code"></td-->        <td class="code">{{ $codeop }}</td>
     
                    <td >{{$namesT3[$codeop]}}</td>
-                   <td >{{ $decision }}</td>  
-                   <td >{{ $intitule }}</td>
+                   <td ></td>   <td ></td>
                    <!--td >{{$nomfirst ?? Néant}}</td--> 
 
                    <!--td class="vert3">{{$nom  ?? Néant }}</td--> 
@@ -204,8 +208,7 @@
                 <td class="code">{{ $codeop }}</td>
     
                 <td >{{$namesT3[$codeop]}}</td>
-                <td >{{ $decision }}</td>  
-                <td >{{ $intitule }}</td>
+                <td ></td>   <td ></td>
                    <!--td  class="code" ></td>      <td class="code">{{ $codeop }}</td>
                    <td  >{{$namesT3[$codegrp]}}</td>
                    <td >{{$nomfirst ?? Néant}}</td> 
@@ -230,25 +233,20 @@
             @php
                     // extraire la dernière partie du code de la sous-opération
                     $code_separer = explode('-', $sousOp['code']);
-                  // dd($sousOp) ;//dd(  $code_separer);
+                    //dd(  $code_separer);
                     $codeextr = end($code_separer);
-                   //dd($codeextr);
-                  
-                  
-                        $nom_sepa=explode('-', $namesT3[$codeextr ]);
-                        $nom=end($nom_sepa);
+                 //  dd($codeextr);
+                    $nom_sepa=explode('-', $namesT3[$codeextr ]);
+                      $nom=end($nom_sepa);
 
-                        $nom_separ=explode('-', $namesT3[$codeextr ]);
-                        $nomfirst=reset($nom_separ);
-                    
-                  
+                    $nom_separ=explode('-', $namesT3[$codeextr ]);
+                    $nomfirst=reset($nom_separ);
                 @endphp  
                 <tr>
                 <td class="code">{{ $codeextr }}</td>
     
                     <td >{{$namesT3[$codeextr]}}</td>
-                    <td >{{ $decision}}</td>  
-                    <td >{{ $intitule}}</td>
+                    <td ></td>   <td ></td>
                     <!--td style="text-align: center; " class="code">{{ $codeextr }}</td>
 
                     <td>{{$namesT3[$codegrp]}}</td>
@@ -266,19 +264,16 @@
                     <td class="aecp " style="text-align: center; ">{{ $sousOp['values']['cp_consomesousop'] ?? 'N/A' }}</td>
                 </tr>
             @endforeach
-            
-  
         @endforeach
         @endforeach
 
-        @else 
-        <!--si vide-->
+        @else
             
                 @foreach ($namesT3 as $code => $name)
                    @php
                       $nom_sepa=explode('-', $namesT3[$code  ]);
                       $nom=end($nom_sepa);
-                 
+
                     $nom_separ=explode('-', $namesT3[$code  ]);
                     $nomfirst=reset($nom_separ);
                    @endphp
@@ -296,9 +291,10 @@
                 </tr>
             @endforeach
         @endif
-    
+
     </tbody>
     <tfoot>
+  
        @if(!empty($resultstructur['T3']['groupedData']))
         <tr  class="total3">
             <td colspan="4" style="text-align: center; font-weight: bold;">TOTAL DES CREDITS </td>

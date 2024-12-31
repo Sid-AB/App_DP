@@ -19,7 +19,7 @@
         <h1 class="section-title">1.2 LES CREDITS DES DEPENSES DE FONCTIONNEMENT:</h1>
         @include('impression.liste_impression_t2',['resultstructur' => $resultstructur, 'sousProgramme' => $sousProgramme, 'namesT3' => $namesT3, 'portefeuille' => $portefeuille, 'prog' => $prog, 'action' => $action, 'years' => $years])
     </div>
-    <br> <br> <br> <br> <br> <br> <br> <br>  <br> <br> <br> <br> <br> <br> <br>  <br> <br> <br>  <br> <br> <br> <br>  <br> <br> <br> <br> <br> <br>
+    <br> <br> <br> <br> <br> <br> <br> <br>  <br> <br> <br> <br> <br> <br> <br>  <br> <br> <br>  <br> <br> <br> <br>  <br> 
    <div>
         <h1 class="section-title">1.3 LISTE DES OPERATIONS D'INVESTISSEMENT PUBLIC:</h1>
         @include('impression.liste_impression_t3', ['resultstructur' => $resultstructur, 'sousProgramme' => $sousProgramme, 'namesT3' => $namesT3, 'portefeuille' => $portefeuille, 'prog' => $prog, 'action' => $action, 'years' => $years])
