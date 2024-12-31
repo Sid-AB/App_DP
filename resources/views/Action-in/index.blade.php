@@ -239,6 +239,8 @@
   var counter=0;
   @if(isset($sact))
   var ssact='{{$sact}}'
+  @else
+  var ssact='{{$s_act}}'
   @endif
 
   @if(isset($s_act))
