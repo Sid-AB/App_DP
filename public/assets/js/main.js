@@ -2538,8 +2538,6 @@ $("#add-prg").on('click', function () {
                                 $(this).text('Modifier')
                                 focus_()
 
-
-
                                 $('#date_insert_action').on('focusout', function () {
                                     console.log('out')
                                     var date_act = $(this).val();

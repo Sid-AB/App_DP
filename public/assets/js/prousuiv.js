@@ -1,4 +1,559 @@
 console.log('testing'+JSON.stringify(path))
+function parseNumberWithoutCommas(input) {
+    // Remove commas from the input string
+    let cleanedInput = input.replace(/,/g, '');
+    // Parse the cleaned string into a float
+    return parseFloat(cleanedInput);
+}
+
+function formatAccountingFigures(input) {
+    // Remove non-numeric characters except for "."
+    let value = input.value.replace(/[^0-9.]/g, '');
+
+    // Split the input into integer and decimal parts
+    let parts = value.split('.');
+    let integerPart = parts[0];
+    let decimalPart = parts[1] ? '.' + parts[1] : '';
+
+    // Add commas to the integer part
+    integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+    // Combine integer and decimal parts
+    input.value = integerPart + decimalPart;
+}
+function ValAccountingFigures(inputs) {
+    if (isNaN(inputs)) {
+        return ''; // Return an empty string for invalid numbers
+    }
+
+    // Convert number to a fixed decimal string (optional)
+    let formattedNumber = inputs.toFixed(2); // Keeps two decimal places
+
+    // Split the number into integer and decimal parts
+    let [integerPart, decimalPart] = formattedNumber.split('.');
+
+    // Add commas to the integer part
+    integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+    // Combine integer and decimal parts
+    return integerPart + '.' + decimalPart;
+}
+
+function calaulsomeAE_CP_sprog()
+{
+    someAE_TT=0;
+    someCP_TT=0;
+    var oldTT=0
+    var old=0;
+    var oldTTCP=0
+    var oldCP=0;
+        /**   ----------------------------------------------- some AE T ---------------*/
+    $('#T1_AE_init').on('focusin',function(){
+        oldTT=$('#AE_sous_prog').val();
+        old=$(this).val();
+        console.log('old value'+oldTT);
+    })
+    $('#T1_AE_init').on('focusout',function(){
+        
+        console.log('old before if'+oldTT);
+        if(old == 0 || old == '' || old == '0' || old == null || old =='NaN')
+        {
+            old='0'
+        }
+        if(oldTT == 0 || oldTT == '' || oldTT == '0' || oldTT == null || oldTT =='NaN' )
+            {
+                someAE_TT=0;
+            someAE_TT+=parseNumberWithoutCommas($(this).val())
+            $('#AE_sous_prog').val(ValAccountingFigures(someAE_TT))
+            console.log('TT '+someAE_TT)
+            }
+            else
+            {
+            someAE_TT=parseNumberWithoutCommas(oldTT) - parseNumberWithoutCommas(old)
+            console.log('TT befor addin'+someAE_TT);
+            someAE_TT+=parseNumberWithoutCommas($(this).val())
+            $('#AE_sous_prog').val(ValAccountingFigures(someAE_TT))
+            console.log('old TT '+someAE_TT)
+            }
+            
+    })
+
+    $('#T2_AE_init').on('focusin',function(){
+        oldTT=$('#AE_sous_prog').val();
+        old=$(this).val();
+        console.log('old value'+oldTT);
+    })
+
+    $('#T2_AE_init').on('focusout',function(){
+        console.log('old before if'+oldTT);
+        if(old == 0 || old == '' || old == '0' || old == null || old =='NaN')
+            {
+                old='0'
+            }
+        if(oldTT == 0 || oldTT == '' || oldTT == '0' || oldTT == null || oldTT =='NaN')
+            {
+                someAE_TT=0;
+            someAE_TT+=parseNumberWithoutCommas($(this).val())
+            $('#AE_sous_prog').val(ValAccountingFigures(someAE_TT))
+            console.log('TT '+someAE_TT)
+            }
+            else
+            {
+                someAE_TT=parseNumberWithoutCommas(oldTT) - parseNumberWithoutCommas(old)
+            console.log('TT befor addin'+someAE_TT);
+            someAE_TT+=parseNumberWithoutCommas($(this).val())
+            $('#AE_sous_prog').val(ValAccountingFigures(someAE_TT))
+            console.log('old TT '+someAE_TT)
+            }
+    })
+
+    $('#T3_AE_init').on('focusin',function(){
+        oldTT=$('#AE_sous_prog').val();
+        old=$(this).val();
+        console.log('old value'+oldTT);
+    })
+
+    $('#T3_AE_init').on('focusout',function(){
+        console.log('old before if'+oldTT);
+        if(old == 0 || old == '' || old == '0' || old == null || old =='NaN')
+            {
+                old='0'
+            }
+        if(oldTT == 0 || oldTT == '' || oldTT == '0' || oldTT == null || oldTT =='NaN')
+            {
+                someAE_TT=0;
+            someAE_TT+=parseNumberWithoutCommas($(this).val())
+            $('#AE_sous_prog').val(ValAccountingFigures(someAE_TT))
+            console.log('TT '+someAE_TT)
+            }
+            else
+            {
+            someAE_TT=parseNumberWithoutCommas(oldTT) - parseNumberWithoutCommas(old)
+            console.log('TT befor addin'+someAE_TT);
+            someAE_TT+=parseNumberWithoutCommas($(this).val())
+            $('#AE_sous_prog').val(ValAccountingFigures(someAE_TT))
+            console.log('old TT '+someAE_TT)
+            }
+    })
+
+    $('#T4_AE_init').on('focusin',function(){
+        oldTT=$('#AE_sous_prog').val();
+        old=$(this).val();
+        console.log('old value'+oldTT);
+    })
+
+    $('#T4_AE_init').on('focusout',function(){
+        console.log('old before if'+oldTT);
+        if(old == 0 || old == '' || old == '0' || old == null || old =='NaN')
+            {
+                old='0'
+            }
+        if(oldTT == 0 || oldTT == '' || oldTT == '0' || oldTT == null || oldTT =='NaN')
+            {
+            someAE_TT=0
+            someAE_TT+=parseNumberWithoutCommas($(this).val())
+            $('#AE_sous_prog').val(ValAccountingFigures(someAE_TT))
+            console.log('null TT '+someAE_TT)
+            }
+            else
+            {
+            console.log('TT refresh new Value some '+someAE_TT+' old'+oldTT);
+            someAE_TT=parseNumberWithoutCommas(oldTT) - parseNumberWithoutCommas(old)
+            
+            someAE_TT+=parseNumberWithoutCommas($(this).val())
+            $('#AE_sous_prog').val(ValAccountingFigures(someAE_TT))
+            console.log('old TT '+someAE_TT)
+            }
+    })
+    /**  ------------------------------------------------------ rnf ---------------- */
+    /**------------------------------------ Some CP T ----------------------------- */
+
+    $('#T1_CP_init').on('focusin',function(){
+        oldTTCP=$('#CP_sous_prog').val();
+        oldCP=$(this).val();
+        console.log('old value'+oldTTCP);
+    })
+
+
+    $('#T1_CP_init').on('focusout',function(){
+
+
+        console.log('old before if'+oldTTCP);
+        if(oldCP == 0 || oldCP == '' || oldCP == '0' || oldCP == null || oldCP =='NaN')
+        {
+            oldCP='0'
+        }
+        if(oldTTCP == 0 || oldTTCP == '' || oldTTCP == '0' || oldTTCP == null || oldTTCP =='NaN' )
+            {
+                someCP_TT=0;
+            someCP_TT+=parseNumberWithoutCommas($(this).val())
+            $('#CP_sous_prog').val(ValAccountingFigures(someCP_TT))
+            console.log('TT '+someCP_TT)
+            }
+            else
+            {
+            someCP_TT=parseNumberWithoutCommas(oldTTCP) - parseNumberWithoutCommas(oldCP)
+            console.log('TT befor addin'+someCP_TT);
+            someCP_TT+=parseNumberWithoutCommas($(this).val())
+            $('#CP_sous_prog').val(ValAccountingFigures(someCP_TT))
+            console.log('old TT '+someCP_TT)
+            }
+
+    })
+
+    $('#T2_CP_init').on('focusin',function(){
+        oldTTCP=$('#CP_sous_prog').val();
+        oldCP=$(this).val();
+        console.log('old value'+oldTT);
+    })
+
+
+    $('#T2_CP_init').on('focusout',function(){
+
+        console.log('old before if'+oldTTCP);
+        if(oldCP == 0 || oldCP == '' || oldCP == '0' || oldCP == null || oldCP =='NaN')
+        {
+            oldCP='0'
+        }
+        if(oldTTCP == 0 || oldTTCP == '' || oldTTCP == '0' || oldTTCP == null || oldTTCP =='NaN' )
+            {
+                someCP_TT=0;
+            someCP_TT+=parseNumberWithoutCommas($(this).val())
+            $('#CP_sous_prog').val(ValAccountingFigures(someCP_TT))
+            console.log('TT '+someCP_TT)
+            }
+            else
+            {
+            someCP_TT=parseNumberWithoutCommas(oldTTCP) - parseNumberWithoutCommas(oldCP)
+            console.log('TT befor addin'+someCP_TT);
+            someCP_TT+=parseNumberWithoutCommas($(this).val())
+            $('#CP_sous_prog').val(ValAccountingFigures(someCP_TT))
+            console.log('old TT '+someCP_TT)
+            }
+        
+    })
+
+    $('#T3_CP_init').on('focusin',function(){
+        oldTTCP=$('#CP_sous_prog').val();
+        oldCP=$(this).val();
+        console.log('old value'+oldTTCP);
+    })
+
+    $('#T3_CP_init').on('focusout',function(){
+
+        console.log('old before if'+oldTTCP);
+        if(oldCP == 0 || oldCP == '' || oldCP == '0' || oldCP == null || oldCP =='NaN')
+        {
+            oldCP='0'
+        }
+        if(oldTTCP == 0 || oldTTCP == '' || oldTTCP == '0' || oldTTCP == null || oldTTCP =='NaN' )
+            {
+                someCP_TT=0;
+            someCP_TT+=parseNumberWithoutCommas($(this).val())
+            $('#CP_sous_prog').val(ValAccountingFigures(someCP_TT))
+            console.log('TT '+someCP_TT)
+            }
+            else
+            {
+            someCP_TT=parseNumberWithoutCommas(oldTTCP) - parseNumberWithoutCommas(oldCP)
+            console.log('TT befor addin'+someCP_TT);
+            someCP_TT+=parseNumberWithoutCommas($(this).val())
+            $('#CP_sous_prog').val(ValAccountingFigures(someCP_TT))
+            console.log('old TT '+someCP_TT)
+            }
+        
+    })
+
+    $('#T4_CP_init').on('focusin',function(){
+        oldTTCP=$('#CP_sous_prog').val();
+        oldCP=$(this).val();
+        console.log('old value'+oldTTCP);
+    })
+
+    $('#T4_CP_init').on('focusout',function(){
+
+        console.log('old before if'+oldTT);
+        if(oldCP == 0 || oldCP == '' || oldCP == '0' || oldCP == null || oldCP =='NaN')
+        {
+            oldCP='0'
+        }
+        if(oldTTCP == 0 || oldTTCP == '' || oldTTCP == '0' || oldTTCP == null || oldTTCP =='NaN' )
+            {
+            someCP_TT=0;
+            someCP_TT+=parseNumberWithoutCommas($(this).val())
+            $('#CP_sous_prog').val(ValAccountingFigures(someCP_TT))
+            console.log('TT '+someCP_TT)
+            }
+            else
+            {
+            someCP_TT=parseNumberWithoutCommas(oldTTCP) - parseNumberWithoutCommas(oldCP)
+            console.log('TT befor addin'+someCP_TT);
+            someCP_TT+=parseNumberWithoutCommas($(this).val())
+            $('#CP_sous_prog').val(ValAccountingFigures(someCP_TT))
+            console.log('old TT '+someCP_TT)
+            }
+        
+    })
+}
+
+
+function calaulsomeAE_CP_act()
+{
+    someAE_TT=0;
+    someCP_TT=0;
+    var oldTT=0
+    var old=0;
+    var oldTTCP=0
+    var oldCP=0;
+        /**   ----------------------------------------------- some AE T ---------------*/
+    $('#T1_AE_init_AC').on('focusin',function(){
+        oldTT=$('#AE_act').val();
+        old=$(this).val();
+        console.log('old value'+oldTT);
+    })
+    $('#T1_AE_init_AC').on('focusout',function(){
+        
+        console.log('old before if'+oldTT);
+        if(old == 0 || old == '' || old == '0' || old == null || old =='NaN')
+        {
+            old='0'
+        }
+        if(oldTT == 0 || oldTT == '' || oldTT == '0' || oldTT == null || oldTT =='NaN' )
+            {
+                someAE_TT=0;
+            someAE_TT+=parseNumberWithoutCommas($(this).val())
+            $('#AE_act').val(ValAccountingFigures(someAE_TT))
+            console.log('TT '+someAE_TT)
+            }
+            else
+            {
+            someAE_TT=parseNumberWithoutCommas(oldTT) - parseNumberWithoutCommas(old)
+            console.log('TT befor addin'+someAE_TT);
+            someAE_TT+=parseNumberWithoutCommas($(this).val())
+            $('#AE_act').val(ValAccountingFigures(someAE_TT))
+            console.log('old TT '+someAE_TT)
+            }
+            
+    })
+
+    $('#T2_AE_init_AC').on('focusin',function(){
+        oldTT=$('#AE_act').val();
+        old=$(this).val();
+        console.log('old value'+oldTT);
+    })
+
+    $('#T2_AE_init_AC').on('focusout',function(){
+        console.log('old before if'+oldTT);
+        if(old == 0 || old == '' || old == '0' || old == null || old =='NaN')
+            {
+                old='0'
+            }
+        if(oldTT == 0 || oldTT == '' || oldTT == '0' || oldTT == null || oldTT =='NaN')
+            {
+                someAE_TT=0;
+            someAE_TT+=parseNumberWithoutCommas($(this).val())
+            $('#AE_act').val(ValAccountingFigures(someAE_TT))
+            console.log('TT '+someAE_TT)
+            }
+            else
+            {
+                someAE_TT=parseNumberWithoutCommas(oldTT) - parseNumberWithoutCommas(old)
+            console.log('TT befor addin'+someAE_TT);
+            someAE_TT+=parseNumberWithoutCommas($(this).val())
+            $('#AE_act').val(ValAccountingFigures(someAE_TT))
+            console.log('old TT '+someAE_TT)
+            }
+    })
+
+    $('#T3_AE_init_AC').on('focusin',function(){
+        oldTT=$('#AE_act').val();
+        old=$(this).val();
+        console.log('old value'+oldTT);
+    })
+
+    $('#T3_AE_init_AC').on('focusout',function(){
+        console.log('old before if'+oldTT);
+        if(old == 0 || old == '' || old == '0' || old == null || old =='NaN')
+            {
+                old='0'
+            }
+        if(oldTT == 0 || oldTT == '' || oldTT == '0' || oldTT == null || oldTT =='NaN')
+            {
+                someAE_TT=0;
+            someAE_TT+=parseNumberWithoutCommas($(this).val())
+            $('#AE_act').val(ValAccountingFigures(someAE_TT))
+            console.log('TT '+someAE_TT)
+            }
+            else
+            {
+            someAE_TT=parseNumberWithoutCommas(oldTT) - parseNumberWithoutCommas(old)
+            console.log('TT befor addin'+someAE_TT);
+            someAE_TT+=parseNumberWithoutCommas($(this).val())
+            $('#AE_act').val(ValAccountingFigures(someAE_TT))
+            console.log('old TT '+someAE_TT)
+            }
+    })
+
+    $('#T4_AE_init_AC').on('focusin',function(){
+        oldTT=$('#AE_act').val();
+        old=$(this).val();
+        console.log('old value'+oldTT);
+    })
+
+    $('#T4_AE_init_AC').on('focusout',function(){
+        console.log('old before if'+oldTT);
+        if(old == 0 || old == '' || old == '0' || old == null || old =='NaN')
+            {
+                old='0'
+            }
+        if(oldTT == 0 || oldTT == '' || oldTT == '0' || oldTT == null || oldTT =='NaN')
+            {
+            someAE_TT=0
+            someAE_TT+=parseNumberWithoutCommas($(this).val())
+            $('#AE_sous_prog').val(ValAccountingFigures(someAE_TT))
+            console.log('null TT '+someAE_TT)
+            }
+            else
+            {
+            console.log('TT refresh new Value some '+someAE_TT+' old'+oldTT);
+            someAE_TT=parseNumberWithoutCommas(oldTT) - parseNumberWithoutCommas(old)
+            
+            someAE_TT+=parseNumberWithoutCommas($(this).val())
+            $('#AE_act').val(ValAccountingFigures(someAE_TT))
+            console.log('old TT '+someAE_TT)
+            }
+    })
+    /**  ------------------------------------------------------ rnf ---------------- */
+    /**------------------------------------ Some CP T ----------------------------- */
+
+    $('#T1_CP_init_AC').on('focusin',function(){
+        oldTTCP=$('#CP_act').val();
+        oldCP=$(this).val();
+        console.log('old value'+oldTTCP);
+    })
+
+
+    $('#T1_CP_init_AC').on('focusout',function(){
+
+
+        console.log('old before if'+oldTTCP);
+        if(oldCP == 0 || oldCP == '' || oldCP == '0' || oldCP == null || oldCP =='NaN')
+        {
+            oldCP='0'
+        }
+        if(oldTTCP == 0 || oldTTCP == '' || oldTTCP == '0' || oldTTCP == null || oldTTCP =='NaN' )
+            {
+                someCP_TT=0;
+            someCP_TT+=parseNumberWithoutCommas($(this).val())
+            $('#CP_act').val(ValAccountingFigures(someCP_TT))
+            console.log('TT '+someCP_TT)
+            }
+            else
+            {
+            someCP_TT=parseNumberWithoutCommas(oldTTCP) - parseNumberWithoutCommas(oldCP)
+            console.log('TT befor addin'+someCP_TT);
+            someCP_TT+=parseNumberWithoutCommas($(this).val())
+            $('#CP_act').val(ValAccountingFigures(someCP_TT))
+            console.log('old TT '+someCP_TT)
+            }
+
+    })
+
+    $('#T2_CP_init_AC').on('focusin',function(){
+        oldTTCP=$('#CP_act').val();
+        oldCP=$(this).val();
+        console.log('old value'+oldTT);
+    })
+
+
+    $('#T2_CP_init_AC').on('focusout',function(){
+
+        console.log('old before if'+oldTTCP);
+        if(oldCP == 0 || oldCP == '' || oldCP == '0' || oldCP == null || oldCP =='NaN')
+        {
+            oldCP='0'
+        }
+        if(oldTTCP == 0 || oldTTCP == '' || oldTTCP == '0' || oldTTCP == null || oldTTCP =='NaN' )
+            {
+                someCP_TT=0;
+            someCP_TT+=parseNumberWithoutCommas($(this).val())
+            $('#CP_act').val(ValAccountingFigures(someCP_TT))
+            console.log('TT '+someCP_TT)
+            }
+            else
+            {
+            someCP_TT=parseNumberWithoutCommas(oldTTCP) - parseNumberWithoutCommas(oldCP)
+            console.log('TT befor addin'+someCP_TT);
+            someCP_TT+=parseNumberWithoutCommas($(this).val())
+            $('#CP_act').val(ValAccountingFigures(someCP_TT))
+            console.log('old TT '+someCP_TT)
+            }
+        
+    })
+
+    $('#T3_CP_init_AC').on('focusin',function(){
+        oldTTCP=$('#CP_act').val();
+        oldCP=$(this).val();
+        console.log('old value'+oldTTCP);
+    })
+
+    $('#T3_CP_init_AC').on('focusout',function(){
+
+        console.log('old before if'+oldTTCP);
+        if(oldCP == 0 || oldCP == '' || oldCP == '0' || oldCP == null || oldCP =='NaN')
+        {
+            oldCP='0'
+        }
+        if(oldTTCP == 0 || oldTTCP == '' || oldTTCP == '0' || oldTTCP == null || oldTTCP =='NaN' )
+            {
+                someCP_TT=0;
+            someCP_TT+=parseNumberWithoutCommas($(this).val())
+            $('#CP_act').val(ValAccountingFigures(someCP_TT))
+            console.log('TT '+someCP_TT)
+            }
+            else
+            {
+            someCP_TT=parseNumberWithoutCommas(oldTTCP) - parseNumberWithoutCommas(oldCP)
+            console.log('TT befor addin'+someCP_TT);
+            someCP_TT+=parseNumberWithoutCommas($(this).val())
+            $('#CP_act').val(ValAccountingFigures(someCP_TT))
+            console.log('old TT '+someCP_TT)
+            }
+        
+    })
+
+    $('#T4_CP_init_AC').on('focusin',function(){
+        oldTTCP=$('#CP_act').val();
+        oldCP=$(this).val();
+        console.log('old value'+oldTTCP);
+    })
+
+    $('#T4_CP_init_AC').on('focusout',function(){
+
+        console.log('old before if'+oldTT);
+        if(oldCP == 0 || oldCP == '' || oldCP == '0' || oldCP == null || oldCP =='NaN')
+        {
+            oldCP='0'
+        }
+        if(oldTTCP == 0 || oldTTCP == '' || oldTTCP == '0' || oldTTCP == null || oldTTCP =='NaN' )
+            {
+            someCP_TT=0;
+            someCP_TT+=parseNumberWithoutCommas($(this).val())
+            $('#CP_act').val(ValAccountingFigures(someCP_TT))
+            console.log('TT '+someCP_TT)
+            }
+            else
+            {
+            someCP_TT=parseNumberWithoutCommas(oldTTCP) - parseNumberWithoutCommas(oldCP)
+            console.log('TT befor addin'+someCP_TT);
+            someCP_TT+=parseNumberWithoutCommas($(this).val())
+            $('#CP_act').val(ValAccountingFigures(someCP_TT))
+            console.log('old TT '+someCP_TT)
+            }
+        
+    })
+}
+
 
 function formatAccountingFigures(input) {
     // Remove non-numeric characters except for "."
@@ -245,7 +800,8 @@ $('#date_insert_sou_action').on('focusout', function () {
  //=============== FIN CHECK SOUS ACTION================//
 
 
-
+calaulsomeAE_CP_act()
+calaulsomeAE_CP_sprog()
 
 
 
