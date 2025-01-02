@@ -48,7 +48,7 @@
                 <div class="row">
                   <div class="col-8">
                     <h5 class="card-title widget-card-title mb-3">Portefeuille</h5>
-                    <h4 class="card-subtitle text-body-secondary m-0">  Autorisations d’engagement :<p class="chiffre">{{$allport['TotalAE']}}</p></h4>
+                    <h4 class="card-subtitle text-body-secondary m-0">  Autorisations d’engagement :<p class="chiffre" >{{$allport['TotalAE']}}</p></h4>
                     <h4 class="card-subtitle text-body-secondary m-0"> Crédits de paiement :<p class="chiffre">{{$allport['TotalCP']}}</p></h4>
                   </div>
                   <div class="col-4">
@@ -529,6 +529,7 @@
 <script src="{{asset('assets/js/jquery-3.7.1.min.js')}}"></script>
 <script src="{{asset('assets/js/treeHandles.js')}}"></script>
 <script>
+  
   var path=Array();
   var path3=Array();
  document.querySelectorAll('.next').forEach(member => {
@@ -603,7 +604,7 @@ listItemsWithNestedUl.each(function(){
             window.location.href='/creation/from/'+id;
             var  news;
         })
-var idchfri=$('.chiffre')
+/*var idchfri=$('.chiffre')
 
 idchfri.each(function(){
   var newl="";
@@ -654,7 +655,7 @@ else
 }
 }
 
-})
+})*/
 })
 
 </script>
