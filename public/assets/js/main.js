@@ -2414,24 +2414,24 @@ $("#add-prg").on('click', function () {
                         '<div class="T_init_port">'+
                         '<div class="ports_init">'+
                         '<div class="form-group">' +
-                        '<label for="input1">T1 pour Sous Programme</label>' +
-                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T1_AE_init_AC"   placeholder="Entrer T1 AE Sous Programme">' +
-                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T1_CP_init_AC"   placeholder="Entrer T1 CP Sous Programme">' +
+                        '<label for="input1">T1 pour ACTION</label>' +
+                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T1_AE_init_AC"   placeholder="Entrer T1 AE ACTION">' +
+                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T1_CP_init_AC"   placeholder="Entrer T1 CP ACTION">' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="input1">T2 pour Sous Programme</label>' +
-                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T2_AE_init_AC"   placeholder="Entrer T2 AE Sous Programme">' +
-                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T2_CP_init_AC"   placeholder="Entrer T2 CP Sous Programme">' +
+                        '<label for="input1">T2 pour ACTION</label>' +
+                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T2_AE_init_AC"   placeholder="Entrer T2 AE ACTION">' +
+                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T2_CP_init_AC"   placeholder="Entrer T2 CP ACTION">' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="input1">T3 pour Sous Programme</label>' +
-                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T3_AE_init_AC"   placeholder="Entrer T3 AE Sous Programme">' +
-                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T3_CP_init_AC"   placeholder="Entrer T3 CP Sous Programme">' +
+                        '<label for="input1">T3 pour ACTION</label>' +
+                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T3_AE_init_AC"   placeholder="Entrer T3 AE ACTION">' +
+                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T3_CP_init_AC"   placeholder="Entrer T3 CP ACTION">' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="input1">T4 pour Sous Programme</label>' +
-                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T4_AE_init_AC"   placeholder="Entrer T4 AE Sous Programme">' +
-                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T4_CP_init_AC"   placeholder="Entrer T4 CP Sous Programme">' +
+                        '<label for="input1">T4 pour ACTION</label>' +
+                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T4_AE_init_AC"   placeholder="Entrer T4 AE ACTION">' +
+                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T4_CP_init_AC"   placeholder="Entrer T4 CP ACTION">' +
                         '</div>' +
                         '</div>'+
                         '</div>'+
