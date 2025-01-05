@@ -26,7 +26,7 @@ class Operation extends Model
 
     public function SousOperation()
     {
-        return $this->hasMany(SousOperation::class,'code_operation','code_operation');
+        return $this->hasMany(SousOperation::class,'code_operation','code_operation')->orderBy('code_sous_operation', 'asc');
     }
 
 }

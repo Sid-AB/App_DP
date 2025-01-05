@@ -287,11 +287,11 @@ class sousOperationController extends Controller
             ];
              }
          }
-        //dd($resultstructur);
+       // dd($resultstructur);
       
         if (isset($resultstructur)) {
-           return view
-        /* $pdf=SnappyPdf::loadView*/
+          /* return view*/
+         $pdf=SnappyPdf::loadView
             ('impression.liste_impression_dpia_4tables_combinées', compact(
                 'resultstructur', 
                 'sousProgramme', 
@@ -303,8 +303,8 @@ class sousOperationController extends Controller
                 'prog', 
                 'action', 
                 'years',
-            ));/*->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1.25);  // Augmenter la résolution pour améliorer la lisibilité du texte
-              return $pdf->stream('liste_impression.pdf');*/
+            ))->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1.25);  // Augmenter la résolution pour améliorer la lisibilité du texte
+              return $pdf->stream('liste_impression.pdf');
         } else {
                 throw new \Exception("Aucune donnée trouvée");
             }

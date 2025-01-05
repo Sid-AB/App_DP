@@ -136,8 +136,7 @@
         </thead>
         <tbody>
        
-       <!--  @php dd($resultstructur['T3']['groupedData']);@endphp
-         -->
+    
          @if(isset($resultstructur['T3']['groupedData']))
                 @foreach ($resultstructur['T3']['groupedData'] as $groupData)
                 @php
@@ -172,11 +171,7 @@
                      $codeop = end( $code_grpsepar);
                      //dd($operationData);
                   
-                     $nom_sepa=explode('-', $namesT3[$codeop ]);
-                      $nom=end($nom_sepa);
-
-                    $nom_separ=explode('-', $namesT3[$codeop ]);
-                    $nomfirst=reset($nom_separ);
+                   
 
                     // compter le nbr total d'op dans le groupe
                         //$totalOperations = count($operationData['sousOperations']);
@@ -189,10 +184,8 @@
                    <!--td rowspan={{$totalOperations}} class="code"></td-->        <td class="code">{{ $codeop }}</td>
     
                    <td >{{$namesT3[$codeop]}}</td>
-                   <td ></td>   <td ></td>
-                   <!--td >{{$nomfirst ?? Néant}}</td--> 
-
-                   <!--td class="vert3">{{$nom  ?? Néant }}</td--> 
+                   <td ></td>   <td class="vert3"></td>
+                  
 
                 <td class="aecp " style="text-align: center; ">{{ $operationData['operation']['values']['ae_reporteop'] ?? 'N/A' }}</td>
                 <td class="aecp " style="text-align: center; ">{{ $operationData['operation']['values']['ae_notifieop'] ?? 'N/A' }}</td>
@@ -208,14 +201,8 @@
                 <td class="code">{{ $codeop }}</td>
     
                 <td >{{$namesT3[$codeop]}}</td>
-                <td ></td>   <td ></td>
-                   <!--td  class="code" ></td>      <td class="code">{{ $codeop }}</td>
-                   <td  >{{$namesT3[$codegrp]}}</td>
-                   <td >{{$nomfirst ?? Néant}}</td> 
-
-                   <td class="vert3">{{$nom ?? Néant }}</td--> 
-
-
+                <td ></td>   <td class="vert3"></td>
+                
                     <td class="aecp " style="text-align: center; ">{{ $operationData['operation']['values']['ae_reporteop'] ?? 'N/A' }}</td>
                     <td class="aecp "  style="text-align: center; ">{{ $operationData['operation']['values']['ae_notifieop'] ?? 'N/A' }}</td>
                     <td class="aecp " style="text-align: center; ">{{ $operationData['operation']['values']['ae_engageop'] ?? 'N/A' }}</td>
@@ -236,25 +223,35 @@
                     //dd(  $code_separer);
                     $codeextr = end($code_separer);
                  //  dd($codeextr);
-                    $nom_sepa=explode('-', $namesT3[$codeextr ]);
-                      $nom=end($nom_sepa);
-
-                    $nom_separ=explode('-', $namesT3[$codeextr ]);
-                    $nomfirst=reset($nom_separ);
+                 $avantDernierePartie = $code_separer[count($code_separer) - 2] ?? null;
+                 //dd(  $avantDernierePartie);
+                 $nom = $avantDernierePartie ? App\Models\SousOperation::where('code_sous_operation', $sousOp['code'])->first()->nom_sous_operation : null;
+                    //dd($nom);
+       
+                    if (strpos($nom, '_') !== false) {
+                    $explodnom = explode('_', $nom);
+                    $decision=reset($explodnom);
+                    //dd($decision);
+                    $intitule=end($explodnom);
+                    //dd($intitule);
+                    }else {
+                            $decision ='';
+                            $intitule = '';
+                    }
                 @endphp  
                 @if ($codeextr !== $codeop)
                     <tr>
-                    <td class="code">{{ $codeextr }}</td>
+                    <td class="code">{{  (strlen($codeextr) === 5) ? $codeextr : '' }}</td>
     
-                    <td >{{$namesT3[$codeextr]}}</td>
-                    <td ></td>   <td ></td>
+                    <td>{{ $namesT3[$codeextr] ??$namesT3[$avantDernierePartie] }}</td>
+                    <td >{{ $decision }}</td>
+                    <td class="vert3">{{ $intitule }}</td>
                     <!--td style="text-align: center; " class="code">{{ $codeextr }}</td>
 
-                    <td>{{$namesT3[$codegrp]}}</td>
+                    <td>{{$namesT3[$codegrp]}}</td-->
 
-                    <td>{{$nomfirst ?? Néant}}</td> 
+                   
 
-                    <td class="vert3">{{$nom ?? Néant}}</td--> 
 
                     <td class="aecp " style="text-align: center; ">{{ $sousOp['values']['ae_reportesousop'] ?? 'N/A' }}</td>
                     <td class="aecp " style="text-align: center; ">{{ $sousOp['values']['ae_notifiesousop'] ?? 'N/A' }}</td>
@@ -299,26 +296,26 @@
   
        @if(!empty($resultstructur['T3']['groupedData']))
         <tr  class="total3">
-            <td colspan="4" style="text-align: center; font-weight: bold;">TOTAL DES CREDITS </td>
-            <td style="text-align: center; ">{{ $resultstructur['T3']['total'][0]['values']['totalAEreportevertical'] ?? 'N/A' }}</td>
-            <td style="text-align: center; ">{{ $resultstructur['T3']['total'][0]['values']['totalAEnotifievertical'] ?? 'N/A' }}</td>
-            <td style="text-align: center; ">{{ $resultstructur['T3']['total'][0]['values']['totalAEengagevertical'] ?? 'N/A' }}</td>
+            <td colspan="4" style="text-align: center;font-weight: bold;font-size:20px;">TOTAL DES CREDITS </td>
+            <td style="text-align: center;font-weight: bold;font-size:20px; ">{{ $resultstructur['T3']['total'][0]['values']['totalAEreportevertical'] ?? 'N/A' }}</td>
+            <td style="text-align: center; font-weight: bold;font-size:20px;">{{ $resultstructur['T3']['total'][0]['values']['totalAEnotifievertical'] ?? 'N/A' }}</td>
+            <td style="text-align: center; font-weight: bold;font-size:20px;">{{ $resultstructur['T3']['total'][0]['values']['totalAEengagevertical'] ?? 'N/A' }}</td>
 
-            <td style="text-align: center; ">{{ $resultstructur['T3']['total'][0]['values']['totalCPreportevertical'] ?? 'N/A' }}</td>
-            <td style="text-align: center; ">{{ $resultstructur['T3']['total'][0]['values']['totalCPnotifievertical'] ?? 'N/A' }}</td>
-            <td style="text-align: center; ">{{ $resultstructur['T3']['total'][0]['values']['totalCPconsomevertical'] ?? 'N/A' }}</td>
+            <td style="text-align: center;font-weight: bold;font-size:20px; ">{{ $resultstructur['T3']['total'][0]['values']['totalCPreportevertical'] ?? 'N/A' }}</td>
+            <td style="text-align: center; font-weight: bold;font-size:20px;">{{ $resultstructur['T3']['total'][0]['values']['totalCPnotifievertical'] ?? 'N/A' }}</td>
+            <td style="text-align: center;font-weight: bold;font-size:20px; ">{{ $resultstructur['T3']['total'][0]['values']['totalCPconsomevertical'] ?? 'N/A' }}</td>
 
       
         </tr>
         @else 
         <tr  class="total3">
-            <td colspan="4" style="text-align: center; font-weight: bold;">TOTAL DES CREDITS </td>
-            <td style="text-align: center; ">- </td>
-            <td style="text-align: center; ">- </td>
-            <td style="text-align: center; ">- </td>
-            <td style="text-align: center; ">- </td>
-            <td style="text-align: center; ">- </td>
-            <td style="text-align: center; ">- </td>
+            <td colspan="4" style="text-align: center; font-weight: bold;font-size:20px;">TOTAL DES CREDITS </td>
+            <td style="text-align: center;font-weight: bold;font-size:20px; ">- </td>
+            <td style="text-align: center; font-weight: bold;font-size:20px;">- </td>
+            <td style="text-align: center;font-weight: bold;font-size:20px; ">- </td>
+            <td style="text-align: center; font-weight: bold;font-size:20px;">- </td>
+            <td style="text-align: center; font-weight: bold;font-size:20px;">- </td>
+            <td style="text-align: center; font-weight: bold;font-size:20px;">- </td>
 
       
         </tr>

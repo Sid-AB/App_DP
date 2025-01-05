@@ -87,8 +87,8 @@
         background-color:#DDD9C4;
         }
 
-           h1 {
-            font-size: 1.2em;
+        h1 {
+            font-size: 1em;
             margin-bottom: 20px;
         }
 

@@ -39,16 +39,7 @@
      /*   tr:hover {
             background-color: #0c0a0a;  Effet survol 
         }*/
-        h1 {
-            font-size: 1.5em;
-            margin-bottom: 20px;
-        }
-
-        p {
-            font-size: 1.2em;
-            margin-bottom: 30px;
-        }
-
+       
      
         .T
         {

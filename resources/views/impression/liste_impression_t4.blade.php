@@ -128,7 +128,7 @@
                 <tr class="group-row">
                 <td class="code">{{$codegrp}}</td>
                 <td style=" font-weight: bold; ">{{ $namesT4[$codegrp ] ?? 'Nom non trouvé' }}</td>
-                <td class="vert4">{{ $namesT4[$codegrp ] ?? 'Nom non trouvé' }}</td>
+                <td class="vert4"></td>
                 <td class="aecp">{{ $groupData['group']['values']['ae_grpop'] ?? 'N/A' }}</td>
                 <td class="aecp">{{ $groupData['group']['values']['cp_grpop'] ?? 'N/A' }}</td>
             </tr>
@@ -145,31 +145,43 @@
         $code_separer = explode('-', $sousOp['code']);
         $codeextr = end($code_separer);
         $avantDernierePartie = $code_separer[count($code_separer) - 2] ?? null;
+        //dd( $avantDernierePartie);
+        $nom = $avantDernierePartie ? App\Models\SousOperation::where('code_sous_operation', $sousOp['code'])->first()->nom_sous_operation : null;
+        //dd($nom);
+       
+        if (strpos($nom, '_') !== false) {
+        $explodnom = explode('_', $nom);
+        $dispo=reset($explodnom);
+        //dd($decision);
+     
+        }else {
+            $dispo ='';
+                   }
     @endphp
 
    
 
     @if (strlen($codeextr) < 3 && $avantDernierePartie == $codeop)
-        <tr>
-            <td class="code">{{ $avantDernierePartie }}</td>
-            <td>{{ $namesT4[$codeop] ?? 'Nom non trouvé' }}</td>
-            <td>{{ App\Models\SousOperation::where('code_sous_operation', $sousOp['code'])->first()->nom_sous_operation ?? 'Nom non trouvé' }}</td>
+        <tr class="operation-row with-sousop">
+            <td class="code">{{  (strlen($codeextr) === 5) ? $codeextr : '' }}</td>
+            <td>{{ $namesT4[$avantDernierePartie] ?? 'Nom non trouvé' }}</td>
+            <td class="vert4">{{ $dispo ?? $namesT4[$avantDernierePartie] }}</td>
             <td class="aecp">{{ $operationData['operation']['values']['ae_op'] ?? 'N/A' }}</td>
             <td class="aecp">{{ $operationData['operation']['values']['cp_op'] ?? 'N/A' }}</td>
         </tr>
     @elseif (strlen($codeextr) < 3 && $avantDernierePartie != $codeop)
         <tr>
-            <td class="code">{{ $avantDernierePartie }}</td>
+            <td class="code">{{  (strlen($codeextr) === 5) ? $codeextr : ''  }}</td>
             <td>{{ $namesT4[$avantDernierePartie] ?? 'Nom non trouvé' }}</td>
-            <td>{{ App\Models\SousOperation::where('code_sous_operation', $sousOp['code'])->first()->nom_sous_operation ?? 'Nom non trouvé' }}</td>
+            <td class="vert4">{{ $dispo ?? $namesT4[$avantDernierePartie] }}</td>
             <td class="aecp">{{ $sousOp['values']['ae_sousop'] ?? 'N/A' }}</td>
             <td class="aecp">{{ $sousOp['values']['cp_sousuop'] ?? 'N/A' }}</td>
         </tr>
     @else
         <tr>
-            <td class="code">{{ $codeextr }}</td>
+            <td class="code">{{  (strlen($codeextr) === 5) ? $codeextr : ''  }}</td>
             <td>{{ $namesT4[$codeextr] ?? 'Nom non trouvé' }}</td>
-            <td></td>
+            <td class="vert4">{{ $dispo ?? $namesT4[$avantDernierePartie] }}</td>
             <td class="aecp">{{ $sousOp['values']['ae_sousop'] ?? 'N/A' }}</td>
             <td class="aecp">{{ $sousOp['values']['cp_sousuop'] ?? 'N/A' }}</td>
         </tr>
@@ -180,7 +192,7 @@
         <tr class="operation-row">
             <td class="code">{{ $codeop }}</td>
             <td>{{ $namesT4[$codeop] ?? 'Nom non trouvé' }}</td>
-            <td class="vert4"></td>
+            <td class="vert4"> {{ $dispo ?? $namesT4[$avantDernierePartie] }}</td>
             <td class="aecp">{{ $operationData['operation']['values']['ae_op'] ?? 'N/A' }}</td>
             <td class="aecp">{{ $operationData['operation']['values']['cp_op'] ?? 'N/A' }}</td>
         </tr>

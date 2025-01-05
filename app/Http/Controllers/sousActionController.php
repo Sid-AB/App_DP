@@ -149,7 +149,7 @@ function printdpic($numport)
                             {
 
                                 $resultats = $this->CalculDpia->calculdpiaFromPath($numport, $progm->num_prog, $sprog->num_sous_prog, $listact->num_action,$listsousact->num_sous_action);
-
+                                //dd( $resultats);
                                 array_push($allaction,['actions'=>['code'=>$listsousact->num_sous_action,"nom"=>$listsousact->nom_sous_action,'TotalT'=>$resultats]]);
                                 $all_act= $allaction;
 
@@ -168,7 +168,7 @@ function printdpic($numport)
                 {
                     $TtAE1+=$actsect['TotalT']['T1']['total'][0]['values']['totalAE'];
                     $TtCP1+=$actsect['TotalT']['T1']['total'][0]['values']['totalCP'];
-
+             
                     $TtAE2+=$actsect['TotalT']['T2']['total'][0]['values']['totalAE'];
                     $TtCP2+=$actsect['TotalT']['T2']['total'][0]['values']['totalCP'];
 
@@ -267,14 +267,14 @@ function printdpic($numport)
             'sous_programs'=>$allsous_prog,
             'programs'=>$all_prog,
         ]);*/
-         $pdf=SnappyPdf::loadView('impression.programmes', compact('programmes','Ttportglob'))
+       /*  $pdf=SnappyPdf::loadView('impression.programmes', compact('programmes','Ttportglob'))
          ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1.5);//lanscape mean orentation
-               return $pdf->stream('impression_dpic.pdf');
+               return $pdf->stream('impression_dpic.pdf');*/
 
-       /* $pdf=SnappyPdf::loadView('impression.impression_dpicprgsousprog', compact('programmes','Ttportglob'))
+        $pdf=SnappyPdf::loadView('impression.impression_dpic2tableaux', compact('programmes','Ttportglob'))
          ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1.5);//lanscape mean orentation
                return $pdf->stream('impression_dpic.pdf');
-       //return view('impression.programmes',compact('programmes','Ttportglob'));*/
+       //return view('impression.programmes',compact('programmes','Ttportglob'));
         }
         else
         {
