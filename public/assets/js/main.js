@@ -3514,6 +3514,7 @@ if(code == 200){
 }
 function T4_table(id, T, id_s_act, port,code) {
    $('#T-tables tfoot').empty();
+  
     var current = new Array();
     var preve = new Array();
     var data_T_port = new Array();
@@ -3574,11 +3575,13 @@ function T4_table(id, T, id_s_act, port,code) {
         '</tr>';
     $('#T-tables thead').append(headT)
     
+
+    $.getJSON(jsonpath4, function (data) {
+    var lengT = Object.keys(data).length
     var i = 0;
     var ig = 0;
     var io = 0;
     var iso = 0;
-    $.getJSON(jsonpath4, function (data) {
         // Loop through each item in the JSON data
         $.each(data, function (key, value) {
             // Create a table row
@@ -3697,6 +3700,18 @@ function T4_table(id, T, id_s_act, port,code) {
                     preve = current;
                 }
                 current = key;
+            }
+            i++;
+            if (i == lengT) {
+                if ($('.ref' + key + ' td').hasClass("editable")) {
+                    $('.ref' + key + ' #add_op').append(newbtn)
+                    $('.ref' + key + ' #add_op').on('click', function () {
+                       var newKey=$(this).parent().attr('id');
+                       var ads = newKey.split('ref')[1] 
+                       $('.Tsop_handler').removeClass('Tsop_handler_h')
+                        add_newOPs_T4(ads, 2500, preve);
+                    })
+                }
             }
             if(code === 200)
                 {

@@ -129,18 +129,18 @@ class sousOperationController extends Controller
           $years = Carbon::parse($years->Date_portefeuille)->year;
 
           // Chargement du fichier JSON
-        $jsonData = file_get_contents(public_path('assets/titre/dataT1.json')); //la fonction file_get_contents() lire directement depuis le système de fichiers :
-      //dd($jsonData);  
+        $jsonData = file_get_contents(public_path('assets/Titre/dataT1.json')); //la fonction file_get_contents() lire directement depuis le système de fichiers :
+       // dd($jsonData);  
         $operations = json_decode($jsonData, true); // décoder en tableau 
         //dd($operations);  
 
-        $jsonDataT2 = file_get_contents(public_path('assets/titre/dataT2.json'));
+        $jsonDataT2 = file_get_contents(public_path('assets/Titre/dataT2.json'));
         $operationsT2 = json_decode($jsonDataT2, true);
     
-        $jsonDataT3 = file_get_contents(public_path('assets/titre/dataT3.json'));
+        $jsonDataT3 = file_get_contents(public_path('assets/Titre/dataT3.json'));
         $operationsT3 = json_decode($jsonDataT3, true);
     
-        $jsonDataT4 = file_get_contents(public_path('assets/titre/dataT4.json'));
+        $jsonDataT4 = file_get_contents(public_path('assets/Titre/dataT4.json'));
         $operationsT4 = json_decode($jsonDataT4, true);
     
         // fonction prepareer names
@@ -287,11 +287,11 @@ class sousOperationController extends Controller
             ];
              }
          }
-        dd($resultstructur);
+        //dd($resultstructur);
       
         if (isset($resultstructur)) {
-           //return view
-         $pdf=SnappyPdf::loadView
+           return view
+        /* $pdf=SnappyPdf::loadView*/
             ('impression.liste_impression_dpia_4tables_combinées', compact(
                 'resultstructur', 
                 'sousProgramme', 
@@ -303,8 +303,8 @@ class sousOperationController extends Controller
                 'prog', 
                 'action', 
                 'years',
-            ))->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1.25);  // Augmenter la résolution pour améliorer la lisibilité du texte
-              return $pdf->stream('liste_impression.pdf');
+            ));/*->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1.25);  // Augmenter la résolution pour améliorer la lisibilité du texte
+              return $pdf->stream('liste_impression.pdf');*/
         } else {
                 throw new \Exception("Aucune donnée trouvée");
             }

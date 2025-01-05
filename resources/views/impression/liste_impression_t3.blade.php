@@ -136,9 +136,9 @@
         </thead>
         <tbody>
        
-         @php dd($resultstructur['T3']['groupedData']);@endphp
-       <!-- -->
-            @if(isset($resultstructur['T3']['groupedData']))
+       <!--  @php dd($resultstructur['T3']['groupedData']);@endphp
+         -->
+         @if(isset($resultstructur['T3']['groupedData']))
                 @foreach ($resultstructur['T3']['groupedData'] as $groupData)
                 @php
                     // extraire la dernière partie du code grp
@@ -146,7 +146,7 @@
                     //dd(  $code_grpsepar);
                     $codegrp = end($code_grpsepar);
                     //dd($codegrp);
-                 $i=0;
+                
                 @endphp
             <tr class="group-row">
                 <td style="text-align: center; " class="code">{{$codegrp}}</td>
@@ -242,8 +242,9 @@
                     $nom_separ=explode('-', $namesT3[$codeextr ]);
                     $nomfirst=reset($nom_separ);
                 @endphp  
-                <tr>
-                <td class="code">{{ $codeextr }}</td>
+                @if ($codeextr !== $codeop)
+                    <tr>
+                    <td class="code">{{ $codeextr }}</td>
     
                     <td >{{$namesT3[$codeextr]}}</td>
                     <td ></td>   <td ></td>
@@ -263,6 +264,7 @@
                     <td class="aecp " style="text-align: center; ">{{ $sousOp['values']['cp_notifiesousop'] ?? 'N/A' }}</td>
                     <td class="aecp " style="text-align: center; ">{{ $sousOp['values']['cp_consomesousop'] ?? 'N/A' }}</td>
                 </tr>
+                @endif
             @endforeach
         @endforeach
         @endforeach
