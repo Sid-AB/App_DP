@@ -206,7 +206,11 @@
                     // extraire la dernière partie du code de la sous-opération
                     $code_separer = explode('-', $sousOp['code']);
                     $codeextr = end($code_separer);
+                    // Extraire la dernière partie du code de l'opération
+                    $code_op_separer = explode('-', $operationData['operation']['code']);
+                    $codeop = end($code_op_separer);
                 @endphp
+                @if ($codeextr !== $codeop)
                 <tr>
                     <td class="code2" style="text-align: center; ">{{ $codeextr }}</td>
                     <td>{{ $namesT2[$codeextr]?? 'Nom non trouvé' }}</td>
@@ -220,6 +224,7 @@
                     <td style="text-align: center; "> {{ $sousOp['values']['totalAEsousop'] ?? 'N/A' }}</td>
                     <td style="text-align: center; ">{{ $sousOp['values']['totalCPsousop'] ?? 'N/A' }}</td>
                 </tr>
+                @endif
             @endforeach
         @endforeach
         @endforeach

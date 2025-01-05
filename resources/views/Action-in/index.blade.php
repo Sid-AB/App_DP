@@ -237,11 +237,18 @@
   var jsonpath4="{{asset('assets/Titre/dataT4.json')}}"
   var yearport="{{$years}}"
   var counter=0;
+<<<<<<< HEAD
  
   @if(isset($sact))
   var ssact='{{$sact}}'
   @else 
      var ssact='{{$s_act}}'
+=======
+  @if(isset($sact))
+  var ssact='{{$sact}}'
+  @else
+  var ssact='{{$s_act}}'
+>>>>>>> b90398b16151bf6b392082217035ac4d56c20137
   @endif
 
   @if(isset($s_act))

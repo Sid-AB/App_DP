@@ -122,25 +122,25 @@ class sousOperationController extends Controller
 
             //dd($port, $prog, $sous_prog, $act,$s_act);
             $resultats = $this->CalculDpia->calculdpiaFromPath($port, $prog, $sous_prog, $act,$s_act);
-          //dd($resultats );
+            //dd($resultats );
            
           //pour t3 
           $years=Portefeuille::where('num_portefeuil',$port)->firstOrFail();
           $years = Carbon::parse($years->Date_portefeuille)->year;
 
           // Chargement du fichier JSON
-        $jsonData = file_get_contents(public_path('assets/titre/dataT1.json')); //la fonction file_get_contents() lire directement depuis le système de fichiers :
-      //dd($jsonData);  
+        $jsonData = file_get_contents(public_path('assets/Titre/dataT1.json')); //la fonction file_get_contents() lire directement depuis le système de fichiers :
+       // dd($jsonData);  
         $operations = json_decode($jsonData, true); // décoder en tableau 
         //dd($operations);  
 
-        $jsonDataT2 = file_get_contents(public_path('assets/titre/dataT2.json'));
+        $jsonDataT2 = file_get_contents(public_path('assets/Titre/dataT2.json'));
         $operationsT2 = json_decode($jsonDataT2, true);
     
-        $jsonDataT3 = file_get_contents(public_path('assets/titre/dataT3.json'));
+        $jsonDataT3 = file_get_contents(public_path('assets/Titre/dataT3.json'));
         $operationsT3 = json_decode($jsonDataT3, true);
     
-        $jsonDataT4 = file_get_contents(public_path('assets/titre/dataT4.json'));
+        $jsonDataT4 = file_get_contents(public_path('assets/Titre/dataT4.json'));
         $operationsT4 = json_decode($jsonDataT4, true);
     
         // fonction prepareer names
@@ -173,45 +173,48 @@ class sousOperationController extends Controller
         $action=$sousProgramme->Action->first();
       //  dd($action);
             // pour bien structurer les données de resultats (calcul dpia)
-            $intitule = null;
-            $decision=null;
+           
          $resultstructur = [];
          foreach (['T1', 'T2', 'T3', 'T4'] as $t) {
              if (isset($resultats[$t])) {
-             
+            // dd($resultats);
                  $tdata = $resultats[$t];
                  
                  // chaque grp avec leurs sous operations
                  $groupedData = [];
                  foreach ($tdata['group'] as $group) {
                      $groupCode = $group['code'];
-                    // dd($groupCode);
-                     $groupParts = explode('-', $groupCode); // Exemple: 'grp-123-456'
-                     $groupCode = implode('-', array_slice($groupParts, 0, 7));
-                     //dd($groupCode);
+                    //dd($groupCode);
                     $groupedData[$groupCode] = [
                         'group' => $group,
                         'operations' => [],
                     
-                    ];
+                    ];//dd( $groupedData);
                  }
                // dd( $groupedData);
                foreach ($tdata['operation'] as $operation) {
-                $groupCode = substr($operation['code'], 0, strlen($operation['code']) - 6); //extraire depuis l'op jusqu'à grp 
-                dd($groupCode);
+               // $groupCode = substr($operation['code'], 0, strlen($operation['code']) - 6); //extraire depuis l'op jusqu'à grp 
+               $operationCode = $operation['code'];
+               //dd($operationCode);
+               // extraire les parties du code op
+                $operationsParts = explode('-', $operationCode);
+                //dd($operationsParts);
+                $groupCode = implode('-', array_slice($operationsParts, 0, 7)); // extraire la partie groupe ppour savooir quel grp appartient op
+               // dd(  $operationsParts,$groupCode);
+           
                 if (isset($groupedData[$groupCode])) {
                     //ajouter les op au grp
                     $groupedData[$groupCode]['operations'][] = [
                         'operation' => $operation,
                         'sousOperations' => [], 
-                    ]; 
+                    ];       //dd( $groupedData);
                     } 
             } 
-            // dd( $groupedData);
+             //dd( $groupedData);
             // les sous operations dans operations 
             foreach ($tdata['sousOperation'] as $sousOp) {
                 //dd($tdata['sousOperation'] );
-                $sousOpCodeLength = strlen($sousOp['code']);
+               /* $sousOpCodeLength = strlen($sousOp['code']);
                 //dd($sousOpCodeLength );
                 if ($sousOpCodeLength > 34) { //operation =35
                     // extraire  la dernière partie du code apres 35 -...
@@ -254,39 +257,28 @@ class sousOperationController extends Controller
                      }
                      }   
 
-                    }
-                $operationCode = substr($sousOp['code'], 0, strlen($sousOp['code']) - 6);
-                //dd($sousOp['code']);
-               dd($operationCode); // extraire depuis sousOp jusqu'à opération
-                $i=-5;
-               
-                $sousOpSuffix = substr($sousOp['code'],$i );
-                
-                //dd($sousOpSuffix); //extraire les 5 chiffres de sousop
-                $sousOpThird = substr($sousOpSuffix, 2, 1); //extraire le 3eme chiffre commencé par la fin 
-                //dd($sousOpThird);
-               
-                foreach ($groupedData as $groupCode => $groupData) {
-                    foreach ($groupData['operations'] as $code => $operationData) { //0=>operationdata
-                         // extraire les 5  chiffres de l'op
-                    $operationSuffix = substr($operationData['operation']['code'], -5); 
-                    $operationThird = substr($operationSuffix, 2, 1); // extraire le 3eme chiffre
-                      //dd($operationSuffix ,$operationThird);
-                        if (substr($operationData['operation']['code'], 0, strlen($operationCode)) === $operationCode) {
-                            if ($sousOp['code'] === $operationData['operation']['code']) {
-                                //si sousop = code op on l'affiche pas 
-                                continue;
-                               
-                            } 
-                             if  ($sousOpThird === $operationThird){
-                           //ajouter sous op
-                            $groupedData[$groupCode]['operations'][$code]['sousOperations'][] = $sousOp;
+                    }*/  
+                    $sousOpCode = $sousOp['code'];
+                    //dd( $sousOpCode );
+                    $sousOpParts = explode('-', $sousOpCode);
+                    //dd($sousOpParts);
+                    $operationCode = implode('-', array_slice($sousOpParts, 0, 8)); // extrait la partie opération
+                    //dd($operationCode);
+                   
+                    foreach ($groupedData as $groupCode => $groupData) {
+                        foreach ($groupData['operations'] as $code => $operationData) {
+                            // Extrait les 5 chiffres de l'opération
+                            $opCode = $operationData['operation']['code'];
+                            //dd( $opCode);
+                            if (substr($opCode, 0, strlen($operationCode)) === $operationCode) {
+                                // Ajouter la sous-opération si elle appartient à l'opération
+                                $groupedData[$groupCode]['operations'][$code]['sousOperations'][] = $sousOp;
+                                break;
                             }
-                        }
-                    } 
+                        } 
+                    }
                 }
-            } 
-            //dd($sousOp['code'] );
+                                 //dd($sousOp['code'] );
            // dd( $operationData['operation']['code'] );
             $resultstructur[$t] = [
                 'groupedData' => $groupedData,
@@ -298,8 +290,8 @@ class sousOperationController extends Controller
         //dd($resultstructur);
       
         if (isset($resultstructur)) {
-           //return view
-         $pdf=SnappyPdf::loadView
+           return view
+        /* $pdf=SnappyPdf::loadView*/
             ('impression.liste_impression_dpia_4tables_combinées', compact(
                 'resultstructur', 
                 'sousProgramme', 
@@ -310,9 +302,9 @@ class sousOperationController extends Controller
                 'portefeuille', 
                 'prog', 
                 'action', 
-                'years','intitule','decision'
-            ))->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1.25);  // Augmenter la résolution pour améliorer la lisibilité du texte
-              return $pdf->stream('liste_impression.pdf');
+                'years',
+            ));/*->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1.25);  // Augmenter la résolution pour améliorer la lisibilité du texte
+              return $pdf->stream('liste_impression.pdf');*/
         } else {
                 throw new \Exception("Aucune donnée trouvée");
             }
