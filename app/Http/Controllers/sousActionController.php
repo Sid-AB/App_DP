@@ -6,7 +6,7 @@ use Barryvdh\DomPDF\Facade\pdf;
 use App\Models\Portefeuille;
 use App\Models\Programme;
 use App\Models\Action;
-
+use App\Models\initPort;
 use App\Models\SousAction;
 use App\Models\SousProgramme;
 use Illuminate\Http\Request;
@@ -103,7 +103,9 @@ function allact($numport)
 
 
 function printdpic($numport)
-{
+{   
+    $act_ini=[];
+    $sousprog_ini=[];
     $allaction=[];
     $all_act=[];
     $allsous_prog=[];
@@ -254,11 +256,103 @@ function printdpic($numport)
             $TtportT4CP+=$prog['Total']['TotalT4_CP'];
         };
     };
+    if($TtportT1AE != 0 && $TtportT1CP != 0 &&$TtportT2AE != 0 &&$TtportT2CP != 0 &&$TtportT3AE != 0 &&$TtportT3CP != 0 &&$TtportT4AE != 0 &&$TtportT4CP  != 0 )
+    {
+                                
         array_push($Ttportglob,['TotalPortT1_AE'=>$TtportT1AE,'TotalPortT1_CP'=>$TtportT1CP,
                                 'TotalPortT2_AE'=>$TtportT2AE,'TotalPortT2_CP'=>$TtportT2CP,
                                 'TotalPortT3_AE'=>$TtportT3AE,'TotalPortT3_CP'=>$TtportT3CP,
                                 'TotalPortT4_AE'=>$TtportT4AE,'TotalPortT4_CP'=>$TtportT4CP]);
-        //dd($Ttportglob);
+    }
+    $programmes=[];
+    if(count($Ttportglob) <= 0)
+    {
+        $progms=Programme::where("num_portefeuil",$numport)->get();
+        foreach($progms as $progm)
+        {
+            $sousprog=SousProgramme::where('num_prog',$progm->num_prog)->get();
+            foreach($sousprog as $sprog)
+            {
+                $initsprog=initPort::where('num_sous_prog',$sprog->num_sous_prog)->get();
+               // dd($initsprog);
+                foreach($initsprog as $init)
+                {
+                if(isset($init->num_action))
+                {
+
+                    $actsect=Action::where('num_action',$init->num_action)->firstOrFail();
+               
+                    $ttall=['TotalT1_AE_ini'=>$init['AE_init_t1'],'TotalT1_CP_ini'=>$init['CP_init_t1'],
+                    'TotalT2_AE_ini'=>$init['AE_init_t2'],'TotalT2_CP_ini'=>$init['CP_init_t2'],
+                    'TotalT3_AE_ini'=>$init['AE_init_t3'],'TotalT3_CP_ini'=>$init['CP_init_t3'],
+                    'TotalT4_AE_ini'=>$init['AE_init_t4'],'TotalT4_CP_ini'=>$init['CP_init_t4'],
+                ];
+                    array_push($act_ini,['actions'=>['code'=>$actsect->num_action,"nom"=>$actsect->nom_action,'TotalT'=>$ttall]]);
+                    
+                }
+                else
+                {
+
+                    $TtAE1+=$init['AE_init_t1'];
+                    $TtCP1+=$init['CP_init_t1'];
+    
+                    $TtAE2+=$init['AE_init_t2'];
+                    $TtCP2+=$init['CP_init_t2'];
+    
+                    $TtAE3+=$init['AE_init_t3'];
+                    $TtCP3+=$init['CP_init_t3'];
+    
+                    $TtAE4+=$init['AE_init_t4'];
+                    $TtCP4+=$init['CP_init_t4'];
+
+                    $ttall=['TotalT1_AE_ini'=>$init['AE_init_t1'],'TotalT1_CP_ini'=>$init['CP_init_t1'],
+                    'TotalT2_AE_ini'=>$init['AE_init_t2'],'TotalT2_CP_ini'=>$init['CP_init_t2'],
+                    'TotalT3_AE_ini'=>$init['AE_init_t3'],'TotalT3_CP_ini'=>$init['CP_init_t3'],
+                    'TotalT4_AE_ini'=>$init['AE_init_t4'],'TotalT4_CP_ini'=>$init['CP_init_t4'],
+                    
+                ];
+
+                $ttall_ini=['TotalT1_AE'=>$TtAE1,'TotalT1_CP'=>$TtCP1,
+                'TotalT2_AE'=>$TtAE2,'TotalT2_CP'=>$TtCP2,
+                'TotalT3_AE'=>$TtAE3,'TotalT3_CP'=>$TtCP3,
+                'TotalT4_AE'=>$TtAE4,'TotalT4_CP'=>$TtCP4,];
+                  
+                   
+                    
+                }
+                
+           
+                
+            array_push($sousprog_ini,['sous_programmes'=>['code'=>$sprog->num_sous_prog,"nom"=>$sprog->nom_sous_prog,'actions'=>$act_ini,"Total"=>$ttall]]); }
+           
+            $ttall=[];
+            $act_ini=[];
+                }
+
+               
+              //  dd($initsprog);
+               
+                       
+            //array_push();
+            array_push($programmes,['programmes'=>['code'=>$progm->num_prog,"nom"=>$progm->nom_prog,"sous_programmes"=>$sousprog_ini,"Total"=>$ttall_ini]]);
+            $TtAE1=0;
+            $TtCP1=0;
+            $TtAE2=0;
+            $TtCP2=0;
+            $TtAE3=0;
+            $TtCP3=0;
+            $TtAE4=0;
+            $TtCP4=0;
+            $ttall_ini=[];
+            $sousprog_ini=[];
+            $act_ini=[];
+        }
+        $pdf=SnappyPdf::loadView('impression.programmes-DPIC', compact('programmes','Ttportglob'))
+        ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1.5);//lanscape mean orentation
+              return $pdf->stream('impression_dpic.pdf');
+      
+    }
+    dd($sousprog_ini,$act_ini,$programmes);
         if(count($programmes)>0)
         {
         /*return response()->json([
