@@ -186,16 +186,19 @@ class sousOperationController extends Controller
                  foreach ($tdata['group'] as $group) {
                      $groupCode = $group['code'];
                     // dd($groupCode);
+                     $groupParts = explode('-', $groupCode); // Exemple: 'grp-123-456'
+                     $groupCode = implode('-', array_slice($groupParts, 0, 7));
+                     //dd($groupCode);
                     $groupedData[$groupCode] = [
                         'group' => $group,
                         'operations' => [],
                     
                     ];
                  }
-              //  dd( $groupedData);
+               // dd( $groupedData);
                foreach ($tdata['operation'] as $operation) {
                 $groupCode = substr($operation['code'], 0, strlen($operation['code']) - 6); //extraire depuis l'op jusqu'à grp 
-                //dd($groupCode);
+                dd($groupCode);
                 if (isset($groupedData[$groupCode])) {
                     //ajouter les op au grp
                     $groupedData[$groupCode]['operations'][] = [
@@ -207,30 +210,30 @@ class sousOperationController extends Controller
             // dd( $groupedData);
             // les sous operations dans operations 
             foreach ($tdata['sousOperation'] as $sousOp) {
-                //dd($sousOp['code'] );
+                //dd($tdata['sousOperation'] );
                 $sousOpCodeLength = strlen($sousOp['code']);
                 //dd($sousOpCodeLength );
-                if ($sousOpCodeLength > 35) { //operation =35
+                if ($sousOpCodeLength > 34) { //operation =35
                     // extraire  la dernière partie du code apres 35 -...
-                    $lastPartOfCode = substr($sousOp['code'], 35);
+                    $lastPartOfCode = substr($sousOp['code'], 34);
                    // dd($lastPartOfCode);
                     if (strlen($lastPartOfCode) > 6) {
                         // récupérer le nom 
                         $nomComplet = DB::table('sous_operations')
                             ->where('code_sous_operation', 'like', "%-$lastPartOfCode")
                             ->value('nom_sous_operation');
-                       // dd($nomComplet);
+                       //dd($nomComplet);
                         
                         if ($nomComplet) {
                             // la chaine avec -
-                            $nom_sepa = explode('-', $nomComplet);
+                            $nom_sepa = explode('_', $nomComplet);
                 
                             // récupérer le 1er "intitule" et last  "décision"
                             $intitule = reset($nom_sepa);
                             $decision = end($nom_sepa);
                 
                         
-                          //  dd( $intitule, $decision);
+                           //dd( $intitule, $decision);
                         }
                     }
                     elseif (strlen($lastPartOfCode) > 1 && strlen($lastPartOfCode) < 5) {
@@ -240,7 +243,7 @@ class sousOperationController extends Controller
                          // dd($nomComplet);
                         if ($nomComplet) {
                             // la chaine avec -
-                            $nom_sepa = explode('-', $nomComplet);
+                            $nom_sepa = explode('_', $nomComplet);
                 
                             // récupérer le 1er "intitule" et last  "décision"
                             $intitule = reset($nom_sepa);
@@ -253,8 +256,12 @@ class sousOperationController extends Controller
 
                     }
                 $operationCode = substr($sousOp['code'], 0, strlen($sousOp['code']) - 6);
-               //dd($operationCode); // extraire depuis sousOp jusqu'à opération
-                $sousOpSuffix = substr($sousOp['code'], -5);
+                //dd($sousOp['code']);
+               dd($operationCode); // extraire depuis sousOp jusqu'à opération
+                $i=-5;
+               
+                $sousOpSuffix = substr($sousOp['code'],$i );
+                
                 //dd($sousOpSuffix); //extraire les 5 chiffres de sousop
                 $sousOpThird = substr($sousOpSuffix, 2, 1); //extraire le 3eme chiffre commencé par la fin 
                 //dd($sousOpThird);
@@ -288,7 +295,7 @@ class sousOperationController extends Controller
             ];
              }
          }
-       // dd($resultstructur);
+        //dd($resultstructur);
       
         if (isset($resultstructur)) {
            //return view

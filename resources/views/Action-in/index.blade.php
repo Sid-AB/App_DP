@@ -237,9 +237,13 @@
   var jsonpath4="{{asset('assets/Titre/dataT4.json')}}"
   var yearport="{{$years}}"
   var counter=0;
-  @if(isset($ssact))
-  var ssact='{{$ssact}}'
+ 
+  @if(isset($sact))
+  var ssact='{{$sact}}'
+  @else 
+     var ssact='{{$s_act}}'
   @endif
+
   @if(isset($s_act))
   var path3=['{{$port}}','{{$prog}}','{{$sous_prog}}','{{$act}}','{{$s_act}}']
   @else
