@@ -209,10 +209,10 @@
                   <div class="col-8">
                     <h5 class="card-title widget-card-title mb-3">Action: {{$act['data']['nom_action'] }}</h5>
                     <h4 class="card-subtitle text-body-secondary m-0">
-                    <p>  Autorisations d’engagement :{{$act['TotalAE']}}</p><p>{{$act['init_AE']}}</p>
+                    <p>  Autorisations d’engagement :</p><p class="chiffre">{{$act['init_AE']}}</p>
                     </h4>
                     <h4 class="card-subtitle text-body-secondary m-0">
-                    <p>  Crédits de paiement :{{$act['TotalCP']}}</p><p>{{$act['init_CP']}}</p>
+                    <p>  Crédits de paiement :</p><p class="chiffre">{{$act['init_CP']}}</p>
                     </h4>
                   </div>
                   <div class="col-4">
@@ -230,9 +230,9 @@
                         <i class="bi bi-arrow-right-short bsb-rotate-45"></i>
                       </span>
                       <div style="display:flex;width: 23rem;">
-                      @if(count($act['sous_action'])>1)
+                      @if(count($act['sous_action'])>0)
                       @foreach($act['sous_action'] as $sous_act)
-                      @if($sous_act['num_act'] != $act['num_act'])
+                      @if(count($act['sous_action']) != 1)
                         <p class="fs-7 mb-0">Sous Action :{{$sous_act['num_act']}} </p>
                        @else
                        @foreach($sous_act['Tports'] as $key=>$values)
