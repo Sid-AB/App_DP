@@ -96,6 +96,9 @@
             font-size: 1.2em;
             margin-bottom: 30px;
         }
+        .page-break {
+            page-break-after: always;
+        }
 
     </style>
 
@@ -135,8 +138,9 @@
             @endphp
 
             {{-- Nouveau tableau pour chaque programme --}}
+            <div class="page-break">
             <table >
-                <thead>
+           
                     <tr>
                         <th  style="border: none; background: white;"  colspan=2></th>
                         <th colspan="2" class="T">T1</th>
@@ -156,7 +160,7 @@
                         <th>AE</th>
                         <th>CP</th>
                     </tr>
-                </thead>
+              
                 <tbody>
                     {{-- Ligne principale pour le programme --}}
                     <tr >
@@ -263,9 +267,9 @@
                     </tr>
                 </tbody>
             </table>
-
+            </div>
             {{-- Ajouter un espace entre les tableaux --}}
-            <br><br>
+        
         @endforeach
     @endfor
     </body>

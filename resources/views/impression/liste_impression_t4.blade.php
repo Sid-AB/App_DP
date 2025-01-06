@@ -101,7 +101,7 @@
 
 <div class="table-diviser"></div> 
 <table>
-        <thead>
+        
             <tr>
                 <th rowspan="3">Code</th>
                 <th rowspan="3"> T4. DEPENSES DE TRANSFERT </th>
@@ -114,7 +114,7 @@
                 <th class="aecp"  style="text-align: center;">CP </th>
             </tr>
 
-        </thead>
+        
         <tbody>
       
             
@@ -215,7 +215,7 @@
 
 </tbody>
 
-<tfoot>
+
     @if(!empty($resultstructur['T4']['groupedData']))
         <tr  class="total4">
             <td colspan="3" style="text-align: center; font-weight: bold;font-size:20px;">TOTAL</td>
@@ -229,7 +229,7 @@
             <td style="text-align: center; font-weight: bold; font-size:20px;">-</td>
         </tr>
     @endif
-    </tfoot>
+  
     </table>
     </div>
 </body>

@@ -256,13 +256,16 @@ function printdpic($numport)
             $TtportT4CP+=$prog['Total']['TotalT4_CP'];
         };
     };
-    if($TtportT1AE != 0 && $TtportT1CP != 0 &&$TtportT2AE != 0 &&$TtportT2CP != 0 &&$TtportT3AE != 0 &&$TtportT3CP != 0 &&$TtportT4AE != 0 &&$TtportT4CP  != 0 )
+    if($TtportT1AE != 0 || $TtportT1CP != 0 || $TtportT2AE != 0 || $TtportT2CP != 0 || $TtportT3AE != 0 || $TtportT3CP != 0 || $TtportT4AE != 0 || $TtportT4CP  != 0 )
     {
                                 
         array_push($Ttportglob,['TotalPortT1_AE'=>$TtportT1AE,'TotalPortT1_CP'=>$TtportT1CP,
                                 'TotalPortT2_AE'=>$TtportT2AE,'TotalPortT2_CP'=>$TtportT2CP,
                                 'TotalPortT3_AE'=>$TtportT3AE,'TotalPortT3_CP'=>$TtportT3CP,
                                 'TotalPortT4_AE'=>$TtportT4AE,'TotalPortT4_CP'=>$TtportT4CP]);
+        $pdf=SnappyPdf::loadView('impression.impression_dpic2tableaux', compact('programmes','Ttportglob'))
+         ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1.5);//lanscape mean orentation
+               return $pdf->stream('impression_dpic.pdf');
     }
     $programmes=[];
     if(count($Ttportglob) <= 0)
@@ -365,9 +368,7 @@ function printdpic($numport)
          ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1.5);//lanscape mean orentation
                return $pdf->stream('impression_dpic.pdf');*/
 
-        $pdf=SnappyPdf::loadView('impression.impression_dpic2tableaux', compact('programmes','Ttportglob'))
-         ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1.5);//lanscape mean orentation
-               return $pdf->stream('impression_dpic.pdf');
+        
        //return view('impression.programmes',compact('programmes','Ttportglob'));
         }
         else
