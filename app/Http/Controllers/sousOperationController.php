@@ -122,7 +122,7 @@ class sousOperationController extends Controller
 
             //dd($port, $prog, $sous_prog, $act,$s_act);
             $resultats = $this->CalculDpia->calculdpiaFromPath($port, $prog, $sous_prog, $act,$s_act);
-            dd($resultats );
+           // dd($resultats );
            
           //pour t3 
           $years=Portefeuille::where('num_portefeuil',$port)->firstOrFail();
