@@ -643,6 +643,7 @@ function only_def(id)
 }
 
 
+
 /**
  *
  * upload file function
@@ -3504,14 +3505,27 @@ if(code == 200){
             }
             if (data_T_port.sousOperation.length > 0 && data_T_port.sousOperation.length > iso) {
                var land=data_T_port.sousOperation[iso].code.length-5;
-            
+                
                 if (key == splitcode(data_T_port.sousOperation[iso].code, land)) {
-                    only_def(data_T_port.sousOperation[iso].code)
+                    //only_def(data_T_port.sousOperation[iso].code)
+                    var def='';
+                    var nom='';
+                    var int='';
+                    if(data_T_port.sousOperation[iso].nom.split('_').length > 2)
+                    {
+                        def=data_T_port.sousOperation[iso].nom.split('_')[1]
+                        nom=data_T_port.sousOperation[iso].nom.split('_')[0]
+                        int=data_T_port.sousOperation[iso].nom.split('_')[2]
+                    }
+                    else
+                    {
+                        nom=data_T_port.sousOperation[iso].nom.split('_')[0]
+                    }
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                         '<td scope="row"  class="code">' + key + '</td>' +
-                        '<td id="nom_ops"><p>' +    val[0] + '</p> </td>' +
-                        '<td> -  </td>' +
-                        '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
+                        '<td id="nom_ops"><p>' +  nom + '</p> </td>' +
+                        '<td> '+def+' </td>' +
+                        '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + int + '</p></td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' + data_T_port.sousOperation[iso].values.ae_reportesousop + '</td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' + data_T_port.sousOperation[iso].values.ae_notifiesousop + '</td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' + data_T_port.sousOperation[iso].values.ae_engagesousop + '</td>' +
@@ -3528,7 +3542,7 @@ if(code == 200){
                    
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                     '<td scope="row"  class="code" style="visibility: hidden;">' + key + '</td>' +
-                    '<td id="nom_ops">'  +    val[0] + '</td>' +
+                    '<td id="nom_ops">'  +    data_T_port.sousOperation[iso].nom + '</td>' +
                     '<td>  - </td>' +
                     '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
                     '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' + data_T_port.sousOperation[iso].values.ae_reportesousop + '</td>' +
