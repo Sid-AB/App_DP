@@ -1033,13 +1033,13 @@ function add_newOPs_T4(id, value, key,code) {
 
        if(idsfinal.length == 9 || idsfinal.length == 1)
         {
-             console.log('testing remplace'+newid.length)
+             console.log('testing remplace'+idsfinal.length)
          $('#' + key).replaceWith(row)
       
         }
         else
         {
-             console.log('testing remplace'+newid.length)
+             console.log('testing remplace'+idsfinal.length)
             row='<tr id="ref' + idsz + '">' +
        '<td class="code" style="visibility: hidden;">' +idsz + '</td>' +
        '<td>-</td>'+
@@ -1054,7 +1054,11 @@ function add_newOPs_T4(id, value, key,code) {
             var ads = newKey.split('ref')[1]
             $('.Tsop_handler').removeClass('Tsop_handler_h')
              add_newOPs_T4(ads, 2500, newKey,code);
-
+            if(code != 200)
+            {
+                T=4;
+                Edit(id, T)
+            }
          })
        counter++
    dataupdate.push({code:idsz,value:{ae:data_add_ops.AE_T4,cp:data_add_ops.CP_T4,dispo:data_add_ops.descrp}})
@@ -1070,13 +1074,7 @@ function add_newOPs_T4(id, value, key,code) {
        if(code == 200)
         {
             appliquer_up()
-        }
-        $('#Tport-vals').removeClass('T4')
-        $("#dispo").val('');
-       $('.Tsop_handler').empty();
-       $('#add_sops').trigger('reset');
-       $('.Tsop_handler').addClass('Tsop_handler_h')
-       
+        }   
    })
    $('#cancel_ops').click(function(){
        $('.Tsop_handler').empty();
@@ -1595,6 +1593,7 @@ function Edit(tid, T) {
             old = cell.text();
         })
         $('.editable').dblclick(function () {
+            
             var clickid = $(this).attr('id');
             var clickedRow = $(this).closest('tr');
             var code = clickedRow.find('td:first-child');
@@ -1609,6 +1608,7 @@ function Edit(tid, T) {
 
             // When the input loses focus, update the cell with new text
             input.blur(function (t) {
+                $('.change_app').empty()
                 let newText = $(this).val();  // Get new value from input
 
                 if (tid == 'T_port2' || tid == 'T2') {
