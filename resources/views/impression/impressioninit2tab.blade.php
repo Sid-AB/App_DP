@@ -141,9 +141,11 @@
                 @php
                   $code =explode('-',$sousProgramme['code']);
                   $last =count($code)-1;
+                  //dd($programme['sous_programmes']);
               //dd($code);
                   $code = $code[$last];
                   //dd($sousProgramme['Total']['TotalT4_CP_ini']);
+                  if (empty($sousProgramme['actions'])):
                  @endphp
                     <tr class="subprogram-title">
                         <td>{{ $code }}</td>
@@ -162,12 +164,32 @@
 
                       
                     </tr>
-
+                @php
+                endif;
+                @endphp
                 @endforeach
                 @endfor
             @endforeach
             @endfor
-           
+            <tr >
+                <th colspan="2">TOTAL (1) DES CREDITS OUVERTS PAR LA LOI DE FINANCES DE L'ANNEE POUR LE PORTEFUILLE </th>
+
+                <td class="vert3">{{ $Ttportglob[0]['TotalPortT1_AE']}}</td>
+                <td class="vert3">{{ $Ttportglob[0]['TotalPortT1_CP']}}</td>
+                <td class="vert3">{{ $Ttportglob[0]['TotalPortT2_AE']}}</td>
+                <td class="vert3">{{ $Ttportglob[0]['TotalPortT2_CP']}}</td>
+                <td class="vert3"> {{ $Ttportglob[0]['TotalPortT3_AE']}}</td>
+                <td class="vert3">{{ $Ttportglob[0]['TotalPortT3_CP']}}</td>
+                <td class="vert3">{{ $Ttportglob[0]['TotalPortT4_AE']}}</td>
+                <td class="vert3">{{ $Ttportglob[0]['TotalPortT4_CP']}}</td>
+
+                <td class="vert3">{{$Ttportglob[0]['TotalPortT1_AE']+ $Ttportglob[0]['TotalPortT2_AE']+$Ttportglob[0]['TotalPortT3_AE']+$Ttportglob[0]['TotalPortT4_AE']}}</td>
+                <td class="vert3">{{$Ttportglob[0]['TotalPortT1_CP']+$Ttportglob[0]['TotalPortT2_CP']+$Ttportglob[0]['TotalPortT3_CP']+$Ttportglob[0]['TotalPortT4_CP'] }}</td>
+
+            
+
+            </tr>
+
            
 
         </tbody>

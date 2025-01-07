@@ -136,8 +136,9 @@
         
         <tbody>
        
-    
-         @if(isset($resultstructur['T3']['groupedData']))
+   
+     
+         @if(!empty($resultstructur['T3']['groupedData']))
                 @foreach ($resultstructur['T3']['groupedData'] as $groupData)
                 @php
                     // extraire la dernière partie du code grp
@@ -145,7 +146,7 @@
                     //dd(  $code_grpsepar);
                     $codegrp = end($code_grpsepar);
                     //dd($codegrp);
-                
+               
                 @endphp
             <tr class="group-row">
                 <td style="text-align: center; " class="code">{{$codegrp}}</td>
@@ -265,17 +266,11 @@
             @endforeach
         @endforeach
         @endforeach
-
+      
         @else
             
                 @foreach ($namesT3 as $code => $name)
-                   @php
-                      $nom_sepa=explode('-', $namesT3[$code  ]);
-                      $nom=end($nom_sepa);
-
-                    $nom_separ=explode('-', $namesT3[$code  ]);
-                    $nomfirst=reset($nom_separ);
-                   @endphp
+                 
                 <tr>
                     <td style="text-align: center;" class="code">{{ $code }}</td>
                     <td >{{ $name }}</td>
@@ -290,7 +285,7 @@
                 </tr>
             @endforeach
         @endif
-
+    
     </tbody>
     
   

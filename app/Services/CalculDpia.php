@@ -272,9 +272,9 @@ if (!empty($portefeuille)) {
                                                    'ae_reportesousop' => $sousopAereporte,
                                                    'ae_notifiesousop' => $sousopAenotifie,
                                                    'ae_engagesousop' => $sousopAeengage,
-                                                   'cp_reportesousuop' => $operationCPReporte,
-                                                   'cp_notifiesousop' => $operationCPNotife,
-                                                   'cp_consomesousop' => $operationCPConsome,
+                                                   'cp_reportesousuop' => $sousopCpreporte,
+                                                   'cp_notifiesousop' => $sousopCpnotifie,
+                                                   'cp_consomesousop' => $sousopCpconsome,
 
                                                    'ae_reportesousop_NONREPARTIS' =>  $sousOperation->AE_reporte_NONREPARTIS,
                                                    'ae_notifiesousop_NONREPARTIS' => $sousOperation->AE_notifie_NONREPARTIS,

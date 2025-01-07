@@ -961,6 +961,9 @@ function add_newOPs_T3(id, value, key,code) {
                     {
                         appliquer_up()
                     }
+                    else {
+
+                    }
    })
    $('#cancel_ops').click(function(){
        $('.change_app').empty()
@@ -1004,6 +1007,7 @@ function add_newOPs_T4(id, value, key,code) {
    $('.Tsop_handler').append(champ);
  
    $('#ajt').click(function(){
+    
     mount_chang=true;
    
     idsz=id+'-'+counter;
@@ -1029,11 +1033,13 @@ function add_newOPs_T4(id, value, key,code) {
 
        if(idsfinal.length == 9 || idsfinal.length == 1)
         {
+             console.log('testing remplace'+newid.length)
          $('#' + key).replaceWith(row)
       
         }
         else
         {
+             console.log('testing remplace'+newid.length)
             row='<tr id="ref' + idsz + '">' +
        '<td class="code" style="visibility: hidden;">' +idsz + '</td>' +
        '<td>-</td>'+
@@ -1065,7 +1071,11 @@ function add_newOPs_T4(id, value, key,code) {
         {
             appliquer_up()
         }
-      
+        $('#Tport-vals').removeClass('T4')
+        $("#dispo").val('');
+       $('.Tsop_handler').empty();
+       $('#add_sops').trigger('reset');
+       $('.Tsop_handler').addClass('Tsop_handler_h')
        
    })
    $('#cancel_ops').click(function(){
