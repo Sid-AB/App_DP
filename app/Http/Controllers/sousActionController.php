@@ -282,7 +282,7 @@ function printdpic($numport)
                // dd($initsprog);
                 foreach($initsprog as $init)
                 {
-                if(isset($init->num_action))
+                   if (isset($init->num_action))
                 {
 
                     $actsect=Action::where('num_action',$init->num_action)->firstOrFail();
@@ -352,12 +352,32 @@ function printdpic($numport)
             $sousprog_ini=[];
             $act_ini=[];
         }
-        $pdf=SnappyPdf::loadView('impression.programmes-DPIC', compact('programmes','Ttportglob'))
+        for ($i=0; $i < count($programmes) ; $i++)
+        {
+            foreach($programmes[$i] as $prog)
+            {
+                $TtportT1AE+=$prog['Total']['TotalT1_AE'];
+                $TtportT1CP+=$prog['Total']['TotalT1_CP'];
+                $TtportT2AE+=$prog['Total']['TotalT2_AE'];
+                $TtportT2CP+=$prog['Total']['TotalT2_CP'];
+                $TtportT3AE+=$prog['Total']['TotalT3_AE'];
+                $TtportT3CP+=$prog['Total']['TotalT3_CP'];
+                $TtportT4AE+=$prog['Total']['TotalT4_AE'];
+                $TtportT4CP+=$prog['Total']['TotalT4_CP'];
+            };
+
+        };
+        array_push($Ttportglob,['TotalPortT1_AE'=>$TtportT1AE,'TotalPortT1_CP'=>$TtportT1CP,
+        'TotalPortT2_AE'=>$TtportT2AE,'TotalPortT2_CP'=>$TtportT2CP,
+        'TotalPortT3_AE'=>$TtportT3AE,'TotalPortT3_CP'=>$TtportT3CP,
+        'TotalPortT4_AE'=>$TtportT4AE,'TotalPortT4_CP'=>$TtportT4CP]);
+        
+        $pdf=SnappyPdf::loadView('impression.impression_dpic_init', compact('programmes','Ttportglob'))
         ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1.5);//lanscape mean orentation
               return $pdf->stream('impression_dpic.pdf');
       
     }
-    dd($sousprog_ini,$act_ini,$programmes);
+    //dd($sousprog_ini,$act_ini,$programmes);
         if(count($programmes)>0)
         {
         /*return response()->json([
