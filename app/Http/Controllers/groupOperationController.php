@@ -751,7 +751,7 @@ foreach ($jsonData as $codeStr => $nom) {
           $ae_reporte = $aeDataReporte[$code] ?? 0.00;
           $ae_notifie = $aeDataNotifie[$code] ?? 0.00;
           $ae_engage = $aeDataEngage[$code] ?? 0.00;
-
+          $nomeintu = $descr[$code].'_'.$intitule[$code] ?? '-';
           $cp_reporte = $cpDataReporte[$code] ?? 0.00;
           $cp_notifie = $cpDataNotifie[$code] ?? 0.00;
           $cp_consome = $cpDataConsome[$code] ?? 0.00;

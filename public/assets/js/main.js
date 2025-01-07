@@ -626,8 +626,15 @@ function only_def(id)
                defss=response.result.nom_sous_operation 
                console.log('def '+defss)
                newdfs=defss.split('_')
+               if(newdfs.length > 2){
                $('#ref'+id+" #def").text(newdfs[0])
-               $('#ref'+id+" #sous_def").text(newdfs[1])
+               $('#ref'+id+" #def").text(newdfs[1])
+               $('#ref'+id+" #sous_def").text(newdfs[2])}
+               else
+               {
+                $('#ref'+id+" #def").text(newdfs[0])
+                $('#ref'+id+" #sous_def").text(newdfs[1])
+               }
                
            }
        }
@@ -850,11 +857,11 @@ function add_newOPs_T3(id, value, key,code) {
   
    $('.Tsop_handler').append(champ);
    $('#ajt').on('click',function(){
-    id=id+'-'+counter;
+    idsz=id+'-'+counter;
     var buttons = '<button class="btn btn-primary" id="changin"> appliquer</button>'
     $('.change_app').append(buttons)
        var sopdata_add={
-           code:id,
+           code:idsz,
            intituel:$('#int-T3').val(),
            descrp:$('#dispo').val(),
            AE_rpor:$('#add_AE_rpor').val(),
@@ -867,7 +874,7 @@ function add_newOPs_T3(id, value, key,code) {
            _method: "POST",
 
        }
-       dataupdate.push({code:id,value:{ae_notifie:sopdata_add.AE_not,ae_reporte:sopdata_add.AE_rpor,ae_engage:sopdata_add.AE_enga,
+       dataupdate.push({code:idsz,value:{ae_notifie:sopdata_add.AE_not,ae_reporte:sopdata_add.AE_rpor,ae_engage:sopdata_add.AE_enga,
         cp_notifie:sopdata_add.CP_not,cp_reporte:sopdata_add.CP_rpor,cp_consome:sopdata_add.CP_consom,desc:sopdata_add.descrp,intitule:sopdata_add.intituel}})
        console.log('data T3'+JSON.stringify(sopdata_add))
        /*$.ajax({
@@ -886,7 +893,7 @@ function add_newOPs_T3(id, value, key,code) {
             var idsfinal=id.split("-")
             console.log('split -'+idsfinal)
             var lng=idsfinal.length
-           var row = '<tr id="ref' + id + '">' +
+           var row = '<tr id="ref' + idsz + '">' +
                    '<td class="code">'+idsfinal[0]+'</td>' +
                    '<td> - </td>' +
                    '<td>' + sopdata_add.descrp + '</td>' +
@@ -906,7 +913,7 @@ function add_newOPs_T3(id, value, key,code) {
                     }
                     else
                     {
-                        row='<tr id="ref' + id + '">' +
+                        row='<tr id="ref' + idsz + '">' +
                    '<td class="code" style="visibility: hidden;">'+id+'</td>' +
                    '<td> - </td>' +
                    '<td>' + sopdata_add.descrp + '</td>' +
@@ -920,7 +927,7 @@ function add_newOPs_T3(id, value, key,code) {
                    '</tr>';
                         $('#' + key).after(row)
                     }
-                    $('#ref' + id + ' #add_op').on('click', function () {
+                    $('#ref' + idsz + ' #add_op').on('click', function () {
                         var newKey=$(this).parent().attr('id');
                         var ads = newKey.split('ref')[1]
                         $('.Tsop_handler').removeClass('Tsop_handler_h')
@@ -997,11 +1004,11 @@ function add_newOPs_T4(id, value, key,code) {
    $('#ajt').click(function(){
     mount_chang=true;
    
-    id=id+'-'+counter;
+    idsz=id+'-'+counter;
     var buttons = '<button class="btn btn-primary" id="changin"> appliquer</button>'
     $('.change_app').append(buttons)
        var data_add_ops={
-           code:id,
+           code:idsz,
            descrp:$('#dispo').val(),
           // defi:$('#def_T4').val(),
            AE_T4:$('#add_AE_T4').val(),
@@ -1010,8 +1017,8 @@ function add_newOPs_T4(id, value, key,code) {
            _method: "POST",
        }
        newid=id.split('-');
-       var row = '<tr id="ref' + id + '">' +
-       '<td class="code" >' +id + '</td>' +
+       var row = '<tr id="ref' + idsz + '">' +
+       '<td class="code" >' +idsz + '</td>' +
        '<td>'+data_add_ops.defi+'</td>'+
        '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;><p>' + data_add_ops.descrp + '</p></p> <i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i></td>' +
        '<td id="AE_T4">' + data_add_ops.AE_T4 + '</td>' +
@@ -1025,8 +1032,8 @@ function add_newOPs_T4(id, value, key,code) {
         }
         else
         {
-            row='<tr id="ref' + id + '">' +
-       '<td class="code" style="visibility: hidden;">' +id + '</td>' +
+            row='<tr id="ref' + idsz + '">' +
+       '<td class="code" style="visibility: hidden;">' +idsz + '</td>' +
        '<td>'+data_add_ops.defi+'</td>'+
        '<td ><p>' + data_add_ops.descrp + '</p></td>' +
        '<td id="AE_T4">' + data_add_ops.AE_T4 + '</td>' +
@@ -1042,7 +1049,7 @@ function add_newOPs_T4(id, value, key,code) {
 
          })
        counter++
-   dataupdate.push({code:id,value:{ae:data_add_ops.AE_T4,cp:data_add_ops.CP_T4,dispo:data_add_ops.descrp}})
+   dataupdate.push({code:idsz,value:{ae:data_add_ops.AE_T4,cp:data_add_ops.CP_T4,dispo:data_add_ops.descrp}})
   /* $('#' + key + ' td').each(function () {
        $(this).removeClass('editable');
    })*/
@@ -3444,7 +3451,7 @@ if(code == 200){
             //   console.log('values' + JSON.stringify(val))
             let row = '<tr class="ref'+key+'" id="ref' + key + '">' +
                 '<td scope="row"  class="code">' + key + '</td>' +
-                '<td><p>' + val[0] + '</p> </td>' +
+                '<td id="nom_ops"><p>' + val[0] + '</p> </td>' +
                 '<td> - </td>' +
                 '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
                 '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' + 0 + '</td>' +
@@ -3463,7 +3470,7 @@ if(code == 200){
                 if (key == splitcode(data_T_port.group[ig].code, land)) {
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.group[ig].code + '">' +
                         '<td scope="row"  class="code">' + key + '</td>' +
-                        '<td><p>' + val[0] + '</p> </td>' +
+                        '<td id="nom_ops"><p>' + val[0] + '</p> </td>' +
                         '<td> - </td>' +
                         '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' + data_T_port.group[ig].values.ae_reportegrpop + ',00</td>' +
@@ -3482,7 +3489,7 @@ if(code == 200){
                 if (key == splitcode(data_T_port.operation[io].code, land)) {
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.operation[io].code + '">' +
                         '<td scope="row"  class="code">' + key + '</td>' +
-                        '<td><p>' + val[0] + '</p> </td>' +
+                        '<td id="nom_ops"><p>' + val[0] + '</p> </td>' +
                         '<td> - </td>' +
                         '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' + data_T_port.operation[io].values.ae_reporteop + '</td>' +
@@ -3499,9 +3506,10 @@ if(code == 200){
                var land=data_T_port.sousOperation[iso].code.length-5;
             
                 if (key == splitcode(data_T_port.sousOperation[iso].code, land)) {
+                    only_def(data_T_port.sousOperation[iso].code)
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                         '<td scope="row"  class="code">' + key + '</td>' +
-                        '<td><p>' +    val[0] + '</p> </td>' +
+                        '<td id="nom_ops"><p>' +    val[0] + '</p> </td>' +
                         '<td> -  </td>' +
                         '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' + data_T_port.sousOperation[iso].values.ae_reportesousop + '</td>' +
@@ -3520,7 +3528,7 @@ if(code == 200){
                    
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                     '<td scope="row"  class="code" style="visibility: hidden;">' + key + '</td>' +
-                    '<td>'  +    val[0] + '</td>' +
+                    '<td id="nom_ops">'  +    val[0] + '</td>' +
                     '<td>  - </td>' +
                     '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
                     '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' + data_T_port.sousOperation[iso].values.ae_reportesousop + '</td>' +
@@ -3535,7 +3543,7 @@ if(code == 200){
                        only_def(data_T_port.sousOperation[iso].code)
                    row = '<tr class="ref'+splitcode(data_T_port.sousOperation[iso].code, land)+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                    '<td scope="row"  class="code" >' +key+"-"+splitcode(data_T_port.sousOperation[iso].code, land) + '</td>' +
-                   '<td>'  +    val[0] + '</td>' +
+                   '<td id="nom_ops">'  +    val[0] + '</td>' +
                    '<td id="def"> </td>' +
                    '<td id="sous_def" style="display: flex;align-items: center; justify-content: space-between;"></td>' +
                    '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' + data_T_port.sousOperation[iso].values.ae_reportesousop + '</td>' +
