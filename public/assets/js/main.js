@@ -1027,7 +1027,7 @@ function add_newOPs_T4(id, value, key,code) {
        '<td  id="CP_T4">' + data_add_ops.CP_T4 + '</td>' +
        '</tr>';
 
-       if(counter == 0)
+       if(idsfinal.length == 9)
         {
          $('#' + key).replaceWith(row)
       
