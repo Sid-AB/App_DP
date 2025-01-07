@@ -221,6 +221,7 @@ if (!empty($portefeuille)) {
                                           if($sousOperation->code_t2==20000) {
                                             $sousOperationT2[] = [
                                                 "code" => $sousOperation->code_sous_operation,
+                                                "nom" => $sousOperation->nom_sous_operation,
                                                 "values" => [
                                                     'ae_ouvertsousop' => $sousopAeouvert,
                                                     'ae_attendusousop' => $sousopAeattendu,
@@ -266,6 +267,7 @@ if (!empty($portefeuille)) {
                                            if($sousOperation->code_t3==30000) {
                                            $sousOperationT3[] = [
                                                "code" => $sousOperation->code_sous_operation,
+                                               "nom" => $sousOperation->nom_sous_operation,
                                                "values" => [
                                                    'ae_reportesousop' => $sousopAereporte,
                                                    'ae_notifiesousop' => $sousopAenotifie,
@@ -301,6 +303,7 @@ if (!empty($portefeuille)) {
                                            if($sousOperation->code_t1==10000) {
                                             $sousOperationT[] = [
                                                 "code" => $sousOperation->code_sous_operation,
+                                                "nom" => $sousOperation->nom_sous_operation,
                                                 "values" => [
                                                     'ae_sousop' => $sousopAe,
                                                     'cp_sousuop' => $sousopcP,
@@ -324,6 +327,7 @@ if (!empty($portefeuille)) {
                                              if(isset($sousOperation) && $sousOperation->code_t4==40000) {
                                               $sousOperationT4[] = [
                                                   "code" => $sousOperation->code_sous_operation,
+                                                  "nom" => $sousOperation->nom_sous_operation,
                                                   "values" => [
                                                       'ae_sousop' => $sousopAet4,
                                                       'cp_sousuop' => $sousopcPt4,
@@ -342,6 +346,7 @@ if (!empty($portefeuille)) {
                                     if(isset($sousOperation) && $sousOperation->code_t2==20000) {
                                     $operationT2[] = [
                                         "code" => $operation->code_operation,
+                                        "nom" => $sousOperation->nom_operation,
                                         "values" => [
                                             'ae_ouvertop' => $operationAeOuvert,
                                             'ae_attenduop' => $operationAeAttendu,
@@ -368,6 +373,7 @@ if (!empty($portefeuille)) {
                                       if(isset($sousOperation) && $sousOperation->code_t3==30000) {
                                         $operationT3[] = [
                                             "code" => $operation->code_operation,
+                                            "nom" => $sousOperation->nom_operation,
                                             "values" => [
                                                 'ae_reporteop' => $operationAeReporte,
                                                 'ae_notifieop' => $operationAeNotife,
@@ -391,6 +397,7 @@ if (!empty($portefeuille)) {
                                         if(isset($sousOperation) && $sousOperation->code_t1==10000) {
                                             $operationT[] = [
                                                 "code" => $operation->code_operation,
+                                                "nom" => $sousOperation->nom_operation,
                                                 "values" => [
                                                     'ae_op' => $operationAe,
                                                     'cp_op' => $operationCP,
@@ -406,6 +413,7 @@ if (!empty($portefeuille)) {
                                         if(isset($sousOperation) && $sousOperation->code_t4==40000) {
                                             $operationT4[] = [
                                                 "code" => $operation->code_operation,
+                                                "nom" => $sousOperation->nom_operation,
                                                 "values" => [
                                                     'ae_op' => $operationAet4,
                                                     'cp_op' => $operationCPt4,
@@ -424,6 +432,7 @@ if (!empty($portefeuille)) {
                                         if(isset($sousOperation) && $sousOperation->code_t2==20000) {
                                         $groupT2[] = [
                                             "code" => $groupe->code_grp_operation,
+                                            "nom" => $sousOperation->nom_grp_operation,
                                              "values" => [
                                                 'ae_ouvertgrpop' => $groupeAeOuvert,
                                                 'ae_attendugrpop' => $groupeAeAttendu,
@@ -450,6 +459,7 @@ if (!empty($portefeuille)) {
                                          if(isset($sousOperation) && $sousOperation->code_t3==30000) {
                                             $groupT3[] = [
                                                 "code" => $groupe->code_grp_operation,
+                                                "nom" => $sousOperation->nom_grp_operation,
                                                 "values" => [
                                                     'ae_reportegrpop' => $groupeAeReporte,
                                                     'ae_notifiegrpop' => $groupeAeNotife,
@@ -478,6 +488,7 @@ if (!empty($portefeuille)) {
                                             if(isset($sousOperation) && $sousOperation->code_t1==10000) {
                                                 $groupT[] = [
                                                     "code" => $groupe->code_grp_operation,
+                                                    "nom" => $sousOperation->nom_grp_operation,
                                                     "values" => [
                                                         'ae_grpop' => $groupeAe,
                                                         'cp_grpop' => $groupeCp,
@@ -494,6 +505,7 @@ if (!empty($portefeuille)) {
                                              {
                                                 $groupT4[] = [
                                                     "code" => $groupe->code_grp_operation,
+                                                    "nom" => $sousOperation->nom_grp_operation,
                                                     "values" => [
                                                         'ae_grpop' => $groupeAet4,
                                                         'cp_grpop' => $groupeCpt4,

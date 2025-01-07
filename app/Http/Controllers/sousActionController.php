@@ -128,6 +128,7 @@ function printdpic($numport)
     $TtportT4AE=0;
     $TtportT4CP=0;
     $Ttportglob=[];
+
     $progms=Programme::where("num_portefeuil",$numport)->get();
     foreach($progms as $progm)
     {
@@ -268,6 +269,7 @@ function printdpic($numport)
                return $pdf->stream('impression_dpic.pdf');
     }
     $programmes=[];
+    
     if(count($Ttportglob) <= 0)
     {
         $progms=Programme::where("num_portefeuil",$numport)->get();
