@@ -64,6 +64,9 @@
         color:white;
         font-size:20px;
     }
+    td {
+    font-size: 18px;
+}
     </style>
 </head>
 <body>
@@ -119,7 +122,7 @@
 <div class="table-diviser"></div> 
 <div class="table_handler">
 <table>
-        <thead>
+      
             <tr>
                 <th rowspan="2" class="t2" style="text-align: center; ">Code</th>
                 <th rowspan="2" class="t2" style="text-align: center; " >T2. DEPENSES DE FONCTIONNEMENT DES SERVICES </th>
@@ -139,7 +142,7 @@
             <th style="text-align: center; ">AE </th>
             <th style="text-align: center; ">CP </th>
             </tr>
-        </thead>
+      
         <tbody>
         @if(!empty($resultstructur['T2']['groupedData']))
                 @foreach ($resultstructur['T2']['groupedData'] as $groupData)
@@ -206,7 +209,11 @@
                     // extraire la dernière partie du code de la sous-opération
                     $code_separer = explode('-', $sousOp['code']);
                     $codeextr = end($code_separer);
+                    // Extraire la dernière partie du code de l'opération
+                    $code_op_separer = explode('-', $operationData['operation']['code']);
+                    $codeop = end($code_op_separer);
                 @endphp
+                @if ($codeextr !== $codeop)
                 <tr>
                     <td class="code2" style="text-align: center; ">{{ $codeextr }}</td>
                     <td>{{ $namesT2[$codeextr]?? 'Nom non trouvé' }}</td>
@@ -220,6 +227,7 @@
                     <td style="text-align: center; "> {{ $sousOp['values']['totalAEsousop'] ?? 'N/A' }}</td>
                     <td style="text-align: center; ">{{ $sousOp['values']['totalCPsousop'] ?? 'N/A' }}</td>
                 </tr>
+                @endif
             @endforeach
         @endforeach
         @endforeach
@@ -243,7 +251,7 @@
             @endforeach
             @endif
     </tbody>
-    <tfoot>
+    
     @if(!empty($resultstructur['T2']['groupedData']))
         <tr class="total2">
             <td colspan="2" style="text-align: center; font-weight: bold;">TOTAL DES CREDITS</td>
@@ -285,7 +293,7 @@
             <td style="text-align: center;">-</td>
         </tr>
     @endif
-</tfoot>
+
 
 </table>
 </div>

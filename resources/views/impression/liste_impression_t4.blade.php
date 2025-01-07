@@ -101,7 +101,7 @@
 
 <div class="table-diviser"></div> 
 <table>
-        <thead>
+        
             <tr>
                 <th rowspan="3">Code</th>
                 <th rowspan="3"> T4. DEPENSES DE TRANSFERT </th>
@@ -114,11 +114,11 @@
                 <th class="aecp"  style="text-align: center;">CP </th>
             </tr>
 
-        </thead>
+        
         <tbody>
       
             
-            @if(!empty($resultstructur['T4']['groupedData']))
+        @if(!empty($resultstructur['T4']['groupedData']))
               @foreach ($resultstructur['T4']['groupedData'] as $groupData)
                 @php
                     // extraire la dernière partie du code grp
@@ -128,54 +128,77 @@
                 <tr class="group-row">
                 <td class="code">{{$codegrp}}</td>
                 <td style=" font-weight: bold; ">{{ $namesT4[$codegrp ] ?? 'Nom non trouvé' }}</td>
-                <td class="vert4">{{ $namesT4[$codegrp ] ?? 'Nom non trouvé' }}</td>
+                <td class="vert4"></td>
                 <td class="aecp">{{ $groupData['group']['values']['ae_grpop'] ?? 'N/A' }}</td>
                 <td class="aecp">{{ $groupData['group']['values']['cp_grpop'] ?? 'N/A' }}</td>
             </tr>
 
-                 @foreach ($groupData['operations'] as $operationData)
-                @php
-                    // extraire la dernière partie du code de l'op
-                    $code_grpsepar = explode('-', $operationData['operation']['code']);
-                     $codeop = end( $code_grpsepar);
-                     //dd($operationData);
-                     @endphp
-                @if (count($operationData['sousOperations']) > 0)
-                   <tr class="operation-row with-sousop">
-                   <td class="code">{{ $codeop }}</td>
-                <td>{{ $namesT4[$codeop] ?? 'Nom non trouvé' }}</td>
-                <td class="vert4">{{ $namesT4[$codegrp ] ?? 'Nom non trouvé' }}</td>
-                <td class="aecp">{{ $operationData['operation']['values']['ae_op'] ?? 'N/A' }}</td>
-                <td class="aecp">{{ $operationData['operation']['values']['cp_op'] ?? 'N/A' }}</td>
-              
-               @else
-                   <tr class="operation-row">
-                   <td class="code">{{ $codeop }}</td>
-                <td>{{ $namesT4[$codeop] ?? 'Nom non trouvé' }}</td>
-                <td class="vert4">{{ $namesT4[$codegrp ] ?? 'Nom non trouvé' }}</td>
-                <td class="aecp">{{ $operationData['operation']['values']['ae_op'] ?? 'N/A' }}</td>
-                <td class="aecp">{{ $operationData['operation']['values']['cp_op'] ?? 'N/A' }}</td>
-              
-                @endif
-              
-              
+            @foreach ($groupData['operations'] as $operationData)
+    @php
+        $code_grpsepar = explode('-', $operationData['operation']['code']);
+        $codeop = end($code_grpsepar);
+    @endphp
 
-                @foreach ($operationData['sousOperations'] as $sousOp)
-            @php
-                    // extraire la dernière partie du code de la sous-opération
-                    $code_separer = explode('-', $sousOp['code']);
-                    $codeextr = end($code_separer);
-                @endphp
-                <tr>
-                    <td class="code">{{ $codeextr }}</td>
-                    <td>{{ $namesT4[$codeextr]?? 'Nom non trouvé' }}</td>
-                    <td class="vert4">{{ $namesT4[$codegrp ] ?? 'Nom non trouvé' }}</td>
-                    <td class="aecp">{{ $sousOp['values']['ae_sousop'] ?? 'N/A' }}</td>
-                    <td class="aecp">{{ $sousOp['values']['cp_sousuop'] ?? 'N/A' }}</td>
-                </tr>
-            @endforeach
-        @endforeach
-        @endforeach
+    @if (count($operationData['sousOperations']) > 0)
+    @foreach ($operationData['sousOperations'] as $sousOp)
+    @php
+        $code_separer = explode('-', $sousOp['code']);
+        $codeextr = end($code_separer);
+        $avantDernierePartie = $code_separer[count($code_separer) - 2] ?? null;
+        //dd( $avantDernierePartie);
+        $nom = $avantDernierePartie ? App\Models\SousOperation::where('code_sous_operation', $sousOp['code'])->first()->nom_sous_operation : null;
+        //dd($nom);
+       
+        if (strpos($nom, '_') !== false) {
+        $explodnom = explode('_', $nom);
+        $dispo=reset($explodnom);
+        //dd($decision);
+     
+        }else {
+            $dispo ='';
+                   }
+    @endphp
+
+   
+
+    @if (strlen($codeextr) < 3 && $avantDernierePartie == $codeop)
+        <tr class="operation-row with-sousop">
+            <td class="code">{{  (strlen($codeextr) === 5) ? $codeextr : '' }}</td>
+            <td>{{ $namesT4[$avantDernierePartie] ?? 'Nom non trouvé' }}</td>
+            <td class="vert4">{{ $dispo ?? $namesT4[$avantDernierePartie] }}</td>
+            <td class="aecp">{{ $operationData['operation']['values']['ae_op'] ?? 'N/A' }}</td>
+            <td class="aecp">{{ $operationData['operation']['values']['cp_op'] ?? 'N/A' }}</td>
+        </tr>
+    @elseif (strlen($codeextr) < 3 && $avantDernierePartie != $codeop)
+        <tr>
+            <td class="code">{{  (strlen($codeextr) === 5) ? $codeextr : ''  }}</td>
+            <td>{{ $namesT4[$avantDernierePartie] ?? 'Nom non trouvé' }}</td>
+            <td class="vert4">{{ $dispo ?? $namesT4[$avantDernierePartie] }}</td>
+            <td class="aecp">{{ $sousOp['values']['ae_sousop'] ?? 'N/A' }}</td>
+            <td class="aecp">{{ $sousOp['values']['cp_sousuop'] ?? 'N/A' }}</td>
+        </tr>
+    @else
+        <tr>
+            <td class="code">{{  (strlen($codeextr) === 5) ? $codeextr : ''  }}</td>
+            <td>{{ $namesT4[$codeextr] ?? 'Nom non trouvé' }}</td>
+            <td class="vert4">{{ $dispo ?? $namesT4[$avantDernierePartie] }}</td>
+            <td class="aecp">{{ $sousOp['values']['ae_sousop'] ?? 'N/A' }}</td>
+            <td class="aecp">{{ $sousOp['values']['cp_sousuop'] ?? 'N/A' }}</td>
+        </tr>
+    @endif
+@endforeach
+
+    @else
+        <tr class="operation-row">
+            <td class="code">{{ $codeop }}</td>
+            <td>{{ $namesT4[$codeop] ?? 'Nom non trouvé' }}</td>
+            <td class="vert4"> {{ $dispo ?? $namesT4[$avantDernierePartie] }}</td>
+            <td class="aecp">{{ $operationData['operation']['values']['ae_op'] ?? 'N/A' }}</td>
+            <td class="aecp">{{ $operationData['operation']['values']['cp_op'] ?? 'N/A' }}</td>
+        </tr>
+    @endif
+    @endforeach
+    @endforeach
 
         @else
         @foreach ($namesT4 as $code => $name)
@@ -192,7 +215,7 @@
 
 </tbody>
 
-<tfoot>
+
     @if(!empty($resultstructur['T4']['groupedData']))
         <tr  class="total4">
             <td colspan="3" style="text-align: center; font-weight: bold;font-size:20px;">TOTAL</td>
@@ -206,7 +229,7 @@
             <td style="text-align: center; font-weight: bold; font-size:20px;">-</td>
         </tr>
     @endif
-    </tfoot>
+  
     </table>
     </div>
 </body>

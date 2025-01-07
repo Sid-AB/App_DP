@@ -88,14 +88,14 @@ class modificationController extends Controller
                 case '3':
                     // vérifier si le code est > 9 parties séparé par - 
                     $parts = explode('-', $code);
-                    //dd($parts);
+                   // dd(count($parts));
                     $code_operation = implode('-', array_slice($parts, 0, 8));
                     //dd($code_operation );
                     if (count($parts) > 8) {
                       // insertion d'une nouvelle sous-opération
                         $sous=SousOperation::create([
                             'code_sous_operation' => $code,
-                            'nom_sous_operation'=>'',
+                            'nom_sous_operation'=>$values['desc']. '_'. $values['intitule'] ,
                             'desc' => $values['desc'] ?? 'Description non fournie',
                             'intitule' => $values['intitule'] ?? 'Intitulé non fourni',
                             'ae_notifie' => floatval(str_replace(',', '', $values['ae_notifie'])) ?? 0,
@@ -109,7 +109,7 @@ class modificationController extends Controller
                             'code_operation'=> $code_operation,
                             'date_update_SOUSoperation'=>now()
                         ]);
-                       // dd($sous);
+                     //  dd($sous);
                     // insérer dans ConstruireDPIA
                     ConstruireDPIA::create([
                         'code_sous_operation' =>  $sousOperation->code_sous_operation,
@@ -138,7 +138,7 @@ class modificationController extends Controller
                     } elseif (count($parts) > 7) {
                         $sousOperation = SousOperation::create([
                             'code_sous_operation' => $code_sous_operation,
-                            'nom_sous_operation' => '',
+                            'nom_sous_operation' => $values['desc']. '_'. $values['intitule'] ,
                             'desc' => $values['desc'] ?? 'Description non fournie',
                             'intitule' => $values['intitule'] ?? 'Intitulé non fourni',
                             'ae_notifie' => floatval(str_replace(',', '', $values['ae_notifie'])) ?? 0,
@@ -152,7 +152,7 @@ class modificationController extends Controller
                             'code_operation' => $code_operation,
                             'date_update_SOUSoperation' => now(),
                         ]);
-        
+                        //dd($sous);
                         ConstruireDPIA::create([
                             'code_sous_operation' => $sousOperation->code_sous_operation,
                             'motif_dpia' => 'Modification T3 - insert intitule et num decision',
@@ -191,7 +191,7 @@ class modificationController extends Controller
                         // insertion d'une nouvelle sous-opération
                           $sous=SousOperation::create([
                               'code_sous_operation' => $code,
-                              'nom_sous_operation'=>'',
+                              'nom_sous_operation' => $values['dispo']. '_'.'' ,
                               'dispo' => $values['dispo'] ?? 'Dispositif non fournie',
                               'AE_sous_operation' => floatval(str_replace(',', '', $values['ae'])) ?? 0,
                               'CP_sous_operation' => floatval(str_replace(',', '', $values['cp'])) ?? 0,

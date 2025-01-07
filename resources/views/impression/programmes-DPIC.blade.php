@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tableau CREDITS 088 </title>
+    <title>Tableau DPIC </title>
     <style>
      body {
             font-family: Arial, sans-serif;
@@ -87,8 +87,8 @@
         background-color:#DDD9C4;
         }
 
-        h1 {
-            font-size: 1em;
+           h1 {
+            font-size: 1.2em;
             margin-bottom: 20px;
         }
 
@@ -140,7 +140,7 @@
             {{-- Nouveau tableau pour chaque programme --}}
             <div class="page-break">
             <table >
-           
+            
                     <tr>
                         <th  style="border: none; background: white;"  colspan=2></th>
                         <th colspan="2" class="T">T1</th>
@@ -160,7 +160,7 @@
                         <th>AE</th>
                         <th>CP</th>
                     </tr>
-              
+               
                 <tbody>
                     {{-- Ligne principale pour le programme --}}
                     <tr >
@@ -184,20 +184,20 @@
                                 $last = count($code) - 1;
                                 $code = $code[$last];
                             @endphp
-
+                             @if(!isset($sousProgramme['actions'][0]))
                             <tr>
                                 <td class="subprogram-title">{{ $code }}</td>
                                 <td class="subprogram-title"> Sous Programme : {{ $sousProgramme['nom'] }}</td>
-                                <td>{{ $sousProgramme['Total']['TotalT1_AE'] }}</td>
-                                <td>{{ $sousProgramme['Total']['TotalT1_CP'] }}</td>
-                                <td>{{ $sousProgramme['Total']['TotalT2_AE'] }}</td>
-                                <td>{{ $sousProgramme['Total']['TotalT2_CP'] }}</td>
-                                <td>{{ $sousProgramme['Total']['TotalT3_AE'] }}</td>
-                                <td>{{ $sousProgramme['Total']['TotalT3_CP'] }}</td>
-                                <td>{{ $sousProgramme['Total']['TotalT4_AE'] }}</td>
-                                <td>{{ $sousProgramme['Total']['TotalT4_CP'] }}</td>
+                                <td>{{ $sousProgramme['Total']['TotalT1_AE_ini'] }}</td>
+                                <td>{{ $sousProgramme['Total']['TotalT1_CP_ini'] }}</td>
+                                <td>{{ $sousProgramme['Total']['TotalT2_AE_ini'] }}</td>
+                                <td>{{ $sousProgramme['Total']['TotalT2_CP_ini'] }}</td>
+                                <td>{{ $sousProgramme['Total']['TotalT3_AE_ini'] }}</td>
+                                <td>{{ $sousProgramme['Total']['TotalT3_CP_ini'] }}</td>
+                                <td>{{ $sousProgramme['Total']['TotalT4_AE_ini'] }}</td>
+                                <td>{{ $sousProgramme['Total']['TotalT4_CP_ini'] }}</td>
                             </tr>
-
+                            @endif
                             {{-- Boucle sur les actions --}}
                             @if(isset($sousProgramme['actions'][0]))
                                 @for($k = 0; $k < count($sousProgramme['actions']); $k++)
@@ -211,20 +211,20 @@
                                         <tr >
                                             <td>{{ $code }}</td>
                                             <td>Action : {{ $action['nom'] }}</td>
-                                            <td>{{ $action['TotalT']['T1']['total'][0]['values']['totalAE'] }}</td>
-                                            <td>{{ $action['TotalT']['T1']['total'][0]['values']['totalCP'] }}</td>
-                                            <td>{{ $action['TotalT']['T2']['total'][0]['values']['totalAE'] }}</td>
-                                            <td>{{ $action['TotalT']['T2']['total'][0]['values']['totalCP'] }}</td>
-                                            <td>{{ $action['TotalT']['T3']['total'][0]['values']['totalAE'] }}</td>
-                                            <td>{{ $action['TotalT']['T3']['total'][0]['values']['totalCP'] }}</td>
-                                            <td>{{ $action['TotalT']['T4']['total'][0]['values']['totalAE'] }}</td>
-                                            <td>{{ $action['TotalT']['T4']['total'][0]['values']['totalCP'] }}</td>
+                                            <td>{{ $action['TotalT']['TotalT1_AE_ini'] }}</td>
+                                            <td>{{ $action['TotalT']['TotalT1_CP_ini'] }}</td>
+                                            <td>{{ $action['TotalT']['TotalT2_AE_ini'] }}</td>
+                                            <td>{{ $action['TotalT']['TotalT2_CP_ini'] }}</td>
+                                            <td>{{ $action['TotalT']['TotalT3_AE_ini'] }}</td>
+                                            <td>{{ $action['TotalT']['TotalT3_CP_ini'] }}</td>
+                                            <td>{{ $action['TotalT']['TotalT4_AE_ini'] }}</td>
+                                            <td>{{ $action['TotalT']['TotalT4_CP_ini'] }}</td>
                                         </tr>
                                     @endforeach
                                 @endfor
                             @endif
 
-                            {{-- Total des actions pour le sous-programme --}}
+                            {{-- Total des actions pour le sous-programme 
                             <tr class="ttaction-title">
                                 <td class="ttaction-title"colspan="2">Total des actions</td>
                                 <td class="ttaction-title">{{ $sousProgramme['Total']['TotalT1_AE'] }}</td>
@@ -235,7 +235,7 @@
                                 <td class="ttaction-title">{{ $sousProgramme['Total']['TotalT3_CP'] }}</td>
                                 <td class="ttaction-title">{{ $sousProgramme['Total']['TotalT4_AE'] }}</td>
                                 <td class="ttaction-title">{{ $sousProgramme['Total']['TotalT4_CP'] }}</td>
-                            </tr>
+                            </tr>--}}
                         @endforeach
                     @endfor
 
@@ -269,7 +269,7 @@
             </table>
             </div>
             {{-- Ajouter un espace entre les tableaux --}}
-        
+         
         @endforeach
     @endfor
     </body>

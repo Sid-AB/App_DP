@@ -112,7 +112,7 @@
 </table>
 <div class="table-diviser"></div> 
     <table>
-        <thead>
+     
             <tr>
                 <th rowspan="2" style="text-align: center; ">Code</th>
                 <th rowspan="2" class="t1" style="text-align: center; ">T1. DEPENSES DE PERSONNEL</th>
@@ -128,7 +128,7 @@
                 <th style="text-align: center; ">AE </th>
                 <th style="text-align: center; ">CP </th>
             </tr>
-        </thead>
+   
         <tbody>
             @if(!empty($resultstructur['T1']['groupedData']))
                 @foreach ($resultstructur['T1']['groupedData'] as $groupData)
@@ -174,13 +174,18 @@
                     // extraire la dernière partie du code de la sous-opération
                     $code_separer = explode('-', $sousOp['code']);
                     $codeextr = end($code_separer);
+                    // Extraire la dernière partie du code de l'opération
+                    $code_op_separer = explode('-', $operationData['operation']['code']);
+                    $codeop = end($code_op_separer);
                 @endphp
+                @if ($codeextr !== $codeop)
                 <tr>
                     <td class="code1" style="text-align: center; ">{{ $codeextr }}</td>
                     <td>{{ $names[$codeextr]?? 'Nom non trouvé' }}</td>
                     <td style="text-align: center; ">{{ $sousOp['values']['ae_sousop'] ?? 'N/A' }}</td>
                     <td style="text-align: center; ">{{ $sousOp['values']['cp_sousuop'] ?? 'N/A' }}</td>
                 </tr>
+                @endif
             @endforeach
         @endforeach
         @endforeach
@@ -199,7 +204,7 @@
             @endforeach
         @endif
     </tbody>
-    <tfoot>
+
     @if(!empty($resultstructur['T1']['groupedData']))
         <tr  class="total1">
             <td colspan="2" style="text-align: center; font-weight: bold;font-size:20px;">TOTAL</td>
@@ -213,7 +218,7 @@
             <td style="text-align: center; font-weight: bold; font-size:20px;">-</td>
         </tr>
     @endif
-    </tfoot>
+   
     </table>
     </div>
 </body>

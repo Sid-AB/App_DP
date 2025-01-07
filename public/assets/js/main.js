@@ -10,6 +10,577 @@ var  dataupdate=new Array();
  * this function for adding button et makalah -_- ;
  */
 
+
+function appliquer_up()
+{
+    $('.change_app').on('click',function(){
+        var idbtn=$(this).children('#changin').attr('id');
+        if(idbtn =='changin' )
+        {
+            console.log('i insert '+JSON.stringify(dataupdate))
+            console.log('click once'+iupdate);
+
+
+            console.log('click after'+iupdate);
+   $.ajax({
+        url:'/update',
+        type:'POST',
+        data:{
+            Tport:T,
+            result:dataupdate,
+            _token: $('meta[name="csrf-token"]').attr("content"),
+            _method: "POST",},
+            success:function(response)
+            {
+                if(response.code == 200)
+                    {
+                dataupdate.forEach(elemnt=>{
+                    console.log('green add to '+elemnt.code)
+                    $('#ref'+elemnt.code).addClass('row-updated');
+
+                    dataupdate=Array();
+                })
+                }
+            }
+
+
+    })
+
+       console.log('testing'+JSON.stringify(dataupdate))
+       $('.change_app').empty()
+    click=0;
+
+        }
+    })
+}
+function insert_edit()
+{
+
+}
+
+
+function calaulsomeAE_CP_sprog()
+{
+    someAE_TT=0;
+    someCP_TT=0;
+    var oldTT=0
+    var old=0;
+    var oldTTCP=0
+    var oldCP=0;
+        /**   ----------------------------------------------- some AE T ---------------*/
+    $('#T1_AE_init').on('focusin',function(){
+        oldTT=$('#AE_sous_prog').val();
+        old=$(this).val();
+        console.log('old value'+oldTT);
+    })
+    $('#T1_AE_init').on('focusout',function(){
+        
+        console.log('old before if'+oldTT);
+        if(old == 0 || old == '' || old == '0' || old == null || old =='NaN')
+        {
+            old='0'
+        }
+        if(oldTT == 0 || oldTT == '' || oldTT == '0' || oldTT == null || oldTT =='NaN' )
+            {
+                someAE_TT=0;
+            someAE_TT+=parseNumberWithoutCommas($(this).val())
+            $('#AE_sous_prog').val(ValAccountingFigures(someAE_TT))
+            console.log('TT '+someAE_TT)
+            }
+            else
+            {
+            someAE_TT=parseNumberWithoutCommas(oldTT) - parseNumberWithoutCommas(old)
+            console.log('TT befor addin'+someAE_TT);
+            someAE_TT+=parseNumberWithoutCommas($(this).val())
+            $('#AE_sous_prog').val(ValAccountingFigures(someAE_TT))
+            console.log('old TT '+someAE_TT)
+            }
+            
+    })
+
+    $('#T2_AE_init').on('focusin',function(){
+        oldTT=$('#AE_sous_prog').val();
+        old=$(this).val();
+        console.log('old value'+oldTT);
+    })
+
+    $('#T2_AE_init').on('focusout',function(){
+        console.log('old before if'+oldTT);
+        if(old == 0 || old == '' || old == '0' || old == null || old =='NaN')
+            {
+                old='0'
+            }
+        if(oldTT == 0 || oldTT == '' || oldTT == '0' || oldTT == null || oldTT =='NaN')
+            {
+                someAE_TT=0;
+            someAE_TT+=parseNumberWithoutCommas($(this).val())
+            $('#AE_sous_prog').val(ValAccountingFigures(someAE_TT))
+            console.log('TT '+someAE_TT)
+            }
+            else
+            {
+                someAE_TT=parseNumberWithoutCommas(oldTT) - parseNumberWithoutCommas(old)
+            console.log('TT befor addin'+someAE_TT);
+            someAE_TT+=parseNumberWithoutCommas($(this).val())
+            $('#AE_sous_prog').val(ValAccountingFigures(someAE_TT))
+            console.log('old TT '+someAE_TT)
+            }
+    })
+
+    $('#T3_AE_init').on('focusin',function(){
+        oldTT=$('#AE_sous_prog').val();
+        old=$(this).val();
+        console.log('old value'+oldTT);
+    })
+
+    $('#T3_AE_init').on('focusout',function(){
+        console.log('old before if'+oldTT);
+        if(old == 0 || old == '' || old == '0' || old == null || old =='NaN')
+            {
+                old='0'
+            }
+        if(oldTT == 0 || oldTT == '' || oldTT == '0' || oldTT == null || oldTT =='NaN')
+            {
+                someAE_TT=0;
+            someAE_TT+=parseNumberWithoutCommas($(this).val())
+            $('#AE_sous_prog').val(ValAccountingFigures(someAE_TT))
+            console.log('TT '+someAE_TT)
+            }
+            else
+            {
+            someAE_TT=parseNumberWithoutCommas(oldTT) - parseNumberWithoutCommas(old)
+            console.log('TT befor addin'+someAE_TT);
+            someAE_TT+=parseNumberWithoutCommas($(this).val())
+            $('#AE_sous_prog').val(ValAccountingFigures(someAE_TT))
+            console.log('old TT '+someAE_TT)
+            }
+    })
+
+    $('#T4_AE_init').on('focusin',function(){
+        oldTT=$('#AE_sous_prog').val();
+        old=$(this).val();
+        console.log('old value'+oldTT);
+    })
+
+    $('#T4_AE_init').on('focusout',function(){
+        console.log('old before if'+oldTT);
+        if(old == 0 || old == '' || old == '0' || old == null || old =='NaN')
+            {
+                old='0'
+            }
+        if(oldTT == 0 || oldTT == '' || oldTT == '0' || oldTT == null || oldTT =='NaN')
+            {
+            someAE_TT=0
+            someAE_TT+=parseNumberWithoutCommas($(this).val())
+            $('#AE_sous_prog').val(ValAccountingFigures(someAE_TT))
+            console.log('null TT '+someAE_TT)
+            }
+            else
+            {
+            console.log('TT refresh new Value some '+someAE_TT+' old'+oldTT);
+            someAE_TT=parseNumberWithoutCommas(oldTT) - parseNumberWithoutCommas(old)
+            
+            someAE_TT+=parseNumberWithoutCommas($(this).val())
+            $('#AE_sous_prog').val(ValAccountingFigures(someAE_TT))
+            console.log('old TT '+someAE_TT)
+            }
+    })
+    /**  ------------------------------------------------------ rnf ---------------- */
+    /**------------------------------------ Some CP T ----------------------------- */
+
+    $('#T1_CP_init').on('focusin',function(){
+        oldTTCP=$('#CP_sous_prog').val();
+        oldCP=$(this).val();
+        console.log('old value'+oldTTCP);
+    })
+
+
+    $('#T1_CP_init').on('focusout',function(){
+
+
+        console.log('old before if'+oldTTCP);
+        if(oldCP == 0 || oldCP == '' || oldCP == '0' || oldCP == null || oldCP =='NaN')
+        {
+            oldCP='0'
+        }
+        if(oldTTCP == 0 || oldTTCP == '' || oldTTCP == '0' || oldTTCP == null || oldTTCP =='NaN' )
+            {
+                someCP_TT=0;
+            someCP_TT+=parseNumberWithoutCommas($(this).val())
+            $('#CP_sous_prog').val(ValAccountingFigures(someCP_TT))
+            console.log('TT '+someCP_TT)
+            }
+            else
+            {
+            someCP_TT=parseNumberWithoutCommas(oldTTCP) - parseNumberWithoutCommas(oldCP)
+            console.log('TT befor addin'+someCP_TT);
+            someCP_TT+=parseNumberWithoutCommas($(this).val())
+            $('#CP_sous_prog').val(ValAccountingFigures(someCP_TT))
+            console.log('old TT '+someCP_TT)
+            }
+
+    })
+
+    $('#T2_CP_init').on('focusin',function(){
+        oldTTCP=$('#CP_sous_prog').val();
+        oldCP=$(this).val();
+        console.log('old value'+oldTT);
+    })
+
+
+    $('#T2_CP_init').on('focusout',function(){
+
+        console.log('old before if'+oldTTCP);
+        if(oldCP == 0 || oldCP == '' || oldCP == '0' || oldCP == null || oldCP =='NaN')
+        {
+            oldCP='0'
+        }
+        if(oldTTCP == 0 || oldTTCP == '' || oldTTCP == '0' || oldTTCP == null || oldTTCP =='NaN' )
+            {
+                someCP_TT=0;
+            someCP_TT+=parseNumberWithoutCommas($(this).val())
+            $('#CP_sous_prog').val(ValAccountingFigures(someCP_TT))
+            console.log('TT '+someCP_TT)
+            }
+            else
+            {
+            someCP_TT=parseNumberWithoutCommas(oldTTCP) - parseNumberWithoutCommas(oldCP)
+            console.log('TT befor addin'+someCP_TT);
+            someCP_TT+=parseNumberWithoutCommas($(this).val())
+            $('#CP_sous_prog').val(ValAccountingFigures(someCP_TT))
+            console.log('old TT '+someCP_TT)
+            }
+        
+    })
+
+    $('#T3_CP_init').on('focusin',function(){
+        oldTTCP=$('#CP_sous_prog').val();
+        oldCP=$(this).val();
+        console.log('old value'+oldTTCP);
+    })
+
+    $('#T3_CP_init').on('focusout',function(){
+
+        console.log('old before if'+oldTTCP);
+        if(oldCP == 0 || oldCP == '' || oldCP == '0' || oldCP == null || oldCP =='NaN')
+        {
+            oldCP='0'
+        }
+        if(oldTTCP == 0 || oldTTCP == '' || oldTTCP == '0' || oldTTCP == null || oldTTCP =='NaN' )
+            {
+                someCP_TT=0;
+            someCP_TT+=parseNumberWithoutCommas($(this).val())
+            $('#CP_sous_prog').val(ValAccountingFigures(someCP_TT))
+            console.log('TT '+someCP_TT)
+            }
+            else
+            {
+            someCP_TT=parseNumberWithoutCommas(oldTTCP) - parseNumberWithoutCommas(oldCP)
+            console.log('TT befor addin'+someCP_TT);
+            someCP_TT+=parseNumberWithoutCommas($(this).val())
+            $('#CP_sous_prog').val(ValAccountingFigures(someCP_TT))
+            console.log('old TT '+someCP_TT)
+            }
+        
+    })
+
+    $('#T4_CP_init').on('focusin',function(){
+        oldTTCP=$('#CP_sous_prog').val();
+        oldCP=$(this).val();
+        console.log('old value'+oldTTCP);
+    })
+
+    $('#T4_CP_init').on('focusout',function(){
+
+        console.log('old before if'+oldTT);
+        if(oldCP == 0 || oldCP == '' || oldCP == '0' || oldCP == null || oldCP =='NaN')
+        {
+            oldCP='0'
+        }
+        if(oldTTCP == 0 || oldTTCP == '' || oldTTCP == '0' || oldTTCP == null || oldTTCP =='NaN' )
+            {
+            someCP_TT=0;
+            someCP_TT+=parseNumberWithoutCommas($(this).val())
+            $('#CP_sous_prog').val(ValAccountingFigures(someCP_TT))
+            console.log('TT '+someCP_TT)
+            }
+            else
+            {
+            someCP_TT=parseNumberWithoutCommas(oldTTCP) - parseNumberWithoutCommas(oldCP)
+            console.log('TT befor addin'+someCP_TT);
+            someCP_TT+=parseNumberWithoutCommas($(this).val())
+            $('#CP_sous_prog').val(ValAccountingFigures(someCP_TT))
+            console.log('old TT '+someCP_TT)
+            }
+        
+    })
+}
+
+
+function calaulsomeAE_CP_act()
+{
+    someAE_TT=0;
+    someCP_TT=0;
+    var oldTT=0
+    var old=0;
+    var oldTTCP=0
+    var oldCP=0;
+        /**   ----------------------------------------------- some AE T ---------------*/
+    $('#T1_AE_init_AC').on('focusin',function(){
+        oldTT=$('#AE_act').val();
+        old=$(this).val();
+        console.log('old value'+oldTT);
+    })
+    $('#T1_AE_init_AC').on('focusout',function(){
+        
+        console.log('old before if'+oldTT);
+        if(old == 0 || old == '' || old == '0' || old == null || old =='NaN')
+        {
+            old='0'
+        }
+        if(oldTT == 0 || oldTT == '' || oldTT == '0' || oldTT == null || oldTT =='NaN' )
+            {
+                someAE_TT=0;
+            someAE_TT+=parseNumberWithoutCommas($(this).val())
+            $('#AE_act').val(ValAccountingFigures(someAE_TT))
+            console.log('TT '+someAE_TT)
+            }
+            else
+            {
+            someAE_TT=parseNumberWithoutCommas(oldTT) - parseNumberWithoutCommas(old)
+            console.log('TT befor addin'+someAE_TT);
+            someAE_TT+=parseNumberWithoutCommas($(this).val())
+            $('#AE_act').val(ValAccountingFigures(someAE_TT))
+            console.log('old TT '+someAE_TT)
+            }
+            
+    })
+
+    $('#T2_AE_init_AC').on('focusin',function(){
+        oldTT=$('#AE_act').val();
+        old=$(this).val();
+        console.log('old value'+oldTT);
+    })
+
+    $('#T2_AE_init_AC').on('focusout',function(){
+        console.log('old before if'+oldTT);
+        if(old == 0 || old == '' || old == '0' || old == null || old =='NaN')
+            {
+                old='0'
+            }
+        if(oldTT == 0 || oldTT == '' || oldTT == '0' || oldTT == null || oldTT =='NaN')
+            {
+                someAE_TT=0;
+            someAE_TT+=parseNumberWithoutCommas($(this).val())
+            $('#AE_act').val(ValAccountingFigures(someAE_TT))
+            console.log('TT '+someAE_TT)
+            }
+            else
+            {
+                someAE_TT=parseNumberWithoutCommas(oldTT) - parseNumberWithoutCommas(old)
+            console.log('TT befor addin'+someAE_TT);
+            someAE_TT+=parseNumberWithoutCommas($(this).val())
+            $('#AE_act').val(ValAccountingFigures(someAE_TT))
+            console.log('old TT '+someAE_TT)
+            }
+    })
+
+    $('#T3_AE_init_AC').on('focusin',function(){
+        oldTT=$('#AE_act').val();
+        old=$(this).val();
+        console.log('old value'+oldTT);
+    })
+
+    $('#T3_AE_init_AC').on('focusout',function(){
+        console.log('old before if'+oldTT);
+        if(old == 0 || old == '' || old == '0' || old == null || old =='NaN')
+            {
+                old='0'
+            }
+        if(oldTT == 0 || oldTT == '' || oldTT == '0' || oldTT == null || oldTT =='NaN')
+            {
+                someAE_TT=0;
+            someAE_TT+=parseNumberWithoutCommas($(this).val())
+            $('#AE_act').val(ValAccountingFigures(someAE_TT))
+            console.log('TT '+someAE_TT)
+            }
+            else
+            {
+            someAE_TT=parseNumberWithoutCommas(oldTT) - parseNumberWithoutCommas(old)
+            console.log('TT befor addin'+someAE_TT);
+            someAE_TT+=parseNumberWithoutCommas($(this).val())
+            $('#AE_act').val(ValAccountingFigures(someAE_TT))
+            console.log('old TT '+someAE_TT)
+            }
+    })
+
+    $('#T4_AE_init_AC').on('focusin',function(){
+        oldTT=$('#AE_act').val();
+        old=$(this).val();
+        console.log('old value'+oldTT);
+    })
+
+    $('#T4_AE_init_AC').on('focusout',function(){
+        console.log('old before if'+oldTT);
+        if(old == 0 || old == '' || old == '0' || old == null || old =='NaN')
+            {
+                old='0'
+            }
+        if(oldTT == 0 || oldTT == '' || oldTT == '0' || oldTT == null || oldTT =='NaN')
+            {
+            someAE_TT=0
+            someAE_TT+=parseNumberWithoutCommas($(this).val())
+            $('#AE_sous_prog').val(ValAccountingFigures(someAE_TT))
+            console.log('null TT '+someAE_TT)
+            }
+            else
+            {
+            console.log('TT refresh new Value some '+someAE_TT+' old'+oldTT);
+            someAE_TT=parseNumberWithoutCommas(oldTT) - parseNumberWithoutCommas(old)
+            
+            someAE_TT+=parseNumberWithoutCommas($(this).val())
+            $('#AE_act').val(ValAccountingFigures(someAE_TT))
+            console.log('old TT '+someAE_TT)
+            }
+    })
+    /**  ------------------------------------------------------ rnf ---------------- */
+    /**------------------------------------ Some CP T ----------------------------- */
+
+    $('#T1_CP_init_AC').on('focusin',function(){
+        oldTTCP=$('#CP_act').val();
+        oldCP=$(this).val();
+        console.log('old value'+oldTTCP);
+    })
+
+
+    $('#T1_CP_init_AC').on('focusout',function(){
+
+
+        console.log('old before if'+oldTTCP);
+        if(oldCP == 0 || oldCP == '' || oldCP == '0' || oldCP == null || oldCP =='NaN')
+        {
+            oldCP='0'
+        }
+        if(oldTTCP == 0 || oldTTCP == '' || oldTTCP == '0' || oldTTCP == null || oldTTCP =='NaN' )
+            {
+                someCP_TT=0;
+            someCP_TT+=parseNumberWithoutCommas($(this).val())
+            $('#CP_act').val(ValAccountingFigures(someCP_TT))
+            console.log('TT '+someCP_TT)
+            }
+            else
+            {
+            someCP_TT=parseNumberWithoutCommas(oldTTCP) - parseNumberWithoutCommas(oldCP)
+            console.log('TT befor addin'+someCP_TT);
+            someCP_TT+=parseNumberWithoutCommas($(this).val())
+            $('#CP_act').val(ValAccountingFigures(someCP_TT))
+            console.log('old TT '+someCP_TT)
+            }
+
+    })
+
+    $('#T2_CP_init_AC').on('focusin',function(){
+        oldTTCP=$('#CP_act').val();
+        oldCP=$(this).val();
+        console.log('old value'+oldTT);
+    })
+
+
+    $('#T2_CP_init_AC').on('focusout',function(){
+
+        console.log('old before if'+oldTTCP);
+        if(oldCP == 0 || oldCP == '' || oldCP == '0' || oldCP == null || oldCP =='NaN')
+        {
+            oldCP='0'
+        }
+        if(oldTTCP == 0 || oldTTCP == '' || oldTTCP == '0' || oldTTCP == null || oldTTCP =='NaN' )
+            {
+                someCP_TT=0;
+            someCP_TT+=parseNumberWithoutCommas($(this).val())
+            $('#CP_act').val(ValAccountingFigures(someCP_TT))
+            console.log('TT '+someCP_TT)
+            }
+            else
+            {
+            someCP_TT=parseNumberWithoutCommas(oldTTCP) - parseNumberWithoutCommas(oldCP)
+            console.log('TT befor addin'+someCP_TT);
+            someCP_TT+=parseNumberWithoutCommas($(this).val())
+            $('#CP_act').val(ValAccountingFigures(someCP_TT))
+            console.log('old TT '+someCP_TT)
+            }
+        
+    })
+
+    $('#T3_CP_init_AC').on('focusin',function(){
+        oldTTCP=$('#CP_act').val();
+        oldCP=$(this).val();
+        console.log('old value'+oldTTCP);
+    })
+
+    $('#T3_CP_init_AC').on('focusout',function(){
+
+        console.log('old before if'+oldTTCP);
+        if(oldCP == 0 || oldCP == '' || oldCP == '0' || oldCP == null || oldCP =='NaN')
+        {
+            oldCP='0'
+        }
+        if(oldTTCP == 0 || oldTTCP == '' || oldTTCP == '0' || oldTTCP == null || oldTTCP =='NaN' )
+            {
+                someCP_TT=0;
+            someCP_TT+=parseNumberWithoutCommas($(this).val())
+            $('#CP_act').val(ValAccountingFigures(someCP_TT))
+            console.log('TT '+someCP_TT)
+            }
+            else
+            {
+            someCP_TT=parseNumberWithoutCommas(oldTTCP) - parseNumberWithoutCommas(oldCP)
+            console.log('TT befor addin'+someCP_TT);
+            someCP_TT+=parseNumberWithoutCommas($(this).val())
+            $('#CP_act').val(ValAccountingFigures(someCP_TT))
+            console.log('old TT '+someCP_TT)
+            }
+        
+    })
+
+    $('#T4_CP_init_AC').on('focusin',function(){
+        oldTTCP=$('#CP_act').val();
+        oldCP=$(this).val();
+        console.log('old value'+oldTTCP);
+    })
+
+    $('#T4_CP_init').on('focusout',function(){
+
+        console.log('old before if'+oldTT);
+        if(oldCP == 0 || oldCP == '' || oldCP == '0' || oldCP == null || oldCP =='NaN')
+        {
+            oldCP='0'
+        }
+        if(oldTTCP == 0 || oldTTCP == '' || oldTTCP == '0' || oldTTCP == null || oldTTCP =='NaN' )
+            {
+            someCP_TT=0;
+            someCP_TT+=parseNumberWithoutCommas($(this).val())
+            $('#CP_act').val(ValAccountingFigures(someCP_TT))
+            console.log('TT '+someCP_TT)
+            }
+            else
+            {
+            someCP_TT=parseNumberWithoutCommas(oldTTCP) - parseNumberWithoutCommas(oldCP)
+            console.log('TT befor addin'+someCP_TT);
+            someCP_TT+=parseNumberWithoutCommas($(this).val())
+            $('#CP_act').val(ValAccountingFigures(someCP_TT))
+            console.log('old TT '+someCP_TT)
+            }
+        
+    })
+}
+
+function parseNumberWithoutCommas(input) {
+    // Remove commas from the input string
+    let cleanedInput = input.replace(/,/g, '');
+    // Parse the cleaned string into a float
+    return parseFloat(cleanedInput);
+}
+
 function formatAccountingFigures(input) {
     // Remove non-numeric characters except for "."
     let value = input.value.replace(/[^0-9.]/g, '');
@@ -55,14 +626,22 @@ function only_def(id)
                defss=response.result.nom_sous_operation 
                console.log('def '+defss)
                newdfs=defss.split('_')
+               if(newdfs.length > 2){
                $('#ref'+id+" #def").text(newdfs[0])
-               $('#ref'+id+" #sous_def").text(newdfs[1])
+               $('#ref'+id+" #def").text(newdfs[1])
+               $('#ref'+id+" #sous_def").text(newdfs[2])}
+               else
+               {
+                $('#ref'+id+" #def").text(newdfs[0])
+                $('#ref'+id+" #sous_def").text(newdfs[1])
+               }
                
            }
        }
    })
    return localverb
 }
+
 
 
 /**
@@ -240,7 +819,7 @@ $('#cancel_ops').click(function(){
    alert('cancel op')
 })
 }
-function add_newOPs_T3(id, value, key,) {
+function add_newOPs_T3(id, value, key,code) {
     $('.change_app').empty()
 
    $("#dispo").text('');
@@ -279,11 +858,11 @@ function add_newOPs_T3(id, value, key,) {
   
    $('.Tsop_handler').append(champ);
    $('#ajt').on('click',function(){
-    id=id+'-'+counter;
+    idsz=id+'-'+counter;
     var buttons = '<button class="btn btn-primary" id="changin"> appliquer</button>'
     $('.change_app').append(buttons)
        var sopdata_add={
-           code:id,
+           code:idsz,
            intituel:$('#int-T3').val(),
            descrp:$('#dispo').val(),
            AE_rpor:$('#add_AE_rpor').val(),
@@ -296,7 +875,7 @@ function add_newOPs_T3(id, value, key,) {
            _method: "POST",
 
        }
-       dataupdate.push({code:id,value:{ae_notifie:sopdata_add.AE_not,ae_reporte:sopdata_add.AE_rpor,ae_engage:sopdata_add.AE_enga,
+       dataupdate.push({code:idsz,value:{ae_notifie:sopdata_add.AE_not,ae_reporte:sopdata_add.AE_rpor,ae_engage:sopdata_add.AE_enga,
         cp_notifie:sopdata_add.CP_not,cp_reporte:sopdata_add.CP_rpor,cp_consome:sopdata_add.CP_consom,desc:sopdata_add.descrp,intitule:sopdata_add.intituel}})
        console.log('data T3'+JSON.stringify(sopdata_add))
        /*$.ajax({
@@ -313,13 +892,13 @@ function add_newOPs_T3(id, value, key,) {
        })*/
             
             var idsfinal=id.split("-")
-            console.log('split -'+idsfinal)
+            //console.log('split -'+idsfinal)
             var lng=idsfinal.length
-           var row = '<tr id="ref' + id + '">' +
-                   '<td class="code">' +idsfinal[lng-2]+'-'+idsfinal[lng-1] + '</td>' +
+           var row = '<tr id="ref' + idsz + '">' +
+                   '<td class="code">'+idsfinal[0]+'</td>' +
                    '<td> - </td>' +
                    '<td>' + sopdata_add.descrp + '</td>' +
-                   '<td>' + sopdata_add.intituel + '</td>' +
+                   '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + sopdata_add.intituel + '</p> <i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i></td>' +
                    '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' + sopdata_add.AE_rpor + '</td>' +
                    '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' + sopdata_add.AE_not + '</td>' +
                    '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' + sopdata_add.AE_enga + '</td>' +
@@ -328,7 +907,36 @@ function add_newOPs_T3(id, value, key,) {
                    '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' + sopdata_add.CP_consom + '</td>' +
                    '</tr>';
                   
-               $('#' + key).after(row);
+                   if(idsfinal.length == 9 )
+                    {
+                        //console.log('testing remplace'+idsfinal.length)
+                     $('#' + key).replaceWith(row)
+                    }
+                    else
+                    {
+                       // console.log('testing append'+idsfinal.length)
+                        row='<tr id="ref' + idsz + '">' +
+                   '<td class="code" style="visibility: hidden;">'+id+'</td>' +
+                   '<td> - </td>' +
+                   '<td>' + sopdata_add.descrp + '</td>' +
+                   '<td class="btn_adding_pos" id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + sopdata_add.intituel + '</p> <i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i></td>' +
+                   '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' + sopdata_add.AE_rpor + '</td>' +
+                   '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' + sopdata_add.AE_not + '</td>' +
+                   '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' + sopdata_add.AE_enga + '</td>' +
+                   '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_rpor">' + sopdata_add.CP_rpor + '</td>' +
+                   '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_not">' + sopdata_add.CP_not + '</td>' +
+                   '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' + sopdata_add.CP_consom + '</td>' +
+                   '</tr>';
+                        $('#' + key).after(row)
+                    }
+                    $('#ref' + idsz + ' #add_op').on('click', function () {
+                        var newKey=$(this).parent().attr('id');
+                        var ads = newKey.split('ref')[1]
+                        $('.Tsop_handler').removeClass('Tsop_handler_h')
+                         add_newOPs_T3(ads, 2500, newKey,code);
+
+                     })
+
                counter++
              /*  $('#' + key + ' td').each(function () {
                    $(this).removeClass('editable');
@@ -349,6 +957,13 @@ function add_newOPs_T3(id, value, key,) {
                       }
                    
                     }
+                    if(code == 200)
+                    {
+                        appliquer_up()
+                    }
+                    else {
+
+                    }
    })
    $('#cancel_ops').click(function(){
        $('.change_app').empty()
@@ -359,7 +974,7 @@ function add_newOPs_T3(id, value, key,) {
    })
 }
 
-function add_newOPs_T4(id, value, key,) {
+function add_newOPs_T4(id, value, key,code) {
     $('.change_app').empty()
    $("#dispo").val('');
    $('.desp').text('Dispositive');
@@ -392,13 +1007,14 @@ function add_newOPs_T4(id, value, key,) {
    $('.Tsop_handler').append(champ);
  
    $('#ajt').click(function(){
+    
     mount_chang=true;
    
-    id=id+'-'+counter;
+    idsz=id+'-'+counter;
     var buttons = '<button class="btn btn-primary" id="changin"> appliquer</button>'
     $('.change_app').append(buttons)
        var data_add_ops={
-           code:id,
+           code:idsz,
            descrp:$('#dispo').val(),
           // defi:$('#def_T4').val(),
            AE_T4:$('#add_AE_T4').val(),
@@ -407,16 +1023,42 @@ function add_newOPs_T4(id, value, key,) {
            _method: "POST",
        }
        newid=id.split('-');
-       var row = '<tr id="ref' + id + '">' +
-       '<td class="code" >' +newid[newid.length-2]+'-'+ newid[newid.length-1] + '</td>' +
+       console.log('split'+newid)
+       var row = '<tr id="ref' + idsz + '">' +
+       '<td class="code" >' +newid[0] + '</td>' +
+       '<td> - </td>'+
+       '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;><p>' + data_add_ops.descrp + '</p></p> <i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i></td>' +
+       '<td id="AE_T4">' + data_add_ops.AE_T4 + '</td>' +
+       '<td  id="CP_T4">' + data_add_ops.CP_T4 + '</td>' +
+       '</tr>';
+
+       if(newid.length == 9)
+        {
+             console.log('testing remplace'+newid.length)
+         $('#' + key).replaceWith(row)
+      
+        }
+        else
+        {
+             console.log('testing remplace'+newid.length)
+            row='<tr id="ref' + idsz + '">' +
+       '<td class="code" style="visibility: hidden;">' +idsz + '</td>' +
        '<td>'+data_add_ops.defi+'</td>'+
        '<td ><p>' + data_add_ops.descrp + '</p></td>' +
        '<td id="AE_T4">' + data_add_ops.AE_T4 + '</td>' +
        '<td  id="CP_T4">' + data_add_ops.CP_T4 + '</td>' +
        '</tr>';
+            $('#' + key).after(row)
+        }
+        $('#ref' + id + ' #add_op').on('click', function () {
+            var newKey=$(this).parent().attr('id');
+            var ads = newKey.split('ref')[1]
+            $('.Tsop_handler').removeClass('Tsop_handler_h')
+             add_newOPs_T4(ads, 2500, newKey,code);
+
+         })
        counter++
-   $('#' + key).after(row);
-   dataupdate.push({code:id,value:{ae:data_add_ops.AE_T4,cp:data_add_ops.CP_T4,dispo:data_add_ops.descrp}})
+   dataupdate.push({code:idsz,value:{ae:data_add_ops.AE_T4,cp:data_add_ops.CP_T4,dispo:data_add_ops.descrp}})
   /* $('#' + key + ' td').each(function () {
        $(this).removeClass('editable');
    })*/
@@ -426,8 +1068,15 @@ function add_newOPs_T4(id, value, key,) {
        $('.Tsop_handler').empty();
        $('#add_sops').trigger('reset');
        $('.Tsop_handler').addClass('Tsop_handler_h')
-       
-      
+       if(code == 200)
+        {
+            appliquer_up()
+        }
+        $('#Tport-vals').removeClass('T4')
+        $("#dispo").val('');
+       $('.Tsop_handler').empty();
+       $('#add_sops').trigger('reset');
+       $('.Tsop_handler').addClass('Tsop_handler_h')
        
    })
    $('#cancel_ops').click(function(){
@@ -1712,11 +2361,11 @@ $("#add-prg").on('click', function () {
         '</div>' +
         '<div class="form-group">' +
         '<label for="input1">AE pour Sous Programme</label>' +
-        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="AE_sous_prog"   placeholder="Entrer AE Sous Programme">' +
+        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="AE_sous_prog"   placeholder="Entrer AE Sous Programme" disabled>' +
         '</div>' +
         '<div class="form-group">' +
         '<label for="input1">CP pour Sous Programme</label>' +
-        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="CP_sous_prog"  placeholder=" Entrer CP Sous Programme">' +
+        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="CP_sous_prog"  placeholder=" Entrer CP Sous Programme" disabled>' +
         '</div>' +
         '<div class="init_holder">'+
         '<div class="T_init_port">'+
@@ -1831,6 +2480,8 @@ $("#add-prg").on('click', function () {
                     }
                 });
                 focus_()
+
+                calaulsomeAE_CP_sprog()
                 /**  sous prog insert */
                 $('#add-prg2').on('click', function () {
                     var sou_prog = $('#num_sous_prog').val()
@@ -1878,34 +2529,34 @@ $("#add-prg").on('click', function () {
                         '</div>' +
                         '<div class="form-group" id="ElAE_act">' +
                         '<label for="input1">AE pour Action</label>' +
-                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="AE_act" placeholder="Entrer AE Action">' +
+                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="AE_act" placeholder="Entrer AE Action" disabled>' +
                         '</div>' +
                         '<div class="form-group" id="ElCP_act">' +
                         '<label for="input1">CP pour Action</label>' +
-                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="CP_act" placeholder="Entrer CP Action">' +
+                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="CP_act" placeholder="Entrer CP Action" disabled>' +
                         '</div>' +
                         '<div class="init_holder">'+
                         '<div class="T_init_port">'+
                         '<div class="ports_init">'+
                         '<div class="form-group">' +
-                        '<label for="input1">T1 pour Sous Programme</label>' +
-                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T1_AE_init_AC"   placeholder="Entrer T1 AE Sous Programme">' +
-                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T1_CP_init_AC"   placeholder="Entrer T1 CP Sous Programme">' +
+                        '<label for="input1">T1 pour ACTION</label>' +
+                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T1_AE_init_AC"   placeholder="Entrer T1 AE ACTION">' +
+                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T1_CP_init_AC"   placeholder="Entrer T1 CP ACTION">' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="input1">T2 pour Sous Programme</label>' +
-                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T2_AE_init_AC"   placeholder="Entrer T2 AE Sous Programme">' +
-                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T2_CP_init_AC"   placeholder="Entrer T2 CP Sous Programme">' +
+                        '<label for="input1">T2 pour ACTION</label>' +
+                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T2_AE_init_AC"   placeholder="Entrer T2 AE ACTION">' +
+                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T2_CP_init_AC"   placeholder="Entrer T2 CP ACTION">' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="input1">T3 pour Sous Programme</label>' +
-                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T3_AE_init_AC"   placeholder="Entrer T3 AE Sous Programme">' +
-                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T3_CP_init_AC"   placeholder="Entrer T3 CP Sous Programme">' +
+                        '<label for="input1">T3 pour ACTION</label>' +
+                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T3_AE_init_AC"   placeholder="Entrer T3 AE ACTION">' +
+                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T3_CP_init_AC"   placeholder="Entrer T3 CP ACTION">' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label for="input1">T4 pour Sous Programme</label>' +
-                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T4_AE_init_AC"   placeholder="Entrer T4 AE Sous Programme">' +
-                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T4_CP_init_AC"   placeholder="Entrer T4 CP Sous Programme">' +
+                        '<label for="input1">T4 pour ACTION</label>' +
+                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T4_AE_init_AC"   placeholder="Entrer T4 AE ACTION">' +
+                        '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T4_CP_init_AC"   placeholder="Entrer T4 CP ACTION">' +
                         '</div>' +
                         '</div>'+
                         '</div>'+
@@ -2012,8 +2663,6 @@ $("#add-prg").on('click', function () {
                                 $(this).text('Modifier')
                                 focus_()
 
-
-
                                 $('#date_insert_action').on('focusout', function () {
                                     console.log('out')
                                     var date_act = $(this).val();
@@ -2050,7 +2699,7 @@ $("#add-prg").on('click', function () {
 
                                 /******           ACTION add for under_progam                    *********** */
 
-
+                                calaulsomeAE_CP_act()
                                 $('#add-prg3').on('click', function () {
                                     /**
                                      *  this part for chacking if he want to under_action
@@ -2815,7 +3464,7 @@ if(code == 200){
             //   console.log('values' + JSON.stringify(val))
             let row = '<tr class="ref'+key+'" id="ref' + key + '">' +
                 '<td scope="row"  class="code">' + key + '</td>' +
-                '<td><p>' + val[0] + '</p> </td>' +
+                '<td id="nom_ops"><p>' + val[0] + '</p> </td>' +
                 '<td> - </td>' +
                 '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
                 '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' + 0 + '</td>' +
@@ -2834,7 +3483,7 @@ if(code == 200){
                 if (key == splitcode(data_T_port.group[ig].code, land)) {
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.group[ig].code + '">' +
                         '<td scope="row"  class="code">' + key + '</td>' +
-                        '<td><p>' + val[0] + '</p> </td>' +
+                        '<td id="nom_ops"><p>' + val[0] + '</p> </td>' +
                         '<td> - </td>' +
                         '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' + data_T_port.group[ig].values.ae_reportegrpop + ',00</td>' +
@@ -2853,7 +3502,7 @@ if(code == 200){
                 if (key == splitcode(data_T_port.operation[io].code, land)) {
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.operation[io].code + '">' +
                         '<td scope="row"  class="code">' + key + '</td>' +
-                        '<td><p>' + val[0] + '</p> </td>' +
+                        '<td id="nom_ops"><p>' + val[0] + '</p> </td>' +
                         '<td> - </td>' +
                         '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' + data_T_port.operation[io].values.ae_reporteop + '</td>' +
@@ -2868,13 +3517,27 @@ if(code == 200){
             }
             if (data_T_port.sousOperation.length > 0 && data_T_port.sousOperation.length > iso) {
                var land=data_T_port.sousOperation[iso].code.length-5;
-            
+                
                 if (key == splitcode(data_T_port.sousOperation[iso].code, land)) {
+                    //only_def(data_T_port.sousOperation[iso].code)
+                    var def='';
+                    var nom='';
+                    var int='';
+                    if(data_T_port.sousOperation[iso].nom.split('_').length > 2)
+                    {
+                        def=data_T_port.sousOperation[iso].nom.split('_')[1]
+                        nom=data_T_port.sousOperation[iso].nom.split('_')[0]
+                        int=data_T_port.sousOperation[iso].nom.split('_')[2]
+                    }
+                    else
+                    {
+                        nom=data_T_port.sousOperation[iso].nom.split('_')[0]
+                    }
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                         '<td scope="row"  class="code">' + key + '</td>' +
-                        '<td><p>' +    val[0] + '</p> </td>' +
-                        '<td> -  </td>' +
-                        '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
+                        '<td id="nom_ops"><p>' +  nom + '</p> </td>' +
+                        '<td> '+def+' </td>' +
+                        '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + int + '</p></td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' + data_T_port.sousOperation[iso].values.ae_reportesousop + '</td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' + data_T_port.sousOperation[iso].values.ae_notifiesousop + '</td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' + data_T_port.sousOperation[iso].values.ae_engagesousop + '</td>' +
@@ -2890,8 +3553,8 @@ if(code == 200){
                    {
                    
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
-                    '<td scope="row"  class="code" >' + key + '</td>' +
-                    '<td>'  +    val[0] + '</td>' +
+                    '<td scope="row"  class="code" style="visibility: hidden;">' + key + '</td>' +
+                    '<td id="nom_ops">'  +    data_T_port.sousOperation[iso].nom + '</td>' +
                     '<td>  - </td>' +
                     '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
                     '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' + data_T_port.sousOperation[iso].values.ae_reportesousop + '</td>' +
@@ -2906,7 +3569,7 @@ if(code == 200){
                        only_def(data_T_port.sousOperation[iso].code)
                    row = '<tr class="ref'+splitcode(data_T_port.sousOperation[iso].code, land)+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                    '<td scope="row"  class="code" >' +key+"-"+splitcode(data_T_port.sousOperation[iso].code, land) + '</td>' +
-                   '<td>'  +    val[0] + '</td>' +
+                   '<td id="nom_ops">'  +    val[0] + '</td>' +
                    '<td id="def"> </td>' +
                    '<td id="sous_def" style="display: flex;align-items: center; justify-content: space-between;"></td>' +
                    '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' + data_T_port.sousOperation[iso].values.ae_reportesousop + '</td>' +
@@ -2953,7 +3616,7 @@ if(code == 200){
                            var newKey=$(this).parent().attr('id');
                            var ads = newKey.split('ref')[1]
                            $('.Tsop_handler').removeClass('Tsop_handler_h')
-                            add_newOPs_T3(ads, 2500, newKey);
+                            add_newOPs_T3(ads, 2500, newKey,code);
 
                         })
                     }
@@ -2970,7 +3633,7 @@ if(code == 200){
                        var newKey=$(this).parent().attr('id');
                        var ads = newKey.split('ref')[1] 
                        $('.Tsop_handler').removeClass('Tsop_handler_h')
-                        add_newOPs_T3(ads, 2500, preve);
+                        add_newOPs_T3(ads, 2500, preve,code);
                     })
                 }
             }
@@ -2990,6 +3653,7 @@ if(code == 200){
 }
 function T4_table(id, T, id_s_act, port,code) {
    $('#T-tables tfoot').empty();
+  
     var current = new Array();
     var preve = new Array();
     var data_T_port = new Array();
@@ -3050,11 +3714,13 @@ function T4_table(id, T, id_s_act, port,code) {
         '</tr>';
     $('#T-tables thead').append(headT)
     
+
+    $.getJSON(jsonpath4, function (data) {
+    var lengT = Object.keys(data).length
     var i = 0;
     var ig = 0;
     var io = 0;
     var iso = 0;
-    $.getJSON(jsonpath4, function (data) {
         // Loop through each item in the JSON data
         $.each(data, function (key, value) {
             // Create a table row
@@ -3117,7 +3783,7 @@ function T4_table(id, T, id_s_act, port,code) {
                              
                             only_def(data_T_port.sousOperation[iso].code)
                             row = '<tr class="ref'+data_T_port.sousOperation[iso].code+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
-                            '<td scope="row" class="code" >' +key+"-"+splitcode(data_T_port.sousOperation[iso].code, land)+ '</td>' +
+                            '<td scope="row" class="code" style="visibility: hidden;">' +key+"-"+splitcode(data_T_port.sousOperation[iso].code, land)+ '</td>' +
                             '<td id="def"></td>' +
                             '<td id="sous_def" ></td>'+
                             '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T4">' + data_T_port.sousOperation[iso].values.ae_sousop + '</td>' +
@@ -3166,13 +3832,25 @@ function T4_table(id, T, id_s_act, port,code) {
                            var ads = newKey.split('ref')[1]
                            $('.Tsop_handler').removeClass('Tsop_handler_h')
                            console.log('add once');
-                            add_newOPs_T4(ads, 2500, newKey);
+                            add_newOPs_T4(ads, 2500, newKey,code);
                         })
                     }
 
                     preve = current;
                 }
                 current = key;
+            }
+            i++;
+            if (i == lengT) {
+                if ($('.ref' + key + ' td').hasClass("editable")) {
+                    $('.ref' + key + ' #add_op').append(newbtn)
+                    $('.ref' + key + ' #add_op').on('click', function () {
+                       var newKey=$(this).parent().attr('id');
+                       var ads = newKey.split('ref')[1] 
+                       $('.Tsop_handler').removeClass('Tsop_handler_h')
+                        add_newOPs_T4(ads, 2500, preve,code);
+                    })
+                }
             }
             if(code === 200)
                 {

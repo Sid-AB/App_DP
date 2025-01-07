@@ -1,4 +1,28 @@
+
+
 $(document).ready(function(){
+
+  function formatAccountingFigures() {
+    $('.chiffre').each(function() {
+        // Get the current text
+        let text = $(this).text();
+        
+        // Remove non-numeric characters (except dots)
+        let formatted = text.replace(/[^0-9.]/g, '');
+        
+        // Format as a number with commas (optional)
+        formatted = parseFloat(formatted).toLocaleString('dz-DZ', { 
+            minimumFractionDigits: 2, 
+            maximumFractionDigits: 2 
+        });
+
+        // Update the element's text
+        $(this).text(formatted);
+    });
+}
+
+
+
   var change = false;
   var AE_T1=0
   var CP_T1=0
@@ -820,4 +844,6 @@ $('#button-71').on('click',function(){
 })
     })
   })
+
+  formatAccountingFigures()
 })
