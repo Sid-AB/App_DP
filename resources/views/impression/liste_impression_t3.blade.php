@@ -107,7 +107,7 @@
 
 <div class="table-diviser"></div> 
 <table>
-        <thead>
+     
             <tr>
                 <th rowspan="3" style="text-align: center; ">Code</th>
                 <th class="vert3"  rowspan="3" style="text-align: center; "> T3. DEPENSES D'INVESTISSEMENT </th>
@@ -133,7 +133,7 @@
             <th class="aecp ">CP CONSOMMES  <br> Au  <br> 31-12-{{$years-1}} </th>
             </tr>
 
-        </thead>
+        
         <tbody>
        
     
@@ -292,7 +292,7 @@
         @endif
 
     </tbody>
-    <tfoot>
+    
   
        @if(!empty($resultstructur['T3']['groupedData']))
         <tr  class="total3">
@@ -320,7 +320,7 @@
       
         </tr>
     @endif
-    </tfoot>
+   
     </table>
     </div>
 </body>

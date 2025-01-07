@@ -112,7 +112,7 @@
 </table>
 <div class="table-diviser"></div> 
     <table>
-        <thead>
+     
             <tr>
                 <th rowspan="2" style="text-align: center; ">Code</th>
                 <th rowspan="2" class="t1" style="text-align: center; ">T1. DEPENSES DE PERSONNEL</th>
@@ -128,7 +128,7 @@
                 <th style="text-align: center; ">AE </th>
                 <th style="text-align: center; ">CP </th>
             </tr>
-        </thead>
+   
         <tbody>
             @if(!empty($resultstructur['T1']['groupedData']))
                 @foreach ($resultstructur['T1']['groupedData'] as $groupData)
@@ -204,7 +204,7 @@
             @endforeach
         @endif
     </tbody>
-    <tfoot>
+
     @if(!empty($resultstructur['T1']['groupedData']))
         <tr  class="total1">
             <td colspan="2" style="text-align: center; font-weight: bold;font-size:20px;">TOTAL</td>
@@ -218,7 +218,7 @@
             <td style="text-align: center; font-weight: bold; font-size:20px;">-</td>
         </tr>
     @endif
-    </tfoot>
+   
     </table>
     </div>
 </body>

@@ -303,7 +303,7 @@ class sousOperationController extends Controller
                 'prog', 
                 'action', 
                 'years',
-            ))->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1.25);  // Augmenter la résolution pour améliorer la lisibilité du texte
+            ))->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1.75);  // Augmenter la résolution pour améliorer la lisibilité du texte
               return $pdf->stream('liste_impression.pdf');
         } else {
                 throw new \Exception("Aucune donnée trouvée");
