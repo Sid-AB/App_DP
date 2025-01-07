@@ -892,7 +892,7 @@ function add_newOPs_T3(id, value, key,code) {
        })*/
             
             var idsfinal=id.split("-")
-            console.log('split -'+idsfinal)
+            //console.log('split -'+idsfinal)
             var lng=idsfinal.length
            var row = '<tr id="ref' + idsz + '">' +
                    '<td class="code">'+idsfinal[0]+'</td>' +
@@ -907,18 +907,19 @@ function add_newOPs_T3(id, value, key,code) {
                    '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' + sopdata_add.CP_consom + '</td>' +
                    '</tr>';
                   
-                   if(counter == 0)
+                   if(idsfinal.length == 9 )
                     {
+                        //console.log('testing remplace'+idsfinal.length)
                      $('#' + key).replaceWith(row)
-                  
                     }
                     else
                     {
+                       // console.log('testing append'+idsfinal.length)
                         row='<tr id="ref' + idsz + '">' +
                    '<td class="code" style="visibility: hidden;">'+id+'</td>' +
                    '<td> - </td>' +
                    '<td>' + sopdata_add.descrp + '</td>' +
-                   '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + sopdata_add.intituel + '</p> <i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i></td>' +
+                   '<td class="btn_adding_pos" id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + sopdata_add.intituel + '</p> <i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i></td>' +
                    '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' + sopdata_add.AE_rpor + '</td>' +
                    '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' + sopdata_add.AE_not + '</td>' +
                    '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' + sopdata_add.AE_enga + '</td>' +
