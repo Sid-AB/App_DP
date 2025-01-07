@@ -961,6 +961,9 @@ function add_newOPs_T3(id, value, key,code) {
                     {
                         appliquer_up()
                     }
+                    else {
+
+                    }
    })
    $('#cancel_ops').click(function(){
        $('.change_app').empty()
@@ -1004,6 +1007,7 @@ function add_newOPs_T4(id, value, key,code) {
    $('.Tsop_handler').append(champ);
  
    $('#ajt').click(function(){
+    
     mount_chang=true;
    
     idsz=id+'-'+counter;
@@ -1019,21 +1023,24 @@ function add_newOPs_T4(id, value, key,code) {
            _method: "POST",
        }
        newid=id.split('-');
+       console.log('split'+newid)
        var row = '<tr id="ref' + idsz + '">' +
-       '<td class="code" >' +idsz + '</td>' +
-       '<td>'+data_add_ops.defi+'</td>'+
+       '<td class="code" >' +newid[0] + '</td>' +
+       '<td> - </td>'+
        '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;><p>' + data_add_ops.descrp + '</p></p> <i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i></td>' +
        '<td id="AE_T4">' + data_add_ops.AE_T4 + '</td>' +
        '<td  id="CP_T4">' + data_add_ops.CP_T4 + '</td>' +
        '</tr>';
 
-       if(idsfinal.length == 9)
+       if(newid.length == 9)
         {
+             console.log('testing remplace'+newid.length)
          $('#' + key).replaceWith(row)
       
         }
         else
         {
+             console.log('testing remplace'+newid.length)
             row='<tr id="ref' + idsz + '">' +
        '<td class="code" style="visibility: hidden;">' +idsz + '</td>' +
        '<td>'+data_add_ops.defi+'</td>'+
@@ -1065,7 +1072,11 @@ function add_newOPs_T4(id, value, key,code) {
         {
             appliquer_up()
         }
-      
+        $('#Tport-vals').removeClass('T4')
+        $("#dispo").val('');
+       $('.Tsop_handler').empty();
+       $('#add_sops').trigger('reset');
+       $('.Tsop_handler').addClass('Tsop_handler_h')
        
    })
    $('#cancel_ops').click(function(){
