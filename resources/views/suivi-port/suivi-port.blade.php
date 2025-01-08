@@ -357,12 +357,18 @@
         <script src="{{asset('assets/js/jquery-3.7.1.min.js')}}"></script>
         <script src="{{asset('assets/js/jquery.dataTables.min.js')}}"></script>
         <script>
-        $(document).ready(function() {
-           var tabls= $('#ModiftT').DataTable();
-           $('#ModiftT tbody').on('click', 'tr', function() {
-            $(this).toggleClass('selected');
-        });
-        });
-    </script>
+            $(document).ready(function() {
+                var tabls = $('#ModiftT').DataTable({
+                    language: {
+                        url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/fr-FR.json"
+                    }
+                });
+
+                $('#ModiftT tbody').on('click', 'tr', function() {
+                    $(this).toggleClass('selected');
+                });
+            });
+        </script>
+
     </body>
 </html>
