@@ -808,7 +808,9 @@ function affiche_modif($numport)
             $TtportT3CP+=$prog['Total']['TotalT3_CP'];
             $TtportT4AE+=$prog['Total']['TotalT4_AE'];
             $TtportT4CP+=$prog['Total']['TotalT4_CP'];
-            $modiflist=ModificationT::where('num_prog',$prog['code'])->join('articles','modification_t_s.id_art','=','articles.id_art')->get();
+            $modiflist=ModificationT::where('num_prog_retire',$prog['code'])->join('articles','modification_t_s.id_art','=','articles.id_art')->get();
+          //  dd($prog['code']);
+          ///  dd( $modiflist);
             array_push($moficat_program,['reslut'=>$modiflist,'code_prog'=>$prog['code'],'nom_prog'=>$prog['nom']]);
         };
     };
@@ -816,7 +818,7 @@ function affiche_modif($numport)
                                 'TotalPortT2_AE'=>$TtportT2AE,'TotalPortT2_CP'=>$TtportT2CP,
                                 'TotalPortT3_AE'=>$TtportT3AE,'TotalPortT3_CP'=>$TtportT3CP,
                                 'TotalPortT4_AE'=>$TtportT4AE,'TotalPortT4_CP'=>$TtportT4CP]);
-       // dd($moficat_program);
+      // dd($moficat_program);
         if(count($programmes)>0)
         {
         /*return response()->json([
