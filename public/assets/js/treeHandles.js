@@ -41,6 +41,10 @@ $(document).ready(function(){
   var progs={};
   var type_ext=""
   var sousProgs={};
+  var code_port='';
+  var type_port='';
+  var AE_port=0;
+  var CP_port=0;
     $('.update-handl').on('click',function(){
       var id=$(this).parent().parent().attr('id');
       var port=$('.family-tree').attr('id');
@@ -270,6 +274,7 @@ $(document).ready(function(){
      $('.add-envoi').empty();
       if(selectedHobby == "exter")
       {
+        $('.exter_type').empty()
         $("#dif").text('Sous Programme de L`Operation')
         var type_extr='<div>'+
         '<label for="Tports">Recvoire</label>'+
@@ -285,6 +290,31 @@ $(document).ready(function(){
       {
         type_ext=$('input[name="type_extr"]:checked').val();
       })
+    }
+    else
+    if(selectedHobby === 'exter_port')
+    {
+      $('.exter_type').empty()
+        var init_port='<div>'+
+       ' <div>'+
+          '  <label for="Tports">Select from :</label>'+
+                '<select class="form-control" id="Type_op_port">'+
+                  '  <option value="recoit_port">'+
+                        'Recoit'+
+                   ' </option>'+
+                   ' <option value="envoi_port">'+
+                       ' Envoi'+
+                 '   </option>'+
+              '  </select>'+
+       ' </div>'+
+       '<br>'+
+       ' <div>'+
+           ' <label for="Tports">Code</label><input type="text" class="form-control" id="Code_port" name="interest">'+
+      '  </div>'+
+       ' <label>Montant:</label><br>'+
+    '<label for="Tports">AE</label><input type="number" class="form-control" id="AE_Port" name="interest"><label for="number">CP</label><input type="number" class="form-control" id="CP_Port" name="interest"></div>';
+       $('.exter_type').append(init_port)
+       type_port=$('#Type_op_port').val();
     }
       else
       {
@@ -335,7 +365,12 @@ $('#button-71').on('click',function(){
   if(selectedHobby === 'exter' && $('#id_cible').val() !== '0')
   {
     cmpt=true;
-  }  
+  } 
+
+  code_port=$('#Code_port').val()
+  AE_port=$('#AE_Port').val()
+  CP_port=$('#CP_Port').val()
+
   var datamodif={
     ref:$('#id').val(),
      AE_T1:parseFloat(AE_T1),
@@ -356,7 +391,11 @@ $('#button-71').on('click',function(){
      sousprogbum_click:sousprogbum,
      type_extr:type_ext,
      cible_action:$('#id_cible').val(),
-     status:cmpt, 
+     status:cmpt,
+     code_port:code_port,
+     type_port:type_port,
+     AE_port:AE_port,
+     CP_port:CP_port,
      _token: $('meta[name="csrf-token"]').attr("content"),
      _method: "POST",
   }
