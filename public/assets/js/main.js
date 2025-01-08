@@ -827,9 +827,9 @@ function add_newOPs_T3(id, value, key,code) {
    var champ='<div class="Tsop_add_handle">'+
    '<form id="add_sops">'+
    '<div class="form-group">'+
-   '<label class="desp">Numéro de décision</label>'+
+   '<label class="desp">descrption</label>'+
     '<input type="text" class="form-control" id="dispo" placeholder="Entrer  N° DE DECISION INSCRIPTION">'+
-    '<label class="desp">Intitule</label>'+
+    '<label class="desp">Intituler</label>'+
     '<input type="text" class="form-control" id="int-T3" placeholder="Entrer INTITULE ">'+
     '</div>'+
     '<div class="T3-ops_inpt_handle">' +
@@ -1419,13 +1419,15 @@ function Update_dpia(T,iupdate)
                }
 
                if (newText != 0 && newText != '' && newText != null && newText != '0') {
+ $('.change_app').empty()
+ var buttons = '<button class="btn btn-primary" id="changin"> appliquer</button>'
                    mount_chang = true
 
                    if (mount_chang == true) {
                        
                        click++;
                        if (click == 1) {
-                           var buttons = '<button class="btn btn-primary" id="changin"> appliquer</button>'
+                          
                            click++
                        }
                        $('.change_app').append(buttons)
@@ -1608,7 +1610,6 @@ function Edit(tid, T) {
 
             // When the input loses focus, update the cell with new text
             input.blur(function (t) {
-                $('.change_app').empty()
                 let newText = $(this).val();  // Get new value from input
 
                 if (tid == 'T_port2' || tid == 'T2') {
@@ -3045,7 +3046,7 @@ function T1_table(id, T, id_s_act, port,code) {
 
     var headT = '<tr>' +
         '<th ><h1>Code</h1></th>' +
-        '<th ><h1>T1.DEPENSES DE PERSONNEL</h1></th>' +
+        '<th ><h1>T Description</h1></th>' +
         '<th><h1>AE</h1></th>' +
         '<th><h1>CP</h1></th>' +
         '</tr>';
@@ -3209,8 +3210,7 @@ else
    }
 
     var headT = '<tr>' +
-        '<th><h1>code</h1></th>' +
-        '<th><h1>T2.DEPENSES DE FONCTIONNEMENT DES SERVICES </h1></th>' +
+        '<th colspan="2"><h1>T Description</h1></th>' +
         ' <th colspan="2">' +
         ' <div class="fusion-father">' +
         ' <h1>CREDITS OUVERTS</h1>' +
@@ -3428,9 +3428,9 @@ if(code == 200){
        var lasty=parseInt(yearport) - 1
     var headT = '<tr>' +
         '<th><h1>code</h1></th>' +
-        "<th><h1>T3.DEPENSES</h1></th>" +
-        "<th><h1> N°DE DECISION </h1></th>"+
-        "<th><h1>INTITULE DE L'OPERATION </h1></th>" +
+        '<th><h1>T Description</h1></th>' +
+        '<th><h1>Numero de Decision</h1></th>' +
+        '<th><h1>Intitule de L`Operation</h1></th>' +
         '<th colspan="6">' +
         '<div class="fusion-father">' +
         '<h1>MONTANT ANNEE (N)</h1>' +
@@ -3700,8 +3700,8 @@ function T4_table(id, T, id_s_act, port,code) {
 
     var headT = '<tr>' +
         '<th><h1>Code</h1></th>' +
-        '<th><h1>T4. DEPENSES DE TRANSFERT</h1></th>' +
-        "<th><h1>Dispositifs d'interventions</h1></th>"+
+        '<th><h1>DEPENSES DE TRANSFERT</h1></th>' +
+        '<th><h1>Detail</h1></th>'+
         '<th colspan="2">' +
         '<div class="fusion-father">' +
         '<h1>MONTANT ANNEE (N)</h1>' +
