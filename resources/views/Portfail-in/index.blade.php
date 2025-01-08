@@ -445,6 +445,18 @@
         <hr>
 
         <div class="form-group">
+          <label for="input1">Article</label>
+          <select type="text" class="form-control" id="id" placeholder="Entrer le Nom du Programme">
+           <option value="0" >Selectionner Article</option>
+           @foreach ($art as $key=>$actelement )
+           <option value="{{$actelement['id_art']}}" >{{$actelement['nom_art'].' / '.$actelement['code_art']}}</option>
+           @endforeach
+          </select>
+</div>
+  
+
+
+        <div class="form-group">
           <label id="dif" for="input1">Sous Programmes</label>
           <select type="text" class="form-control" id="id_env" placeholder="Entrer le Nom du Programme">
            <option value="0" >Selectionner Sous Porgramme</option>
