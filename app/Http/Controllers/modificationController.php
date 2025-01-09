@@ -427,7 +427,7 @@ class modificationController extends Controller
     {
         //récupéreer lees données
         $modifications = $request->all();
-        //dd($modifications);
+      //dd($modifications);
        // dd( $request->input('status') );
             // valider les données reçues
           /*  $request -> validate([
@@ -517,50 +517,87 @@ class modificationController extends Controller
             $sousProgRetire = SousProgramme::where('num_sous_prog', $validated['Sous_prog_retire'])->first();
            // dd( $sousProgRetire);
             $sousProgReçoit = SousProgramme::where('num_sous_prog', $validated['sousprogbum_click'])->first();
-           // dd($sousProgReçoit);
+            //dd($validated['sousprogbum_click']);
 
             $ProgRetire = Programme::where('num_prog', $validated['prog_retirer'])->first();
            //dd( $ProgRetire);
             $ProgReçoit = Programme::where('num_prog', $validated['prognum_click'])->first();
            // dd($ProgReçoit);
 
+           $portefeuille=Portefeuille::where('num_portefeuil',$validated['code_port'])->first();
+         //  dd($portefeuille);
            /* if (!$sousProgRetire || !$sousProgReçoit ||!$ProgRetire || !$ProgReçoit) {
                 return response()->json(['message' => 'Programme ou sous-programme introuvable'], 404);
             }
-*/
-            //calcull 
-            if( $validated['type']=="inter"){
-                if ($sousProgReçoit) {
                 
+*/
+
+            //calcull 
+            //portefeuille vers portefeuille 
+            if($portefeuille){
+                if ($validated['type_port']=="recoit_port")
+                {
+                    $portefeuille->AE_portef+=$validated['AE_port'];
+                    $portefeuille->CP_portef+=$validated['CP_port'];
+                    $portefeuille->Date_update_portefeuille = now();
+                  //  dd($portefeuille);
+                    $portefeuille->save();
+                }else{
+                    $portefeuille->AE_portef-=$validated['AE_port'];
+                    $portefeuille->CP_portef-=$validated['CP_port'];
+                    $portefeuille->Date_update_portefeuille = now();
+                    $portefeuille->save();
+                }
+            }
+           
+           
+            //les programes et sous prog
+            if( $validated['type']=="inter"){
+
+                if($sousProgReçoit->num_sous_prog==$sousProgRetire->num_sous_prog){
+                    //dd($sousProgRetire->num_sous_prog);
+                    $sousProgReçoit->AE_sous_prog += $validated['AE_T1'] +  $validated['AE_T2'] +  $validated['AE_T3'] + $validated['AE_T4'];
+                    $sousProgReçoit->CP_sous_prog += $validated['CP_T1'] + $validated['CP_T2'] +  $validated['CP_T3'] + $validated['CP_T4'];
+                    $sousProgReçoit->date_update_sousProg = now();
+
+                    $sousProgReçoit->AE_sous_prog -= (float) $validated['AE_env_T'];
+                    $sousProgReçoit->CP_sous_prog -=(float) $validated['CP_env_T'];
+                    $sousProgReçoit->date_update_sousProg = now();
+                  //  dd($sousProgReçoit);
+                    $sousProgReçoit->save();
+                    
+                    
+                 
+                }
+              
+
+                else {
                     $sousProgReçoit->AE_sous_prog += $validated['AE_T1'] +  $validated['AE_T2'] +  $validated['AE_T3'] + $validated['AE_T4'];
                     $sousProgReçoit->CP_sous_prog += $validated['CP_T1'] + $validated['CP_T2'] +  $validated['CP_T3'] + $validated['CP_T4'];
                     $sousProgReçoit->date_update_sousProg = now();
                     //dd( $sousProgReçoit);
                     $sousProgReçoit->save();
 
-                }   
-
-                if ($sousProgRetire) {
                     $sousProgRetire->AE_sous_prog -=  $validated['AE_env_T'];
                     $sousProgRetire->CP_sous_prog -= $validated['CP_env_T'];
                     $sousProgRetire->date_update_sousProg = now();
-                // dd( $sousProgRetire);
+                    
                     $sousProgRetire->save();
-   
+                     // dd( $sousProgRetire);
                 }
             
-                if ($ProgReçoit ==$ProgRetire) {
+                if ($ProgReçoit->num_prog ==$ProgRetire->num_prog) {
                 
                     $ProgReçoit->AE_prog += $validated['AE_T1'] + $validated['AE_T2'] + $validated['AE_T3'] + $validated['AE_T4'];
                     $ProgReçoit->CP_prog += $validated['CP_T1'] +$validated['CP_T2'] +$validated['CP_T3'] +$validated['CP_T4'];
                 
-                    $ProgRetire->AE_prog -=$validated['AE_env_T'];
-                    $ProgRetire->CP_prog -= $validated['CP_env_T'];
+                    $ProgReçoit->AE_prog -=$validated['AE_env_T'];
+                    $ProgReçoit->CP_prog -= $validated['CP_env_T'];
                 
                 
                     $ProgReçoit->date_update_portef = now();
-                    $ProgRetire->date_update_portef = now();
-            
+                    $ProgReçoit->date_update_portef = now();
+                    $ProgReçoit->save();
          
                 } else {
                       
@@ -570,7 +607,7 @@ class modificationController extends Controller
                             $ProgReçoit->save();
                        
     
-                         
+                          
                             $ProgRetire->AE_prog -= $validated['AE_env_T'];
                             $ProgRetire->CP_prog -= $validated['CP_env_T'];
                             $ProgRetire->date_update_portef = now();
@@ -610,7 +647,7 @@ class modificationController extends Controller
       
 
         // insérer les données dans la table modif
-        ModificationT::create([
+       $modif= ModificationT::create([
             'date_modif' => now(),
 
             'AE_envoi_t1' => $AE_env_T1,
@@ -651,7 +688,7 @@ class modificationController extends Controller
 
               ]);
 
-
+           //dd( $modif);
 
 
     return response()->json(['message' => 'Modifications insérées avec succès'], 200);
