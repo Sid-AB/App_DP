@@ -1,4 +1,4 @@
-console.log('testing'+JSON.stringify(path))
+//console.log('testing'+JSON.stringify(path))
 function parseNumberWithoutCommas(input) {
     // Remove commas from the input string
     let cleanedInput = input.replace(/,/g, '');

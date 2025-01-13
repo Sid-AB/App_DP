@@ -22,7 +22,7 @@
   var path=[]
 var paths=@json($paths);
 var lengs=@json($leng)
-console.log('te'+JSON.stringify(path)+'and his leng'+lengs)
+//console.log('te'+JSON.stringify(path)+'and his leng'+lengs)
 Object.entries(paths).forEach(([code,value])=>{
   path.push(value)
 })
