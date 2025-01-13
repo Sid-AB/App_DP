@@ -376,10 +376,10 @@
       <small class="text-muted">Last updated 3 mins ago</small>
     </div>
   </div>
-  <div class="card mall5" id="prog_to_prog">
+</div>
   <div>
     <p> Modfication : <p id="id_sprog_modif"></p></p>
-    <form id="update_art_handler">
+    <!--form id="update_art_handler">
     <div class="Radio-ids">
         <div>
         <label for="Tports">Interieur</label>
@@ -420,14 +420,44 @@
         </div>
         </div>
   <div id="modif-dif"></div>
-</form>
+</form-->
 
 <!--  the old modif -->
-  <!--div>
-    <p> Modfication : <p id="id_sprog_modif"></p></p>
+  <div>
     <form id="update_art_handler">
     
+      <div class="Radio-ids">
+        <div>
+        <label for="Tports">Interieur</label>
+         <input type="radio" class="form-check-input" id="intr" name="type_modif" value="inter" />
+        </div>
+        <div>
+        <label for="Tports">Exterieur</label>
+         <input type="radio" class="form-check-input" id="extr" name="type_modif" value="exter" />
+        </div>
+        <label for="Tports">Exterieur Portfail vers Portfail</label>
+        <input type="radio" class="form-check-input" id="extr_port" name="type_modif" value="exter_port" />
+       </div>
+        </div>
+
+        <div class="exter_type">
+     
+        </div>
+        
+
         <hr>
+
+        <div class="form-group">
+          <label for="input1">Article</label>
+          <select type="text" class="form-control" id="id" placeholder="Entrer le Nom du Programme">
+           <option value="0" >Selectionner Article</option>
+           @foreach ($art as $key=>$actelement )
+           <option value="{{$actelement['id_art']}}" >{{$actelement['nom_art'].' / '.$actelement['code_art']}}</option>
+           @endforeach
+          </select>
+</div>
+  
+
 
         <div class="form-group">
           <label id="dif" for="input1">Sous Programmes</label>
@@ -511,9 +541,9 @@
            <option value="0" >Selectionner Article</option>
           </select>
         </div>
-  </div-->
+      </div>
     </form>
-    <!--button class="button-70" id="button-71" role="button">modifier</button-->
+    <button class="button-70" id="button-71" role="button">modifier</button>
   </div>
   </div>
  </div>

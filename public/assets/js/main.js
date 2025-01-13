@@ -907,7 +907,7 @@ function add_newOPs_T3(id, value, key,code) {
                    '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' + sopdata_add.CP_consom + '</td>' +
                    '</tr>';
                   
-                   if(idsfinal.length == 9 )
+                   if(idsfinal.length == 9 || idsfinal.length == 1)
                     {
                         //console.log('testing remplace'+idsfinal.length)
                      $('#' + key).replaceWith(row)
@@ -975,7 +975,7 @@ function add_newOPs_T3(id, value, key,code) {
 }
 
 function add_newOPs_T4(id, value, key,code) {
-    $('.change_app').empty()
+   $('.change_app').empty()
    $("#dispo").val('');
    $('.desp').text('Dispositive');
    $('#Tport-vals').addClass('T4')
@@ -1022,40 +1022,43 @@ function add_newOPs_T4(id, value, key,code) {
            _token: $('meta[name="csrf-token"]').attr("content"),
            _method: "POST",
        }
-       newid=id.split('-');
-       console.log('split'+newid)
+       var idsfinal=id.split("-")
        var row = '<tr id="ref' + idsz + '">' +
-       '<td class="code" >' +newid[0] + '</td>' +
-       '<td> - </td>'+
-       '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;><p>' + data_add_ops.descrp + '</p></p> <i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i></td>' +
+       '<td class="code" >' +idsz.split("-")[0] + '</td>' +
+       '<td>'+value+'</td>'+
+       '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + data_add_ops.descrp + '</p> <i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i></td>' +
        '<td id="AE_T4">' + data_add_ops.AE_T4 + '</td>' +
        '<td  id="CP_T4">' + data_add_ops.CP_T4 + '</td>' +
        '</tr>';
 
-       if(newid.length == 9)
+       if(idsfinal.length == 9 || idsfinal.length == 1)
         {
-             console.log('testing remplace'+newid.length)
+             console.log('testing remplace'+idsfinal.length)
          $('#' + key).replaceWith(row)
       
         }
         else
         {
-             console.log('testing remplace'+newid.length)
+             console.log('testing remplace'+idsfinal.length)
             row='<tr id="ref' + idsz + '">' +
        '<td class="code" style="visibility: hidden;">' +idsz + '</td>' +
-       '<td>'+data_add_ops.defi+'</td>'+
-       '<td ><p>' + data_add_ops.descrp + '</p></td>' +
+       '<td>-</td>'+
+       '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + data_add_ops.descrp + '</p><i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i></td>' +
        '<td id="AE_T4">' + data_add_ops.AE_T4 + '</td>' +
        '<td  id="CP_T4">' + data_add_ops.CP_T4 + '</td>' +
        '</tr>';
             $('#' + key).after(row)
         }
-        $('#ref' + id + ' #add_op').on('click', function () {
+        $('#ref' + idsz + ' #add_op').on('click', function () {
             var newKey=$(this).parent().attr('id');
             var ads = newKey.split('ref')[1]
             $('.Tsop_handler').removeClass('Tsop_handler_h')
              add_newOPs_T4(ads, 2500, newKey,code);
-
+            if(code != 200)
+            {
+                T=4;
+                Edit(id, T)
+            }
          })
        counter++
    dataupdate.push({code:idsz,value:{ae:data_add_ops.AE_T4,cp:data_add_ops.CP_T4,dispo:data_add_ops.descrp}})
@@ -1071,13 +1074,7 @@ function add_newOPs_T4(id, value, key,code) {
        if(code == 200)
         {
             appliquer_up()
-        }
-        $('#Tport-vals').removeClass('T4')
-        $("#dispo").val('');
-       $('.Tsop_handler').empty();
-       $('#add_sops').trigger('reset');
-       $('.Tsop_handler').addClass('Tsop_handler_h')
-       
+        }   
    })
    $('#cancel_ops').click(function(){
        $('.Tsop_handler').empty();
@@ -1422,13 +1419,15 @@ function Update_dpia(T,iupdate)
                }
 
                if (newText != 0 && newText != '' && newText != null && newText != '0') {
+ $('.change_app').empty()
+ var buttons = '<button class="btn btn-primary" id="changin"> appliquer</button>'
                    mount_chang = true
 
                    if (mount_chang == true) {
                        
                        click++;
                        if (click == 1) {
-                           var buttons = '<button class="btn btn-primary" id="changin"> appliquer</button>'
+                          
                            click++
                        }
                        $('.change_app').append(buttons)
@@ -1596,6 +1595,7 @@ function Edit(tid, T) {
             old = cell.text();
         })
         $('.editable').dblclick(function () {
+            
             var clickid = $(this).attr('id');
             var clickedRow = $(this).closest('tr');
             var code = clickedRow.find('td:first-child');
@@ -3616,7 +3616,7 @@ if(code == 200){
                            var newKey=$(this).parent().attr('id');
                            var ads = newKey.split('ref')[1]
                            $('.Tsop_handler').removeClass('Tsop_handler_h')
-                            add_newOPs_T3(ads, 2500, newKey,code);
+                            add_newOPs_T3(ads, value, newKey,code);
 
                         })
                     }
@@ -3633,7 +3633,7 @@ if(code == 200){
                        var newKey=$(this).parent().attr('id');
                        var ads = newKey.split('ref')[1] 
                        $('.Tsop_handler').removeClass('Tsop_handler_h')
-                        add_newOPs_T3(ads, 2500, preve,code);
+                        add_newOPs_T3(ads, value, preve,code);
                     })
                 }
             }
@@ -3780,17 +3780,25 @@ function T4_table(id, T, id_s_act, port,code) {
                     while (sousou) {
                         if(splitcode(data_T_port.sousOperation[iso].code, land).length < 5 )
                             {
-                             
-                            only_def(data_T_port.sousOperation[iso].code)
+                                only_def(data_T_port.sousOperation[iso].code)
                             row = '<tr class="ref'+data_T_port.sousOperation[iso].code+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
-                            '<td scope="row" class="code" style="visibility: hidden;">' +key+"-"+splitcode(data_T_port.sousOperation[iso].code, land)+ '</td>' +
+                            '<td scope="row" class="code" style="visibility: hidden;">'  +key+"-"+splitcode(data_T_port.sousOperation[iso].code, land)+'</td>' +
                             '<td id="def"></td>' +
                             '<td id="sous_def" ></td>'+
                             '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T4">' + data_T_port.sousOperation[iso].values.ae_sousop + '</td>' +
                             '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T4">' + data_T_port.sousOperation[iso].values.cp_sousuop + '</td>' +
                             '</tr>';
-                            iso++;  
                             $('#T-tables tbody').append(row);
+                            iso++;
+                            row = '<tr class="ref'+data_T_port.sousOperation[iso].code+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
+                            '<td scope="row" class="code" >'+key+'</td>' +
+                            '<td id="def">'+value+'</td>' +
+                            '<td id="sous_def" ></td>'+
+                            '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T4">' + data_T_port.sousOperation[iso].values.ae_sousop + '</td>' +
+                            '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T4">' + data_T_port.sousOperation[iso].values.cp_sousuop + '</td>' +
+                            '</tr>';
+                            
+                            iso++; 
                         }
                     else
                     {
@@ -3832,7 +3840,7 @@ function T4_table(id, T, id_s_act, port,code) {
                            var ads = newKey.split('ref')[1]
                            $('.Tsop_handler').removeClass('Tsop_handler_h')
                            console.log('add once');
-                            add_newOPs_T4(ads, 2500, newKey,code);
+                            add_newOPs_T4(ads, value , newKey,code);
                         })
                     }
 
@@ -3848,7 +3856,7 @@ function T4_table(id, T, id_s_act, port,code) {
                        var newKey=$(this).parent().attr('id');
                        var ads = newKey.split('ref')[1] 
                        $('.Tsop_handler').removeClass('Tsop_handler_h')
-                        add_newOPs_T4(ads, 2500, preve,code);
+                        add_newOPs_T4(ads, value, newKey,code);
                     })
                 }
             }
