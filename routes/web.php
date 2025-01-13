@@ -100,12 +100,14 @@ Route::controller(sousOperationController::class)->group(function(){
     Route::get('/testing/{port}/{prog}/{sous_prog}/{act}/{s_act}/pdf','impressionpdf');
     Route::get('/testing/{port}/{prog}/{sous_prog}/{act}/pdf','impressionpdf');
     Route::get('/opsinfo/{id}','getdef_sop');
+    Route::get('/DPC/modif/{id}','modif_handler')->name('modif-handler');
 });
 //===============ROUTE modification==============================
 Route::controller(modificationController::class)->group(function(){
     Route::post('/update','updateSousOperation');
     Route::post('/updateModif','insertModif');
     Route::get('/affiche_transacation/{numport}','affiche_modif')->name('affich-trans');
+    
 
 
 });

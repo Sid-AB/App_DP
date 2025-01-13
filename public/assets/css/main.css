@@ -1365,4 +1365,16 @@ transition-timing-function: line;
 {
   width: 205px;
 }
+.modift_handler
+{
+  background-color: azure;
+    height: 25px;
+    width: 85px;
+    border-radius: 5px;
+    z-index: 100
+}
+.modift_handler:hover
+{
+  cursor: pointer;
+}
 /***------------------------------ end --------------------***/

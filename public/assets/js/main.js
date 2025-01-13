@@ -3588,7 +3588,7 @@ if(code == 200){
             // Append the row to the table body
 
             $('#T-tables tbody').append(row);
-            Edit(id, T)
+           
             if (current.length == 0) {
                 current = key;
                 preve = current;
@@ -3617,6 +3617,7 @@ if(code == 200){
                            var ads = newKey.split('ref')[1]
                            $('.Tsop_handler').removeClass('Tsop_handler_h')
                             add_newOPs_T3(ads, value, newKey,code);
+                            Edit(id, T)
 
                         })
                     }
@@ -3634,6 +3635,7 @@ if(code == 200){
                        var ads = newKey.split('ref')[1] 
                        $('.Tsop_handler').removeClass('Tsop_handler_h')
                         add_newOPs_T3(ads, value, preve,code);
+                        Edit(id, T)
                     })
                 }
             }
