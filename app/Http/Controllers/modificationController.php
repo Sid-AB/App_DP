@@ -88,9 +88,11 @@ class modificationController extends Controller
                 case '3':
                     // vérifier si le code est > 9 parties séparé par - 
                     $parts = explode('-', $code);
-                   // dd(count($parts));
+                    //dd($parts);
+                    $codepor=$parts[0].'-'.$parts[1];
+                    $portefeuille = Portefeuille::where('num_portefeuil',$codepor)->firstOrFail();
                     $code_operation = implode('-', array_slice($parts, 0, 8));
-                    //dd($code_operation );
+                    dd($values);
                     if (count($parts) > 8) {
                       // insertion d'une nouvelle sous-opération
                         $sous=SousOperation::create([
@@ -112,7 +114,7 @@ class modificationController extends Controller
                      //  dd($sous);
                     // insérer dans ConstruireDPIA
                     ConstruireDPIA::create([
-                        'code_sous_operation' =>  $sousOperation->code_sous_operation,
+                        'code_sous_operation' =>  $sous->code_sous_operation, //sousopreation qui sera null car creation nouvel sousOperation in update function
                         'motif_dpia' => 'Modification T3 insert intitule et num decision',
                         'date_creation_dpia' => $portefeuille->Date_portefeuille,
                         'date_modification_dpia' => now(),

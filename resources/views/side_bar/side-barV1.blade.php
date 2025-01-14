@@ -56,12 +56,12 @@
       @endif
       @if(isset($port) || isset($allport) || isset($paths))
       @if(isset($port))
-      <a class="element" href="/printDPA/{{$port}}" target="_blank">
+      <a class="element" href="/printdpic/{{$port}}" target="_blank">
       @else
         @if(isset($paths))
-        <a class="element" href="/printDPA/{{$paths['code_port']}}" target="_blank">
+        <a class="element" href="/printdpic/{{$paths['code_port']}}" target="_blank">
         @else
-      <a class="element" href="/printDPA/{{$allport['id']}}" target="_blank">
+      <a class="element" href="/printdpic/{{$allport['id']}}" target="_blank">
         @endif
       @endif
       <i class="fas fa-print"></i> Imprimer Dpic

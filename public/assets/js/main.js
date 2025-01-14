@@ -1048,7 +1048,7 @@ function add_newOPs_T3(id, value, key,code) {
             //console.log('split -'+idsfinal)
             var lng=idsfinal.length
            var row = '<tr id="ref' + idsz + '">' +
-                   '<td class="code">'+idsfinal[0]+'</td>' +
+                   '<td class="code">'+idsfinal[idsfinal.length-1]+'</td>' +
                    '<td> - </td>' +
                    '<td>' + sopdata_add.descrp + '</td>' +
                    '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + sopdata_add.intituel + '</p> <i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i></td>' +
@@ -1086,9 +1086,6 @@ function add_newOPs_T3(id, value, key,code) {
                         var newKey=$(this).parent().attr('id');
                         var ads = newKey.split('ref')[1]
                         $('.Tsop_handler').removeClass('Tsop_handler_h')
-                        insert_edit(ads, 2500, newKey,code);
-                         Edit(tid, T)
-
                      })
 
                counter++
