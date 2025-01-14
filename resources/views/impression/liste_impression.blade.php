@@ -98,14 +98,14 @@
             <td>{{ $codeact }}</th-->
             <td style="text-align: center; ">{{ $codesousprg}}</th>
             <th style="text-align: center; ">Sous-programme {{ $sousProgramme->nom_sous_prog }}</th>
-            <td style="text-align: center; ">{{ $resultstructur['T1']['total'][0]['values']['totalAE'] ?? 'N/A' }}</td>
-            <td style="text-align: center; ">{{ $resultstructur['T1']['total'][0]['values']['totalCP'] ?? 'N/A' }}</td>
+            <td style="text-align: center; ">{{ number_format((float)$resultstructur['T1']['total'][0]['values']['totalAE'], 2, '.', ',') ?? 'N/A' }}</td>
+            <td style="text-align: center; ">{{ number_format((float)$resultstructur['T1']['total'][0]['values']['totalCP'], 2, '.', ',') ?? 'N/A' }}</td>
         </tr>
         <tr>
                 
             <th colspan="2" class="headt1" style="text-align: center; ">TOTAL DES CREDITS DISPONIBLES</th>
-            <td class="headt1" style="text-align: center; ">{{ $resultstructur['T1']['total'][0]['values']['totalAE'] ?? 'N/A' }}</td>
-            <td class="headt1" style="text-align: center; ">{{ $resultstructur['T1']['total'][0]['values']['totalCP'] ?? 'N/A' }}</td>
+            <td class="headt1" style="text-align: center; ">{{ number_format((float)$resultstructur['T1']['total'][0]['values']['totalAE'], 2, '.', ',') ?? 'N/A' }}</td>
+            <td class="headt1" style="text-align: center; ">{{ number_format((float)$resultstructur['T1']['total'][0]['values']['totalCP'], 2, '.', ',') ?? 'N/A' }}</td>
         </tr>
     </thead>
     
@@ -140,8 +140,8 @@
                 <tr class="group-row1" >
                 <td class="code1" style="text-align: center; " >{{$codegrp}}</td>
                 <td style="text-align: center; "> {{ $names[$codegrp ] ?? 'Nom non trouvé' }}</td>
-                <td style="text-align: center; ">{{ $groupData['group']['values']['ae_grpop'] ?? 'N/A' }}</td>
-                <td style="text-align: center; ">{{ $groupData['group']['values']['cp_grpop'] ?? 'N/A' }}</td>
+                <td style="text-align: center; ">{{ number_format((float)$groupData['group']['values']['ae_grpop'], 2, '.', ',') ?? 'N/A' }}</td>
+                <td style="text-align: center; ">{{ number_format((float)$groupData['group']['values']['cp_grpop'], 2, '.', ',') ?? 'N/A' }}</td>
             </tr>
 
                  @foreach ($groupData['operations'] as $operationData)
@@ -155,15 +155,15 @@
                    <tr class="operation-row with-sousop1">
                    <td class="code1 " style="text-align: center; ">{{ $codeop }}</td>
                 <td >{{ $names[$codeop] ?? 'Nom non trouvé' }}</td>
-                <td style="text-align: center; " > {{ $operationData['operation']['values']['ae_op'] ?? 'N/A' }}</td>
-                <td style="text-align: center; ">{{ $operationData['operation']['values']['cp_op'] ?? 'N/A' }}</td>
+                <td style="text-align: center; " > {{ number_format((float)$operationData['operation']['values']['ae_op'], 2, '.', ',') ?? 'N/A' }}</td>
+                <td style="text-align: center; ">{{ number_format((float)$operationData['operation']['values']['cp_op'], 2, '.', ',') ?? 'N/A' }}</td>
               
                @else
                    <tr class="operation-row1">
                    <td class="code1" style="text-align: center; ">{{ $codeop }}</td>
                 <td >{{ $names[$codeop] ?? 'Nom non trouvé' }}</td>
-                <td style="text-align: center; ">{{ $operationData['operation']['values']['ae_op'] ?? 'N/A' }}</td>
-                <td style="text-align: center; " > {{ $operationData['operation']['values']['cp_op'] ?? 'N/A' }}</td>
+                <td style="text-align: center; ">{{ number_format((float)$operationData['operation']['values']['ae_op'], 2, '.', ',') ?? 'N/A' }}</td>
+                <td style="text-align: center; " > {{ number_format((float)$operationData['operation']['values']['cp_op'], 2, '.', ',') ?? 'N/A' }}</td>
               
                 @endif
               
@@ -182,8 +182,8 @@
                 <tr>
                     <td class="code1" style="text-align: center; ">{{ $codeextr }}</td>
                     <td>{{ $names[$codeextr]?? 'Nom non trouvé' }}</td>
-                    <td style="text-align: center; ">{{ $sousOp['values']['ae_sousop'] ?? 'N/A' }}</td>
-                    <td style="text-align: center; ">{{ $sousOp['values']['cp_sousuop'] ?? 'N/A' }}</td>
+                    <td style="text-align: center; ">{{ number_format((float)$sousOp['values']['ae_sousop'], 2, '.', ',') ?? 'N/A' }}</td>
+                    <td style="text-align: center; ">{{ number_format((float)$sousOp['values']['cp_sousuop'], 2, '.', ',') ?? 'N/A' }}</td>
                 </tr>
                 @endif
             @endforeach
@@ -208,8 +208,8 @@
     @if(!empty($resultstructur['T1']['groupedData']))
         <tr  class="total1">
             <td colspan="2" style="text-align: center; font-weight: bold;font-size:20px;">TOTAL</td>
-            <td style="text-align: center; font-weight: bold;font-size:20px;">{{ $resultstructur['T1']['total'][0]['values']['totalAE'] ?? 'N/A' }}</td>
-            <td style="text-align: center; font-weight: bold; font-size:20px;">{{ $resultstructur['T1']['total'][0]['values']['totalCP'] ?? 'N/A' }}</td>
+            <td style="text-align: center; font-weight: bold;font-size:20px;">{{ number_format((float)$resultstructur['T1']['total'][0]['values']['totalAE'], 2, '.', ',') ?? 'N/A' }}</td>
+            <td style="text-align: center; font-weight: bold; font-size:20px;">{{ number_format((float)$resultstructur['T1']['total'][0]['values']['totalCP'], 2, '.', ',') ?? 'N/A' }}</td>
         </tr>
     @else 
     <tr  class="total1">

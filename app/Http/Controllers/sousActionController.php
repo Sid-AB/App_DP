@@ -231,7 +231,7 @@ function print_dpa($numport)
     'TotalPortT4_AE'=>$TtportT4AE,'TotalPortT4_CP'=>$TtportT4CP]);
     
     $pdf=SnappyPdf::loadView('impression.impression_dpic_init', compact('programmes','Ttportglob'))
-    ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1.5);//lanscape mean orentation
+    ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1);//lanscape mean orentation
           return $pdf->stream('impression_dpic.pdf');
  
 }
@@ -403,7 +403,7 @@ function printdpic($numport)
                                 'TotalPortT4_AE'=>$TtportT4AE,'TotalPortT4_CP'=>$TtportT4CP]);
 
                                 $pdf=SnappyPdf::loadView('impression.impression_dpic2tableaux', compact('programmes','Ttportglob'))
-                                ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1.5);//lanscape mean orentation
+                                ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1);//lanscape mean orentation
                                       return $pdf->stream('impression_dpic.pdf');
     }
     $programmes=[];
