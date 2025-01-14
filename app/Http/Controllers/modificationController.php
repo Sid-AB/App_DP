@@ -90,23 +90,24 @@ class modificationController extends Controller
                     $parts = explode('-', $code);
                     //dd($parts);
                     $codepor=$parts[0].'-'.$parts[1];
-                    dd($parts);
+                    //dd($parts);
                     $portefeuille = Portefeuille::where('num_portefeuil',$codepor)->firstOrFail();
                     $code_operation = implode('-', array_slice($parts, 0, 8));
-                    dd(count($parts));
+                   
                     if (count($parts) > 8) {
                       // insertion d'une nouvelle sous-opération
+                      //dd($code);
                         $sous=SousOperation::create([
                             'code_sous_operation' => $code,
                             'nom_sous_operation'=>$values['desc']. '_'. $values['intitule'] ,
                             'desc' => $values['desc'] ?? 'Description non fournie',
                             'intitule' => $values['intitule'] ?? 'Intitulé non fourni',
-                            'ae_notifie' => floatval(str_replace(',', '', $values['ae_notifie'])) ?? 0,
-                            'ae_reporte' => floatval(str_replace(',', '', $values['ae_reporte'])) ?? 0,
-                            'ae_engage' => floatval(str_replace(',', '', $values['ae_engage'])) ?? 0,
-                            'cp_notifie' => floatval(str_replace(',', '', $values['cp_notifie'])) ?? 0,
-                            'cp_reporte' => floatval(str_replace(',', '', $values['cp_reporte'])) ?? 0,
-                            'cp_consome' => floatval(str_replace(',', '', $values['cp_consome'])) ?? 0,
+                            'AE_notifie' => floatval(str_replace(',', '', $values['ae_notifie'])) ?? 0,
+                            'AE_reporte' => floatval(str_replace(',', '', $values['ae_reporte'])) ?? 0,
+                            'AE_engage' => floatval(str_replace(',', '', $values['ae_engage'])) ?? 0,
+                            'CP_notifie' => floatval(str_replace(',', '', $values['cp_notifie'])) ?? 0,
+                            'CP_reporte' => floatval(str_replace(',', '', $values['cp_reporte'])) ?? 0,
+                            'CP_consome' => floatval(str_replace(',', '', $values['cp_consome'])) ?? 0,
                             'date_insert_SOUSoperation' =>now(),
                             'code_t3'=>30000,
                             'code_operation'=> $code_operation,
@@ -139,17 +140,18 @@ class modificationController extends Controller
                     ]);
                         
                     } elseif (count($parts) > 7) {
+                        dd(count($parts));
                         $sousOperation = SousOperation::create([
                             'code_sous_operation' => $code_sous_operation,
                             'nom_sous_operation' => $values['desc']. '_'. $values['intitule'] ,
                             'desc' => $values['desc'] ?? 'Description non fournie',
                             'intitule' => $values['intitule'] ?? 'Intitulé non fourni',
-                            'ae_notifie' => floatval(str_replace(',', '', $values['ae_notifie'])) ?? 0,
-                            'ae_reporte' => floatval(str_replace(',', '', $values['ae_reporte'])) ?? 0,
-                            'ae_engage' => floatval(str_replace(',', '', $values['ae_engage'])) ?? 0,
-                            'cp_notifie' => floatval(str_replace(',', '', $values['cp_notifie'])) ?? 0,
-                            'cp_reporte' => floatval(str_replace(',', '', $values['cp_reporte'])) ?? 0,
-                            'cp_consome' => floatval(str_replace(',', '', $values['cp_consome'] ))?? 0,
+                            'AE_notifie' => floatval(str_replace(',', '', $values['ae_notifie'])) ?? 0,
+                            'AE_reporte' => floatval(str_replace(',', '', $values['ae_reporte'])) ?? 0,
+                            'AE_engage' => floatval(str_replace(',', '', $values['ae_engage'])) ?? 0,
+                            'CP_notifie' => floatval(str_replace(',', '', $values['cp_notifie'])) ?? 0,
+                            'CP_reporte' => floatval(str_replace(',', '', $values['cp_reporte'])) ?? 0,
+                            'CP_consome' => floatval(str_replace(',', '', $values['cp_consome'] ))?? 0,
                             'date_insert_SOUSoperation' => now(),
                             'code_t3' => 30000,
                             'code_operation' => $code_operation,
@@ -178,6 +180,7 @@ class modificationController extends Controller
                         ]);
                     }else {
                 // code non valide 
+                dd(count($parts));
                 return response()->json([
                     'message' => 'erreur code non valide  : ' . $code,
                     'code'=> 500] );

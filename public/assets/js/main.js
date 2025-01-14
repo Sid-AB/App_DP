@@ -1012,6 +1012,7 @@ function add_newOPs_T3(id, value, key,code) {
    $('.Tsop_handler').append(champ);
    $('#ajt').on('click',function(){
     idsz=id+'-'+counter;
+    counter++;
     var buttons = '<button class="btn btn-primary" id="changin"> appliquer</button>'
     $('.change_app').append(buttons)
        var sopdata_add={
@@ -1072,7 +1073,7 @@ function add_newOPs_T3(id, value, key,code) {
                    '<td class="code" style="visibility: hidden;">'+id+'</td>' +
                    '<td> - </td>' +
                    '<td>' + sopdata_add.descrp + '</td>' +
-                   '<td class="btn_adding_pos" id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + sopdata_add.intituel + '</p> <i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i></td>' +
+                   '<td ><p>' + sopdata_add.intituel + '</p></td>' +
                    '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' + sopdata_add.AE_rpor + '</td>' +
                    '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' + sopdata_add.AE_not + '</td>' +
                    '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' + sopdata_add.AE_enga + '</td>' +
@@ -1086,19 +1087,11 @@ function add_newOPs_T3(id, value, key,code) {
                         var newKey=$(this).parent().attr('id');
                         var ads = newKey.split('ref')[1]
                         $('.Tsop_handler').removeClass('Tsop_handler_h')
-                        if(code == 200)
-                            {
-                                appliquer_up()
-                            }
-                            else {
-                                $('#changin').on('click',function(){
-                                    insert_edit(tid, T)
-                                })
-                                
-                            }
+                        add_newOPs_T3(ads, 2500, newKey,code);
+
                      })
 
-               counter++
+               
              /*  $('#' + key + ' td').each(function () {
                    $(this).removeClass('editable');
                })*/
