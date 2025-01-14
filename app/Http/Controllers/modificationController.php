@@ -261,7 +261,10 @@ class modificationController extends Controller
       //extrair le num de portefeuille les 7 premiers chiffres
       $codeSousOperation = $sousOperation->code_sous_operation;
       //dd( $codeSousOperation);
-      $numPortefeuille = substr($codeSousOperation, 0, 7);
+      $parts = explode('-', $codeSousOperation);
+      //dd($parts);
+      $codepor=$parts[0].'-'.$parts[1];
+      $numPortefeuille = $codepor;
       //dd( $numPortefeuille );
       $portefeuille = Portefeuille::where('num_portefeuil', $numPortefeuille)->first();
 
@@ -301,7 +304,10 @@ class modificationController extends Controller
         //extrair le num de portefeuille les 7 premiers chiffres
       $codeSousOperation = $sousOperation->code_sous_operation;
       //dd( $codeSousOperation);
-      $numPortefeuille = substr($codeSousOperation, 0, 7);
+      $parts = explode('-', $codeSousOperation);
+      //dd($parts);
+      $codepor=$parts[0].'-'.$parts[1];
+      $numPortefeuille = $codepor;
       //dd( $numPortefeuille );
       $portefeuille = Portefeuille::where('num_portefeuil', $numPortefeuille)->first();
 
@@ -345,8 +351,11 @@ class modificationController extends Controller
         //extrair le num de portefeuille les 7 premiers chiffres
       $codeSousOperation = $sousOperation->code_sous_operation;
       //dd( $codeSousOperation);
-      $numPortefeuille = substr($codeSousOperation, 0, 7);
-      //dd( $numPortefeuille );
+      $parts = explode('-', $codeSousOperation);
+      //dd($parts);
+      $codepor=$parts[0].'-'.$parts[1];
+      $numPortefeuille = $codepor;
+    
       $portefeuille = Portefeuille::where('num_portefeuil', $numPortefeuille)->first();
 
 
@@ -391,7 +400,10 @@ class modificationController extends Controller
         //extrair le num de portefeuille les 7 premiers chiffres
         $codeSousOperation = $sousOperation->code_sous_operation;
         //dd( $codeSousOperation);
-        $numPortefeuille = substr($codeSousOperation, 0, 7);
+        $parts = explode('-', $codeSousOperation);
+      //dd($parts);
+      $codepor=$parts[0].'-'.$parts[1];
+      $numPortefeuille = $codepor;
         //dd( $numPortefeuille );
         $portefeuille = Portefeuille::where('num_portefeuil', $numPortefeuille)->first();
 
