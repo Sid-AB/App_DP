@@ -90,9 +90,10 @@ class modificationController extends Controller
                     $parts = explode('-', $code);
                     //dd($parts);
                     $codepor=$parts[0].'-'.$parts[1];
+                    dd($parts);
                     $portefeuille = Portefeuille::where('num_portefeuil',$codepor)->firstOrFail();
                     $code_operation = implode('-', array_slice($parts, 0, 8));
-                    dd($values);
+                    dd(count($parts));
                     if (count($parts) > 8) {
                       // insertion d'une nouvelle sous-opération
                         $sous=SousOperation::create([

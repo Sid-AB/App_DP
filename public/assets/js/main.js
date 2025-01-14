@@ -1086,6 +1086,16 @@ function add_newOPs_T3(id, value, key,code) {
                         var newKey=$(this).parent().attr('id');
                         var ads = newKey.split('ref')[1]
                         $('.Tsop_handler').removeClass('Tsop_handler_h')
+                        if(code == 200)
+                            {
+                                appliquer_up()
+                            }
+                            else {
+                                $('#changin').on('click',function(){
+                                    insert_edit(tid, T)
+                                })
+                                
+                            }
                      })
 
                counter++
