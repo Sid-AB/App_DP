@@ -101,6 +101,142 @@ function allact($numport)
         }
 }
 
+// ================================= dpa withour operations only init =========================
+
+function print_dpa($numport)
+{
+    $act_ini=[];
+    $sousprog_ini=[];
+    $allaction=[];
+    $all_act=[];
+    $allsous_prog=[];
+    $programmes=[];
+    $ttall=[];
+    $TtAE1=0;
+    $TtCP1=0;
+    $TtAE2=0;
+    $TtCP2=0;
+    $TtAE3=0;
+    $TtCP3=0;
+    $TtAE4=0;
+    $TtCP4=0;
+    $TtportT1AE=0;
+    $TtportT1CP=0;
+    $TtportT2AE=0;
+    $TtportT2CP=0;
+    $TtportT3AE=0;
+    $TtportT3CP=0;
+    $TtportT4AE=0;
+    $TtportT4CP=0;
+    $Ttportglob=[];
+
+    $progms=Programme::where("num_portefeuil",$numport)->get();
+    foreach($progms as $progm)
+    {
+        $sousprog=SousProgramme::where('num_prog',$progm->num_prog)->get();
+        foreach($sousprog as $sprog)
+        {
+            $initsprog=initPort::where('num_sous_prog',$sprog->num_sous_prog)->get();
+           // dd($initsprog);
+            foreach($initsprog as $init)
+            {
+               if (isset($init->num_action))
+            {
+
+                $actsect=Action::where('num_action',$init->num_action)->firstOrFail();
+           
+                $ttall=['TotalT1_AE_ini'=>$init['AE_init_t1'],'TotalT1_CP_ini'=>$init['CP_init_t1'],
+                'TotalT2_AE_ini'=>$init['AE_init_t2'],'TotalT2_CP_ini'=>$init['CP_init_t2'],
+                'TotalT3_AE_ini'=>$init['AE_init_t3'],'TotalT3_CP_ini'=>$init['CP_init_t3'],
+                'TotalT4_AE_ini'=>$init['AE_init_t4'],'TotalT4_CP_ini'=>$init['CP_init_t4'],
+            ];
+                array_push($act_ini,['actions'=>['code'=>$actsect->num_action,"nom"=>$actsect->nom_action,'TotalT'=>$ttall]]);
+                
+            }
+            else
+            {
+
+                $TtAE1+=$init['AE_init_t1'];
+                $TtCP1+=$init['CP_init_t1'];
+
+                $TtAE2+=$init['AE_init_t2'];
+                $TtCP2+=$init['CP_init_t2'];
+
+                $TtAE3+=$init['AE_init_t3'];
+                $TtCP3+=$init['CP_init_t3'];
+
+                $TtAE4+=$init['AE_init_t4'];
+                $TtCP4+=$init['CP_init_t4'];
+
+                $ttall=['TotalT1_AE_ini'=>$init['AE_init_t1'],'TotalT1_CP_ini'=>$init['CP_init_t1'],
+                'TotalT2_AE_ini'=>$init['AE_init_t2'],'TotalT2_CP_ini'=>$init['CP_init_t2'],
+                'TotalT3_AE_ini'=>$init['AE_init_t3'],'TotalT3_CP_ini'=>$init['CP_init_t3'],
+                'TotalT4_AE_ini'=>$init['AE_init_t4'],'TotalT4_CP_ini'=>$init['CP_init_t4'],
+                
+            ];
+
+            $ttall_ini=['TotalT1_AE'=>$TtAE1,'TotalT1_CP'=>$TtCP1,
+            'TotalT2_AE'=>$TtAE2,'TotalT2_CP'=>$TtCP2,
+            'TotalT3_AE'=>$TtAE3,'TotalT3_CP'=>$TtCP3,
+            'TotalT4_AE'=>$TtAE4,'TotalT4_CP'=>$TtCP4,];
+              
+               
+                
+            }
+            
+       
+            
+        array_push($sousprog_ini,['sous_programmes'=>['code'=>$sprog->num_sous_prog,"nom"=>$sprog->nom_sous_prog,'actions'=>$act_ini,"Total"=>$ttall]]); }
+       
+        $ttall=[];
+        $act_ini=[];
+            }
+
+           
+          //  dd($initsprog);
+           
+                   
+        //array_push();
+        array_push($programmes,['programmes'=>['code'=>$progm->num_prog,"nom"=>$progm->nom_prog,"sous_programmes"=>$sousprog_ini,"Total"=>$ttall_ini]]);
+        $TtAE1=0;
+        $TtCP1=0;
+        $TtAE2=0;
+        $TtCP2=0;
+        $TtAE3=0;
+        $TtCP3=0;
+        $TtAE4=0;
+        $TtCP4=0;
+        $ttall_ini=[];
+        $sousprog_ini=[];
+        $act_ini=[];
+    }
+    for ($i=0; $i < count($programmes) ; $i++)
+    {
+        foreach($programmes[$i] as $prog)
+        {
+            $TtportT1AE+=$prog['Total']['TotalT1_AE'];
+            $TtportT1CP+=$prog['Total']['TotalT1_CP'];
+            $TtportT2AE+=$prog['Total']['TotalT2_AE'];
+            $TtportT2CP+=$prog['Total']['TotalT2_CP'];
+            $TtportT3AE+=$prog['Total']['TotalT3_AE'];
+            $TtportT3CP+=$prog['Total']['TotalT3_CP'];
+            $TtportT4AE+=$prog['Total']['TotalT4_AE'];
+            $TtportT4CP+=$prog['Total']['TotalT4_CP'];
+        };
+
+    };
+    array_push($Ttportglob,['TotalPortT1_AE'=>$TtportT1AE,'TotalPortT1_CP'=>$TtportT1CP,
+    'TotalPortT2_AE'=>$TtportT2AE,'TotalPortT2_CP'=>$TtportT2CP,
+    'TotalPortT3_AE'=>$TtportT3AE,'TotalPortT3_CP'=>$TtportT3CP,
+    'TotalPortT4_AE'=>$TtportT4AE,'TotalPortT4_CP'=>$TtportT4CP]);
+    
+    $pdf=SnappyPdf::loadView('impression.impression_dpic_init', compact('programmes','Ttportglob'))
+    ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1.5);//lanscape mean orentation
+          return $pdf->stream('impression_dpic.pdf');
+ 
+}
+
+//================================== dipc with  operatiionss =====================================*
 
 function printdpic($numport)
 {   
@@ -273,111 +409,7 @@ function printdpic($numport)
     $programmes=[];
     
     if(count($Ttportglob) <= 0)
-    {
-        $progms=Programme::where("num_portefeuil",$numport)->get();
-        foreach($progms as $progm)
-        {
-            $sousprog=SousProgramme::where('num_prog',$progm->num_prog)->get();
-            foreach($sousprog as $sprog)
-            {
-                $initsprog=initPort::where('num_sous_prog',$sprog->num_sous_prog)->get();
-               // dd($initsprog);
-                foreach($initsprog as $init)
-                {
-                   if (isset($init->num_action))
-                {
-
-                    $actsect=Action::where('num_action',$init->num_action)->firstOrFail();
-               
-                    $ttall=['TotalT1_AE_ini'=>$init['AE_init_t1'],'TotalT1_CP_ini'=>$init['CP_init_t1'],
-                    'TotalT2_AE_ini'=>$init['AE_init_t2'],'TotalT2_CP_ini'=>$init['CP_init_t2'],
-                    'TotalT3_AE_ini'=>$init['AE_init_t3'],'TotalT3_CP_ini'=>$init['CP_init_t3'],
-                    'TotalT4_AE_ini'=>$init['AE_init_t4'],'TotalT4_CP_ini'=>$init['CP_init_t4'],
-                ];
-                    array_push($act_ini,['actions'=>['code'=>$actsect->num_action,"nom"=>$actsect->nom_action,'TotalT'=>$ttall]]);
-                    
-                }
-                else
-                {
-
-                    $TtAE1+=$init['AE_init_t1'];
-                    $TtCP1+=$init['CP_init_t1'];
-    
-                    $TtAE2+=$init['AE_init_t2'];
-                    $TtCP2+=$init['CP_init_t2'];
-    
-                    $TtAE3+=$init['AE_init_t3'];
-                    $TtCP3+=$init['CP_init_t3'];
-    
-                    $TtAE4+=$init['AE_init_t4'];
-                    $TtCP4+=$init['CP_init_t4'];
-
-                    $ttall=['TotalT1_AE_ini'=>$init['AE_init_t1'],'TotalT1_CP_ini'=>$init['CP_init_t1'],
-                    'TotalT2_AE_ini'=>$init['AE_init_t2'],'TotalT2_CP_ini'=>$init['CP_init_t2'],
-                    'TotalT3_AE_ini'=>$init['AE_init_t3'],'TotalT3_CP_ini'=>$init['CP_init_t3'],
-                    'TotalT4_AE_ini'=>$init['AE_init_t4'],'TotalT4_CP_ini'=>$init['CP_init_t4'],
-                    
-                ];
-
-                $ttall_ini=['TotalT1_AE'=>$TtAE1,'TotalT1_CP'=>$TtCP1,
-                'TotalT2_AE'=>$TtAE2,'TotalT2_CP'=>$TtCP2,
-                'TotalT3_AE'=>$TtAE3,'TotalT3_CP'=>$TtCP3,
-                'TotalT4_AE'=>$TtAE4,'TotalT4_CP'=>$TtCP4,];
-                  
-                   
-                    
-                }
-                
-           
-                
-            array_push($sousprog_ini,['sous_programmes'=>['code'=>$sprog->num_sous_prog,"nom"=>$sprog->nom_sous_prog,'actions'=>$act_ini,"Total"=>$ttall]]); }
-           
-            $ttall=[];
-            $act_ini=[];
-                }
-
-               
-              //  dd($initsprog);
-               
-                       
-            //array_push();
-            array_push($programmes,['programmes'=>['code'=>$progm->num_prog,"nom"=>$progm->nom_prog,"sous_programmes"=>$sousprog_ini,"Total"=>$ttall_ini]]);
-            $TtAE1=0;
-            $TtCP1=0;
-            $TtAE2=0;
-            $TtCP2=0;
-            $TtAE3=0;
-            $TtCP3=0;
-            $TtAE4=0;
-            $TtCP4=0;
-            $ttall_ini=[];
-            $sousprog_ini=[];
-            $act_ini=[];
-        }
-        for ($i=0; $i < count($programmes) ; $i++)
-        {
-            foreach($programmes[$i] as $prog)
-            {
-                $TtportT1AE+=$prog['Total']['TotalT1_AE'];
-                $TtportT1CP+=$prog['Total']['TotalT1_CP'];
-                $TtportT2AE+=$prog['Total']['TotalT2_AE'];
-                $TtportT2CP+=$prog['Total']['TotalT2_CP'];
-                $TtportT3AE+=$prog['Total']['TotalT3_AE'];
-                $TtportT3CP+=$prog['Total']['TotalT3_CP'];
-                $TtportT4AE+=$prog['Total']['TotalT4_AE'];
-                $TtportT4CP+=$prog['Total']['TotalT4_CP'];
-            };
-
-        };
-        array_push($Ttportglob,['TotalPortT1_AE'=>$TtportT1AE,'TotalPortT1_CP'=>$TtportT1CP,
-        'TotalPortT2_AE'=>$TtportT2AE,'TotalPortT2_CP'=>$TtportT2CP,
-        'TotalPortT3_AE'=>$TtportT3AE,'TotalPortT3_CP'=>$TtportT3CP,
-        'TotalPortT4_AE'=>$TtportT4AE,'TotalPortT4_CP'=>$TtportT4CP]);
-        
-        $pdf=SnappyPdf::loadView('impression.impression_dpic_init', compact('programmes','Ttportglob'))
-        ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1.5);//lanscape mean orentation
-              return $pdf->stream('impression_dpic.pdf');
-      
+    { 
     }
    
         if(count($programmes)>0)
