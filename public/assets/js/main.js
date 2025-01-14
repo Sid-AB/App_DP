@@ -3508,8 +3508,9 @@ else
         });
         if(code === 200)
            {
-               dataupdate=[]
+               
                Update_dpia(T,id_s_act);
+               dataupdate=[]
            console.log('testing new update function')
            }
     }).fail(function () {
