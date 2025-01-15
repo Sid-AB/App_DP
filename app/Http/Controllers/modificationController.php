@@ -888,5 +888,4 @@ function affiche_modif($numport)
 
 }
 
-   
 }
