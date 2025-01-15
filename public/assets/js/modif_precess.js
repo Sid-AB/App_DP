@@ -618,14 +618,47 @@ function upload_file(id_file,id_relat)
    })
 
 }
+if(document.getElementById("AE_prog"))
+    {
+formatAccountingFigures(document.getElementById("AE_prog"));
+formatAccountingFigures(document.getElementById("CP_prog"));
+    }
+    if(document.getElementById("AE_sous_prog"))
+        {
+        formatAccountingFigures(document.getElementById("AE_sous_prog"));
+        formatAccountingFigures(document.getElementById("CP_sous_prog"));
+        formatAccountingFigures(document.getElementById("T1_AE_init"));
+        formatAccountingFigures(document.getElementById("T1_CP_init"));
+        formatAccountingFigures(document.getElementById("T2_AE_init"));
+        formatAccountingFigures(document.getElementById("T2_CP_init"));
+        formatAccountingFigures(document.getElementById("T3_AE_init"));
+        formatAccountingFigures(document.getElementById("T3_CP_init"));
+        formatAccountingFigures(document.getElementById("T4_AE_init"));
+        formatAccountingFigures(document.getElementById("T4_CP_init"));
+        }
+    if(document.getElementById("AE_act"))
+            {
+            formatAccountingFigures(document.getElementById("AE_act"));
+            formatAccountingFigures(document.getElementById("CP_act"));
+            formatAccountingFigures(document.getElementById("T1_AE_init_AC"));
+            formatAccountingFigures(document.getElementById("T1_CP_init_AC"));
+            formatAccountingFigures(document.getElementById("T2_AE_init_AC"));
+            formatAccountingFigures(document.getElementById("T2_CP_init_AC"));
+            formatAccountingFigures(document.getElementById("T3_AE_init_AC"));
+            formatAccountingFigures(document.getElementById("T3_CP_init_AC"));
+            formatAccountingFigures(document.getElementById("T4_AE_init_AC"));
+            formatAccountingFigures(document.getElementById("T4_CP_init_AC"));
+            }
+
 
 $(document).ready(function(){
+   
     $('input').focus(function() {
         $(this).removeAttr('style');
     });
 
 //===================CHECK PROG==================================
-$("#date_insert_portef").on('focusout', function () {
+/*$("#date_insert_portef").on('focusout', function () {
     var num_prog = $('#num_prog').val(); // Récupérer la valeur du portefeuille
     var Date_prog = $(this).val();  // Récupérer la valeur de la date
 
@@ -673,11 +706,11 @@ $("#date_insert_portef").on('focusout', function () {
     }
 });
 
-
+*/
 //==============================FIN CHECKL PROG=============================
 
 //==============================CHECK SOUS PROG=============================
-$('#date_insert_sousProg').on('focusout', function () {
+/*$('#date_insert_sousProg').on('focusout', function () {
     var Date_sou_program = $(this).val(); // Récupérer la valeur du programme
     //var year = new Date(Date_sou_program).getFullYear(); // Extraire l'année à partir de la date
     var num_sou_prog = $('#num_sous_prog').val(); // Récupérer la valeur de la date du programme
@@ -725,12 +758,12 @@ $('#date_insert_sousProg').on('focusout', function () {
         });
     }
 });
-
+*/
 //=======================FIN CHECK SOUS PROG ==================================
 
 //======================= CHECK action ==================================
 
-$('#date_insert_action').on('focusout', function () {
+/*$('#date_insert_action').on('focusout', function () {
     //alert('out')
     var date_act = $(this).val();
     var num_act = $('#num_act').val();
@@ -760,12 +793,12 @@ $('#date_insert_action').on('focusout', function () {
             }
         })
     }
-})
+})*/
 
 //=======================FIN CHECK action ==================================
 
 //===============CHECK SOUS ACTION=====================//
-$('#date_insert_sou_action').on('focusout', function () {
+/*$('#date_insert_sou_action').on('focusout', function () {
     //alert('out')
     var date_sousact = $(this).val();
     var num_sousact = $('#num_sous_action').val();
@@ -796,7 +829,7 @@ $('#date_insert_sou_action').on('focusout', function () {
             }
         })
     }
-})
+})*/
  //=============== FIN CHECK SOUS ACTION================//
 
 
@@ -1228,13 +1261,10 @@ calaulsomeAE_CP_sprog()
                                         {
 
                                             alert(response.message)
+
                                         }
                                         alert(response.message)
-                                                path.push(numsouprog_year);
-                                                $('.the-path').append(nexthop)
-                                                parent.empty();
-                                                parent.append('<i class="fas fa-wrench"></i>')
-                                                 document.getElementById("creati-act").style.display="block";
+                                             window.location.reload()
                                  /*   $.ajax({
                                         url:'/init_ports',
                                         type:'POST',
@@ -1298,13 +1328,7 @@ if(id == "add-prg1")
             if (response.code == 200 || response.code == 404) {
 
                 alert(response.message)
-                path.push(numprog_year);
-                $('.the-path').append(nexthop)
-                console.log('testing'+numprog_year);
-
-               parent.empty();
-               parent.append('<i class="fas fa-wrench"></i>')
-               document.getElementById("creati-sous_prog").style.display="block";
+                window.location.reload()
       }
       else
       {

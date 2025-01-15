@@ -92,8 +92,8 @@
             <th>Action {{ $action->nom_action }}</th>
             <th>Code</th>
             <td>{{ $codeact }}</th>
-            <td>{{ $resultstructur['T4']['total'][0]['values']['totalAE'] ?? 'N/A' }}</td>
-            <td>{{ $resultstructur['T4']['total'][0]['values']['totalCP'] ?? 'N/A' }}</td>
+            <td>{{ number_format((float)$resultstructur['T4']['total'][0]['values']['totalAE'], 2, '.', ',') ?? 'N/A' }}</td>
+            <td>{{ number_format((float)$resultstructur['T4']['total'][0]['values']['totalCP'], 2, '.', ',') ?? 'N/A' }}</td>
         </tr>
     </thead>
   
@@ -129,8 +129,8 @@
                 <td class="code">{{$codegrp}}</td>
                 <td style=" font-weight: bold; ">{{ $namesT4[$codegrp ] ?? 'Nom non trouvé' }}</td>
                 <td class="vert4"></td>
-                <td class="aecp">{{ $groupData['group']['values']['ae_grpop'] ?? 'N/A' }}</td>
-                <td class="aecp">{{ $groupData['group']['values']['cp_grpop'] ?? 'N/A' }}</td>
+                <td class="aecp">{{ number_format((float)$groupData['group']['values']['ae_grpop'], 2, '.', ',') ?? 'N/A' }}</td>
+                <td class="aecp">{{ number_format((float)$groupData['group']['values']['cp_grpop'], 2, '.', ',') ?? 'N/A' }}</td>
             </tr>
 
             @foreach ($groupData['operations'] as $operationData)
@@ -166,24 +166,24 @@
             <td class="code">{{  (strlen($codeextr) === 5) ? $codeextr : '' }}</td>
             <td>{{ $namesT4[$avantDernierePartie] ?? 'Nom non trouvé' }}</td>
             <td class="vert4">{{ $dispo ?? $namesT4[$avantDernierePartie] }}</td>
-            <td class="aecp">{{ $operationData['operation']['values']['ae_op'] ?? 'N/A' }}</td>
-            <td class="aecp">{{ $operationData['operation']['values']['cp_op'] ?? 'N/A' }}</td>
+            <td class="aecp">{{ number_format((float)$operationData['operation']['values']['ae_op'], 2, '.', ',') ?? 'N/A' }}</td>
+            <td class="aecp">{{ number_format((float)$operationData['operation']['values']['cp_op'], 2, '.', ',') ?? 'N/A' }}</td>
         </tr>
     @elseif (strlen($codeextr) < 3 && $avantDernierePartie != $codeop)
         <tr>
             <td class="code">{{  (strlen($codeextr) === 5) ? $codeextr : ''  }}</td>
             <td>{{ $namesT4[$avantDernierePartie] ?? 'Nom non trouvé' }}</td>
             <td class="vert4">{{ $dispo ?? $namesT4[$avantDernierePartie] }}</td>
-            <td class="aecp">{{ $sousOp['values']['ae_sousop'] ?? 'N/A' }}</td>
-            <td class="aecp">{{ $sousOp['values']['cp_sousuop'] ?? 'N/A' }}</td>
+            <td class="aecp">{{ number_format((float)$sousOp['values']['ae_sousop'], 2, '.', ',') ?? 'N/A' }}</td>
+            <td class="aecp">{{ number_format((float)$sousOp['values']['cp_sousuop'], 2, '.', ',') ?? 'N/A' }}</td>
         </tr>
     @else
         <tr>
             <td class="code">{{  (strlen($codeextr) === 5) ? $codeextr : ''  }}</td>
             <td>{{ $namesT4[$codeextr] ?? 'Nom non trouvé' }}</td>
             <td class="vert4">{{ $dispo ?? $namesT4[$avantDernierePartie] }}</td>
-            <td class="aecp">{{ $sousOp['values']['ae_sousop'] ?? 'N/A' }}</td>
-            <td class="aecp">{{ $sousOp['values']['cp_sousuop'] ?? 'N/A' }}</td>
+            <td class="aecp">{{ number_format((float)$sousOp['values']['ae_sousop'], 2, '.', ',') ?? 'N/A' }}</td>
+            <td class="aecp">{{ number_format((float)$sousOp['values']['cp_sousuop'], 2, '.', ',') ?? 'N/A' }}</td>
         </tr>
     @endif
 @endforeach
@@ -193,8 +193,8 @@
             <td class="code">{{ $codeop }}</td>
             <td>{{ $namesT4[$codeop] ?? 'Nom non trouvé' }}</td>
             <td class="vert4"> {{ $dispo ?? $namesT4[$avantDernierePartie] }}</td>
-            <td class="aecp">{{ $operationData['operation']['values']['ae_op'] ?? 'N/A' }}</td>
-            <td class="aecp">{{ $operationData['operation']['values']['cp_op'] ?? 'N/A' }}</td>
+            <td class="aecp">{{ number_format((float)$operationData['operation']['values']['ae_op'], 2, '.', ',') ?? 'N/A' }}</td>
+            <td class="aecp">{{ number_format((float)$operationData['operation']['values']['cp_op'], 2, '.', ',') ?? 'N/A' }}</td>
         </tr>
     @endif
     @endforeach
@@ -219,8 +219,8 @@
     @if(!empty($resultstructur['T4']['groupedData']))
         <tr  class="total4">
             <td colspan="3" style="text-align: center; font-weight: bold;font-size:20px;">TOTAL</td>
-            <td style="text-align: center; font-weight: bold;font-size:20px;">{{ $resultstructur['T4']['total'][0]['values']['totalAE'] ?? 'N/A' }}</td>
-            <td style="text-align: center; font-weight: bold; font-size:20px;">{{ $resultstructur['T4']['total'][0]['values']['totalCP'] ?? 'N/A' }}</td>
+            <td style="text-align: center; font-weight: bold;font-size:20px;">{{ number_format((float)$resultstructur['T4']['total'][0]['values']['totalAE'], 2, '.', ',') ?? 'N/A' }}</td>
+            <td style="text-align: center; font-weight: bold; font-size:20px;">{{ number_format((float)$resultstructur['T4']['total'][0]['values']['totalCP'], 2, '.', ',') ?? 'N/A' }}</td>
         </tr>
     @else 
     <tr  class="total4">

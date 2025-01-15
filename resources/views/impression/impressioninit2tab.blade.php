@@ -121,17 +121,17 @@
                 <tr  >
                     <td class="head">{{ $code }}</td>
                     <td class="head">Programme: {{ $programme['nom'] }}</td>
-                    <td>{{ $programme['Total']['TotalT1_AE'] }}</td>
-                    <td>{{ $programme['Total']['TotalT1_CP'] }}</td>
-                    <td>{{ $programme['Total']['TotalT2_AE'] }}</td>
-                    <td>{{ $programme['Total']['TotalT2_CP'] }}</td>
-                    <td>{{ $programme['Total']['TotalT3_AE'] }}</td>
-                    <td>{{ $programme['Total']['TotalT3_CP'] }}</td>
-                    <td>{{ $programme['Total']['TotalT4_AE'] }}</td>
-                    <td>{{ $programme['Total']['TotalT4_CP'] }}</td>
+                    <td>{{ number_format((float)$programme['Total']['TotalT1_AE'], 2, '.', ',') }}</td>
+                    <td>{{ number_format((float)$programme['Total']['TotalT1_CP'], 2, '.', ',') }}</td>
+                    <td>{{ number_format((float)$programme['Total']['TotalT2_AE'], 2, '.', ',') }}</td>
+                    <td>{{ number_format((float)$programme['Total']['TotalT2_CP'], 2, '.', ',') }}</td>
+                    <td>{{ number_format((float)$programme['Total']['TotalT3_AE'], 2, '.', ',') }}</td>
+                    <td>{{ number_format((float)$programme['Total']['TotalT3_CP'], 2, '.', ',') }}</td>
+                    <td>{{ number_format((float)$programme['Total']['TotalT4_AE'], 2, '.', ',') }}</td>
+                    <td>{{ number_format((float)$programme['Total']['TotalT4_CP'], 2, '.', ',') }}</td>
 
-                    <td style=" font-weight: bold;">{{ $programme['Total']['TotalT1_AE']+$programme['Total']['TotalT2_AE']+ $programme['Total']['TotalT3_AE']+$programme['Total']['TotalT4_AE']}}</td>
-                    <td style=" font-weight: bold;">{{$programme['Total']['TotalT1_CP']+$programme['Total']['TotalT2_CP']+$programme['Total']['TotalT3_CP'] +$programme['Total']['TotalT4_CP']}}</td>
+                    <td style=" font-weight: bold;">{{ number_format((float)$programme['Total']['TotalT1_AE']+$programme['Total']['TotalT2_AE']+ $programme['Total']['TotalT3_AE']+$programme['Total']['TotalT4_AE'], 2, '.', ',')}}</td>
+                    <td style=" font-weight: bold;">{{ number_format((float)$programme['Total']['TotalT1_CP']+$programme['Total']['TotalT2_CP']+$programme['Total']['TotalT3_CP'] +$programme['Total']['TotalT4_CP'], 2, '.', ',')}}</td>
 
                 </tr>
 
@@ -150,17 +150,17 @@
                     <tr class="subprogram-title">
                         <td>{{ $code }}</td>
                         <td >Sous Programme:{{ $sousProgramme['nom'] }}</td>
-                        <td>{{ $sousProgramme['Total']['TotalT1_AE_ini'] }}</td>
-                        <td>{{ $sousProgramme['Total']['TotalT1_CP_ini'] }}</td>
-                        <td>{{ $sousProgramme['Total']['TotalT2_AE_ini'] }}</td>
-                        <td>{{ $sousProgramme['Total']['TotalT2_CP_ini'] }}</td>
-                        <td>{{ $sousProgramme['Total']['TotalT3_AE_ini'] }}</td>
-                        <td>{{ $sousProgramme['Total']['TotalT3_CP_ini'] }}</td>
-                        <td>{{ $sousProgramme['Total']['TotalT4_AE_ini'] }}</td>
-                        <td>{{ $sousProgramme['Total']['TotalT4_CP_ini'] }}</td>
+                        <td>{{ number_format((float)$sousProgramme['Total']['TotalT1_AE_ini'], 2, '.', ',') }}</td>
+                        <td>{{ number_format((float)$sousProgramme['Total']['TotalT1_CP_ini'], 2, '.', ',') }}</td>
+                        <td>{{ number_format((float)$sousProgramme['Total']['TotalT2_AE_ini'], 2, '.', ',') }}</td>
+                        <td>{{ number_format((float)$sousProgramme['Total']['TotalT2_CP_ini'], 2, '.', ',') }}</td>
+                        <td>{{ number_format((float)$sousProgramme['Total']['TotalT3_AE_ini'], 2, '.', ',') }}</td>
+                        <td>{{ number_format((float)$sousProgramme['Total']['TotalT3_CP_ini'], 2, '.', ',') }}</td>
+                        <td>{{ number_format((float)$sousProgramme['Total']['TotalT4_AE_ini'], 2, '.', ',') }}</td>
+                        <td>{{ number_format((float)$sousProgramme['Total']['TotalT1_CP_ini'], 2, '.', ',') }}</td>
 
-                        <td>{{ $sousProgramme['Total']['TotalT1_AE_ini']+$sousProgramme['Total']['TotalT2_AE_ini']+ $sousProgramme['Total']['TotalT3_AE_ini']+$sousProgramme['Total']['TotalT4_AE_ini']}}</td>
-                        <td>{{  $sousProgramme['Total']['TotalT1_CP_ini'] +$sousProgramme['Total']['TotalT2_CP_ini']+$sousProgramme['Total']['TotalT3_CP_ini'] + $sousProgramme['Total']['TotalT4_CP_ini']}}</td>
+                        <td>{{   number_format((float)$sousProgramme['Total']['TotalT1_AE_ini']+$sousProgramme['Total']['TotalT2_AE_ini']+ $sousProgramme['Total']['TotalT3_AE_ini']+$sousProgramme['Total']['TotalT4_AE_ini'], 2, '.', ',')}}</td>
+                        <td>{{   number_format((float)$sousProgramme['Total']['TotalT1_CP_ini'] +$sousProgramme['Total']['TotalT2_CP_ini']+$sousProgramme['Total']['TotalT3_CP_ini'] + $sousProgramme['Total']['TotalT4_CP_ini'], 2, '.', ',')}}</td>
 
                       
                     </tr>
@@ -174,17 +174,17 @@
             <tr >
                 <th colspan="2">TOTAL (1) DES CREDITS OUVERTS PAR LA LOI DE FINANCES DE L'ANNEE POUR LE PORTEFUILLE </th>
 
-                <td class="vert3">{{ $Ttportglob[0]['TotalPortT1_AE']}}</td>
-                <td class="vert3">{{ $Ttportglob[0]['TotalPortT1_CP']}}</td>
-                <td class="vert3">{{ $Ttportglob[0]['TotalPortT2_AE']}}</td>
-                <td class="vert3">{{ $Ttportglob[0]['TotalPortT2_CP']}}</td>
-                <td class="vert3"> {{ $Ttportglob[0]['TotalPortT3_AE']}}</td>
-                <td class="vert3">{{ $Ttportglob[0]['TotalPortT3_CP']}}</td>
-                <td class="vert3">{{ $Ttportglob[0]['TotalPortT4_AE']}}</td>
-                <td class="vert3">{{ $Ttportglob[0]['TotalPortT4_CP']}}</td>
+                <td class="vert3">{{ number_format((float)$Ttportglob[0]['TotalPortT1_AE'], 2, '.', ',')}}</td>
+                <td class="vert3">{{ number_format((float)$Ttportglob[0]['TotalPortT1_CP'], 2, '.', ',')}}</td>
+                <td class="vert3">{{ number_format((float)$Ttportglob[0]['TotalPortT2_AE'], 2, '.', ',')}}</td>
+                <td class="vert3">{{ number_format((float)$Ttportglob[0]['TotalPortT2_CP'], 2, '.', ',')}}</td>
+                <td class="vert3"> {{ number_format((float)$Ttportglob[0]['TotalPortT3_AE'], 2, '.', ',')}}</td>
+                <td class="vert3">{{ number_format((float)$Ttportglob[0]['TotalPortT3_CP'], 2, '.', ',')}}</td>
+                <td class="vert3">{{ number_format((float)$Ttportglob[0]['TotalPortT4_AE'], 2, '.', ',')}}</td>
+                <td class="vert3">{{ number_format((float)$Ttportglob[0]['TotalPortT4_CP'], 2, '.', ',')}}</td>
 
-                <td class="vert3">{{$Ttportglob[0]['TotalPortT1_AE']+ $Ttportglob[0]['TotalPortT2_AE']+$Ttportglob[0]['TotalPortT3_AE']+$Ttportglob[0]['TotalPortT4_AE']}}</td>
-                <td class="vert3">{{$Ttportglob[0]['TotalPortT1_CP']+$Ttportglob[0]['TotalPortT2_CP']+$Ttportglob[0]['TotalPortT3_CP']+$Ttportglob[0]['TotalPortT4_CP'] }}</td>
+                <td class="vert3">{{number_format((float)$Ttportglob[0]['TotalPortT1_AE']+ $Ttportglob[0]['TotalPortT2_AE']+$Ttportglob[0]['TotalPortT3_AE']+$Ttportglob[0]['TotalPortT4_AE'], 2, '.', ',')}}</td>
+                <td class="vert3">{{number_format((float)$Ttportglob[0]['TotalPortT1_CP']+$Ttportglob[0]['TotalPortT2_CP']+$Ttportglob[0]['TotalPortT3_CP']+$Ttportglob[0]['TotalPortT4_CP'], 2, '.', ',') }}</td>
 
             
 
@@ -194,6 +194,6 @@
 
         </tbody>
     </table>
-
+    
 </body>
 </html>

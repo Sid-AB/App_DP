@@ -85,6 +85,7 @@
               <li>
               <span class="next" id="{{$portf['id_prog']}}">
               <div class="edit-zone">
+                <div class="modift_handler" id="{{$portf['id_prog']}}_prog"><i class="far fa-edit"></i></div>
               @if($portf['TotalAE'] == $portf['init_AE'] && $portf['TotalCP'] ==  $portf['init_CP'])
               <div class="member">
                 @else
@@ -146,7 +147,7 @@
                 <span class="next" id="{{$souportf['id_sous_prog']}}">
               
                 <div class="edit-zone">
-                  
+                 <div class="modift_handler" id="{{$souportf['id_sous_prog']}}_sprog"><i class="far fa-edit"></i></div> 
                 @if($souportf['TotalAE'] == $souportf['init_AE'] && $souportf['TotalCP'] == $souportf['init_CP'])
                 <div class="member" id="{{$souportf['id_sous_prog']}}">
                 @else
@@ -199,7 +200,9 @@
                 <ul id="father3" style="display:none">
                 @foreach($souportf['Action'] as $act)
                   <li>
+                  
                   @if(count($act['sous_action'])>0)
+                  <div class="modift_handler" style="margin-left: 40%;" id="act_{{$act['num_act']}}"><i class="far fa-edit"></i></div> 
                   <span class="member next" id="act_{{$act['num_act']}}" style="display:inline-block">
                   @endif
                 <div class="col-12 col-sm-6">
@@ -347,7 +350,7 @@
 
  <div class="float-export">
     <div class="folder-box">
-    <a href="/printdpic/{{$allport['id']}}" target="_blank">
+    <a href="/printDPA/{{$allport['id']}}" target="_blank">
     <i class="fas fa-print"></i>
     </a>
     </div>
@@ -577,6 +580,11 @@
   });
   });
   $(document).ready(function(){
+    $('.modift_handler').on('click',function(){
+      var id=$(this).attr('id');
+      console.log('the id is '+id)
+      window.location.href='/DPC/modif/'+id
+    })
     $('.next').on('dblclick',function(){
     id=$(this).attr('id');
     var index=path.indexOf(id)

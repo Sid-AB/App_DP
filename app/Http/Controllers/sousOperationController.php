@@ -1,17 +1,19 @@
 <?php
 
 namespace App\Http\Controllers;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;  
 use App\Services\CalculDpia;
 use App\Models\SousOperation;
-
 use App\Models\Portefeuille;
 use App\Models\Programme;
 use App\Models\SousProgramme;
 use App\Models\Action;
 use App\Models\SousAction;
+use App\Models\initPort;
+
 use Barryvdh\DomPDF\Facade\pdf;
 use Illuminate\Support\Facades\Storage;
 use Barryvdh\Snappy\Facades\SnappyPdf;
@@ -26,6 +28,110 @@ class sousOperationController extends Controller
     public function __construct(CalculDpia $CalculDpia)
     {
         $this->CalculDpia = $CalculDpia;
+    }
+
+
+    function modif_handler($id)
+    {
+        $oprt=$id;
+        $chek=explode("_",$oprt);
+        $ae_glob=0;
+        $cp_glob=0;
+        $nom="";
+        $code="";
+        
+        $init_value=['ae_T1'=>0,
+        'cp_T1'=>0,
+        'ae_T2'=>0,
+        'cp_T2'=>0,
+        'ae_T3'=>0,
+        'cp_T3'=>0,
+        'ae_T4'=>0,
+        'cp_T4'=>0,];
+        $date="";
+        if(count($chek) > 0)
+        {
+                if($chek[1] =='prog')
+                {
+                    $leng=count(explode('-',$chek[0]));
+                    //dd($leng);
+                    $progms=Programme::where('num_prog',$chek[0])->first();
+                $ae_glob=$progms->AE_prog;
+                $cp_glob=$progms->CP_prog;
+                $nom=$progms->nom_prog;
+                $code=$progms->num_prog;
+                $date=$progms->date_insert_portef;
+                $paths=['code_port'=>$progms->num_portefeuil,'programme'=>$code];
+                $getcode=explode('-',$code);
+                $code=$getcode[count(explode('-',$code))-1];
+                //dd($progms);
+                    return view('Portfail-in.modif',compact('ae_glob','cp_glob','nom','code','date','init_value','leng','paths'));
+                   
+                }
+                if($chek[1] =='sprog')
+                {
+                    $sprog=SousProgramme::where('num_sous_prog',$chek[0])->first();
+                    $progms=Programme::where('num_prog',$sprog->num_prog)->first();
+                    $leng=count(explode('-',$chek[0]));
+                    //dd($sprog);
+                    $ae_glob=$sprog->AE_sous_prog;
+                    $cp_glob=$sprog->CP_sous_prog;
+                    $nom=$sprog->nom_sous_prog;
+                    $code=$sprog->num_sous_prog;
+                    $date=$sprog->date_insert_sousProg;
+                    $paths=['code_port'=>$progms->num_portefeuil,'programme'=>$progms->num_prog,'sous Programme'=>$code];
+                  
+                    $init=initPort::where('num_sous_prog',$code)->first();
+                    if(empty($init->num_action)){
+                    $init_value['ae_T1']=$init->AE_init_t1;
+                    $init_value['cp_T1']=$init->CP_init_t1;
+                    $init_value['ae_T2']=$init->AE_init_t2;
+                    $init_value['cp_T2']=$init->CP_init_t2;
+                    $init_value['ae_T3']=$init->AE_init_t3;
+                    $init_value['cp_T3']=$init->CP_init_t3;
+                    $init_value['ae_T4']=$init->AE_init_t4;
+                    $init_value['cp_T4']=$init->CP_init_t4;}
+                   // dd($init_value);
+                    $getcode=explode('-',$code);
+                    $code=$getcode[count(explode('-',$code))-1];
+                    return view('Portfail-in.modif',compact('ae_glob','cp_glob','nom','code','date','init_value','leng','paths'));
+
+                }
+                else
+                {
+                    $leng=count(explode('-',$chek[1]));
+                    $act=Action::where('num_action',$chek[1])->first();
+                    $sprog=SousProgramme::where('num_sous_prog',$act->num_sous_prog)->first();
+                    $progms=Programme::where('num_prog',$sprog->num_prog)->first();
+                   // dd($act);
+                    $ae_glob=$act->AE_action;
+                    $cp_glob=$act->CP_action;
+                    $nom=$act->nom_action;
+                    $code=$act->num_action;
+                    $date=$act->date_insert_sousProg;
+
+                    $init=initPort::where('num_action',$code)->first();
+                    if(!empty($init->num_action)){
+                    $init_value['ae_T1']=$init->AE_init_t1;
+                    $init_value['cp_T1']=$init->CP_init_t1;
+                    $init_value['ae_T2']=$init->AE_init_t2;
+                    $init_value['cp_T2']=$init->CP_init_t2;
+                    $init_value['ae_T3']=$init->AE_init_t3;
+                    $init_value['cp_T3']=$init->CP_init_t3;
+                    $init_value['ae_T4']=$init->AE_init_t4;
+                    $init_value['cp_T4']=$init->CP_init_t4;}
+                    //dd($init_value);
+                    $paths=['code_port'=>$progms->num_portefeuil,'programme'=>$progms->num_prog,'sous Programme'=>$sprog->num_sous_prog,'Action'=>$code];
+                    $getcode=explode('-',$code);
+                    $code=$getcode[count(explode('-',$code))-1];
+                    return view('Portfail-in.modif',compact('ae_glob','cp_glob','nom','code','date','init_value','leng','paths'));
+                }
+        }
+        else
+        {
+            return response()->view('errors.404', [], 404); 
+        }
+        dd($chek);
     }
 
 

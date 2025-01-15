@@ -53,9 +53,161 @@ function appliquer_up()
         }
     })
 }
-function insert_edit()
+function insert_edit(tid,T)
 {
-
+    var data = {
+        disp:{},
+         ae: {},
+         cp: {},
+         ae_ouvert: {},
+         cp_ouvert: {},
+         ae_attendu: {},
+         cp_attendu: {},
+         ae_reporte: {},
+         ae_notifie: {},
+         ae_engage: {},
+         cp_reporte: {},
+         cp_notifie: {},
+         cp_consome: {},
+         descrp:{},
+         intituel:{}
+     };
+    $('#reloading').removeClass('reload-hidden')
+    //    alert('changing success')
+    $('#T-tables tbody tr').each(function () {
+    
+    if (tid == 'T_port1' || tid == 'T1') {
+    
+    var code = $(this).find('td').eq(0).text();
+    var aeValue = $(this).find('td').eq(2).text();
+    var cpValue = $(this).find('td').eq(3).text();
+    // Ajoute les valeurs dans les objets
+    data.ae[code] = aeValue;
+    data.cp[code] = cpValue;
+    console.log('Data of T1'+JSON.stringify(data));
+    
+    
+    }
+    if (tid == 'T_port2' || tid == 'T2') {
+    
+    var code = $(this).find('td').eq(0).text();
+    var aeDataOuvert = $(this).find('td').eq(2).text();
+    var cpDataOuvert = $(this).find('td').eq(3).text();
+    var aeDataAttendu = $(this).find('td').eq(4).text();
+    var cpDataAttendu = $(this).find('td').eq(5).text();
+    /* var someae = parseFloat(aeDataOuvert) + parseFloat(aeDataAttendu);
+    var somecp = parseFloat(cpDataOuvert) + parseFloat(cpDataAttendu);
+    */
+    // Ajoute les valeurs dans les objets
+    data.ae_ouvert[code] = aeDataOuvert;
+    data.cp_ouvert[code] = cpDataOuvert;
+    data.ae_attendu[code] = aeDataAttendu;
+    data.cp_attendu[code] = cpDataAttendu;
+    
+    }
+    if (tid == 'T_port3' || tid == 'T3' || T == 3) {
+    
+    var code = $(this).find('td').eq(0).text();
+    var descrip=$(this).find('td').eq(2).text();
+    var intituel=$(this).find('td').eq(3).text();
+    var aeDataReporte = $(this).find('td').eq(4).text();
+    var aeDataNotifie = $(this).find('td').eq(5).text();
+    var aeDataEngage = $(this).find('td').eq(6).text();
+    
+    var cpDataReporte = $(this).find('td').eq(7).text();
+    var cpDataNotifie = $(this).find('td').eq(8).text();
+    var cpDataEngage = $(this).find('td').eq(9).text();
+    
+    
+    // Ajoute les valeurs dans les objet
+    //console.log("ddcss");
+    data.descrp[code]=descrip
+    data.intituel[code]=intituel
+    data.ae_reporte[code] = aeDataReporte;
+    data.ae_notifie[code] = aeDataNotifie;
+    data.ae_engage[code] = aeDataEngage;
+    
+    data.cp_reporte[code] = cpDataReporte;
+    data.cp_notifie[code] = cpDataNotifie;
+    data.cp_consome[code] = cpDataEngage;
+    
+    }
+    if (tid == 'T_port4' || tid == 'T4') {
+    
+    var code = $(this).find('td').eq(0).text();
+    var descr= $(this).find('td').eq(1).text();
+    var dispo= $(this).find('td').eq(2).text()
+    var aeValue = $(this).find('td').eq(3).text();
+    var cpValue = $(this).find('td').eq(4).text();
+    // Ajoute les valeurs dans les objets
+    data.descrp[code]=descr;
+    data.disp[code]=dispo;
+    data.ae[code] = aeValue;
+    data.cp[code] = cpValue;
+    console.log('T4'+JSON.stringify(data))
+    
+    }
+    // value_chng.push(rw);
+    })
+    
+    $('.change_app').empty()
+    //  console.log('path' + JSON.stringify(path))
+    console.log('path' + JSON.stringify(path3))
+    //var url=   '/testing/Action/' + path.join('/');
+    console.log(" eat " + path3.length)
+    if (path3.length > 4) {
+    console.log('URL plus' + url)
+    var url = '/testing/S_action/' + path3[0] + '/' + path3[1] + '/' + path3[2] + '/' + path3[3] + '/' + path3[4] + '/' + T;
+    //var id_sous_action= path[4];
+    } else {
+        console.log('path' + JSON.stringify(path3))
+    // var id_sous_action= path[3];
+    var url = '/testing/S_action/' + path3[0] + '/' + path3[1] + '/' + path3[2] + '/' + path3[3] + '/' + path3[3] + '/' + T;
+    console.log('URL less' + url)
+    }
+    
+    $.ajax({
+    url: url,
+    type: 'GET',
+    data: {
+    ae: data.ae,
+    cp: data.cp,
+    
+    ae_ouvert: data.ae_ouvert,
+    cp_ouvert: data.cp_ouvert,
+    ae_attendu: data.ae_attendu,
+    cp_attendu: data.cp_attendu,
+    
+    ae_reporte: data.ae_reporte,
+    ae_notifie: data.ae_notifie,
+    ae_engage: data.ae_engage,
+    cp_reporte: data.cp_reporte,
+    cp_notifie: data.cp_notifie,
+    cp_consome: data.cp_consome,
+    dispo:data.disp,
+    intitule:data.intituel,
+    descr:data.descrp,
+    //id_sous_action: id_sous_action,
+    _token: $('meta[name="csrf-token"]').attr('content'),
+    _method: "GET"
+    },
+    success: function (response) {
+    if (response.code == 200 || response.code == 404) {
+    
+    window.location.reload();
+    }
+    else
+    {
+    console.log(response.message)
+    }
+    },
+    error: function (response) {
+    console.log('error')
+    }
+    
+    
+    });
+    click = 0;
 }
 
 
@@ -821,7 +973,8 @@ $('#cancel_ops').click(function(){
 }
 function add_newOPs_T3(id, value, key,code) {
     $('.change_app').empty()
-
+    var T=3
+    var tid='T3'
    $("#dispo").text('');
    $('.desp').text('Intituler');
    var champ='<div class="Tsop_add_handle">'+
@@ -859,6 +1012,7 @@ function add_newOPs_T3(id, value, key,code) {
    $('.Tsop_handler').append(champ);
    $('#ajt').on('click',function(){
     idsz=id+'-'+counter;
+    counter++;
     var buttons = '<button class="btn btn-primary" id="changin"> appliquer</button>'
     $('.change_app').append(buttons)
        var sopdata_add={
@@ -895,7 +1049,7 @@ function add_newOPs_T3(id, value, key,code) {
             //console.log('split -'+idsfinal)
             var lng=idsfinal.length
            var row = '<tr id="ref' + idsz + '">' +
-                   '<td class="code">'+idsfinal[0]+'</td>' +
+                   '<td class="code">'+idsfinal[idsfinal.length-1]+'</td>' +
                    '<td> - </td>' +
                    '<td>' + sopdata_add.descrp + '</td>' +
                    '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + sopdata_add.intituel + '</p> <i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i></td>' +
@@ -919,7 +1073,7 @@ function add_newOPs_T3(id, value, key,code) {
                    '<td class="code" style="visibility: hidden;">'+id+'</td>' +
                    '<td> - </td>' +
                    '<td>' + sopdata_add.descrp + '</td>' +
-                   '<td class="btn_adding_pos" id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + sopdata_add.intituel + '</p> <i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i></td>' +
+                   '<td ><p>' + sopdata_add.intituel + '</p></td>' +
                    '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' + sopdata_add.AE_rpor + '</td>' +
                    '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' + sopdata_add.AE_not + '</td>' +
                    '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' + sopdata_add.AE_enga + '</td>' +
@@ -933,11 +1087,11 @@ function add_newOPs_T3(id, value, key,code) {
                         var newKey=$(this).parent().attr('id');
                         var ads = newKey.split('ref')[1]
                         $('.Tsop_handler').removeClass('Tsop_handler_h')
-                         add_newOPs_T3(ads, 2500, newKey,code);
+                        add_newOPs_T3(ads, 2500, newKey,code);
 
                      })
 
-               counter++
+               
              /*  $('#' + key + ' td').each(function () {
                    $(this).removeClass('editable');
                })*/
@@ -962,7 +1116,10 @@ function add_newOPs_T3(id, value, key,code) {
                         appliquer_up()
                     }
                     else {
-
+                        $('#changin').on('click',function(){
+                            insert_edit(tid, T)
+                        })
+                        
                     }
    })
    $('#cancel_ops').click(function(){
@@ -1884,8 +2041,8 @@ console.log('T4'+JSON.stringify(data))
 })
 
 $('.change_app').empty()
-//  console.log('path' + JSON.stringify(path))
-//console.log('path' + JSON.stringify(path3))
+  console.log('path' + JSON.stringify(path))
+console.log('path' + JSON.stringify(path3))
 //var url=   '/testing/Action/' + path.join('/');
 console.log(" eat " + path3.length)
 if (path3.length > 4) {
@@ -3351,8 +3508,9 @@ else
         });
         if(code === 200)
            {
-               dataupdate=[]
+               
                Update_dpia(T,id_s_act);
+               dataupdate=[]
            console.log('testing new update function')
            }
     }).fail(function () {
@@ -3588,7 +3746,7 @@ if(code == 200){
             // Append the row to the table body
 
             $('#T-tables tbody').append(row);
-            Edit(id, T)
+           
             if (current.length == 0) {
                 current = key;
                 preve = current;
@@ -3617,6 +3775,7 @@ if(code == 200){
                            var ads = newKey.split('ref')[1]
                            $('.Tsop_handler').removeClass('Tsop_handler_h')
                             add_newOPs_T3(ads, value, newKey,code);
+                            Edit(id, T)
 
                         })
                     }
@@ -3634,6 +3793,7 @@ if(code == 200){
                        var ads = newKey.split('ref')[1] 
                        $('.Tsop_handler').removeClass('Tsop_handler_h')
                         add_newOPs_T3(ads, value, preve,code);
+                        Edit(id, T)
                     })
                 }
             }
