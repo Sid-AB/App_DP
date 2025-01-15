@@ -817,7 +817,7 @@ foreach ($jsonData as $codeStr => $nom) {
                       $sousoperation=sousoperation::updateOrCreate(
                           ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$code], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
                           ['code_operation' =>$s_act.'-'.$codeGp.'-'.$code,
-                          'nom_sous_operation' => $nom,
+                          'nom_sous_operation' =>  $nom.'_'.$nomeintu,
                           'code_t3' => 30000,
 
                           'AE_reporte' => floatval(str_replace(',', '', $ae_reporte)),
@@ -880,7 +880,7 @@ foreach ($jsonData as $codeStr => $nom) {
             $sousoperation=sousoperation::updateOrCreate(
                 ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$code], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
                           ['code_operation' =>$s_act.'-'.$codeGp.'-'.$code,
-                          'nom_sous_operation' => $nom,
+                          'nom_sous_operation' =>  $nom.'_'.$nomeintu,
                           'code_t3' => 30000,
 
                           'AE_reporte' => floatval(str_replace(',', '', $ae_reporte)),
@@ -941,7 +941,7 @@ foreach ($jsonData as $codeStr => $nom) {
             $sousoperation=sousoperation::updateOrCreate(
                 ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code], // Code spécifique pour indiquer qu'il ne s'agit pas d'une véritable sous-opération
                 ['code_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp,
-                'nom_sous_operation' => $nom,
+                'nom_sous_operation' => $nom.'_'.$nomeintu,
                 'code_t3' => 30000,
 
                 'AE_reporte' => floatval(str_replace(',', '', $ae_reporte)),

@@ -350,7 +350,7 @@
 
  <div class="float-export">
     <div class="folder-box">
-    <a href="/printdpic/{{$allport['id']}}" target="_blank">
+    <a href="/printDPA/{{$allport['id']}}" target="_blank">
     <i class="fas fa-print"></i>
     </a>
     </div>
