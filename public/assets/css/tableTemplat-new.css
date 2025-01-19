@@ -285,3 +285,10 @@ input[type="radio"]:checked + .label:after {
 .credit:hover {
   transform: scale(0.95);
 }
+.btn_add_budg
+{
+  background-color: beige;
+    width: 80px;
+    border-radius: 8px 8px 8px 0px;
+    text-align: center;
+}
