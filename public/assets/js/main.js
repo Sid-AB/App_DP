@@ -3156,6 +3156,16 @@ $("#add-prg").on('click', function () {
  *
  */
 
+
+
+
+
+function T1_bdge_emp(id, T, id_s_act, port,code)
+{   
+
+}
+
+
 function T1_table(id, T, id_s_act, port,code) {
    $('#T-tables tfoot').empty();
     var current = new Array();
@@ -3174,32 +3184,7 @@ function T1_table(id, T, id_s_act, port,code) {
         $('#Tport-handle').removeClass('scale-out');
         $('.T-handle').css('display', 'flex')
     }, 500)
-    if(code == 200)
-        {
-    $.ajax({
-        url: '/testing/S_action/' + port + '/' + id_s_act + '/T1',
-        type: 'GET',
-        success: function (response) {
-            if (response.code === 200) {
-                console.log('data' + JSON.stringify(Object.keys(response.results)).length)
-                data_T_port = response.results;
-               tfooter='<tr><td colspan="2">Total</td>'+
-                '<td id="foot_AE_T1">' + data_T_port.total[0].values.totalAE + '</td>' +
-                '<td id="foot_CP_T1">' + data_T_port.total[0].values.totalCP + '</td>';
-               
-            }
-            else {
-                alert(response.message);
-            }
-            $('#T-tables tfoot').append(tfooter);
-        }
-    })
-}
-   else
-{
- 
-    $('#T-tables tfoot').append(tfooter);
-}
+    
 
     var headT = '<tr>' +
         '<th ><h1>Code</h1></th>' +
@@ -3207,6 +3192,237 @@ function T1_table(id, T, id_s_act, port,code) {
         '<th><h1>AE</h1></th>' +
         '<th><h1>CP</h1></th>' +
         '</tr>';
+   
+
+             
+
+
+        var Radio='<div class="cntr">'+
+  
+        '<label for="opt1" class="radio" id="funt">'+
+          '<input type="radio" name="rdo" id="opt1" class="hidden"/>'+
+          '<span class="label"></span>Fonction'+
+        '</label>'+
+        
+        '<label for="opt2" class="radio" id="post_sup">'+
+          '<input type="radio" name="rdo" id="opt2" class="hidden"/>'+
+          '<span class="label"></span>Post Superieur'+
+        '</label>'+
+        
+       ' <label for="opt3" class="radio" id="corcom">'+
+          '<input type="radio" name="rdo" id="opt3" class="hidden"/>'+
+          '<span class="label"></span>Corps Commun'+
+        '</label>'+
+
+        ' <label for="opt4" class="radio" id="port_T1">'+
+        '<input type="radio" name="rdo" id="opt4" class="hidden"/>'+
+        '<span class="label"></span>Port'+
+      '</label>'+
+
+      '</div>'+
+'<hr>';
+var cnter=0
+$('.opt_handle').append(Radio)
+$('#corcom').on('click',function()
+{
+    var headBF='  <tr>'+
+    ' <th> ADMINISTRATION CENTRALE (SERVICES CENTRAUX)</th>'+
+     '<th colspan="3"> EMPLOIS BUDGETAIRES</th>'+
+     '<th colspan="5"> REMUNERATION</th>'+
+  ' </tr>'+
+   '<tr>'+
+     '<th> Catégorie du personnel</th>'+
+     '<th> Ouverts </th>'+
+     '<th> Occupés au 31 décembre </th>'+
+     '<th>Vacants ou excédent</th>'+
+     '<th colspan="2"> CLASSIFICATION</th>'+
+     '<th rowspan="2"> TRAITEMENT ANNUEL</th>'+
+     '<th rowspan="2"> PRIMES ET INDEMNITES</th>'+
+     '<th rowspan="2"> DEPENSES ANNUELLES</th>'+
+   '</tr>'+
+   '<tr>'+
+     '<th>Corps Communs</th>'+
+     '<th> 00</th>'+
+     '<th> 00</th>'+
+     '<th> 00</th>'+
+     '<th> CATEGORIE</th>'+
+     '<th> MOYENNE</th>'+
+   '</tr>';
+
+    if($(this).children().first().is(':checked') )
+        {
+            $('#T-tables thead').empty()
+            $('#T-tables tbody').empty()
+            $('#T-tables tfoot').empty()
+        console.log('inside corcome');
+        $('#T-tables thead').append(headBF)
+
+        
+        var body='<tr>'+
+        '<td>Administrateur conseillé. </td>'+
+        '<td>0 </td>'+
+        '<td>0 </td>'+
+        '<td>0 </td>'+
+
+        '<td>0 </td>'+
+        '<td>0 </td>'+
+       
+        '<td>0 </td>'+
+        '<td>0 </td>'+
+        '<td>0 </td>'+
+        
+        '</tr>';
+        $('#T-tables tbody').append(body);
+
+        }
+      
+})
+
+$('#post_sup').on('click',function()
+{
+
+    var headPS='  <tr>'+
+    ' <th> ADMINISTRATION CENTRALE (SERVICES CENTRAUX)</th>'+
+     '<th colspan="3"> EMPLOIS BUDGETAIRES</th>'+
+     '<th colspan="5"> REMUNERATION</th>'+
+  ' </tr>'+
+   '<tr>'+
+     '<th> Catégorie du personnel</th>'+
+     '<th> Ouverts </th>'+
+     '<th> Occupés au 31 décembre </th>'+
+     '<th>Vacants ou excédent</th>'+
+     '<th colspan="2"> CLASSIFICATION</th>'+
+     '<th rowspan="2"> BONIFICATION INDICIAIRE / MONTANT</th>'+
+     '<th rowspan="2" colspan="2"> DEPENSES ANNUELLES</th>'+
+   '</tr>'+
+   '<tr>'+
+     '<th>Post supérieure</th>'+
+     '<th> 00</th>'+
+     '<th> 00</th>'+
+     '<th> 00</th>'+
+     '<th> BONIFICATION INDICIAIRE / NIVEAU</th>'+
+     '<th> BONIFICATION INDICIAIRE / POINTS</th>'+
+     
+   '</tr>';
+    if($(this).children().first().is(':checked'))
+        {
+            $('#T-tables thead').empty()
+            $('#T-tables tbody').empty()
+            $('#T-tables tfoot').empty()
+        console.log('inside post sup commun')
+        $('#T-tables thead').append(headPS)
+
+         var body='<tr>'+
+         '<td>Chargé des études et de projet </td>'+
+         '<td>0 </td>'+
+         '<td>0 </td>'+
+         '<td>0 </td>'+
+
+         '<td>0 </td>'+
+         '<td>0 </td>'+
+        
+         '<td>0 </td>'+
+         '<td>0 </td>'+
+         '<td>0 </td>'+
+         
+         '</tr>';
+         $('#T-tables tbody').append(body);
+
+        }
+})
+
+$('#funt').on('click',function()
+{
+    var headBF='  <tr>'+
+    ' <th> ADMINISTRATION CENTRALE (SERVICES CENTRAUX)</th>'+
+     '<th colspan="3"> EMPLOIS BUDGETAIRES</th>'+
+     '<th colspan="5"> REMUNERATION</th>'+
+  ' </tr>'+
+   '<tr>'+
+     '<th> Catégorie du personnel</th>'+
+     '<th> Ouverts </th>'+
+     '<th> Occupés au 31 décembre </th>'+
+     '<th>Vacants ou excédent</th>'+
+     '<th colspan="2"> CLASSIFICATION</th>'+
+     '<th rowspan="2"> TRAITEMENT ANNUEL</th>'+
+     '<th rowspan="2"> PRIMES ET INDEMNITES</th>'+
+     '<th rowspan="2"> DEPENSES ANNUELLES</th>'+
+   '</tr>'+
+   '<tr>'+
+     '<th>Fonction supérieure</th>'+
+     '<th> 00</th>'+
+     '<th> 00</th>'+
+     '<th> 00</th>'+
+     '<th> CATEGORIE</th>'+
+     '<th> MOYENNE</th>'+
+   '</tr>';
+    if($(this).children().first().is(':checked'))
+        {
+        $('#T-tables thead').empty()
+        $('#T-tables tbody').empty()
+        $('#T-tables tfoot').empty()
+        console.log('inside function commun')
+
+        $('#T-tables thead').append(headBF)
+        
+        var body='<tr>'+
+        '<td>Secrétaire Général </td>'+
+        '<td>0 </td>'+
+        '<td>0 </td>'+
+        '<td>0 </td>'+
+
+        '<td>0 </td>'+
+        '<td>0 </td>'+
+       
+        '<td>0 </td>'+
+        '<td>0 </td>'+
+        '<td>0 </td>'+
+        
+        '</tr>';
+        $('#T-tables tbody').append(body);
+        }
+})
+
+$('#port_T1').on('click',function()
+{
+   
+    if($(this).children().first().is(':checked') )
+        {
+            $('#T-tables thead').empty()
+            $('#T-tables tbody').empty()
+            $('#T-tables tfoot').empty()
+
+            if(code == 200)
+                {
+            $.ajax({
+                url: '/testing/S_action/' + port + '/' + id_s_act + '/T1',
+                type: 'GET',
+                success: function (response) {
+                    if (response.code === 200) {
+                        console.log('data' + JSON.stringify(Object.keys(response.results)).length)
+                        data_T_port = response.results;
+                       tfooter='<tr><td colspan="2">Total</td>'+
+                        '<td id="foot_AE_T1">' + data_T_port.total[0].values.totalAE + '</td>' +
+                        '<td id="foot_CP_T1">' + data_T_port.total[0].values.totalCP + '</td>';
+                       
+                    }
+                    else {
+                        alert(response.message);
+                    }
+                    $('#T-tables tfoot').append(tfooter);
+                }
+            })
+        }
+           else
+        {
+         
+            $('#T-tables tfoot').append(tfooter);
+        }   
+
+            cnter++;
+            console.log('inside function commun')
+       
+
     $('#T-tables thead').append(headT)
    
     $.getJSON(jsonpath1, function (data) {
@@ -3312,6 +3528,8 @@ function T1_table(id, T, id_s_act, port,code) {
     }).fail(function () {
         console.error('Error loading JSON file.');
     });
+}
+})
 }
 function T2_table(id, T, id_s_act, port,code) {
    $('#T-tables tfoot').empty();
@@ -4200,7 +4418,7 @@ $(document).ready(function () {
            var id = $(this).attr('id');
            var T = 3;
             $.ajax({
-                url: '/testing/codeSousOperation/' + path3[indic],
+                url: '/testing/codeSousOperation/' + ssact,
                 type: 'GET',
                 success: function (response) {
                     if (response.code == 200 && response.t3_exists==1) {
@@ -4209,8 +4427,8 @@ $(document).ready(function () {
                         T3_table(id, T, ssact, path3[0],response.code)
                     }
                     else {
-                        alert('New')
-                        code =404
+                        alert('New ')
+                        
                         T3_table(id, T, ssact, path3[0],code)
                     }
                 }
