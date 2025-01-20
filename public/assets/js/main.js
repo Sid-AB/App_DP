@@ -1007,7 +1007,7 @@ function add_newOPs_T3(id, value, key,code) {
 '<div><button  class="btn btn-primary" id="ajt"> Ajouter </button></div>'+
 '<div><button  class="btn btn-primary" id="cancel_ops"> Cancel </button></div>'+
 '</div>'+
-'</div>'
+'</div>';
   
    $('.Tsop_handler').append(champ);
    $('#ajt').on('click',function(){
@@ -3156,11 +3156,17 @@ $("#add-prg").on('click', function () {
  *
  */
 
+
+
+
+
 function T1_table(id, T, id_s_act, port,code) {
    $('#T-tables tfoot').empty();
     var current = new Array();
     var preve = new Array();
-    var newbtn = '<i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i>'
+    var newbtn = ' <div class="btn_add_budg">'+
+            '<i class="fas fa-plus"></i>'+
+        '</div>';
     var data_T_port = new Array();
     console.log('T is' + T)
     $('#Tport-handle').addClass('scale-out');
@@ -3174,32 +3180,7 @@ function T1_table(id, T, id_s_act, port,code) {
         $('#Tport-handle').removeClass('scale-out');
         $('.T-handle').css('display', 'flex')
     }, 500)
-    if(code == 200)
-        {
-    $.ajax({
-        url: '/testing/S_action/' + port + '/' + id_s_act + '/T1',
-        type: 'GET',
-        success: function (response) {
-            if (response.code === 200) {
-                console.log('data' + JSON.stringify(Object.keys(response.results)).length)
-                data_T_port = response.results;
-               tfooter='<tr><td colspan="2">Total</td>'+
-                '<td id="foot_AE_T1">' + data_T_port.total[0].values.totalAE + '</td>' +
-                '<td id="foot_CP_T1">' + data_T_port.total[0].values.totalCP + '</td>';
-               
-            }
-            else {
-                alert(response.message);
-            }
-            $('#T-tables tfoot').append(tfooter);
-        }
-    })
-}
-   else
-{
- 
-    $('#T-tables tfoot').append(tfooter);
-}
+    
 
     var headT = '<tr>' +
         '<th ><h1>Code</h1></th>' +
@@ -3207,6 +3188,552 @@ function T1_table(id, T, id_s_act, port,code) {
         '<th><h1>AE</h1></th>' +
         '<th><h1>CP</h1></th>' +
         '</tr>';
+   
+
+             
+
+
+        var Radio='<div class="cntr">'+
+  
+        '<label for="opt1" class="radio" id="funt">'+
+          '<input type="radio" name="rdo" id="opt1" class="hidden"/>'+
+          '<span class="label"></span>Fonction'+
+        '</label>'+
+        
+        '<label for="opt2" class="radio" id="post_sup">'+
+          '<input type="radio" name="rdo" id="opt2" class="hidden"/>'+
+          '<span class="label"></span>Post Superieur'+
+        '</label>'+
+        
+       ' <label for="opt3" class="radio" id="corcom">'+
+          '<input type="radio" name="rdo" id="opt3" class="hidden"/>'+
+          '<span class="label"></span>Corps Commun'+
+        '</label>'+
+
+        ' <label for="opt4" class="radio" id="port_T1">'+
+        '<input type="radio" name="rdo" id="opt4" class="hidden"/>'+
+        '<span class="label"></span>Port'+
+      '</label>'+
+
+      '</div>'+
+'<hr>';
+var cnter=0
+$('.opt_handle').append(Radio)
+$('#corcom').on('click',function()
+{
+    var headBF='  <tr>'+
+    ' <th> ADMINISTRATION CENTRALE (SERVICES CENTRAUX)</th>'+
+     '<th colspan="3"> EMPLOIS BUDGETAIRES</th>'+
+     '<th colspan="5"> REMUNERATION</th>'+
+  ' </tr>'+
+   '<tr>'+
+     '<th> Catégorie du personnel</th>'+
+     '<th> Ouverts </th>'+
+     '<th> Occupés au 31 décembre </th>'+
+     '<th>Vacants ou excédent</th>'+
+     '<th colspan="2"> CLASSIFICATION</th>'+
+     '<th rowspan="2"> TRAITEMENT ANNUEL</th>'+
+     '<th rowspan="2"> PRIMES ET INDEMNITES</th>'+
+     '<th rowspan="2"> DEPENSES ANNUELLES</th>'+
+   '</tr>'+
+   '<tr>'+
+     '<th>Corps Communs</th>'+
+     '<th id="nbr_over"> 00</th>'+
+     '<th id="nbr_occup"> 00</th>'+
+     '<th id="nbr_vacants"> 00</th>'+
+     '<th> CATEGORIE</th>'+
+     '<th> MOYENNE</th>'+
+   '</tr>';
+
+    if($(this).children().first().is(':checked') )
+        {
+            $('.btn_bg-handler').empty()
+            $('#T-tables thead').empty()
+            $('#T-tables tbody').empty()
+            $('#T-tables tfoot').empty()
+        console.log('inside corcome');
+        $('.btn_bg-handler').append(newbtn)
+        $('#T-tables thead').append(headBF)
+
+        
+        var body='<tr>'+
+        '<td>Administrateur conseillé. </td>'+
+        '<td>0 </td>'+
+        '<td>0 </td>'+
+        '<td>0 </td>'+
+
+        '<td>0 </td>'+
+        '<td>0 </td>'+
+       
+        '<td>0 </td>'+
+        '<td>0 </td>'+
+        '<td>0 </td>'+
+        
+        '</tr>';
+        $('#T-tables tbody').append(body);
+
+    /**
+     *  add handling button
+     * */    
+    $(".btn_add_budg").on('click',function(){
+        var champ='<div class="Tsop_add_handle">'+
+        '<form id="add_sops">'+
+        '<div class="form-group">'+
+        '<label class="desp">Fonction supérieure</label>'+
+         '<input type="text" class="form-control" id="funt_sup" placeholder="Entrer Nom Fonction supérieure">'+
+         '</div>'+
+         '<div class="T3-ops_inpt_handle">' +
+         '<div><label>EMPLOIS BUDGETAIRES Ouverts</label>'+
+                  '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="bg_overt">'+
+                  '<label>EMPLOIS BUDGETAIRES Occupés</label>'+
+                  '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="bg_occup">'+
+                  '<label>EMPLOIS BUDGETAIRES Vacants ou excédent </label>'+
+                  '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="bg_vacant">'+
+                  '<label>CLASSIFICATION CATEGORIE </label>'+
+                  '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="cl_cat">'+
+                  '<label>CLASSIFICATION MOYENNE </label>'+
+                  '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="cl_moy">'+
+                  '</div>'+
+                  '<div>'+
+                  '<label>TRAITEMENT ANNUEL</label>'+
+                  '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="tr_annuel">'+
+                  '<label>PRIMES ET INDEMNITES</label>'+
+                  '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="pr_ind">'+
+                  '<label>DEPENSES ANNUELLES</label>'+
+                  '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="depn_annuel">'+
+                  '</div>'+
+        '</div>'+
+     '</form>'+
+     '<div class="Tsop_btn_handle">'+
+     '<div><button  class="btn btn-primary" id="ajt"> Ajouter </button></div>'+
+     '<div><button  class="btn btn-primary" id="cancel_ops"> Cancel </button></div>'+
+     '</div>'+
+     '</div>';
+       
+        $('.Tsop_handler').append(champ);
+        $('.Tsop_handler').removeClass('Tsop_handler_h')    
+
+
+        $('#ajt').on('click',function(){
+
+                var formate={
+                    funt_sup:$('#funt_sup').val(),
+                    bg_overt:$('#bg_overt').val(),
+                    bg_occup:$('#bg_occup').val(),
+                    bg_vacant:$('#bg_vacant').val(),
+                    cl_cat:$('#cl_cat').val(),
+                    cl_moy:$('#cl_moy').val(),
+                    tr_annuel:$('#tr_annuel').val(),
+                    pr_ind:$('#pr_ind').val(),
+                    depn_annuel:$('#depn_annuel').val(),
+                }
+            var bodyadd='<tr>'+
+            '<td>'+formate.funt_sup+' </td>'+
+            '<td>'+formate.bg_overt+' </td>'+
+            '<td>'+formate.bg_occup+'</td>'+
+            '<td>'+formate.bg_vacant+'</td>'+
+    
+            '<td>'+formate.cl_cat+' </td>'+
+            '<td>'+formate.cl_moy+' </td>'+
+           
+            '<td>'+formate.tr_annuel+'</td>'+
+            '<td>'+formate.pr_ind+'</td>'+
+            '<td style="display: flex;align-items: center;flex-direction: row;justify-content: space-around;"><p>'+formate.depn_annuel+'</p><p class="del_btn"><i class="fas fa-trash-alt"></i></p></td>';
+            var newover=parseInt(formate.bg_overt)+parseInt($('#nbr_over').text())
+            var newoccup=parseInt(formate.bg_occup)+parseInt($('#nbr_occup').text())
+            var newvacant=parseInt(formate.bg_vacant)+parseInt($('#nbr_vacants').text())
+            $('#nbr_over').text(newover);
+            $('#nbr_occup').text(newoccup);
+            $('#nbr_vacants').text(newvacant);
+            $('#T-tables tbody').append(bodyadd);
+
+                $('.del_btn').on('click',function()
+            {
+               
+                 newover=parseInt($('#nbr_over').text())-parseInt( $(this).closest("tr").find("td").eq(1).text())
+                 newoccup=parseInt($('#nbr_occup').text())-parseInt( $(this).closest("tr").find("td").eq(2).text())
+                 newvacant=parseInt($('#nbr_vacants').text())-parseInt( $(this).closest("tr").find("td").eq(3).text())
+               // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
+                $(this).closest("tr").remove();   
+                $('#nbr_over').text(newover);
+                $('#nbr_occup').text(newoccup);
+                $('#nbr_vacants').text(newvacant);
+                
+            })
+
+
+            $('.Tsop_handler').addClass('Tsop_handler_h')
+            $('#Tport-vals').empty()
+            $('.Tsop_handler').empty();
+        })
+
+        $('#cancel_ops').click(function(){
+            $('.change_app').empty()
+            $('.Tsop_handler').addClass('Tsop_handler_h')
+            $('#Tport-vals').empty()
+            $('.Tsop_handler').empty();
+            alert('cancel op')
+        })
+    })
+
+    }
+      
+})
+
+$('#post_sup').on('click',function()
+{
+
+    var headPS='  <tr>'+
+    ' <th> ADMINISTRATION CENTRALE (SERVICES CENTRAUX)</th>'+
+     '<th colspan="3"> EMPLOIS BUDGETAIRES</th>'+
+     '<th colspan="5"> REMUNERATION</th>'+
+  ' </tr>'+
+   '<tr>'+
+     '<th> Catégorie du personnel</th>'+
+     '<th> Ouverts </th>'+
+     '<th> Occupés au 31 décembre </th>'+
+     '<th>Vacants ou excédent</th>'+
+     '<th colspan="2"> CLASSIFICATION</th>'+
+     '<th rowspan="2"> BONIFICATION INDICIAIRE / MONTANT</th>'+
+     '<th rowspan="2" colspan="2"> DEPENSES ANNUELLES</th>'+
+   '</tr>'+
+   '<tr>'+
+     '<th>Post supérieure</th>'+
+     '<th id="nbr_over"> 00</th>'+
+     '<th id="nbr_occup"> 00</th>'+
+     '<th id="nbr_vacants"> 00</th>'+
+     '<th> BONIFICATION INDICIAIRE / NIVEAU</th>'+
+     '<th> BONIFICATION INDICIAIRE / POINTS</th>'+
+     
+   '</tr>';
+    if($(this).children().first().is(':checked'))
+        {
+            $('.btn_bg-handler').empty()
+            $('#T-tables thead').empty()
+            $('#T-tables tbody').empty()
+            $('#T-tables tfoot').empty()
+        console.log('inside post sup commun')
+        $('.btn_bg-handler').append(newbtn)
+        $('#T-tables thead').append(headPS)
+
+         var body='<tr>'+
+         '<td>Chargé des études et de projet </td>'+
+         '<td>0 </td>'+
+         '<td>0 </td>'+
+         '<td>0 </td>'+
+
+         '<td>0 </td>'+
+         '<td>0 </td>'+
+        
+         '<td>0 </td>'+
+         '<td>0 </td>'+
+         '<td>0 </td>'+
+         
+         '</tr>';
+         $('#T-tables tbody').append(body);
+
+
+         $(".btn_add_budg").on('click',function(){
+            var champ='<div class="Tsop_add_handle">'+
+            '<form id="add_sops">'+
+            '<div class="form-group">'+
+            '<label class="desp">Fonction supérieure</label>'+
+             '<input type="text" class="form-control" id="funt_sup" placeholder="Entrer Nom Fonction supérieure">'+
+             '</div>'+
+             '<div class="T3-ops_inpt_handle">' +
+             '<div><label>EMPLOIS BUDGETAIRES Ouverts</label>'+
+                      '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="bg_overt">'+
+                      '<label>EMPLOIS BUDGETAIRES Occupés</label>'+
+                      '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="bg_occup">'+
+                      '<label>EMPLOIS BUDGETAIRES Vacants ou excédent </label>'+
+                      '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="bg_vacant">'+
+                      '<label>CLASSIFICATION BONIFICATION INDICIAIRE / NIVEAU </label>'+
+                      '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="cl_cat">'+
+                      '<label>CLASSIFICATION BONIFICATION INDICIAIRE / POINTS </label>'+
+                      '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="cl_moy">'+
+                      '</div>'+
+                      '<div>'+
+                      '<label>BONIFICATION INDICIAIRE / MONTANT</label>'+
+                      '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="tr_annuel">'+
+                      '<label>DEPENSES ANNUELLES</label>'+
+                      '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="pr_ind">'+
+                      '<label>DEPENSES ANNUELLES</label>'+
+                      '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="depn_annuel">'+
+                      '</div>'+
+            '</div>'+
+         '</form>'+
+         '<div class="Tsop_btn_handle">'+
+         '<div><button  class="btn btn-primary" id="ajt"> Ajouter </button></div>'+
+         '<div><button  class="btn btn-primary" id="cancel_ops"> Cancel </button></div>'+
+         '</div>'+
+         '</div>';
+           
+            $('.Tsop_handler').append(champ);
+            $('.Tsop_handler').removeClass('Tsop_handler_h')    
+
+
+            $('#ajt').on('click',function(){
+
+                    var formate={
+                        funt_sup:$('#funt_sup').val(),
+                        bg_overt:$('#bg_overt').val(),
+                        bg_occup:$('#bg_occup').val(),
+                        bg_vacant:$('#bg_vacant').val(),
+                        cl_cat:$('#cl_cat').val(),
+                        cl_moy:$('#cl_moy').val(),
+                        tr_annuel:$('#tr_annuel').val(),
+                        pr_ind:$('#pr_ind').val(),
+                        depn_annuel:$('#depn_annuel').val(),
+                    }
+                var bodyadd='<tr>'+
+                '<td>'+formate.funt_sup+' </td>'+
+                '<td>'+formate.bg_overt+' </td>'+
+                '<td>'+formate.bg_occup+'</td>'+
+                '<td>'+formate.bg_vacant+'</td>'+
+        
+                '<td>'+formate.cl_cat+' </td>'+
+                '<td>'+formate.cl_moy+' </td>'+
+               
+                '<td>'+formate.tr_annuel+'</td>'+
+                '<td>'+formate.pr_ind+'</td>'+
+                '<td style="display: flex;align-items: center;flex-direction: row;justify-content: space-around;"><p>'+formate.depn_annuel+'</p><p class="del_btn"><i class="fas fa-trash-alt"></i></p></td>';
+                var newover=parseInt(formate.bg_overt)+parseInt($('#nbr_over').text())
+                var newoccup=parseInt(formate.bg_occup)+parseInt($('#nbr_occup').text())
+                var newvacant=parseInt(formate.bg_vacant)+parseInt($('#nbr_vacants').text())
+                $('#nbr_over').text(newover);
+                $('#nbr_occup').text(newoccup);
+                $('#nbr_vacants').text(newvacant);
+                $('#T-tables tbody').append(bodyadd);
+
+                    $('.del_btn').on('click',function()
+                {
+                   
+                     newover=parseInt($('#nbr_over').text())-parseInt( $(this).closest("tr").find("td").eq(1).text())
+                     newoccup=parseInt($('#nbr_occup').text())-parseInt( $(this).closest("tr").find("td").eq(2).text())
+                     newvacant=parseInt($('#nbr_vacants').text())-parseInt( $(this).closest("tr").find("td").eq(3).text())
+                   // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
+                    $(this).closest("tr").remove();   
+                    $('#nbr_over').text(newover);
+                    $('#nbr_occup').text(newoccup);
+                    $('#nbr_vacants').text(newvacant);
+                    
+                })
+
+
+                $('.Tsop_handler').addClass('Tsop_handler_h')
+                $('#Tport-vals').empty()
+                $('.Tsop_handler').empty();
+            })
+
+            $('#cancel_ops').click(function(){
+                $('.change_app').empty()
+                $('.Tsop_handler').addClass('Tsop_handler_h')
+                $('#Tport-vals').empty()
+                $('.Tsop_handler').empty();
+                alert('cancel op')
+            })
+        })
+
+        }
+})
+
+$('#funt').on('click',function()
+{
+    var headBF='  <tr>'+
+    ' <th> ADMINISTRATION CENTRALE (SERVICES CENTRAUX)</th>'+
+     '<th colspan="3"> EMPLOIS BUDGETAIRES</th>'+
+     '<th colspan="5"> REMUNERATION</th>'+
+  ' </tr>'+
+   '<tr>'+
+     '<th> Catégorie du personnel</th>'+
+     '<th> Ouverts </th>'+
+     '<th> Occupés au 31 décembre </th>'+
+     '<th>Vacants ou excédent</th>'+
+     '<th colspan="2"> CLASSIFICATION</th>'+
+     '<th rowspan="2"> TRAITEMENT ANNUEL</th>'+
+     '<th rowspan="2"> PRIMES ET INDEMNITES</th>'+
+     '<th rowspan="2"> DEPENSES ANNUELLES</th>'+
+   '</tr>'+
+   '<tr>'+
+     '<th>Fonction supérieure</th>'+
+     '<th id="nbr_over"> 00</th>'+
+     '<th id="nbr_occup"> 00</th>'+
+     '<th id="nbr_vacants"> 00</th>'+
+     '<th> CATEGORIE</th>'+
+     '<th> MOYENNE</th>'+
+   '</tr>';
+    if($(this).children().first().is(':checked'))
+        {
+        $('.btn_bg-handler').empty()
+        $('#T-tables thead').empty()
+        $('#T-tables tbody').empty()
+        $('#T-tables tfoot').empty()
+        console.log('inside function commun')
+        $('.btn_bg-handler').append(newbtn)
+        $('#T-tables thead').append(headBF)
+        
+        var body='<tr>'+
+        '<td>Secrétaire Général </td>'+
+        '<td>0 </td>'+
+        '<td>0 </td>'+
+        '<td>0 </td>'+
+
+        '<td>0 </td>'+
+        '<td>0 </td>'+
+       
+        '<td>0 </td>'+
+        '<td>0 </td>'+
+        '<td>0 </td>'+
+        
+        '</tr>';
+        $('#T-tables tbody').append(body);
+
+
+
+            $(".btn_add_budg").on('click',function(){
+                var champ='<div class="Tsop_add_handle">'+
+                '<form id="add_sops">'+
+                '<div class="form-group">'+
+                '<label class="desp">Fonction supérieure</label>'+
+                 '<input type="text" class="form-control" id="funt_sup" placeholder="Entrer Nom Fonction supérieure">'+
+                 '</div>'+
+                 '<div class="T3-ops_inpt_handle">' +
+                 '<div><label>EMPLOIS BUDGETAIRES Ouverts</label>'+
+                          '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="bg_overt">'+
+                          '<label>EMPLOIS BUDGETAIRES Occupés</label>'+
+                          '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="bg_occup">'+
+                          '<label>EMPLOIS BUDGETAIRES Vacants ou excédent </label>'+
+                          '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="bg_vacant">'+
+                          '<label>CLASSIFICATION CATEGORIE </label>'+
+                          '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="cl_cat">'+
+                          '<label>CLASSIFICATION MOYENNE </label>'+
+                          '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="cl_moy">'+
+                          '</div>'+
+                          '<div>'+
+                          '<label>TRAITEMENT ANNUEL</label>'+
+                          '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="tr_annuel">'+
+                          '<label>PRIMES ET INDEMNITES</label>'+
+                          '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="pr_ind">'+
+                          '<label>DEPENSES ANNUELLES</label>'+
+                          '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="depn_annuel">'+
+                          '</div>'+
+                '</div>'+
+             '</form>'+
+             '<div class="Tsop_btn_handle">'+
+             '<div><button  class="btn btn-primary" id="ajt"> Ajouter </button></div>'+
+             '<div><button  class="btn btn-primary" id="cancel_ops"> Cancel </button></div>'+
+             '</div>'+
+             '</div>';
+               
+                $('.Tsop_handler').append(champ);
+                $('.Tsop_handler').removeClass('Tsop_handler_h')    
+
+
+                $('#ajt').on('click',function(){
+
+                        var formate={
+                            funt_sup:$('#funt_sup').val(),
+                            bg_overt:$('#bg_overt').val(),
+                            bg_occup:$('#bg_occup').val(),
+                            bg_vacant:$('#bg_vacant').val(),
+                            cl_cat:$('#cl_cat').val(),
+                            cl_moy:$('#cl_moy').val(),
+                            tr_annuel:$('#tr_annuel').val(),
+                            pr_ind:$('#pr_ind').val(),
+                            depn_annuel:$('#depn_annuel').val(),
+                        }
+                    var bodyadd='<tr>'+
+                    '<td>'+formate.funt_sup+' </td>'+
+                    '<td>'+formate.bg_overt+' </td>'+
+                    '<td>'+formate.bg_occup+'</td>'+
+                    '<td>'+formate.bg_vacant+'</td>'+
+            
+                    '<td>'+formate.cl_cat+' </td>'+
+                    '<td>'+formate.cl_moy+' </td>'+
+                   
+                    '<td>'+formate.tr_annuel+'</td>'+
+                    '<td>'+formate.pr_ind+'</td>'+
+                    '<td style="display: flex;align-items: center;flex-direction: row;justify-content: space-around;"><p>'+formate.depn_annuel+'</p><p class="del_btn"><i class="fas fa-trash-alt"></i></p></td>';
+                    var newover=parseInt(formate.bg_overt)+parseInt($('#nbr_over').text())
+                    var newoccup=parseInt(formate.bg_occup)+parseInt($('#nbr_occup').text())
+                    var newvacant=parseInt(formate.bg_vacant)+parseInt($('#nbr_vacants').text())
+                    $('#nbr_over').text(newover);
+                    $('#nbr_occup').text(newoccup);
+                    $('#nbr_vacants').text(newvacant);
+                    $('#T-tables tbody').append(bodyadd);
+
+                        $('.del_btn').on('click',function()
+                    {
+                       
+                         newover=parseInt($('#nbr_over').text())-parseInt( $(this).closest("tr").find("td").eq(1).text())
+                         newoccup=parseInt($('#nbr_occup').text())-parseInt( $(this).closest("tr").find("td").eq(2).text())
+                         newvacant=parseInt($('#nbr_vacants').text())-parseInt( $(this).closest("tr").find("td").eq(3).text())
+                       // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
+                        $(this).closest("tr").remove();   
+                        $('#nbr_over').text(newover);
+                        $('#nbr_occup').text(newoccup);
+                        $('#nbr_vacants').text(newvacant);
+                        
+                    })
+
+
+                    $('.Tsop_handler').addClass('Tsop_handler_h')
+                    $('#Tport-vals').empty()
+                    $('.Tsop_handler').empty();
+                })
+
+                $('#cancel_ops').click(function(){
+                    $('.change_app').empty()
+                    $('.Tsop_handler').addClass('Tsop_handler_h')
+                    $('#Tport-vals').empty()
+                    $('.Tsop_handler').empty();
+                    alert('cancel op')
+                })
+            })
+        }
+})
+
+$('#port_T1').on('click',function()
+{
+   
+    if($(this).children().first().is(':checked') )
+        {
+            $('.btn_bg-handler').empty()
+            $('#T-tables thead').empty()
+            $('#T-tables tbody').empty()
+            $('#T-tables tfoot').empty()
+
+            if(code == 200)
+                {
+            $.ajax({
+                url: '/testing/S_action/' + port + '/' + id_s_act + '/T1',
+                type: 'GET',
+                success: function (response) {
+                    if (response.code === 200) {
+                        console.log('data' + JSON.stringify(Object.keys(response.results)).length)
+                        data_T_port = response.results;
+                       tfooter='<tr><td colspan="2">Total</td>'+
+                        '<td id="foot_AE_T1">' + data_T_port.total[0].values.totalAE + '</td>' +
+                        '<td id="foot_CP_T1">' + data_T_port.total[0].values.totalCP + '</td>';
+                       
+                    }
+                    else {
+                        alert(response.message);
+                    }
+                    $('#T-tables tfoot').append(tfooter);
+                }
+            })
+        }
+           else
+        {
+         
+            $('#T-tables tfoot').append(tfooter);
+        }   
+
+            cnter++;
+            console.log('inside function commun')
+       
+
     $('#T-tables thead').append(headT)
    
     $.getJSON(jsonpath1, function (data) {
@@ -3312,6 +3839,8 @@ function T1_table(id, T, id_s_act, port,code) {
     }).fail(function () {
         console.error('Error loading JSON file.');
     });
+}
+})
 }
 function T2_table(id, T, id_s_act, port,code) {
    $('#T-tables tfoot').empty();
@@ -4200,7 +4729,7 @@ $(document).ready(function () {
            var id = $(this).attr('id');
            var T = 3;
             $.ajax({
-                url: '/testing/codeSousOperation/' + path3[indic],
+                url: '/testing/codeSousOperation/' + ssact,
                 type: 'GET',
                 success: function (response) {
                     if (response.code == 200 && response.t3_exists==1) {
@@ -4209,8 +4738,8 @@ $(document).ready(function () {
                         T3_table(id, T, ssact, path3[0],response.code)
                     }
                     else {
-                        alert('New')
-                        code =404
+                        alert('New ')
+                        
                         T3_table(id, T, ssact, path3[0],code)
                     }
                 }
