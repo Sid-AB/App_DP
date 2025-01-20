@@ -140,9 +140,7 @@
         <hr>
         <div class="table-T-handle">
           <div class="opt_handle" id="budget_tables"></div>
-          <div class="btn_add_budg">
-            <i class="fas fa-plus"></i>
-         </div>
+            <div class="btn_bg-handler"></div>
             <table class="responsive-table" id="T-tables">
             <thead>
             
