@@ -2041,7 +2041,7 @@ console.log('T4'+JSON.stringify(data))
 })
 
 $('.change_app').empty()
-  console.log('path' + JSON.stringify(path))
+  //console.log('path' + JSON.stringify(path))
 console.log('path' + JSON.stringify(path3))
 //var url=   '/testing/Action/' + path.join('/');
 console.log(" eat " + path3.length)

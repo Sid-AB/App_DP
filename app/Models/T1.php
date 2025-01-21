@@ -26,6 +26,11 @@ class T1 extends Model
     {
         return $this->hasMany(initPort::class,'code_t1');
     }
+
+    public function Emploi_budget()
+    {
+        return $this->hasMany(Emploi_budget::class,'code_t1');
+    }
 }
 
    
