@@ -16,7 +16,7 @@ class Emploi_budget extends Model
 
     protected $fillable = [
        'id_emp','EmploiesOuverts','EmploiesOccupes','EmploiesVacants','TRAITEMENT_ANNUEL','PRIMES_INDEMNITES','DEPENSES_ANNUELLES',
-      'code_t1',
+      'code_t1','date_insert_emploi', 'date_update_emploi'
     ];
 
     public function Emplois()

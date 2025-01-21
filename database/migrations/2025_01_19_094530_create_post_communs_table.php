@@ -17,6 +17,10 @@ return new class extends Migration
             $table->string('Nom_post_ar')->nullable();
             $table->string('CATEGORIE_post');
             $table->integer('MOYENNE_post');   
+            
+            $table->DateTime('date_insert_postcommun');
+            $table->DateTime('date_update_postcommun');
+
             $table->integer('id_emp');
             $table->foreign('id_emp')->references('id_emp')->on('emploi_budgets');
             

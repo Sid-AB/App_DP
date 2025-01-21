@@ -13,7 +13,7 @@ class Post_sup extends Model
     protected $keyType = 'integer'; 
     public $timestamps = false;
 
-    protected $fillable=['id_postsup',	'Nom_postsup',	'Nom_postsup_ar','Niveau_sup','point_indsup','id_emp'];
+    protected $fillable=['id_postsup',	'Nom_postsup',	'Nom_postsup_ar','Niveau_sup','point_indsup','id_emp','date_insert_postsup','date_update_postsup'];
 
     public function emplois_budget ()
     {

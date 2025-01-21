@@ -3279,8 +3279,8 @@ $('#corcom').on('click',function()
         var champ='<div class="Tsop_add_handle">'+
         '<form id="add_sops">'+
         '<div class="form-group">'+
-        '<label class="desp">Fonction supérieure</label>'+
-         '<input type="text" class="form-control" id="funt_sup" placeholder="Entrer Nom Fonction supérieure">'+
+        '<label class="desp">Corps Communs</label>'+
+         '<input type="text" class="form-control" id="funt_sup" placeholder="Entrer Nom Corps Communs">'+
          '</div>'+
          '<div class="T3-ops_inpt_handle">' +
          '<div><label>EMPLOIS BUDGETAIRES Ouverts</label>'+
@@ -3317,6 +3317,7 @@ $('#corcom').on('click',function()
         $('#ajt').on('click',function(){
 
                 var formate={
+                    type_pos:'corcom',
                     funt_sup:$('#funt_sup').val(),
                     bg_overt:$('#bg_overt').val(),
                     bg_occup:$('#bg_occup').val(),
@@ -3437,8 +3438,8 @@ $('#post_sup').on('click',function()
             var champ='<div class="Tsop_add_handle">'+
             '<form id="add_sops">'+
             '<div class="form-group">'+
-            '<label class="desp">Fonction supérieure</label>'+
-             '<input type="text" class="form-control" id="funt_sup" placeholder="Entrer Nom Fonction supérieure">'+
+            '<label class="desp">Poste supérieur</label>'+
+             '<input type="text" class="form-control" id="funt_sup" placeholder="Entrer Nom du Poste supérieur">'+
              '</div>'+
              '<div class="T3-ops_inpt_handle">' +
              '<div><label>EMPLOIS BUDGETAIRES Ouverts</label>'+
@@ -3475,6 +3476,7 @@ $('#post_sup').on('click',function()
             $('#ajt').on('click',function(){
 
                     var formate={
+                        type_pos:'post_sup',
                         funt_sup:$('#funt_sup').val(),
                         bg_overt:$('#bg_overt').val(),
                         bg_occup:$('#bg_occup').val(),
@@ -3632,6 +3634,7 @@ $('#funt').on('click',function()
                 $('#ajt').on('click',function(){
 
                         var formate={
+                            type_pos:'funt',
                             funt_sup:$('#funt_sup').val(),
                             bg_overt:$('#bg_overt').val(),
                             bg_occup:$('#bg_occup').val(),
