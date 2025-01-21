@@ -39,6 +39,9 @@ return new class extends Migration
                 'Nom_fonction' => 'Chef de Cabinet',
                 'CATEGORIE'=>'D/1',
                 'Moyenne' => 6050,
+                'id_emp'=>1,
+
+
             ]
 
             ]);

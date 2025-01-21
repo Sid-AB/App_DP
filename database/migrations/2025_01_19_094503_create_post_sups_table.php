@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('Nom_postsup_ar')->nullable();
             $table->integer('Niveau_sup');
             $table->integer('point_indsup');
-            $table->integer('montant');
+          
 
             $table->integer('id_emp');
             $table->foreign('id_emp')->references('id_emp')->on('emploi_budgets');
@@ -30,17 +30,11 @@ return new class extends Migration
                 'Niveau_sup' => 8,
                 
                 'point_indsup' => 285,
-                'montant'=> 12825,
+                'id_emp'=>2,
 
 
             ],
-            [
-                'Nom_postsup' => 'Attaché de Cabinet',
-                'Niveau_sup' => 8,
-                
-                'point_indsup' => 285,
-                'montant'=> 12825,
-            ]
+            
 
             ]);
     }
