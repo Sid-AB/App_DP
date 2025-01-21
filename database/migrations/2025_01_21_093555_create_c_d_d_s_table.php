@@ -11,21 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('fonctions', function (Blueprint $table) {
-            $table->string('id_fonction')->primary()->autoIncrement();
-            $table->string('Nom_fonction');
-            $table->string('Nom_fonction_ar')->nullable();
-            $table->integer('Moyenne');
-            $table->string('CATEGORIE');
-
-            $table->DateTime('date_insert_fonct');
-            $table->DateTime('date_update_fonct');
+        Schema::create('c_d_d_s', function (Blueprint $table) {
+            $table->integer('id_c_d_d_s')->primary()->autoIncrement();
+            $table->string('Nom_c_d_d_s');
+            $table->string('Nom_c_d_d_s_ar')->nullable();
+            $table->string('CATEGORIE_c_d_d_s');
+            $table->integer('MOYENNE_c_d_d_s');   
+            
+            $table->DateTime('date_insert_cdd');
+            $table->DateTime('date_update_cdd');
 
             $table->integer('id_emp');
             $table->foreign('id_emp')->references('id_emp')->on('emploi_budgets');
-            
         });
-      
     }
 
     /**
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('fonctions');
+        Schema::dropIfExists('c_d_d_s');
     }
 };

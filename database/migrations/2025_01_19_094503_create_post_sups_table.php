@@ -19,6 +19,9 @@ return new class extends Migration
             $table->integer('point_indsup');
           
 
+            $table->DateTime('date_insert_postsup');
+            $table->DateTime('date_update_postsup');
+
             $table->integer('id_emp');
             $table->foreign('id_emp')->references('id_emp')->on('emploi_budgets');
         });

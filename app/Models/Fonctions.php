@@ -13,7 +13,7 @@ class Fonctions extends Model
     protected $keyType = 'integer'; 
     public $timestamps = false;
 
-    protected $fillable=['id_fonction',	'Nom_fonction',	'Nom_fonction_ar','Moyenne','CATEGORIE','id_emp'];
+    protected $fillable=['id_fonction',	'Nom_fonction',	'Nom_fonction_ar','Moyenne','CATEGORIE','id_emp','date_insert_fonct','date_update_fonct'];
 
     public function emplois_budget ()
     {
@@ -21,6 +21,5 @@ class Fonctions extends Model
     }
 
   
-
 }
 

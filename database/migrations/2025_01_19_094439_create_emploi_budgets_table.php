@@ -16,11 +16,15 @@ return new class extends Migration
             $table->integer('EmploiesOuverts')->nullable();
             $table->integer('EmploiesOccupes')->nullable();
             $table->integer('EmploiesVacants')->nullable();
+
            /* $table->string('CATEGORIE')->nullable();
             $table->integer('MOYENNE')->nullable();*/
             $table->integer('TRAITEMENT_ANNUEL')->nullable();
             $table->integer('PRIMES_INDEMNITES')->nullable();
             $table->integer('DEPENSES_ANNUELLES')->nullable();
+
+            $table->DateTime('date_insert_emploi');
+            $table->DateTime('date_update_emploi');
           //  $table->integer('INDICIAIRE_MONTANT')->nullable();
 
             //pour post sup
