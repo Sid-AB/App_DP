@@ -72,7 +72,7 @@
     @endforeach
     @endfor
     
-    <p> CREDITS DU PORTEFEUILLE DE PROGRAMMES ( 
+    <p> 1.1. CREDITS DU PORTEFEUILLE DE PROGRAMMES ( 
     @for($i=0;$i< count($filcode);$i++)
     {{$filcode[$i]}} 
     @if ($i < count($filcode) - 1)
@@ -82,6 +82,7 @@
     ):
     </p>
     </h1>
+    <h1> 1.1.1. CREDITS OUVERTS PAR LA LOI DE FINANCES ET REPARTIS PAR LE DECRET DE REPARTITION :</h1>
     <table >
     
             <tr>
