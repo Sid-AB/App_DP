@@ -183,5 +183,209 @@
         </tbody>
     </table>
 </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau des emplois budgétaires</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        th, td {
+            border: 1px solid #000;
+            padding: 8px;
+        }
+        th {
+            background-color: #4B0082; /* Violet foncé pour l'en-tête */
+            color: white;
+        }
+        .header-row {
+            background-color: #df9c21; /* Orange clair pour l'en-tête intermédiaire */
+            font-weight: bold;
+        }
+        .category-header {
+            background-color: #B299D7; /* Violet clair pour les catégories */
+            font-weight: bold;
+        }
+        tbody tr:nth-child(odd) {
+            background-color: #FDFDFD; /* Blanc */
+        }
+        .highlight-gray {
+            background-color: #D3D3D3; /* Gris pour la cellule spécifique */
+        }
+        tbody tr:nth-child(even) {
+            background-color: #F4F4F4; /* Gris très clair *   <th rowspan="1">Catégorie du personnel</th>*/
+        }
+        tbody td {
+            font-size: 14px;
+        }
+        tbody tr:hover {
+            background-color: #E5E5E5; /* Gris foncé pour le survol */
+        }
+    </style>
+</head>
+<body>
+    <br></br>
+    <br></br>
+    <br></br>
+
+
+    <table>
+        <thead>
+            <tr>
+                <th rowspan="2">Poste supérieur </th>
+                <th rowspan="2" class="highlight-gray">la somme </th>
+                <th rowspan="2" class="highlight-gray"> la somme</th>
+                <th rowspan="2" class="highlight-gray">la somme </th>
+                <th rowspan="2" class="header-row">BONIFICATION INDICIAIRE / NIVEAU </th>
+                <th rowspan="2" class="header-row">BONIFICATION INDICIAIRE / POINTS </th>
+                <th rowspan="2" class="header-row">BONIFICATION INDICIAIRE / MONTANT </th>
+                <th rowspan="2" colspan="2" class="header-row">DEPENSES ANNUELLES</th>
+              
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Chargé des études et de projet</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Attaché de Cabinet</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Chef de Bureau</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr >
+                <td>Assistant de Cabinet</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr> 
+           
+            <tr>
+                <td>Chargé d'accueil et d'orientation</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Chargé des programmes d'interprétation –interprétation simultanée</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Responsable de réseau</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Chargé de programmes statistiques</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Chef de parc</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Chef d’atelier</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Chef magasinier</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Responsable du service intérieur</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
 </html>
+
+
+
 
