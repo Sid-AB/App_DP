@@ -30,7 +30,7 @@ class EmploiBudgetController extends Controller
                 'Nom_fonction' => $request->funt_sup,
                 'Moyenne' => $request->cl_moy,
                 'CATEGORIE' => $request->cl_cat,
-                'id_emp' => $request->pr_ind,
+                'id_emp' =>,
                 'date_insert_fonct'=>now(),
                 'date_update_fonct'=>now(),
             ]);
