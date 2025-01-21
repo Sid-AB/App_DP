@@ -11,40 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('focntions', function (Blueprint $table) {
+        Schema::create('fonctions', function (Blueprint $table) {
             $table->string('id_fonction')->primary()->autoIncrement();
             $table->string('Nom_fonction');
             $table->string('Nom_fonction_ar')->nullable();
-            $table->float('Moyenne');
+            $table->integer('Moyenne');
             $table->string('CATEGORIE');
 
             $table->integer('id_emp');
             $table->foreign('id_emp')->references('id_emp')->on('emploi_budgets');
             
         });
-        DB::table('fonctions')->insert([
-            [
-             
-                'Nom_fonction' => 'Secrétaire Général',
-                'CATEGORIE'=>'E/2',
-                'Moyenne' => 6767,
-                'id_emp'=>1,
-
-                
-              
-
-            ],
-            [
-              
-                'Nom_fonction' => 'Chef de Cabinet',
-                'CATEGORIE'=>'D/1',
-                'Moyenne' => 6050,
-                'id_emp'=>1,
-
-
-            ]
-
-            ]);
+      
     }
 
     /**

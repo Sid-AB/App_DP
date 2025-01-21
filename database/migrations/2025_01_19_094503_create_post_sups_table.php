@@ -23,20 +23,7 @@ return new class extends Migration
             $table->foreign('id_emp')->references('id_emp')->on('emploi_budgets');
         });
 
-        DB::table('post_sups')->insert([
-            [
-             
-                'Nom_postsup' => 'Chargé des études et de projet',
-                'Niveau_sup' => 8,
-                
-                'point_indsup' => 285,
-                'id_emp'=>2,
-
-
-            ],
-            
-
-            ]);
+        
     }
 
     /**

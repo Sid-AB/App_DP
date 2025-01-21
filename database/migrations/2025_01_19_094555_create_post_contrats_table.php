@@ -15,7 +15,7 @@ return new class extends Migration
             $table->integer('id_postContrat')->primary()->autoIncrement();
             $table->string('Nom_postContrat');
             $table->string('Nom_postContrat_ar')->nullable();
-            $table->integer('CATEGORIE_postContrat');
+            $table->string('CATEGORIE_postContrat');
             $table->integer('MOYENNE_postContrat');   
             $table->integer('id_emp');
             $table->foreign('id_emp')->references('id_emp')->on('emploi_budgets');
@@ -24,19 +24,7 @@ return new class extends Migration
            
         });
 
-        DB::table('post_contrats')->insert([
-            [
-             
-                'Nom_postContrat' => 'Ouvrier professionnel hors catégorie',
-                'CATEGORIE_postContrat' => 6,
-                'MOYENNE_postContrat' => 670,
-                'id_emp'=>4,
-
-
-            ],
-           
-
-            ]);
+       
    
     }
 

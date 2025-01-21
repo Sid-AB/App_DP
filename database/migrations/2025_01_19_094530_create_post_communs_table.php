@@ -15,7 +15,7 @@ return new class extends Migration
             $table->integer('id_post')->primary()->autoIncrement();
             $table->string('Nom_post');
             $table->string('Nom_post_ar')->nullable();
-            $table->integer('CATEGORIE_post');
+            $table->string('CATEGORIE_post');
             $table->integer('MOYENNE_post');   
             $table->integer('id_emp');
             $table->foreign('id_emp')->references('id_emp')->on('emploi_budgets');
@@ -24,19 +24,7 @@ return new class extends Migration
            
         });
 
-        DB::table('post_communs')->insert([
-            [
-             
-                'Nom_post' => 'Administrateur conseillé',
-                'CATEGORIE_post' => 16,
-                'MOYENNE_post' => 1187,
-                'id_emp'=>3,
-
-
-            ],
-           
-
-            ]);
+       
    
     }
 

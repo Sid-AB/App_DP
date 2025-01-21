@@ -15,7 +15,7 @@ class Emploi_budget extends Model
     public $timestamps = false;
 
     protected $fillable = [
-       'id_emp','EmploiesOuverts','EmploiesOccupes','EmploiesVacants','TRAITEMENT_ANNUEL','PRIMES_INDEMNITES','DEPENSES_ANNUELLES','INDICIAIRE_MONTANT',
+       'id_emp','EmploiesOuverts','EmploiesOccupes','EmploiesVacants','TRAITEMENT_ANNUEL','PRIMES_INDEMNITES','DEPENSES_ANNUELLES',
       'code_t1',
     ];
 
