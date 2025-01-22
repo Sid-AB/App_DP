@@ -17,7 +17,7 @@ use App\Http\Controllers\groupOperationController;
 use App\Http\Controllers\opeartionController;
 use App\Http\Controllers\sousOperationController;
 use App\Http\Controllers\modificationController;
-
+use App\Http\Controllers\EmploiBudgetController;
 
 Route::get('/', function () {
  $portfs =Portefeuille::get();
@@ -113,6 +113,10 @@ Route::controller(modificationController::class)->group(function(){
 });
 Route::controller(initPortController::class)->group(function(){
     Route::post('/init_ports','create_sou_prog')->name('init.ports');
+});
+
+Route::controller(EmploiBudgetController::class)->group(function(){
+    Route::post('/insertemploi','insertemploi')->name('insertemploi');
 });
 
 
