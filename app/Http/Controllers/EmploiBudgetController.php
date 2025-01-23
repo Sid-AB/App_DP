@@ -10,6 +10,7 @@ use App\Models\Post_commun;
 use App\Models\OpConducteur;
 use App\Models\CDI;
 use App\Models\CDD;
+use Barryvdh\Snappy\Facades\SnappyPdf;
 
 class EmploiBudgetController extends Controller
 {
@@ -104,6 +105,21 @@ class EmploiBudgetController extends Controller
                             'message' => 'Données insérées ou mises à jour avec succès',
                             'id_emp' => $emploi->id_emp,
                         ]);
+    }
+    public function index()
+    {
+        // Récupérer toutes les données de la table Fonctions
+
+
+        
+        $fonctions = Fonctions::all();
+        $pdf=SnappyPdf::loadView
+        ('impression_emplois_budgetaire', compact(
+            'fonctions'
+        ))->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1.75);  // Augmenter la résolution pour améliorer la lisibilité du texte
+          return $pdf->stream('liste_budgetaires.pdf');
+        // Passer les données à la vue sans les afficher directement
+       // return view('impression_emplois_budgetaire', compact('fonctions'));
     }
 
 
