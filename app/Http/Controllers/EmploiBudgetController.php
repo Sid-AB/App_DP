@@ -110,18 +110,40 @@ class EmploiBudgetController extends Controller
     {
         // Récupérer toutes les données de la table Fonctions
 
-
-        
-        $fonctions = Fonctions::all();
+        $fonctions = Fonctions::select('Nom_fonction', 'Moyenne', 'CATEGORIE')->get();
+        $emplois = Emploi_budget::select('EmploiesOuverts', 'EmploiesOccupes', 'EmploiesVacants','TRAITEMENT_ANNUEL','PRIMES_INDEMNITES','DEPENSES_ANNUELLES')->get();
+        $posts =Post_Sup::select('Nom_postsup', 'Niveau_sup', 'point_indsup')->get();
+        $communs= Post_commun::select('Nom_post','CATEGORIE_post','MOYENNE_post')->get();
+        // Calcul des totaux des colonnes
+       $totalOuverts = $emplois->sum('EmploiesOuverts');
+       $totalOccupes = $emplois->sum('EmploiesOccupes');
+       $totalVacants = $emplois->sum('EmploiesVacants');
         $pdf=SnappyPdf::loadView
         ('impression_emplois_budgetaire', compact(
-            'fonctions'
-        ))->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1.75);  // Augmenter la résolution pour améliorer la lisibilité du texte
+           'fonctions',
+           'emplois',
+           'totalOuverts',
+           'totalOccupes',
+          'totalVacants',
+          'posts',
+          'communs'
+
+        ))->setPaper("A4","landscape")
+          ->setOption('dpi', 300) 
+          ->setOption('zoom', 1.75);  // Augmenter la résolution pour améliorer la lisibilité du texte
           return $pdf->stream('liste_budgetaires.pdf');
         // Passer les données à la vue sans les afficher directement
        // return view('impression_emplois_budgetaire', compact('fonctions'));
     }
+    public function post_superieur()
+{
+    // Récupérer toutes les données de la table Post_sup
+    $posts = PostSup::all();
 
+    // Passer les données à la vue
+    return view('votre_vue', compact('posts'));
+}
+   
 
 }
 

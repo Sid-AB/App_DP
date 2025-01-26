@@ -116,6 +116,7 @@ Route::controller(modificationController::class)->group(function(){
 });
 Route::controller(initPortController::class)->group(function(){
     Route::post('/init_ports','create_sou_prog')->name('init.ports');
+
 });
 
 Route::controller(EmploiBudgetController::class)->group(function(){
@@ -123,6 +124,7 @@ Route::controller(EmploiBudgetController::class)->group(function(){
 });
 
 Route::get('/impression_emplois_budgetaire', [EmploiBudgetController::class, 'index']);
+Route::get('/emplois-pdf', [EmploiBudgetController::class, 'index'])->name('emplois.pdf');
 
 /*Route::get('/testing/Action/{port}/{prog}/{sous_prog}/{act}/',function ($port,$prog,$sous_prog,$act){
 
