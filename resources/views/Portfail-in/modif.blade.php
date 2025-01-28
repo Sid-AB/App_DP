@@ -106,7 +106,8 @@ Object.entries(paths).forEach(([code,value])=>{
                         </div>
                         <div class="form-group">
                         <label for="inputDate">Date du Journal</label>
-                        <input type="date" class="form-control" id="date_insert_action" value={{$date}}>
+                       
+                        <input type="date" class="form-control" id="date_insert_action" value="{{$date}}">
                         </div>
                         <div class="form-group">
                         <label for="input1">Nom dACTION</label>

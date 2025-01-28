@@ -99,8 +99,10 @@ class sousOperationController extends Controller
                 }
                 else
                 {
+                   
                     $leng=count(explode('-',$chek[1]));
                     $act=Action::where('num_action',$chek[1])->first();
+                    //dd($act);
                     $sprog=SousProgramme::where('num_sous_prog',$act->num_sous_prog)->first();
                     $progms=Programme::where('num_prog',$sprog->num_prog)->first();
                    // dd($act);
@@ -108,7 +110,7 @@ class sousOperationController extends Controller
                     $cp_glob=$act->CP_action;
                     $nom=$act->nom_action;
                     $code=$act->num_action;
-                    $date=$act->date_insert_sousProg;
+                    $date=$act->date_insert_action;
 
                     $init=initPort::where('num_action',$code)->first();
                     if(!empty($init->num_action)){

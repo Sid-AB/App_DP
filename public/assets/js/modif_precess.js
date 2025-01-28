@@ -424,6 +424,8 @@ function calaulsomeAE_CP_act()
             }
     })
     /**  ------------------------------------------------------ rnf ---------------- */
+
+
     /**------------------------------------ Some CP T ----------------------------- */
 
     $('#T1_CP_init_AC').on('focusin',function(){
@@ -530,14 +532,14 @@ function calaulsomeAE_CP_act()
 
     $('#T4_CP_init_AC').on('focusout',function(){
 
-        console.log('old before if'+oldTT);
+        console.log('old before if'+oldTTCP);
         if(oldCP == 0 || oldCP == '' || oldCP == '0' || oldCP == null || oldCP =='NaN')
         {
             oldCP='0'
         }
         if(oldTTCP == 0 || oldTTCP == '' || oldTTCP == '0' || oldTTCP == null || oldTTCP =='NaN' )
             {
-            someCP_TT=0;
+                someCP_TT=0;
             someCP_TT+=parseNumberWithoutCommas($(this).val())
             $('#CP_act').val(ValAccountingFigures(someCP_TT))
             console.log('TT '+someCP_TT)
@@ -860,7 +862,7 @@ calaulsomeAE_CP_sprog()
         if (isEmpty) {
             if(indice < 2)
             {
-            alert("Veuillez remplir tous les champs obligatoires");
+            //alert("Veuillez remplir tous les champs obligatoires");
             }
             $(this).css('box-shadow','0 0 0 0.25rem rgb(255 0 0 / 47%)')
         }
@@ -1045,17 +1047,17 @@ calaulsomeAE_CP_sprog()
                                         var AE_act = $('#AE_act').val()
                                         var CP_act = $('#CP_act').val()
 
-                                        var T1_AE_init = $('#T1_AE_init_AC').val()
-                                        var T1_CP_init = $('#T1_CP_init_AC').val()
+                                        var T1_AE_init_AC = $('#T1_AE_init_AC').val()
+                                        var T1_CP_init_AC = $('#T1_CP_init_AC').val()
                     
-                                        var T2_AE_init = $('#T2_AE_init_AC').val()
-                                        var T2_CP_init = $('#T2_CP_init_AC').val()
+                                        var T2_AE_init_AC = $('#T2_AE_init_AC').val()
+                                        var T2_CP_init_AC = $('#T2_CP_init_AC').val()
                     
-                                        var T3_AE_init = $('#T3_AE_init_AC').val()
-                                        var T3_CP_init = $('#T3_CP_init_AC').val()
+                                        var T3_AE_init_AC = $('#T3_AE_init_AC').val()
+                                        var T3_CP_init_AC = $('#T3_CP_init_AC').val()
                     
-                                        var T4_AE_init = $('#T4_AE_init_AC').val()
-                                        var T4_CP_init = $('#T4_CP_init_AC').val()
+                                        var T4_AE_init_AC = $('#T4_AE_init_AC').val()
+                                        var T4_CP_init_AC = $('#T4_CP_init_AC').val()
 
                                         var id_sou_prog = path[2];
                                         var numaction_year = id_sou_prog +'-'+num_act ;
@@ -1068,20 +1070,20 @@ calaulsomeAE_CP_sprog()
                                             AE_act: AE_act,
                                             CP_act: CP_act,
 
-                                            T1_AE_init: T1_AE_init,
-                                            T1_CP_init: T1_CP_init,
+                                            T1_AE_init_AC: T1_AE_init_AC,
+                                            T1_CP_init_AC: T1_CP_init_AC,
                                             code_t1: 10000,
                     
-                                                T2_AE_init: T2_AE_init,
-                                                T2_CP_init: T2_CP_init,
+                                                T2_AE_init_AC: T2_AE_init_AC,
+                                                T2_CP_init_AC: T2_CP_init_AC,
                                                 code_t2: 20000,
                     
-                                                T3_AE_init: T3_AE_init,
-                                                T3_CP_init: T3_CP_init,
+                                                T3_AE_init_AC: T3_AE_init_AC,
+                                                T3_CP_init_AC: T3_CP_init_AC,
                                                 code_t3: 30000,
                     
-                                                T4_AE_init: T4_AE_init,
-                                                T4_CP_init: T4_CP_init,
+                                                T4_AE_init_AC: T4_AE_init_AC,
+                                                T4_CP_init_AC: T4_CP_init_AC,
                                                 code_t4: 40000,
 
                                             _token: $('meta[name="csrf-token"]').attr('content'),
@@ -1097,19 +1099,19 @@ calaulsomeAE_CP_sprog()
                                                     path.push(numaction_year);
                                                     path3.push(num_act);
 
-                                                    console.log('response.num_sous_action: ' + response.num_sous_action);
-                                                    path.push(response.num_sous_action);
-                                                    console.log('response.num_sous_action: ' +response.num_sous_action);
-                                                    console.log('path: ' + JSON.stringify(path));
+                                                   // console.log('response.num_sous_action: ' + response.num_sous_action);
+                                                   // path.push(response.num_sous_action);
+                                                   // console.log('response.num_sous_action: ' +response.num_sous_action);
+                                                   // console.log('path: ' + JSON.stringify(path));
                                                     if (response.num_sous_action && response.count_sous_action < 2) {
-                                                        //console.log('path: ' + JSON.stringify(path));
-                                                        window.location.href = '/testing/S_action/' + path[0]+"/"+path[1]+"/"+path[2]+"/"+path[3]+"/"+path[5]+"/";
+                                                        console.log('path: ' + JSON.stringify(path));
+                                                     //   window.location.href = '/testing/S_action/' + path[0]+"/"+path[1]+"/"+path[2]+"/"+path[3]+"/"+path[5]+"/";
                                                     } else if (response.count_sous_action >= 2) {
                                                         console.log('response.num_sous_action: ' + response.num_sous_action);
-                                                        window.location.href = '/Portfail/' + response.numPortef;
+                                                       // window.location.href = '/Portfail/' + response.numPortef;
                                                     } else {
-                                                        // console.log('path: ' + JSON.stringify(path));
-                                                        window.location.href = '/testing/Action/' + path.join('/');
+                                                         console.log('path: ' + JSON.stringify(path));
+                                                       // window.location.href = '/testing/Action/' + path.join('/');
                                                     }
 
 
