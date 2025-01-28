@@ -105,6 +105,8 @@ class EmploiBudgetController extends Controller
     }
 
 
+    //la fonction get pour afficher les resultats 
+  
 }
 
     

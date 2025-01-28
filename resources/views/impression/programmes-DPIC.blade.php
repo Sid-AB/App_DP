@@ -45,14 +45,15 @@
 
         .program-title {
             text-align:center;
+            
             font-weight: bold;
            /* background-color: #DDD9C4; /* Couleur plus sombre pour les programmes principaux */
-            color: rgb(8, 8, 8);
+            color: rgb(17, 16, 16);
            
         }
 
         .subprogram-title {
-            font-weight: bold;
+         
             background-color: #fff; /* Couleur grise pour les sous-programmes */
             color: rgb(17, 16, 16);
         }
@@ -104,6 +105,13 @@
 
 </head>
 <body>
+<h1 style="text-align:center;">
+    1<span style="vertical-align: super; font-size: 1rem; margin-left: -0.1rem;">ERE</span> PARTIE:
+</h1>
+
+    <h1 style="text-align:center;"> 
+            LES CREDITS BUDGETAIRES
+    </h1>
     <h1>
         @for($i=0;$i< count($programmes);$i++)
         @foreach ($programmes[$i] as $programme)
@@ -116,7 +124,7 @@
         @endphp
         @endforeach
         @endfor
-    <p> LA PROGRAMMTION DES CREDITS DES PROGRAMMES ( 
+    <p> 1.2. LA PROGRAMMTION DES CREDITS DES PROGRAMMES ( 
     @for($i=0;$i< count($filcode);$i++)
     {{$filcode[$i]}} 
     @if ($i < count($filcode) - 1)
@@ -127,7 +135,7 @@
     </p>
    
     </h1>
-
+    <h1> 1.2.1. PROGRAMMATION DES CREDITS OUVERTS PAR LA LOI DE FINANCES ET REPARTIS PAR LE DECRET DE REPARTITION :</h1>
     {{-- Boucle sur les programmes --}}
     @for($i = 0; $i < count($programmes); $i++)
         @foreach ($programmes[$i] as $programme)
@@ -138,7 +146,7 @@
             @endphp
 
             {{-- Nouveau tableau pour chaque programme --}}
-            <div class="page-break">
+            <div>
             <table >
             
                     <tr>
@@ -163,10 +171,10 @@
                
                 <tbody>
                     {{-- Ligne principale pour le programme --}}
-                    <tr >
+                    <tr class="program-title">
                         <td class="program-title" >{{ $code }}</td>
                         <td class="program-title">Programme :  {{ $programme['nom'] }}</td>
-                        <td>{{ number_format((float)$programme['Total']['TotalT1_AE'], 2, '.', ',') }}</td>
+                        <td  >{{ number_format((float)$programme['Total']['TotalT1_AE'], 2, '.', ',') }}</td>
                         <td>{{ number_format((float)$programme['Total']['TotalT1_CP'], 2, '.', ',') }}</td>
                         <td>{{ number_format((float)$programme['Total']['TotalT2_AE'], 2, '.', ',') }}</td>
                         <td>{{ number_format((float)$programme['Total']['TotalT2_CP'], 2, '.', ',') }}</td>
