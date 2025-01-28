@@ -1102,8 +1102,8 @@ calaulsomeAE_CP_sprog()
                                                     console.log('response.num_sous_action: ' +response.num_sous_action);
                                                     console.log('path: ' + JSON.stringify(path));
                                                     if (response.num_sous_action && response.count_sous_action < 2) {
-                                                        // console.log('path: ' + JSON.stringify(path));
-                                                        window.location.href = '/testing/S_action/' + path.join('/');
+                                                        //console.log('path: ' + JSON.stringify(path));
+                                                        window.location.href = '/testing/S_action/' + path[0]+"/"+path[1]+"/"+path[2]+"/"+path[3]+"/"+path[5]+"/";
                                                     } else if (response.count_sous_action >= 2) {
                                                         console.log('response.num_sous_action: ' + response.num_sous_action);
                                                         window.location.href = '/Portfail/' + response.numPortef;

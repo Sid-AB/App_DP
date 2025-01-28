@@ -1386,77 +1386,80 @@ if (!$nom) {
 }// fin boucle
 
     // Deuxième boucle : insérer ou mettre à jour le cas du dispositif
-    foreach ($dispo as $code => $value_dispo) {
-        if(strpos($code, '-') !== false){
-        //dd($code);
-        // Recup l discr
-        if (array_key_exists($code, $descr)) {
-            $value_descr = $descr[$code];
-        }
-        // Recup l ae_reporte
-        if (array_key_exists($code, $aeData)) {
-            $value_ae = $aeData[$code];
-        }
-        // Recup l ae_reporte
-        if (array_key_exists($code, $cpData)) {
-            $value_cp = $cpData[$code];
-        }
-        
-        //Fusion des deux descr et intitule
-        $nom= $value_dispo. '_'.$value_descr;
-        //dd($value_cp);
-        //recupe le code operation
-        if (strpos($code, '-') !== false) {
-            // Supprimer tout ce qui suit le premier tiret (y compris le tiret)
-            $code2 = explode('-', $code)[0];
-        }
-
-        if ($code2 % 1000 == 0) {
-            $codeGp=$codeOp=$code2;
-            // Insertion dans la table operation
-            Operation::updateOrCreate(
-                ['code_operation' =>$s_act.'-'.$code2.'-'.$code2],
-                ['code_grp_operation' => $s_act.'-'.$code2, 
-                'nom_operation' => 'Dispo',
-                'date_insert_operation' => $currentDateTime]
-            );
-        }
-        elseif ($code2 % 100 == 0) {
-            $codeGp = strval(floor($code2 / 1000) * 1000);
-            $codeOp=$code2;
-            //dd($code2, $codeOp);
-        }
-        else {
-            $codeOp = strval(floor($code2 / 100) * 100);
-            $codeGp = strval(floor($codeOp / 1000) * 1000);
-            //$codeSp = explode('-', $code)[0];
-        }
-
-       
-        if(($code2 == $codeOp)&& ($codeOp != $codeGp)){
-        // Insertion dans la table sousoperation
-       $sousoperation=sousoperation::updateOrCreate(
-        ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$code ],
-        ['code_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp, 
-        'nom_sous_operation' => $nom,
-        'AE_sous_operation' => floatval(str_replace(',', '',  $value_ae)),
-        'code_t4' => 40000,
-        'CP_sous_operation' =>floatval(str_replace(',', '',  $value_cp))
-        , 'date_insert_SOUSoperation' => $currentDateTime]
-    );
-}else{
-    $sousoperation=sousoperation::updateOrCreate(
-        ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code ],
-        ['code_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp, 
-        'nom_sous_operation' => $nom,
-        'AE_sous_operation' => floatval(str_replace(',', '',  $value_ae)),
-        'code_t4' => 40000,
-        'CP_sous_operation' =>floatval(str_replace(',', '',  $value_cp))
-        , 'date_insert_SOUSoperation' => $currentDateTime]
-    );
-}
-      }
-}
+    if(isset($dispo )){
+        foreach ($dispo as $code => $value_dispo) {
+            if(strpos($code, '-') !== false){
+            //dd($code);
+            // Recup l discr
+            if (array_key_exists($code, $descr)) {
+                $value_descr = $descr[$code];
+            }
+            // Recup l ae_reporte
+            if (array_key_exists($code, $aeData)) {
+                $value_ae = $aeData[$code];
+            }
+            // Recup l ae_reporte
+            if (array_key_exists($code, $cpData)) {
+                $value_cp = $cpData[$code];
+            }
+            
+            //Fusion des deux descr et intitule
+            $nom= $value_dispo. '_'.$value_descr;
+            //dd($value_cp);
+            //recupe le code operation
+            if (strpos($code, '-') !== false) {
+                // Supprimer tout ce qui suit le premier tiret (y compris le tiret)
+                $code2 = explode('-', $code)[0];
+            }
+    
+            if ($code2 % 1000 == 0) {
+                $codeGp=$codeOp=$code2;
+                // Insertion dans la table operation
+                Operation::updateOrCreate(
+                    ['code_operation' =>$s_act.'-'.$code2.'-'.$code2],
+                    ['code_grp_operation' => $s_act.'-'.$code2, 
+                    'nom_operation' => 'Dispo',
+                    'date_insert_operation' => $currentDateTime]
+                );
+            }
+            elseif ($code2 % 100 == 0) {
+                $codeGp = strval(floor($code2 / 1000) * 1000);
+                $codeOp=$code2;
+                //dd($code2, $codeOp);
+            }
+            else {
+                $codeOp = strval(floor($code2 / 100) * 100);
+                $codeGp = strval(floor($codeOp / 1000) * 1000);
+                //$codeSp = explode('-', $code)[0];
+            }
+    
+           
+            if(($code2 == $codeOp)&& ($codeOp != $codeGp)){
+            // Insertion dans la table sousoperation
+           $sousoperation=sousoperation::updateOrCreate(
+            ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$code ],
+            ['code_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp, 
+            'nom_sous_operation' => $nom,
+            'AE_sous_operation' => floatval(str_replace(',', '',  $value_ae)),
+            'code_t4' => 40000,
+            'CP_sous_operation' =>floatval(str_replace(',', '',  $value_cp))
+            , 'date_insert_SOUSoperation' => $currentDateTime]
+        );
+    }else{
+        $sousoperation=sousoperation::updateOrCreate(
+            ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code ],
+            ['code_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp, 
+            'nom_sous_operation' => $nom,
+            'AE_sous_operation' => floatval(str_replace(',', '',  $value_ae)),
+            'code_t4' => 40000,
+            'CP_sous_operation' =>floatval(str_replace(',', '',  $value_cp))
+            , 'date_insert_SOUSoperation' => $currentDateTime]
+        );
+    }
+          }
+    }
+    }
+   
    
 
 
