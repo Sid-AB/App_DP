@@ -438,8 +438,7 @@ $progg = [];
 foreach ($newArray as $item) {
     // Créer une clé unique basée sur les valeurs de l'élément
     $cleprog = $item['num_prog'] . '|' . $item['valeur_prog_ae'] . '|' . $item['valeur_prog_cp'] . '|' . $item['tKey'] . '|'
-     . $item['sous_programme']. $item['valeur_sous_prog_ae'] . '|' . $item['valeur_sous_prog_cp'];
-
+     .$item['sous_programme']. $item['valeur_sous_prog_ae'] . '|' . $item['valeur_sous_prog_cp'];
 
     if (!isset($progg[$cleprog])) {
         $progg[$cleprog] = $item;
