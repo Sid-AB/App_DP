@@ -245,14 +245,14 @@ function print_dpa($numport)
     ->first(); 
     $modif = collect([$modif]);
     //dd($modif);
-
+    $result = []; 
     foreach($art as $article)
                     $lastModif = $modif->firstWhere('nom', $article->nom);
                 //dd($article,$lastModif);
         if($lastModif){ 
             //mm prog et mm sousprog
            
-            $result = []; 
+           
             if ($lastModif->num_prog == $lastModif->num_prog_retire && $lastModif->num_sous_prog == $lastModif->num_sous_prog_retire) {
             
                
@@ -457,7 +457,7 @@ $progg = array_values($progg);
     
 
   // dd($lastModif);
-    //dd($modif);
+    //dd($result);
     $pdf=SnappyPdf::loadView('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg'))
     ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1);//lanscape mean orentation
           return $pdf->stream('impression_dpic.pdf');
