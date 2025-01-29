@@ -51,6 +51,7 @@
         .T
         {
         background-color:#DDD9C4;
+     
         }
 
         .head{
@@ -66,6 +67,23 @@
    
 </head>
 <body>
+<h1 style="text-align: center; font-family: Times New Roman, sans-serif; font-size: 18pt; font-weight: bold;">
+الجمهورية الجزائرية الديمقراطية الشعبية
+</h1> 
+<h1 style="text-align: center; font-family: Arial, sans-serif; font-size: 18pt; font-weight: bold;">
+REPUBLIQUE ALGERIENNE DEMOCRATIQUE ET POPULAIRE
+</h1> 
+<p style="font-family: Arial, sans-serif; font-size: 16pt; font-weight: bold; margin-left: 40px;"> 
+Ministère de la Communication
+    </p>
+<h1 style="text-align: center; font-family: Cambria, sans-serif; font-size: 18pt; font-weight: bold;">
+    1<span style="position: relative; top: -5px; font-size: 0.6em;">ERE</span> PARTIE:
+</h1>
+<p style="font-family: Arial, sans-serif; font-size: 16pt; font-weight: bold; text-align: center;/*margin-left: 820px;*/"> 
+            LES CREDITS BUDGETAIRES
+    </p>
+
+
 <h1>
      @for($i=0;$i< count($programmes);$i++)
      @foreach ($programmes[$i] as $programme)
@@ -79,7 +97,7 @@
     @endforeach
     @endfor
     
-    <p>1.1. LES CREDITS DU PORTEFEUILLE DE PROGRAMMES ( 
+    <p style="font-family: Arial, sans-serif; font-size: 16pt; font-weight: bold;">1.1. LES CREDITS DU PORTEFEUILLE DE PROGRAMMES ( 
     @for($i=0;$i< count($filcode);$i++)
     {{$filcode[$i]}} 
     @if ($i < count($filcode) - 1)
@@ -89,7 +107,7 @@
     ):
     </p>
     </h1>
-    <h1>1.1.1. CREDITS OUVERTS PAR LA LOI DE FINANCES ET REPARTIS PAR LE DECRET DE REPARTITION :</h1>
+    <h1 style="font-family: Arial, sans-serif; font-size: 14pt; font-weight: bold;">1.1.1. CREDITS OUVERTS PAR LA LOI DE FINANCES ET REPARTIS PAR LE DECRET DE REPARTITION :</h1>
     <table >
     
             <tr>
@@ -202,8 +220,8 @@
 
         </tbody>
     </table>
-    
-    <h1> 1.1.2. CREDITS ATTENDUS DEVENUS DISPONIBLES EN COURS D’ANNEE 2024 </h1>
+    <div class="page-break"> </div>
+    <h1 style="font-family: Arial, sans-serif; font-size: 14pt; font-weight: bold;"> 1.1.2. CREDITS ATTENDUS DEVENUS DISPONIBLES EN COURS D’ANNEE <?php echo date("Y"); ?> </h1>
     <table >
     
             <tr>
@@ -553,8 +571,8 @@
 
         </tbody>
     </table>
-
-    <h1> NOUVELLE SITUATION (CREDITS OUVERTS + CREDITS DEVENUS DISPONIBLES) :</h1>
+    <div class="page-break"> </div>
+    <h1 style=" font-family: Cambria, sans-serif; font-size: 14pt; font-weight: bold;"> NOUVELLE SITUATION (CREDITS OUVERTS + CREDITS DEVENUS DISPONIBLES) :</h1>
      <table >
     
             <tr>
@@ -579,7 +597,9 @@
             </tr>
      
         <tbody>
-
+        @php
+            $indiceProg = [];  //pour calculer nbr de prog les indices 1 2 3 etc pour le stocker dans total h1 
+        @endphp
             {{-- Boucle sur les programmes --}}
            @php $total_t1_ae = $total_t1_cp = $total_t2_ae = $total_t2_cp = $total_t3_ae = $total_t3_cp = $total_t4_ae = $total_t4_cp = 0;
             @endphp
@@ -592,7 +612,8 @@
          
           
             $code = $code[$last];
-           
+            $indiceProg[] = $i + 1;
+           // dd($indiceProg);
             @endphp
                 <tr class="program-title">
                     
@@ -705,7 +726,7 @@
             @endforeach
             @endfor
             <tr >
-                <th colspan="2" class="vert3">TOTAL DES CREDITS DISPONIBLES POUR LE PROGRAMME (1) + (2) </th>
+                <th colspan="2" class="vert3">TOTAL DES CREDITS DISPONIBLES POUR LE PROGRAMME ({{ implode(') + (', $indiceProg) }}) </th>
                 <td class="vert3">{{ number_format((float)$total_t1_ae, 2, '.', ',')}}</td>
                 <td class="vert3">{{ number_format((float)$total_t1_cp, 2, '.', ',')}}</td>
                 <td class="vert3">{{ number_format((float)$total_t2_ae, 2, '.', ',')}}</td>

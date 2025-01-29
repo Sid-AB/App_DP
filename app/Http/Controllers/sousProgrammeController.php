@@ -50,7 +50,7 @@ public function check_sous_prog(Request $request)
     $sousprog = SousProgramme::where('num_sous_prog', $request->num_sous_prog)->first();
     $initPort = initPort::where('num_sous_prog', $request->num_sous_prog)->first();
     // Vérification des données
-    
+    //dd($request);
     if ($sousprog && $initPort) {
         return response()->json([
             'exists' => true,
@@ -81,7 +81,7 @@ public function check_sous_prog(Request $request)
        
         if(isset($initPort) )
         {
-            dd($initPort);
+           // dd($initPort);
             return response()->json([
                 'exists' => true,
     

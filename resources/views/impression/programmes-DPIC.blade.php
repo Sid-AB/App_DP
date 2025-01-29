@@ -105,13 +105,12 @@
 
 </head>
 <body>
-<h1 style="text-align:center;">
-    1<span style="vertical-align: super; font-size: 1rem; margin-left: -0.1rem;">ERE</span> PARTIE:
+<h1 style="text-align: center; font-family: Cambria, sans-serif; font-size: 18pt; font-weight: bold;">
+    1<span style="position: relative; top: -5px; font-size: 0.6em;">ERE</span> PARTIE:
 </h1>
-
-    <h1 style="text-align:center;"> 
+<p style="font-family: Arial, sans-serif; font-size: 16pt; font-weight: bold; text-align: center;/*margin-left: 820px;*/"> 
             LES CREDITS BUDGETAIRES
-    </h1>
+    </p>
     <h1>
         @for($i=0;$i< count($programmes);$i++)
         @foreach ($programmes[$i] as $programme)
@@ -124,7 +123,7 @@
         @endphp
         @endforeach
         @endfor
-    <p> 1.2. LA PROGRAMMTION DES CREDITS DES PROGRAMMES ( 
+    <p style="font-family: Arial, sans-serif; font-size:18pt; font-weight: bold;"> 1.2. LA PROGRAMMTION DES CREDITS DES PROGRAMMES ( 
     @for($i=0;$i< count($filcode);$i++)
     {{$filcode[$i]}} 
     @if ($i < count($filcode) - 1)
@@ -135,7 +134,7 @@
     </p>
    
     </h1>
-    <h1> 1.2.1. PROGRAMMATION DES CREDITS OUVERTS PAR LA LOI DE FINANCES ET REPARTIS PAR LE DECRET DE REPARTITION :</h1>
+    <h1 style="font-family: Arial, sans-serif; font-size: 16pt; font-weight: bold;"> 1.2.1. PROGRAMMATION DES CREDITS OUVERTS PAR LA LOI DE FINANCES ET REPARTIS PAR LE DECRET DE REPARTITION :</h1>
     {{-- Boucle sur les programmes --}}
     @for($i = 0; $i < count($programmes); $i++)
         @foreach ($programmes[$i] as $programme)
@@ -214,6 +213,8 @@
                                             $code = explode('-', $action['code']);
                                             $last = count($code) - 1;
                                             $code = $code[$last];
+                                            //dd($action);
+                                            
                                         @endphp
 
                                         <tr >
@@ -228,38 +229,43 @@
                                             <td>{{ number_format((float)$action['TotalT']['TotalT4_AE_ini'], 2, '.', ',') }}</td>
                                             <td>{{ number_format((float)$action['TotalT']['TotalT4_CP_ini'], 2, '.', ',') }}</td>
                                         </tr>
+
+                                        {{-- Total des actions pour le sous-programme --}}
+                                        <tr class="ttaction-title">
+                                            <td class="ttaction-title"colspan="2">Total des actions</td>
+                                            <td  class="ttaction-title">{{ number_format((float)$sousProgramme['Total']['TotalT1_AE_ini'], 2, '.', ',') }}</td>
+                                            <td  class="ttaction-title">{{ number_format((float)$sousProgramme['Total']['TotalT1_CP_ini'], 2, '.', ',') }}</td>
+                                            <td  class="ttaction-title">{{ number_format((float)$sousProgramme['Total']['TotalT2_AE_ini'], 2, '.', ',') }}</td>
+                                            <td  class="ttaction-title">{{ number_format((float)$sousProgramme['Total']['TotalT2_CP_ini'], 2, '.', ',') }}</td>
+                                            <td  class="ttaction-title">{{ number_format((float)$sousProgramme['Total']['TotalT3_AE_ini'], 2, '.', ',') }}</td>
+                                            <td  class="ttaction-title">{{ number_format((float)$sousProgramme['Total']['TotalT3_CP_ini'], 2, '.', ',') }}</td>
+                                            <td  class="ttaction-title">{{ number_format((float)$sousProgramme['Total']['TotalT4_AE_ini'], 2, '.', ',') }}</td>
+                                            <td  class="ttaction-title">{{ number_format((float)$sousProgramme['Total']['TotalT4_CP_ini'], 2, '.', ',') }}</td>
+                                        </tr>
+
                                     @endforeach
+                                    
                                 @endfor
                             @endif
 
-                            {{-- Total des actions pour le sous-programme 
-                            <tr class="ttaction-title">
-                                <td class="ttaction-title"colspan="2">Total des actions</td>
-                                <td class="ttaction-title">{{ number_format((float)$sousProgramme['Total']['TotalT1_AE'], 2, '.', ',') }}</td>
-                                <td class="ttaction-title">{{ number_format((float)$sousProgramme['Total']['TotalT1_CP'], 2, '.', ',') }}</td>
-                                <td class="ttaction-title">{{ number_format((float)$sousProgramme['Total']['TotalT2_AE'], 2, '.', ',') }}</td>
-                                <td class="ttaction-title">{{ number_format((float)$sousProgramme['Total']['TotalT2_CP'], 2, '.', ',') }}</td>
-                                <td class="ttaction-title">{{ number_format((float)$sousProgramme['Total']['TotalT3_AE'], 2, '.', ',') }}</td>
-                                <td class="ttaction-title">{{ number_format((float)$sousProgramme['Total']['TotalT3_CP'], 2, '.', ',') }}</td>
-                                <td class="ttaction-title">{{ number_format((float)$sousProgramme['Total']['TotalT4_AE'], 2, '.', ',') }}</td>
-                                <td class="ttaction-title">{{ number_format((float)$sousProgramme['Total']['TotalT4_CP'], 2, '.', ',') }}</td>
-                            </tr>--}}
+                           
                         @endforeach
                     @endfor
-
+                  
+                           
                     {{-- Section "Eventuels crédits non répartis" --}}
-                    <tr class="event-title">
-                        <td colspan="2">Eventuels crédits non répartis</td>
-                        <td >0 </td>
-                        <td >0</td>
-                        <td >0</td>
-                        <td >0</td>
-                        <td >0</td>
-                        <td >0</td>
-                        <td >0</td>
-                        <td >0</td>
+                                        <tr class="event-title">
+                                            <td colspan="2">Eventuels crédits non répartis</td>
+                                            <td >0 </td>
+                                            <td >0</td>
+                                            <td >0</td>
+                                            <td >0</td>
+                                            <td >0</td>
+                                            <td >0</td>
+                                            <td >0</td>
+                                            <td >0</td>
 
-                    </tr>
+                                        </tr>
 
                     {{-- Total des actions/crédits ouverts pour le programme --}}
                     <tr class="totals">

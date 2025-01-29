@@ -154,7 +154,9 @@ function print_dpa($numport)
             ];
                 array_push($act_ini,['actions'=>['code'=>$actsect->num_action,"nom"=>$actsect->nom_action,'TotalT'=>$ttall]]);
                 
-            }
+               // dd($act_ini); 
+               }
+            
             else
             {
 
