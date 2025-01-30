@@ -926,7 +926,7 @@ calaulsomeAE_CP_sprog()
                                                     // Ajout du numéro de l'action au chemin
                                                     path.push(numaction_year);
                                                     path3.push(num_act);
-
+                                                    upload_file('file',numaction_year)
                                                     console.log('A path: ' + JSON.stringify(path));
                                                     $('#confirm-holder_act').empty()
                                                     $('#confirm-holder_act').append('<i class="fas fa-wrench"></i>')
@@ -1245,8 +1245,7 @@ calaulsomeAE_CP_sprog()
                                         alert(response.message)
                                                 path.push(numsouprog_year);
                                                 $('.the-path').append(nexthop)
-                                                parent.empty();
-                                                parent.append('<i class="fas fa-wrench"></i>')
+                                               
                                                  document.getElementById("creati-act").style.display="block";
                                  /*   $.ajax({
                                         url:'/init_ports',
@@ -1314,9 +1313,8 @@ if(id == "add-prg1")
                 path.push(numprog_year);
                 $('.the-path').append(nexthop)
                 console.log('testing'+numprog_year);
-
-               parent.empty();
-               parent.append('<i class="fas fa-wrench"></i>')
+                upload_file('file',numprog_year)
+               
                document.getElementById("creati-sous_prog").style.display="block";
       }
       else
