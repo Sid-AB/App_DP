@@ -429,7 +429,7 @@ public function live_File($id)
             ]);
         }
         {
-        $file=DB::table('multimedia')->where('related_id',$id)->select('filepath')->orderBy('date_upload')->first();
+        $file=DB::table('multimedia')->where('related_id',$id)->select('filepath')->orderBy('date_upload','desc')->first();
         if(!isset($file))
         {
             abort(404);
