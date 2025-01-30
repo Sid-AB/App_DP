@@ -160,7 +160,7 @@ Ministère de la Communication
                     <td style=" font-weight: bold;">{{ number_format((float)$programme['Total']['TotalT1_CP']+$programme['Total']['TotalT2_CP']+$programme['Total']['TotalT3_CP'] +$programme['Total']['TotalT4_CP'], 2, '.', ',')}}</td>
 
                 </tr>
-
+               
                 {{-- Boucle sur les sous-programmes --}}
                 @for($j = 0 ; $j < count($programme['sous_programmes']) ; $j++ )
                 @foreach ($programme['sous_programmes'][$j] as $sousProgramme)
@@ -183,7 +183,7 @@ Ministère de la Communication
                         <td>{{ number_format((float)$sousProgramme['Total']['TotalT3_AE_ini'], 2, '.', ',') }}</td>
                         <td>{{ number_format((float)$sousProgramme['Total']['TotalT3_CP_ini'], 2, '.', ',') }}</td>
                         <td>{{ number_format((float)$sousProgramme['Total']['TotalT4_AE_ini'], 2, '.', ',') }}</td>
-                        <td>{{ number_format((float)$sousProgramme['Total']['TotalT1_CP_ini'], 2, '.', ',') }}</td>
+                        <td>{{ number_format((float)$sousProgramme['Total']['TotalT4_CP_ini'], 2, '.', ',') }}</td>
 
                         <td>{{   number_format((float)$sousProgramme['Total']['TotalT1_AE_ini']+$sousProgramme['Total']['TotalT2_AE_ini']+ $sousProgramme['Total']['TotalT3_AE_ini']+$sousProgramme['Total']['TotalT4_AE_ini'], 2, '.', ',')}}</td>
                         <td>{{   number_format((float)$sousProgramme['Total']['TotalT1_CP_ini'] +$sousProgramme['Total']['TotalT2_CP_ini']+$sousProgramme['Total']['TotalT3_CP_ini'] + $sousProgramme['Total']['TotalT4_CP_ini'], 2, '.', ',')}}</td>
