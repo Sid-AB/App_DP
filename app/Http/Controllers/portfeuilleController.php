@@ -352,4 +352,88 @@ public function updateOrCreateDPIC(Portefeuille $portefeuille, bool $isUpdate)
     }
 }
 
+
+//======================================================================================
+                                // FIN Modification du portefeuille/ upload fille pdf
+//===================================================================================
+public function uploadPDF(Request $request)
+{
+    $request->validate([
+        'pdf_file' => 'mimes:pdf,jpg,jpeg,png|max:2048', // Limite à 2 MB
+        'related_id' => 'required'
+     ]);
+
+
+        // Valider le fichier PDF
+
+
+
+           $file = $request->file('pdf_file');
+           $path = $file->store('pdf_files', 'public'); // Enregistre dans storage/app/public/pdf_files
+        //  dd($file);
+          // Insérer les détails dans la base de données (table multimedia)
+          $media= DB::table('multimedia')->insert([
+              'nom_fichier' => $file->getClientOriginalName(),
+              'filepath' => $path,
+              'filetype' => $file->getClientMimeType(),
+              'size' => $file->getSize(),
+              'uploaded_by' => 1, // Assurez-vous que l'utilisateur est connecté
+              'related_id' => $request->input('related_id'),
+
+          ]);
+          //dd($media);
+
+          // Enregistrer le fichier PDF
+          if ($request->hasFile('pdf_file')) {
+
+
+             if($media)
+             {
+             // dd($media);
+              return response()->json([
+                'code'=>200,
+                'message' => 'Fichier téléchargé avec succès.']);
+             }
+            else
+             {
+          //  dd($media);
+             return response()->json(['message' => 'Aucun fichier sélectionné.','code'=>400], 400);
+
+             }
+
+
+
+       } else {
+            return response()->json(['message' => 'Aucun fichier sélectionné.'], 400);
+          }
+
+}
+
+
+public function live_File($id)
+    {
+        $ups='Opération réussie';
+        $upsnot='Echec D` Opération';
+        $numid=intval($id[1]);
+        if(!isset($id))
+        {
+            return response()->json([
+                'message'=> $upsnot,
+                'code'=> 302
+            ]);
+        }
+        {
+        $file=DB::table('multimedia')->where('related_id',$id)->select('filepath')->first();
+        if(!isset($file))
+        {
+            abort(404);
+        }
+        //dd($file);
+       // $path =$directory .'/'.$subdir. '/' .$subd.'/'.$file->hash_fichier;
+        return redirect()->to('storage/' .$file->filepath);
+        }
+        //dd($path);
+        
+    }
+
 }

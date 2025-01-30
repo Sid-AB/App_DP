@@ -1377,4 +1377,16 @@ transition-timing-function: line;
 {
   cursor: pointer;
 }
+.file_handler
+{
+  background-color: azure;
+    height: 25px;
+    width: 85px;
+    border-radius: 5px;
+    z-index: 100
+}
+.file_handler:hover
+{
+  cursor: pointer;
+}
 /***------------------------------ end --------------------***/

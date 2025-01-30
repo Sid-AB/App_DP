@@ -683,6 +683,7 @@ $('#date_insert_sousProg').on('focusout', function () {
     var num_sou_prog = $('#num_sous_prog').val(); // Récupérer la valeur de la date du programme
     // Vérifie que les deux champs sont remplis avant de continuer
     var num_sou_program = path[1] +'-'+ num_sou_prog;
+    console.log('ss'+num_sou_program)
     console.log('response.num_sou_program' + num_sou_program)
 
     if (Date_sou_program && num_sou_prog) {
@@ -691,7 +692,7 @@ $('#date_insert_sousProg').on('focusout', function () {
             url: '/check-sousprog',  // Route pour vérifier l'existence du programme
             type: 'GET',
             data: {
-                num_sous_prog: num_sou_prog,
+                num_sous_prog: num_sou_program,
             },
             success: function (response) {
                if (response.exists) {
@@ -750,6 +751,18 @@ $('#date_insert_action').on('focusout', function () {
                     $('#date_insert_action').val(response.date_insert_action).trigger('change'); // Remplir et déclencher l'événement change
                     $('#AE_act').val(ValAccountingFigures(response.AE_act)).trigger('change'); // Remplir et déclencher l'événement change
                     $('#CP_act').val(ValAccountingFigures(response.CP_act)).trigger('change'); // Remplir et déclencher l'événement change
+                    
+                   $('#T1_AE_init_AC').val(ValAccountingFigures(response.T1_AE_init)).trigger('change');
+                   $('#T1_CP_init_AC').val(ValAccountingFigures(response.T1_CP_init)).trigger('change');
+
+                   $('#T2_AE_init_AC').val(ValAccountingFigures(response.T2_AE_init)).trigger('change');
+                   $('#T2_CP_init_AC').val(ValAccountingFigures(response.T2_CP_init)).trigger('change');
+
+                   $('#T3_AE_init_AC').val(ValAccountingFigures(response.T3_AE_init)).trigger('change');
+                   $('#T3_CP_init_AC').val(ValAccountingFigures(response.T3_CP_init)).trigger('change');
+
+                   $('#T4_AE_init_AC').val(ValAccountingFigures(response.T4_AE_init)).trigger('change');
+                   $('#T4_CP_init_AC').val(ValAccountingFigures(response.T4_CP_init)).trigger('change');
                     alert('L`Action existe déjà');
 
                 }
@@ -1035,20 +1048,20 @@ calaulsomeAE_CP_sprog()
                                             AE_act: AE_act,
                                             CP_act: CP_act,
 
-                                            T1_AE_init: T1_AE_init,
-                                            T1_CP_init: T1_CP_init,
+                                            T1_AE_init_AC: T1_AE_init,
+                                            T1_CP_init_AC: T1_CP_init,
                                             code_t1: 10000,
                     
-                                                T2_AE_init: T2_AE_init,
-                                                T2_CP_init: T2_CP_init,
+                                                T2_AE_init_AC: T2_AE_init,
+                                                T2_CP_init_AC: T2_CP_init,
                                                 code_t2: 20000,
                     
-                                                T3_AE_init: T3_AE_init,
-                                                T3_CP_init: T3_CP_init,
+                                                T3_AE_init_AC: T3_AE_init,
+                                                T3_CP_init_AC: T3_CP_init,
                                                 code_t3: 30000,
                     
-                                                T4_AE_init: T4_AE_init,
-                                                T4_CP_init: T4_CP_init,
+                                                T4_AE_init_AC: T4_AE_init,
+                                                T4_CP_init_AC: T4_CP_init,
                                                 code_t4: 40000,
 
                                             _token: $('meta[name="csrf-token"]').attr('content'),

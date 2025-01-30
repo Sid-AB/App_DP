@@ -51,6 +51,22 @@ class sousOperationController extends Controller
         $date="";
         if(count($chek) > 0)
         {
+            if($chek[1] == 'portf')
+            {
+                $leng=2;
+                $progms=Portefeuille::where('num_portefeuil',$chek[0])->first();
+                $ae_glob=$progms->AE_portef;
+                $cp_glob=$progms->CP_portef;
+                $nom=$progms->nom_journal;
+                $code=$progms->num_portefeuil;
+                $date=$progms->Date_portefeuille;
+                $ref=$progms->num_journal;
+                $paths=['code_port'=>$progms->num_portefeuil];
+                $getcode=explode('-',$code);
+                $code=$getcode[0];
+                //dd($progms);
+                    return view('Portfail-in.modif',compact('ae_glob','cp_glob','nom','code','date','init_value','leng','paths','ref'));
+            }
                 if($chek[1] =='prog')
                 {
                     $leng=count(explode('-',$chek[0]));

@@ -41,8 +41,8 @@ public function check_action(Request $request)
     {
         $action = Action::where('num_action', $request->num_action)->first();
         $initPort = initPort::where('num_action', $request->num_action)->first();
-      // dd($action);
-       //dd($request);
+      //dd($initPort);
+      // dd($request);
         if ($action  && $initPort) {
             return response()->json([
                 'exists' => true,
@@ -69,7 +69,7 @@ public function check_action(Request $request)
         }
         else
         {
-            if(isset($initPort))
+            if(!isset($initPort))
             {
                 return response()->json([
                     'exists' => true,

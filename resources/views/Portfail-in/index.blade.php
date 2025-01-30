@@ -38,6 +38,10 @@
       <div class="col-12 tree">
         <ul id="father0">
           <li>
+          <div style="display: flex;align-items: center;justify-content: center;">
+           <div class="modift_handler" id="{{$allport['id']}}_portf"><i class="far fa-edit"></i></div>
+           <div class="file_handler" id="{{$allport['id']}}"><i class="fas fa-file-pdf"></i></div>
+          </div>
               <span class="member next" id="{{$allport['id']}}" style="display:inline-block;">
 
                 <!--  -->
@@ -85,7 +89,11 @@
               <li>
               <span class="next" id="{{$portf['id_prog']}}">
               <div class="edit-zone">
+              <div style="display: flex;align-items: center;justify-content: center;">
                 <div class="modift_handler" id="{{$portf['id_prog']}}_prog"><i class="far fa-edit"></i></div>
+                <div class="file_handler" id="{{$portf['id_prog']}}"><i class="fas fa-file-pdf"></i></div>
+              </div>
+                
               @if($portf['TotalAE'] == $portf['init_AE'] && $portf['TotalCP'] ==  $portf['init_CP'])
               <div class="member">
                 @else
@@ -147,7 +155,11 @@
                 <span class="next" id="{{$souportf['id_sous_prog']}}">
               
                 <div class="edit-zone">
-                 <div class="modift_handler" id="{{$souportf['id_sous_prog']}}_sprog"><i class="far fa-edit"></i></div> 
+                <div style="display: flex;align-items: center;justify-content: center;">
+                  <div class="modift_handler" id="{{$souportf['id_sous_prog']}}_sprog"><i class="far fa-edit"></i></div> 
+                  <div class="file_handler" id="{{$souportf['id_sous_prog']}}"><i class="fas fa-file-pdf"></i></div>
+                </div>
+                 
                 @if($souportf['TotalAE'] == $souportf['init_AE'] && $souportf['TotalCP'] == $souportf['init_CP'])
                 <div class="member" id="{{$souportf['id_sous_prog']}}">
                 @else
@@ -202,7 +214,11 @@
                   <li>
                   
                   @if(count($act['sous_action'])>0)
-                  <div class="modift_handler" style="margin-left: 40%;" id="act_{{$act['num_act']}}"><i class="far fa-edit"></i></div> 
+                  <div style="display: flex;align-items: center;justify-content: center;">
+                   <div class="modift_handler" id="act_{{$act['num_act']}}"><i class="far fa-edit"></i></div> 
+                   <div class="file_handler" id="d{{$act['num_act']}}"><i class="fas fa-file-pdf"></i></div>
+                </div>
+                 
                   <span class="member next" id="act_{{$act['num_act']}}" style="display:inline-block">
                   @endif
                 <div class="col-12 col-sm-6">
@@ -585,6 +601,13 @@
       console.log('the id is '+id)
       window.location.href='/DPC/modif/'+id
     })
+
+    $('.file_handler').on('click',function(){
+      var id=$(this).attr('id');
+      console.log('the id is '+id)
+      window.open('/live-pdf/'+id,'_blank')
+    })
+    
     $('.next').on('dblclick',function(){
     id=$(this).attr('id');
     var index=path.indexOf(id)

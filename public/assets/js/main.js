@@ -853,7 +853,7 @@ function check_ifnull(button) {
 
         if (isEmpty) {
             if (indice < 2) {
-                alert("Veuillez remplir tous les champs obligatoires");
+                //alert("Veuillez remplir tous les champs obligatoires");
             }
             $(this).css('box-shadow', '0 0 0 0.25rem rgb(255 0 0 / 47%)')
         }
@@ -2368,41 +2368,26 @@ $(document).ready(function () {
             data: formportinsert,
             success: function (response) {
                 if (response.code == 200 ) {
-                   let formDataFa = new FormData();
-                   formDataFa.append('pdf_file', $('#pdf_file')[0].files[0]);
-                   formDataFa.append('related_id',num_wallet);
-                   $.ajax({
-                       url:'/upload-pdf',
-                       type:'POST',
-                       data:formDataFa,
-                       processData: false,
-                       contentType: false,
-                       headers: {
-                           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token
-                       },
-                       success:function(response)
-                       {
-                           if(response.code){
-                           alert(response.message);
-                           path.push(numwall_year);
-                           path3.push(num_wallet);
+                   if(response.code == 200){
+                    upload_file('file',numwall_year)
+                    alert(response.message);
+                    path.push(numwall_year);
+                    path3.push(num_wallet);
 
-                           console.log("numwall_year path: " + JSON.stringify(path));
+                    console.log("numwall_year path: " + JSON.stringify(path));
 
-                           $(".font-bk").removeClass("back-bk");
-                           $(".wallet-path").css("display", "flex");
-                           $(".wallet-handle").empty();
-                           $(".wallet-handle").addClass('wallet-hide');
-                           $("#progam-handle").css("display", "block");
-                           $("#progam-handle").removeClass("scale-out");
-                           $("#progam-handle").addClass("scale-visible");
-                           $("#w_id").text(num_wallet);}
-                           else
-                           {
-                               alert(response.message);
-                           }
-                       }
-                   })
+                    $(".font-bk").removeClass("back-bk");
+                    $(".wallet-path").css("display", "flex");
+                    $(".wallet-handle").empty();
+                    $(".wallet-handle").addClass('wallet-hide');
+                    $("#progam-handle").css("display", "block");
+                    $("#progam-handle").removeClass("scale-out");
+                    $("#progam-handle").addClass("scale-visible");
+                    $("#w_id").text(num_wallet);}
+                    else
+                    {
+                        alert(response.message);
+                    }
                 } else if( response.code == 404) {
 
                    alert(response.message);
@@ -2575,7 +2560,7 @@ $("#add-prg").on('click', function () {
             if (response.code == 200 || response.code == 404) {
 
                if(response.code == 200){
-               if(upload_file('file',id_prog) == 200)
+               if(upload_file('file',numprog_year) == 200)
                {
                    alert(response.message)
                }}
@@ -2786,7 +2771,7 @@ $("#add-prg").on('click', function () {
                         success: function (response) {
                             if (response.code == 200 || response.code == 404) {
                                if(response.code == 200){
-                                   if(upload_file('file',sou_prog) == 200)
+                                   if(upload_file('file',numsouprog_year) == 200)
                                    {
 
                                        alert(response.message)
@@ -2907,7 +2892,7 @@ $("#add-prg").on('click', function () {
                                                     // Ajout du numéro de l'action au chemin
 
                                                     if(response.code == 200){
-                                                       if(upload_file('file',num_act) == 200)
+                                                       if(upload_file('file',numaction_year) == 200)
                                                        {
                                                            alert(response.message)
                                                        }
@@ -3101,7 +3086,7 @@ $("#add-prg").on('click', function () {
                                             success: function (response) {
                                                 if (response.code === 200 || response.code === 404) {
                                                    if(response.code == 200){
-                                                       if(upload_file('file',num_act) == 200)
+                                                       if(upload_file('file',numaction_year) == 200)
                                                        {
                                                            alert(response.message)
                                                        }

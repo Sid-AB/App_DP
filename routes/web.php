@@ -38,6 +38,7 @@ Route::controller(portfeuilleController::class)->group(function(){
     Route::get('/creation/from/{path}','show_prsuiv')->name('creation.show_prsuiv');
     Route::get('/check-portef','check_portef')->name('check.portfail');
     Route::post('/upload-pdf', 'uploadPDF')->name('upload.pdf');
+    Route::get('/live-pdf/{id}', 'live_File')->name('live.pdf');
 });
 
 //===============ROUTE PROGRAMME==============================

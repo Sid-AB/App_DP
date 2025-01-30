@@ -88,11 +88,11 @@ Object.entries(paths).forEach(([code,value])=>{
                         </form>
                         <br>
                         <div id="confirm-holder">
-                        <button class="btn btn-primary" id="add-prg4">Ajouter</button>
+                        <button class="btn btn-primary" id="add-prg4">Modifier</button>
                         <hr>
                         <div class="file-handle">
                         <input type="file" class="form-control" id="file">
-                        <button class="btn btn-primary">Ajouter le Journal</button>
+                      
                         </div>
                         </div>
                  @endif
@@ -102,7 +102,7 @@ Object.entries(paths).forEach(([code,value])=>{
                         <form >
                         <div class="form-group">
                         <label for="input1">Code dACTION</label>
-                        <input type="text" class="form-control" id="num_act" placeholder="Entrer le Code dACTION" value={{$code}}>
+                        <input type="text" class="form-control" id="num_act" placeholder="Entrer le Code dACTION" value="{{$code}}">
                         </div>
                         <div class="form-group">
                         <label for="inputDate">Date du Journal</label>
@@ -111,7 +111,7 @@ Object.entries(paths).forEach(([code,value])=>{
                         </div>
                         <div class="form-group">
                         <label for="input1">Nom dACTION</label>
-                        <input type="text" class="form-control" id="nom_act" placeholder="Entrer le Nom dACTION" value={{$nom}}>
+                        <input type="text" class="form-control" id="nom_act" placeholder="Entrer le Nom dACTION" value="{{$nom}}">
                         </div>
                         <div class="form-group" id="ElAE_act">
                         <label for="input1">AE pour Action</label>
@@ -149,11 +149,11 @@ Object.entries(paths).forEach(([code,value])=>{
                         </form>
                         <br>
                         <div id="confirm-holder">
-                        <button class="btn btn-primary" id="add-prg3">Ajouter</button>
+                        <button class="btn btn-primary" id="add-prg3">Modifier</button>
                         <hr>
                         <div class="file-handle">
                         <input type="file" class="form-control" id="file">
-                        <button class="btn btn-primary">Ajouter le Journal</button>
+                       
                         </div>
                         </div>
                  @endif
@@ -164,15 +164,15 @@ Object.entries(paths).forEach(([code,value])=>{
                  <form >
                         <div class="form-group">
                         <label for="input1">Code du Sous Programme</label>
-                        <input type="text" class="form-control" id="num_sous_prog" placeholder="Entrer le  Code du Sous Programme" value={{$code}}>
+                        <input type="text" class="form-control" id="num_sous_prog" placeholder="Entrer le  Code du Sous Programme" value='{{$code}}'>
                         </div>
                         <div class="form-group">
                         <label for="inputDate">Date du Journal</label>
-                        <input type="date" class="form-control" id="date_insert_sousProg" value={{$date}}>
+                        <input type="date" class="form-control" id="date_insert_sousProg" value="{{$date}}">
                         </div>
                         <div class="form-group">
                         <label for="input1">Nom du Sous Programme</label>
-                        <input type="text" class="form-control" id="nom_sous_prog" placeholder="Entrer le Nom du Sous Programme" value={{$nom}}>
+                        <input type="text" class="form-control" id="nom_sous_prog" placeholder="Entrer le Nom du Sous Programme" value="{{$nom}}">
                         </div>
                         <div class="form-group" id="ElAE_act">
                         <label for="input1">AE pour Sous Programme</label>
@@ -208,11 +208,11 @@ Object.entries(paths).forEach(([code,value])=>{
                         </form>
                         <br>
                         <div id="confirm-holder">
-                        <button class="btn btn-primary" id="add-prg2">modification</button>
+                        <button class="btn btn-primary" id="add-prg2">Modifier</button>
                         <hr>
                         <div class="file-handle">
                         <input type="file" class="form-control" id="file">
-                        <button class="btn btn-primary">Ajouter le Journal</button>
+                        
                         </div>
                         </div>
                  @endif
@@ -246,11 +246,11 @@ Object.entries(paths).forEach(([code,value])=>{
                         </form>
                         <br>
                         <div id="confirm-holder_prog">
-                        <button class="btn btn-primary" id="add-prg1">modification</button>
+                        <button class="btn btn-primary" id="add-prg1">Modifier</button>
                         <hr>
                         <div class="file-handle">
                         <input type="file" class="form-control" id="file">
-                        <button class="btn btn-primary">Ajouter le Journal</button>
+                        
                         </div>
                         </div>
     </div>
@@ -259,6 +259,57 @@ Object.entries(paths).forEach(([code,value])=>{
                         <br>                        
                         </div>
                  @endif
+                  @if($leng == 2)
+                  <div class="form-container">
+                  <div class="card-body"  id="creati-prog">
+                    <h5 class="card-title">
+                      <i class="fas fa-file-alt"></i> Télécharger votre Document
+                      </h5>
+                <form id="pdf-upload-form" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="num_port">Code du portefeuille</label>
+                        <input type="text" class="form-control" id="num_port" placeholder="Entrer le Code du portefeuille" value="{{$code}}">
+
+                    </div>
+                    <div class="form-group">
+                        <label for="date_crt_portf">Date de sortie du portefeuille</label>
+                        <input type="date" class="form-control" id="date_crt_portf" placeholder="Entrer la Date de sortie du portefeuille" value="{{$date}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="nom_journ">Nom du Journal</label>
+                        <input type="text" class="form-control" id="nom_journ" placeholder="Entrer le nom du journal" value="{{$nom}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="num_journ">Référence du journal</label>
+                        <input type="text" class="form-control" id="num_journ" placeholder="Entrer la Référence du journal" value="{{$ref}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="AE_portef">AE pour Portefeuille</label>
+                        <input type="text" class="form-control" id="AE_portef" placeholder="Entrer AE Portefeuille" value="{{$ae_glob}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="CP_portef">CP pour Portefeuille</label>
+                        <input type="text" class="form-control" id="CP_portef" placeholder="Entrer CP Portefeuille" value="{{$cp_glob}}">
+                    </div>
+                </form>
+                <br>
+                <button type="submit" class="btn btn-primary" id="add-wallet">
+                   Modifier
+                </button>
+                <hr>
+                        <div class="file-handle">
+                        <input type="file" class="form-control" id="file">
+                        
+                </div>
+                </div>
+                <div id="message"></div>
+
+
+
+
+
+            </div>
+                  @endif
                  </div>
                  <script>
                  var path3=Array()

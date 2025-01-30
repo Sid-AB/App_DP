@@ -625,6 +625,11 @@ if(document.getElementById("AE_prog"))
 formatAccountingFigures(document.getElementById("AE_prog"));
 formatAccountingFigures(document.getElementById("CP_prog"));
     }
+    if(document.getElementById("AE_portef"))
+        {
+    formatAccountingFigures(document.getElementById("AE_portef"));
+    formatAccountingFigures(document.getElementById("CP_portef"));
+        }
     if(document.getElementById("AE_sous_prog"))
         {
         formatAccountingFigures(document.getElementById("AE_sous_prog"));
@@ -869,7 +874,116 @@ calaulsomeAE_CP_sprog()
     });
 
 
-
+    if(id=='add-wallet')
+    
+        {
+            $("#add-wallet").on("click", function () {
+                var num_wallet = $("#num_port").val();
+                var dateprort = $("#date_crt_portf").val();
+                var year = new Date(dateprort).getFullYear(); // Extraire l'année à partir de la date
+                var numwall_year = num_wallet + '-'+ year;
+                var indice = 0;
+                var isEmpty = false;
+                var formId = $(this).parents(".card-body").attr("id");
+                console.log("and form id" + formId);
+                $("#" + formId + " form")
+                    .find("input")
+                    .each(function () {
+                        console.log("before the loop");
+                        var inputValue = $(this).val();
+        
+                        // Check if the input is not empty
+                        if (inputValue.trim() === "") {
+                            isEmpty = true;
+                            indice++;
+                        }
+        
+                        if (isEmpty) {
+                            if (indice < 2) {
+                                alert("Veuillez remplir tous les champs obligatoires");
+                            }
+                            $(this).css(
+                                "box-shadow",
+                                "0 0 0 0.25rem rgb(255 0 0 / 47%)"
+                            );
+                        }
+                    });
+                // console.log('id'+num_wallet)
+                var formportinsert = {
+                    num_portefeuil: numwall_year,
+                    Date_portefeuille: $("#date_crt_portf").val(),
+                    nom_journal: $("#nom_journ").val(),
+                    num_journal: parseInt($("#num_journ").val()),
+                    AE_portef: $("#AE_portef").val(),
+                    CP_portef: $("#CP_portef").val(),
+                    //year: year,
+                    _token: $('meta[name="csrf-token"]').attr("content"),
+                    _method: "POST",
+                };
+        
+                // Ajouter le fichier s'il est sélectionné HOUDAA
+                var fileInput = $("#inputFile")[0]; // Assurez-vous que l'input de fichier a l'ID `file`
+                if (fileInput && fileInput.files.length > 0) {
+                    formportinsert.append("inputFile", fileInput.files[0]);
+                }
+                $.ajax({
+                    url: "/creation",
+                    type: "POST",
+                    data: formportinsert,
+                    success: function (response) {
+                        if (upload_file('file',numwall_year) == 200 ) {
+                        
+                             
+                                   if(response.code){
+                                  // alert(response.message);
+                                   path.push(numwall_year);
+                                   path3.push(num_wallet);
+        
+                                   console.log("numwall_year path: " + JSON.stringify(path));
+        
+                                   $(".font-bk").removeClass("back-bk");
+                                   $(".wallet-path").css("display", "flex");
+                                   $(".wallet-handle").empty();
+                                   $(".wallet-handle").addClass('wallet-hide');
+                                   $("#progam-handle").css("display", "block");
+                                   $("#progam-handle").removeClass("scale-out");
+                                   $("#progam-handle").addClass("scale-visible");
+                                   window.location.reload()
+                                   $("#w_id").text(num_wallet);}
+                                   else
+                                   {
+                                       alert(response.message);
+                                   }
+                             
+                          
+                        } else if( response.code == 404) {
+        
+                           //alert(response.message);
+                           path.push(numwall_year);
+                           path3.push(num_wallet);
+                                window.location.reload()
+                           console.log("numwall_year path: " + JSON.stringify(path));
+                           $(".font-bk").removeClass("back-bk");
+                           $(".wallet-path").css("display", "flex");
+                           $(".wallet-handle").empty();
+                           $(".wallet-handle").addClass('wallet-hide');
+                           $("#progam-handle").css("display", "block");
+                           $("#progam-handle").removeClass("scale-out");
+                           $("#progam-handle").addClass("scale-visible");
+                           $("#w_id").text(num_wallet);
+                       }
+                           else{
+                            alert(response.message);
+                        }
+                    },
+                    error: function () {
+                        alert("error");
+                    },
+                });
+            });
+                
+        }
+ 
     if(id == "add-prg3")
     {
 
