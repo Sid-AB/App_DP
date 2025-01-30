@@ -2358,22 +2358,18 @@ $(document).ready(function () {
         };
 
         // Ajouter le fichier s'il est sélectionné HOUDAA
-        var fileInput = $("#inputFile")[0]; // Assurez-vous que l'input de fichier a l'ID `file`
-        if (fileInput && fileInput.files.length > 0) {
-            formportinsert.append("inputFile", fileInput.files[0]);
-        }
         $.ajax({
             url: "/creation",
             type: "POST",
             data: formportinsert,
             success: function (response) {
                 if (response.code == 200 ) {
-                   if(response.code == 200){
-                    upload_file('file',numwall_year)
+                    console.log('createing')
+                   
                     alert(response.message);
                     path.push(numwall_year);
                     path3.push(num_wallet);
-
+                    upload_file('file',numwall_year) 
                     console.log("numwall_year path: " + JSON.stringify(path));
 
                     $(".font-bk").removeClass("back-bk");
@@ -2383,17 +2379,15 @@ $(document).ready(function () {
                     $("#progam-handle").css("display", "block");
                     $("#progam-handle").removeClass("scale-out");
                     $("#progam-handle").addClass("scale-visible");
-                    $("#w_id").text(num_wallet);}
-                    else
-                    {
-                        alert(response.message);
-                    }
+                    $("#w_id").text(num_wallet);
+                
+                    
                 } else if( response.code == 404) {
 
                    alert(response.message);
                    path.push(numwall_year);
                    path3.push(num_wallet);
-
+                   upload_file('file',numwall_year) 
                    console.log("numwall_year path: " + JSON.stringify(path));
                    $(".font-bk").removeClass("back-bk");
                    $(".wallet-path").css("display", "flex");

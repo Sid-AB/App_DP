@@ -298,7 +298,7 @@ public function check_portef(Request $request)
 return response()->json([
     'success' => true,
     'message' => 'Portefeuille ajouté ou modifié avec succès.',
-    'code' => 404,
+    'code' => 200,
 ]);
 
 }else{
@@ -315,9 +315,14 @@ return response()->json([
         $portefeuille->id_min =1;//periodiquement
         $portefeuille->save();
 
-    }
+   
     $this->updateOrCreateDPIC($portefeuille, false);
-
+    return response()->json([
+        'success' => true,
+        'message' => 'Portefeuille ajouté ou modifié avec succès.',
+        'code' => 404,
+    ]);
+ }
 
     }
 //======================================================================================
@@ -377,6 +382,7 @@ public function uploadPDF(Request $request)
               'filepath' => $path,
               'filetype' => $file->getClientMimeType(),
               'size' => $file->getSize(),
+              'date_upload'=>now(),
               'uploaded_by' => 1, // Assurez-vous que l'utilisateur est connecté
               'related_id' => $request->input('related_id'),
 
@@ -423,7 +429,7 @@ public function live_File($id)
             ]);
         }
         {
-        $file=DB::table('multimedia')->where('related_id',$id)->select('filepath')->first();
+        $file=DB::table('multimedia')->where('related_id',$id)->select('filepath')->orderBy('date_upload')->first();
         if(!isset($file))
         {
             abort(404);
