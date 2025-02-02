@@ -214,10 +214,11 @@ function print_dpa($numport)
         $sousprog_ini=[];
         $act_ini=[];
     }
+    dd($programmes);
     for ($i=0; $i < count($programmes) ; $i++)
     {
         foreach($programmes[$i] as $prog)
-        {
+        {//dd($prog['Total']['TotalT1_AE']);
             $TtportT1AE+=$prog['Total']['TotalT1_AE'];
             $TtportT1CP+=$prog['Total']['TotalT1_CP'];
             $TtportT2AE+=$prog['Total']['TotalT2_AE'];
@@ -226,6 +227,7 @@ function print_dpa($numport)
             $TtportT3CP+=$prog['Total']['TotalT3_CP'];
             $TtportT4AE+=$prog['Total']['TotalT4_AE'];
             $TtportT4CP+=$prog['Total']['TotalT4_CP'];
+            //dd($TtportT1AE);
         };
 
     };
@@ -233,7 +235,7 @@ function print_dpa($numport)
     'TotalPortT2_AE'=>$TtportT2AE,'TotalPortT2_CP'=>$TtportT2CP,
     'TotalPortT3_AE'=>$TtportT3AE,'TotalPortT3_CP'=>$TtportT3CP,
     'TotalPortT4_AE'=>$TtportT4AE,'TotalPortT4_CP'=>$TtportT4CP]);
-    
+    dd($Ttportglob);
     //modification et article 
     $art = Article::selectRaw("id_art, CONCAT(nom_art, ' (', code_art, ')') as nom")->get();
     //dd($art);

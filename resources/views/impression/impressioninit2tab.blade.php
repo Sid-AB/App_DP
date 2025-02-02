@@ -73,7 +73,7 @@
 <h1 style="text-align: center; font-family: Arial, sans-serif; font-size: 18pt; font-weight: bold;">
 REPUBLIQUE ALGERIENNE DEMOCRATIQUE ET POPULAIRE
 </h1> 
-<p style="font-family: Arial, sans-serif; font-size: 16pt; font-weight: bold; margin-left: 40px;"> 
+<p style="font-family: Arial, sans-serif; font-size: 1pt; font-weight: bold; margin-left: 40px;"> 
 Ministère de la Communication
     </p>
 <h1 style="text-align: center; font-family: Cambria, sans-serif; font-size: 18pt; font-weight: bold;">
