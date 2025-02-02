@@ -453,7 +453,7 @@ foreach ($newArray as $item) {
 // Réindexer le tableau
 $progg = array_values($progg);
 
-//dd($progg);
+ //dd($progg);
 
     
    // dd($resultData);
@@ -461,7 +461,8 @@ $progg = array_values($progg);
     
 
   // dd($lastModif);
-    //dd($result);
+    //dd($programmes);
+    return view('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg'));
     $pdf=SnappyPdf::loadView('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg'))
     ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1);//lanscape mean orentation
           return $pdf->stream('impression_dpic.pdf');
