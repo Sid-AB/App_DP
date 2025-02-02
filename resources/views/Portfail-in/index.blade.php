@@ -216,7 +216,7 @@
                   @if(count($act['sous_action'])>0)
                   <div style="display: flex;align-items: center;justify-content: center;">
                    <div class="modift_handler" id="act_{{$act['num_act']}}"><i class="far fa-edit"></i></div> 
-                   <div class="file_handler" id="d{{$act['num_act']}}"><i class="fas fa-file-pdf"></i></div>
+                   <div class="file_handler" id="{{$act['num_act']}}"><i class="fas fa-file-pdf"></i></div>
                 </div>
                  
                   <span class="member next" id="act_{{$act['num_act']}}" style="display:inline-block">
