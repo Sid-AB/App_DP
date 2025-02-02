@@ -91,7 +91,7 @@ Object.entries(paths).forEach(([code,value])=>{
                         <hr>
                         <div class="file-handle">
                         <input type="file" class="form-control" id="file">
-                        <button class="btn btn-primary">Ajouter le Journal</button>
+                       
                         </div>
                         </div>
                  @endif
@@ -151,7 +151,7 @@ Object.entries(paths).forEach(([code,value])=>{
                         <hr>
                         <div class="file-handle">
                         <input type="file" class="form-control" id="file">
-                        <button class="btn btn-primary">Ajouter le Journal</button>
+                       
                         </div>
                         </div>
                  @endif
@@ -210,7 +210,7 @@ Object.entries(paths).forEach(([code,value])=>{
                         <hr>
                         <div class="file-handle">
                         <input type="file" class="form-control" id="file">
-                        <button class="btn btn-primary">Ajouter le Journal</button>
+                       
                         </div>
                         </div>
     </div>
@@ -268,7 +268,7 @@ Object.entries(paths).forEach(([code,value])=>{
                         <hr>
                         <div class="file-handle">
                         <input type="file" class="form-control" id="file">
-                        <button class="btn btn-primary">Ajouter le Journal</button>
+                       
                         </div>
                         </div>
                  @endif
@@ -306,7 +306,7 @@ Object.entries(paths).forEach(([code,value])=>{
                         <hr>
                         <div class="file-handle">
                         <input type="file" class="form-control" id="file">
-                        <button class="btn btn-primary">Ajouter le Journal</button>
+                       
                         </div>
                         </div>
     </div>
@@ -364,7 +364,7 @@ Object.entries(paths).forEach(([code,value])=>{
                         <hr>
                         <div class="file-handle">
                         <input type="file" class="form-control" id="file">
-                        <button class="btn btn-primary">Ajouter le Journal</button>
+                       
                         </div>
                         </div>
     </div>
@@ -423,7 +423,7 @@ Object.entries(paths).forEach(([code,value])=>{
                         <hr>
                         <div class="file-handle">
                         <input type="file" class="form-control" id="file">
-                        <button class="btn btn-primary">Ajouter le Journal</button>
+                       
                         </div>
                         </div>
                  @endif

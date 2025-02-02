@@ -39,7 +39,7 @@
   </div>
     <div class="wallet-handle">
     <div class="card">
-            <div class="card-body"  id="creati-prog">
+            <div class="card-body"  id="creati-wall">
                 <h5 class="card-title">
                     <i class="fas fa-file-alt"></i> Télécharger votre Document
                 </h5>
@@ -72,7 +72,7 @@
                     <div class="form-group" id="file_holder">
                         <!--label for="inputFile">Journal scanner</label-->
                         <label for="pdf_file">Choisissez un fichier PDF :</label>
-                        <input type="file" name="pdf_file" id="pdf_file" accept=".pdf, .jpg, .jpeg, .png">
+                        <input type="file" name="file" id="file" accept=".pdf, .jpg, .jpeg, .png">
                     </div>
 
                 </form>

@@ -1,9 +1,12 @@
+
 <?php
 
 use App\Models\Portefeuille;
 use App\Models\Programme;
 use App\Models\Action;
 use App\Models\SousProgramme;
+use App\Models\Fonctions;
+
 
 use Illuminate\Support\Facades\Route;
 
@@ -17,7 +20,7 @@ use App\Http\Controllers\groupOperationController;
 use App\Http\Controllers\opeartionController;
 use App\Http\Controllers\sousOperationController;
 use App\Http\Controllers\modificationController;
-
+use App\Http\Controllers\EmploiBudgetController;
 
 Route::get('/', function () {
  $portfs =Portefeuille::get();
@@ -35,6 +38,8 @@ Route::controller(portfeuilleController::class)->group(function(){
     Route::get('/creation/from/{path}','show_prsuiv')->name('creation.show_prsuiv');
     Route::get('/check-portef','check_portef')->name('check.portfail');
     Route::post('/upload-pdf', 'uploadPDF')->name('upload.pdf');
+    Route::get('/live-pdf/{id}', 'live_File')->name('live.pdf');
+    Route::get('/check-pdf/{id}','check_file')->name('checke.pdf');
 });
 
 //===============ROUTE PROGRAMME==============================
@@ -71,7 +76,7 @@ Route::controller(sousActionController::class)->group(function(){
     Route::post('/creationsousAction','create_sousaction')->name('creation.sousaction');
     Route::get('/allaction/{numport}','allact')->name('action.lists');
     Route::get('/printdpic/{numport}','printdpic')->name('print-dpic.lists');
-
+    Route::get('/printDPA/{numport}','print_dpa')->name('print-dpa.lists');
     Route::get('/check-sousaction','check_sousaction')->name('check.sousaction');
 });
 
@@ -113,8 +118,15 @@ Route::controller(modificationController::class)->group(function(){
 });
 Route::controller(initPortController::class)->group(function(){
     Route::post('/init_ports','create_sou_prog')->name('init.ports');
+
 });
 
+Route::controller(EmploiBudgetController::class)->group(function(){
+    Route::post('/insertemploi','insertemploi')->name('insertemploi');
+});
+
+Route::get('/impression_emplois_budgetaire', [EmploiBudgetController::class, 'index']);
+Route::get('/emplois-pdf', [EmploiBudgetController::class, 'index'])->name('emplois.pdf');
 
 /*Route::get('/testing/Action/{port}/{prog}/{sous_prog}/{act}/',function ($port,$prog,$sous_prog,$act){
 

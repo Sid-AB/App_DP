@@ -41,8 +41,8 @@ public function check_action(Request $request)
     {
         $action = Action::where('num_action', $request->num_action)->first();
         $initPort = initPort::where('num_action', $request->num_action)->first();
-      //  dd($initPort);
-       // dd($request);
+      //dd($initPort);
+      // dd($request);
         if ($action  && $initPort) {
             return response()->json([
                 'exists' => true,
@@ -69,7 +69,7 @@ public function check_action(Request $request)
         }
         else
         {
-            if(isset($initPort))
+            if(!isset($initPort))
             {
                 return response()->json([
                     'exists' => true,
@@ -118,7 +118,8 @@ public function check_action(Request $request)
         $action = action::where('num_action', $request->num_action)->first();
         $num_act= $request->num_action .'-01';
         //dd($num_act);
-        $initPort = initPort::where('num_sous_prog', $request->num_sous_prog)->first();
+        $initPort = initPort::where('num_action', $request->num_action)->first();
+        // dd($initPort);
         $sousaction = sousaction::where('num_sous_action', $request->num_act)->first();
         //dd($sousaction);
     if ($action) {
@@ -138,6 +139,7 @@ public function check_action(Request $request)
         }
             if ($initPort) {
                 // Mise à jour des données dans init_ports
+                //dd($request->T1_AE_init_AC);
                 $initPort->update([
                     'AE_init_t1' =>floatval(str_replace (',', '', $request->T1_AE_init_AC)),
                     'CP_init_t1' => floatval(str_replace (',', '', $request->T1_CP_init_AC)),

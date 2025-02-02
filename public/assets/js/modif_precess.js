@@ -424,6 +424,8 @@ function calaulsomeAE_CP_act()
             }
     })
     /**  ------------------------------------------------------ rnf ---------------- */
+
+
     /**------------------------------------ Some CP T ----------------------------- */
 
     $('#T1_CP_init_AC').on('focusin',function(){
@@ -530,14 +532,14 @@ function calaulsomeAE_CP_act()
 
     $('#T4_CP_init_AC').on('focusout',function(){
 
-        console.log('old before if'+oldTT);
+        console.log('old before if'+oldTTCP);
         if(oldCP == 0 || oldCP == '' || oldCP == '0' || oldCP == null || oldCP =='NaN')
         {
             oldCP='0'
         }
         if(oldTTCP == 0 || oldTTCP == '' || oldTTCP == '0' || oldTTCP == null || oldTTCP =='NaN' )
             {
-            someCP_TT=0;
+                someCP_TT=0;
             someCP_TT+=parseNumberWithoutCommas($(this).val())
             $('#CP_act').val(ValAccountingFigures(someCP_TT))
             console.log('TT '+someCP_TT)
@@ -618,14 +620,52 @@ function upload_file(id_file,id_relat)
    })
 
 }
+if(document.getElementById("AE_prog"))
+    {
+formatAccountingFigures(document.getElementById("AE_prog"));
+formatAccountingFigures(document.getElementById("CP_prog"));
+    }
+    if(document.getElementById("AE_portef"))
+        {
+    formatAccountingFigures(document.getElementById("AE_portef"));
+    formatAccountingFigures(document.getElementById("CP_portef"));
+        }
+    if(document.getElementById("AE_sous_prog"))
+        {
+        formatAccountingFigures(document.getElementById("AE_sous_prog"));
+        formatAccountingFigures(document.getElementById("CP_sous_prog"));
+        formatAccountingFigures(document.getElementById("T1_AE_init"));
+        formatAccountingFigures(document.getElementById("T1_CP_init"));
+        formatAccountingFigures(document.getElementById("T2_AE_init"));
+        formatAccountingFigures(document.getElementById("T2_CP_init"));
+        formatAccountingFigures(document.getElementById("T3_AE_init"));
+        formatAccountingFigures(document.getElementById("T3_CP_init"));
+        formatAccountingFigures(document.getElementById("T4_AE_init"));
+        formatAccountingFigures(document.getElementById("T4_CP_init"));
+        }
+    if(document.getElementById("AE_act"))
+            {
+            formatAccountingFigures(document.getElementById("AE_act"));
+            formatAccountingFigures(document.getElementById("CP_act"));
+            formatAccountingFigures(document.getElementById("T1_AE_init_AC"));
+            formatAccountingFigures(document.getElementById("T1_CP_init_AC"));
+            formatAccountingFigures(document.getElementById("T2_AE_init_AC"));
+            formatAccountingFigures(document.getElementById("T2_CP_init_AC"));
+            formatAccountingFigures(document.getElementById("T3_AE_init_AC"));
+            formatAccountingFigures(document.getElementById("T3_CP_init_AC"));
+            formatAccountingFigures(document.getElementById("T4_AE_init_AC"));
+            formatAccountingFigures(document.getElementById("T4_CP_init_AC"));
+            }
+
 
 $(document).ready(function(){
+   
     $('input').focus(function() {
         $(this).removeAttr('style');
     });
 
 //===================CHECK PROG==================================
-$("#date_insert_portef").on('focusout', function () {
+/*$("#date_insert_portef").on('focusout', function () {
     var num_prog = $('#num_prog').val(); // Récupérer la valeur du portefeuille
     var Date_prog = $(this).val();  // Récupérer la valeur de la date
 
@@ -673,17 +713,16 @@ $("#date_insert_portef").on('focusout', function () {
     }
 });
 
-
+*/
 //==============================FIN CHECKL PROG=============================
 
 //==============================CHECK SOUS PROG=============================
-$('#date_insert_sousProg').on('focusout', function () {
+/*$('#date_insert_sousProg').on('focusout', function () {
     var Date_sou_program = $(this).val(); // Récupérer la valeur du programme
     //var year = new Date(Date_sou_program).getFullYear(); // Extraire l'année à partir de la date
     var num_sou_prog = $('#num_sous_prog').val(); // Récupérer la valeur de la date du programme
     // Vérifie que les deux champs sont remplis avant de continuer
     var num_sou_program = path[1] +'-'+ num_sou_prog;
-    console.log('ss'+num_sou_program)
     console.log('response.num_sou_program' + num_sou_program)
 
     if (Date_sou_program && num_sou_prog) {
@@ -692,7 +731,7 @@ $('#date_insert_sousProg').on('focusout', function () {
             url: '/check-sousprog',  // Route pour vérifier l'existence du programme
             type: 'GET',
             data: {
-                num_sous_prog: num_sou_program,
+                num_sous_prog: num_sou_prog,
             },
             success: function (response) {
                if (response.exists) {
@@ -726,12 +765,12 @@ $('#date_insert_sousProg').on('focusout', function () {
         });
     }
 });
-
+*/
 //=======================FIN CHECK SOUS PROG ==================================
 
 //======================= CHECK action ==================================
 
-$('#date_insert_action').on('focusout', function () {
+/*$('#date_insert_action').on('focusout', function () {
     //alert('out')
     var date_act = $(this).val();
     var num_act = $('#num_act').val();
@@ -751,18 +790,6 @@ $('#date_insert_action').on('focusout', function () {
                     $('#date_insert_action').val(response.date_insert_action).trigger('change'); // Remplir et déclencher l'événement change
                     $('#AE_act').val(ValAccountingFigures(response.AE_act)).trigger('change'); // Remplir et déclencher l'événement change
                     $('#CP_act').val(ValAccountingFigures(response.CP_act)).trigger('change'); // Remplir et déclencher l'événement change
-                    
-                   $('#T1_AE_init_AC').val(ValAccountingFigures(response.T1_AE_init)).trigger('change');
-                   $('#T1_CP_init_AC').val(ValAccountingFigures(response.T1_CP_init)).trigger('change');
-
-                   $('#T2_AE_init_AC').val(ValAccountingFigures(response.T2_AE_init)).trigger('change');
-                   $('#T2_CP_init_AC').val(ValAccountingFigures(response.T2_CP_init)).trigger('change');
-
-                   $('#T3_AE_init_AC').val(ValAccountingFigures(response.T3_AE_init)).trigger('change');
-                   $('#T3_CP_init_AC').val(ValAccountingFigures(response.T3_CP_init)).trigger('change');
-
-                   $('#T4_AE_init_AC').val(ValAccountingFigures(response.T4_AE_init)).trigger('change');
-                   $('#T4_CP_init_AC').val(ValAccountingFigures(response.T4_CP_init)).trigger('change');
                     alert('L`Action existe déjà');
 
                 }
@@ -773,12 +800,12 @@ $('#date_insert_action').on('focusout', function () {
             }
         })
     }
-})
+})*/
 
 //=======================FIN CHECK action ==================================
 
 //===============CHECK SOUS ACTION=====================//
-$('#date_insert_sou_action').on('focusout', function () {
+/*$('#date_insert_sou_action').on('focusout', function () {
     //alert('out')
     var date_sousact = $(this).val();
     var num_sousact = $('#num_sous_action').val();
@@ -809,7 +836,7 @@ $('#date_insert_sou_action').on('focusout', function () {
             }
         })
     }
-})
+})*/
  //=============== FIN CHECK SOUS ACTION================//
 
 
@@ -840,14 +867,123 @@ calaulsomeAE_CP_sprog()
         if (isEmpty) {
             if(indice < 2)
             {
-            alert("Veuillez remplir tous les champs obligatoires");
+            //alert("Veuillez remplir tous les champs obligatoires");
             }
             $(this).css('box-shadow','0 0 0 0.25rem rgb(255 0 0 / 47%)')
         }
     });
 
 
-
+    if(id=='add-wallet')
+    
+        {
+            $("#add-wallet").on("click", function () {
+                var num_wallet = $("#num_port").val();
+                var dateprort = $("#date_crt_portf").val();
+                var year = new Date(dateprort).getFullYear(); // Extraire l'année à partir de la date
+                var numwall_year = num_wallet + '-'+ year;
+                var indice = 0;
+                var isEmpty = false;
+                var formId = $(this).parents(".card-body").attr("id");
+                console.log("and form id" + formId);
+                $("#" + formId + " form")
+                    .find("input")
+                    .each(function () {
+                        console.log("before the loop");
+                        var inputValue = $(this).val();
+        
+                        // Check if the input is not empty
+                        if (inputValue.trim() === "") {
+                            isEmpty = true;
+                            indice++;
+                        }
+        
+                        if (isEmpty) {
+                            if (indice < 2) {
+                                alert("Veuillez remplir tous les champs obligatoires");
+                            }
+                            $(this).css(
+                                "box-shadow",
+                                "0 0 0 0.25rem rgb(255 0 0 / 47%)"
+                            );
+                        }
+                    });
+                // console.log('id'+num_wallet)
+                var formportinsert = {
+                    num_portefeuil: numwall_year,
+                    Date_portefeuille: $("#date_crt_portf").val(),
+                    nom_journal: $("#nom_journ").val(),
+                    num_journal: parseInt($("#num_journ").val()),
+                    AE_portef: $("#AE_portef").val(),
+                    CP_portef: $("#CP_portef").val(),
+                    //year: year,
+                    _token: $('meta[name="csrf-token"]').attr("content"),
+                    _method: "POST",
+                };
+        
+                // Ajouter le fichier s'il est sélectionné HOUDAA
+                var fileInput = $("#inputFile")[0]; // Assurez-vous que l'input de fichier a l'ID `file`
+                if (fileInput && fileInput.files.length > 0) {
+                    formportinsert.append("inputFile", fileInput.files[0]);
+                }
+                $.ajax({
+                    url: "/creation",
+                    type: "POST",
+                    data: formportinsert,
+                    success: function (response) {
+                        if (upload_file('file',numwall_year) == 200 ) {
+                        
+                             
+                                   if(response.code){
+                                  // alert(response.message);
+                                   path.push(numwall_year);
+                                   path3.push(num_wallet);
+        
+                                   console.log("numwall_year path: " + JSON.stringify(path));
+        
+                                   $(".font-bk").removeClass("back-bk");
+                                   $(".wallet-path").css("display", "flex");
+                                   $(".wallet-handle").empty();
+                                   $(".wallet-handle").addClass('wallet-hide');
+                                   $("#progam-handle").css("display", "block");
+                                   $("#progam-handle").removeClass("scale-out");
+                                   $("#progam-handle").addClass("scale-visible");
+                                   window.location.reload()
+                                   $("#w_id").text(num_wallet);}
+                                   else
+                                   {
+                                       alert(response.message);
+                                   }
+                             
+                          
+                        } else if( response.code == 404) {
+        
+                           //alert(response.message);
+                           path.push(numwall_year);
+                           path3.push(num_wallet);
+                                window.location.reload()
+                           console.log("numwall_year path: " + JSON.stringify(path));
+                           $(".font-bk").removeClass("back-bk");
+                           $(".wallet-path").css("display", "flex");
+                           $(".wallet-handle").empty();
+                           $(".wallet-handle").addClass('wallet-hide');
+                           $("#progam-handle").css("display", "block");
+                           $("#progam-handle").removeClass("scale-out");
+                           $("#progam-handle").addClass("scale-visible");
+                           $("#w_id").text(num_wallet);
+                       }
+                           else{
+                            alert(response.message);
+                        }
+                    },
+                    error: function () {
+                        alert("error");
+                    },
+                });
+            });
+                
+        }
+ 
     if(id == "add-prg3")
     {
 
@@ -926,7 +1062,7 @@ calaulsomeAE_CP_sprog()
                                                     // Ajout du numéro de l'action au chemin
                                                     path.push(numaction_year);
                                                     path3.push(num_act);
-                                                    upload_file('file',numaction_year)
+
                                                     console.log('A path: ' + JSON.stringify(path));
                                                     $('#confirm-holder_act').empty()
                                                     $('#confirm-holder_act').append('<i class="fas fa-wrench"></i>')
@@ -1025,17 +1161,17 @@ calaulsomeAE_CP_sprog()
                                         var AE_act = $('#AE_act').val()
                                         var CP_act = $('#CP_act').val()
 
-                                        var T1_AE_init = $('#T1_AE_init_AC').val()
-                                        var T1_CP_init = $('#T1_CP_init_AC').val()
+                                        var T1_AE_init_AC = $('#T1_AE_init_AC').val()
+                                        var T1_CP_init_AC = $('#T1_CP_init_AC').val()
                     
-                                        var T2_AE_init = $('#T2_AE_init_AC').val()
-                                        var T2_CP_init = $('#T2_CP_init_AC').val()
+                                        var T2_AE_init_AC = $('#T2_AE_init_AC').val()
+                                        var T2_CP_init_AC = $('#T2_CP_init_AC').val()
                     
-                                        var T3_AE_init = $('#T3_AE_init_AC').val()
-                                        var T3_CP_init = $('#T3_CP_init_AC').val()
+                                        var T3_AE_init_AC = $('#T3_AE_init_AC').val()
+                                        var T3_CP_init_AC = $('#T3_CP_init_AC').val()
                     
-                                        var T4_AE_init = $('#T4_AE_init_AC').val()
-                                        var T4_CP_init = $('#T4_CP_init_AC').val()
+                                        var T4_AE_init_AC = $('#T4_AE_init_AC').val()
+                                        var T4_CP_init_AC = $('#T4_CP_init_AC').val()
 
                                         var id_sou_prog = path[2];
                                         var numaction_year = id_sou_prog +'-'+num_act ;
@@ -1048,20 +1184,20 @@ calaulsomeAE_CP_sprog()
                                             AE_act: AE_act,
                                             CP_act: CP_act,
 
-                                            T1_AE_init_AC: T1_AE_init,
-                                            T1_CP_init_AC: T1_CP_init,
+                                            T1_AE_init_AC: T1_AE_init_AC,
+                                            T1_CP_init_AC: T1_CP_init_AC,
                                             code_t1: 10000,
                     
-                                                T2_AE_init_AC: T2_AE_init,
-                                                T2_CP_init_AC: T2_CP_init,
+                                                T2_AE_init_AC: T2_AE_init_AC,
+                                                T2_CP_init_AC: T2_CP_init_AC,
                                                 code_t2: 20000,
                     
-                                                T3_AE_init_AC: T3_AE_init,
-                                                T3_CP_init_AC: T3_CP_init,
+                                                T3_AE_init_AC: T3_AE_init_AC,
+                                                T3_CP_init_AC: T3_CP_init_AC,
                                                 code_t3: 30000,
                     
-                                                T4_AE_init_AC: T4_AE_init,
-                                                T4_CP_init_AC: T4_CP_init,
+                                                T4_AE_init_AC: T4_AE_init_AC,
+                                                T4_CP_init_AC: T4_CP_init_AC,
                                                 code_t4: 40000,
 
                                             _token: $('meta[name="csrf-token"]').attr('content'),
@@ -1077,19 +1213,19 @@ calaulsomeAE_CP_sprog()
                                                     path.push(numaction_year);
                                                     path3.push(num_act);
 
-                                                    console.log('response.num_sous_action: ' + response.num_sous_action);
-                                                    path.push(response.num_sous_action);
-                                                    console.log('response.num_sous_action: ' +response.num_sous_action);
-                                                    console.log('path: ' + JSON.stringify(path));
+                                                   // console.log('response.num_sous_action: ' + response.num_sous_action);
+                                                   // path.push(response.num_sous_action);
+                                                   // console.log('response.num_sous_action: ' +response.num_sous_action);
+                                                   // console.log('path: ' + JSON.stringify(path));
                                                     if (response.num_sous_action && response.count_sous_action < 2) {
-                                                        // console.log('path: ' + JSON.stringify(path));
-                                                        window.location.href = '/testing/S_action/' + path.join('/');
+                                                        console.log('path: ' + JSON.stringify(path));
+                                                     //   window.location.href = '/testing/S_action/' + path[0]+"/"+path[1]+"/"+path[2]+"/"+path[3]+"/"+path[5]+"/";
                                                     } else if (response.count_sous_action >= 2) {
                                                         console.log('response.num_sous_action: ' + response.num_sous_action);
-                                                        window.location.href = '/Portfail/' + response.numPortef;
+                                                       // window.location.href = '/Portfail/' + response.numPortef;
                                                     } else {
-                                                        // console.log('path: ' + JSON.stringify(path));
-                                                        window.location.href = '/testing/Action/' + path.join('/');
+                                                         console.log('path: ' + JSON.stringify(path));
+                                                       // window.location.href = '/testing/Action/' + path.join('/');
                                                     }
 
 
@@ -1241,12 +1377,10 @@ calaulsomeAE_CP_sprog()
                                         {
 
                                             alert(response.message)
+
                                         }
                                         alert(response.message)
-                                                path.push(numsouprog_year);
-                                                $('.the-path').append(nexthop)
-                                               
-                                                 document.getElementById("creati-act").style.display="block";
+                                             window.location.reload()
                                  /*   $.ajax({
                                         url:'/init_ports',
                                         type:'POST',
@@ -1307,15 +1441,10 @@ if(id == "add-prg1")
         type: "POST",
         data: formprogdata,
         success: function (response) {
-            if (response.code == 200 || response.code == 404) {
-
+            if (upload_file('file',numprog_year) == 200) {
+                
                 alert(response.message)
-                path.push(numprog_year);
-                $('.the-path').append(nexthop)
-                console.log('testing'+numprog_year);
-                upload_file('file',numprog_year)
-               
-               document.getElementById("creati-sous_prog").style.display="block";
+                window.location.reload()
       }
       else
       {

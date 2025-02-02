@@ -4,7 +4,7 @@
     <img src="{{asset('assets/img/logo_ministere.svg')}}"/>
   </div>
   <div class="elements-container dflex">
-    <a class="element" href="http://127.0.0.1:8000">
+    <a class="element" href="/">
       <i class="fas fa-tachometer-alt"></i> Tableau du Portefeuille
       </a>
       @if(isset($port) || isset($allport) || isset($paths))
@@ -52,6 +52,19 @@
         @endif
       @endif
         <i class="fas fa-wrench"></i> Suivi Des Transaction Du Portfail
+      </a>
+      @endif
+      @if(isset($port) || isset($allport) || isset($paths))
+      @if(isset($port))
+      <a class="element" href="/printdpic/{{$port}}" target="_blank">
+      @else
+        @if(isset($paths))
+        <a class="element" href="/printdpic/{{$paths['code_port']}}" target="_blank">
+        @else
+      <a class="element" href="/printdpic/{{$allport['id']}}" target="_blank">
+        @endif
+      @endif
+      <i class="fas fa-print"></i> Imprimer Dpic
       </a>
       @endif
   </div>

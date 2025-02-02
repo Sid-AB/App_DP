@@ -51,6 +51,22 @@ class sousOperationController extends Controller
         $date="";
         if(count($chek) > 0)
         {
+            if($chek[1] == 'portf')
+            {
+                $leng=2;
+                $progms=Portefeuille::where('num_portefeuil',$chek[0])->first();
+                $ae_glob=$progms->AE_portef;
+                $cp_glob=$progms->CP_portef;
+                $nom=$progms->nom_journal;
+                $code=$progms->num_portefeuil;
+                $date=$progms->Date_portefeuille;
+                $ref=$progms->num_journal;
+                $paths=['code_port'=>$progms->num_portefeuil];
+                $getcode=explode('-',$code);
+                $code=$getcode[0];
+                //dd($progms);
+                    return view('Portfail-in.modif',compact('ae_glob','cp_glob','nom','code','date','init_value','leng','paths','ref'));
+            }
                 if($chek[1] =='prog')
                 {
                     $leng=count(explode('-',$chek[0]));
@@ -99,8 +115,10 @@ class sousOperationController extends Controller
                 }
                 else
                 {
+                   
                     $leng=count(explode('-',$chek[1]));
                     $act=Action::where('num_action',$chek[1])->first();
+                    //dd($act);
                     $sprog=SousProgramme::where('num_sous_prog',$act->num_sous_prog)->first();
                     $progms=Programme::where('num_prog',$sprog->num_prog)->first();
                    // dd($act);
@@ -108,7 +126,7 @@ class sousOperationController extends Controller
                     $cp_glob=$act->CP_action;
                     $nom=$act->nom_action;
                     $code=$act->num_action;
-                    $date=$act->date_insert_sousProg;
+                    $date=$act->date_insert_action;
 
                     $init=initPort::where('num_action',$code)->first();
                     if(!empty($init->num_action)){
