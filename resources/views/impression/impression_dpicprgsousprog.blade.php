@@ -135,7 +135,7 @@
                     <td style=" font-weight: bold;">{{ number_format((float)$programme['Total']['TotalT1_CP']+$programme['Total']['TotalT2_CP']+$programme['Total']['TotalT3_CP'] +$programme['Total']['TotalT4_CP'], 2, '.', ',')}}</td>
 
                 </tr>
-
+                
                 {{-- Boucle sur les sous-programmes --}}
                 @for($j = 0 ; $j < count($programme['sous_programmes']) ; $j++ )
                 @foreach ($programme['sous_programmes'][$j] as $sousProgramme)
@@ -174,7 +174,7 @@
                 <td class="vert3">{{ number_format((float)$Ttportglob[0]['TotalPortT1_CP'], 2, '.', ',')}}</td>
                 <td class="vert3">{{ number_format((float)$Ttportglob[0]['TotalPortT2_AE'], 2, '.', ',')}}</td>
                 <td class="vert3">{{ number_format((float)$Ttportglob[0]['TotalPortT2_CP'], 2, '.', ',')}}</td>
-                <td class="vert3"> {{ number_format((float)$Ttportglob[0]['TotalPortT3_AE'], 2, '.', ',')}}</td>
+                <td class="vert3">{{ number_format((float)$Ttportglob[0]['TotalPortT3_AE'], 2, '.', ',')}}</td>
                 <td class="vert3">{{ number_format((float)$Ttportglob[0]['TotalPortT3_CP'], 2, '.', ',')}}</td>
                 <td class="vert3">{{ number_format((float)$Ttportglob[0]['TotalPortT4_AE'], 2, '.', ',')}}</td>
                 <td class="vert3">{{ number_format((float)$Ttportglob[0]['TotalPortT4_CP'], 2, '.', ',')}}</td>

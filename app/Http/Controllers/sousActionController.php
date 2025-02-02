@@ -214,7 +214,7 @@ function print_dpa($numport)
         $sousprog_ini=[];
         $act_ini=[];
     }
-    dd($programmes);
+  
     for ($i=0; $i < count($programmes) ; $i++)
     {
         foreach($programmes[$i] as $prog)
@@ -231,6 +231,7 @@ function print_dpa($numport)
         };
 
     };
+
     array_push($Ttportglob,['TotalPortT1_AE'=>$TtportT1AE,'TotalPortT1_CP'=>$TtportT1CP,
     'TotalPortT2_AE'=>$TtportT2AE,'TotalPortT2_CP'=>$TtportT2CP,
     'TotalPortT3_AE'=>$TtportT3AE,'TotalPortT3_CP'=>$TtportT3CP,

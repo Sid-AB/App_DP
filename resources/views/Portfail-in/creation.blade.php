@@ -39,7 +39,7 @@
   </div>
     <div class="wallet-handle">
     <div class="card">
-            <div class="card-body"  id="creati-prog">
+            <div class="card-body"  id="creati-wall">
                 <h5 class="card-title">
                     <i class="fas fa-file-alt"></i> Télécharger votre Document
                 </h5>

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('filetype');// pdf || word
             $table->string('description')->nullable();
             $table->integer('size');
+            $table->DateTime('date_upload')->nullable();
             $table->unsignedBigInteger('uploaded_by'); // user id
             $table->string('related_id'); // port || prog || sousProg|| action
             //$table->string('num_portefeuil');
