@@ -441,5 +441,17 @@ public function live_File($id)
         //dd($path);
         
     }
-
+    public function check_file($id)
+        {
+            $file=DB::table('multimedia')->where('related_id',$id)->select('filepath')->orderBy('date_upload','desc')->get();
+            //dd($file);
+            if(count($file) > 0)
+            {
+                return response()->json(['code'=>200]);
+            }
+            else
+            {
+                return response()->json(['code'=>404]);
+            }
+        }
 }
