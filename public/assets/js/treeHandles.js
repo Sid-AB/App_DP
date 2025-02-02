@@ -45,6 +45,7 @@ $(document).ready(function(){
   var type_port='';
   var AE_port=0;
   var CP_port=0;
+
     $('.update-handl').on('click',function(){
       var id=$(this).parent().parent().attr('id');
       var port=$('.family-tree').attr('id');
@@ -422,4 +423,32 @@ $('#button-71').on('click',function(){
     })
   })
   formatAccountingFigures()
+
+
+
+  /**
+   * function of checking files
+   */
+
+    var elment=$('.two_handel');
+
+    elment.each(function(){
+      var ids = $(this).attr('id');
+      var id=ids.split('_')  
+      $.ajax({
+        type:'GET',
+        url:'/check-pdf/'+id[0],
+        success:function(response)
+        {
+          if(response.code == 404)
+          {
+            $("#"+ids+' .file_handler').addClass('scale-hidden')
+           // console.log('#class="two_handel"'+ids);
+          }
+        }
+      })
+    })
+  /**
+   * ending
+   */
 })

@@ -38,7 +38,7 @@
       <div class="col-12 tree">
         <ul id="father0">
           <li>
-          <div style="display: flex;align-items: center;justify-content: center;">
+          <div class="two_handel" style="display: flex;align-items: center;justify-content: center;" id="{{$allport['id']}}_file">
            <div class="modift_handler" id="{{$allport['id']}}_portf"><i class="far fa-edit"></i></div>
            <div class="file_handler" id="{{$allport['id']}}"><i class="fas fa-file-pdf"></i></div>
           </div>
@@ -89,7 +89,7 @@
               <li>
               <span class="next" id="{{$portf['id_prog']}}">
               <div class="edit-zone">
-              <div style="display: flex;align-items: center;justify-content: center;">
+              <div class="two_handel" style="display: flex;align-items: center;justify-content: center;" id="{{$portf['id_prog']}}_file">
                 <div class="modift_handler" id="{{$portf['id_prog']}}_prog"><i class="far fa-edit"></i></div>
                 <div class="file_handler" id="{{$portf['id_prog']}}"><i class="fas fa-file-pdf"></i></div>
               </div>
@@ -155,7 +155,7 @@
                 <span class="next" id="{{$souportf['id_sous_prog']}}">
               
                 <div class="edit-zone">
-                <div style="display: flex;align-items: center;justify-content: center;">
+                <div class="two_handel" style="display: flex;align-items: center;justify-content: center;" id="{{$souportf['id_sous_prog']}}_file">
                   <div class="modift_handler" id="{{$souportf['id_sous_prog']}}_sprog"><i class="far fa-edit"></i></div> 
                   <div class="file_handler" id="{{$souportf['id_sous_prog']}}"><i class="fas fa-file-pdf"></i></div>
                 </div>
@@ -214,7 +214,7 @@
                   <li>
                   
                   @if(count($act['sous_action'])>0)
-                  <div style="display: flex;align-items: center;justify-content: center;">
+                  <div class="two_handel" style="display: flex;align-items: center;justify-content: center;" id="{{$act['num_act']}}_file">
                    <div class="modift_handler" id="act_{{$act['num_act']}}"><i class="far fa-edit"></i></div> 
                    <div class="file_handler" id="{{$act['num_act']}}"><i class="fas fa-file-pdf"></i></div>
                 </div>
@@ -586,9 +586,10 @@
     const children = member.nextElementSibling;
     if (children) {
       if (children.style.display === 'flex') {
-     
+        
         children.style.display = 'none';
       } else {
+      
         children.style.display = 'flex';
         
       }
