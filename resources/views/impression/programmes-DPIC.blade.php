@@ -214,7 +214,6 @@
                                             $last = count($code) - 1;
                                             $code = $code[$last];
                                             //dd($action);
-                                            
                                         @endphp
 
                                         <tr >
@@ -231,21 +230,22 @@
                                         </tr>
 
                                         {{-- Total des actions pour le sous-programme --}}
-                                        <tr class="ttaction-title">
-                                            <td class="ttaction-title"colspan="2">Total des actions</td>
-                                            <td  class="ttaction-title">{{ number_format((float)$sousProgramme['Total']['TotalT1_AE_ini'], 2, '.', ',') }}</td>
-                                            <td  class="ttaction-title">{{ number_format((float)$sousProgramme['Total']['TotalT1_CP_ini'], 2, '.', ',') }}</td>
-                                            <td  class="ttaction-title">{{ number_format((float)$sousProgramme['Total']['TotalT2_AE_ini'], 2, '.', ',') }}</td>
-                                            <td  class="ttaction-title">{{ number_format((float)$sousProgramme['Total']['TotalT2_CP_ini'], 2, '.', ',') }}</td>
-                                            <td  class="ttaction-title">{{ number_format((float)$sousProgramme['Total']['TotalT3_AE_ini'], 2, '.', ',') }}</td>
-                                            <td  class="ttaction-title">{{ number_format((float)$sousProgramme['Total']['TotalT3_CP_ini'], 2, '.', ',') }}</td>
-                                            <td  class="ttaction-title">{{ number_format((float)$sousProgramme['Total']['TotalT4_AE_ini'], 2, '.', ',') }}</td>
-                                            <td  class="ttaction-title">{{ number_format((float)$sousProgramme['Total']['TotalT4_CP_ini'], 2, '.', ',') }}</td>
-                                        </tr>
+                                       
 
                                     @endforeach
                                     
                                 @endfor
+                                <tr class="ttaction-title">
+                                    <td class="ttaction-title"colspan="2">Total des actions</td>
+                                    <td  class="ttaction-title">{{ number_format((float)$sousProgramme['Total']['TotalT1_AE_ini'], 2, '.', ',') }}</td>
+                                    <td  class="ttaction-title">{{ number_format((float)$sousProgramme['Total']['TotalT1_CP_ini'], 2, '.', ',') }}</td>
+                                    <td  class="ttaction-title">{{ number_format((float)$sousProgramme['Total']['TotalT2_AE_ini'], 2, '.', ',') }}</td>
+                                    <td  class="ttaction-title">{{ number_format((float)$sousProgramme['Total']['TotalT2_CP_ini'], 2, '.', ',') }}</td>
+                                    <td  class="ttaction-title">{{ number_format((float)$sousProgramme['Total']['TotalT3_AE_ini'], 2, '.', ',') }}</td>
+                                    <td  class="ttaction-title">{{ number_format((float)$sousProgramme['Total']['TotalT3_CP_ini'], 2, '.', ',') }}</td>
+                                    <td  class="ttaction-title">{{ number_format((float)$sousProgramme['Total']['TotalT4_AE_ini'], 2, '.', ',') }}</td>
+                                    <td  class="ttaction-title">{{ number_format((float)$sousProgramme['Total']['TotalT4_CP_ini'], 2, '.', ',') }}</td>
+                                </tr>
                             @endif
 
                            

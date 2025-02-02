@@ -101,7 +101,7 @@ Object.entries(paths).forEach(([code,value])=>{
   <div class="form-container" id="creati-act">
                         <form >
                         <div class="form-group">
-                        <label for="input1">Code dACTION</label>
+                        <label for="input1">Code D 'ACTION</label>
                         <input type="text" class="form-control" id="num_act" placeholder="Entrer le Code dACTION" value="{{$code}}">
                         </div>
                         <div class="form-group">
@@ -115,7 +115,7 @@ Object.entries(paths).forEach(([code,value])=>{
                         </div>
                         <div class="form-group" id="ElAE_act">
                         <label for="input1">AE pour Action</label>
-                        <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="AE_act" placeholder="Entrer AE Action" value={{$cp_glob}} disabled>
+                        <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="AE_act" placeholder="Entrer AE Action" value={{$ae_glob}} disabled>
                         </div>
                         <div class="form-group" id="ElCP_act">
                         <label for="input1">CP pour Action</label>

@@ -142,6 +142,8 @@ function print_dpa($numport)
            // dd($initsprog);
             foreach($initsprog as $init)
             {
+                $ttall=[];
+                $act_ini=[];
                if (isset($init->num_action))
             {
 
@@ -192,8 +194,7 @@ function print_dpa($numport)
             
         array_push($sousprog_ini,['sous_programmes'=>['code'=>$sprog->num_sous_prog,"nom"=>$sprog->nom_sous_prog,'actions'=>$act_ini,"Total"=>$ttall]]); }
        
-        $ttall=[];
-        $act_ini=[];
+       
             }
 
            
@@ -238,7 +239,7 @@ function print_dpa($numport)
     
     //modification et article 
     $art = Article::selectRaw("id_art, CONCAT(nom_art, ' (', code_art, ')') as nom")->get();
-    //dd($art);
+    //dd($programmes);
     $modif = DB::table('modification_t_s as m1')
     ->join('articles', 'm1.id_art', '=', 'articles.id_art')
     ->select(
