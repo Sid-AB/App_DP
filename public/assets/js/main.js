@@ -3306,7 +3306,19 @@ $('#corcom').on('click',function()
                     tr_annuel:$('#tr_annuel').val(),
                     pr_ind:$('#pr_ind').val(),
                     depn_annuel:$('#depn_annuel').val(),
+                    code_t1:10000,
+                    _token: $('meta[name="csrf-token"]').attr("content"),
+                    _method: "POST",
                 }
+                console.log('befor ajax')
+                $.ajax({
+                    url:'/insertemploi',
+                    type:'POST',
+                    data:formate,
+                    success:function(response)
+                    {
+                    }
+                })
             var bodyadd='<tr>'+
             '<td>'+formate.funt_sup+' </td>'+
             '<td>'+formate.bg_overt+' </td>'+
@@ -3465,7 +3477,18 @@ $('#post_sup').on('click',function()
                         tr_annuel:$('#tr_annuel').val(),
                         pr_ind:$('#pr_ind').val(),
                         depn_annuel:$('#depn_annuel').val(),
+                        code_t1:10000,
+                        _token: $('meta[name="csrf-token"]').attr("content"),
+                        _method: "POST",
                     }
+                    $.ajax({
+                        url:'/insertemploi',
+                        type:'POST',
+                        data:formate,
+                        success:function(response)
+                        {
+                        }
+                    })
                 var bodyadd='<tr>'+
                 '<td>'+formate.funt_sup+' </td>'+
                 '<td>'+formate.bg_overt+' </td>'+
@@ -3623,7 +3646,19 @@ $('#funt').on('click',function()
                             tr_annuel:$('#tr_annuel').val(),
                             pr_ind:$('#pr_ind').val(),
                             depn_annuel:$('#depn_annuel').val(),
+                            code_t1:10000,
+                            _token: $('meta[name="csrf-token"]').attr("content"),
+                            _method: "POST",
                         }
+                        $.ajax({
+                            url:'/insertemploi',
+                            type:'POST',
+                            data:formate,
+                            success:function(response)
+                            {
+                                console.log('response'+response.code)   
+                            }
+                        })
                     var bodyadd='<tr>'+
                     '<td>'+formate.funt_sup+' </td>'+
                     '<td>'+formate.bg_overt+' </td>'+

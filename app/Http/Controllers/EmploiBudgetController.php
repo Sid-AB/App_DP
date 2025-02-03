@@ -11,13 +11,14 @@ use App\Models\OpConducteur;
 use App\Models\CDI;
 use App\Models\CDD;
 use Barryvdh\Snappy\Facades\SnappyPdf;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class EmploiBudgetController extends Controller
 {
     //la fonction insert 
     public function insertemploi(Request $request){
-        dd($request);
-
+        //dd($request);
         $emploi=Emploi_budget::updateOrCreate(
             [
                 'EmploiesOuverts'=>$request->bg_overt,
@@ -26,6 +27,7 @@ class EmploiBudgetController extends Controller
                 'TRAITEMENT_ANNUEL'=>$request->tr_annuel,
                 'PRIMES_INDEMNITES'=>$request->pr_ind,
                 'DEPENSES_ANNUELLES'=>$request->depn_annuel,
+                'code_t1'=>$request->code_t1,
                 'date_insert_emploi'=>now(),
                 'date_update_emploi'=>now(),
             ]
