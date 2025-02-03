@@ -143,10 +143,15 @@ Ministère de la Communication
             $last =count($code)-1;
             //dd($code);
             $code = $code[$last];
+           
             @endphp
                 <tr class="program-title" >
                     <td class="head">{{ $code }}</td>
                     <td class="head">Programme: {{ $programme['nom'] }}</td>
+                    
+                    @if(!empty($programme['Total']))
+                   
+                   
                     <td>{{ number_format((float)$programme['Total']['TotalT1_AE'], 2, '.', ',') }}</td>
                     <td>{{ number_format((float)$programme['Total']['TotalT1_CP'], 2, '.', ',') }}</td>
                     <td>{{ number_format((float)$programme['Total']['TotalT2_AE'], 2, '.', ',') }}</td>
@@ -158,7 +163,20 @@ Ministère de la Communication
 
                     <td style=" font-weight: bold;">{{ number_format((float)$programme['Total']['TotalT1_AE']+$programme['Total']['TotalT2_AE']+ $programme['Total']['TotalT3_AE']+$programme['Total']['TotalT4_AE'], 2, '.', ',')}}</td>
                     <td style=" font-weight: bold;">{{ number_format((float)$programme['Total']['TotalT1_CP']+$programme['Total']['TotalT2_CP']+$programme['Total']['TotalT3_CP'] +$programme['Total']['TotalT4_CP'], 2, '.', ',')}}</td>
+                    @else
+                    
+                    <td>{{ number_format((float)0, 2, '.', ',') }}</td>
+                    <td>{{ number_format((float)0, 2, '.', ',') }}</td>
+                    <td>{{ number_format((float)0, 2, '.', ',') }}</td>
+                    <td>{{ number_format((float)0, 2, '.', ',') }}</td>
+                    <td>{{ number_format((float)0, 2, '.', ',') }}</td>
+                    <td>{{ number_format((float)0, 2, '.', ',') }}</td>
+                    <td>{{ number_format((float)0, 2, '.', ',') }}</td>
+                    <td>{{ number_format((float)0, 2, '.', ',') }}</td>
 
+                    <td style=" font-weight: bold;">{{ number_format((float)0, 2, '.', ',')}}</td>
+                    <td style=" font-weight: bold;">{{ number_format((float)0, 2, '.', ',')}}</td>
+                    @endif
                 </tr>
                
                 {{-- Boucle sur les sous-programmes --}}
@@ -651,6 +669,8 @@ Ministère de la Communication
                         }
                         else
                         {
+                            if(!empty($programme['Total']))
+                            {
                         $t1_ae=$programme['Total']['TotalT1_AE'];
                         $t1_cp=$programme['Total']['TotalT1_CP'] ;
                         $t2_ae=$programme['Total']['TotalT2_AE'] ;
@@ -659,6 +679,7 @@ Ministère de la Communication
                         $t3_cp=$programme['Total']['TotalT3_CP'] ;
                         $t4_ae=$programme['Total']['TotalT4_AE'] ;
                         $t4_cp=$programme['Total']['TotalT4_CP'] ;
+                            }
                         //dd( $programme['Total']['TotalT4_CP']);
                       }
 
