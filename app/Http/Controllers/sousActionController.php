@@ -142,6 +142,8 @@ function print_dpa($numport)
            // dd($initsprog);
             foreach($initsprog as $init)
             {
+                $ttall=[];
+                $act_ini=[];
                if (isset($init->num_action))
             {
 
@@ -192,8 +194,7 @@ function print_dpa($numport)
             
         array_push($sousprog_ini,['sous_programmes'=>['code'=>$sprog->num_sous_prog,"nom"=>$sprog->nom_sous_prog,'actions'=>$act_ini,"Total"=>$ttall]]); }
        
-        $ttall=[];
-        $act_ini=[];
+       
             }
 
            
@@ -239,7 +240,7 @@ function print_dpa($numport)
     dd($Ttportglob);
     //modification et article 
     $art = Article::selectRaw("id_art, CONCAT(nom_art, ' (', code_art, ')') as nom")->get();
-    //dd($art);
+    //dd($programmes);
     $modif = DB::table('modification_t_s as m1')
     ->join('articles', 'm1.id_art', '=', 'articles.id_art')
     ->select(
@@ -453,7 +454,7 @@ foreach ($newArray as $item) {
 // Réindexer le tableau
 $progg = array_values($progg);
 
-//dd($progg);
+ //dd($progg);
 
     
    // dd($resultData);
@@ -461,7 +462,8 @@ $progg = array_values($progg);
     
 
   // dd($lastModif);
-    //dd($result);
+    //dd($programmes);
+    return view('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg'));
     $pdf=SnappyPdf::loadView('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg'))
     ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1);//lanscape mean orentation
           return $pdf->stream('impression_dpic.pdf');

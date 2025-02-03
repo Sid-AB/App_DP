@@ -1441,8 +1441,8 @@ if(id == "add-prg1")
         type: "POST",
         data: formprogdata,
         success: function (response) {
-            if (response.code == 200 || response.code == 404) {
-
+            if (upload_file('file',numprog_year) == 200) {
+                
                 alert(response.message)
                 window.location.reload()
       }
