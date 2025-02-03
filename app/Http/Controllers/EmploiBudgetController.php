@@ -11,13 +11,14 @@ use App\Models\OpConducteur;
 use App\Models\CDI;
 use App\Models\CDD;
 use Barryvdh\Snappy\Facades\SnappyPdf;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class EmploiBudgetController extends Controller
 {
     //la fonction insert 
     public function insertemploi(Request $request){
-        dd($request);
-
+        //dd($request);
         $emploi=Emploi_budget::updateOrCreate(
             [
                 'EmploiesOuverts'=>$request->bg_overt,
@@ -26,6 +27,7 @@ class EmploiBudgetController extends Controller
                 'TRAITEMENT_ANNUEL'=>$request->tr_annuel,
                 'PRIMES_INDEMNITES'=>$request->pr_ind,
                 'DEPENSES_ANNUELLES'=>$request->depn_annuel,
+                'code_t1'=>$request->code_t1,
                 'date_insert_emploi'=>now(),
                 'date_update_emploi'=>now(),
             ]
@@ -33,19 +35,19 @@ class EmploiBudgetController extends Controller
         if ($request->type_pos === 'funt') {
 
             Fonctions::updateOrCreate([
+                'id_fonction'=>$request->funt_sup.'_'.$request->cl_cat,
                 'Nom_fonction' => $request->funt_sup,
                 'CATEGORIE' => $request->cl_cat,
                 'Moyenne' => $request->cl_moy,
                 'id_emp' => $emploi->id_emp,
                 'date_insert_fonct'=>now(),
                 'date_update_fonct'=>now(),
-
-
             ]);
 
         } elseif($request->type_pos === 'post_sup'){
             
                 Post_sup::updateOrCreate([
+                    //'id_postsup'=>$request->funt_sup.'_'.$request->cl_cat,
                     'Nom_postsup' => $request->funt_sup,
                     'Niveau_sup' => $request->cl_cat,
                     'point_indsup' => $request->cl_moy,
@@ -56,6 +58,7 @@ class EmploiBudgetController extends Controller
             } elseif($request->type_pos === 'corcom'){
                
                     Post_commun::updateOrCreate([
+                        //'id_post'=>$request->funt_sup.'_'.$request->cl_cat,
                         'Nom_post' => $request->funt_sup,
                         'CATEGORIE_post' => $request->cl_cat,
                         'MOYENNE_post' => $request->cl_moy,
