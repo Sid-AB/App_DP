@@ -264,7 +264,7 @@
                                                 <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j]['sous_programmes']['Total']['TotalT3_AE_ini'], 2, '.', ',') }}</td>
                                                 <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j]['sous_programmes']['Total']['TotalT3_CP_ini'], 2, '.', ',') }}</td>
                                                 <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j]['sous_programmes']['Total']['TotalT4_AE_ini'], 2, '.', ',') }}</td>
-                                                <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j]['sous_programmes']['Total']['TotalT4_CP_ini'], 2, '.', ',') }}</td>
+                                                <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j    ]['sous_programmes']['Total']['TotalT4_CP_ini'], 2, '.', ',') }}</td>
                                             @else
                                                 <td class="ttaction-title" >0 </td>
                                                 <td class="ttaction-title" >0</td>
@@ -275,6 +275,18 @@
                                                 <td class="ttaction-title">0</td>
                                                 <td class="ttaction-title">0</td>
                                             @endif
+                                        </tr>
+                                        <tr class="event-title">
+                                            <td colspan="2">Eventuels crédits non répartis</td>
+                                            <td >0 </td>
+                                            <td >0</td>
+                                            <td >0</td>
+                                            <td >0</td>
+                                            <td >0</td>
+                                            <td >0</td>
+                                            <td >0</td>
+                                            <td >0</td>
+
                                         </tr>
                                     @endforeach
                                     
@@ -288,18 +300,7 @@
                  
                            
                     {{-- Section "Eventuels crédits non répartis" --}}
-                                        <tr class="event-title">
-                                            <td colspan="2">Eventuels crédits non répartis</td>
-                                            <td >0 </td>
-                                            <td >0</td>
-                                            <td >0</td>
-                                            <td >0</td>
-                                            <td >0</td>
-                                            <td >0</td>
-                                            <td >0</td>
-                                            <td >0</td>
-
-                                        </tr>
+                               
 
                     {{-- Total des actions/crédits ouverts pour le programme --}}
                     <tr class="totals">

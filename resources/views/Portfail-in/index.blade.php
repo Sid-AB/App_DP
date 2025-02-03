@@ -450,10 +450,10 @@
         <label for="Tports">Interieur</label>
          <input type="radio" class="form-check-input" id="intr" name="type_modif" value="inter" />
         </div>
-        <div>
+        <!--div>
         <label for="Tports">Exterieur</label>
          <input type="radio" class="form-check-input" id="extr" name="type_modif" value="exter" />
-        </div>
+        </div-->
         <label for="Tports">Exterieur Portfail vers Portfail</label>
         <input type="radio" class="form-check-input" id="extr_port" name="type_modif" value="exter_port" />
        </div>

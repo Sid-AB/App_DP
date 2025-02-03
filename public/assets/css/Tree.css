@@ -291,6 +291,7 @@ align-items: flex-end;
     border-radius: 30px;
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE 10+ */
+    z-index: 100; 
 }
 
 .modif-handler::-webkit-scrollbar {
