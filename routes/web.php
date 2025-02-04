@@ -123,10 +123,11 @@ Route::controller(initPortController::class)->group(function(){
 
 Route::controller(EmploiBudgetController::class)->group(function(){
     Route::post('/insertemploi','insertemploi')->name('insertemploi');
+    Route::get('/impression_emplois_budgetaire',  'index');
+    Route::get('/emplois-pdf', 'index')->name('emplois.pdf');
 });
 
-Route::get('/impression_emplois_budgetaire', [EmploiBudgetController::class, 'index']);
-Route::get('/emplois-pdf', [EmploiBudgetController::class, 'index'])->name('emplois.pdf');
+
 
 /*Route::get('/testing/Action/{port}/{prog}/{sous_prog}/{act}/',function ($port,$prog,$sous_prog,$act){
 

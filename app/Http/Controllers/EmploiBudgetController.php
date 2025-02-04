@@ -122,7 +122,7 @@ class EmploiBudgetController extends Controller
        $totalOccupes = $emplois->sum('EmploiesOccupes');
        $totalVacants = $emplois->sum('EmploiesVacants');
         $pdf=SnappyPdf::loadView
-        ('impression_emplois_budgetaire', compact(
+        ('impression.impression_emplois_budgetaire', compact(
            'fonctions',
            'emplois',
            'totalOuverts',
