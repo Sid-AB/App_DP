@@ -256,6 +256,24 @@ function del_emplois(Request $request)
         return response()->json(['code'=>200]);
     }
 }
+    if($request->type_pos == 'corcom')
+    {
+      if(  Post_commun::where('id_emp',$request->delID)->delete() &&
+        Emploi_budget::where('id_emp',$request->delID)->delete()
+    )
+    {
+        return response()->json(['code'=>200]);
+    }
+}
+    if($request->type_pos == 'post_sup')
+    {
+      if(  Post_sup::where('id_emp',$request->delID)->delete() &&
+        Emploi_budget::where('id_emp',$request->delID)->delete()
+    )
+    {
+        return response()->json(['code'=>200]);
+    }
+}
 }
   
 }

@@ -3265,7 +3265,7 @@ $('#corcom').on('click',function()
                     {
                         console.log('the id is'+$(this).closest("tr").attr('id'))
                         var delID=$(this).closest("tr").attr('id')
-                        $.  ajax({
+                        $.ajax({
                             url:'/del_emplois',
                             type:'POST',
                             data:{
@@ -3276,6 +3276,8 @@ $('#corcom').on('click',function()
                             },
                             success:function(response)
                             {
+                                if(response.code == 200)
+                                    {
                                 newover=parseInt($('#nbr_over').text())-parseInt( $(this).closest("tr").find("td").eq(1).text())
                                 newoccup=parseInt($('#nbr_occup').text())-parseInt( $(this).closest("tr").find("td").eq(2).text())
                                 newvacant=parseInt($('#nbr_vacants').text())-parseInt( $(this).closest("tr").find("td").eq(3).text())
@@ -3284,6 +3286,7 @@ $('#corcom').on('click',function()
                                $('#nbr_over').text(newover);
                                $('#nbr_occup').text(newoccup);
                                $('#nbr_vacants').text(newvacant);
+                                }
                             }
                         })
                         
