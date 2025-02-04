@@ -248,6 +248,21 @@
   -webkit-user-select: none;
   touch-action: manipulation;
 }
+.button-70:active {
+  background-color: rgb(0, 0, 0);
+}
+  /* Disabled Button */
+  .button-70:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    color: #666;
+}
+
+/* Enabled Button */
+.button-70:not(:disabled) {
+    background: linear-gradient(#0dccea, #0d70ea);;
+    color: white;
+}
 
 .setit-back
 {

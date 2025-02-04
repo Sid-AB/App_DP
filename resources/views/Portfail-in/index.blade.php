@@ -448,7 +448,7 @@
       <div class="Radio-ids">
         <div>
         <label for="Tports">Interieur</label>
-         <input type="radio" class="form-check-input" id="intr" name="type_modif" value="inter" />
+         <input type="radio" class="form-check-input" id="intr" name="type_modif" value="inter"   />
         </div>
         <!--div>
         <label for="Tports">Exterieur</label>
@@ -554,15 +554,15 @@
 
         </div>
 
-        <div class="form-group">
+        <!--div class="form-group">
         <label for="input1">Action a modifier</label>
           <select type="text" class="form-control" id="id_cible" placeholder="Entrer le Nom du Programme">
            <option value="0" >Selectionner Article</option>
           </select>
-        </div>
+        </div-->
       </div>
     </form>
-    <button class="button-70" id="button-71" role="button">modifier</button>
+    <button class="button-70" id="button-71" role="button" disabled>modifier</button>
   </div>
   </div>
  </div>

@@ -45,6 +45,8 @@ $(document).ready(function(){
   var type_port='';
   var AE_port=0;
   var CP_port=0;
+  var act_cible_ret='';
+  var act_cible_env='';
 
     $('.update-handl').on('click',function(){
       var id=$(this).parent().parent().attr('id');
@@ -161,6 +163,12 @@ $(document).ready(function(){
 
  $('#id_env').on('change',function(){
       sousprogbum=$(this).val();
+      var selectACT_ret='<div class="form-group">'+
+       ' <label for="input1">Action a modifier - Envoyer</label>'+
+          '<select type="text" class="form-control" id="id_cible_env" placeholder="Entrer le Nom du Programme">'+
+           '<option value="0" >Selectionner Article</option>'+
+          '</select>'+
+        '</div>';
       $.ajax({
         url:"/progrma_from_sous/"+sousprogbum,
         type:'GET',
@@ -172,8 +180,16 @@ $(document).ready(function(){
             $('#prog_env').empty()
             var inpsts='<hr><label>appratian a programme :</label><p type="text" class="id_prog_env" id="'+response.prog.num_prog+'">'+response.prog.nom_prog+'</p><hr>'
             $('#prog_env').append(inpsts);
+            $('#prog_env').append(selectACT_ret);
             prognum=response.prog.num_prog;
-            console.log('reponse'+response.prog)
+            console.log('reponse'+JSON.stringify(response.act))
+            response.act.forEach(element=>{
+              var opts="<option val="+element.num_sous_action+">"+element.nom_sous_action+"</option>";
+              $('#id_cible_env').append(opts);
+              $('#id_cible_env').change(function(){
+                act_cible_env=$(this).val();
+              })
+            })
           }
         }
       })
@@ -185,6 +201,7 @@ $(document).ready(function(){
   $('input[name="type_modif"]').change(function () {
     selectedHobby = $('input[name="type_modif"]:checked').val();
    if (selectedHobby === "inter") {
+    $('#button-71').prop("disabled", false)
     $("#dif").text('Sous Programme a l`envoie')
     $('.exter_type').empty();
     console.log('testing radio'+selectedHobby);
@@ -216,7 +233,12 @@ $(document).ready(function(){
      '</div>';
       $('#id-retire_sous_prog').on('change',function(){
         console.log('i act chnage')
-        
+        var selectACT_ret='<div class="form-group">'+
+        ' <label for="input1">Action a modifier - Retirer</label>'+
+           '<select type="text" class="form-control" id="id_cible_ret" placeholder="Entrer le Nom du Programme">'+
+            '<option value="0" >Selectionner Article</option>'+
+           '</select>'+
+         '</div>';
         selectdsousret = $('#id-retire_sous_prog').val();  
         $.ajax({
           url:"/progrma_from_sous/"+selectdsousret,
@@ -228,8 +250,16 @@ $(document).ready(function(){
               $('#prog_ret').empty()
               var inpsts='<hr><label>appratian a programme :</label><p type="text" class="id-retire_prog" id="'+response.prog.num_prog+'">'+response.prog.nom_prog+'</p>'
               $('#prog_ret').append(inpsts);
+              $('#prog_ret').append(selectACT_ret);
               selectedprogret=response.prog.num_prog;
               console.log('reponse'+response.prog.num_prog)
+              response.act.forEach(element=>{
+                var opts="<option val="+element.num_sous_action+">"+element.nom_sous_action+"</option>";
+                $('#id_cible_ret').append(opts);
+                $('#id_cible_ret').change(function(){
+                  act_cible_ret=$(this).val();
+                })
+              })
             }
           }
         })
@@ -275,6 +305,7 @@ $(document).ready(function(){
      $('.add-envoi').empty();
       if(selectedHobby == "exter")
       {
+        $('#button-71').prop("disabled", false)
         $('.exter_type').empty()
         $("#dif").text('Sous Programme de L`Operation')
         var type_extr='<div>'+
@@ -295,6 +326,7 @@ $(document).ready(function(){
     else
     if(selectedHobby === 'exter_port')
     {
+      $('#button-71').prop("disabled", false)
       $('.exter_type').empty()
         var init_port='<div>'+
        ' <div>'+
@@ -331,6 +363,8 @@ $(document).ready(function(){
 
 
 $('#button-71').on('click',function(){
+  if(selectedHobby.trim() != ''){
+    
   if(T1select == true)
   {
     AE_T1=$('#AE_T1').val();
@@ -391,7 +425,8 @@ $('#button-71').on('click',function(){
      prognum_click:prognum,
      sousprogbum_click:sousprogbum,
      type_extr:type_ext,
-     cible_action:$('#id_cible').val(),
+     act_cible_env:act_cible_env,
+     act_cible_ret:act_cible_ret,
      status:cmpt,
      code_port:code_port,
      type_port:type_port,
@@ -410,15 +445,29 @@ $('#button-71').on('click',function(){
       console.log('Réponse du serveur:', response);
     },
     error: function(xhr, status, error) {
-        console.log('Erreur AJAX:', status, error);
-        console.log('Détails de la réponse:', xhr.responseText);
+      //  console.log('Erreur AJAX:', status, error);
+      //  console.log('Détails de la réponse:', xhr.responseText);
     }
   })
 
   $('.Tenv-inpt-handle').empty();
       $('.section-env').empty();
      $('.add-envoi').empty();
-     change=false;
+     $('#T1').prop("checked", false)
+     $('#T2').prop("checked", false)
+     $('#T3').prop("checked", false)
+     $('#T4').prop("checked", false)
+     $('#intr').prop("checked", false)
+     $('#extr_port').prop("checked", false)
+    $('#T1-inpt-handle').empty()
+    $('#T2-inpt-handle').empty()
+    $('#T3-inpt-handle').empty()
+    $('#T4-inpt-handle').empty()
+     change=false;}
+     else
+     {
+      $('#button-71').prop("disabled", false)
+     }
 })
     })
   })
