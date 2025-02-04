@@ -3235,22 +3235,64 @@ $('#corcom').on('click',function()
         $('#T-tables thead').append(headBF)
 
         
-        var body='<tr>'+
-        '<td>Administrateur conseillé. </td>'+
-        '<td>0 </td>'+
-        '<td>0 </td>'+
-        '<td>0 </td>'+
+        $.ajax({
+            url:'/getlist_PostCommuns',
+            type:'GET',
+            success:function(response){
+                if(response.code == 200)
+                    {
+                        $('#T-tables tbody').empty();
+                response.postsup.forEach(element=>{
+                    bodyadd='<tr id='+element.id_emp+'>'+
+                    '<td>'+element.Nom_fonction+' </td>'+
+                    '<td>'+element.EmploiesOuverts+' </td>'+
+                    '<td>'+element.EmploiesOccupes+'</td>'+
+                    '<td>'+element.EmploiesVacants+'</td>'+
+            
+                    '<td>'+element.CATEGORIE_post+' </td>'+
+                    '<td>'+element.MOYENNE_post+' </td>'+
+                   
+                    '<td>'+element.TRAITEMENT_ANNUEL+'</td>'+
+                    '<td>'+element.PRIMES_INDEMNITES+'</td>'+
+                    '<td style="display: flex;align-items: center;flex-direction: row;justify-content: space-around;"><p>'+element.DEPENSES_ANNUELLES+'</p><p class="del_btn"><i class="fas fa-trash-alt"></i></p></td>';
+                    $('#T-tables tbody').append(bodyadd);
 
-        '<td>0 </td>'+
-        '<td>0 </td>'+
-       
-        '<td>0 </td>'+
-        '<td>0 </td>'+
-        '<td>0 </td>'+
-        
-        '</tr>';
-        $('#T-tables tbody').append(body);
+                    
+                    $('#nbr_over').text(response.totalOuverts)
+                    $('#nbr_occup').text(response.totalOccupes)
+                    $('#nbr_vacants').text(response.totalVacants)
+                    $('.del_btn').on('click',function()
+                    {
+                        console.log('the id is'+$(this).closest("tr").attr('id'))
+                        var delID=$(this).closest("tr").attr('id')
+                        $.  ajax({
+                            url:'/del_emplois',
+                            type:'POST',
+                            data:{
+                                delID:delID,
+                                type_pos:formate.type_pos,
+                                _token: $('meta[name="csrf-token"]').attr("content"),
+                                _method: "POST",
+                            },
+                            success:function(response)
+                            {
+                                newover=parseInt($('#nbr_over').text())-parseInt( $(this).closest("tr").find("td").eq(1).text())
+                                newoccup=parseInt($('#nbr_occup').text())-parseInt( $(this).closest("tr").find("td").eq(2).text())
+                                newvacant=parseInt($('#nbr_vacants').text())-parseInt( $(this).closest("tr").find("td").eq(3).text())
+                              // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
+                               $(this).closest("tr").remove();   
+                               $('#nbr_over').text(newover);
+                               $('#nbr_occup').text(newoccup);
+                               $('#nbr_vacants').text(newvacant);
+                            }
+                        })
+                        
+                        
+                    })
 
+                })}
+            }
+        })
     /**
      *  add handling button
      * */    
@@ -3374,7 +3416,10 @@ $('#corcom').on('click',function()
 
 $('#post_sup').on('click',function()
 {
-
+    $('.btn_bg-handler').empty()
+    $('#T-tables thead').empty()
+    $('#T-tables tbody').empty()
+    $('#T-tables tfoot').empty()
     var headPS='  <tr>'+
     ' <th> ADMINISTRATION CENTRALE (SERVICES CENTRAUX)</th>'+
      '<th colspan="3"> EMPLOIS BUDGETAIRES</th>'+
@@ -3400,29 +3445,70 @@ $('#post_sup').on('click',function()
    '</tr>';
     if($(this).children().first().is(':checked'))
         {
-            $('.btn_bg-handler').empty()
-            $('#T-tables thead').empty()
-            $('#T-tables tbody').empty()
-            $('#T-tables tfoot').empty()
+           
         console.log('inside post sup commun')
         $('.btn_bg-handler').append(newbtn)
         $('#T-tables thead').append(headPS)
 
-         var body='<tr>'+
-         '<td>Chargé des études et de projet </td>'+
-         '<td>0 </td>'+
-         '<td>0 </td>'+
-         '<td>0 </td>'+
+        $.ajax({
+            url:'/getlist_PostSup',
+            type:'GET',
+            success:function(response){
+                if(response.code == 200)
+                    {
+                        $('#T-tables tbody').empty()
+                response.postsup.forEach(element=>{
+                    bodyadd='<tr id='+element.id_emp+'>'+
+                    '<td>'+element.Nom_fonction+' </td>'+
+                    '<td>'+element.EmploiesOuverts+' </td>'+
+                    '<td>'+element.EmploiesOccupes+'</td>'+
+                    '<td>'+element.EmploiesVacants+'</td>'+
+            
+                    '<td>'+element.Niveau_sup+' </td>'+
+                    '<td>'+element.point_indsup+' </td>'+
+                   
+                    '<td>'+element.TRAITEMENT_ANNUEL+'</td>'+
+                    '<td>'+element.PRIMES_INDEMNITES+'</td>'+
+                    '<td style="display: flex;align-items: center;flex-direction: row;justify-content: space-around;"><p>'+element.DEPENSES_ANNUELLES+'</p><p class="del_btn"><i class="fas fa-trash-alt"></i></p></td>';
+                    $('#T-tables tbody').append(bodyadd);
 
-         '<td>0 </td>'+
-         '<td>0 </td>'+
-        
-         '<td>0 </td>'+
-         '<td>0 </td>'+
-         '<td>0 </td>'+
-         
-         '</tr>';
-         $('#T-tables tbody').append(body);
+                    
+                    $('#nbr_over').text(response.totalOuverts)
+                    $('#nbr_occup').text(response.totalOccupes)
+                    $('#nbr_vacants').text(response.totalVacants)
+                    $('.del_btn').on('click',function()
+                    {
+                        console.log('the id is'+$(this).closest("tr").attr('id'))
+                        var delID=$(this).closest("tr").attr('id')
+                        $.  ajax({
+                            url:'/del_emplois',
+                            type:'POST',
+                            data:{
+                                delID:delID,
+                                type_pos:formate.type_pos,
+                                _token: $('meta[name="csrf-token"]').attr("content"),
+                                _method: "POST",
+                            },
+                            success:function(response)
+                            {
+                                newover=parseInt($('#nbr_over').text())-parseInt( $(this).closest("tr").find("td").eq(1).text())
+                                newoccup=parseInt($('#nbr_occup').text())-parseInt( $(this).closest("tr").find("td").eq(2).text())
+                                newvacant=parseInt($('#nbr_vacants').text())-parseInt( $(this).closest("tr").find("td").eq(3).text())
+                              // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
+                               $(this).closest("tr").remove();   
+                               $('#nbr_over').text(newover);
+                               $('#nbr_occup').text(newoccup);
+                               $('#nbr_vacants').text(newvacant);
+                            }
+                        })
+                        
+                        
+                    })
+
+                })}
+            }
+        })
+
 
 
          $(".btn_add_budg").on('click',function(){
@@ -3543,6 +3629,10 @@ $('#post_sup').on('click',function()
 
 $('#funt').on('click',function()
 {
+    $('.btn_bg-handler').empty()
+    $('#T-tables thead').empty()
+    $('#T-tables tbody').empty()
+    $('#T-tables tfoot').empty()
     var headBF='  <tr>'+
     ' <th> ADMINISTRATION CENTRALE (SERVICES CENTRAUX)</th>'+
      '<th colspan="3"> EMPLOIS BUDGETAIRES</th>'+
@@ -3568,36 +3658,21 @@ $('#funt').on('click',function()
    '</tr>';
     if($(this).children().first().is(':checked'))
         {
-        $('.btn_bg-handler').empty()
-        $('#T-tables thead').empty()
-        $('#T-tables tbody').empty()
-        $('#T-tables tfoot').empty()
+      
         console.log('inside function commun')
         $('.btn_bg-handler').append(newbtn)
         $('#T-tables thead').append(headBF)
-        
-        var body='<tr>'+
-        '<td>Secrétaire Général </td>'+
-        '<td>0 </td>'+
-        '<td>0 </td>'+
-        '<td>0 </td>'+
+        var bodyadd='';
 
-        '<td>0 </td>'+
-        '<td>0 </td>'+
-       
-        '<td>0 </td>'+
-        '<td>0 </td>'+
-        '<td>0 </td>'+
-        
-        '</tr>';
-        $('#T-tables tbody').append(body);
-
-            $ajax({
+            $.ajax({
                 url:'/getlist_fonctions',
                 type:'GET',
                 success:function(response){
-                    response.forEach(element=>{
-                        var bodyadd='<tr id='+element.id_emp+'>'+
+                    if(response.code == 200)
+                        {
+                            $('#T-tables tbody').empty();
+                    response.postsup.forEach(element=>{
+                        bodyadd='<tr id='+element.id_emp+'>'+
                         '<td>'+element.Nom_fonction+' </td>'+
                         '<td>'+element.EmploiesOuverts+' </td>'+
                         '<td>'+element.EmploiesOccupes+'</td>'+
@@ -3610,7 +3685,41 @@ $('#funt').on('click',function()
                         '<td>'+element.PRIMES_INDEMNITES+'</td>'+
                         '<td style="display: flex;align-items: center;flex-direction: row;justify-content: space-around;"><p>'+element.DEPENSES_ANNUELLES+'</p><p class="del_btn"><i class="fas fa-trash-alt"></i></p></td>';
                         $('#T-tables tbody').append(bodyadd);
-                    })
+
+                        
+                        $('#nbr_over').text(response.totalOuverts)
+                        $('#nbr_occup').text(response.totalOccupes)
+                        $('#nbr_vacants').text(response.totalVacants)
+                        $('.del_btn').on('click',function()
+                        {
+                            console.log('the id is'+$(this).closest("tr").attr('id'))
+                            var delID=$(this).closest("tr").attr('id')
+                            $.  ajax({
+                                url:'/del_emplois',
+                                type:'POST',
+                                data:{
+                                    delID:delID,
+                                    type_pos:formate.type_pos,
+                                    _token: $('meta[name="csrf-token"]').attr("content"),
+                                    _method: "POST",
+                                },
+                                success:function(response)
+                                {
+                                    newover=parseInt($('#nbr_over').text())-parseInt( $(this).closest("tr").find("td").eq(1).text())
+                                    newoccup=parseInt($('#nbr_occup').text())-parseInt( $(this).closest("tr").find("td").eq(2).text())
+                                    newvacant=parseInt($('#nbr_vacants').text())-parseInt( $(this).closest("tr").find("td").eq(3).text())
+                                  // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
+                                   $(this).closest("tr").remove();   
+                                   $('#nbr_over').text(newover);
+                                   $('#nbr_occup').text(newoccup);
+                                   $('#nbr_vacants').text(newvacant);
+                                }
+                            })
+                            
+                            
+                        })
+
+                    })}
                 }
             })
 

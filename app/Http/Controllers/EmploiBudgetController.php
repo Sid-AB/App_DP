@@ -156,10 +156,16 @@ function get_list_postsup()
     $postssup=Emploi_budget::join('post_sups','post_sups.id_emp','=','emploi_budgets.id_emp')->get();
     if(!empty($postssup))
     {
+        $totalOuverts = $postssup->sum('EmploiesOuverts');
+       $totalOccupes = $postssup->sum('EmploiesOccupes');
+       $totalVacants = $postssup->sum('EmploiesVacants');
          return response()->json([
             'code' => 200,
             'message' => 'Données insérées ou mises à jour avec succès',
             'postsup' => $postssup,
+            'totalOuverts'=>$totalOuverts,
+            'totalOccupes'=>$totalOccupes,
+            'totalVacants'=>$totalVacants,
         ]);
     }
     else
@@ -180,10 +186,16 @@ function get_list_post_communs()
     $postssup=Emploi_budget::join('post_communs','post_communs.id_emp','=','emploi_budgets.id_emp')->get();
     if(!empty($postssup))
     {
+        $totalOuverts = $postssup->sum('EmploiesOuverts');
+       $totalOccupes = $postssup->sum('EmploiesOccupes');
+       $totalVacants = $postssup->sum('EmploiesVacants');
          return response()->json([
             'code' => 200,
             'message' => 'Données insérées ou mises à jour avec succès',
             'postsup' => $postssup,
+            'totalOuverts'=>$totalOuverts,
+            'totalOccupes'=>$totalOccupes,
+            'totalVacants'=>$totalVacants,
         ]);
     }
     else
@@ -201,13 +213,20 @@ function get_list_fonction()
 
 {
 
+
+   
     $postssup=Emploi_budget::join('fonctions','fonctions.id_emp','=','emploi_budgets.id_emp')->get();
     if(!empty($postssup))
-    {
+    { $totalOuverts = $postssup->sum('EmploiesOuverts');
+        $totalOccupes = $postssup->sum('EmploiesOccupes');
+        $totalVacants = $postssup->sum('EmploiesVacants');
          return response()->json([
             'code' => 200,
             'message' => 'Données insérées ou mises à jour avec succès',
             'postsup' => $postssup,
+            'totalOuverts'=>$totalOuverts,
+            'totalOccupes'=>$totalOccupes,
+            'totalVacants'=>$totalVacants,
         ]);
     }
     else
@@ -227,7 +246,7 @@ function del_emplois(Request $request)
         'type_pos' => 'required',
         'delID' => 'required',
     ]);
-    
+
 }
   
 }
