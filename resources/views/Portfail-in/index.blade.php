@@ -12,7 +12,7 @@
 <link href="{{asset('assets/css/Tree.css')}}" rel="stylesheet"/>
 <link href="{{asset('assets/css/main.css')}}" rel="stylesheet"/>
 <link href="{{asset('assets/bootstrap-5.0.2/css/bootstrap.css')}}" rel="stylesheet"/>
-<link href="{{asset('assets/fontawesome-free/css/all.css')}}" rel="stylesheet"/>
+<link href="{{asset('assets/  ')}}" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 <!-- Styles -->
 </head>

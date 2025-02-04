@@ -1289,7 +1289,7 @@ function Update_dpia(T,iupdate)
             let input = $('<input type="text" oninput="formatAccountingFigures(this)" step="0.01" class="form-control" min="0"/>').val(currentText);
             cell.html(input);  // Replace the cell content with the input
 
-            input.focus();
+                .focus();
             input.blur(function()
            {
                let newText = $(this).val();
