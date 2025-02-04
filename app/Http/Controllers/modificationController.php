@@ -537,6 +537,8 @@ class modificationController extends Controller
             $sousProgReçoit = SousProgramme::where('num_sous_prog', $validated['sousprogbum_click'])->first();
             //dd($validated['sousprogbum_click']);
 
+            $action=SousAction::where('num_sous_action',$validated['cible_action'])->first();
+           // dd($action);
             $ProgRetire = Programme::where('num_prog', $validated['prog_retirer'])->first();
            //dd( $ProgRetire);
             $ProgReçoit = Programme::where('num_prog', $validated['prognum_click'])->first();
@@ -551,6 +553,14 @@ class modificationController extends Controller
 */
 
             //calcull 
+            //action 
+            if($action){
+                $action->AE_sous_action=$validated['AE_sous_action'];
+                $action->CP_sous_action=$validated['CP_sous_action'];
+                $action->date_update_sous_action = now();
+                dd($action);
+                $action->save();
+            }
             //portefeuille vers portefeuille 
             if($portefeuille){
                 if ($validated['type_port']=="recoit_port")
@@ -568,6 +578,7 @@ class modificationController extends Controller
                 }
             }
            
+
            
             //les programes et sous prog
             if( $validated['type']=="inter"){
