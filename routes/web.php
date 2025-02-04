@@ -128,7 +128,7 @@ Route::controller(EmploiBudgetController::class)->group(function(){
     Route::get('/getlist_PostSup','get_list_postsup')->name('emplois.Post_Sup');
     Route::get('/getlist_PostCommuns','get_list_post_communs')->name('emplois.post_communs');
     Route::get('/getlist_fonctions','get_list_fonction')->name('emplois.fonctions');
-    Route::post('/del_emplois','del_emploi')->name('emplois.delete');
+    Route::post('/del_emplois','del_emplois')->name('emplois.delete');
 });
 
 

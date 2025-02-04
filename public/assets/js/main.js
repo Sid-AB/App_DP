@@ -3270,7 +3270,7 @@ $('#corcom').on('click',function()
                             type:'POST',
                             data:{
                                 delID:delID,
-                                type_pos:formate.type_pos,
+                                type_pos:'corcom',
                                 _token: $('meta[name="csrf-token"]').attr("content"),
                                 _method: "POST",
                             },
@@ -3485,7 +3485,7 @@ $('#post_sup').on('click',function()
                             type:'POST',
                             data:{
                                 delID:delID,
-                                type_pos:formate.type_pos,
+                                type_pos:'post_sup',
                                 _token: $('meta[name="csrf-token"]').attr("content"),
                                 _method: "POST",
                             },
@@ -3699,7 +3699,7 @@ $('#funt').on('click',function()
                                 type:'POST',
                                 data:{
                                     delID:delID,
-                                    type_pos:formate.type_pos,
+                                    type_pos:'funt',
                                     _token: $('meta[name="csrf-token"]').attr("content"),
                                     _method: "POST",
                                 },

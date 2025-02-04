@@ -246,7 +246,16 @@ function del_emplois(Request $request)
         'type_pos' => 'required',
         'delID' => 'required',
     ]);
-
+    //dd($request);
+    if($request->type_pos == 'funt')
+    {
+      if(  Fontions::where('id_emp',$request->delID)->delete() &&
+        Emploi_budget::where('id_emp',$request->delID)->delete()
+    )
+    {
+        return response()->json(['code'=>200]);
+    }
+}
 }
   
 }
