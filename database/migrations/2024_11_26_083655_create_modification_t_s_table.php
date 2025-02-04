@@ -16,9 +16,6 @@ return new class extends Migration
             $table->integer('id_modif')->primary()->autoIncrement();
 
             $table->DateTime('date_modif');
-            $table->string('action_modifie');
-        
-          
 
             $table->float('AE_envoi_t1')->default(0.0);
             $table->float('CP_envoi_t1')->default(0.0);
@@ -75,6 +72,12 @@ return new class extends Migration
 
             $table->string('num_prog_retire')->nullable();
             $table->foreign('num_prog_retire')->references('num_prog')->on('programmes');
+           
+            $table->string('num_sous_action_retire')->nullable();
+            $table->foreign('num_sous_action_retire')->references('num_sous_action')->on('sous_actions');
+            
+            $table->string('num_sous_action')->nullable();
+            $table->foreign('num_sous_action')->references('num_sous_action')->on('sous_actions');
            
 
         });
