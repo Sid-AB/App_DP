@@ -470,7 +470,7 @@ class modificationController extends Controller
             //'sousprogbum_click'=>'string', //sousprog clickable ou reçoit l'argent
             ]);*/
 
-            //dd( $request );
+            dd( $request );
             $validated=$request;
 
             //initialiser lees var

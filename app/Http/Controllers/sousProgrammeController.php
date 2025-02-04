@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\initPort;
 use Illuminate\Http\Request;
 use App\Models\SousProgramme;
+use App\Models\SousAction;
 use App\Models\Programme;
 
 use App\Http\Controllers\Controller;
@@ -243,9 +244,12 @@ function getprog($num_sous_prog)
             ->join('sous_programmes','programmes.num_prog',"=","sous_programmes.num_prog")
             ->firstOrFail();
             //dd($prog);
+    $act=SousAction::join('actions','actions.num_action','=',"sous_actions.num_action")->where('num_sous_prog',$num_sous_prog)->select('sous_actions.num_sous_action','sous_actions.nom_sous_action','actions.num_action','actions.nom_action')->get();
+    //dd($act);
             if(isset($prog))
             {
-            return response()->json( ['exists'=> true,'prog'=>$prog]);
+                
+            return response()->json( ['exists'=> true,'prog'=>$prog,'act'=>$act]);
             }else
             {
 
