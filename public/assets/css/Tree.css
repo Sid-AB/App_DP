@@ -260,7 +260,7 @@
 
 /* Enabled Button */
 .button-70:not(:disabled) {
-    background: linear-gradient(#0dccea, #0d70ea);;
+    background: linear-gradient(#0dccea, #0d70ea);
     color: white;
 }
 

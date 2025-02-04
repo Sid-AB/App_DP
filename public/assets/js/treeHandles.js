@@ -184,7 +184,7 @@ $(document).ready(function(){
             prognum=response.prog.num_prog;
             console.log('reponse'+JSON.stringify(response.act))
             response.act.forEach(element=>{
-              var opts="<option val="+element.num_sous_action+">"+element.nom_sous_action+"</option>";
+              var opts="<option value="+element.num_sous_action+">"+element.nom_sous_action+"</option>";
               $('#id_cible_env').append(opts);
               $('#id_cible_env').change(function(){
                 act_cible_env=$(this).val();
@@ -254,7 +254,7 @@ $(document).ready(function(){
               selectedprogret=response.prog.num_prog;
               console.log('reponse'+response.prog.num_prog)
               response.act.forEach(element=>{
-                var opts="<option val="+element.num_sous_action+">"+element.nom_sous_action+"</option>";
+                var opts="<option value="+element.num_sous_action+">"+element.nom_sous_action+"</option>";
                 $('#id_cible_ret').append(opts);
                 $('#id_cible_ret').change(function(){
                   act_cible_ret=$(this).val();
@@ -459,10 +459,14 @@ $('#button-71').on('click',function(){
      $('#T4').prop("checked", false)
      $('#intr').prop("checked", false)
      $('#extr_port').prop("checked", false)
-    $('#T1-inpt-handle').empty()
-    $('#T2-inpt-handle').empty()
-    $('#T3-inpt-handle').empty()
-    $('#T4-inpt-handle').empty()
+    $('#AE_T1').val('')
+    $('#CP_T1').val('')
+    $('#AE_T2').val('')
+    $('#CP_T2').val('')
+    $('#AE_T3').val('')
+    $('#CP_T3').val('')
+    $('#AE_T4').val('')
+    $('#CP_T4').val('')
      change=false;}
      else
      {
