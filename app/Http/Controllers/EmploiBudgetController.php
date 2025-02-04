@@ -249,7 +249,7 @@ function del_emplois(Request $request)
     //dd($request);
     if($request->type_pos == 'funt')
     {
-      if(  Fontions::where('id_emp',$request->delID)->delete() &&
+      if(  Fonctions::where('id_emp',$request->delID)->delete() &&
         Emploi_budget::where('id_emp',$request->delID)->delete()
     )
     {
