@@ -562,7 +562,7 @@
         </div-->
       </div>
     </form>
-    <button class="button-70" id="button-71" role="button" disabled>modifier</button>
+    <button class="button-70" id="button-71" role="button" >modifier</button>
   </div>
   </div>
  </div>

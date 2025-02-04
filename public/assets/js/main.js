@@ -3592,7 +3592,27 @@ $('#funt').on('click',function()
         '</tr>';
         $('#T-tables tbody').append(body);
 
-
+            $ajax({
+                url:'/getlist_fonctions',
+                type:'GET',
+                success:function(response){
+                    response.forEach(element=>{
+                        var bodyadd='<tr id='+element.id_emp+'>'+
+                        '<td>'+element.Nom_fonction+' </td>'+
+                        '<td>'+element.EmploiesOuverts+' </td>'+
+                        '<td>'+element.EmploiesOccupes+'</td>'+
+                        '<td>'+element.EmploiesVacants+'</td>'+
+                
+                        '<td>'+element.CATEGORIE+' </td>'+
+                        '<td>'+element.Moyenne+' </td>'+
+                       
+                        '<td>'+element.TRAITEMENT_ANNUEL+'</td>'+
+                        '<td>'+element.PRIMES_INDEMNITES+'</td>'+
+                        '<td style="display: flex;align-items: center;flex-direction: row;justify-content: space-around;"><p>'+element.DEPENSES_ANNUELLES+'</p><p class="del_btn"><i class="fas fa-trash-alt"></i></p></td>';
+                        $('#T-tables tbody').append(bodyadd);
+                    })
+                }
+            })
 
             $(".btn_add_budg").on('click',function(){
                 var champ='<div class="Tsop_add_handle">'+
@@ -3681,15 +3701,30 @@ $('#funt').on('click',function()
 
                         $('.del_btn').on('click',function()
                     {
-                       
-                         newover=parseInt($('#nbr_over').text())-parseInt( $(this).closest("tr").find("td").eq(1).text())
-                         newoccup=parseInt($('#nbr_occup').text())-parseInt( $(this).closest("tr").find("td").eq(2).text())
-                         newvacant=parseInt($('#nbr_vacants').text())-parseInt( $(this).closest("tr").find("td").eq(3).text())
-                       // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
-                        $(this).closest("tr").remove();   
-                        $('#nbr_over').text(newover);
-                        $('#nbr_occup').text(newoccup);
-                        $('#nbr_vacants').text(newvacant);
+                        console.log('the id is'+$(this).closest("tr").attr('id'))
+                        var delID=$(this).closest("tr").attr('id')
+                        $ajax({
+                            url:'/del_emplois',
+                            type:'POST',
+                            data:{
+                                delID:delID,
+                                type_pos:formate.type_pos,
+                                _token: $('meta[name="csrf-token"]').attr("content"),
+                                _method: "POST",
+                            },
+                            success:function(response)
+                            {
+                                newover=parseInt($('#nbr_over').text())-parseInt( $(this).closest("tr").find("td").eq(1).text())
+                                newoccup=parseInt($('#nbr_occup').text())-parseInt( $(this).closest("tr").find("td").eq(2).text())
+                                newvacant=parseInt($('#nbr_vacants').text())-parseInt( $(this).closest("tr").find("td").eq(3).text())
+                              // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
+                               $(this).closest("tr").remove();   
+                               $('#nbr_over').text(newover);
+                               $('#nbr_occup').text(newoccup);
+                               $('#nbr_vacants').text(newvacant);
+                            }
+                        })
+                        
                         
                     })
 

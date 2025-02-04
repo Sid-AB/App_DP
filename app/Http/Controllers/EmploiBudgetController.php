@@ -148,7 +148,87 @@ class EmploiBudgetController extends Controller
 }
    
 
-    //la fonction get pour afficher les resultats 
+
+function get_list_postsup()
+
+{
+
+    $postssup=Emploi_budget::join('post_sups','post_sups.id_emp','=','emploi_budgets.id_emp')->get();
+    if(!empty($postssup))
+    {
+         return response()->json([
+            'code' => 200,
+            'message' => 'Données insérées ou mises à jour avec succès',
+            'postsup' => $postssup,
+        ]);
+    }
+    else
+    {
+         return response()->json([
+            'code' => 500,
+            'message' => 'Function Errors',
+            
+        ]);
+    }
+
+} //la fonction get pour afficher les resultats 
+
+function get_list_post_communs()
+
+{
+
+    $postssup=Emploi_budget::join('post_communs','post_communs.id_emp','=','emploi_budgets.id_emp')->get();
+    if(!empty($postssup))
+    {
+         return response()->json([
+            'code' => 200,
+            'message' => 'Données insérées ou mises à jour avec succès',
+            'postsup' => $postssup,
+        ]);
+    }
+    else
+    {
+         return response()->json([
+            'code' => 500,
+            'message' => 'Function Errors',
+            
+        ]);
+    }
+
+}
+
+function get_list_fonction()
+
+{
+
+    $postssup=Emploi_budget::join('fonctions','fonctions.id_emp','=','emploi_budgets.id_emp')->get();
+    if(!empty($postssup))
+    {
+         return response()->json([
+            'code' => 200,
+            'message' => 'Données insérées ou mises à jour avec succès',
+            'postsup' => $postssup,
+        ]);
+    }
+    else
+    {
+         return response()->json([
+            'code' => 500,
+            'message' => 'Function Errors',
+            
+        ]);
+    }
+
+}
+
+function del_emplois(Request $request)
+{
+    $request->validate([
+        'type_pos' => 'required',
+        'delID' => 'required',
+    ]);
+    
+}
   
 }
 
