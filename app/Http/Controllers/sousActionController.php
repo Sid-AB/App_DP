@@ -464,7 +464,7 @@ $progg = array_values($progg);
     
     
 
-  // dd($lastModif);
+  // dd($lastMod
     //dd($programmes);
     //return view('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg'));
     $pdf=SnappyPdf::loadView('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg'))
