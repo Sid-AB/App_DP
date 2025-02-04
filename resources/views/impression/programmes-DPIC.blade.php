@@ -388,8 +388,15 @@
                         <td class="program-title">Programme :  {{ $programme['nom'] }}</td>
                         @if(!empty($programme['Total']))
                    
-                   
-                    <td>{{ number_format((float)$programme['Total']['TotalT1_AE'], 2, '.', ',') }}</td>
+                        <td >0.00 </td>
+                            <td >0.00</td>
+                            <td >0.00</td>
+                            <td >0.00</td>
+                            <td >0.00</td>
+                            <td >0.00</td>
+                            <td >0.00</td>
+                            <td >0.00</td>
+                    <!--td>{{ number_format((float)$programme['Total']['TotalT1_AE'], 2, '.', ',') }}</td>
                     <td>{{ number_format((float)$programme['Total']['TotalT1_CP'], 2, '.', ',') }}</td>
                     <td>{{ number_format((float)$programme['Total']['TotalT2_AE'], 2, '.', ',') }}</td>
                     <td>{{ number_format((float)$programme['Total']['TotalT2_CP'], 2, '.', ',') }}</td>
@@ -398,11 +405,19 @@
                     <td>{{ number_format((float)$programme['Total']['TotalT4_AE'], 2, '.', ',') }}</td>
                     <td>{{ number_format((float)$programme['Total']['TotalT4_CP'], 2, '.', ',') }}</td>
 
-                    <!--td style=" font-weight: bold;">{{ number_format((float)$programme['Total']['TotalT1_AE']+$programme['Total']['TotalT2_AE']+ $programme['Total']['TotalT3_AE']+$programme['Total']['TotalT4_AE'], 2, '.', ',')}}</td>
+                    <td style=" font-weight: bold;">{{ number_format((float)$programme['Total']['TotalT1_AE']+$programme['Total']['TotalT2_AE']+ $programme['Total']['TotalT3_AE']+$programme['Total']['TotalT4_AE'], 2, '.', ',')}}</td>
                     <td style=" font-weight: bold;">{{ number_format((float)$programme['Total']['TotalT1_CP']+$programme['Total']['TotalT2_CP']+$programme['Total']['TotalT3_CP'] +$programme['Total']['TotalT4_CP'], 2, '.', ',')}}</td-->
                     @else
+                    <td >0.00 </td>
+                            <td >0.00</td>
+                            <td >0.00</td>
+                            <td >0.00</td>
+                            <td >0.00</td>
+                            <td >0.00</td>
+                            <td >0.00</td>
+                            <td >0.00</td>
                     
-                    <td>{{ number_format((float)0, 2, '.', ',') }}</td>
+                    <!--td>{{ number_format((float)0, 2, '.', ',') }}</td>
                     <td>{{ number_format((float)0, 2, '.', ',') }}</td>
                     <td>{{ number_format((float)0, 2, '.', ',') }}</td>
                     <td>{{ number_format((float)0, 2, '.', ',') }}</td>
@@ -411,7 +426,7 @@
                     <td>{{ number_format((float)0, 2, '.', ',') }}</td>
                     <td>{{ number_format((float)0, 2, '.', ',') }}</td>
 
-                    <!--td style=" font-weight: bold;">{{ number_format((float)0, 2, '.', ',')}}</td>
+                    <td style=" font-weight: bold;">{{ number_format((float)0, 2, '.', ',')}}</td>
                     <td style=" font-weight: bold;">{{ number_format((float)0, 2, '.', ',')}}</td-->
                     @endif
                     </tr>
@@ -426,16 +441,26 @@
                             @endphp
                              @if(!isset($sousProgramme['actions'][0]))
                             <tr>
+                            
+                    
                                 <td class="subprogram-title">{{ $code }}</td>
                                 <td class="subprogram-title"> Sous Programme : {{ $sousProgramme['nom'] }}</td>
-                                <td>{{ number_format((float)$sousProgramme['Total']['TotalT1_AE_ini'], 2, '.', ',') }}</td>
+                                <td >0.00 </td>
+                            <td >0.00</td>
+                            <td >0.00</td>
+                            <td >0.00</td>
+                            <td >0.00</td>
+                            <td >0.00</td>
+                            <td >0.00</td>
+                            <td >0.00</td>
+                                <!--td>{{ number_format((float)$sousProgramme['Total']['TotalT1_AE_ini'], 2, '.', ',') }}</td>
                                 <td>{{ number_format((float)$sousProgramme['Total']['TotalT1_CP_ini'], 2, '.', ',') }}</td>
                                 <td>{{ number_format((float)$sousProgramme['Total']['TotalT2_AE_ini'], 2, '.', ',') }}</td>
                                 <td>{{ number_format((float)$sousProgramme['Total']['TotalT2_CP_ini'], 2, '.', ',') }}</td>
                                 <td>{{ number_format((float)$sousProgramme['Total']['TotalT3_AE_ini'], 2, '.', ',') }}</td>
                                 <td>{{ number_format((float)$sousProgramme['Total']['TotalT3_CP_ini'], 2, '.', ',') }}</td>
                                 <td>{{ number_format((float)$sousProgramme['Total']['TotalT4_AE_ini'], 2, '.', ',') }}</td>
-                                <td>{{ number_format((float)$sousProgramme['Total']['TotalT4_CP_ini'], 2, '.', ',') }}</td>
+                                <td>{{ number_format((float)$sousProgramme['Total']['TotalT4_CP_ini'], 2, '.', ',') }}</td-->
                             </tr>
                             @endif  
                             {{-- Boucle sur les actions --}}
@@ -450,16 +475,26 @@
                                         @endphp
 
                                         <tr >
+                                       
+                    
                                             <td>{{ $code }}</td>
                                             <td>Action : {{ $action['nom'] }}</td>
-                                            <td>{{ number_format((float)$action['TotalT']['TotalT1_AE_ini'], 2, '.', ',') }}</td>
+                                            <td >0.00 </td>
+                            <td >0.00</td>
+                            <td >0.00</td>
+                            <td >0.00</td>
+                            <td >0.00</td>
+                            <td >0.00</td>
+                            <td >0.00</td>
+                            <td >0.00</td>
+                                            <!--td>{{ number_format((float)$action['TotalT']['TotalT1_AE_ini'], 2, '.', ',') }}</td>
                                             <td>{{ number_format((float)$action['TotalT']['TotalT1_CP_ini'], 2, '.', ',') }}</td>
                                             <td>{{ number_format((float)$action['TotalT']['TotalT2_AE_ini'], 2, '.', ',') }}</td>
                                             <td>{{ number_format((float)$action['TotalT']['TotalT2_CP_ini'], 2, '.', ',') }}</td>
                                             <td>{{ number_format((float)$action['TotalT']['TotalT3_AE_ini'], 2, '.', ',') }}</td>
                                             <td>{{ number_format((float)$action['TotalT']['TotalT3_CP_ini'], 2, '.', ',') }}</td>
                                             <td>{{ number_format((float)$action['TotalT']['TotalT4_AE_ini'], 2, '.', ',') }}</td>
-                                            <td>{{ number_format((float)$action['TotalT']['TotalT4_CP_ini'], 2, '.', ',') }}</td>
+                                            <td>{{ number_format((float)$action['TotalT']['TotalT4_CP_ini'], 2, '.', ',') }}</td-->
                                         </tr>
 
                                         {{-- Total des actions pour le sous-programme --}}
@@ -470,14 +505,22 @@
                                             //dd($programme['sous_programmes'][0])
                                             @endphp
                                             @if(!empty($programme['sous_programmes']))
-                                                <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j]['sous_programmes']['Total']['TotalT1_AE_ini'], 2, '.', ',') }}</td>
+                                            <td >0.00 </td>
+                            <td >0.00</td>
+                            <td >0.00</td>
+                            <td >0.00</td>
+                            <td >0.00</td>
+                            <td >0.00</td>
+                            <td >0.00</td>
+                            <td >0.00</td>
+                                                <!--td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j]['sous_programmes']['Total']['TotalT1_AE_ini'], 2, '.', ',') }}</td>
                                                 <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j]['sous_programmes']['Total']['TotalT1_CP_ini'], 2, '.', ',') }}</td>
                                                 <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j]['sous_programmes']['Total']['TotalT2_AE_ini'], 2, '.', ',') }}</td>
                                                 <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j]['sous_programmes']['Total']['TotalT2_CP_ini'], 2, '.', ',') }}</td>
                                                 <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j]['sous_programmes']['Total']['TotalT3_AE_ini'], 2, '.', ',') }}</td>
                                                 <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j]['sous_programmes']['Total']['TotalT3_CP_ini'], 2, '.', ',') }}</td>
                                                 <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j]['sous_programmes']['Total']['TotalT4_AE_ini'], 2, '.', ',') }}</td>
-                                                <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j    ]['sous_programmes']['Total']['TotalT4_CP_ini'], 2, '.', ',') }}</td>
+                                                <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j    ]['sous_programmes']['Total']['TotalT4_CP_ini'], 2, '.', ',') }}</td-->
                                             @else
                                                 <td class="ttaction-title" >0 </td>
                                                 <td class="ttaction-title" >0</td>
@@ -519,14 +562,22 @@
                     <tr class="totals">
                         <th class="totals" colspan="2">TOTAL ACTIONS/CREDITS OUVERTS</th>
                         @if(!empty($programme['Total']))
-                        <td>{{ number_format((float)$programme['Total']['TotalT1_AE'], 2, '.', ',') }}</td>
+                        <td >0.00 </td>
+                            <td >0.00</td>
+                            <td >0.00</td>
+                            <td >0.00</td>
+                            <td >0.00</td>
+                            <td >0.00</td>
+                            <td >0.00</td>
+                            <td >0.00</td>
+                        <!--td>{{ number_format((float)$programme['Total']['TotalT1_AE'], 2, '.', ',') }}</td>
                         <td>{{ number_format((float)$programme['Total']['TotalT1_CP'], 2, '.', ',') }}</td>
                         <td>{{ number_format((float)$programme['Total']['TotalT2_AE'], 2, '.', ',') }}</td>
                         <td>{{ number_format((float)$programme['Total']['TotalT2_CP'], 2, '.', ',') }}</td>
                         <td>{{ number_format((float)$programme['Total']['TotalT3_AE'], 2, '.', ',') }}</td>
                         <td>{{ number_format((float)$programme['Total']['TotalT3_CP'], 2, '.', ',') }}</td>
                         <td>{{ number_format((float)$programme['Total']['TotalT4_AE'], 2, '.', ',') }}</td>
-                        <td>{{ number_format((float)$programme['Total']['TotalT4_CP'], 2, '.', ',') }}</td>
+                        <td>{{ number_format((float)$programme['Total']['TotalT4_CP'], 2, '.', ',') }}</td-->
                      
                         @else
                             <td >0 </td>

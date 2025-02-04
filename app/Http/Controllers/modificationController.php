@@ -470,7 +470,7 @@ class modificationController extends Controller
             //'sousprogbum_click'=>'string', //sousprog clickable ou reçoit l'argent
             ]);*/
 
-            dd( $request );
+           // dd( $request );
             $validated=$request;
 
             //initialiser lees var
@@ -537,8 +537,13 @@ class modificationController extends Controller
             $sousProgReçoit = SousProgramme::where('num_sous_prog', $validated['sousprogbum_click'])->first();
             //dd($validated['sousprogbum_click']);
 
-            $action=SousAction::where('num_sous_action',$validated['cible_action'])->first();
-           // dd($action);
+            $actionrec=SousAction::where('num_sous_action',$validated['act_cible_env'])->first();
+           //dd($actionrec);
+          
+           
+           $actionret=SousAction::where('num_sous_action',$validated['act_cible_ret'])->first();
+           // dd($actionret);
+
             $ProgRetire = Programme::where('num_prog', $validated['prog_retirer'])->first();
            //dd( $ProgRetire);
             $ProgReçoit = Programme::where('num_prog', $validated['prognum_click'])->first();
@@ -554,13 +559,7 @@ class modificationController extends Controller
 
             //calcull 
             //action 
-            if($action){
-                $action->AE_sous_action=$validated['AE_sous_action'];
-                $action->CP_sous_action=$validated['CP_sous_action'];
-                $action->date_update_sous_action = now();
-                dd($action);
-                $action->save();
-            }
+            
             //portefeuille vers portefeuille 
             if($portefeuille){
                 if ($validated['type_port']=="recoit_port")
@@ -643,6 +642,39 @@ class modificationController extends Controller
                             $ProgRetire->save();
                         
                     }
+
+                    if($actionrec->num_sous_action==$actionret->num_sous_action){
+                     
+                        $actionrec->AE_sous_action += $validated['AE_T1'] +  $validated['AE_T2'] +  $validated['AE_T3'] + $validated['AE_T4'];
+                        $actionrec->CP_sous_action += $validated['CP_T1'] + $validated['CP_T2'] +  $validated['CP_T3'] + $validated['CP_T4'];
+                        $actionrec->date_update_sous_action = now();
+    
+                        $actionrec->AE_sous_action -= (float) $validated['AE_env_T'];
+                        $actionrec->CP_sous_action -=(float) $validated['CP_env_T'];
+                        $actionrec->date_update_sous_action = now();
+                      //  dd($actionrec);
+                        $actionrec->save();
+                        
+                        
+                     
+                    }
+                  
+    
+                    else {
+                        $actionrec->AE_sous_action += $validated['AE_T1'] +  $validated['AE_T2'] +  $validated['AE_T3'] + $validated['AE_T4'];
+                        $actionrec->CP_sous_action += $validated['CP_T1'] + $validated['CP_T2'] +  $validated['CP_T3'] + $validated['CP_T4'];
+                        $actionrec->date_update_sous_action = now();
+                        //dd( $actionrec);
+                        $actionrec->save();
+    
+                        $actionret->AE_sous_action -=  $validated['AE_env_T'];
+                        $actionret->CP_sous_action -= $validated['CP_env_T'];
+                        $actionret->date_update_sous_action = now();
+                        
+                        $actionret->save();
+                         // dd( $actionret);
+                    }
+                
         
     } elseif ($validated['type'] == "exter" && $validated['type_extr'] == "res") {
         $sousProgReçoit->AE_sous_prog += $validated['AE_T1'] +  $validated['AE_T2'] +  $validated['AE_T3'] + $validated['AE_T4'];
@@ -657,6 +689,12 @@ class modificationController extends Controller
         $ProgReçoit->date_update_portef = now();
         $ProgReçoit->save();
         //dd( $ProgReçoit);
+        $actionrec->AE_sous_action += $validated['AE_T1'] +  $validated['AE_T2'] +  $validated['AE_T3'] + $validated['AE_T4'];
+        $actionrec->CP_sous_action += $validated['CP_T1'] + $validated['CP_T2'] +  $validated['CP_T3'] + $validated['CP_T4'];
+        $actionrec->date_update_sous_action = now();
+        //dd( $actionrec);
+        $actionrec->save();
+
         }elseif ($validated['type'] == "exter" && $validated['type_extr'] == "env") {
             $sousProgReçoit->AE_sous_prog -= $validated['AE_T1'] +  $validated['AE_T2'] +  $validated['AE_T3'] + $validated['AE_T4'];
             $sousProgReçoit->CP_sous_prog -= $validated['CP_T1'] + $validated['CP_T2'] +  $validated['CP_T3'] + $validated['CP_T4'];
@@ -669,6 +707,13 @@ class modificationController extends Controller
             $ProgReçoit->CP_prog -= $validated['CP_T1'] + $validated['CP_T2'] + $validated['CP_T3'] + $validated['CP_T4'];
             $ProgReçoit->date_update_portef = now();
             $ProgReçoit->save();
+
+            $actionrec->AE_sous_action += $validated['AE_T1'] +  $validated['AE_T2'] +  $validated['AE_T3'] + $validated['AE_T4'];
+            $actionrec->CP_sous_action += $validated['CP_T1'] + $validated['CP_T2'] +  $validated['CP_T3'] + $validated['CP_T4'];
+            $actionrec->date_update_sous_action = now();
+            //dd( $actionrec);
+            $actionrec->save();
+
 
         }else {
 
