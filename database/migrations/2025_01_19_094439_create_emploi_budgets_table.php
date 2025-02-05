@@ -35,6 +35,9 @@ return new class extends Migration
             $table->integer('code_t1');
             $table->foreign('code_t1')->references('code_t1')->on('t1_s');
 
+            $table->integer('num_sous_action');
+            $table->foreign('num_sous_action')->references('num_sous_action')->on('sous_actions');
+
 
         
         });

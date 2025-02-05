@@ -17,7 +17,7 @@ class Emploi_budget extends Model
 
     protected $fillable = [
        'id_emp','EmploiesOuverts','EmploiesOccupes','EmploiesVacants','TRAITEMENT_ANNUEL','PRIMES_INDEMNITES','DEPENSES_ANNUELLES',
-      'code_t1','date_insert_emploi', 'date_update_emploi'
+      'code_t1','date_insert_emploi', 'date_update_emploi','num_sous_action'
     ];
 
     public function Emplois()
@@ -44,5 +44,11 @@ class Emploi_budget extends Model
     {
         return $this->hasMany(Focntions::class ,'id_emp','id_emp');
     }
+
+    public function sousaction()
+    {
+        return $this->belongsTo(SousAction::class ,'num_sous_action','num_sous_action');
+    }
+
 }
 

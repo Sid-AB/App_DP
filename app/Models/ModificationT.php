@@ -18,7 +18,7 @@ class ModificationT extends Model
 ,'CP_envoi_t2','AE_envoi_t3','CP_envoi_t3','AE_envoi_t4','CP_envoi_t4',
 'code_t1','code_t2','code_t3','code_t4','id_art','AE_recoit_t1','CP_recoit_t1'
 ,'AE_recoit_t2','num_prog', 'situation_modif','type_modif','CP_recoit_t2','AE_recoit_t3','CP_recoit_t3','AE_recoit_t4','CP_recoit_t4','num_sous_prog','num_prog_click','num_sous_prog_retire','num_prog_retire'
- ,'action_modifie', 'code_t1', 'code_t2','code_t3','code_t4'];
+ ,'num_sous_action','num_sous_action_retire ','code_t1', 'code_t2','code_t3','code_t4'];
 
 
     public function articles()
@@ -54,5 +54,10 @@ class ModificationT extends Model
     public function Programme()
     {
         return $this->belongsTo(Programme::class,'num_prog','num_prog');
+    }
+
+    public function Sousaction()
+    {
+        return $this->belongsTo(SousAction::class,'num_sous_action','num_sous_action');
     }
 }
