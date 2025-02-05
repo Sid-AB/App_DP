@@ -3145,6 +3145,9 @@ function T1_table(id, T, id_s_act, port,code) {
     var preve = new Array();
     var newbtn = ' <div class="btn_add_budg">'+
             '<i class="fas fa-plus"></i>'+
+        '</div>'+
+        '<div class="print_apt">'+
+        '<i class="fas fa-print"></i>'
         '</div>';
     var data_T_port = new Array();
     console.log('T is' + T)
@@ -3244,7 +3247,7 @@ $('#corcom').on('click',function()
                         $('#T-tables tbody').empty();
                 response.postsup.forEach(element=>{
                     bodyadd='<tr id='+element.id_emp+'>'+
-                    '<td>'+element.Nom_fonction+' </td>'+
+                    '<td>'+element.Nom_post+' </td>'+
                     '<td>'+element.EmploiesOuverts+' </td>'+
                     '<td>'+element.EmploiesOccupes+'</td>'+
                     '<td>'+element.EmploiesVacants+'</td>'+
@@ -3278,11 +3281,11 @@ $('#corcom').on('click',function()
                             {
                                 if(response.code == 200)
                                     {
-                                newover=parseInt($('#nbr_over').text())-parseInt( $(this).closest("tr").find("td").eq(1).text())
-                                newoccup=parseInt($('#nbr_occup').text())-parseInt( $(this).closest("tr").find("td").eq(2).text())
-                                newvacant=parseInt($('#nbr_vacants').text())-parseInt( $(this).closest("tr").find("td").eq(3).text())
+                                newover=parseInt($('#nbr_over').text())-parseInt( element.EmploiesOuverts)
+                                newoccup=parseInt($('#nbr_occup').text())-parseInt( element.EmploiesOccupes)
+                                newvacant=parseInt($('#nbr_vacants').text())-parseInt( element.EmploiesVacants)
                               // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
-                               $(this).closest("tr").remove();   
+                               $('#'+delID).remove();   
                                $('#nbr_over').text(newover);
                                $('#nbr_occup').text(newoccup);
                                $('#nbr_vacants').text(newvacant);
@@ -3300,6 +3303,7 @@ $('#corcom').on('click',function()
      *  add handling button
      * */    
     $(".btn_add_budg").on('click',function(){
+    
         var champ='<div class="Tsop_add_handle">'+
         '<form id="add_sops">'+
         '<div class="form-group">'+
@@ -3339,7 +3343,7 @@ $('#corcom').on('click',function()
 
 
         $('#ajt').on('click',function(){
-
+                     
                 var formate={
                     type_pos:'corcom',
                     funt_sup:$('#funt_sup').val(),
@@ -3362,9 +3366,12 @@ $('#corcom').on('click',function()
                     data:formate,
                     success:function(response)
                     {
-                    }
-                })
-            var bodyadd='<tr>'+
+                        if(response.code == 200){
+                        console.log('consl'+response.id_emp)
+                        id_empl=response.id_emp
+              
+                console.log('tesign'+id_empl)
+            var bodyadd='<tr id='+id_empl+'>'+
             '<td>'+formate.funt_sup+' </td>'+
             '<td>'+formate.bg_overt+' </td>'+
             '<td>'+formate.bg_occup+'</td>'+
@@ -3376,6 +3383,8 @@ $('#corcom').on('click',function()
             '<td>'+formate.tr_annuel+'</td>'+
             '<td>'+formate.pr_ind+'</td>'+
             '<td style="display: flex;align-items: center;flex-direction: row;justify-content: space-around;"><p>'+formate.depn_annuel+'</p><p class="del_btn"><i class="fas fa-trash-alt"></i></p></td>';
+           
+           
             var newover=parseInt(formate.bg_overt)+parseInt($('#nbr_over').text())
             var newoccup=parseInt(formate.bg_occup)+parseInt($('#nbr_occup').text())
             var newvacant=parseInt(formate.bg_vacant)+parseInt($('#nbr_vacants').text())
@@ -3387,17 +3396,37 @@ $('#corcom').on('click',function()
                 $('.del_btn').on('click',function()
             {
                
-                 newover=parseInt($('#nbr_over').text())-parseInt( $(this).closest("tr").find("td").eq(1).text())
-                 newoccup=parseInt($('#nbr_occup').text())-parseInt( $(this).closest("tr").find("td").eq(2).text())
-                 newvacant=parseInt($('#nbr_vacants').text())-parseInt( $(this).closest("tr").find("td").eq(3).text())
-               // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
-                $(this).closest("tr").remove();   
-                $('#nbr_over').text(newover);
-                $('#nbr_occup').text(newoccup);
-                $('#nbr_vacants').text(newvacant);
+                console.log('the id is'+$(this).closest("tr").attr('id'))
+                var delID=$(this).closest("tr").attr('id')
+                $.ajax({
+                    url:'/del_emplois',
+                    type:'POST',
+                    data:{
+                        delID:delID,
+                        type_pos:'corcom',
+                        _token: $('meta[name="csrf-token"]').attr("content"),
+                        _method: "POST",
+                    },
+                    success:function(response)
+                    {
+                        if(response.code == 200)
+                            {
+                        newover=parseInt($('#nbr_over').text())-parseInt(formate.bg_overt)
+                        newoccup=parseInt($('#nbr_occup').text())-parseInt(formate.bg_occup)
+                        newvacant=parseInt($('#nbr_vacants').text())-parseInt(formate.bg_vacant)
+                      // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
+                       $('#'+delID).remove();   
+                       $('#nbr_over').text(newover);
+                       $('#nbr_occup').text(newoccup);
+                       $('#nbr_vacants').text(newvacant);
+                        }
+                    }
+                })
                 
             })
 
+        }}
+    })
 
             $('.Tsop_handler').addClass('Tsop_handler_h')
             $('#Tport-vals').empty()
@@ -3462,7 +3491,7 @@ $('#post_sup').on('click',function()
                         $('#T-tables tbody').empty()
                 response.postsup.forEach(element=>{
                     bodyadd='<tr id='+element.id_emp+'>'+
-                    '<td>'+element.Nom_fonction+' </td>'+
+                    '<td>'+element.Nom_postsup+' </td>'+
                     '<td>'+element.EmploiesOuverts+' </td>'+
                     '<td>'+element.EmploiesOccupes+'</td>'+
                     '<td>'+element.EmploiesVacants+'</td>'+
@@ -3494,11 +3523,11 @@ $('#post_sup').on('click',function()
                             },
                             success:function(response)
                             {
-                                newover=parseInt($('#nbr_over').text())-parseInt( $(this).closest("tr").find("td").eq(1).text())
-                                newoccup=parseInt($('#nbr_occup').text())-parseInt( $(this).closest("tr").find("td").eq(2).text())
-                                newvacant=parseInt($('#nbr_vacants').text())-parseInt( $(this).closest("tr").find("td").eq(3).text())
+                                newover=parseInt($('#nbr_over').text())-parseInt(element.EmploiesOuverts)
+                                newoccup=parseInt($('#nbr_occup').text())-parseInt(element.EmploiesOccupes)
+                                newvacant=parseInt($('#nbr_vacants').text())-parseInt(element.EmploiesVacants)
                               // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
-                               $(this).closest("tr").remove();   
+                               $("#"+delID).remove();   
                                $('#nbr_over').text(newover);
                                $('#nbr_occup').text(newoccup);
                                $('#nbr_vacants').text(newvacant);
@@ -3576,9 +3605,9 @@ $('#post_sup').on('click',function()
                         data:formate,
                         success:function(response)
                         {
-                        }
-                    })
-                var bodyadd='<tr>'+
+                        
+                    if(response.code == 200){
+                var bodyadd='<tr id='+response.id_emp+'>'+
                 '<td>'+formate.funt_sup+' </td>'+
                 '<td>'+formate.bg_overt+' </td>'+
                 '<td>'+formate.bg_occup+'</td>'+
@@ -3601,18 +3630,33 @@ $('#post_sup').on('click',function()
                     $('.del_btn').on('click',function()
                 {
                    
-                     newover=parseInt($('#nbr_over').text())-parseInt( $(this).closest("tr").find("td").eq(1).text())
-                     newoccup=parseInt($('#nbr_occup').text())-parseInt( $(this).closest("tr").find("td").eq(2).text())
-                     newvacant=parseInt($('#nbr_vacants').text())-parseInt( $(this).closest("tr").find("td").eq(3).text())
-                   // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
-                    $(this).closest("tr").remove();   
-                    $('#nbr_over').text(newover);
-                    $('#nbr_occup').text(newoccup);
-                    $('#nbr_vacants').text(newvacant);
+                    console.log('the id is'+$(this).closest("tr").attr('id'))
+                    var delID=$(this).closest("tr").attr('id')
+                    $.  ajax({
+                        url:'/del_emplois',
+                        type:'POST',
+                        data:{
+                            delID:delID,
+                            type_pos:'post_sup',
+                            _token: $('meta[name="csrf-token"]').attr("content"),
+                            _method: "POST",
+                        },
+                        success:function(response)
+                        {
+                            newover=parseInt($('#nbr_over').text())-parseInt(formate.bg_overt)
+                            newoccup=parseInt($('#nbr_occup').text())-parseInt(formate.bg_occup)
+                            newvacant=parseInt($('#nbr_vacants').text())-parseInt(formate.bg_vacant)
+                          // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
+                           $("#"+delID).remove();   
+                           $('#nbr_over').text(newover);
+                           $('#nbr_occup').text(newoccup);
+                           $('#nbr_vacants').text(newvacant);
+                        }
+                    })
                     
                 })
-
-
+                    }}
+            })
                 $('.Tsop_handler').addClass('Tsop_handler_h')
                 $('#Tport-vals').empty()
                 $('.Tsop_handler').empty();
@@ -3708,11 +3752,11 @@ $('#funt').on('click',function()
                                 },
                                 success:function(response)
                                 {
-                                    newover=parseInt($('#nbr_over').text())-parseInt( $(this).closest("tr").find("td").eq(1).text())
-                                    newoccup=parseInt($('#nbr_occup').text())-parseInt( $(this).closest("tr").find("td").eq(2).text())
-                                    newvacant=parseInt($('#nbr_vacants').text())-parseInt( $(this).closest("tr").find("td").eq(3).text())
+                                    newover=parseInt($('#nbr_over').text())-parseInt( element.EmploiesOuverts)
+                                    newoccup=parseInt($('#nbr_occup').text())-parseInt( element.EmploiesOccupes)
+                                    newvacant=parseInt($('#nbr_vacants').text())-parseInt( element.EmploiesVacants)
                                   // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
-                                   $(this).closest("tr").remove();   
+                                   $('#'+delID).remove();   
                                    $('#nbr_over').text(newover);
                                    $('#nbr_occup').text(newoccup);
                                    $('#nbr_vacants').text(newvacant);
@@ -3789,9 +3833,9 @@ $('#funt').on('click',function()
                             success:function(response)
                             {
                                 console.log('response'+response.code)   
-                            }
-                        })
-                    var bodyadd='<tr>'+
+                    if(response.code == 200)
+                        {
+                    var bodyadd='<tr id='+response.id_emp+'>'+
                     '<td>'+formate.funt_sup+' </td>'+
                     '<td>'+formate.bg_overt+' </td>'+
                     '<td>'+formate.bg_occup+'</td>'+
@@ -3815,7 +3859,7 @@ $('#funt').on('click',function()
                     {
                         console.log('the id is'+$(this).closest("tr").attr('id'))
                         var delID=$(this).closest("tr").attr('id')
-                        $ajax({
+                        $.ajax({
                             url:'/del_emplois',
                             type:'POST',
                             data:{
@@ -3826,11 +3870,11 @@ $('#funt').on('click',function()
                             },
                             success:function(response)
                             {
-                                newover=parseInt($('#nbr_over').text())-parseInt( $(this).closest("tr").find("td").eq(1).text())
-                                newoccup=parseInt($('#nbr_occup').text())-parseInt( $(this).closest("tr").find("td").eq(2).text())
-                                newvacant=parseInt($('#nbr_vacants').text())-parseInt( $(this).closest("tr").find("td").eq(3).text())
+                                newover=parseInt($('#nbr_over').text())-parseInt(formate.bg_overt)
+                                newoccup=parseInt($('#nbr_occup').text())-parseInt(formate.bg_occup)
+                                newvacant=parseInt($('#nbr_vacants').text())-parseInt(formate.bg_vacant)
                               // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
-                               $(this).closest("tr").remove();   
+                               $("#"+delID).remove();   
                                $('#nbr_over').text(newover);
                                $('#nbr_occup').text(newoccup);
                                $('#nbr_vacants').text(newvacant);
@@ -3839,7 +3883,9 @@ $('#funt').on('click',function()
                         
                         
                     })
-
+                 }
+                    }
+                        })
 
                     $('.Tsop_handler').addClass('Tsop_handler_h')
                     $('#Tport-vals').empty()

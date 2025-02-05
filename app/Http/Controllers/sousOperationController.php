@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;  
+use Illuminate\Support\Facades\DB; 
+
+
 use App\Services\CalculDpia;
 use App\Models\SousOperation;
 use App\Models\Portefeuille;
@@ -13,6 +15,14 @@ use App\Models\SousProgramme;
 use App\Models\Action;
 use App\Models\SousAction;
 use App\Models\initPort;
+use App\Models\Emploi_budget;
+use App\Models\Fonctions;
+use App\Models\Post_sup;
+use App\Models\Post_commun;
+use App\Models\OpConducteur;
+use App\Models\CDI;
+use App\Models\CDD;
+
 
 use Barryvdh\DomPDF\Facade\pdf;
 use Illuminate\Support\Facades\Storage;
@@ -174,7 +184,17 @@ class sousOperationController extends Controller
             $sous_prog=$sprog->num_sous_prog;
             $prog=$progms->num_prog;
             $port=$progms->num_portefeuil;
-          
+
+
+            $allEmploisBug=Emploi_budget::select('TRAITEMENT_ANNUEL', 'PRIMES_INDEMNITES', 'DEPENSES_ANNUELLES','EmploiesOuverts','EmploiesOccupes','EmploiesVacants')->get();
+
+            $totaltrait = $allEmploisBug->sum('TRAITEMENT_ANNUEL');
+            $totalprimes = $allEmploisBug->sum('PRIMES_INDEMNITES');
+            $totaldepense = $allEmploisBug->sum('DEPENSES_ANNUELLES');
+            $totalOuverts = $allEmploisBug->sum('EmploiesOuverts');
+            $totalOccupes = $allEmploisBug->sum('EmploiesOccupes');
+            $totalVacants = $allEmploisBug->sum('EmploiesVacants');
+          //dd($totaltrait,$totalprimes,$totaldepense);
         $years=Portefeuille::where('num_portefeuil',$port)->firstOrFail();
         $years = Carbon::parse($years->Date_portefeuille)->year;
          if(!isset($sact)){
@@ -186,7 +206,7 @@ class sousOperationController extends Controller
                 //dd($port, $prog, $sous_prog, $act,$act);
        
         //dd($resultats);
-           return view('Action-in.index',compact('port','prog','sous_prog','act','sact','resultats','years'));
+           return view('Action-in.index',compact('port','prog','sous_prog','act','sact','resultats','years','totaltrait','totalprimes','totaldepense','totalOuverts','totalOccupes','totalVacants'));
    
        } catch (\Exception $e) {
            // en cas d'erreur retourner un message d'erreur 
@@ -221,13 +241,20 @@ class sousOperationController extends Controller
     
         $years=Portefeuille::where('num_portefeuil',$port)->firstOrFail();
         $years = Carbon::parse($years->Date_portefeuille)->year;
+        $allEmploisBug=Emploi_budget::select('TRAITEMENT_ANNUEL', 'PRIMES_INDEMNITES', 'DEPENSES_ANNUELLES','EmploiesOuverts','EmploiesOccupes','EmploiesVacants')->get();
 
+        $totaltrait = $allEmploisBug->sum('TRAITEMENT_ANNUEL');
+        $totalprimes = $allEmploisBug->sum('PRIMES_INDEMNITES');
+        $totaldepense = $allEmploisBug->sum('DEPENSES_ANNUELLES');
+        $totalOuverts = $allEmploisBug->sum('EmploiesOuverts');
+        $totalOccupes = $allEmploisBug->sum('EmploiesOccupes');
+        $totalVacants = $allEmploisBug->sum('EmploiesVacants');
       //dd($port,$prog,$sous_prog,$act,$s_act);
       //$resultats = $this->CalculDpia->calculdpiaFromPath($port, $prog, $sous_prog, $act,$s_act);
      // dd($resultats);
         try{
             $resultats = $this->CalculDpia->calculdpiaFromPath($port, $prog, $sous_prog, $act,$s_act);
-               return view('Action-in.index',compact('port','prog','sous_prog','act','s_act','resultats','years'));
+               return view('Action-in.index',compact('port','prog','sous_prog','act','s_act','resultats','years','totaltrait','totalprimes','totaldepense','totalOuverts','totalOccupes','totalVacants'));
            } catch (\Exception $e) {
                // en cas d'erreur retourner un message d'erreur 
                return response()->view('errors.not_found', [], 404);
