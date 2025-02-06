@@ -31,5 +31,11 @@ class SousAction extends Model
         return $this->hasMany(GroupOperation::class,'num_sous_action','num_sous_action');
     }
 
+
+    public function ModificationT()
+    {
+        return $this->hasMany(ModificationT::class,'num_sous_action','num_sous_action');
+    }
+
    
 }

@@ -445,7 +445,7 @@ class modificationController extends Controller
     {
         //récupéreer lees données
         $modifications = $request->all();
-      //dd($modifications);
+      dd($modifications);
        // dd( $request->input('status') );
             // valider les données reçues
           /*  $request -> validate([
@@ -756,6 +756,7 @@ class modificationController extends Controller
 
         }
       
+        
 
         // insérer les données dans la table modif
        $modif= ModificationT::create([
@@ -788,8 +789,8 @@ class modificationController extends Controller
 
             'num_sous_prog_retire'=> $validated['Sous_prog_retire'],
             'num_prog_retire'=> $validated['prog_retirer'],
-            'num_sous_action'=> $validated['cible_action_env'],
-            'num_sous_action_retire'=> $validated['cible_action_ret'],
+            'num_sous_action'=> $validated['act_cible_env'],
+            'num_sous_action_retire'=> $validated['act_cible_ret'],
 
 
             'code_t1' => $codeT1,
