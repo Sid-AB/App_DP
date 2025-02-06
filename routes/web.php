@@ -125,9 +125,9 @@ Route::controller(EmploiBudgetController::class)->group(function(){
     Route::post('/insertemploi','insertemploi')->name('insertemploi');
     Route::get('/impression_emplois_budgetaire',  'index');
     Route::get('/emplois-pdf', 'index')->name('emplois.pdf');
-    Route::get('/getlist_PostSup','get_list_postsup')->name('emplois.Post_Sup');
-    Route::get('/getlist_PostCommuns','get_list_post_communs')->name('emplois.post_communs');
-    Route::get('/getlist_fonctions','get_list_fonction')->name('emplois.fonctions');
+    Route::get('/getlist_PostSup/{id}','get_list_postsup')->name('emplois.Post_Sup');
+    Route::get('/getlist_PostCommuns/{id}','get_list_post_communs')->name('emplois.post_communs');
+    Route::get('/getlist_fonctions/{id}','get_list_fonction')->name('emplois.fonctions');
     Route::post('/del_emplois','del_emplois')->name('emplois.delete');
 });
 

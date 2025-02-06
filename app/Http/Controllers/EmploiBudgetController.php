@@ -150,7 +150,7 @@ class EmploiBudgetController extends Controller
    
 
 
-function get_list_postsup()
+function get_list_postsup($id)
 
 {
 
@@ -180,7 +180,7 @@ function get_list_postsup()
 
 } //la fonction get pour afficher les resultats 
 
-function get_list_post_communs()
+function get_list_post_communs($id)
 
 {
 
@@ -210,7 +210,7 @@ function get_list_post_communs()
 
 }
 
-function get_list_fonction()
+function get_list_fonction($id)
 
 {
 
