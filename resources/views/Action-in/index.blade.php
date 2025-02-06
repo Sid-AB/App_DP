@@ -132,30 +132,30 @@
                          </table-->
                          <div class="row_budget" >
                           <div>
-                           <p class="card-description-T"> nom</p>
-                           <p class="card-description-T"> 0</p>
+                           <p class="card-description-T"> Ouverts </p>
+                           <p class="card-description-T"> {{$totalOuverts}}</p>
                           </div>
                           <div>
-                           <p class="card-description-T"> nom</p>
-                           <p class="card-description-T"> 0</p>
+                           <p class="card-description-T"> Occupés au 31 décembre </p>
+                           <p class="card-description-T"> {{$totalOccupes}}</p>
                           </div>
                           <div>
-                           <p class="card-description-T"> nom</p>
-                           <p class="card-description-T"> 0</p>
+                           <p class="card-description-T"> Vacants</p>
+                           <p class="card-description-T"> {{$totalVacants}}</p>
                           </div>
                          </div>
                          <div class="row_budget">
                           <div>
-                           <p class="card-description-T"> nom</p>
-                           <p class="card-description-T"> 0</p>
+                           <p class="card-description-T"> TRAITEMENT .A</p>
+                           <p class="card-description-T"> {{$totaltrait}}</p>
                           </div>
                           <div>
-                           <p class="card-description-T"> nom</p>
-                           <p class="card-description-T"> 0</p>
+                           <p class="card-description-T"> P&I</p>
+                           <p class="card-description-T"> {{$totalprimes}}</p>
                           </div>
                           <div>
-                           <p class="card-description-T"> nom</p>
-                           <p class="card-description-T"> 0</p>
+                           <p class="card-description-T"> DEPENSES .A</p>
+                           <p class="card-description-T"> {{$totaldepense}}</p>
                           </div>
                          </div>
                       </div>
