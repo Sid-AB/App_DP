@@ -445,7 +445,7 @@ class modificationController extends Controller
     {
         //récupéreer lees données
         $modifications = $request->all();
-      //dd($modifications);
+      dd($modifications);
        // dd( $request->input('status') );
             // valider les données reçues
           /*  $request -> validate([
@@ -539,10 +539,13 @@ class modificationController extends Controller
 
             $actionrec=SousAction::where('num_sous_action',$validated['act_cible_env'])->first();
            //dd($actionrec);
-          
-           
+           $actionrec_ = $actionrec->Action;
+           //dd( $actionrec_ );   
            $actionret=SousAction::where('num_sous_action',$validated['act_cible_ret'])->first();
            // dd($actionret);
+        
+           $actionret_ = $actionret->Action;
+         //  dd( $actionret_ );   
 
             $ProgRetire = Programme::where('num_prog', $validated['prog_retirer'])->first();
            //dd( $ProgRetire);
@@ -649,14 +652,21 @@ class modificationController extends Controller
                         $actionrec->CP_sous_action += $validated['CP_T1'] + $validated['CP_T2'] +  $validated['CP_T3'] + $validated['CP_T4'];
                         $actionrec->date_update_sous_action = now();
     
+                        $actionrec_->AE_action += $validated['AE_T1'] +  $validated['AE_T2'] +  $validated['AE_T3'] + $validated['AE_T4'];
+                        $actionrec_->CP_action += $validated['CP_T1'] + $validated['CP_T2'] +  $validated['CP_T3'] + $validated['CP_T4'];
+                        $actionrec_->date_update_action = now();
+
                         $actionrec->AE_sous_action -= (float) $validated['AE_env_T'];
                         $actionrec->CP_sous_action -=(float) $validated['CP_env_T'];
                         $actionrec->date_update_sous_action = now();
-                      //  dd($actionrec);
+                      
+                        $actionrec_->AE_action -= (float) $validated['AE_env_T'];
+                        $actionrec_->CP_action -=(float) $validated['CP_env_T'];
+                        $actionrec_->date_update_action = now();
+                        //dd($actionrec);
+                        //dd($actionrec_);
                         $actionrec->save();
-                        
-                        
-                     
+                        $actionrec_->save();
                     }
                   
     
@@ -666,13 +676,28 @@ class modificationController extends Controller
                         $actionrec->date_update_sous_action = now();
                         //dd( $actionrec);
                         $actionrec->save();
+
+                        $actionrec_->AE_action += $validated['AE_T1'] +  $validated['AE_T2'] +  $validated['AE_T3'] + $validated['AE_T4'];
+                        $actionrec_->CP_action += $validated['CP_T1'] + $validated['CP_T2'] +  $validated['CP_T3'] + $validated['CP_T4'];
+                        $actionrec_->date_update_action = now();
+                       // dd( $actionrec_);
+                        $actionrec_->save();
+
     
                         $actionret->AE_sous_action -=  $validated['AE_env_T'];
                         $actionret->CP_sous_action -= $validated['CP_env_T'];
                         $actionret->date_update_sous_action = now();
-                        
+                        //dd($actionret);
                         $actionret->save();
-                         // dd( $actionret);
+                        
+
+                         
+                        $actionret_->AE_action -=  $validated['AE_env_T'];
+                        $actionret_->CP_action -= $validated['CP_env_T'];
+                        $actionret_->date_update_action = now();
+                           // dd( $actionret_);
+                        $actionret_->save();
+                      
                     }
                 
         
@@ -695,6 +720,12 @@ class modificationController extends Controller
         //dd( $actionrec);
         $actionrec->save();
 
+        $actionrec_->AE_action += $validated['AE_T1'] +  $validated['AE_T2'] +  $validated['AE_T3'] + $validated['AE_T4'];
+        $actionrec_->CP_action += $validated['CP_T1'] + $validated['CP_T2'] +  $validated['CP_T3'] + $validated['CP_T4'];
+        $actionrec_->date_update_action = now();
+       // dd( $actionrec_);
+        $actionrec_->save();
+
         }elseif ($validated['type'] == "exter" && $validated['type_extr'] == "env") {
             $sousProgReçoit->AE_sous_prog -= $validated['AE_T1'] +  $validated['AE_T2'] +  $validated['AE_T3'] + $validated['AE_T4'];
             $sousProgReçoit->CP_sous_prog -= $validated['CP_T1'] + $validated['CP_T2'] +  $validated['CP_T3'] + $validated['CP_T4'];
@@ -714,11 +745,18 @@ class modificationController extends Controller
             //dd( $actionrec);
             $actionrec->save();
 
+            $actionrec_->AE_action += $validated['AE_T1'] +  $validated['AE_T2'] +  $validated['AE_T3'] + $validated['AE_T4'];
+            $actionrec_->CP_action += $validated['CP_T1'] + $validated['CP_T2'] +  $validated['CP_T3'] + $validated['CP_T4'];
+            $actionrec_->date_update_action = now();
+           // dd( $actionrec_);
+            $actionrec_->save();
+
 
         }else {
 
         }
       
+        
 
         // insérer les données dans la table modif
        $modif= ModificationT::create([
@@ -751,7 +789,8 @@ class modificationController extends Controller
 
             'num_sous_prog_retire'=> $validated['Sous_prog_retire'],
             'num_prog_retire'=> $validated['prog_retirer'],
-            'action_modifie'=> $validated['cible_action'],
+            'num_sous_action'=> $validated['act_cible_env'],
+            'num_sous_action_retire'=> $validated['act_cible_ret'],
 
 
             'code_t1' => $codeT1,
