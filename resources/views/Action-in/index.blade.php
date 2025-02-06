@@ -90,6 +90,11 @@
  <div class="container">
     <div class="T-handle">
         <div class="list-T-hanlde">
+          <div class="switch_handle">
+            <div class="budget_port_switch">
+             <i class="fas fa-sync"></i>
+            </div>
+          </div>
                 <div class="TP-handle" id="T_port1">
                 <div class="card-T">
                   <div class="container-card bg-yellow-box">
@@ -102,7 +107,7 @@
                         <p class="card-description-T">AE : {{$resultats['T1']['total'][0]['values']['totalAE']}} DZ</p>
                         <p class="card-description-T">CP : {{$resultats['T1']['total'][0]['values']['totalCP']}} DZ</p>
                       </div>
-                      <div class="Budget_info">
+                      <div class="Budget_info" style="display: none">
                         <!--table>
                           <thead>
                             <tr>
@@ -125,7 +130,7 @@
                             </tr>
                           </tbody>
                          </table-->
-                         <div style="display: flex;flex-direction: row;align-items: center;justify-content: space-around;">
+                         <div class="row_budget" >
                           <div>
                            <p class="card-description-T"> nom</p>
                            <p class="card-description-T"> 0</p>
@@ -139,7 +144,7 @@
                            <p class="card-description-T"> 0</p>
                           </div>
                          </div>
-                         <div style="display: flex;flex-direction: row;align-items: center;justify-content: space-around;">
+                         <div class="row_budget">
                           <div>
                            <p class="card-description-T"> nom</p>
                            <p class="card-description-T"> 0</p>
@@ -155,9 +160,7 @@
                          </div>
                       </div>
                     </div>
-                    <div class="budget_port_switch">
-                      <i class="fas fa-sync"></i>
-                    </div>
+                    
                   </div>
                   
                 </div>

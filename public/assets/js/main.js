@@ -3203,6 +3203,8 @@ var cnter=0
 $('.opt_handle').append(Radio)
 $('#corcom').on('click',function()
 {
+    $('.ports_info').css('display','none')
+    $('.Budget_info').css('display','')
     var headBF='  <tr>'+
     ' <th> ADMINISTRATION CENTRALE (SERVICES CENTRAUX)</th>'+
      '<th colspan="3"> EMPLOIS BUDGETAIRES</th>'+
@@ -3229,6 +3231,7 @@ $('#corcom').on('click',function()
 
     if($(this).children().first().is(':checked') )
         {
+            
             $('.btn_bg-handler').empty()
             $('#T-tables thead').empty()
             $('#T-tables tbody').empty()
@@ -3448,6 +3451,8 @@ $('#corcom').on('click',function()
 
 $('#post_sup').on('click',function()
 {
+    $('.ports_info').css('display','none')
+    $('.Budget_info').css('display','')
     $('.btn_bg-handler').empty()
     $('#T-tables thead').empty()
     $('#T-tables tbody').empty()
@@ -3676,6 +3681,8 @@ $('#post_sup').on('click',function()
 
 $('#funt').on('click',function()
 {
+    $('.ports_info').css('display','none')
+    $('.Budget_info').css('display','')
     $('.btn_bg-handler').empty()
     $('#T-tables thead').empty()
     $('#T-tables tbody').empty()
@@ -3902,10 +3909,23 @@ $('#funt').on('click',function()
             })
         }
 })
-
+$('.budget_port_switch').on('click',function()
+{
+   if( $('.Budget_info').css('display') =='none')
+   {
+    $('.ports_info').css('display','none')
+    $('.Budget_info').css('display','')
+   }
+   else
+   {
+    $('.ports_info').css('display','')
+    $('.Budget_info').css('display','none')
+   }
+})
 $('#port_T1').on('click',function()
 {
-   
+    $('.ports_info').css('display','')
+    $('.Budget_info').css('display','none')
     if($(this).children().first().is(':checked') )
         {
             $('.btn_bg-handler').empty()
@@ -4885,6 +4905,7 @@ $(document).ready(function () {
         var id_tport_c = $(this).attr('id');
            $(this).addClass('heilighter')
         if (id_tport_c == 'T_port1') {
+            $('.opt_handle').empty()
            $('#T_port2').removeClass('heilighter')
            $('#T_port3').removeClass('heilighter')
            $('#T_port4').removeClass('heilighter')
@@ -4910,6 +4931,7 @@ $(document).ready(function () {
             })
         }
         if (id_tport_c == 'T_port2') {
+            $('.opt_handle').empty()
            $('#T_port1').removeClass('heilighter')
            $('#T_port3').removeClass('heilighter')
            $('#T_port4').removeClass('heilighter')
@@ -4933,6 +4955,7 @@ $(document).ready(function () {
             })
         }
         if (id_tport_c == 'T_port3') {
+            $('.opt_handle').empty()
            $('#T_port2').removeClass('heilighter')
            $('#T_port1').removeClass('heilighter')
            $('#T_port4').removeClass('heilighter')
@@ -4958,6 +4981,7 @@ $(document).ready(function () {
 
         }
         if (id_tport_c == 'T_port4') {
+            $('.opt_handle').empty()
            $('#T_port2').removeClass('heilighter')
            $('#T_port3').removeClass('heilighter')
            $('#T_port1').removeClass('heilighter')
