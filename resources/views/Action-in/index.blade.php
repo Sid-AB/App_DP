@@ -131,30 +131,42 @@
                           </tbody>
                          </table-->
                          <div class="row_budget" >
-                          <div>
+                          <div style="
+                          padding: 5px;
+                      ">
                            <p class="card-description-T"> Ouverts </p>
                            <p class="card-description-T"> {{$totalOuverts}}</p>
                           </div>
-                          <div>
-                           <p class="card-description-T"> Occupés au 31 décembre </p>
+                          <div style="
+                          padding: 5px;
+                      ">
+                           <p class="card-description-T"> Occupés </p>
                            <p class="card-description-T"> {{$totalOccupes}}</p>
                           </div>
-                          <div>
+                          <div style="
+                          padding: 5px;
+                      ">
                            <p class="card-description-T"> Vacants</p>
                            <p class="card-description-T"> {{$totalVacants}}</p>
                           </div>
                          </div>
                          <div class="row_budget">
-                          <div>
-                           <p class="card-description-T"> TRAITEMENT .A</p>
+                          <div style="
+                          padding: 5px;
+                      ">
+                           <p class="card-description-T"> TR.A </p>
                            <p class="card-description-T"> {{$totaltrait}}</p>
                           </div>
-                          <div>
-                           <p class="card-description-T"> P&I</p>
+                          <div style="
+                          padding: 5px;
+                      ">
+                           <p class="card-description-T"> PR & IN </p>
                            <p class="card-description-T"> {{$totalprimes}}</p>
                           </div>
-                          <div>
-                           <p class="card-description-T"> DEPENSES .A</p>
+                          <div style="
+                          padding: 5px;
+                      ">
+                           <p class="card-description-T"> DEP.A </p>
                            <p class="card-description-T"> {{$totaldepense}}</p>
                           </div>
                          </div>

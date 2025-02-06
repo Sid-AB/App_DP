@@ -370,7 +370,7 @@ box-shadow: 0px -7px 33px 1px rgba(196,131,0,1);
 }
 .row_budget
 {
-  display: flex;flex-direction: row;align-items: center;justify-content: space-around;
+  display: flex;flex-direction: row;align-items: center;justify-content: space-between;
 }
 .budget_annuel
 {

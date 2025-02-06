@@ -3252,7 +3252,7 @@ $('#corcom').on('click',function()
 
         
         $.ajax({
-            url:'/getlist_PostCommuns',
+            url:'/getlist_PostCommuns/'+id_s_act,
             type:'GET',
             success:function(response){
                 if(response.code == 200)
@@ -3358,6 +3358,7 @@ $('#corcom').on('click',function()
         $('#ajt').on('click',function(){
             $('#reloading').removeClass('reload-hidden')
                 var formate={
+                    id_s_act:id_s_act,
                     type_pos:'corcom',
                     funt_sup:$('#funt_sup').val(),
                     bg_overt:$('#bg_overt').val(),
@@ -3416,6 +3417,7 @@ $('#corcom').on('click',function()
                     url:'/del_emplois',
                     type:'POST',
                     data:{
+                        id_s_act:id_s_act,
                         delID:delID,
                         type_pos:'corcom',
                         _token: $('meta[name="csrf-token"]').attr("content"),
@@ -3501,7 +3503,7 @@ $('#post_sup').on('click',function()
         $('#T-tables thead').append(headPS)
 
         $.ajax({
-            url:'/getlist_PostSup',
+            url:'/getlist_PostSup/'+id_s_act,
             type:'GET',
             success:function(response){
                 if(response.code == 200)
@@ -3535,6 +3537,7 @@ $('#post_sup').on('click',function()
                             url:'/del_emplois',
                             type:'POST',
                             data:{
+                                id_s_act:id_s_act,
                                 delID:delID,
                                 type_pos:'post_sup',
                                 _token: $('meta[name="csrf-token"]').attr("content"),
@@ -3604,6 +3607,7 @@ $('#post_sup').on('click',function()
             $('#ajt').on('click',function(){
                 $('#reloading').removeClass('reload-hidden')
                     var formate={
+                        id_s_act:id_s_act,
                         type_pos:'post_sup',
                         funt_sup:$('#funt_sup').val(),
                         bg_overt:$('#bg_overt').val(),
@@ -3656,6 +3660,7 @@ $('#post_sup').on('click',function()
                         url:'/del_emplois',
                         type:'POST',
                         data:{
+                            id_s_act:id_s_act,
                             delID:delID,
                             type_pos:'post_sup',
                             _token: $('meta[name="csrf-token"]').attr("content"),
@@ -3736,7 +3741,7 @@ $('#funt').on('click',function()
         var bodyadd='';
 
             $.ajax({
-                url:'/getlist_fonctions',
+                url:'/getlist_fonctions/'+id_s_act,
                 type:'GET',
                 success:function(response){
                     if(response.code == 200)
@@ -3770,6 +3775,7 @@ $('#funt').on('click',function()
                                 url:'/del_emplois',
                                 type:'POST',
                                 data:{
+                                    id_s_act:id_s_act,
                                     delID:delID,
                                     type_pos:'funt',
                                     _token: $('meta[name="csrf-token"]').attr("content"),
