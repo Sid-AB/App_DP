@@ -1011,6 +1011,7 @@ function add_newOPs_T3(id, value, key,code) {
   
    $('.Tsop_handler').append(champ);
    $('#ajt').on('click',function(){
+    
     idsz=id+'-'+counter;
     counter++;
     var buttons = '<button class="btn btn-primary" id="changin"> appliquer</button>'
@@ -2461,6 +2462,7 @@ $("#date_insert_portef").on('focusout', function () {
     }
 });
 $("#add-prg").on('click', function () {
+    $('#reloading').removeClass('reload-hidden')
     var id_prog = $('#num_prog').val();
     var nom_prog = $('#nom_prog').val();
     var ae_prog = $('#AE_prog').val()
@@ -2557,6 +2559,7 @@ $("#add-prg").on('click', function () {
                if(upload_file('file',numprog_year) == 200)
                {
                    alert(response.message)
+                   $('#reloading').addClass('reload-hidden')
                }}
                 path.push(numprog_year);
                 path3.push(id_prog);
@@ -2620,6 +2623,7 @@ $("#add-prg").on('click', function () {
                 calaulsomeAE_CP_sprog()
                 /**  sous prog insert */
                 $('#add-prg2').on('click', function () {
+                    $('#reloading').removeClass('reload-hidden')
                     var sou_prog = $('#num_sous_prog').val()
                     var nom_sou_prog = $('#nom_sous_prog').val();
                     var dat_sou_prog = $('#date_insert_sousProg').val()
@@ -2767,7 +2771,7 @@ $("#add-prg").on('click', function () {
                                if(response.code == 200){
                                    if(upload_file('file',numsouprog_year) == 200)
                                    {
-
+                                    $('#reloading').addClass('reload-hidden')
                                        alert(response.message)
                                    }
                                   /* $.ajax({
@@ -2841,6 +2845,7 @@ $("#add-prg").on('click', function () {
                                      *  this part for chacking if he want to under_action
                                      *
                                      */
+                                    $('#reloading').removeClass('reload-hidden')
                                     // Demande de confirmation pour ajouter une sous-action après l'ajout de l'action
                                     let userResponse = confirm('Voulez-vous ajouter une sous-action pour cette action ?');
                                     var nom_act = $('#nom_act').val();
@@ -2889,6 +2894,7 @@ $("#add-prg").on('click', function () {
                                                        if(upload_file('file',numaction_year) == 200)
                                                        {
                                                            alert(response.message)
+                                                           $('#reloading').addClass('reload-hidden')
                                                        }
                                                    }
                                                     path.push(numaction_year);
@@ -2968,6 +2974,7 @@ $("#add-prg").on('click', function () {
                                                     //=============== FIN CHECK SOUS ACTION================//
                                                     // Ajout de l'événement d'ajout pour la sous-action
                                                     $('#add-prg4').on('click', function () {
+                                                        $('#reloading').removeClass('reload-hidden')
                                                         console.log('inside sous_action')
                                                         var nom_sous_act = $('#nom_sous_act').val();
                                                         var num_sous_act = $('#num_sous_act').val();
@@ -3002,6 +3009,7 @@ $("#add-prg").on('click', function () {
                                                             data: formdata_sous_act,
                                                             success: function (response) {
                                                                 if (response.code === 200 || response.code === 404) {
+                                                                    $('#reloading').addClass('reload-hidden')
                                                                     path.push(numsousaction_year);
                                                                     path3.push(num_sous_act);
                                                                     console.log('path: ' + JSON.stringify(path));
@@ -3082,6 +3090,7 @@ $("#add-prg").on('click', function () {
                                                    if(response.code == 200){
                                                        if(upload_file('file',numaction_year) == 200)
                                                        {
+                                                        $('#reloading').addClass('reload-hidden')
                                                            alert(response.message)
                                                        }
                                                    }
@@ -3141,6 +3150,7 @@ $("#add-prg").on('click', function () {
 
 function T1_table(id, T, id_s_act, port,code) {
    $('#T-tables tfoot').empty();
+   $('#reloading').removeClass('reload-hidden')
     var current = new Array();
     var preve = new Array();
     var newbtn = ' <div class="btn_add_budg">'+
@@ -3263,7 +3273,7 @@ $('#corcom').on('click',function()
                     '<td style="display: flex;align-items: center;flex-direction: row;justify-content: space-around;"><p>'+element.DEPENSES_ANNUELLES+'</p><p class="del_btn"><i class="fas fa-trash-alt"></i></p></td>';
                     $('#T-tables tbody').append(bodyadd);
 
-                    
+                    $('#reloading').addClass('reload-hidden')
                     $('#nbr_over').text(response.totalOuverts)
                     $('#nbr_occup').text(response.totalOccupes)
                     $('#nbr_vacants').text(response.totalVacants)
@@ -3306,7 +3316,7 @@ $('#corcom').on('click',function()
      *  add handling button
      * */    
     $(".btn_add_budg").on('click',function(){
-    
+        
         var champ='<div class="Tsop_add_handle">'+
         '<form id="add_sops">'+
         '<div class="form-group">'+
@@ -3346,7 +3356,7 @@ $('#corcom').on('click',function()
 
 
         $('#ajt').on('click',function(){
-                     
+            $('#reloading').removeClass('reload-hidden')
                 var formate={
                     type_pos:'corcom',
                     funt_sup:$('#funt_sup').val(),
@@ -3371,6 +3381,7 @@ $('#corcom').on('click',function()
                     {
                         if(response.code == 200){
                         console.log('consl'+response.id_emp)
+                        $('#reloading').addClass('reload-hidden')
                         id_empl=response.id_emp
               
                 console.log('tesign'+id_empl)
@@ -3398,7 +3409,7 @@ $('#corcom').on('click',function()
 
                 $('.del_btn').on('click',function()
             {
-               
+                $('#reloading').removeClass('reload-hidden')
                 console.log('the id is'+$(this).closest("tr").attr('id'))
                 var delID=$(this).closest("tr").attr('id')
                 $.ajax({
@@ -3413,7 +3424,7 @@ $('#corcom').on('click',function()
                     success:function(response)
                     {
                         if(response.code == 200)
-                            {
+                            {$('#reloading').addClass('reload-hidden')
                         newover=parseInt($('#nbr_over').text())-parseInt(formate.bg_overt)
                         newoccup=parseInt($('#nbr_occup').text())-parseInt(formate.bg_occup)
                         newvacant=parseInt($('#nbr_vacants').text())-parseInt(formate.bg_vacant)
@@ -3451,6 +3462,8 @@ $('#corcom').on('click',function()
 
 $('#post_sup').on('click',function()
 {
+    $('#reloading').addClass('reload-hidden')
+    $('#reloading').removeClass('reload-hidden')
     $('.ports_info').css('display','none')
     $('.Budget_info').css('display','')
     $('.btn_bg-handler').empty()
@@ -3494,6 +3507,7 @@ $('#post_sup').on('click',function()
                 if(response.code == 200)
                     {
                         $('#T-tables tbody').empty()
+                        $('#reloading').addClass('reload-hidden')
                 response.postsup.forEach(element=>{
                     bodyadd='<tr id='+element.id_emp+'>'+
                     '<td>'+element.Nom_postsup+' </td>'+
@@ -3588,7 +3602,7 @@ $('#post_sup').on('click',function()
 
 
             $('#ajt').on('click',function(){
-
+                $('#reloading').removeClass('reload-hidden')
                     var formate={
                         type_pos:'post_sup',
                         funt_sup:$('#funt_sup').val(),
@@ -3612,6 +3626,7 @@ $('#post_sup').on('click',function()
                         {
                         
                     if(response.code == 200){
+                        $('#reloading').addClass('reload-hidden')
                 var bodyadd='<tr id='+response.id_emp+'>'+
                 '<td>'+formate.funt_sup+' </td>'+
                 '<td>'+formate.bg_overt+' </td>'+
@@ -3681,6 +3696,8 @@ $('#post_sup').on('click',function()
 
 $('#funt').on('click',function()
 {
+    $('#reloading').addClass('reload-hidden')
+    $('#reloading').removeClass('reload-hidden')
     $('.ports_info').css('display','none')
     $('.Budget_info').css('display','')
     $('.btn_bg-handler').empty()
@@ -3724,6 +3741,7 @@ $('#funt').on('click',function()
                 success:function(response){
                     if(response.code == 200)
                         {
+                            $('#reloading').addClass('reload-hidden')
                             $('#T-tables tbody').empty();
                     response.postsup.forEach(element=>{
                         bodyadd='<tr id='+element.id_emp+'>'+
@@ -3817,7 +3835,7 @@ $('#funt').on('click',function()
 
 
                 $('#ajt').on('click',function(){
-
+                    $('#reloading').removeClass('reload-hidden')
                         var formate={
                             type_pos:'funt',
                             funt_sup:$('#funt_sup').val(),
@@ -3842,6 +3860,7 @@ $('#funt').on('click',function()
                                 console.log('response'+response.code)   
                     if(response.code == 200)
                         {
+                            $('#reloading').addClass('reload-hidden')
                     var bodyadd='<tr id='+response.id_emp+'>'+
                     '<td>'+formate.funt_sup+' </td>'+
                     '<td>'+formate.bg_overt+' </td>'+
@@ -3909,21 +3928,10 @@ $('#funt').on('click',function()
             })
         }
 })
-$('.budget_port_switch').on('click',function()
-{
-   if( $('.Budget_info').css('display') =='none')
-   {
-    $('.ports_info').css('display','none')
-    $('.Budget_info').css('display','')
-   }
-   else
-   {
-    $('.ports_info').css('display','')
-    $('.Budget_info').css('display','none')
-   }
-})
+
 $('#port_T1').on('click',function()
-{
+{   $('#reloading').addClass('reload-hidden')
+    $('#reloading').removeClass('reload-hidden')
     $('.ports_info').css('display','')
     $('.Budget_info').css('display','none')
     if($(this).children().first().is(':checked') )
@@ -3940,15 +3948,17 @@ $('#port_T1').on('click',function()
                 type: 'GET',
                 success: function (response) {
                     if (response.code === 200) {
+                        
                         console.log('data' + JSON.stringify(Object.keys(response.results)).length)
                         data_T_port = response.results;
                        tfooter='<tr><td colspan="2">Total</td>'+
                         '<td id="foot_AE_T1">' + data_T_port.total[0].values.totalAE + '</td>' +
                         '<td id="foot_CP_T1">' + data_T_port.total[0].values.totalCP + '</td>';
-                       
+                        $('#reloading').addClass('reload-hidden')
                     }
                     else {
                         alert(response.message);
+                        $('#reloading').addClass('reload-hidden')
                     }
                     $('#T-tables tfoot').append(tfooter);
                 }
@@ -3956,7 +3966,7 @@ $('#port_T1').on('click',function()
         }
            else
         {
-         
+            $('#reloading').addClass('reload-hidden')
             $('#T-tables tfoot').append(tfooter);
         }   
 
@@ -4073,6 +4083,8 @@ $('#port_T1').on('click',function()
 })
 }
 function T2_table(id, T, id_s_act, port,code) {
+    
+$('#reloading').addClass('reload-hidden')
    $('#T-tables tfoot').empty();
     var current = new Array();
     var preve = new Array();
@@ -4100,7 +4112,7 @@ if(code == 200)
         type: 'GET',
         success: function (response) {
             if (response.code === 200) {
-              
+                $('#reloading').addClass('reload-hidden')
                 console.log('data' + JSON.stringify(Object.keys(response.results)).length)
                 data_T_port = response.results;
                tfooter='<tr><td colspan="2">Total</td>'+
@@ -4277,6 +4289,7 @@ else
     });
 }
 function T3_table(id, T, id_s_act, port,code) {
+    $('#reloading').addClass('reload-hidden')
    $('#T-tables tfoot').empty();
     var current = new Array();
     var preve = new Array();
@@ -4312,7 +4325,7 @@ if(code == 200){
         type: 'GET',
         success: function (response) {
             if (response.code === 200) {
-           
+                $('#reloading').addClass('reload-hidden')
                 console.log('data' + JSON.stringify(Object.keys(response.results)).length)
                 data_T_port = response.results;
                 console.log(data_T_port.total[0].values.totalAEnotifievertical)
@@ -4571,6 +4584,7 @@ if(code == 200){
     
 }
 function T4_table(id, T, id_s_act, port,code) {
+    $('#reloading').addClass('reload-hidden')
    $('#T-tables tfoot').empty();
   
     var current = new Array();
@@ -4596,7 +4610,7 @@ function T4_table(id, T, id_s_act, port,code) {
         success: function (response) {
             if (response.code === 200) {
             
-               
+                $('#reloading').addClass('reload-hidden')
                 console.log('data' + JSON.stringify(Object.keys(response.results)).length)
                 data_T_port = response.results;
                tfooter='<tr><td colspan="3">Total</td>'+
@@ -4799,6 +4813,7 @@ function T4_table(id, T, id_s_act, port,code) {
 $(document).ready(function () {
 
     $('#T1').on('click', function () {
+        $('#reloading').removeClass('reload-hidden')
 
         var indic = path3.length - 1
         var id = $(this).attr('id');
@@ -4809,20 +4824,25 @@ $(document).ready(function () {
             type: 'GET',
             success: function (response) {
                 if (response.code == 200 && response.t1_exists==1) {
+               
+
                     alert('Exist')
                     T1_table(id, T, ssact, path3[0],response.code)
                     $('#T_port1').addClass('heilighter')
+                    $('#reloading').addClass('reload-hidden')
                 }
                 else {
+               
                     alert('New')
                     code =404
-                    T1_table(id, T, ssact, path3[0],code)
+                    T1_table(id, T, ssact, path3[0],code) 
+                    $('#reloading').addClass('reload-hidden')
                 }
             }
         })
     })
     $('#T2').on('click', function () {
-
+        $('#reloading').removeClass('reload-hidden')
         var indic = path3.length - 1
         var T=2
         var id = $(this).attr('id');
@@ -4834,13 +4854,13 @@ $(document).ready(function () {
                 if (response.code == 200 && response.t2_exists==1) {
                     alert('Exist')
 
-
+                    $('#reloading').addClass('reload-hidden')
                     T2_table(id, T, ssact, path3[0],response.code)
                     $('#T_port2').addClass('heilighter')
                 }
                 else {
                     alert('New')
-
+                    $('#reloading').addClass('reload-hidden')
                    code=404
                     T2_table(id, T, ssact, path3[0],code)
                 }
@@ -4850,7 +4870,7 @@ $(document).ready(function () {
     })
 
     $('#T3').on('click', function () {
-
+        $('#reloading').removeClass('reload-hidden')
         var indic = path3.length - 1
         console.log('len' + path3.length + ' act ' + indic)
         var id = $(this).attr('id');
@@ -4861,11 +4881,12 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.code == 200 && response.t3_exists==1) {
                     alert('Exist')
-
+                    $('#reloading').addClass('reload-hidden')
                     T3_table(id, T, ssact, path3[0],response.code)
                     $('#T_port3').addClass('heilighter')
                 }
                 else {
+                    $('#reloading').addClass('reload-hidden')
                     alert('New')
                     code =404
                     T3_table(id, T, ssact, path3[0],code)
@@ -4875,7 +4896,7 @@ $(document).ready(function () {
         //T3_table(id, T)
     })
     $('#T4').on('click', function () {
-
+        $('#reloading').removeClass('reload-hidden')
         var indic = path3.length - 1
         console.log('len' + path3.length + ' act ' + indic)
         var id = $(this).attr('id');
@@ -4886,13 +4907,14 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.code == 200 && response.t4_exists==1) {
                     alert('Exist')
-
+                    $('#reloading').addClass('reload-hidden')
                     T4_table(id, T, ssact, path3[0],response.code)
                     $('#T_port4').addClass('heilighter')
                 }
                 else {
                     alert('New')
                     code =404
+                    $('#reloading').addClass('reload-hidden')
                     T4_table(id, T, ssact, path3[0],code)
                 }
             }
@@ -4905,6 +4927,7 @@ $(document).ready(function () {
         var id_tport_c = $(this).attr('id');
            $(this).addClass('heilighter')
         if (id_tport_c == 'T_port1') {
+            $('#reloading').removeClass('reload-hidden')
             $('.opt_handle').empty()
            $('#T_port2').removeClass('heilighter')
            $('#T_port3').removeClass('heilighter')
@@ -4921,16 +4944,23 @@ $(document).ready(function () {
                         alert('Exist')
 
                         T1_table(id, T, ssact, path3[0],response.code)
+                        $('#reloading').addClass('reload-hidden')
+
                     }
                     else {
+                        
+
                         alert('New')
                         code =404
                         T1_table(id, T, ssact, path3[0],code)
+                        $('#reloading').addClass('reload-hidden')
                     }
                 }
             })
         }
         if (id_tport_c == 'T_port2') {
+            $('#reloading').addClass('reload-hidden')
+            $('#reloading').removeClass('reload-hidden')
             $('.opt_handle').empty()
            $('#T_port1').removeClass('heilighter')
            $('#T_port3').removeClass('heilighter')
@@ -4943,10 +4973,11 @@ $(document).ready(function () {
                 success: function (response) {
                     if (response.code == 200 && response.t2_exists==1) {
                         alert('Exist')
-
+                        $('#reloading').addClass('reload-hidden')
                         T2_table(id, T, ssact, path3[0],response.code)
                     }
                     else {
+                        $('#reloading').addClass('reload-hidden')
                         alert('New')
                                code=404
                         T2_table(id, T, ssact, path3[0],code)
@@ -4955,6 +4986,8 @@ $(document).ready(function () {
             })
         }
         if (id_tport_c == 'T_port3') {
+            $('#reloading').addClass('reload-hidden')
+            $('#reloading').removeClass('reload-hidden')
             $('.opt_handle').empty()
            $('#T_port2').removeClass('heilighter')
            $('#T_port1').removeClass('heilighter')
@@ -4967,12 +5000,12 @@ $(document).ready(function () {
                 success: function (response) {
                     if (response.code == 200 && response.t3_exists==1) {
                         alert('Exist')
-
+                        $('#reloading').addClass('reload-hidden')
                         T3_table(id, T, ssact, path3[0],response.code)
                     }
                     else {
                         alert('New ')
-                        
+                        $('#reloading').addClass('reload-hidden')
                         T3_table(id, T, ssact, path3[0],code)
                     }
                 }
@@ -4981,6 +5014,8 @@ $(document).ready(function () {
 
         }
         if (id_tport_c == 'T_port4') {
+            $('#reloading').addClass('reload-hidden')
+            $('#reloading').removeClass('reload-hidden')
             $('.opt_handle').empty()
            $('#T_port2').removeClass('heilighter')
            $('#T_port3').removeClass('heilighter')
@@ -4993,12 +5028,13 @@ $(document).ready(function () {
                 success: function (response) {
                     if (response.code == 200 && response.t4_exists==1) {
                         alert('Exist')
-
+                        $('#reloading').addClass('reload-hidden')
                         T4_table(id, T, ssact, path3[0],response.code)
                     }
                     else {
                         alert('New')
                         code =404
+                        $('#reloading').addClass('reload-hidden')
                         T4_table(id, T, ssact, path3[0],code)
                     }
                 }
@@ -5009,7 +5045,19 @@ $(document).ready(function () {
         console.log('testign which port im ' + id_tport_c)
     })
 
-
+    $('.budget_port_switch').on('click',function()
+    {
+       if( $('.Budget_info').css('display') =='none')
+       {
+        $('.ports_info').css('display','none')
+        $('.Budget_info').css('display','')
+       }
+       else
+       {
+        $('.ports_info').css('display','')
+        $('.Budget_info').css('display','none')
+       }
+    })
 })
 
 /**
