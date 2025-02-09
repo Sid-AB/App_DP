@@ -3121,6 +3121,8 @@ $("#add-prg").on('click', function () {
                         },
                         error: function (response) {
                             alert('error')
+                            $('#reloading').addClass('reload-hidden')
+                           
                         }
                     })
 
@@ -3131,6 +3133,8 @@ $("#add-prg").on('click', function () {
         },
         error: function (response) {
             alert('error')
+            $('#reloading').addClass('reload-hidden')
+           
         }
     })
 
@@ -3303,13 +3307,27 @@ $('#corcom').on('click',function()
                                $('#nbr_occup').text(newoccup);
                                $('#nbr_vacants').text(newvacant);
                                 }
+                                else
+                                {
+                                   $('#reloading').addClass('reload-hidden')
+                                }
                             }
                         })
                         
                         
                     })
 
-                })}
+                })
+            }
+            else
+            {
+               $('#reloading').addClass('reload-hidden')
+            }
+            },
+            error: function (response) {
+                alert('error')
+                $('#reloading').addClass('reload-hidden')
+               
             }
         })
     /**
@@ -3380,7 +3398,8 @@ $('#corcom').on('click',function()
                     data:formate,
                     success:function(response)
                     {
-                        if(response.code == 200){
+                        if(response.code == 200)
+                            {
                         console.log('consl'+response.id_emp)
                         $('#reloading').addClass('reload-hidden')
                         id_empl=response.id_emp
@@ -3436,12 +3455,27 @@ $('#corcom').on('click',function()
                        $('#nbr_occup').text(newoccup);
                        $('#nbr_vacants').text(newvacant);
                         }
+                    },
+                    error: function (response) {
+                        alert('error')
+                        $('#reloading').addClass('reload-hidden')
+                       
                     }
                 })
                 
             })
 
-        }}
+        }
+        else
+        {
+           $('#reloading').addClass('reload-hidden')
+        }
+    },
+    error: function (response) {
+        alert('error')
+        $('#reloading').addClass('reload-hidden')
+       
+    }
     })
 
             $('.Tsop_handler').addClass('Tsop_handler_h')
@@ -3553,13 +3587,28 @@ $('#post_sup').on('click',function()
                                $('#nbr_over').text(newover);
                                $('#nbr_occup').text(newoccup);
                                $('#nbr_vacants').text(newvacant);
+                            },
+                            error: function (response) {
+                                alert('error')
+                                $('#reloading').addClass('reload-hidden')
+                               
                             }
                         })
                         
                         
                     })
 
-                })}
+                })
+            }
+            else
+            {
+               $('#reloading').addClass('reload-hidden')
+            }
+            },
+            error: function (response) {
+                alert('error')
+                $('#reloading').addClass('reload-hidden')
+               
             }
         })
 
@@ -3676,11 +3725,26 @@ $('#post_sup').on('click',function()
                            $('#nbr_over').text(newover);
                            $('#nbr_occup').text(newoccup);
                            $('#nbr_vacants').text(newvacant);
+                        },
+                        error: function (response) {
+                            alert('error')
+                            $('#reloading').addClass('reload-hidden')
+                           
                         }
                     })
                     
                 })
-                    }}
+                    }
+                    else
+                    {
+                       $('#reloading').addClass('reload-hidden')
+                    }
+                },
+                error: function (response) {
+                    alert('error')
+                    $('#reloading').addClass('reload-hidden')
+                   
+                }
             })
                 $('.Tsop_handler').addClass('Tsop_handler_h')
                 $('#Tport-vals').empty()
@@ -3791,13 +3855,29 @@ $('#funt').on('click',function()
                                    $('#nbr_over').text(newover);
                                    $('#nbr_occup').text(newoccup);
                                    $('#nbr_vacants').text(newvacant);
+                                },
+                                error: function (response) {
+                                    alert('error')
+                                    $('#reloading').addClass('reload-hidden')
+                                   
                                 }
                             })
                             
                             
                         })
 
-                    })}
+                    })
+                }
+
+                    else
+                    {
+                       $('#reloading').addClass('reload-hidden')
+                    }
+                },
+                error: function (response) {
+                    alert('error')
+                    $('#reloading').addClass('reload-hidden')
+                   
                 }
             })
 
@@ -3843,6 +3923,7 @@ $('#funt').on('click',function()
                 $('#ajt').on('click',function(){
                     $('#reloading').removeClass('reload-hidden')
                         var formate={
+                            id_s_act:id_s_act,
                             type_pos:'funt',
                             funt_sup:$('#funt_sup').val(),
                             bg_overt:$('#bg_overt').val(),
@@ -3910,12 +3991,26 @@ $('#funt').on('click',function()
                                $('#nbr_over').text(newover);
                                $('#nbr_occup').text(newoccup);
                                $('#nbr_vacants').text(newvacant);
+                            },
+                            error: function (response) {
+                                alert('error')
+                                $('#reloading').addClass('reload-hidden')
+                               
                             }
                         })
                         
                         
                     })
                  }
+                 else
+                 {
+                    $('#reloading').addClass('reload-hidden')
+                 }
+                    },
+                    error: function (response) {
+                        alert('error')
+                        $('#reloading').addClass('reload-hidden')
+                       
                     }
                         })
 
