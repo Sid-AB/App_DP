@@ -35,7 +35,7 @@ class initPort extends Model
 
     public function action()
     {
-        return $this->belongsTo(SousProgramme::class,'num_action','num_action');
+        return $this->belongsTo(Action::class,'num_action','num_action');
     }
 
 

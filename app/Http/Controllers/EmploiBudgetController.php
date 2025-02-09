@@ -18,7 +18,7 @@ class EmploiBudgetController extends Controller
 {
     //la fonction insert 
     public function insertemploi(Request $request){
-        dd($request);
+        //dd($request);
         $emploi=Emploi_budget::updateOrCreate(
             [
                 'EmploiesOuverts'=>$request->bg_overt,
@@ -30,7 +30,7 @@ class EmploiBudgetController extends Controller
                 'code_t1'=>$request->code_t1,
                 'date_insert_emploi'=>now(),
                 'date_update_emploi'=>now(),
-                //'num_sous_action'=>,
+                'num_sous_action'=>$request->id_s_act,
             ]
             );
         if ($request->type_pos === 'funt') {

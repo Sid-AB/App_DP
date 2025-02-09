@@ -37,5 +37,9 @@ class SousAction extends Model
         return $this->hasMany(ModificationT::class,'num_sous_action','num_sous_action');
     }
 
+    public function emploibudg()
+    {
+        return $this->hasMany(Emploi_budget::class,'num_sous_action','num_sous_action');
+    }
    
 }
