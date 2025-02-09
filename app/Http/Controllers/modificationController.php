@@ -808,6 +808,7 @@ class modificationController extends Controller
 }
 function affiche_modif($numport)
 {
+    $port=$numport;
     $moficat_program=[];
     $allaction=[];
     $all_act=[];
@@ -987,7 +988,7 @@ function affiche_modif($numport)
 
 
 
-        return view('suivi-port.suivi-port', compact('programmes','Ttportglob','moficat_program'));
+        return view('suivi-port.suivi-port', compact('programmes','Ttportglob','moficat_program','port'));
          
        /* $pdf=SnappyPdf::loadView('impression.impression_dpicprgsousprog', compact('programmes','Ttportglob'))
          ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1.5);//lanscape mean orentation
