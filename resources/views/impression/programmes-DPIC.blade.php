@@ -624,6 +624,7 @@
                 
     $init_sprog=$programme['sous_programmes'][0]['sous_programmes']['code'];
     $chang=false;
+    $nbr=count($programme['sous_programmes']);
     @endphp
     @for($i = 0; $i < count($programmes); $i++)
         @foreach ($programmes[$i] as $programme)
@@ -701,7 +702,11 @@
                                 $code = explode('-', $sousProgramme['code']);
                                 $last = count($code) - 1;
                                 $code = $code[$last];
-                              
+                                
+                                $init_sprog = $sousProgramme['code'];
+                                $chang=true;
+                                $ctr++;
+                                               
                             @endphp
                              @if(!isset($sousProgramme['actions'][0]))
                             <tr>
@@ -749,16 +754,9 @@
                                         </tr>
 
                                         {{-- Total des actions pour le sous-programme --}}
-                                       
                                         <tr class="ttaction-title">
                                             <td class="ttaction-title"colspan="2">Total des actions</td>
-                                            @php
-                                            //dd($programme['sous_programmes'][0])
-                                         
-                                              
-                                               
-                                            @endphp
-                                            @if($init_sprog != $sousProgramme['code'] || isset($programme[count($programme)]))
+                                            @if($init_sprog != $sousProgramme['code'] || !isset($programme[count($programme)]))
                                             
                                                 <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j]['sous_programmes']['Total']['TotalT1_AE_ini'], 2, '.', ',') }}</td>
                                                 <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j]['sous_programmes']['Total']['TotalT1_CP_ini'], 2, '.', ',') }}</td>
@@ -768,10 +766,7 @@
                                                 <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j]['sous_programmes']['Total']['TotalT3_CP_ini'], 2, '.', ',') }}</td>
                                                 <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j]['sous_programmes']['Total']['TotalT4_AE_ini'], 2, '.', ',') }}</td>
                                                 <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j]['sous_programmes']['Total']['TotalT4_CP_ini'], 2, '.', ',') }}</td>
-                                               @php
-                                               $init_sprog = $sousProgramme['code'];
-                                               $chang=true;
-                                               @endphp
+                                               
                                             @else
                                                 <td class="ttaction-title" >0 </td>
                                                 <td class="ttaction-title" >0</td>
@@ -793,15 +788,13 @@
                                             <td >0</td>
                                             <td >0</td>
                                             <td >0</td>
-
-                                        </tr>
+            
+                                        </tr> 
                                     @endforeach
                                     
                                 @endfor
-                              
                             @endif
-
-                         
+                            
                         @endforeach
                     @endfor
                  
