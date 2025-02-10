@@ -79,9 +79,12 @@
         @endif
       @else
         @if(isset($paths))
-        
-        @else
-      <a class="element" href="/printdpic/{{$allport['id']}}" target="_blank">
+        @if(isset($s_act))
+        <a class="element" href="/printallemploi/{{$s_act}}" target="_blank">
+  
+          @else
+        <a class="element" href="/printallemploi/{{$act.'-01'}}" target="_blank">
+          @endif
         @endif
       @endif
       <i class="fas fa-print"></i> Emploi Bugdetaire
