@@ -3352,6 +3352,11 @@ $('#corcom').on('click',function()
     /**
      *  add handling button
      * */    
+
+    $('.print_apt').on('click',function(){
+        window.open('/printlist_commun/'+id_s_act,'_blank')
+    })
+
     $(".btn_add_budg").on('click',function(){
         
         var champ='<div class="Tsop_add_handle">'+
@@ -3678,7 +3683,10 @@ $('#post_sup').on('click',function()
             }
         })
 
-
+        $('.print_apt').on('click',function(){
+        
+            window.open('/printlist_posts/'+id_s_act,'_blank')
+        })
 
          $(".btn_add_budg").on('click',function(){
             var champ='<div class="Tsop_add_handle">'+
@@ -3994,7 +4002,10 @@ $('#funt').on('click',function()
                    
                 }
             })
-
+            $('.print_apt').on('click',function(){
+                console.log('print function')
+                window.open('/printlist_fonctions/'+id_s_act,'_blank')
+            })
             $(".btn_add_budg").on('click',function(){
                 var champ='<div class="Tsop_add_handle">'+
                 '<form id="add_sops">'+
