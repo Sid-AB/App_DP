@@ -110,25 +110,36 @@ class EmploiBudgetController extends Controller
                             'id_emp' => $emploi->id_emp,
                         ]);
     }
-    public function index()
+    public function printallemploi($id)
     {
         // Récupérer toutes les données de la table Fonctions
 
-        $fonctions = Fonctions::select('Nom_fonction', 'Moyenne', 'CATEGORIE')->get();
-        $emplois = Emploi_budget::select('EmploiesOuverts', 'EmploiesOccupes', 'EmploiesVacants','TRAITEMENT_ANNUEL','PRIMES_INDEMNITES','DEPENSES_ANNUELLES')->get();
-        $posts =Post_Sup::select('Nom_postsup', 'Niveau_sup', 'point_indsup')->get();
-        $communs= Post_commun::select('Nom_post','CATEGORIE_post','MOYENNE_post')->get();
+        $fonctions = Emploi_budget::join('fonctions','fonctions.id_emp','=','emploi_budgets.id_emp')->where('emploi_budgets.num_sous_action',$id)->get();
+      
+        $posts = Emploi_budget::join('post_sups','post_sups.id_emp','=','emploi_budgets.id_emp')->where('emploi_budgets.num_sous_action',$id)->get();
+        $communs=  Emploi_budget::join('post_communs','post_communs.id_emp','=','emploi_budgets.id_emp')->where('emploi_budgets.num_sous_action',$id)->get();
         // Calcul des totaux des colonnes
-       $totalOuverts = $emplois->sum('EmploiesOuverts');
-       $totalOccupes = $emplois->sum('EmploiesOccupes');
-       $totalVacants = $emplois->sum('EmploiesVacants');
+       $totalOuvertsfct = $fonctions->sum('EmploiesOuverts');
+       $totalOccupesfct = $fonctions->sum('EmploiesOccupes');
+       $totalVacantsfct = $fonctions->sum('EmploiesVacants');
+
+       $totalOuvertspost = $posts->sum('EmploiesOuverts');
+       $totalOccupespost = $posts->sum('EmploiesOccupes');
+       $totalVacantspost = $posts->sum('EmploiesVacants');
+
+       $totalOuvertscomm = $communs->sum('EmploiesOuverts');
+       $totalOccupescomm = $communs->sum('EmploiesOccupes');
+       $totalVacantscomm = $communs->sum('EmploiesVacants');
         $pdf=SnappyPdf::loadView
         ('impression.impression_emplois_budgetaire', compact(
            'fonctions',
-           'emplois',
-           'totalOuverts',
-           'totalOccupes',
-          'totalVacants',
+           'totalOuvertsfct',
+           'totalOccupesfct',
+           'totalVacantsfct',
+          'totalOuvertspost',
+          'totalOccupespost',
+          'totalVacantspost',
+          'totalOuvertscomm', 'totalOccupescomm','totalVacantscomm',
           'posts',
           'communs'
 
@@ -323,6 +334,7 @@ function imprimer($data, $type)
     }
 
 }
+
 
   
 }
