@@ -213,9 +213,6 @@ function get_list_post_communs($id)
 function get_list_fonction($id)
 
 {
-
-
-   
     $postssup=Emploi_budget::join('fonctions','fonctions.id_emp','=','emploi_budgets.id_emp')->get();
     if(!empty($postssup))
     { $totalOuverts = $postssup->sum('EmploiesOuverts');

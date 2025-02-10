@@ -21,6 +21,7 @@ use App\Http\Controllers\opeartionController;
 use App\Http\Controllers\sousOperationController;
 use App\Http\Controllers\modificationController;
 use App\Http\Controllers\EmploiBudgetController;
+use App\Http\Controllers\FonctionController;
 
 Route::get('/', function () {
  $portfs =Portefeuille::get();
@@ -129,6 +130,12 @@ Route::controller(EmploiBudgetController::class)->group(function(){
     Route::get('/getlist_PostCommuns/{id}','get_list_post_communs')->name('emplois.post_communs');
     Route::get('/getlist_fonctions/{id}','get_list_fonction')->name('emplois.fonctions');
     Route::post('/del_emplois','del_emplois')->name('emplois.delete');
+});
+
+
+Route::controller(FonctionController::class)->group(function(){
+    Route::get('/listeFct','get_list_fonction')->name('list_fct');
+
 });
 
 
