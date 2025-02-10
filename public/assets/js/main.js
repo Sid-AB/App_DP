@@ -3217,6 +3217,8 @@ var cnter=0
 $('.opt_handle').append(Radio)
 $('#corcom').on('click',function()
 {
+   
+    $('#reloading').removeClass('reload-hidden')
     $('.ports_info').css('display','none')
     $('.Budget_info').css('display','')
     var headBF='  <tr>'+
@@ -3261,8 +3263,9 @@ $('#corcom').on('click',function()
             success:function(response){
                 if(response.code == 200)
                     {
+                        $('#reloading').addClass('reload-hidden')
                         $('#T-tables tbody').empty();
-                response.postsup.forEach(element=>{
+                    response.postsup.forEach(element=>{
                     bodyadd='<tr id='+element.id_emp+'>'+
                     '<td>'+element.Nom_post+' </td>'+
                     '<td>'+element.EmploiesOuverts+' </td>'+
@@ -3301,6 +3304,22 @@ $('#corcom').on('click',function()
                                 newover=parseInt($('#nbr_over').text())-parseInt( element.EmploiesOuverts)
                                 newoccup=parseInt($('#nbr_occup').text())-parseInt( element.EmploiesOccupes)
                                 newvacant=parseInt($('#nbr_vacants').text())-parseInt( element.EmploiesVacants)
+
+
+                                var t_tr=parseInt($('#T_tr').text())-parseInt(element.EmploiesOuverts)
+                            var t_pr=parseInt($('#T_pr').text())-parseInt(element.EmploiesOccupes)
+                            var t_dp=parseInt($('#T_dp').text())-parseInt(element.EmploiesVacants)
+                                $('#T_tr').text(t_tr)
+                                $('#T_pr').text(t_pr)                   
+                                $('#T_dp').text(t_dp)
+                    
+                                var t_ov=parseInt($('#T_ov').text())-parseInt(element.TRAITEMENT_ANNUEL)
+                                var t_oc=parseInt($('#T_oc').text())-parseInt(element.PRIMES_INDEMNITES)
+                                var t_va=parseInt($('#T_va').text())-parseInt(element.DEPENSES_ANNUELLES)
+                                $('#T_ov').text(t_ov)
+                                $('#T_oc').text(t_oc) 
+                                $('#T_va').text(t_va)
+
                               // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
                                $('#'+delID).remove();   
                                $('#nbr_over').text(newover);
@@ -3400,6 +3419,7 @@ $('#corcom').on('click',function()
                     {
                         if(response.code == 200)
                             {
+                                $('#reloading').addClass('reload-hidden')   
                         console.log('consl'+response.id_emp)
                         $('#reloading').addClass('reload-hidden')
                         id_empl=response.id_emp
@@ -3422,6 +3442,22 @@ $('#corcom').on('click',function()
             var newover=parseInt(formate.bg_overt)+parseInt($('#nbr_over').text())
             var newoccup=parseInt(formate.bg_occup)+parseInt($('#nbr_occup').text())
             var newvacant=parseInt(formate.bg_vacant)+parseInt($('#nbr_vacants').text())
+            
+            var t_tr=parseInt(formate.tr_annuel)+parseInt($('#T_tr').text())
+            var t_pr=parseInt(formate.pr_ind)+parseInt($('#T_pr').text())
+            var t_dp=parseInt(formate.depn_annuel)+parseInt($('#T_dp').text())
+            $('#T_tr').text(t_tr)
+            $('#T_pr').text(t_pr)                   
+            $('#T_dp').text(t_dp)
+
+            var t_ov=parseInt(formate.bg_overt)+parseInt($('#T_ov').text())
+            var t_oc=parseInt(formate.bg_occup)+parseInt($('#T_oc').text())
+            var t_va=parseInt(formate.bg_vacant)+parseInt($('#T_va').text())
+            $('#T_ov').text(t_ov)
+            $('#T_oc').text(t_oc) 
+            $('#T_va').text(t_va)                  
+
+
             $('#nbr_over').text(newover);
             $('#nbr_occup').text(newoccup);
             $('#nbr_vacants').text(newvacant);
@@ -3449,6 +3485,21 @@ $('#corcom').on('click',function()
                         newover=parseInt($('#nbr_over').text())-parseInt(formate.bg_overt)
                         newoccup=parseInt($('#nbr_occup').text())-parseInt(formate.bg_occup)
                         newvacant=parseInt($('#nbr_vacants').text())-parseInt(formate.bg_vacant)
+
+                        var t_tr=parseInt($('#T_tr').text())-parseInt(formate.tr_annuel)
+                        var t_pr=parseInt($('#T_pr').text())-parseInt(formate.pr_ind)
+                        var t_dp=parseInt($('#T_dp').text())-parseInt(formate.depn_annuel)
+                        $('#T_tr').text(t_tr)
+                        $('#T_pr').text(t_pr)                   
+                        $('#T_dp').text(t_dp)
+            
+                        var t_ov=parseInt($('#T_ov').text())-parseInt(formate.bg_overt)
+                        var t_oc=parseInt($('#T_oc').text())-parseInt(formate.bg_occup)
+                        var t_va=parseInt($('#T_va').text())-parseInt(formate.bg_vacant)
+                        $('#T_ov').text(t_ov)
+                        $('#T_oc').text(t_oc) 
+                        $('#T_va').text(t_va)
+
                       // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
                        $('#'+delID).remove();   
                        $('#nbr_over').text(newover);
@@ -3582,6 +3633,21 @@ $('#post_sup').on('click',function()
                                 newover=parseInt($('#nbr_over').text())-parseInt(element.EmploiesOuverts)
                                 newoccup=parseInt($('#nbr_occup').text())-parseInt(element.EmploiesOccupes)
                                 newvacant=parseInt($('#nbr_vacants').text())-parseInt(element.EmploiesVacants)
+
+                                var t_tr=parseInt($('#T_tr').text())-parseInt(element.EmploiesOuverts)
+                                var t_pr=parseInt($('#T_pr').text())-parseInt(element.EmploiesOccupes)
+                                var t_dp=parseInt($('#T_dp').text())-parseInt(element.EmploiesVacants)
+                            $('#T_tr').text(t_tr)
+                            $('#T_pr').text(t_pr)                   
+                            $('#T_dp').text(t_dp)
+                
+                            var t_ov=parseInt($('#T_ov').text())-parseInt(element.TRAITEMENT_ANNUEL)
+                            var t_oc=parseInt($('#T_oc').text())-parseInt(element.PRIMES_INDEMNITES)
+                            var t_va=parseInt($('#T_va').text())-parseInt(element.DEPENSES_ANNUELLES)
+                            $('#T_ov').text(t_ov)
+                            $('#T_oc').text(t_oc) 
+                            $('#T_va').text(t_va)
+
                               // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
                                $("#"+delID).remove();   
                                $('#nbr_over').text(newover);
@@ -3695,6 +3761,21 @@ $('#post_sup').on('click',function()
                 var newover=parseInt(formate.bg_overt)+parseInt($('#nbr_over').text())
                 var newoccup=parseInt(formate.bg_occup)+parseInt($('#nbr_occup').text())
                 var newvacant=parseInt(formate.bg_vacant)+parseInt($('#nbr_vacants').text())
+
+                var t_tr=parseInt(formate.tr_annuel)+parseInt($('#T_tr').text())
+                var t_pr=parseInt(formate.pr_ind)+parseInt($('#T_pr').text())
+                var t_dp=parseInt(formate.depn_annuel)+parseInt($('#T_dp').text())
+                $('#T_tr').text(t_tr)
+                $('#T_pr').text(t_pr)                   
+                $('#T_dp').text(t_dp)
+    
+                var t_ov=parseInt(formate.bg_overt)+parseInt($('#T_ov').text())
+                var t_oc=parseInt(formate.bg_occup)+parseInt($('#T_oc').text())
+                var t_va=parseInt(formate.bg_vacant)+parseInt($('#T_va').text())
+                $('#T_ov').text(t_ov)
+                $('#T_oc').text(t_oc) 
+                $('#T_va').text(t_va)                  
+
                 $('#nbr_over').text(newover);
                 $('#nbr_occup').text(newoccup);
                 $('#nbr_vacants').text(newvacant);
@@ -3720,6 +3801,21 @@ $('#post_sup').on('click',function()
                             newover=parseInt($('#nbr_over').text())-parseInt(formate.bg_overt)
                             newoccup=parseInt($('#nbr_occup').text())-parseInt(formate.bg_occup)
                             newvacant=parseInt($('#nbr_vacants').text())-parseInt(formate.bg_vacant)
+
+                            var t_tr=parseInt($('#T_tr').text())-parseInt(formate.tr_annuel)
+                            var t_pr=parseInt($('#T_pr').text())-parseInt(formate.pr_ind)
+                            var t_dp=parseInt($('#T_dp').text())-parseInt(formate.depn_annuel)
+                            $('#T_tr').text(t_tr)
+                            $('#T_pr').text(t_pr)                   
+                            $('#T_dp').text(t_dp)
+                
+                            var t_ov=parseInt($('#T_ov').text())-parseInt(formate.bg_overt)
+                            var t_oc=parseInt($('#T_oc').text())-parseInt(formate.bg_occup)
+                            var t_va=parseInt($('#T_va').text())-parseInt(formate.bg_vacant)
+                            $('#T_ov').text(t_ov)
+                            $('#T_oc').text(t_oc) 
+                            $('#T_va').text(t_va)
+
                           // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
                            $("#"+delID).remove();   
                            $('#nbr_over').text(newover);
@@ -3851,6 +3947,24 @@ $('#funt').on('click',function()
                                     newoccup=parseInt($('#nbr_occup').text())-parseInt( element.EmploiesOccupes)
                                     newvacant=parseInt($('#nbr_vacants').text())-parseInt( element.EmploiesVacants)
                                   // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
+
+                                    
+                            var t_tr=parseInt($('#T_tr').text())-parseInt(element.EmploiesOuverts)
+                            var t_pr=parseInt($('#T_pr').text())-parseInt(element.EmploiesOccupes)
+                            var t_dp=parseInt($('#T_dp').text())-parseInt(element.EmploiesVacants)
+                            $('#T_tr').text(t_tr)
+                            $('#T_pr').text(t_pr)                   
+                            $('#T_dp').text(t_dp)
+                
+                            var t_ov=parseInt($('#T_ov').text())-parseInt(element.TRAITEMENT_ANNUEL)
+                            var t_oc=parseInt($('#T_oc').text())-parseInt(element.PRIMES_INDEMNITES)
+                            var t_va=parseInt($('#T_va').text())-parseInt(element.DEPENSES_ANNUELLES)
+                            console.log('tv'+t_ov+'tva'+t_oc+' - '+t_va +'value original'+element.TRAITEMENT_ANNUEL+'Total'+parseInt($('#T_ov').text()))
+                            $('#T_ov').text(t_ov)
+                            $('#T_oc').text(t_oc) 
+                            $('#T_va').text(t_va)
+
+
                                    $('#'+delID).remove();   
                                    $('#nbr_over').text(newover);
                                    $('#nbr_occup').text(newoccup);
@@ -3963,6 +4077,23 @@ $('#funt').on('click',function()
                     var newover=parseInt(formate.bg_overt)+parseInt($('#nbr_over').text())
                     var newoccup=parseInt(formate.bg_occup)+parseInt($('#nbr_occup').text())
                     var newvacant=parseInt(formate.bg_vacant)+parseInt($('#nbr_vacants').text())
+
+
+
+                    var t_tr=parseInt(formate.tr_annuel)+parseInt($('#T_tr').text())
+                    var t_pr=parseInt(formate.pr_ind)+parseInt($('#T_pr').text())
+                    var t_dp=parseInt(formate.depn_annuel)+parseInt($('#T_dp').text())
+                    $('#T_tr').text(t_tr)
+                    $('#T_pr').text(t_pr)                   
+                    $('#T_dp').text(t_dp)
+        
+                    var t_ov=parseInt(formate.bg_overt)+parseInt($('#T_ov').text())
+                    var t_oc=parseInt(formate.bg_occup)+parseInt($('#T_oc').text())
+                    var t_va=parseInt(formate.bg_vacant)+parseInt($('#T_va').text())
+                    $('#T_ov').text(t_ov)
+                    $('#T_oc').text(t_oc) 
+                    $('#T_va').text(t_va)                  
+
                     $('#nbr_over').text(newover);
                     $('#nbr_occup').text(newoccup);
                     $('#nbr_vacants').text(newvacant);
@@ -3987,6 +4118,33 @@ $('#funt').on('click',function()
                                 newoccup=parseInt($('#nbr_occup').text())-parseInt(formate.bg_occup)
                                 newvacant=parseInt($('#nbr_vacants').text())-parseInt(formate.bg_vacant)
                               // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
+                              /*if( (formate.tr_annuel == null || formate.tr_annuel === "" || (Array.isArray(formate.tr_annuel) && formate.tr_annuel === 0) || (typeof formate.tr_annuel === 'object' && formate.tr_annuel !== null && Object.keys(formate.tr_annuel).length === 0)) )
+                              {
+                              var t_tr=parseInt($('#T_tr').text())-parseInt($(this).closest("tr").find("td:eq(1)").text())
+                              var t_pr=parseInt($('#T_pr').text())-parseInt($(this).closest("tr").find("td:eq(2)").text())
+                              var t_dp=parseInt($('#T_dp').text())-parseInt($(this).closest("tr").find("td:eq(3)").text())
+                              var t_ov=parseInt($('#T_ov').text())-parseInt($(this).closest("tr").find("td:eq(6)").text())
+                              var t_oc=parseInt($('#T_oc').text())-parseInt($(this).closest("tr").find("td:eq(7)").text())
+                              var t_va=parseInt($('#T_va').text())-parseInt($(this).closest("tr").find("td:eq(8)").text())
+                            }
+                            else
+                            { }*/
+                              var t_tr=parseInt($('#T_tr').text())-parseInt(formate.tr_annuel)
+                              var t_pr=parseInt($('#T_pr').text())-parseInt(formate.pr_ind)
+                              var t_dp=parseInt($('#T_dp').text())-parseInt(formate.depn_annuel)
+                              var t_ov=parseInt($('#T_ov').text())-parseInt(formate.bg_overt)
+                              var t_oc=parseInt($('#T_oc').text())-parseInt(formate.bg_occup)
+                              var t_va=parseInt($('#T_va').text())-parseInt(formate.bg_vacant)
+                           
+                              
+                              $('#T_tr').text(t_tr)
+                              $('#T_pr').text(t_pr)                   
+                              $('#T_dp').text(t_dp)
+                  
+                              $('#T_ov').text(t_ov)
+                              $('#T_oc').text(t_oc) 
+                              $('#T_va').text(t_va) 
+                                
                                $("#"+delID).remove();   
                                $('#nbr_over').text(newover);
                                $('#nbr_occup').text(newoccup);
@@ -4943,6 +5101,7 @@ $(document).ready(function () {
         })
     })
     $('#T2').on('click', function () {
+        $('.btn_bg-handler').empty()
         $('#reloading').removeClass('reload-hidden')
         var indic = path3.length - 1
         var T=2
@@ -4971,6 +5130,7 @@ $(document).ready(function () {
     })
 
     $('#T3').on('click', function () {
+        $('.btn_bg-handler').empty()
         $('#reloading').removeClass('reload-hidden')
         var indic = path3.length - 1
         console.log('len' + path3.length + ' act ' + indic)
@@ -4997,6 +5157,7 @@ $(document).ready(function () {
         //T3_table(id, T)
     })
     $('#T4').on('click', function () {
+        $('.btn_bg-handler').empty()
         $('#reloading').removeClass('reload-hidden')
         var indic = path3.length - 1
         console.log('len' + path3.length + ' act ' + indic)
@@ -5028,6 +5189,7 @@ $(document).ready(function () {
         var id_tport_c = $(this).attr('id');
            $(this).addClass('heilighter')
         if (id_tport_c == 'T_port1') {
+            $('.btn_bg-handler').empty()
             $('#reloading').removeClass('reload-hidden')
             $('.opt_handle').empty()
            $('#T_port2').removeClass('heilighter')
@@ -5060,6 +5222,7 @@ $(document).ready(function () {
             })
         }
         if (id_tport_c == 'T_port2') {
+            $('.btn_bg-handler').empty()
             $('#reloading').addClass('reload-hidden')
             $('#reloading').removeClass('reload-hidden')
             $('.opt_handle').empty()
@@ -5087,6 +5250,7 @@ $(document).ready(function () {
             })
         }
         if (id_tport_c == 'T_port3') {
+            $('.btn_bg-handler').empty()
             $('#reloading').addClass('reload-hidden')
             $('#reloading').removeClass('reload-hidden')
             $('.opt_handle').empty()
@@ -5115,6 +5279,7 @@ $(document).ready(function () {
 
         }
         if (id_tport_c == 'T_port4') {
+            $('.btn_bg-handler').empty()
             $('#reloading').addClass('reload-hidden')
             $('#reloading').removeClass('reload-hidden')
             $('.opt_handle').empty()

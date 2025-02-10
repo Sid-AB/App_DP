@@ -18,9 +18,10 @@ class EmploiBudgetController extends Controller
 {
     //la fonction insert 
     public function insertemploi(Request $request){
-        dd($request);
+       // dd($request);
         $emploi=Emploi_budget::updateOrCreate(
             [
+                'num_sous_action'=>$request->id_s_act,
                 'EmploiesOuverts'=>$request->bg_overt,
                 'EmploiesOccupes'=>$request->bg_occup,
                 'EmploiesVacants'=>$request->bg_vacant,
@@ -158,7 +159,7 @@ function get_list_postsup($id)
     if(!empty($postssup))
     {
         $totalOuverts = $postssup->sum('EmploiesOuverts');
-       $totalOccupes = $postssup->sum('EmploiesOccupes');
+        $totalOccupes = $postssup->sum('EmploiesOccupes');
        $totalVacants = $postssup->sum('EmploiesVacants');
          return response()->json([
             'code' => 200,

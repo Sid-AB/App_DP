@@ -467,7 +467,7 @@ $progg = array_values($progg);
   // dd($lastMod
     //dd($programmes);
    
-    //return view('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg'));
+    return view('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg'));
     $pdf=SnappyPdf::loadView('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg'))
     ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1);//lanscape mean orentation
           return $pdf->stream('impression_dpic.pdf');
