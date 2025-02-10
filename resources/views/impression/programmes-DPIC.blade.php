@@ -213,12 +213,14 @@
                     </tr>
 
                     {{-- Boucle sur les sous-programmes --}}
+                   
                     @for($j = 0; $j < count($programme['sous_programmes']); $j++)
                         @foreach ($programme['sous_programmes'][$j] as $sousProgramme)
                             @php
                                 $code = explode('-', $sousProgramme['code']);
                                 $last = count($code) - 1;
                                 $code = $code[$last];
+                             
                             @endphp
                              @if(!isset($sousProgramme['actions'][0]))
                             <tr>
@@ -237,7 +239,7 @@
                             {{-- Boucle sur les actions --}}
                             @if(isset($sousProgramme['actions'][0]))
                                 @php
-                                $nbract=count($sousProgramme['actions']);
+                                $nbract=count($sousProgramme['actions'])-1;
                                 @endphp
                                 @for($k = 0; $k < count($sousProgramme['actions']); $k++)
                                     @foreach ($sousProgramme['actions'][$k] as $action)
@@ -246,6 +248,10 @@
                                             $last = count($code) - 1;
                                             $code = $code[$last];
                                             //dd($action);
+                                            if($nbract > 2)
+                                            {
+                                                dd($nbract);
+                                            }
                                         @endphp
 
                                         <tr >
@@ -262,13 +268,14 @@
                                         </tr>
 
                                         {{-- Total des actions pour le sous-programme --}}
-                                       
                                         <tr class="ttaction-title">
                                             <td class="ttaction-title"colspan="2">Total des actions</td>
                                             @php
                                             //dd($programme['sous_programmes'][0])
                                             @endphp
-                                            @if(!empty($programme['sous_programmes']) )
+                                            
+                                            @if( !empty($programme['sous_programmes']))
+                                          
                                                 <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j]['sous_programmes']['Total']['TotalT1_AE_ini'], 2, '.', ',') }}</td>
                                                 <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j]['sous_programmes']['Total']['TotalT1_CP_ini'], 2, '.', ',') }}</td>
                                                 <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j]['sous_programmes']['Total']['TotalT2_AE_ini'], 2, '.', ',') }}</td>
@@ -276,7 +283,10 @@
                                                 <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j]['sous_programmes']['Total']['TotalT3_AE_ini'], 2, '.', ',') }}</td>
                                                 <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j]['sous_programmes']['Total']['TotalT3_CP_ini'], 2, '.', ',') }}</td>
                                                 <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j]['sous_programmes']['Total']['TotalT4_AE_ini'], 2, '.', ',') }}</td>
-                                                <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j    ]['sous_programmes']['Total']['TotalT4_CP_ini'], 2, '.', ',') }}</td>
+                                                <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j]['sous_programmes']['Total']['TotalT4_CP_ini'], 2, '.', ',') }}</td>
+                                                @php
+                                                $chang=false;
+                                                @endphp
                                             @else
                                                 <td class="ttaction-title" >0 </td>
                                                 <td class="ttaction-title" >0</td>
@@ -298,12 +308,14 @@
                                             <td >0</td>
                                             <td >0</td>
                                             <td >0</td>
-
+            
                                         </tr>
                                     @endforeach
                                     
                                 @endfor
-                              
+                            @else
+                             
+                          
                             @endif
 
                          
@@ -608,12 +620,18 @@
     
     <tr>
     {{-- Boucle sur les programmes --}}
+    @php
+                
+    $init_sprog=$programme['sous_programmes'][0]['sous_programmes']['code'];
+    $chang=false;
+    @endphp
     @for($i = 0; $i < count($programmes); $i++)
         @foreach ($programmes[$i] as $programme)
             @php
                 $code = explode('-', $programme['code']);
                 $last = count($code) - 1;
                 $code = $code[$last];
+                $ctr=0;
             @endphp
 
             {{-- Nouveau tableau pour chaque programme --}}
@@ -674,17 +692,16 @@
                     <td style=" font-weight: bold;">{{ number_format((float)0, 2, '.', ',')}}</td-->
                     @endif
                     </tr>
+                   
 
                     {{-- Boucle sur les sous-programmes --}}
-                    @php
-                    $nbr=count($programme['sous_programmes'])-1;
-                    @endphp
                     @for($j = 0; $j < count($programme['sous_programmes']); $j++)
                         @foreach ($programme['sous_programmes'][$j] as $sousProgramme)
                             @php
                                 $code = explode('-', $sousProgramme['code']);
                                 $last = count($code) - 1;
                                 $code = $code[$last];
+                              
                             @endphp
                              @if(!isset($sousProgramme['actions'][0]))
                             <tr>
@@ -701,6 +718,11 @@
                             </tr>
                             @endif  
                             {{-- Boucle sur les actions --}}
+                            @php
+                            $nbr=count($programme['sous_programmes'][$j])-1;
+                            //dd($sousProgramme['code'] );
+                           
+                            @endphp
                             @if(isset($sousProgramme['actions'][0]))
                                 @for($k = 0; $k < count($sousProgramme['actions']); $k++)
                                     @foreach ($sousProgramme['actions'][$k] as $action)
@@ -708,7 +730,9 @@
                                             $code = explode('-', $action['code']);
                                             $last = count($code) - 1;
                                             $code = $code[$last];
-                                            //dd($action);
+                                            $ctr++;
+                                           
+                                          
                                         @endphp
 
                                         <tr >
@@ -726,50 +750,58 @@
 
                                         {{-- Total des actions pour le sous-programme --}}
                                        
-                                    
+                                        <tr class="ttaction-title">
+                                            <td class="ttaction-title"colspan="2">Total des actions</td>
+                                            @php
+                                            //dd($programme['sous_programmes'][0])
+                                         
+                                              
+                                               
+                                            @endphp
+                                            @if($init_sprog != $sousProgramme['code'] || isset($programme[count($programme)]))
+                                            
+                                                <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j]['sous_programmes']['Total']['TotalT1_AE_ini'], 2, '.', ',') }}</td>
+                                                <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j]['sous_programmes']['Total']['TotalT1_CP_ini'], 2, '.', ',') }}</td>
+                                                <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j]['sous_programmes']['Total']['TotalT2_AE_ini'], 2, '.', ',') }}</td>
+                                                <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j]['sous_programmes']['Total']['TotalT2_CP_ini'], 2, '.', ',') }}</td>
+                                                <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j]['sous_programmes']['Total']['TotalT3_AE_ini'], 2, '.', ',') }}</td>
+                                                <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j]['sous_programmes']['Total']['TotalT3_CP_ini'], 2, '.', ',') }}</td>
+                                                <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j]['sous_programmes']['Total']['TotalT4_AE_ini'], 2, '.', ',') }}</td>
+                                                <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j]['sous_programmes']['Total']['TotalT4_CP_ini'], 2, '.', ',') }}</td>
+                                               @php
+                                               $init_sprog = $sousProgramme['code'];
+                                               $chang=true;
+                                               @endphp
+                                            @else
+                                                <td class="ttaction-title" >0 </td>
+                                                <td class="ttaction-title" >0</td>
+                                                <td class="ttaction-title">0</td>
+                                                <td class="ttaction-title">0</td>
+                                                <td class="ttaction-title">0</td>
+                                                <td class="ttaction-title">0</td>
+                                                <td class="ttaction-title">0</td>
+                                                <td class="ttaction-title">0</td>
+                                            @endif
+                                        </tr>
+                                        <tr class="event-title">
+                                            <td colspan="2">Eventuels crédits non répartis</td>
+                                            <td >0 </td>
+                                            <td >0</td>
+                                            <td >0</td>
+                                            <td >0</td>
+                                            <td >0</td>
+                                            <td >0</td>
+                                            <td >0</td>
+                                            <td >0</td>
+
+                                        </tr>
                                     @endforeach
                                     
                                 @endfor
                               
                             @endif
 
-                            <tr class="ttaction-title">
-                                <td class="ttaction-title"colspan="2">Total des actions</td>
-                                @php
-                                //dd($programme['sous_programmes'][0])
-                                @endphp
-                                @if(!empty($programme['sous_programmes']) && $j == $nbr)
-                                    <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j]['sous_programmes']['Total']['TotalT1_AE_ini'], 2, '.', ',') }}</td>
-                                    <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j]['sous_programmes']['Total']['TotalT1_CP_ini'], 2, '.', ',') }}</td>
-                                    <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j]['sous_programmes']['Total']['TotalT2_AE_ini'], 2, '.', ',') }}</td>
-                                    <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j]['sous_programmes']['Total']['TotalT2_CP_ini'], 2, '.', ',') }}</td>
-                                    <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j]['sous_programmes']['Total']['TotalT3_AE_ini'], 2, '.', ',') }}</td>
-                                    <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j]['sous_programmes']['Total']['TotalT3_CP_ini'], 2, '.', ',') }}</td>
-                                    <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j]['sous_programmes']['Total']['TotalT4_AE_ini'], 2, '.', ',') }}</td>
-                                    <td  class="ttaction-title">{{ number_format((float)$programme['sous_programmes'][$j    ]['sous_programmes']['Total']['TotalT4_CP_ini'], 2, '.', ',') }}</td>
-                                @else
-                                    <td class="ttaction-title" >0 </td>
-                                    <td class="ttaction-title" >0</td>
-                                    <td class="ttaction-title">0</td>
-                                    <td class="ttaction-title">0</td>
-                                    <td class="ttaction-title">0</td>
-                                    <td class="ttaction-title">0</td>
-                                    <td class="ttaction-title">0</td>
-                                    <td class="ttaction-title">0</td>
-                                @endif
-                            </tr>
-                            <tr class="event-title">
-                                <td colspan="2">Eventuels crédits non répartis</td>
-                                <td >0 </td>
-                                <td >0</td>
-                                <td >0</td>
-                                <td >0</td>
-                                <td >0</td>
-                                <td >0</td>
-                                <td >0</td>
-                                <td >0</td>
-
-                            </tr>
+                         
                         @endforeach
                     @endfor
                  

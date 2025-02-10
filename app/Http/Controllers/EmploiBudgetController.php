@@ -18,7 +18,7 @@ class EmploiBudgetController extends Controller
 {
     //la fonction insert 
     public function insertemploi(Request $request){
-       // dd($request);
+        //dd($request);
         $emploi=Emploi_budget::updateOrCreate(
             [
                 'num_sous_action'=>$request->id_s_act,
@@ -31,7 +31,7 @@ class EmploiBudgetController extends Controller
                 'code_t1'=>$request->code_t1,
                 'date_insert_emploi'=>now(),
                 'date_update_emploi'=>now(),
-                //'num_sous_action'=>,
+                'num_sous_action'=>$request->id_s_act,
             ]
             );
         if ($request->type_pos === 'funt') {
@@ -214,9 +214,6 @@ function get_list_post_communs($id)
 function get_list_fonction($id)
 
 {
-
-
-   
     $postssup=Emploi_budget::join('fonctions','fonctions.id_emp','=','emploi_budgets.id_emp')->get();
     if(!empty($postssup))
     { $totalOuverts = $postssup->sum('EmploiesOuverts');

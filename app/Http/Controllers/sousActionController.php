@@ -253,11 +253,12 @@ function print_dpa($numport)
     ->orderBy('m1.date_modif', 'desc') 
     ->first(); 
     $modif = collect([$modif]);
-    //dd($modif);
+        //dd($modif);
     $result = []; 
+   
     foreach($art as $article)
                     $lastModif = $modif->firstWhere('nom', $article->nom);
-                //dd($article,$lastModif);
+               //dd($article,$lastModif);
         if($lastModif){ 
             //mm prog et mm sousprog
            
@@ -270,7 +271,8 @@ function print_dpa($numport)
                 $result['t2']=$this->compareT($lastModif, 't2');
                 $result['t3']=$this->compareT($lastModif, 't3');
                 $result['t4']=$this->compareT($lastModif, 't4');
-               //dd($lastModif);
+             //   dd($result);
+                //dd($lastModif);
                 } elseif ($lastModif->num_prog == $lastModif->num_prog_retire && $lastModif->num_sous_prog != $lastModif->num_sous_prog_retire) {
             
                     $result['t1']=$this->compareT($lastModif, 't1');
@@ -278,7 +280,7 @@ function print_dpa($numport)
                     $result['t2']=$this->compareT($lastModif, 't2');
                     $result['t3']=$this->compareT($lastModif, 't3');
                     $result['t4']=$this->compareT($lastModif, 't4');
-                  //  dd($lastModif); 
+                   //dd($lastModif); 
                   // dd($result);
                 }elseif ($lastModif->num_prog_retire != $lastModif->num_prog && $lastModif->num_sous_prog == $lastModif->num_sous_prog_retire) {
                     //le cas diffrnt prog et mm sous prog
@@ -288,6 +290,7 @@ function print_dpa($numport)
                     $result['t2']=$this->compareT($lastModif, 't2');
                     $result['t3']=$this->compareT($lastModif, 't3');
                     $result['t4']=$this->compareT($lastModif, 't4');
+                   // dd($result);
                 } elseif ($lastModif->num_prog_retire != $lastModif->num_prog && $lastModif->num_sous_prog != $lastModif->num_sous_prog_retire) {
                   
                     $result['t1']=$this->compareT($lastModif, 't1');
@@ -295,6 +298,7 @@ function print_dpa($numport)
                     $result['t2']=$this->compareT($lastModif, 't2');
                     $result['t3']=$this->compareT($lastModif, 't3');
                     $result['t4']=$this->compareT($lastModif, 't4');
+                   // dd($result['t2']);
                 } elseif ($lastModif->num_prog_retire && $lastModif->num_prog == null && $lastModif->num_sous_prog_retire && $lastModif->num_sous_prog==null) {
                     // Si envoi 
 
@@ -303,6 +307,7 @@ function print_dpa($numport)
                     $result['t2']=$this->compareT($lastModif, 't2');
                     $result['t3']=$this->compareT($lastModif, 't3');
                     $result['t4']=$this->compareT($lastModif, 't4');
+                  //  dd($result);
                 } elseif ($lastModif->num_prog  && $lastModif->num_prog_retire == null && $lastModif->num_sous_prog && $lastModif->num_sous_prog_retire==null) {
                     // Si reçoit
                  
@@ -311,11 +316,12 @@ function print_dpa($numport)
                     $result['t2']=$this->compareT($lastModif, 't2');
                     $result['t3']=$this->compareT($lastModif, 't3');
                     $result['t4']=$this->compareT($lastModif, 't4');
+                    //dd($result);
                 }else{
                     return ('erreur');
                 }
               
-    
+               
     }
     
     $portefeuilles = Portefeuille::with(['Programme.SousProgramme.Action.SousAction'])->get();
@@ -332,7 +338,7 @@ function print_dpa($numport)
                 $actiondata = [];
     
                 foreach ($sousProgramme->Action as $action) {
-                    $sousactiondata = []; // Initialisation à l'intérieur de chaque boucle Action
+                    $sousactiondata = []; 
     
                     foreach ($action->SousAction as $SousAction) {
                         $sousactiondata[] = [
@@ -373,63 +379,123 @@ function print_dpa($numport)
         $resultData[] = [
             'num_portefeuil' => $portefeuille->num_portefeuil,
             'nom_portefeuil' => $portefeuille->nom_portefeuil,
-            'programmes' => $progdata, // Correction ici
+            'programmes' => $progdata, 
         ];
     }
-
+//dd($result);
     $newArray = []; 
 
     foreach (['t1', 't2', 't3', 't4'] as $tKey) {
         if (isset($result[$tKey])) {
             $progData = $result[$tKey];
-           // dd( $progData );
+          // dd( $progData );
             if ($progData !== null) {
                 foreach ($resultData as $data) {
                     $programs = $data['programmes'];
-                   // dd( $programs);
+                   //dd( $programs);
                     foreach ($programs as $progr) {
                         $num_prog = $progr['num_prog'] ?? null;
                         //dd($num_prog);
                     //prog retire
                         if (isset($progData['tabsousprogretir']) && !empty($progData['tabsousprogretir'])) {
                             foreach ($progData['tabsousprogretir'] as $retir) {
+                             //dd($retir);
                                 if ($retir['prog'] === $num_prog) {
                                     // els sous prog
                                     if (isset($progr['sous_programmes']) && is_array($progr['sous_programmes'])) {
+                                        //dd($progr);
                                         foreach ($progr['sous_programmes'] as $sousProgramme) {
                                             if ($sousProgramme['num_sous_prog'] === $retir['num_sous_prog']) {
-                                                $newArray[] = [
-                                                    'num_prog' => $num_prog,
-                                                    'valeur_prog_ae' => $progr['AE_prog'] ?? 0,
-                                                    'valeur_prog_cp' => $progr['CP_prog'] ?? 0,
-                                                    'tKey' => $tKey,
-                                                    'sous_programme' => $retir['num_sous_prog'],
-                                                    'valeur_sous_prog_ae' => $sousProgramme['AE_sous_prog'] ?? 0,
-                                                    'valeur_sous_prog_cp' => $sousProgramme['CP_sous_prog'] ?? 0,
-                                                ];
+                                                if (isset($sousProgramme['actions']) && is_array($sousProgramme['actions'])) {
+                                                    //dd($sousProgramme);
+                                                    foreach ($sousProgramme['actions'] as $actions) {
+                                                        //dd($actions);
+                                                        if ($actions['num_action'] === $retir['num_action']){
+                                                            if (isset($actions['sousactions']) && is_array($actions['sousactions'])) {
+                                                                //dd($actions);
+                                                                foreach ($actions['sousactions'] as $sousactions) {
+                                                                    if ($sousactions['num_sous_action'] === $retir['num_sous_action']){
+                                                        
+
+                                                                        $newArray[] = [
+                                                                            'num_prog' => $num_prog,
+                                                                            'valeur_prog_ae' => $progr['AE_prog'] ?? 0,
+                                                                            'valeur_prog_cp' => $progr['CP_prog'] ?? 0,
+                                                                            'tKey' => $tKey,
+                                                                            'sous_programme' => $retir['num_sous_prog'],
+                                                                            'valeur_sous_prog_ae' => $sousProgramme['AE_sous_prog'] ?? 0,
+                                                                            'valeur_sous_prog_cp' => $sousProgramme['CP_sous_prog'] ?? 0,
+
+                                                                            'action' => $retir['num_action'],
+                                                                            'valeur_action_ae' => $actions['AE_action'] ?? 0,
+                                                                            'valeur_action_cp' => $actions['CP_action'] ?? 0,
+
+                                                                            'sousaction' => $retir['num_sous_action'],
+                                                                            'valeur_sousaction_ae' => $sousactions['AE_sous_action'] ?? 0,
+                                                                            'valeur_sousaction_cp' => $sousactions['CP_sous_action'] ?? 0,
+
+
+                                                                        ];
+
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
                                             }
                                         }
-                                    }
-                                }
-                            }
-                        }
-    
-                      //tabsousprog recoit 
-                        if (isset($progData['tabsousprogrecoit']) && !empty($progData['tabsousprogrecoit'])) {
-                            foreach ($progData['tabsousprogrecoit'] as $recoit) {
-                                if ($recoit['prog'] === $num_prog) {
-                                    if (isset($progr['sous_programmes']) && is_array($progr['sous_programmes'])) {
-                                        foreach ($progr['sous_programmes'] as $sousProgramme) {
-                                            if ($sousProgramme['num_sous_prog'] === $recoit['num_sous_prog']) {
-                                                $newArray[] = [
-                                                    'num_prog' => $num_prog,
-                                                    'valeur_prog_ae' => $progr['AE_prog'] ?? 0,
-                                                    'valeur_prog_cp' => $progr['CP_prog'] ?? 0,
-                                                    'tKey' => $tKey,
-                                                    'sous_programme' => $recoit['num_sous_prog'],
-                                                    'valeur_sous_prog_ae' => $sousProgramme['AE_sous_prog'] ?? 0,
-                                                    'valeur_sous_prog_cp' => $sousProgramme['CP_sous_prog'] ?? 0,
-                                                ];
+                                            
+                                                            //tabsousprog recoit 
+                                                                if (isset($progData['tabsousprogrecoit']) && !empty($progData['tabsousprogrecoit'])) {
+                                                                    foreach ($progData['tabsousprogrecoit'] as $recoit) {
+                                                                        if ($recoit['prog'] === $num_prog) {
+                                                                            if (isset($progr['sous_programmes']) && is_array($progr['sous_programmes'])) {
+                                                                                foreach ($progr['sous_programmes'] as $sousProgramme) {
+                                                                                    if ($sousProgramme['num_sous_prog'] === $recoit['num_sous_prog']) {
+                                                                                        if (isset($sousProgramme['actions']) && is_array($sousProgramme['actions'])) {
+                                                                                            //dd($sousProgramme);
+                                                                                            foreach ($sousProgramme['actions'] as $actions) {
+                                                                                                //dd($actions);
+                                                                                                if ($actions['num_action'] === $recoit['num_action']){
+                                                                                                    if (isset($actions['sousactions']) && is_array($actions['sousactions'])) {
+                                                                                                        //dd($actions);
+                                                                                                        foreach ($actions['sousactions'] as $sousactions) {
+                                                                                                            if ($sousactions['num_sous_action'] === $recoit['num_sous_action']){
+                                                                                                
+                                                                                       
+                                                                                       
+                                                                                        $newArray[] = [
+                                                                                            'num_prog' => $num_prog,
+                                                                                            'valeur_prog_ae' => $progr['AE_prog'] ?? 0,
+                                                                                            'valeur_prog_cp' => $progr['CP_prog'] ?? 0,
+                                                                                            'tKey' => $tKey,
+                                                                                            'sous_programme' => $recoit['num_sous_prog'],
+                                                                                            'valeur_sous_prog_ae' => $sousProgramme['AE_sous_prog'] ?? 0,
+                                                                                            'valeur_sous_prog_cp' => $sousProgramme['CP_sous_prog'] ?? 0,
+
+                                                                                            'action' => $recoit['num_action'],
+                                                                                            'valeur_action_ae' => $actions['AE_action'] ?? 0,
+                                                                                            'valeur_action_cp' => $actions['CP_action'] ?? 0,
+                
+                                                                                            'sousaction' => $recoit['num_sous_action'],
+                                                                                            'valeur_sousaction_ae' => $sousactions['AE_sous_action'] ?? 0,
+                                                                                            'valeur_sousaction_cp' => $sousactions['CP_sous_action'] ?? 0,
+                                                                                        ];
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
                                             }
                                         }
                                     }
@@ -437,11 +503,7 @@ function print_dpa($numport)
                             }
                         }
                     }
-                }
-            }
-        }
-    }
-   // dd($newArray);    
+            // dd($newArray);    
 //pour eviter les 2 clés en mm temsp 
 $progg = [];
 foreach ($newArray as $item) {
@@ -484,8 +546,20 @@ function compareT($lastModif, $t) {
     $tabsousprogretir=[];
     $tabsousprogrecoit=[];
 
+    $num_actionret = $lastModif->num_sous_action_retire;
+    $partsret = explode('-', $num_actionret);
+    $num_action_retire = implode('-', array_slice($partsret, 0, 5));
+   // dd($num_action_retire);
+    
+   $num_actionrec=$lastModif->num_sous_action;
+   $partsrec= explode('-', $num_actionrec);
+   $num_action_recoit = implode('-', array_slice($partsrec, 0, 5));
+   // dd($num_action_recoit);
+    $tabsousactretir=[];
+    $tabsousactrecoit=[];
     // si ae et cp du mm t
-
+   
+   
     if ($lastModif->$envoiAE == $lastModif->$recoitAE && $lastModif->$envoiCP == $lastModif->$recoitCP) {
 
 
@@ -495,7 +569,9 @@ function compareT($lastModif, $t) {
             'valeurAE' => $lastModif->$envoiAE,
             'valeurCP' => $lastModif->$envoiCP,
             'num_sous_prog' => $lastModif->num_sous_prog_retire,
-            'prog' => $lastModif->num_prog_retire
+            'prog' => $lastModif->num_prog_retire,
+            'num_action'=>$num_action_retire,
+            'num_sous_action'=>$lastModif->num_sous_action_retire,
         ];
 
     } else {
@@ -506,7 +582,10 @@ function compareT($lastModif, $t) {
             $tabsousprogretir[] = [
                 'valeurAE' => $lastModif->$envoiAE,
                 'num_sous_prog' => $lastModif->num_sous_prog_retire,
-                'prog' => $lastModif->num_prog_retire
+                'prog' => $lastModif->num_prog_retire,
+                'num_action'=>$num_action_retire,
+                'num_sous_action'=> $lastModif->num_sous_action_retire,
+
             ];
            // dd( $tabsousprogretir);
         }
@@ -516,7 +595,10 @@ function compareT($lastModif, $t) {
             $tabsousprogretir[] = [
                 'valeurCP' => $lastModif->$envoiCP,
                 'num_sous_prog' => $lastModif->num_sous_prog_retire,
-                'prog' => $lastModif->num_prog_retire
+                'prog' => $lastModif->num_prog_retire,
+                'num_action'=>$num_action_retire,
+                'num_sous_action'=>$lastModif->num_sous_action_retire,
+
             ];
            // dd( $tabsousprogretir);
         }
@@ -527,7 +609,9 @@ function compareT($lastModif, $t) {
             $tabsousprogrecoit[] = [
                 'valeurAE' => $lastModif->$recoitAE,
                 'num_sous_prog' => $lastModif->num_sous_prog,
-                'prog' => $lastModif->num_prog
+                'prog' => $lastModif->num_prog,
+                'num_action'=>$num_action_recoit,
+                'num_sous_action'=>$lastModif->num_sous_action,
             ];
         }
         if ($lastModif->$recoitCP > 0) {
@@ -536,7 +620,9 @@ function compareT($lastModif, $t) {
             $tabsousprogrecoit[] = [
                 'valeurCP' => $lastModif->$recoitCP,
                 'num_sous_prog' => $lastModif->num_sous_prog,
-                'prog' => $lastModif->num_prog
+                'prog' => $lastModif->num_prog,
+                'num_action'=>$num_action_recoit,
+                'num_sous_action'=>$lastModif->num_sous_action,
             ];
            // dd( $tabsousprogrecoit);
         }

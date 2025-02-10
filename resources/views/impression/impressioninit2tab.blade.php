@@ -448,6 +448,7 @@ Ministère de la Communication
                             @foreach(['t1', 't2', 't3', 't4'] as $key)
                                 @php
                                     $tabsousprogrecoit = $result[$key]['tabsousprogrecoit'] ?? []; 
+                                  //  dd( $tabsousprogrecoit);
                                     $tabsousprogretir = $result[$key]['tabsousprogretir'] ?? [];
                                     $valeurAE = $valeurCP = 0;
                                 @endphp
