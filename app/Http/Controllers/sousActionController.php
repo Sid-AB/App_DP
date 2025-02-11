@@ -178,7 +178,7 @@ function print_dpa($numport)
             {
 
 
-                $ttall=['TotalT1_AE_ini'=>$init['AE_init_t1'],'TotalT1_CP_ini'=>$init['CP_init_t1'],
+                $all_act_ini=['TotalT1_AE_ini'=>$init['AE_init_t1'],'TotalT1_CP_ini'=>$init['CP_init_t1'],
                 'TotalT2_AE_ini'=>$init['AE_init_t2'],'TotalT2_CP_ini'=>$init['CP_init_t2'],
                 'TotalT3_AE_ini'=>$init['AE_init_t3'],'TotalT3_CP_ini'=>$init['CP_init_t3'],
                 'TotalT4_AE_ini'=>$init['AE_init_t4'],'TotalT4_CP_ini'=>$init['CP_init_t4'],
@@ -200,7 +200,7 @@ function print_dpa($numport)
        
        }
        
-       array_push($sousprog_ini,['sous_programmes'=>['code'=>$sprog->num_sous_prog,"nom"=>$sprog->nom_sous_prog,'actions'=>$act_ini,"Total"=>$ttall_ini]]);
+       array_push($sousprog_ini,['sous_programmes'=>['code'=>$sprog->num_sous_prog,"nom"=>$sprog->nom_sous_prog,'actions'=>$act_ini,"Total_sp"=>$all_act_ini,"Total"=>$ttall_ini]]);
        $act_ini=[];
        
             }
