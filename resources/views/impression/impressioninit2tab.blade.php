@@ -448,7 +448,6 @@ Ministère de la Communication
                             @foreach(['t1', 't2', 't3', 't4'] as $key)
                                 @php
                                     $tabsousprogrecoit = $result[$key]['tabsousprogrecoit'] ?? []; 
-                                  //  dd( $tabsousprogrecoit);
                                     $tabsousprogretir = $result[$key]['tabsousprogretir'] ?? [];
                                     $valeurAE = $valeurCP = 0;
                                 @endphp
@@ -782,7 +781,7 @@ Ministère de la Communication
                 <th colspan="2" class="vert3">TOTAL DES CREDITS DISPONIBLES POUR LE PROGRAMME ({{ implode(') + (', $indiceProg) }}) </th>
                 <td class="vert3">{{ number_format((float)$total_t1_ae, 2, '.', ',')}}</td>
                 <td class="vert3">{{ number_format((float)$total_t1_cp, 2, '.', ',')}}</td>
-                <td class="vert3">{{ number_format((float)$total_t2_ae, 2, '.', ',')}}</td>
+                <td class="vert3">{{ number_format((float)$total_t2_ae, 2, '.', ',')}}</td> 
                 <td class="vert3">{{ number_format((float)$total_t2_cp, 2, '.', ',')}}</td>
                 <td class="vert3">{{ number_format((float)$total_t3_ae, 2, '.', ',')}}</td>
                 <td class="vert3">{{ number_format((float)$total_t3_cp, 2, '.', ',')}}</td>

@@ -71,11 +71,13 @@
 
       @if(isset($port) || isset($allport) || isset($paths))
       @if(isset($port))
-      @if(isset($s_act))
-      <a class="element" href="/printallemploi/{{$s_act}}" target="_blank">
+        @if(isset($s_act))
+         <a class="element" href="/printallemploi/{{$s_act}}" target="_blank">
 
         @else
-      <a class="element" href="/printallemploi/{{$act.'-01'}}" target="_blank">
+        @if(isset($act))
+          <a class="element" href="/printallemploi/{{$act.'-01'}}" target="_blank">
+        @endif
         @endif
       @else
         @if(isset($paths))
@@ -83,7 +85,9 @@
         <a class="element" href="/printallemploi/{{$s_act}}" target="_blank">
   
           @else
-        <a class="element" href="/printallemploi/{{$act.'-01'}}" target="_blank">
+          @if(isset($act))
+          <a class="element" href="/printallemploi/{{$act.'-01'}}" target="_blank">
+        @endif
           @endif
         @endif
       @endif
