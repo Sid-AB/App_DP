@@ -445,7 +445,7 @@ class modificationController extends Controller
     {
         //récupéreer lees données
         $modifications = $request->all();
-     dd($modifications);
+        //dd($modifications);
        // dd( $request->input('status') );
             // valider les données reçues
           /*  $request -> validate([
@@ -570,7 +570,7 @@ class modificationController extends Controller
                     $portefeuille->AE_portef+=$validated['AE_port'];
                     $portefeuille->CP_portef+=$validated['CP_port'];
                     $portefeuille->Date_update_portefeuille = now();
-                  //  dd($portefeuille);
+                    dd($portefeuille);
                     $portefeuille->save();
                 }else{
                     $portefeuille->AE_portef-=$validated['AE_port'];
