@@ -191,13 +191,9 @@ function print_dpa($numport)
                'TotalT2_AE'=>$TtAE2_act,'TotalT2_CP'=>$TtCP2_act,
                'TotalT3_AE'=>$TtAE3_act,'TotalT3_CP'=>$TtCP3_act,
                'TotalT4_AE'=>$TtAE4_act,'TotalT4_CP'=>$TtCP4_act,];
-               
                }
-            
             else
             {
-
-
                 $all_act_ini=['TotalT1_AE_ini'=>$init['AE_init_t1'],'TotalT1_CP_ini'=>$init['CP_init_t1'],
                 'TotalT2_AE_ini'=>$init['AE_init_t2'],'TotalT2_CP_ini'=>$init['CP_init_t2'],
                 'TotalT3_AE_ini'=>$init['AE_init_t3'],'TotalT3_CP_ini'=>$init['CP_init_t3'],
@@ -205,20 +201,12 @@ function print_dpa($numport)
                 
             ];
            
-         
-          
-            
-           
             }
-            
-             
-            $ttall_ini=['TotalT1_AE'=>$TtAE1_act,'TotalT1_CP'=>$TtCP1_act,
-            'TotalT2_AE'=>$TtAE2_act,'TotalT2_CP'=>$TtCP2_act,
-            'TotalT3_AE'=>$TtAE3_act,'TotalT3_CP'=>$TtCP3_act,
-            'TotalT4_AE'=>$TtAE4_act,'TotalT4_CP'=>$TtCP4_act,];
-       
+            $ttall_ini=['TotalT1_AE'=>$TtAE1,'TotalT1_CP'=>$TtCP1,
+            'TotalT2_AE'=>$TtAE2,'TotalT2_CP'=>$TtCP2,
+            'TotalT3_AE'=>$TtAE3,'TotalT3_CP'=>$TtCP3,
+            'TotalT4_AE'=>$TtAE4,'TotalT4_CP'=>$TtCP4,];
        }
-       
        array_push($sousprog_ini,['sous_programmes'=>['code'=>$sprog->num_sous_prog,"nom"=>$sprog->nom_sous_prog,'actions'=>$act_ini,"Total_sp"=>$all_act_ini,"Total"=>$ttall_ini]]);
        $act_ini=[];
        $TtAE1_act=0;
@@ -237,7 +225,7 @@ function print_dpa($numport)
            
                    
         //array_push();
-        array_push($programmes,['programmes'=>['code'=>$progm->num_prog,"nom"=>$progm->nom_prog,"sous_programmes"=>$sousprog_ini,"Total"=>$ttall_ini]]);
+        array_push($programmes,['programmes'=>['code'=>$progm->num_prog,"nom"=>$progm->nom_prog,"sous_programmes"=>$sousprog_ini,'Total_p'=>$all_act_ini,"Total"=>$ttall_ini]]);
         $TtAE1=0;
         $TtCP1=0;
         $TtAE2=0;
@@ -249,6 +237,7 @@ function print_dpa($numport)
         $ttall_ini=[];
         $sousprog_ini=[];
         $act_ini=[];
+      
     }
     //dd($programmes);
         for ($i=0; $i < count($programmes) ; $i++)
