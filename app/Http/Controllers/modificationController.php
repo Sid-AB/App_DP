@@ -566,8 +566,9 @@ class modificationController extends Controller
           
             //portefeuille vers portefeuille 
             if($portefeuille){
+              
                 if ($validated['type_port']=="recoit_port")
-                {  dd($portefeuille);
+                {   dd($portefeuille);
                     $portefeuille->AE_portef+=$validated['AE_port'];
                     $portefeuille->CP_portef+=$validated['CP_port'];
                     $portefeuille->Date_update_portefeuille = now();
@@ -619,15 +620,15 @@ class modificationController extends Controller
                     }
 
                     if ($sousProgReçoit) {
-                    $sousProgReçoit->AE_sous_prog -= (float) ($validated['AE_T1'] +  $validated['AE_T2'] +  $validated['AE_T3'] + $validated['AE_T4']);
-                    $sousProgReçoit->CP_sous_prog -=(float)  ($validated['CP_T1'] + $validated['CP_T2'] +  $validated['CP_T3'] + $validated['CP_T4']);
+                    $sousProgReçoit->AE_sous_prog -=  ($validated['AE_T1'] +  $validated['AE_T2'] +  $validated['AE_T3'] + $validated['AE_T4']);
+                    $sousProgReçoit->CP_sous_prog -=  ($validated['CP_T1'] + $validated['CP_T2'] +  $validated['CP_T3'] + $validated['CP_T4']);
                     $sousProgReçoit->date_update_sousProg = now();
                     $sousProgReçoit->save();
                     }
 
                     if ($actionrec_) {
-                    $actionrec_->AE_action -= (float) ($validated['AE_T1'] +  $validated['AE_T2'] +  $validated['AE_T3'] + $validated['AE_T4']);
-                    $actionrec_->CP_action -= (float) ($validated['CP_T1'] + $validated['CP_T2'] +  $validated['CP_T3'] + $validated['CP_T4']);
+                    $actionrec_->AE_action -=  ($validated['AE_T1'] +  $validated['AE_T2'] +  $validated['AE_T3'] + $validated['AE_T4']);
+                    $actionrec_->CP_action -= ($validated['CP_T1'] + $validated['CP_T2'] +  $validated['CP_T3'] + $validated['CP_T4']);
                     $actionrec_->date_update_action = now();
                     $actionrec_->save();
                     }
