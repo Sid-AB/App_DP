@@ -445,7 +445,7 @@ class modificationController extends Controller
     {
         //récupéreer lees données
         $modifications = $request->all();
-     //dd($modifications);
+     dd($modifications);
        // dd( $request->input('status') );
             // valider les données reçues
           /*  $request -> validate([
@@ -549,9 +549,10 @@ class modificationController extends Controller
 
             $ProgRetire = Programme::where('num_prog', $validated['prog_retirer'])->first();
            //dd( $ProgRetire);
+           $portefRetire = $ProgRetire->Portefeuille;
             $ProgReçoit = Programme::where('num_prog', $validated['prognum_click'])->first();
            // dd($ProgReçoit);
-
+           $portefRecoit = $ProgReçoit->Portefeuille;
            $portefeuille=Portefeuille::where('num_portefeuil',$validated['code_port'])->first();
          //  dd($portefeuille);
            /* if (!$sousProgRetire || !$sousProgReçoit ||!$ProgRetire || !$ProgReçoit) {
@@ -572,6 +573,27 @@ class modificationController extends Controller
                     $portefeuille->Date_update_portefeuille = now();
                   //  dd($portefeuille);
                     $portefeuille->save();
+
+                    $ProgReçoit->AE_prog += $validated['AE_T1'] + $validated['AE_T2'] + $validated['AE_T3'] + $validated['AE_T4'];
+                    $ProgReçoit->CP_prog += $validated['CP_T1'] + $validated['CP_T2'] + $validated['CP_T3'] + $validated['CP_T4'];
+                    $ProgReçoit->date_update_portef = now();
+                    $ProgReçoit->save();
+
+                    $sousProgReçoit->AE_sous_prog += $validated['AE_T1'] +  $validated['AE_T2'] +  $validated['AE_T3'] + $validated['AE_T4'];
+                    $sousProgReçoit->CP_sous_prog += $validated['CP_T1'] + $validated['CP_T2'] +  $validated['CP_T3'] + $validated['CP_T4'];
+                    $sousProgReçoit->date_update_sousProg = now();
+                    $sousProgReçoit->save();
+
+                    $actionrec_->AE_action += $validated['AE_T1'] +  $validated['AE_T2'] +  $validated['AE_T3'] + $validated['AE_T4'];
+                    $actionrec_->CP_action += $validated['CP_T1'] + $validated['CP_T2'] +  $validated['CP_T3'] + $validated['CP_T4'];
+                    $actionrec_->date_update_action = now();
+                    $actionrec_->save();
+
+                    $actionrec->AE_sous_action += $validated['AE_T1'] +  $validated['AE_T2'] +  $validated['AE_T3'] + $validated['AE_T4'];
+                    $actionrec->CP_sous_action += $validated['CP_T1'] + $validated['CP_T2'] +  $validated['CP_T3'] + $validated['CP_T4'];
+                    $actionrec->date_update_sous_action = now();
+                    $actionrec->save();
+
                 }else{
                     $portefeuille->AE_portef-=$validated['AE_port'];
                     $portefeuille->CP_portef-=$validated['CP_port'];
@@ -627,8 +649,22 @@ class modificationController extends Controller
                 
                 
                     $ProgReçoit->date_update_portef = now();
-                    $ProgReçoit->date_update_portef = now();
+          
                     $ProgReçoit->save();
+
+                    //portefeuille aussi 
+                    $portefRecoit->AE_portef += $validated['AE_T1'] + $validated['AE_T2'] + $validated['AE_T3'] + $validated['AE_T4'];
+                    $portefRecoit->CP_portef += $validated['CP_T1'] +$validated['CP_T2'] +$validated['CP_T3'] +$validated['CP_T4'];
+                
+                    $portefRecoit->AE_portef -=$validated['AE_env_T'];
+                    $portefRecoit->CP_portef -= $validated['CP_env_T'];
+                
+                
+                    $portefRecoit->Date_update_portefeuille = now();
+             
+                    $portefRecoit->save();
+
+
          
                 } else {
                       
@@ -636,14 +672,24 @@ class modificationController extends Controller
                             $ProgReçoit->CP_prog += $validated['CP_T1'] + $validated['CP_T2'] + $validated['CP_T3'] + $validated['CP_T4'];
                             $ProgReçoit->date_update_portef = now();
                             $ProgReçoit->save();
-                       
-    
+
+                                //portefeuille 
+                            $portefRecoit->AE_portef += $validated['AE_T1'] + $validated['AE_T2'] + $validated['AE_T3'] + $validated['AE_T4'];
+                            $portefRecoit->CP_portef += $validated['CP_T1'] +$validated['CP_T2'] +$validated['CP_T3'] +$validated['CP_T4'];
+                            $portefRecoit->Date_update_portefeuille = now();
+                            $portefRecoit->save();
+                        
                           
                             $ProgRetire->AE_prog -= $validated['AE_env_T'];
                             $ProgRetire->CP_prog -= $validated['CP_env_T'];
                             $ProgRetire->date_update_portef = now();
                             $ProgRetire->save();
-                        
+
+                            //portefeuille
+                            $portefRetire ->AE_portef -=$validated['AE_env_T'];
+                            $portefRetire->CP_portef -= $validated['CP_env_T'];
+                            $portefRetire->Date_update_portefeuille  = now();
+                            $portefRetire->save();
                     }
 
                     if($actionrec->num_sous_action==$actionret->num_sous_action){
