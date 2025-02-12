@@ -67,6 +67,33 @@
       <i class="fas fa-print"></i> Imprimer Dpic
       </a>
       @endif
+
+
+      @if(isset($port) || isset($allport) || isset($paths))
+      @if(isset($port))
+        @if(isset($s_act))
+         <a class="element" href="/printallemploi/{{$s_act}}" target="_blank">
+
+        @else
+        @if(isset($act))
+          <a class="element" href="/printallemploi/{{$act.'-01'}}" target="_blank">
+        @endif
+        @endif
+      @else
+        @if(isset($paths))
+        @if(isset($s_act))
+        <a class="element" href="/printallemploi/{{$s_act}}" target="_blank">
+  
+          @else
+          @if(isset($act))
+          <a class="element" href="/printallemploi/{{$act.'-01'}}" target="_blank">
+        @endif
+          @endif
+        @endif
+      @endif
+      <i class="fas fa-print"></i> Emploi Bugdetaire
+      </a>
+      @endif
   </div>
   <div class="menu-container-btn">
     <div class="menu-toggle-btn">
