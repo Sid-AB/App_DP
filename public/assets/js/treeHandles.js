@@ -347,7 +347,10 @@ $(document).ready(function(){
        ' <label>Montant:</label><br>'+
     '<label for="Tports">AE</label><input type="number" class="form-control" id="AE_Port" name="interest"><label for="number">CP</label><input type="number" class="form-control" id="CP_Port" name="interest"></div>';
        $('.exter_type').append(init_port)
-       type_port=$('#Type_op_port').val();
+       $('#Type_op_port').change(function(){
+        console.log('testing changing '+$(this).val());
+        type_port=$(this).val();
+       });
     }
       else
       {
