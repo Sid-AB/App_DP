@@ -189,7 +189,7 @@ Ministère de la Communication
               //dd($code);
                   $code = $code[$last];
                   //dd($sousProgramme['Total']['TotalT4_CP_ini']);
-                  if (empty($sousProgramme['actions'])):
+                  if (!empty($sousProgramme['actions'])):
                  @endphp
                     <tr class="subprogram-title">
                         <td>{{ $code }}</td>
