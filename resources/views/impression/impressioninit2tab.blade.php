@@ -194,17 +194,17 @@ Ministère de la Communication
                     <tr class="subprogram-title">
                         <td>{{ $code }}</td>
                         <td >Sous Programme:{{ $sousProgramme['nom'] }}</td>
-                        <td>{{ number_format((float)$sousProgramme['Total']['TotalT1_AE_ini'], 2, '.', ',') }}</td>
-                        <td>{{ number_format((float)$sousProgramme['Total']['TotalT1_CP_ini'], 2, '.', ',') }}</td>
-                        <td>{{ number_format((float)$sousProgramme['Total']['TotalT2_AE_ini'], 2, '.', ',') }}</td>
-                        <td>{{ number_format((float)$sousProgramme['Total']['TotalT2_CP_ini'], 2, '.', ',') }}</td>
-                        <td>{{ number_format((float)$sousProgramme['Total']['TotalT3_AE_ini'], 2, '.', ',') }}</td>
-                        <td>{{ number_format((float)$sousProgramme['Total']['TotalT3_CP_ini'], 2, '.', ',') }}</td>
-                        <td>{{ number_format((float)$sousProgramme['Total']['TotalT4_AE_ini'], 2, '.', ',') }}</td>
-                        <td>{{ number_format((float)$sousProgramme['Total']['TotalT4_CP_ini'], 2, '.', ',') }}</td>
+                        <td>{{ number_format((float)$sousProgramme['Total_sp']['TotalT1_AE_ini'], 2, '.', ',') }}</td>
+                        <td>{{ number_format((float)$sousProgramme['Total_sp']['TotalT1_CP_ini'], 2, '.', ',') }}</td>
+                        <td>{{ number_format((float)$sousProgramme['Total_sp']['TotalT2_AE_ini'], 2, '.', ',') }}</td>
+                        <td>{{ number_format((float)$sousProgramme['Total_sp']['TotalT2_CP_ini'], 2, '.', ',') }}</td>
+                        <td>{{ number_format((float)$sousProgramme['Total_sp']['TotalT3_AE_ini'], 2, '.', ',') }}</td>
+                        <td>{{ number_format((float)$sousProgramme['Total_sp']['TotalT3_CP_ini'], 2, '.', ',') }}</td>
+                        <td>{{ number_format((float)$sousProgramme['Total_sp']['TotalT4_AE_ini'], 2, '.', ',') }}</td>
+                        <td>{{ number_format((float)$sousProgramme['Total_sp']['TotalT4_CP_ini'], 2, '.', ',') }}</td>
 
-                        <td>{{   number_format((float)$sousProgramme['Total']['TotalT1_AE_ini']+$sousProgramme['Total']['TotalT2_AE_ini']+ $sousProgramme['Total']['TotalT3_AE_ini']+$sousProgramme['Total']['TotalT4_AE_ini'], 2, '.', ',')}}</td>
-                        <td>{{   number_format((float)$sousProgramme['Total']['TotalT1_CP_ini'] +$sousProgramme['Total']['TotalT2_CP_ini']+$sousProgramme['Total']['TotalT3_CP_ini'] + $sousProgramme['Total']['TotalT4_CP_ini'], 2, '.', ',')}}</td>
+                        <td>{{   number_format((float)$sousProgramme['Total_sp']['TotalT1_AE_ini']+$sousProgramme['Total_sp']['TotalT2_AE_ini']+ $sousProgramme['Total_sp']['TotalT3_AE_ini']+$sousProgramme['Total_sp']['TotalT4_AE_ini'], 2, '.', ',')}}</td>
+                        <td>{{   number_format((float)$sousProgramme['Total_sp']['TotalT1_CP_ini'] +$sousProgramme['Total_sp']['TotalT2_CP_ini']+$sousProgramme['Total_sp']['TotalT3_CP_ini'] + $sousProgramme['Total_sp']['TotalT4_CP_ini'], 2, '.', ',')}}</td>
 
                       
                     </tr>
@@ -748,14 +748,14 @@ Ministère de la Communication
                 }
                 else
                 {
-                    $t1_ae_s=$sousProgramme['Total']['TotalT1_AE_ini'];
-                    $t1_cp_s=$sousProgramme['Total']['TotalT1_CP_ini'] ;
-                    $t2_ae_s=$sousProgramme['Total']['TotalT2_AE_ini'] ;
-                    $t2_cp_s=$sousProgramme['Total']['TotalT2_CP_ini'] ;
-                    $t3_ae_s=$sousProgramme['Total']['TotalT3_AE_ini'] ;
-                    $t3_cp_s=$sousProgramme['Total']['TotalT3_CP_ini'] ;
-                    $t4_ae_s=$sousProgramme['Total']['TotalT4_AE_ini'] ;
-                    $t4_cp_s=$sousProgramme['Total']['TotalT4_CP_ini'] ;
+                    $t1_ae_s=$sousProgramme['Total_sp']['TotalT1_AE_ini'];
+                    $t1_cp_s=$sousProgramme['Total_sp']['TotalT1_CP_ini'] ;
+                    $t2_ae_s=$sousProgramme['Total_sp']['TotalT2_AE_ini'] ;
+                    $t2_cp_s=$sousProgramme['Total_sp']['TotalT2_CP_ini'] ;
+                    $t3_ae_s=$sousProgramme['Total_sp']['TotalT3_AE_ini'] ;
+                    $t3_cp_s=$sousProgramme['Total_sp']['TotalT3_CP_ini'] ;
+                    $t4_ae_s=$sousProgramme['Total_sp']['TotalT4_AE_ini'] ;
+                    $t4_cp_s=$sousProgramme['Total_sp']['TotalT4_CP_ini'] ;
                 }
                       
                     @endphp
