@@ -1057,6 +1057,7 @@ transition-timing-function: line;
 }
 .editable
 {
+  background-color:rgba(255, 162, 0, 0.30); ;
   text-align: center;
   padding-left: 0px;
 }

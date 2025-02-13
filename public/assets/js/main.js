@@ -4559,6 +4559,7 @@ else
     });
 }
 function T3_table(id, T, id_s_act, port,code) {
+    
     $('#reloading').addClass('reload-hidden')
    $('#T-tables tfoot').empty();
     var current = new Array();
@@ -4804,6 +4805,7 @@ if(code == 200){
                     console.log('testing ' + preve)
                     $('.ref' + preve + ' td').each(function () {
                         $(this).removeClass('editable')
+                        $(this).css('background-color:',' #2b00004f;')
                     })
                     preve = current;
 
