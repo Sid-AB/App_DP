@@ -280,9 +280,9 @@ Ministère de la Communication
                 <td colspan="2">{{ $article->nom }}</td>
                 @php
                     
-                    $lastModif= $modif->firstWhere('nom', $article->nom);
+                    //$lastModif= $modif->firstWhere('nom', $article->nom);
                     //dd($article->nom);
-                   //dd($lastModif->AE_envoi_t2);
+                  // dd($lastModif);
             
                 @endphp
                 
@@ -520,7 +520,7 @@ Ministère de la Communication
                             $code = $code[$last];
                         @endphp
                         
-                        @if (empty($sousProgramme['actions']))
+                        @if (!empty($sousProgramme['actions']))
                             <tr class="subprogram-title">
                                 <td colspan="2">Sous Programme {{ $code }} {{ $sousProgramme['nom'] }}</td>
                                 
@@ -714,7 +714,7 @@ Ministère de la Communication
               //dd($code);
                   $code = $code[$last];
                   //dd($sousProgramme['Total']['TotalT4_CP_ini']);
-                  if (empty($sousProgramme['actions'])):
+                  if (!empty($sousProgramme['actions'])):
                     
                  @endphp
                     <tr class="subprogram-title">
