@@ -551,7 +551,7 @@ $progg = array_values($progg);
 
 
 
-// dd($lastMod
+// dd($result);
 //dd($programmes);
 
 return view('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg'));
