@@ -282,11 +282,11 @@ Ministère de la Communication
                     
                     //$lastModif= $modif->firstWhere('nom', $article->nom);
                     //dd($article->nom);
-                  // dd($lastModif);
+                   //dd($lastModif);
             
                 @endphp
                 
-                @if($lastModif)
+                @if($lastModif && $lastModif->id_art == $article->id_art)
             <td>
                 @if(($lastModif->AE_envoi_t1) > 0 || ($lastModif->AE_envoi_t1) < 0)
                     {{ number_format((float)$lastModif->AE_envoi_t1 , 2, '.', ',') }}
