@@ -82,8 +82,6 @@ Ministère de la Communication
 <p style="font-family: Arial, sans-serif; font-size: 16pt; font-weight: bold; text-align: center;/*margin-left: 820px;*/"> 
             LES CREDITS BUDGETAIRES
     </p>
-
-
 <h1>
      @for($i=0;$i< count($programmes);$i++)
      @foreach ($programmes[$i] as $programme)
