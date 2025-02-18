@@ -861,12 +861,12 @@
                                             $code = explode('-', $action['code']);
                                             $last = count($code) - 1;
                                             $code = $code[$last];
-                                            //dd($action);
+                                            //dd($result);
                                         @endphp
-
                                         <tr >
                                             <td>{{ $code }}</td>
                                             <td>Action : {{ $action['nom'] }}</td>
+                                            
                                             <td>{{ number_format((float)$action['TotalT']['TotalT1_AE_ini'], 2, '.', ',') }}</td>
                                             <td>{{ number_format((float)$action['TotalT']['TotalT1_CP_ini'], 2, '.', ',') }}</td>
                                             <td>{{ number_format((float)$action['TotalT']['TotalT2_AE_ini'], 2, '.', ',') }}</td>
