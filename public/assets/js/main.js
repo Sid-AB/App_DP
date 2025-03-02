@@ -4787,7 +4787,6 @@ if(code == 200){
             }
             }
             // Append the row to the table body
-
             $('#T-tables tbody').append(row);
            
             if (current.length == 0) {
@@ -4805,7 +4804,7 @@ if(code == 200){
                     console.log('testing ' + preve)
                     $('.ref' + preve + ' td').each(function () {
                         $(this).removeClass('editable')
-                        $(this).css('background-color:',' #2b00004f;')
+                        
                     })
                     preve = current;
 
