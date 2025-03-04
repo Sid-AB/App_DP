@@ -411,6 +411,7 @@ $('#button-71').on('click',function(){
 
   var datamodif={
     ref:$('#id').val(),
+    id_port:port,
      AE_T1:parseFloat(AE_T1),
      CP_T1:parseFloat(CP_T1),
      AE_T2:parseFloat(AE_T2),
