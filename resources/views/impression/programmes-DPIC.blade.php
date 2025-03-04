@@ -885,10 +885,9 @@
                               
                                 <tr class="ttaction-title">
                                     <td class="ttaction-title"colspan="2">Total des actions</td>
-                                    @php
-                                    //dd($programme['sous_programmes'][0])
-                                    @endphp
-                                    @if(!empty($programme['sous_programmes']) && $lastModif->num_sous_prog == $sousProgramme['code'])
+                                    @if(!empty($lastModif))
+                                  
+                                    @if(!empty($programme['sous_programmes'])  && $lastModif->num_sous_prog == $sousProgramme['code'] )
                                         <td  class="ttaction-title">{{ number_format((float)$sousProgramme['Total_sp']['TotalT1_AE_ini']+$totalactAE_t1, 2, '.', ',') }}</td>
                                         <td  class="ttaction-title">{{ number_format((float)$sousProgramme['Total_sp']['TotalT1_CP_ini']+$totalactCP_t1, 2, '.', ',') }}</td>
                                         <td  class="ttaction-title">{{ number_format((float)$sousProgramme['Total_sp']['TotalT2_AE_ini']+$totalactAE_t2, 2, '.', ',') }}</td>
@@ -906,6 +905,8 @@
                                         <td class="ttaction-title">0</td>
                                         <td class="ttaction-title">0</td>
                                         <td class="ttaction-title">0</td>
+                                    @endif
+                                   
                                     @endif
                                 </tr>
                                 <tr class="event-title">
