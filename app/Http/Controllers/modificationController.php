@@ -444,8 +444,58 @@ class modificationController extends Controller
     public function insertModif(Request $request)
     {
         //récupéreer lees données
-        $modifications = $request->all();
-        //dd($modifications);
+            $modifications = $request->all();
+           // dd($modifications);
+           /* $id_portefeuille = $modifications['id_portefeuille'] ?? null;
+            if (!$id_portefeuille) {
+                return response()->json(['code' =>500,
+                                        'message'=>'ID portefeuille manquant']);
+            }*/
+        
+            $initPorts = DB::table('init_ports')->get();
+          //  dd($initPorts );
+        
+            if ($initPorts->isEmpty()) {
+                return response()->json([
+                    'code' => 500,
+                    'message' => 'Aucune donnée trouvée dans init_ports'
+                ]);
+            }
+        
+            // extraire les id_portef depuis num_sous_prog 
+            $idPortefeuilles = [];
+        
+            foreach ($initPorts as $port) {
+                $parts = explode('-', $port->num_sous_prog);
+                if (count($parts) >= 2) {
+                    $id = $parts[0] . '-' . $parts[1];
+                    dd($id);
+                    $idPortefeuilles[$id] = true; // pour éviter les doublons
+                }
+            }
+        
+            // vérifier si id_portef de request modif existe dans inits
+            if (!isset($idPortefeuilles[$id_portefeuille])) {
+                return response()->json([
+                    'code' => 404,
+                    'message' => "ID portefeuille {$id_portefeuille} non trouvé dans init_ports"
+                ]);
+            }
+            //dd($idPortefeuilles);
+        
+            // Création ou update de la vue
+            $viewName = 'init_ports_' . str_replace('-', '_', $id_portefeuille);
+            $sql = "CREATE OR REPLACE VIEW {$viewName} AS 
+                    SELECT * FROM init_ports WHERE num_sous_prog LIKE ?";
+        
+            DB::statement($sql, ["$id_portefeuille%"]);
+          
+            return response()->json([
+                'code' => 200,
+                'message' => "Vue {$viewName} créée avec succès",
+                'id_portefeuille' => $id_portefeuille
+            ]);
+
        // dd( $request->input('status') );
             // valider les données reçues
           /*  $request -> validate([
@@ -472,7 +522,7 @@ class modificationController extends Controller
 
            // dd( $request );
             $validated=$request;
-
+           
             //initialiser lees var
             $AE_env_T1 = 0;
             $CP_env_T1 = 0;
