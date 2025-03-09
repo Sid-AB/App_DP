@@ -313,7 +313,7 @@ class modificationController extends Controller
 
         $sousOperation->update([
             'AE_ouvert' => floatval(str_replace(',', '', $values['ae_ouvert'])) ?? $sousOperation->AE_ouvert,
-            'AE_atendu' => floatval(str_replace(',', '', $values['ae_atendu'])) ?? $sousOperation->AE_atendu,
+            'AE_atendu' => floatval(str_replace(',', '', $values['ae_attendu'])) ?? $sousOperation->AE_atendu,
             'CP_ouvert' => floatval(str_replace(',', '', $values['cp_ouvert'])) ?? $sousOperation->CP_ouvert,
             'CP_atendu' => floatval(str_replace(',', '', $values['cp_attendu'])) ?? $sousOperation->CP_atendu,
             'date_update_SOUSoperation' => now(),
@@ -330,9 +330,9 @@ class modificationController extends Controller
             'CP_dpia_nv' => null,
 
             'AE_ouvert_dpia' => floatval(str_replace(',', '', $values['ae_ouvert'])) ?? $sousOperation->AE_ouvert,
-            'AE_atendu_dpia' => floatval(str_replace(',', '', $values['ae_atendu'])) ?? $sousOperation->AE_atendu,
+            'AE_atendu_dpia' => floatval(str_replace(',', '', $values['ae_attendu'])) ?? $sousOperation->AE_atendu,
             'CP_ouvert_dpia' => floatval(str_replace(',', '', $values['cp_ouvert'])) ?? $sousOperation->CP_ouvert,
-            'CP_atendu_dpia' => floatval(str_replace(',', '', $values['cp_atendu'])) ?? $sousOperation->CP_atendu,
+            'CP_atendu_dpia' => floatval(str_replace(',', '', $values['cp_attendu'])) ?? $sousOperation->CP_atendu,
 
             'AE_reporte_dpia' => null,
             'AE_notifie_dpia' => null,
