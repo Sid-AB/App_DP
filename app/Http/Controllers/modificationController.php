@@ -485,9 +485,11 @@ class modificationController extends Controller
             //dd($idPortefeuilles);
         
             // création ou update de la vue
+            
             $viewName = 'init_ports_' . str_replace('-', '_', $id_portefeuille);
-            $sql = "CREATE OR REPLACE VIEW {$viewName} AS 
-                    SELECT * FROM init_ports WHERE num_sous_prog LIKE '{$id_portefeuille}%'";
+            
+            $sql = "CREATE table {$viewName} AS 
+                    SELECT * FROM init_ports WHERE num_sous_prog LIKE '{$id_portefeuille}%' ";
             DB::statement($sql);
           
             $view = DB::table($viewName)->get();

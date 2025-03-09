@@ -35,7 +35,7 @@ return [
     
     'pdf' => [
         'enabled' => true,
-        'binary' => public_path(env('SNAPPY_PDF_BINARY', 'wkhtmltopdf\bin\wkhtmltopdf.exe')),
+        'binary' => public_path(env('SNAPPY_PDF_BINARY', 'wkhtmltopdf/bin/wkhtmltopdf.exe')),
         'timeout' => false,
         'options' => [],
         'env'     => [],
