@@ -1402,17 +1402,17 @@ function Update_dpia(T,iupdate)
                        }
                        
                    
-                        $('#foot_AE_att').text(ValAccountingFigures(sommevertAEatt));
-                        $('#foot_CP_att').text(ValAccountingFigures(sommevertCPatt));
-                        $('#foot_AE_Over').text(ValAccountingFigures(sommevertAEovr));
-                        $('#foot_CP_Over').text(ValAccountingFigures(sommevertCPovr));
-                        $('#foot_AE_TT').text(ValAccountingFiguress(ommevertAETT));
-                        $('#foot_CP_TT').text(ValAccountingFigures(sommevertCPTT));
+                        $('#foot_AE_att').text(sommevertAEatt);
+                        $('#foot_CP_att').text(sommevertCPatt);
+                        $('#foot_AE_Over').text(sommevertAEovr);
+                        $('#foot_CP_Over').text(sommevertCPovr);
+                        $('#foot_AE_TT').text(ommevertAETT);
+                        $('#foot_CP_TT').text(sommevertCPTT);
                        
                         somecp = parseFloat(testcpattendu) + parseFloat(testcpover)
                         someae = parseFloat(testaeattendu) + parseFloat(testaeover);
-                       clickedRow.find('td').eq(6).text(ValAccountingFigures(someae));
-                       clickedRow.find('td').eq(7).text(ValAccountingFigures(somecp));
+                       clickedRow.find('td').eq(6).text(someae);
+                       clickedRow.find('td').eq(7).text(somecp);
                    }
                }
                else
@@ -1461,12 +1461,12 @@ function Update_dpia(T,iupdate)
                         }
     
 
-                        $('#foot_AE_rpor').text(ValAccountingFigures(sommevertAErepor));
-                        $('#foot_AE_not').text(ValAccountingFigures(sommevertAEnot));
-                        $('#foot_AE_enga').text(ValAccountingFigures(sommevertAEenga));
-                        $('#foot_CP_rpor').text(ValAccountingFigures(sommevertCPrpor));
-                        $('#foot_CP_not').text(ValAccountingFigures(sommevertCPnot));
-                        $('#foot_CP_consom').text(ValAccountingFigures(sommevertCPconsum));
+                        $('#foot_AE_rpor').text(sommevertAErepor);
+                        $('#foot_AE_not').text(sommevertAEnot);
+                        $('#foot_AE_enga').text(sommevertAEenga);
+                        $('#foot_CP_rpor').text(sommevertCPrpor);
+                        $('#foot_CP_not').text(sommevertCPnot);
+                        $('#foot_CP_consom').text(sommevertCPconsum);
  
                
                     } else
@@ -1503,12 +1503,12 @@ function Update_dpia(T,iupdate)
                         }
                         
                     
-                        $('#foot_AE_rpor').text(ValAccountingFigures(sommevertAErepor));
-                        $('#foot_AE_not').text(ValAccountingFigures(sommevertAEnot));
-                        $('#foot_AE_enga').text(ValAccountingFigures(sommevertAEenga));
-                        $('#foot_CP_rpor').text(ValAccountingFigures(sommevertCPrpor));
-                        $('#foot_CP_not').text(ValAccountingFigures(sommevertCPnot));
-                        $('#foot_CP_consom').text(ValAccountingFigures(sommevertCPconsum));
+                        $('#foot_AE_rpor').text(sommevertAErepor);
+                        $('#foot_AE_not').text(sommevertAEnot);
+                        $('#foot_AE_enga').text(sommevertAEenga);
+                        $('#foot_CP_rpor').text(sommevertCPrpor);
+                        $('#foot_CP_not').text(sommevertCPnot);
+                        $('#foot_CP_consom').text(sommevertCPconsum);
                     
                     }
                 }
@@ -4222,8 +4222,8 @@ $('#port_T1').on('click',function()
                         console.log('data' + JSON.stringify(Object.keys(response.results)).length)
                         data_T_port = response.results;
                        tfooter='<tr><td colspan="2">Total</td>'+
-                        '<td id="foot_AE_T1">' + data_T_port.total[0].values.totalAE + '</td>' +
-                        '<td id="foot_CP_T1">' + data_T_port.total[0].values.totalCP + '</td>';
+                        '<td id="foot_AE_T1">' + ValAccountingFigures(data_T_port.total[0].values.totalAE) + '</td>' +
+                        '<td id="foot_CP_T1">' + ValAccountingFigures(data_T_port.total[0].values.totalCP) + '</td>';
                         $('#reloading').addClass('reload-hidden')
                     }
                     else {
@@ -4387,12 +4387,12 @@ if(code == 200)
                 console.log('data' + JSON.stringify(Object.keys(response.results)).length)
                 data_T_port = response.results;
                tfooter='<tr><td colspan="2">Total</td>'+
-                '<td  id="foot_AE_Over">'+data_T_port.total[0].values.totalAEouvrtvertical + '</td>' +
-                '<td  id="foot_CP_Over">'+data_T_port.total[0].values.totalCPouvrtvertical + '</td>' +
-                '<td  id="foot_AE_att">'+data_T_port.total[0].values.totalAEattenduvertical + '</td>' +
-                '<td  id="foot_CP_att">'+data_T_port.total[0].values.totalCPattenduvertical + '</td>' +
-                '<td  id="foot_AE_TT">'+data_T_port.total[0].values.totalAE + '</td>' +
-                '<td  id="foot_CP_TT">'+data_T_port.total[0].values.totalCP + '</td> </tr>' ;
+                '<td  id="foot_AE_Over">'+ValAccountingFigures(data_T_port.total[0].values.totalAEouvrtvertical) + '</td>' +
+                '<td  id="foot_CP_Over">'+ValAccountingFigures(data_T_port.total[0].values.totalCPouvrtvertical) + '</td>' +
+                '<td  id="foot_AE_att">'+ValAccountingFigures(data_T_port.total[0].values.totalAEattenduvertical) + '</td>' +
+                '<td  id="foot_CP_att">'+ValAccountingFigures(data_T_port.total[0].values.totalCPattenduvertical) + '</td>' +
+                '<td  id="foot_AE_TT">'+ValAccountingFigures(data_T_port.total[0].values.totalAE) + '</td>' +
+                '<td  id="foot_CP_TT">'+ValAccountingFigures(data_T_port.total[0].values.totalCP) + '</td> </tr>' ;
                 
                 
             }
@@ -4447,7 +4447,8 @@ else
         var ig = 0;
         var io = 0;
         var iso = 0;
-        var idapped;
+
+
         $.each(data, function (key, value) {
             // Create a table row
             let row = '<tr class="ref'+key+'" id="ref' + key + '">' +
@@ -4480,7 +4481,6 @@ else
                         '</tr>';
                     ig++
                 }
-                idapped="ref"+data_T_port.group[ig].code;
             }
             if (codeop.length > 0 && data_T_port.operation.length > io) {
                var land=data_T_port.operation[io].code.length-5
@@ -4496,7 +4496,6 @@ else
                         '<td  class="somecp" oninput="formatAccountingFigures(this)" id="CP_TT">' +ValAccountingFigures (data_T_port.operation[io].values.totalCPop) + '</td>' +
                         '</tr>';
                     io++
-                    idapped="ref"+data_T_port.operation[io].code;
                 }
             }
             if (codesop.length > 0 && data_T_port.sousOperation.length > iso) {
@@ -4513,7 +4512,6 @@ else
                         '<td  class="somecp"  oninput="formatAccountingFigures(this)" id="CP_TT">' +ValAccountingFigures( data_T_port.sousOperation[iso].values.totalCPsousop) + '</td>' +
                         '</tr>';
                     iso++
-                    idapped="ref"+data_T_port.sousOperation[iso].code;
                 }
             }
 }
@@ -4614,12 +4612,12 @@ if(code == 200){
                 cpnTpt=data_T_port.total[0].values.totalCPnotifievertical
                 cpcTpt=data_T_port.total[0].values.totalCPconsomevertical
                tfooter='<tr><td colspan="4">Total</td>'+
-                '<td  id="foot_AE_rpor">'+aerTpt + '</td>' +
-                '<td  id="foot_AE_not">'+aenTpt + '</td>' +
-                '<td  id="foot_AE_enga">'+aeeTpt + '</td>' +
-                '<td  id="foot_CP_rpor">'+cprTpt + '</td>' +
-                '<td  id="foot_CP_not">'+cpnTpt + '</td>' +
-                '<td  id="foot_CP_consom">'+cpcTpt + '</td> </tr>' ;
+                '<td  id="foot_AE_rpor">'+ValAccountingFigures(aerTpt) + '</td>' +
+                '<td  id="foot_AE_not">'+ValAccountingFigures(aenTpt) + '</td>' +
+                '<td  id="foot_AE_enga">'+ValAccountingFigures(aeeTpt) + '</td>' +
+                '<td  id="foot_CP_rpor">'+ValAccountingFigures(cprTpt) + '</td>' +
+                '<td  id="foot_CP_not">'+ValAccountingFigures(cpnTpt) + '</td>' +
+                '<td  id="foot_CP_consom">'+ValAccountingFigures(cpcTpt) + '</td> </tr>' ;
                
                 
             }
@@ -4892,8 +4890,8 @@ function T4_table(id, T, id_s_act, port,code) {
                 console.log('data' + JSON.stringify(Object.keys(response.results)).length)
                 data_T_port = response.results;
                tfooter='<tr><td colspan="3">Total</td>'+
-                '<td id="foot_AE_T4">' + data_T_port.total[0].values.totalAE + '</td>' +
-                '<td id="foot_CP_T4">' + data_T_port.total[0].values.totalCP + '</td> </tr>';  
+                '<td id="foot_AE_T4">' + ValAccountingFigures(data_T_port.total[0].values.totalAE) + '</td>' +
+                '<td id="foot_CP_T4">' + ValAccountingFigures(data_T_port.total[0].values.totalCP) + '</td> </tr>';  
 
                
             }
