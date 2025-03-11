@@ -1398,4 +1398,17 @@ transition-timing-function: line;
   cursor: pointer;
 }
 
+#expExcel
+{
+  color: black;
+  border-radius: 5px;
+}
+#expExcel:hover
+{
+  -webkit-box-shadow: inset -2px 0px 40px -15px rgba(255,199,56,1);
+  -moz-box-shadow: inset -2px 0px 40px -15px rgba(255,199,56,1);
+  box-shadow: inset -2px 0px 40px -15px rgba(255,199,56,1);
+  cursor: pointer;
+
+}
 /***------------------------------ end --------------------***/
