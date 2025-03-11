@@ -5086,7 +5086,7 @@ function T4_table(id, T, id_s_act, port,code) {
         console.error('Error loading JSON file.');
     });
 }
-$(document).ready(function () {
+$(document).ready(function () { 
 
     $('#T1').on('click', function () {
         $('#reloading').removeClass('reload-hidden')
@@ -5365,15 +5365,7 @@ $(document).ready(function () {
         $('.Budget_info').css('display','none')
        }
     })
-    $('#expExcel').on('click',function()
-{
-    let table = document.getElementById("T-tables"); 
-    let wb = XLSX.utils.book_new(); 
-    let ws = XLSX.utils.table_to_sheet(table); 
-
-    XLSX.utils.book_append_sheet(wb, ws, "Sheet1"); 
-    XLSX.writeFile(wb, "table_data.xlsx");
-})
+    
 })
 
 /**
