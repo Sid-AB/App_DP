@@ -280,6 +280,7 @@ function print_dpa($numport)
     //$modif = collect([$modif]);
         //dd($modif);
     $result = []; 
+    $lastModif = null;
    // dd($art);
     foreach($art as $article){
         $lastM =($modif && $modif->id_art == $article->id_art) ? $modif : null;
