@@ -73,7 +73,6 @@
       @if(isset($port))
         @if(isset($s_act))
          <a class="element" href="/printallemploi/{{$s_act}}" target="_blank">
-
         @else
         @if(isset($act))
           <a class="element" href="/printallemploi/{{$act.'-01'}}" target="_blank">
@@ -94,6 +93,9 @@
       <i class="fas fa-print"></i> Emploi Bugdetaire
       </a>
       @endif
+      <button class="element" id="expExcel" style="display: none">
+        <i class="fas fa-print" ></i> Export Excel
+      </button>
   </div>
   <div class="menu-container-btn">
     <div class="menu-toggle-btn">
