@@ -46,4 +46,9 @@ class Action extends Model
     {
         return $this->hasMany(initPort::class,'num_action','num_action');
     }
+
+    public function modifinit()
+    {
+        return $this->hasMany(Modif_init_view::class,'num_action','num_action');
+    }
 }

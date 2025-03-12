@@ -43,5 +43,8 @@ class SousProgramme extends Model
     public function InitPorts()
     {
         return $this->hasMany(initPort::class,'num_sous_prog','num_sous_prog');
+ 
     }
+
+   
 }
