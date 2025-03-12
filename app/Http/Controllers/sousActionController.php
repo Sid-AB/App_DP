@@ -831,4 +831,11 @@ if ( $sousaction) {
 }
 
 }
+function print_test()
+{
+    return view('impression.test');
+    $pdf=SnappyPdf::loadView('impression.test')
+    ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1);//lanscape mean orentation
+          return $pdf->stream('test.pdf');
+}
 }
