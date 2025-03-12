@@ -1248,4 +1248,45 @@ function affiche_modif($numport)
 
 }
 
+
+function delete_by_id($id)
+{
+
+    $split=explode("_",$id);
+    //dd($split);
+    if($split[0] == 'prog')
+    {
+        $deletmodel=Programme::find($split[1]);
+        if($deletmodel)
+        {
+        return response()->json(['code'=>200,'message '=>'success']);
+        }
+        return response()->json(['code'=>404,'message '=>'unsuccess']);
+
+    }
+    if($split[0] == 'sous_prog')
+    {
+        $deletmodel=SousProgramme::find($split[1]);
+        if($deletmodel)
+        {
+        return response()->json(['code'=>200,'message '=>'success']);
+        }
+        return response()->json(['code'=>404,'message '=>'unsuccess']);
+    }
+    if($split[0] == 'act')
+    {
+        $deletmodel=Action::find($split[1]);
+
+        //dd($deletmodel);
+        if($deletmodel)
+        {
+            $deletmodel->delete();
+        return response()->json(['code'=>200,'message '=>'success']);
+        }
+        return response()->json(['code'=>404,'message '=>'unsuccess']);
+    }
+    return response()->json(['code'=>404,'message '=>'unsuccess']);
+}
+
+
 }

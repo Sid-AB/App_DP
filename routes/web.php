@@ -114,6 +114,7 @@ Route::controller(modificationController::class)->group(function(){
     Route::post('/update','updateSousOperation');
     Route::post('/updateModif','insertModif');
     Route::get('/affiche_transacation/{numport}','affiche_modif')->name('affich-trans');
+    Route::get('/delete_from_portfeuille/{id}','delete_by_id')->name('Delete-trans');
     
 
 
