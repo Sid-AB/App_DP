@@ -180,7 +180,7 @@ class modificationController extends Controller
                         ]);
                     }else {
                 // code non valide 
-                dd(count($parts));
+                //dd(count($parts));
                 return response()->json([
                     'message' => 'erreur code non valide  : ' . $code,
                     'code'=> 500] );

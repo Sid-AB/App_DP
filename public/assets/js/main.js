@@ -11,7 +11,7 @@ var  dataupdate=new Array();
  */
 
 
-function appliquer_up()
+function appliquer_up(T)
 {
     $('.change_app').on('click',function(){
         var idbtn=$(this).children('#changin').attr('id');
@@ -1114,7 +1114,8 @@ function add_newOPs_T3(id, value, key,code) {
                     }
                     if(code == 200)
                     {
-                        appliquer_up()
+                        T='3';
+                        appliquer_up(T)
                     }
                     else {
                         $('#changin').on('click',function(){
@@ -1231,7 +1232,8 @@ function add_newOPs_T4(id, value, key,code) {
        $('.Tsop_handler').addClass('Tsop_handler_h')
        if(code == 200)
         {
-            appliquer_up()
+            T=4;
+            appliquer_up(T)
         }   
    })
    $('#cancel_ops').click(function(){
@@ -1417,7 +1419,7 @@ function Update_dpia(T,iupdate)
                }
                else
                {
-                if( T= '3')
+                if( T == '3')
                 {
                     var sommevertAErepor=parseNumberWithoutCommas($('#foot_AE_rpor').text());
                     var sommevertAEnot=parseNumberWithoutCommas($('#foot_AE_not').text());
@@ -1655,15 +1657,17 @@ function Update_dpia(T,iupdate)
                        }
                        if(T == '3')
                        {
+                        console.log('i insert  T3'+JSON.stringify(dataupdate))
                            dataupdate.push({code:codesoup,value:{ae_notifie:ae_notifie,ae_reporte:ae_reporte,ae_engage:ae_engage,
                                                                  cp_notifie:cp_notifie,cp_reporte:cp_reporte,cp_consome:cp_consome}})
                        }
                        if(T == '4')
                        {
+                        console.log('i insert  T4'+JSON.stringify(dataupdate))
                                dataupdate.push({code:codesoup,value:{ae:ae,cp:cp}})
                        }
 
-                   console.log('i insert '+JSON.stringify(dataupdate))
+                   
                    }
 
                }
@@ -5070,9 +5074,9 @@ function T4_table(id, T, id_s_act, port,code) {
                 }
             }
             if(code === 200)
-                {
+                {   
+                   Update_dpia('4',iupdate);
                    dataupdate=[]
-                   Update_dpia(T,iupdate);
                    console.log('testing new update function')
      
                 }else
