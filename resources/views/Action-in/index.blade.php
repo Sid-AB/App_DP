@@ -6,7 +6,7 @@
     <meta name="csrf-token" content=" {{csrf_token()}}">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACTION</title>
+    <title>DPia Section</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
 <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 <link href="{{asset('assets/css/main.css')}}" rel="stylesheet"/>
@@ -14,6 +14,7 @@
 <link href="{{asset('assets/bootstrap-5.0.2/css/bootstrap.css')}}" rel="stylesheet"/>
 <link href="{{asset('assets/fontawesome-free/css/all.css')}}" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+<script src="{{asset('assets/js/xlsx.full.min.js')}}"></script>
 <link
         rel="stylesheet"
         href="https://unpkg.com/@patternfly/patternfly/patternfly.css"
@@ -135,19 +136,19 @@
                           padding: 5px;
                       ">
                            <p class="card-description-T"> Ouverts </p>
-                           <p class="card-description-T"> {{$totalOuverts}}</p>
+                           <p class="card-description-T" id="T_ov"> {{$totalOuverts}}</p>
                           </div>
                           <div style="
                           padding: 5px;
                       ">
                            <p class="card-description-T"> Occupés </p>
-                           <p class="card-description-T"> {{$totalOccupes}}</p>
+                           <p class="card-description-T" id="T_oc"> {{$totalOccupes}}</p>
                           </div>
                           <div style="
                           padding: 5px;
                       ">
                            <p class="card-description-T"> Vacants</p>
-                           <p class="card-description-T"> {{$totalVacants}}</p>
+                           <p class="card-description-T" id="T_va"> {{$totalVacants}}</p>
                           </div>
                          </div>
                          <div class="row_budget">
@@ -155,19 +156,19 @@
                           padding: 5px;
                       ">
                            <p class="card-description-T"> TR.A </p>
-                           <p class="card-description-T"> {{$totaltrait}}</p>
+                           <p class="card-description-T" id="T_tr"> {{$totaltrait}}</p>
                           </div>
                           <div style="
                           padding: 5px;
                       ">
                            <p class="card-description-T"> PR & IN </p>
-                           <p class="card-description-T"> {{$totalprimes}}</p>
+                           <p class="card-description-T" id="T_pr"> {{$totalprimes}}</p>
                           </div>
                           <div style="
                           padding: 5px;
                       ">
                            <p class="card-description-T"> DEP.A </p>
-                           <p class="card-description-T"> {{$totaldepense}}</p>
+                           <p class="card-description-T" id="T_dp"> {{$totaldepense}}</p>
                           </div>
                          </div>
                       </div>

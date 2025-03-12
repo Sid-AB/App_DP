@@ -20,6 +20,7 @@ use App\Models\T4;
 
 use App\Services\CalculDpia;
 
+use Illuminate\Support\Facades\Schema;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -180,7 +181,7 @@ class modificationController extends Controller
                         ]);
                     }else {
                 // code non valide 
-                dd(count($parts));
+                //dd(count($parts));
                 return response()->json([
                     'message' => 'erreur code non valide  : ' . $code,
                     'code'=> 500] );
@@ -313,7 +314,7 @@ class modificationController extends Controller
 
         $sousOperation->update([
             'AE_ouvert' => floatval(str_replace(',', '', $values['ae_ouvert'])) ?? $sousOperation->AE_ouvert,
-            'AE_atendu' => floatval(str_replace(',', '', $values['ae_atendu'])) ?? $sousOperation->AE_atendu,
+            'AE_atendu' => floatval(str_replace(',', '', $values['ae_attendu'])) ?? $sousOperation->AE_atendu,
             'CP_ouvert' => floatval(str_replace(',', '', $values['cp_ouvert'])) ?? $sousOperation->CP_ouvert,
             'CP_atendu' => floatval(str_replace(',', '', $values['cp_attendu'])) ?? $sousOperation->CP_atendu,
             'date_update_SOUSoperation' => now(),
@@ -330,9 +331,9 @@ class modificationController extends Controller
             'CP_dpia_nv' => null,
 
             'AE_ouvert_dpia' => floatval(str_replace(',', '', $values['ae_ouvert'])) ?? $sousOperation->AE_ouvert,
-            'AE_atendu_dpia' => floatval(str_replace(',', '', $values['ae_atendu'])) ?? $sousOperation->AE_atendu,
+            'AE_atendu_dpia' => floatval(str_replace(',', '', $values['ae_attendu'])) ?? $sousOperation->AE_atendu,
             'CP_ouvert_dpia' => floatval(str_replace(',', '', $values['cp_ouvert'])) ?? $sousOperation->CP_ouvert,
-            'CP_atendu_dpia' => floatval(str_replace(',', '', $values['cp_atendu'])) ?? $sousOperation->CP_atendu,
+            'CP_atendu_dpia' => floatval(str_replace(',', '', $values['cp_attendu'])) ?? $sousOperation->CP_atendu,
 
             'AE_reporte_dpia' => null,
             'AE_notifie_dpia' => null,
@@ -444,34 +445,78 @@ class modificationController extends Controller
     public function insertModif(Request $request)
     {
         //récupéreer lees données
-        $modifications = $request->all();
-      dd($modifications);
-       // dd( $request->input('status') );
-            // valider les données reçues
-          /*  $request -> validate([
-            'ref' => 'required|integer',
-            'AE_T1' => 'required|numeric',//reçoit
-            'CP_T1' => 'required|numeric',
-            'AE_T2' => 'required|numeric',
-            'CP_T2' => 'required|numeric',
-            'AE_T3' => 'required|numeric',
-            'CP_T3' => 'required|numeric',
-            'AE_T4' => 'required|numeric',
-            'CP_T4' => 'required|numeric',
-            'T_port_env' => 'required|string',
-            'AE_env_T' => 'required|numeric',
-            'CP_env_T' => 'required|numeric',
-            'Sous_prog_retire' => 'required|string', //sousprogramme li jabna mano l'argent
-            'type' => 'required|string',
-            'cible_action' => 'required|string',
-            'status' => 'required|string',
-            'prognum_click'=>'required|string',  //programme clickable ou reçoit l'argent
-            'prog_retirer'=>'required|string',
-            //'sousprogbum_click'=>'string', //sousprog clickable ou reçoit l'argent
-            ]);*/
+            $modifications = $request->all();
+           //dd($modifications);
+           $id_portefeuille = $modifications['id_port'] ?? null;
+            if (!$id_portefeuille) {
+                return response()->json(['code' =>500,
+                                        'message'=>'ID portefeuille manquant']);
+            }
 
-           // dd( $request );
+        //dd($id_portefeuille);
+            $initPorts = DB::table('init_ports')->get();
+          //  dd($initPorts );
+        
+            if ($initPorts->isEmpty()) {
+                return response()->json([
+                    'code' => 500,
+                    'message' => 'Aucune donnée trouvée dans init_ports'
+                ]);
+            }
+        
+            // extraire les id_portef depuis num_sous_prog 
+            $idPortefeuilles = [];
+        
+            foreach ($initPorts as $port) {
+                $parts = explode('-', $port->num_sous_prog);
+                if (count($parts) >= 2) {
+                    $id = $parts[0] . '-' . $parts[1];
+                   // dd($id);
+                    $idPortefeuilles[$id] = true; // pour éviter les doublons
+                }
+            }
+        
+            // vérifier si id_portef de request modif existe dans inits
+            if (!isset($idPortefeuilles[$id_portefeuille])) {
+                return response()->json([
+                    'code' => 404,
+                    'message' => "ID portefeuille {$id_portefeuille} non trouvé dans init_ports"
+                ]);
+            }
+            //dd($idPortefeuilles);
+        
+            // création ou update de la vue
+            
+            $viewName = 'init_ports_' . str_replace('-', '_', $id_portefeuille);
+
+            //si la table n'existe pas alors on va la créer 
+            if (!Schema::hasTable($viewName)) {
+                
+                $sql = "CREATE TABLE {$viewName} AS 
+                        SELECT * FROM init_ports WHERE num_sous_prog LIKE '{$id_portefeuille}%'";
+            
+                DB::statement($sql);
+            }
+            
+            // ajouter auto les nouvelles lignes de init 
+            $nouveaux_enregistrements = DB::table('init_ports')
+                ->where('num_sous_prog', 'LIKE', "{$id_portefeuille}%")
+                ->whereNotIn('id_init', function ($query) use ($viewName) {
+                    $query->select('id_init')->from($viewName);
+                })
+                ->get();
+            //dd($nouveaux_enregistrements);
+            foreach ($nouveaux_enregistrements as $newRow) {
+                DB::table($viewName)->insert((array) $newRow);
+            }
+          
+            $view = DB::table($viewName)->get();
+           // dd( $view);
+
+
+
             $validated=$request;
+           //dd($validated);
 
             //initialiser lees var
             $AE_env_T1 = 0;
@@ -493,6 +538,7 @@ class modificationController extends Controller
                 case 'T1':
                     $AE_env_T1 = $validated['AE_env_T'];
                     $CP_env_T1 = $validated['CP_env_T'];
+                    
                     $codeT1 =T1::value('code_t1');
 
                     break;
@@ -515,6 +561,7 @@ class modificationController extends Controller
 
                     break;
             }
+            //dd(  $CP_env_T1);
 
             if ($validated['AE_T1'] != 0 || $validated['CP_T1'] != 0) {
                 $codeT1 = T1::value('code_t1');
@@ -539,20 +586,21 @@ class modificationController extends Controller
 
             $actionrec=SousAction::where('num_sous_action',$validated['act_cible_env'])->first();
            //dd($actionrec);
-           $actionrec_ = $actionrec->Action;
+           $actionrec_ = $actionrec?->Action;
            //dd( $actionrec_ );   
            $actionret=SousAction::where('num_sous_action',$validated['act_cible_ret'])->first();
            // dd($actionret);
         
-           $actionret_ = $actionret->Action;
+           $actionret_ = $actionret?->Action;
          //  dd( $actionret_ );   
 
             $ProgRetire = Programme::where('num_prog', $validated['prog_retirer'])->first();
            //dd( $ProgRetire);
+           $portefRetire = $ProgRetire?->Portefeuille;
             $ProgReçoit = Programme::where('num_prog', $validated['prognum_click'])->first();
            // dd($ProgReçoit);
-
-           $portefeuille=Portefeuille::where('num_portefeuil',$validated['code_port'])->first();
+           $portefRecoit = $ProgReçoit?->Portefeuille;
+           $portefeuille=Portefeuille::where('num_portefeuil',$validated['id_port'])->first();
          //  dd($portefeuille);
            /* if (!$sousProgRetire || !$sousProgReçoit ||!$ProgRetire || !$ProgReçoit) {
                 return response()->json(['message' => 'Programme ou sous-programme introuvable'], 404);
@@ -562,25 +610,154 @@ class modificationController extends Controller
 
             //calcull 
             //action 
-            
+          
             //portefeuille vers portefeuille 
             if($portefeuille){
+              
                 if ($validated['type_port']=="recoit_port")
-                {
+                {   //dd($portefeuille);
                     $portefeuille->AE_portef+=$validated['AE_port'];
                     $portefeuille->CP_portef+=$validated['CP_port'];
                     $portefeuille->Date_update_portefeuille = now();
-                  //  dd($portefeuille);
+               
                     $portefeuille->save();
+
+
+                    if ($ProgReçoit) {
+                    $ProgReçoit->AE_prog += $validated['AE_T1'] + $validated['AE_T2'] + $validated['AE_T3'] + $validated['AE_T4'];
+                    $ProgReçoit->CP_prog += $validated['CP_T1'] + $validated['CP_T2'] + $validated['CP_T3'] + $validated['CP_T4'];
+                    $ProgReçoit->date_update_portef = now();
+                    $ProgReçoit->save();
+                    } 
+
+
+                    if ($sousProgReçoit) {
+                    $sousProgReçoit->AE_sous_prog += $validated['AE_T1'] +  $validated['AE_T2'] +  $validated['AE_T3'] + $validated['AE_T4'];
+                    $sousProgReçoit->CP_sous_prog += $validated['CP_T1'] + $validated['CP_T2'] +  $validated['CP_T3'] + $validated['CP_T4'];
+                    $sousProgReçoit->date_update_sousProg = now();
+                    $sousProgReçoit->save();
+                    }
+
+                    if($actionrec_) {
+                        
+                    $actionrec_->AE_action += $validated['AE_T1'] +  $validated['AE_T2'] +  $validated['AE_T3'] + $validated['AE_T4'];
+                    $actionrec_->CP_action += $validated['CP_T1'] + $validated['CP_T2'] +  $validated['CP_T3'] + $validated['CP_T4'];
+                    $actionrec_->date_update_action = now();
+                    $actionrec_->save();
+                    }
+
+                    if($actionrec){
+                    $actionrec->AE_sous_action += $validated['AE_T1'] +  $validated['AE_T2'] +  $validated['AE_T3'] + $validated['AE_T4'];
+                    $actionrec->CP_sous_action += $validated['CP_T1'] + $validated['CP_T2'] +  $validated['CP_T3'] + $validated['CP_T4'];
+                    $actionrec->date_update_sous_action = now();
+                    $actionrec->save();
+                    }  
+                    foreach ($view as $row) {
+                        if ($row->num_sous_prog == $sousProgReçoit->num_sous_prog && is_null($row->num_action)) {
+                       
+                        DB::table($viewName)
+                            ->where('num_sous_prog', $row->num_sous_prog)
+                            ->whereNull('num_action')
+                            ->update([
+                                'AE_init_t1' => DB::raw("AE_init_t1 + {$validated['AE_T1']}"),
+                                'CP_init_t1' => DB::raw("CP_init_t1 + {$validated['CP_T1']}"),
+                                'AE_init_t2' => DB::raw("AE_init_t2 + {$validated['AE_T2']}"),
+                                'CP_init_t2' => DB::raw("CP_init_t2 + {$validated['CP_T2']}"),
+                                'AE_init_t3' => DB::raw("AE_init_t3 + {$validated['AE_T3']}"),
+                                'CP_init_t3' => DB::raw("CP_init_t3 + {$validated['CP_T3']}"),
+                                'AE_init_t4' => DB::raw("AE_init_t4 + {$validated['AE_T4']}"),
+                                'CP_init_t4' => DB::raw("CP_init_t4 + {$validated['CP_T4']}")
+                            ]);
+                    }
+
+                        if ($row->num_action == $actionrec_->num_action ) {
+                       
+                        DB::table($viewName)
+                            ->where('num_action', $row->num_action)
+                            ->update([
+                                'AE_init_t1' => DB::raw("AE_init_t1 + {$validated['AE_T1']}"),
+                                'CP_init_t1' => DB::raw("CP_init_t1 + {$validated['CP_T1']}"),
+                                'AE_init_t2' => DB::raw("AE_init_t2 + {$validated['AE_T2']}"),
+                                'CP_init_t2' => DB::raw("CP_init_t2 + {$validated['CP_T2']}"),
+                                'AE_init_t3' => DB::raw("AE_init_t3 + {$validated['AE_T3']}"),
+                                'CP_init_t3' => DB::raw("CP_init_t3 + {$validated['CP_T3']}"),
+                                'AE_init_t4' => DB::raw("AE_init_t4 + {$validated['AE_T4']}"),
+                                'CP_init_t4' => DB::raw("CP_init_t4 + {$validated['CP_T4']}")
+                            ]);
+                    }
+                }
                 }else{
                     $portefeuille->AE_portef-=$validated['AE_port'];
                     $portefeuille->CP_portef-=$validated['CP_port'];
                     $portefeuille->Date_update_portefeuille = now();
                     $portefeuille->save();
-                }
-            }
-           
 
+                    if ($ProgReçoit) {
+                    $ProgReçoit->AE_prog -= (float) ($validated['AE_T1'] + $validated['AE_T2'] + $validated['AE_T3'] + $validated['AE_T4']);
+                    $ProgReçoit->CP_prog -= (float) ($validated['CP_T1'] + $validated['CP_T2'] + $validated['CP_T3'] + $validated['CP_T4']);
+                    $ProgReçoit->date_update_portef = now();
+                    $ProgReçoit->save();
+                    }
+
+                    if ($sousProgReçoit) {
+                    $sousProgReçoit->AE_sous_prog -=  ($validated['AE_T1'] +  $validated['AE_T2'] +  $validated['AE_T3'] + $validated['AE_T4']);
+                    $sousProgReçoit->CP_sous_prog -=  ($validated['CP_T1'] + $validated['CP_T2'] +  $validated['CP_T3'] + $validated['CP_T4']);
+                    $sousProgReçoit->date_update_sousProg = now();
+                    $sousProgReçoit->save();
+                    }
+
+                    if ($actionrec_) {
+                    $actionrec_->AE_action -=  ($validated['AE_T1'] +  $validated['AE_T2'] +  $validated['AE_T3'] + $validated['AE_T4']);
+                    $actionrec_->CP_action -= ($validated['CP_T1'] + $validated['CP_T2'] +  $validated['CP_T3'] + $validated['CP_T4']);
+                    $actionrec_->date_update_action = now();
+                    $actionrec_->save();
+                    }
+
+                    if ($actionrec) {
+                    $actionrec->AE_sous_action -= (float) ($validated['AE_T1'] +  $validated['AE_T2'] +  $validated['AE_T3'] + $validated['AE_T4']);
+                    $actionrec->CP_sous_action-= (float) ($validated['CP_T1'] + $validated['CP_T2'] +  $validated['CP_T3'] + $validated['CP_T4']);
+                    $actionrec->date_update_sous_action = now();
+                    $actionrec->save();
+                    }
+
+                    foreach ($view as $row) {   
+                        if ($row->num_sous_prog == $sousProgReçoit->num_sous_prog && is_null($row->num_action)) {
+                            //dd($validated['T_port_env']);
+                      // dd($AE_env_T1);
+                        DB::table($viewName)
+                            ->where('num_sous_prog', $row->num_sous_prog)
+                            ->whereNull('num_action')
+                            ->update([
+                                'AE_init_t1' => DB::raw("AE_init_t1 - {$validated['AE_T1']}"),
+                                'CP_init_t1' => DB::raw("CP_init_t1 - {$validated['CP_T1']}"),
+                                'AE_init_t2' => DB::raw("AE_init_t2 - {$validated['AE_T2']}"),
+                                'CP_init_t2' => DB::raw("CP_init_t2 - {$validated['CP_T2']}"),
+                                'AE_init_t3' => DB::raw("AE_init_t3 - {$validated['AE_T3']}"),
+                                'CP_init_t3' => DB::raw("CP_init_t3 - {$validated['CP_T3']}"),
+                                'AE_init_t4' => DB::raw("AE_init_t4 - {$validated['AE_T4']}"),
+                                'CP_init_t4' => DB::raw("CP_init_t4 - {$validated['CP_T4']}")
+                            ]);
+                    }
+
+                        if ($row->num_action == $actionrec_->num_action ) {
+                       
+                        DB::table($viewName)
+                            ->where('num_action', $row->num_action)
+                            ->update([
+                                'AE_init_t1' => DB::raw("AE_init_t1 - {$validated['AE_T1']}"),
+                                'CP_init_t1' => DB::raw("CP_init_t1 - {$validated['CP_T1']}"),
+                                'AE_init_t2' => DB::raw("AE_init_t2 - {$validated['AE_T2']}"),
+                                'CP_init_t2' => DB::raw("CP_init_t2 - {$validated['CP_T2']}"),
+                                'AE_init_t3' => DB::raw("AE_init_t3 - {$validated['AE_T3']}"),
+                                'CP_init_t3' => DB::raw("CP_init_t3 - {$validated['CP_T3']}"),
+                                'AE_init_t4' => DB::raw("AE_init_t4 - {$validated['AE_T4']}"),
+                                'CP_init_t4' => DB::raw("CP_init_t4 - {$validated['CP_T4']}")
+                            ]);
+                    }
+                }
+        
+            }
+        }
            
             //les programes et sous prog
             if( $validated['type']=="inter"){
@@ -627,8 +804,22 @@ class modificationController extends Controller
                 
                 
                     $ProgReçoit->date_update_portef = now();
-                    $ProgReçoit->date_update_portef = now();
+          
                     $ProgReçoit->save();
+
+                    //portefeuille aussi 
+                    $portefRecoit->AE_portef += $validated['AE_T1'] + $validated['AE_T2'] + $validated['AE_T3'] + $validated['AE_T4'];
+                    $portefRecoit->CP_portef += $validated['CP_T1'] +$validated['CP_T2'] +$validated['CP_T3'] +$validated['CP_T4'];
+                
+                    $portefRecoit->AE_portef -=$validated['AE_env_T'];
+                    $portefRecoit->CP_portef -= $validated['CP_env_T'];
+                
+                
+                    $portefRecoit->Date_update_portefeuille = now();
+             
+                    $portefRecoit->save();
+
+
          
                 } else {
                       
@@ -636,14 +827,24 @@ class modificationController extends Controller
                             $ProgReçoit->CP_prog += $validated['CP_T1'] + $validated['CP_T2'] + $validated['CP_T3'] + $validated['CP_T4'];
                             $ProgReçoit->date_update_portef = now();
                             $ProgReçoit->save();
-                       
-    
+
+                                //portefeuille 
+                            $portefRecoit->AE_portef += $validated['AE_T1'] + $validated['AE_T2'] + $validated['AE_T3'] + $validated['AE_T4'];
+                            $portefRecoit->CP_portef += $validated['CP_T1'] +$validated['CP_T2'] +$validated['CP_T3'] +$validated['CP_T4'];
+                            $portefRecoit->Date_update_portefeuille = now();
+                            $portefRecoit->save();
+                        
                           
                             $ProgRetire->AE_prog -= $validated['AE_env_T'];
                             $ProgRetire->CP_prog -= $validated['CP_env_T'];
                             $ProgRetire->date_update_portef = now();
                             $ProgRetire->save();
-                        
+
+                            //portefeuille
+                            $portefRetire ->AE_portef -=$validated['AE_env_T'];
+                            $portefRetire->CP_portef -= $validated['CP_env_T'];
+                            $portefRetire->Date_update_portefeuille  = now();
+                            $portefRetire->save();
                     }
 
                     if($actionrec->num_sous_action==$actionret->num_sous_action){
@@ -699,7 +900,72 @@ class modificationController extends Controller
                         $actionret_->save();
                       
                     }
-                
+                //update dans view 
+                foreach ($view as $row) {
+                    if ($row->num_sous_prog == $sousProgRetire->num_sous_prog && $row->num_action === null) {
+                   // dd($row);
+                        DB::table($viewName)
+                            ->where('num_sous_prog', $sousProgRetire->num_sous_prog)
+                            ->whereNull('num_action')
+                            ->update([
+                                'AE_init_t1' => DB::raw("AE_init_t1 - $AE_env_T1"),
+                                'CP_init_t1' => DB::raw("CP_init_t1 - $CP_env_T1"),
+                                'AE_init_t2' => DB::raw("AE_init_t2 - $AE_env_T2"),
+                                'CP_init_t2' => DB::raw("CP_init_t2 - $CP_env_T2"),
+                                'AE_init_t3' => DB::raw("AE_init_t3 - $AE_env_T3"),
+                                'CP_init_t3' => DB::raw("CP_init_t3 - $CP_env_T3"),
+                                'AE_init_t4' => DB::raw("AE_init_t4 - $AE_env_T4"),
+                                'CP_init_t4' => DB::raw("CP_init_t4 - $CP_env_T4")
+                            ]);
+
+                    } if ($row->num_sous_prog == $sousProgReçoit->num_sous_prog && $row->num_action === null) {
+                       
+                        DB::table($viewName)
+                            ->where('num_sous_prog', $row->num_sous_prog)
+                            ->whereNull('num_action')
+                            ->update([
+                                'AE_init_t1' => DB::raw("AE_init_t1 + {$validated['AE_T1']}"),
+                                'CP_init_t1' => DB::raw("CP_init_t1 + {$validated['CP_T1']}"),
+                                'AE_init_t2' => DB::raw("AE_init_t2 + {$validated['AE_T2']}"),
+                                'CP_init_t2' => DB::raw("CP_init_t2 + {$validated['CP_T2']}"),
+                                'AE_init_t3' => DB::raw("AE_init_t3 + {$validated['AE_T3']}"),
+                                'CP_init_t3' => DB::raw("CP_init_t3 + {$validated['CP_T3']}"),
+                                'AE_init_t4' => DB::raw("AE_init_t4 + {$validated['AE_T4']}"),
+                                'CP_init_t4' => DB::raw("CP_init_t4 + {$validated['CP_T4']}")
+                            ]);
+                    }
+
+                    if ($row->num_action == $actionret_->num_action) {
+                       // dd($validated['T_port_env']);
+                        DB::table($viewName)
+                            ->where('num_action', $actionret_->num_action)
+                            ->update([
+                                'AE_init_t1' => DB::raw("AE_init_t1 - $AE_env_T1"),
+                                'CP_init_t1' => DB::raw("CP_init_t1 - $CP_env_T1"),
+                                'AE_init_t2' => DB::raw("AE_init_t2 - $AE_env_T2"),
+                                'CP_init_t2' => DB::raw("CP_init_t2 - $CP_env_T2"),
+                                'AE_init_t3' => DB::raw("AE_init_t3 - $AE_env_T3"),
+                                'CP_init_t3' => DB::raw("CP_init_t3 - $CP_env_T3"),
+                                'AE_init_t4' => DB::raw("AE_init_t4 - $AE_env_T4"),
+                                'CP_init_t4' => DB::raw("CP_init_t4 - $CP_env_T4")
+                            ]);
+                    } if ($row->num_action == $actionrec_->num_action ) {
+                       
+                        DB::table($viewName)
+                            ->where('num_action', $row->num_action)
+                            ->update([
+                                'AE_init_t1' => DB::raw("AE_init_t1 + {$validated['AE_T1']}"),
+                                'CP_init_t1' => DB::raw("CP_init_t1 + {$validated['CP_T1']}"),
+                                'AE_init_t2' => DB::raw("AE_init_t2 + {$validated['AE_T2']}"),
+                                'CP_init_t2' => DB::raw("CP_init_t2 + {$validated['CP_T2']}"),
+                                'AE_init_t3' => DB::raw("AE_init_t3 + {$validated['AE_T3']}"),
+                                'CP_init_t3' => DB::raw("CP_init_t3 + {$validated['CP_T3']}"),
+                                'AE_init_t4' => DB::raw("AE_init_t4 + {$validated['AE_T4']}"),
+                                'CP_init_t4' => DB::raw("CP_init_t4 + {$validated['CP_T4']}")
+                            ]);
+                    }
+
+                }
         
     } elseif ($validated['type'] == "exter" && $validated['type_extr'] == "res") {
         $sousProgReçoit->AE_sous_prog += $validated['AE_T1'] +  $validated['AE_T2'] +  $validated['AE_T3'] + $validated['AE_T4'];
@@ -800,7 +1066,7 @@ class modificationController extends Controller
 
 
               ]);
-
+            
            //dd( $modif);
 
 
@@ -808,6 +1074,7 @@ class modificationController extends Controller
 }
 function affiche_modif($numport)
 {
+    $port=$numport;
     $moficat_program=[];
     $allaction=[];
     $all_act=[];
@@ -987,7 +1254,7 @@ function affiche_modif($numport)
 
 
 
-        return view('suivi-port.suivi-port', compact('programmes','Ttportglob','moficat_program'));
+        return view('suivi-port.suivi-port', compact('programmes','Ttportglob','moficat_program','port'));
          
        /* $pdf=SnappyPdf::loadView('impression.impression_dpicprgsousprog', compact('programmes','Ttportglob'))
          ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1.5);//lanscape mean orentation
@@ -1000,5 +1267,46 @@ function affiche_modif($numport)
         }
 
 }
+
+
+function delete_by_id($id)
+{
+
+    $split=explode("_",$id);
+    //dd($split);
+    if($split[0] == 'prog')
+    {
+        $deletmodel=Programme::find($split[1]);
+        if($deletmodel)
+        {
+        return response()->json(['code'=>200,'message '=>'success']);
+        }
+        return response()->json(['code'=>404,'message '=>'unsuccess']);
+
+    }
+    if($split[0] == 'sous_prog')
+    {
+        $deletmodel=SousProgramme::find($split[1]);
+        if($deletmodel)
+        {
+        return response()->json(['code'=>200,'message '=>'success']);
+        }
+        return response()->json(['code'=>404,'message '=>'unsuccess']);
+    }
+    if($split[0] == 'act')
+    {
+        $deletmodel=Action::find($split[1]);
+
+        //dd($deletmodel);
+        if($deletmodel)
+        {
+            $deletmodel->delete();
+        return response()->json(['code'=>200,'message '=>'success']);
+        }
+        return response()->json(['code'=>404,'message '=>'unsuccess']);
+    }
+    return response()->json(['code'=>404,'message '=>'unsuccess']);
+}
+
 
 }

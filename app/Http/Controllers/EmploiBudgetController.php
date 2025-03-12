@@ -18,9 +18,10 @@ class EmploiBudgetController extends Controller
 {
     //la fonction insert 
     public function insertemploi(Request $request){
-        dd($request);
+        //dd($request);
         $emploi=Emploi_budget::updateOrCreate(
             [
+                'num_sous_action'=>$request->id_s_act,
                 'EmploiesOuverts'=>$request->bg_overt,
                 'EmploiesOccupes'=>$request->bg_occup,
                 'EmploiesVacants'=>$request->bg_vacant,
@@ -30,7 +31,7 @@ class EmploiBudgetController extends Controller
                 'code_t1'=>$request->code_t1,
                 'date_insert_emploi'=>now(),
                 'date_update_emploi'=>now(),
-                //'num_sous_action'=>,
+                'num_sous_action'=>$request->id_s_act,
             ]
             );
         if ($request->type_pos === 'funt') {
@@ -110,25 +111,36 @@ class EmploiBudgetController extends Controller
                             'id_emp' => $emploi->id_emp,
                         ]);
     }
-    public function index()
+    public function printallemploi($id)
     {
         // Récupérer toutes les données de la table Fonctions
 
-        $fonctions = Fonctions::select('Nom_fonction', 'Moyenne', 'CATEGORIE')->get();
-        $emplois = Emploi_budget::select('EmploiesOuverts', 'EmploiesOccupes', 'EmploiesVacants','TRAITEMENT_ANNUEL','PRIMES_INDEMNITES','DEPENSES_ANNUELLES')->get();
-        $posts =Post_Sup::select('Nom_postsup', 'Niveau_sup', 'point_indsup')->get();
-        $communs= Post_commun::select('Nom_post','CATEGORIE_post','MOYENNE_post')->get();
+        $fonctions = Emploi_budget::join('fonctions','fonctions.id_emp','=','emploi_budgets.id_emp')->where('emploi_budgets.num_sous_action',$id)->get();
+      
+        $posts = Emploi_budget::join('post_sups','post_sups.id_emp','=','emploi_budgets.id_emp')->where('emploi_budgets.num_sous_action',$id)->get();
+        $communs=  Emploi_budget::join('post_communs','post_communs.id_emp','=','emploi_budgets.id_emp')->where('emploi_budgets.num_sous_action',$id)->get();
         // Calcul des totaux des colonnes
-       $totalOuverts = $emplois->sum('EmploiesOuverts');
-       $totalOccupes = $emplois->sum('EmploiesOccupes');
-       $totalVacants = $emplois->sum('EmploiesVacants');
+       $totalOuvertsfct = $fonctions->sum('EmploiesOuverts');
+       $totalOccupesfct = $fonctions->sum('EmploiesOccupes');
+       $totalVacantsfct = $fonctions->sum('EmploiesVacants');
+
+       $totalOuvertspost = $posts->sum('EmploiesOuverts');
+       $totalOccupespost = $posts->sum('EmploiesOccupes');
+       $totalVacantspost = $posts->sum('EmploiesVacants');
+
+       $totalOuvertscomm = $communs->sum('EmploiesOuverts');
+       $totalOccupescomm = $communs->sum('EmploiesOccupes');
+       $totalVacantscomm = $communs->sum('EmploiesVacants');
         $pdf=SnappyPdf::loadView
         ('impression.impression_emplois_budgetaire', compact(
            'fonctions',
-           'emplois',
-           'totalOuverts',
-           'totalOccupes',
-          'totalVacants',
+           'totalOuvertsfct',
+           'totalOccupesfct',
+           'totalVacantsfct',
+          'totalOuvertspost',
+          'totalOccupespost',
+          'totalVacantspost',
+          'totalOuvertscomm', 'totalOccupescomm','totalVacantscomm',
           'posts',
           'communs'
 
@@ -158,7 +170,7 @@ function get_list_postsup($id)
     if(!empty($postssup))
     {
         $totalOuverts = $postssup->sum('EmploiesOuverts');
-       $totalOccupes = $postssup->sum('EmploiesOccupes');
+        $totalOccupes = $postssup->sum('EmploiesOccupes');
        $totalVacants = $postssup->sum('EmploiesVacants');
          return response()->json([
             'code' => 200,
@@ -210,12 +222,10 @@ function get_list_post_communs($id)
 
 }
 
+
 function get_list_fonction($id)
 
 {
-
-
-   
     $postssup=Emploi_budget::join('fonctions','fonctions.id_emp','=','emploi_budgets.id_emp')->get();
     if(!empty($postssup))
     { $totalOuverts = $postssup->sum('EmploiesOuverts');
@@ -240,7 +250,6 @@ function get_list_fonction($id)
     }
 
 }
-
 function del_emplois(Request $request)
 {
     $request->validate([
@@ -276,6 +285,58 @@ function del_emplois(Request $request)
     }
 }
 }
+
+
+
+function print_list_fonction($id)
+ {   
+  
+    $data=Emploi_budget::join('fonctions','fonctions.id_emp','=','emploi_budgets.id_emp')->where('emploi_budgets.num_sous_action',$id)->get();
+   // dd($fonction);
+
+   return $this->imprimer($data, 'fonction'); 
+}
+
+function print_list_postsup($id)
+{
+    //dd($id);
+    $data=Emploi_budget::join('post_sups','post_sups.id_emp','=','emploi_budgets.id_emp')->where('emploi_budgets.num_sous_action',$id)->get();
+   // dd($data);
+    return $this->imprimer($data, 'postsup');
+} //la fonction get pour afficher les resultats 
+
+function print_list_post_communs($id)
+
+{
+    $data=Emploi_budget::join('post_communs','post_communs.id_emp','=','emploi_budgets.id_emp')->where('emploi_budgets.num_sous_action',$id)->get();
+   //dd($data);
+    return $this->imprimer($data, 'post_communs');
+}
+
+function imprimer($data, $type)
+{
+    if(!empty($data))
+    {
+        $totalOuverts = $data->sum('EmploiesOuverts');
+       $totalOccupes = $data->sum('EmploiesOccupes');
+       $totalVacants = $data->sum('EmploiesVacants');
+        
+       $pdf=SnappyPdf::loadView('impression.emploibudgetchaqetable', compact('data', 'type','totalOuverts', 'totalOccupes', 'totalVacants'))
+       ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1);//lanscape mean orentation
+             return $pdf->stream('emploi_budget_fonction.pdf');
+    }
+    else
+    {
+         return response()->json([
+            'code' => 500,
+            'message' => 'Aucune donnée trouvée',
+            
+        ]);
+    }
+
+}
+
+
   
 }
 

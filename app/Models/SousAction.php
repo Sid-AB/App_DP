@@ -37,5 +37,23 @@ class SousAction extends Model
         return $this->hasMany(ModificationT::class,'num_sous_action','num_sous_action');
     }
 
+    public function emploibudg()
+    {
+        return $this->hasMany(Emploi_budget::class,'num_sous_action','num_sous_action');
+    }
+   
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($parent) {
+            $parent->GroupOperation()->delete(); // Supprime les enfants
+            $parent->emploibudg()->delete(); // Supprime les enfants
+            $parent->ModificationT()->delete(); // Supprime les enfants
+            
+        });
+        
+        
+    }
    
 }

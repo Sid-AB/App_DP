@@ -42,7 +42,7 @@ class Emploi_budget extends Model
 
     public function Focntions()
     {
-        return $this->hasMany(Focntions::class ,'id_emp','id_emp');
+        return $this->hasMany(Fonctions::class ,'id_emp','id_emp');
     }
 
     public function sousaction()

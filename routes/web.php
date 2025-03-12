@@ -21,6 +21,8 @@ use App\Http\Controllers\opeartionController;
 use App\Http\Controllers\sousOperationController;
 use App\Http\Controllers\modificationController;
 use App\Http\Controllers\EmploiBudgetController;
+use App\Http\Controllers\FonctionController;
+use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
  $portfs =Portefeuille::get();
@@ -113,6 +115,7 @@ Route::controller(modificationController::class)->group(function(){
     Route::post('/update','updateSousOperation');
     Route::post('/updateModif','insertModif');
     Route::get('/affiche_transacation/{numport}','affiche_modif')->name('affich-trans');
+    Route::get('/delete_from_portfeuille/{id}','delete_by_id')->name('Delete-trans');
     
 
 
@@ -125,13 +128,27 @@ Route::controller(initPortController::class)->group(function(){
 Route::controller(EmploiBudgetController::class)->group(function(){
     Route::post('/insertemploi','insertemploi')->name('insertemploi');
     Route::get('/impression_emplois_budgetaire',  'index');
-    Route::get('/emplois-pdf', 'index')->name('emplois.pdf');
+    Route::get('/printallemploi/{id}', 'printallemploi')->name('emplois.pdf');
     Route::get('/getlist_PostSup/{id}','get_list_postsup')->name('emplois.Post_Sup');
     Route::get('/getlist_PostCommuns/{id}','get_list_post_communs')->name('emplois.post_communs');
     Route::get('/getlist_fonctions/{id}','get_list_fonction')->name('emplois.fonctions');
+    Route::get('/printlist_fonctions/{id}','print_list_fonction')->name('emplois.printfonctions');
+    Route::get('/printlist_posts/{id}','print_list_postsup')->name('emplois.printposts');
+    Route::get('/printlist_commun/{id}','print_list_post_communs')->name('emplois.printcommun');
     Route::post('/del_emplois','del_emplois')->name('emplois.delete');
+
 });
 
+
+Route::controller(FonctionController::class)->group(function(){
+    Route::get('/listeFct','get_list_fonction')->name('list_fct');
+
+});
+
+
+Route::controller(AdminController::class)->group(function(){
+    Route::get('/admin','index')->name('Admin');
+});
 
 
 /*Route::get('/testing/Action/{port}/{prog}/{sous_prog}/{act}/',function ($port,$prog,$sous_prog,$act){

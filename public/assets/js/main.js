@@ -11,7 +11,7 @@ var  dataupdate=new Array();
  */
 
 
-function appliquer_up()
+function appliquer_up(T)
 {
     $('.change_app').on('click',function(){
         var idbtn=$(this).children('#changin').attr('id');
@@ -1114,7 +1114,8 @@ function add_newOPs_T3(id, value, key,code) {
                     }
                     if(code == 200)
                     {
-                        appliquer_up()
+                        T='3';
+                        appliquer_up(T)
                     }
                     else {
                         $('#changin').on('click',function(){
@@ -1231,7 +1232,8 @@ function add_newOPs_T4(id, value, key,code) {
        $('.Tsop_handler').addClass('Tsop_handler_h')
        if(code == 200)
         {
-            appliquer_up()
+            T=4;
+            appliquer_up(T)
         }   
    })
    $('#cancel_ops').click(function(){
@@ -1296,17 +1298,17 @@ function Update_dpia(T,iupdate)
                let newText = $(this).val();
                console.log('zero'+newText)
                if (T == '2') {
-                   var sommevertAEatt=$('#foot_AE_att').text();
-                   var sommevertCPatt=$('#foot_CP_att').text();
-                   var sommevertAEovr=$('#foot_AE_Over').text();
-                   var sommevertCPovr=$('#foot_CP_Over').text();
-                   var sommevertAETT=$('#foot_AE_TT').text();
-                   var sommevertCPTT=$('#foot_CP_TT').text();
+                   var sommevertAEatt=parseNumberWithoutCommas($('#foot_AE_att').text());
+                   var sommevertCPatt=parseNumberWithoutCommas($('#foot_CP_att').text());
+                   var sommevertAEovr=parseNumberWithoutCommas($('#foot_AE_Over').text());
+                   var sommevertCPovr=parseNumberWithoutCommas($('#foot_CP_Over').text());
+                   var sommevertAETT=parseNumberWithoutCommas($('#foot_AE_TT').text());
+                   var sommevertCPTT=parseNumberWithoutCommas($('#foot_CP_TT').text());
                    console.log('footer info'+sommevertAEatt+'--'+sommevertCPatt+'--'+sommevertAEovr+'--'+sommevertCPovr)
-                   var testcpattendu = clickedRow.find('td').eq(5).text();//cpattendu
-                   var testaeattendu = clickedRow.find('td').eq(4).text();//aeattendu
-                   var testcpover = clickedRow.find('td').eq(3).text();//cpovert
-                   var testaeover = clickedRow.find('td').eq(2).text();//aeovert
+                   var testcpattendu = parseNumberWithoutCommas(clickedRow.find('td').eq(5).text());//cpattendu
+                   var testaeattendu = parseNumberWithoutCommas(clickedRow.find('td').eq(4).text());//aeattendu
+                   var testcpover = parseNumberWithoutCommas(clickedRow.find('td').eq(3).text());//cpovert
+                   var testaeover = parseNumberWithoutCommas(clickedRow.find('td').eq(2).text());//aeovert
                    var someae = 0;
                    var somecp = 0;
                    var wit = $(this).parent().attr('id');
@@ -1356,7 +1358,7 @@ function Update_dpia(T,iupdate)
                        somecp = parseFloat(testcpattendu) + parseFloat(testcpover)
                        someae = parseFloat(testaeattendu) + parseFloat(testaeover);
                        console.log('ae' + someae + ' cp ' + somecp)
-                    $('#foot_AE_att').text(sommevertAEatt);
+                    $('#foot_AE_att').text(ValAccountingFigures(sommevertAEatt));
                     $('#foot_CP_att').text(sommevertCPatt);
                     $('#foot_AE_Over').text(sommevertAEovr);
                     $('#foot_CP_Over').text(sommevertCPovr);
@@ -1406,7 +1408,7 @@ function Update_dpia(T,iupdate)
                         $('#foot_CP_att').text(sommevertCPatt);
                         $('#foot_AE_Over').text(sommevertAEovr);
                         $('#foot_CP_Over').text(sommevertCPovr);
-                        $('#foot_AE_TT').text(sommevertAETT);
+                        $('#foot_AE_TT').text(ommevertAETT);
                         $('#foot_CP_TT').text(sommevertCPTT);
                        
                         somecp = parseFloat(testcpattendu) + parseFloat(testcpover)
@@ -1417,14 +1419,14 @@ function Update_dpia(T,iupdate)
                }
                else
                {
-                if( T= '3')
+                if( T == '3')
                 {
-                    var sommevertAErepor=$('#foot_AE_rpor').text();
-                    var sommevertAEnot=$('#foot_AE_not').text();
-                    var sommevertAEenga=$('#foot_AE_enga').text();
-                    var sommevertCPrpor=$('#foot_CP_rpor').text();
-                    var sommevertCPnot=$('#foot_CP_not').text();
-                    var sommevertCPconsum=$('#foot_CP_consom').text();
+                    var sommevertAErepor=parseNumberWithoutCommas($('#foot_AE_rpor').text());
+                    var sommevertAEnot=parseNumberWithoutCommas($('#foot_AE_not').text());
+                    var sommevertAEenga=parseNumberWithoutCommas($('#foot_AE_enga').text());
+                    var sommevertCPrpor=parseNumberWithoutCommas($('#foot_CP_rpor').text());
+                    var sommevertCPnot=parseNumberWithoutCommas($('#foot_CP_not').text());
+                    var sommevertCPconsum=parseNumberWithoutCommas($('#foot_CP_consom').text());
                   
                    
                     var wit = $(this).parent().attr('id');
@@ -1655,15 +1657,17 @@ function Update_dpia(T,iupdate)
                        }
                        if(T == '3')
                        {
+                        console.log('i insert  T3'+JSON.stringify(dataupdate))
                            dataupdate.push({code:codesoup,value:{ae_notifie:ae_notifie,ae_reporte:ae_reporte,ae_engage:ae_engage,
                                                                  cp_notifie:cp_notifie,cp_reporte:cp_reporte,cp_consome:cp_consome}})
                        }
-                       if(T == '4')
+                       if(T == '4' || T==4)
                        {
+                        console.log('i insert  T4'+JSON.stringify(dataupdate))
                                dataupdate.push({code:codesoup,value:{ae:ae,cp:cp}})
                        }
 
-                   console.log('i insert '+JSON.stringify(dataupdate))
+                   
                    }
 
                }
@@ -1792,11 +1796,11 @@ function Edit(tid, T) {
                         if (wit == 'CP_Over') {
                             testcpover = newText
                         }
-                        somecp = parseFloat(testcpattendu) + parseFloat(testcpover)
-                        someae = parseFloat(testaeattendu) + parseFloat(testaeover);
+                        somecp = parseNumberWithoutCommas(testcpattendu) + parseNumberWithoutCommas(testcpover)
+                        someae = parseNumberWithoutCommas(testaeattendu) + parseNumberWithoutCommas(testaeover);
                         console.log('ae' + someae + ' cp ' + somecp)
-                        clickedRow.find('td').eq(6).text(someae);
-                        clickedRow.find('td').eq(7).text(somecp);
+                        clickedRow.find('td').eq(6).text(ValAccountingFigures(someae));
+                        clickedRow.find('td').eq(7).text(ValAccountingFigures(somecp));
                     }
                 }
                 if (newText != 0 && newText != '' && newText != null) {
@@ -3121,6 +3125,8 @@ $("#add-prg").on('click', function () {
                         },
                         error: function (response) {
                             alert('error')
+                            $('#reloading').addClass('reload-hidden')
+                           
                         }
                     })
 
@@ -3131,6 +3137,8 @@ $("#add-prg").on('click', function () {
         },
         error: function (response) {
             alert('error')
+            $('#reloading').addClass('reload-hidden')
+           
         }
     })
 
@@ -3213,6 +3221,8 @@ var cnter=0
 $('.opt_handle').append(Radio)
 $('#corcom').on('click',function()
 {
+   
+    $('#reloading').removeClass('reload-hidden')
     $('.ports_info').css('display','none')
     $('.Budget_info').css('display','')
     var headBF='  <tr>'+
@@ -3257,8 +3267,9 @@ $('#corcom').on('click',function()
             success:function(response){
                 if(response.code == 200)
                     {
+                        $('#reloading').addClass('reload-hidden')
                         $('#T-tables tbody').empty();
-                response.postsup.forEach(element=>{
+                    response.postsup.forEach(element=>{
                     bodyadd='<tr id='+element.id_emp+'>'+
                     '<td>'+element.Nom_post+' </td>'+
                     '<td>'+element.EmploiesOuverts+' </td>'+
@@ -3297,11 +3308,31 @@ $('#corcom').on('click',function()
                                 newover=parseInt($('#nbr_over').text())-parseInt( element.EmploiesOuverts)
                                 newoccup=parseInt($('#nbr_occup').text())-parseInt( element.EmploiesOccupes)
                                 newvacant=parseInt($('#nbr_vacants').text())-parseInt( element.EmploiesVacants)
+
+
+                                var t_tr=parseInt($('#T_tr').text())-parseInt(element.EmploiesOuverts)
+                            var t_pr=parseInt($('#T_pr').text())-parseInt(element.EmploiesOccupes)
+                            var t_dp=parseInt($('#T_dp').text())-parseInt(element.EmploiesVacants)
+                                $('#T_tr').text(t_tr)
+                                $('#T_pr').text(t_pr)                   
+                                $('#T_dp').text(t_dp)
+                    
+                                var t_ov=parseInt($('#T_ov').text())-parseInt(element.TRAITEMENT_ANNUEL)
+                                var t_oc=parseInt($('#T_oc').text())-parseInt(element.PRIMES_INDEMNITES)
+                                var t_va=parseInt($('#T_va').text())-parseInt(element.DEPENSES_ANNUELLES)
+                                $('#T_ov').text(t_ov)
+                                $('#T_oc').text(t_oc) 
+                                $('#T_va').text(t_va)
+
                               // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
                                $('#'+delID).remove();   
                                $('#nbr_over').text(newover);
                                $('#nbr_occup').text(newoccup);
                                $('#nbr_vacants').text(newvacant);
+                                }
+                                else
+                                {
+                                   $('#reloading').addClass('reload-hidden')
                                 }
                             }
                         })
@@ -3309,12 +3340,27 @@ $('#corcom').on('click',function()
                         
                     })
 
-                })}
+                })
+            }
+            else
+            {
+               $('#reloading').addClass('reload-hidden')
+            }
+            },
+            error: function (response) {
+                alert('error')
+                $('#reloading').addClass('reload-hidden')
+               
             }
         })
     /**
      *  add handling button
      * */    
+
+    $('.print_apt').on('click',function(){
+        window.open('/printlist_commun/'+id_s_act,'_blank')
+    })
+
     $(".btn_add_budg").on('click',function(){
         
         var champ='<div class="Tsop_add_handle">'+
@@ -3380,7 +3426,9 @@ $('#corcom').on('click',function()
                     data:formate,
                     success:function(response)
                     {
-                        if(response.code == 200){
+                        if(response.code == 200)
+                            {
+                                $('#reloading').addClass('reload-hidden')   
                         console.log('consl'+response.id_emp)
                         $('#reloading').addClass('reload-hidden')
                         id_empl=response.id_emp
@@ -3403,6 +3451,22 @@ $('#corcom').on('click',function()
             var newover=parseInt(formate.bg_overt)+parseInt($('#nbr_over').text())
             var newoccup=parseInt(formate.bg_occup)+parseInt($('#nbr_occup').text())
             var newvacant=parseInt(formate.bg_vacant)+parseInt($('#nbr_vacants').text())
+            
+            var t_tr=parseInt(formate.tr_annuel)+parseInt($('#T_tr').text())
+            var t_pr=parseInt(formate.pr_ind)+parseInt($('#T_pr').text())
+            var t_dp=parseInt(formate.depn_annuel)+parseInt($('#T_dp').text())
+            $('#T_tr').text(t_tr)
+            $('#T_pr').text(t_pr)                   
+            $('#T_dp').text(t_dp)
+
+            var t_ov=parseInt(formate.bg_overt)+parseInt($('#T_ov').text())
+            var t_oc=parseInt(formate.bg_occup)+parseInt($('#T_oc').text())
+            var t_va=parseInt(formate.bg_vacant)+parseInt($('#T_va').text())
+            $('#T_ov').text(t_ov)
+            $('#T_oc').text(t_oc) 
+            $('#T_va').text(t_va)                  
+
+
             $('#nbr_over').text(newover);
             $('#nbr_occup').text(newoccup);
             $('#nbr_vacants').text(newvacant);
@@ -3430,18 +3494,48 @@ $('#corcom').on('click',function()
                         newover=parseInt($('#nbr_over').text())-parseInt(formate.bg_overt)
                         newoccup=parseInt($('#nbr_occup').text())-parseInt(formate.bg_occup)
                         newvacant=parseInt($('#nbr_vacants').text())-parseInt(formate.bg_vacant)
+
+                        var t_tr=parseInt($('#T_tr').text())-parseInt(formate.tr_annuel)
+                        var t_pr=parseInt($('#T_pr').text())-parseInt(formate.pr_ind)
+                        var t_dp=parseInt($('#T_dp').text())-parseInt(formate.depn_annuel)
+                        $('#T_tr').text(t_tr)
+                        $('#T_pr').text(t_pr)                   
+                        $('#T_dp').text(t_dp)
+            
+                        var t_ov=parseInt($('#T_ov').text())-parseInt(formate.bg_overt)
+                        var t_oc=parseInt($('#T_oc').text())-parseInt(formate.bg_occup)
+                        var t_va=parseInt($('#T_va').text())-parseInt(formate.bg_vacant)
+                        $('#T_ov').text(t_ov)
+                        $('#T_oc').text(t_oc) 
+                        $('#T_va').text(t_va)
+
                       // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
                        $('#'+delID).remove();   
                        $('#nbr_over').text(newover);
                        $('#nbr_occup').text(newoccup);
                        $('#nbr_vacants').text(newvacant);
                         }
+                    },
+                    error: function (response) {
+                        alert('error')
+                        $('#reloading').addClass('reload-hidden')
+                       
                     }
                 })
                 
             })
 
-        }}
+        }
+        else
+        {
+           $('#reloading').addClass('reload-hidden')
+        }
+    },
+    error: function (response) {
+        alert('error')
+        $('#reloading').addClass('reload-hidden')
+       
+    }
     })
 
             $('.Tsop_handler').addClass('Tsop_handler_h')
@@ -3548,22 +3642,55 @@ $('#post_sup').on('click',function()
                                 newover=parseInt($('#nbr_over').text())-parseInt(element.EmploiesOuverts)
                                 newoccup=parseInt($('#nbr_occup').text())-parseInt(element.EmploiesOccupes)
                                 newvacant=parseInt($('#nbr_vacants').text())-parseInt(element.EmploiesVacants)
+
+                                var t_tr=parseInt($('#T_tr').text())-parseInt(element.EmploiesOuverts)
+                                var t_pr=parseInt($('#T_pr').text())-parseInt(element.EmploiesOccupes)
+                                var t_dp=parseInt($('#T_dp').text())-parseInt(element.EmploiesVacants)
+                            $('#T_tr').text(t_tr)
+                            $('#T_pr').text(t_pr)                   
+                            $('#T_dp').text(t_dp)
+                
+                            var t_ov=parseInt($('#T_ov').text())-parseInt(element.TRAITEMENT_ANNUEL)
+                            var t_oc=parseInt($('#T_oc').text())-parseInt(element.PRIMES_INDEMNITES)
+                            var t_va=parseInt($('#T_va').text())-parseInt(element.DEPENSES_ANNUELLES)
+                            $('#T_ov').text(t_ov)
+                            $('#T_oc').text(t_oc) 
+                            $('#T_va').text(t_va)
+
                               // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
                                $("#"+delID).remove();   
                                $('#nbr_over').text(newover);
                                $('#nbr_occup').text(newoccup);
                                $('#nbr_vacants').text(newvacant);
+                            },
+                            error: function (response) {
+                                alert('error')
+                                $('#reloading').addClass('reload-hidden')
+                               
                             }
                         })
                         
                         
                     })
 
-                })}
+                })
+            }
+            else
+            {
+               $('#reloading').addClass('reload-hidden')
+            }
+            },
+            error: function (response) {
+                alert('error')
+                $('#reloading').addClass('reload-hidden')
+               
             }
         })
 
-
+        $('.print_apt').on('click',function(){
+        
+            window.open('/printlist_posts/'+id_s_act,'_blank')
+        })
 
          $(".btn_add_budg").on('click',function(){
             var champ='<div class="Tsop_add_handle">'+
@@ -3646,6 +3773,21 @@ $('#post_sup').on('click',function()
                 var newover=parseInt(formate.bg_overt)+parseInt($('#nbr_over').text())
                 var newoccup=parseInt(formate.bg_occup)+parseInt($('#nbr_occup').text())
                 var newvacant=parseInt(formate.bg_vacant)+parseInt($('#nbr_vacants').text())
+
+                var t_tr=parseInt(formate.tr_annuel)+parseInt($('#T_tr').text())
+                var t_pr=parseInt(formate.pr_ind)+parseInt($('#T_pr').text())
+                var t_dp=parseInt(formate.depn_annuel)+parseInt($('#T_dp').text())
+                $('#T_tr').text(t_tr)
+                $('#T_pr').text(t_pr)                   
+                $('#T_dp').text(t_dp)
+    
+                var t_ov=parseInt(formate.bg_overt)+parseInt($('#T_ov').text())
+                var t_oc=parseInt(formate.bg_occup)+parseInt($('#T_oc').text())
+                var t_va=parseInt(formate.bg_vacant)+parseInt($('#T_va').text())
+                $('#T_ov').text(t_ov)
+                $('#T_oc').text(t_oc) 
+                $('#T_va').text(t_va)                  
+
                 $('#nbr_over').text(newover);
                 $('#nbr_occup').text(newoccup);
                 $('#nbr_vacants').text(newvacant);
@@ -3671,16 +3813,46 @@ $('#post_sup').on('click',function()
                             newover=parseInt($('#nbr_over').text())-parseInt(formate.bg_overt)
                             newoccup=parseInt($('#nbr_occup').text())-parseInt(formate.bg_occup)
                             newvacant=parseInt($('#nbr_vacants').text())-parseInt(formate.bg_vacant)
+
+                            var t_tr=parseInt($('#T_tr').text())-parseInt(formate.tr_annuel)
+                            var t_pr=parseInt($('#T_pr').text())-parseInt(formate.pr_ind)
+                            var t_dp=parseInt($('#T_dp').text())-parseInt(formate.depn_annuel)
+                            $('#T_tr').text(t_tr)
+                            $('#T_pr').text(t_pr)                   
+                            $('#T_dp').text(t_dp)
+                
+                            var t_ov=parseInt($('#T_ov').text())-parseInt(formate.bg_overt)
+                            var t_oc=parseInt($('#T_oc').text())-parseInt(formate.bg_occup)
+                            var t_va=parseInt($('#T_va').text())-parseInt(formate.bg_vacant)
+                            $('#T_ov').text(t_ov)
+                            $('#T_oc').text(t_oc) 
+                            $('#T_va').text(t_va)
+
                           // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
                            $("#"+delID).remove();   
                            $('#nbr_over').text(newover);
                            $('#nbr_occup').text(newoccup);
                            $('#nbr_vacants').text(newvacant);
+                        },
+                        error: function (response) {
+                            alert('error')
+                            $('#reloading').addClass('reload-hidden')
+                           
                         }
                     })
                     
                 })
-                    }}
+                    }
+                    else
+                    {
+                       $('#reloading').addClass('reload-hidden')
+                    }
+                },
+                error: function (response) {
+                    alert('error')
+                    $('#reloading').addClass('reload-hidden')
+                   
+                }
             })
                 $('.Tsop_handler').addClass('Tsop_handler_h')
                 $('#Tport-vals').empty()
@@ -3787,20 +3959,57 @@ $('#funt').on('click',function()
                                     newoccup=parseInt($('#nbr_occup').text())-parseInt( element.EmploiesOccupes)
                                     newvacant=parseInt($('#nbr_vacants').text())-parseInt( element.EmploiesVacants)
                                   // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
+
+                                    
+                            var t_tr=parseInt($('#T_tr').text())-parseInt(element.EmploiesOuverts)
+                            var t_pr=parseInt($('#T_pr').text())-parseInt(element.EmploiesOccupes)
+                            var t_dp=parseInt($('#T_dp').text())-parseInt(element.EmploiesVacants)
+                            $('#T_tr').text(t_tr)
+                            $('#T_pr').text(t_pr)                   
+                            $('#T_dp').text(t_dp)
+                
+                            var t_ov=parseInt($('#T_ov').text())-parseInt(element.TRAITEMENT_ANNUEL)
+                            var t_oc=parseInt($('#T_oc').text())-parseInt(element.PRIMES_INDEMNITES)
+                            var t_va=parseInt($('#T_va').text())-parseInt(element.DEPENSES_ANNUELLES)
+                            console.log('tv'+t_ov+'tva'+t_oc+' - '+t_va +'value original'+element.TRAITEMENT_ANNUEL+'Total'+parseInt($('#T_ov').text()))
+                            $('#T_ov').text(t_ov)
+                            $('#T_oc').text(t_oc) 
+                            $('#T_va').text(t_va)
+
+
                                    $('#'+delID).remove();   
                                    $('#nbr_over').text(newover);
                                    $('#nbr_occup').text(newoccup);
                                    $('#nbr_vacants').text(newvacant);
+                                },
+                                error: function (response) {
+                                    alert('error')
+                                    $('#reloading').addClass('reload-hidden')
+                                   
                                 }
                             })
                             
                             
                         })
 
-                    })}
+                    })
+                }
+
+                    else
+                    {
+                       $('#reloading').addClass('reload-hidden')
+                    }
+                },
+                error: function (response) {
+                    alert('error')
+                    $('#reloading').addClass('reload-hidden')
+                   
                 }
             })
-
+            $('.print_apt').on('click',function(){
+                console.log('print function')
+                window.open('/printlist_fonctions/'+id_s_act,'_blank')
+            })
             $(".btn_add_budg").on('click',function(){
                 var champ='<div class="Tsop_add_handle">'+
                 '<form id="add_sops">'+
@@ -3843,6 +4052,7 @@ $('#funt').on('click',function()
                 $('#ajt').on('click',function(){
                     $('#reloading').removeClass('reload-hidden')
                         var formate={
+                            id_s_act:id_s_act,
                             type_pos:'funt',
                             funt_sup:$('#funt_sup').val(),
                             bg_overt:$('#bg_overt').val(),
@@ -3882,6 +4092,23 @@ $('#funt').on('click',function()
                     var newover=parseInt(formate.bg_overt)+parseInt($('#nbr_over').text())
                     var newoccup=parseInt(formate.bg_occup)+parseInt($('#nbr_occup').text())
                     var newvacant=parseInt(formate.bg_vacant)+parseInt($('#nbr_vacants').text())
+
+
+
+                    var t_tr=parseInt(formate.tr_annuel)+parseInt($('#T_tr').text())
+                    var t_pr=parseInt(formate.pr_ind)+parseInt($('#T_pr').text())
+                    var t_dp=parseInt(formate.depn_annuel)+parseInt($('#T_dp').text())
+                    $('#T_tr').text(t_tr)
+                    $('#T_pr').text(t_pr)                   
+                    $('#T_dp').text(t_dp)
+        
+                    var t_ov=parseInt(formate.bg_overt)+parseInt($('#T_ov').text())
+                    var t_oc=parseInt(formate.bg_occup)+parseInt($('#T_oc').text())
+                    var t_va=parseInt(formate.bg_vacant)+parseInt($('#T_va').text())
+                    $('#T_ov').text(t_ov)
+                    $('#T_oc').text(t_oc) 
+                    $('#T_va').text(t_va)                  
+
                     $('#nbr_over').text(newover);
                     $('#nbr_occup').text(newoccup);
                     $('#nbr_vacants').text(newvacant);
@@ -3906,16 +4133,57 @@ $('#funt').on('click',function()
                                 newoccup=parseInt($('#nbr_occup').text())-parseInt(formate.bg_occup)
                                 newvacant=parseInt($('#nbr_vacants').text())-parseInt(formate.bg_vacant)
                               // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
+                              /*if( (formate.tr_annuel == null || formate.tr_annuel === "" || (Array.isArray(formate.tr_annuel) && formate.tr_annuel === 0) || (typeof formate.tr_annuel === 'object' && formate.tr_annuel !== null && Object.keys(formate.tr_annuel).length === 0)) )
+                              {
+                              var t_tr=parseInt($('#T_tr').text())-parseInt($(this).closest("tr").find("td:eq(1)").text())
+                              var t_pr=parseInt($('#T_pr').text())-parseInt($(this).closest("tr").find("td:eq(2)").text())
+                              var t_dp=parseInt($('#T_dp').text())-parseInt($(this).closest("tr").find("td:eq(3)").text())
+                              var t_ov=parseInt($('#T_ov').text())-parseInt($(this).closest("tr").find("td:eq(6)").text())
+                              var t_oc=parseInt($('#T_oc').text())-parseInt($(this).closest("tr").find("td:eq(7)").text())
+                              var t_va=parseInt($('#T_va').text())-parseInt($(this).closest("tr").find("td:eq(8)").text())
+                            }
+                            else
+                            { }*/
+                              var t_tr=parseInt($('#T_tr').text())-parseInt(formate.tr_annuel)
+                              var t_pr=parseInt($('#T_pr').text())-parseInt(formate.pr_ind)
+                              var t_dp=parseInt($('#T_dp').text())-parseInt(formate.depn_annuel)
+                              var t_ov=parseInt($('#T_ov').text())-parseInt(formate.bg_overt)
+                              var t_oc=parseInt($('#T_oc').text())-parseInt(formate.bg_occup)
+                              var t_va=parseInt($('#T_va').text())-parseInt(formate.bg_vacant)
+                           
+                              
+                              $('#T_tr').text(t_tr)
+                              $('#T_pr').text(t_pr)                   
+                              $('#T_dp').text(t_dp)
+                  
+                              $('#T_ov').text(t_ov)
+                              $('#T_oc').text(t_oc) 
+                              $('#T_va').text(t_va) 
+                                
                                $("#"+delID).remove();   
                                $('#nbr_over').text(newover);
                                $('#nbr_occup').text(newoccup);
                                $('#nbr_vacants').text(newvacant);
+                            },
+                            error: function (response) {
+                                alert('error')
+                                $('#reloading').addClass('reload-hidden')
+                               
                             }
                         })
                         
                         
                     })
                  }
+                 else
+                 {
+                    $('#reloading').addClass('reload-hidden')
+                 }
+                    },
+                    error: function (response) {
+                        alert('error')
+                        $('#reloading').addClass('reload-hidden')
+                       
                     }
                         })
 
@@ -3958,8 +4226,8 @@ $('#port_T1').on('click',function()
                         console.log('data' + JSON.stringify(Object.keys(response.results)).length)
                         data_T_port = response.results;
                        tfooter='<tr><td colspan="2">Total</td>'+
-                        '<td id="foot_AE_T1">' + data_T_port.total[0].values.totalAE + '</td>' +
-                        '<td id="foot_CP_T1">' + data_T_port.total[0].values.totalCP + '</td>';
+                        '<td id="foot_AE_T1">' + ValAccountingFigures(data_T_port.total[0].values.totalAE) + '</td>' +
+                        '<td id="foot_CP_T1">' + ValAccountingFigures(data_T_port.total[0].values.totalCP) + '</td>';
                         $('#reloading').addClass('reload-hidden')
                     }
                     else {
@@ -4005,10 +4273,11 @@ $('#port_T1').on('click',function()
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.group[ig].code + '">' +
                         '<td scope="row" class="code" >' + key + '</td>' +
                         '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T1">' + data_T_port.group[ig].values.ae_grpop + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T1">' + data_T_port.group[ig].values.cp_grpop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T1">' +ValAccountingFigures (data_T_port.group[ig].values.ae_grpop) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T1">' +ValAccountingFigures (data_T_port.group[ig].values.cp_grpop) + '</td>' +
                         '</tr>';
                     ig++;
+
                 }
             }
             if (data_T_port.operation.length > 0 && data_T_port.operation.length > io) {
@@ -4017,8 +4286,8 @@ $('#port_T1').on('click',function()
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.operation[io].code + '">' +
                         '<td scope="row"  class="code" >' + key + '</td>' +
                         '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T1">' + data_T_port.operation[io].values.ae_op + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T1">' + data_T_port.operation[io].values.cp_op + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T1">' +ValAccountingFigures (data_T_port.operation[io].values.ae_op) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T1">' +ValAccountingFigures (data_T_port.operation[io].values.cp_op) + '</td>' +
                         '</tr>';
                     io++;
                 }
@@ -4029,8 +4298,8 @@ $('#port_T1').on('click',function()
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                         '<td scope="row"  class="code" >' + key + '</td>' +
                         '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>' + value + '</p></td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T1">' + data_T_port.sousOperation[iso].values.ae_sousop + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T1">' + data_T_port.sousOperation[iso].values.cp_sousuop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T1">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_sousop) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T1">' +ValAccountingFigures( data_T_port.sousOperation[iso].values.cp_sousuop )+ '</td>' +
                         '</tr>';
                     iso++;
                 }
@@ -4039,7 +4308,7 @@ $('#port_T1').on('click',function()
             // Append the row to the table body
 
             $('#T-tables tbody').append(row);
-       
+           
             if(code !== 200)
             {
                console.log('testing')
@@ -4122,12 +4391,12 @@ if(code == 200)
                 console.log('data' + JSON.stringify(Object.keys(response.results)).length)
                 data_T_port = response.results;
                tfooter='<tr><td colspan="2">Total</td>'+
-                '<td  id="foot_AE_Over">'+data_T_port.total[0].values.totalAEouvrtvertical + '</td>' +
-                '<td  id="foot_CP_Over">'+data_T_port.total[0].values.totalCPouvrtvertical + '</td>' +
-                '<td  id="foot_AE_att">'+data_T_port.total[0].values.totalAEattenduvertical + '</td>' +
-                '<td  id="foot_CP_att">'+data_T_port.total[0].values.totalCPattenduvertical + '</td>' +
-                '<td  id="foot_AE_TT">'+data_T_port.total[0].values.totalAE + '</td>' +
-                '<td  id="foot_CP_TT">'+data_T_port.total[0].values.totalCP + '</td> </tr>' ;
+                '<td  id="foot_AE_Over">'+ValAccountingFigures(data_T_port.total[0].values.totalAEouvrtvertical) + '</td>' +
+                '<td  id="foot_CP_Over">'+ValAccountingFigures(data_T_port.total[0].values.totalCPouvrtvertical) + '</td>' +
+                '<td  id="foot_AE_att">'+ValAccountingFigures(data_T_port.total[0].values.totalAEattenduvertical) + '</td>' +
+                '<td  id="foot_CP_att">'+ValAccountingFigures(data_T_port.total[0].values.totalCPattenduvertical) + '</td>' +
+                '<td  id="foot_AE_TT">'+ValAccountingFigures(data_T_port.total[0].values.totalAE) + '</td>' +
+                '<td  id="foot_CP_TT">'+ValAccountingFigures(data_T_port.total[0].values.totalCP) + '</td> </tr>' ;
                 
                 
             }
@@ -4182,6 +4451,8 @@ else
         var ig = 0;
         var io = 0;
         var iso = 0;
+
+
         $.each(data, function (key, value) {
             // Create a table row
             let row = '<tr class="ref'+key+'" id="ref' + key + '">' +
@@ -4191,8 +4462,8 @@ else
                 '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_Over">' + 0 + '</td>' +
                 '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_att">' + 0 + '</td>' +
                 '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_att">' + 0 + '</td>' +
-                '<td  class="someae" id="AE_TT">' + 0 + '</td>' +
-                '<td  class="somecp" id="CP_TT">' + 0 + '</td>' +
+                '<td  class="someae" oninput="formatAccountingFigures(this)" id="AE_TT">' + 0 + '</td>' +
+                '<td  class="somecp" oninput="formatAccountingFigures(this)" id="CP_TT">' + 0 + '</td>' +
                 '</tr>';
             var codegr = data_T_port.group;
             var codeop = data_T_port.operation;
@@ -4205,12 +4476,12 @@ else
                     row = '<tr class="ref' + key + '" id="ref'+data_T_port.group[ig].code+'">' +
                         '<td scope="row"  class="code">' + key + '</td>' +
                         '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"> <p>' + value + '</p> </td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_Over">' + data_T_port.group[ig].values.ae_ouvertgrpop + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_Over">' + data_T_port.group[ig].values.cp_ouvertgrpop + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_att">' + data_T_port.group[ig].values.ae_attendugrpop + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_att">' + data_T_port.group[ig].values.cp_attendugrpop + '</td>' +
-                        '<td  class="someae" id="AE_TT">' + data_T_port.group[ig].values.totalAEgrpop + '</td>' +
-                        '<td  class="somecp" id="CP_TT">' + data_T_port.group[ig].values.totalCPgrpop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_Over">' +ValAccountingFigures( data_T_port.group[ig].values.ae_ouvertgrpop) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_Over">' +ValAccountingFigures (data_T_port.group[ig].values.cp_ouvertgrpop) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_att">' +ValAccountingFigures (data_T_port.group[ig].values.ae_attendugrpop) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_att">' +ValAccountingFigures (data_T_port.group[ig].values.cp_attendugrpop) + '</td>' +
+                        '<td  class="someae" oninput="formatAccountingFigures(this)" id="AE_TT">' +ValAccountingFigures (data_T_port.group[ig].values.totalAEgrpop) + '</td>' +
+                        '<td  class="somecp" oninput="formatAccountingFigures(this)" id="CP_TT">' +ValAccountingFigures (data_T_port.group[ig].values.totalCPgrpop) + '</td>' +
                         '</tr>';
                     ig++
                 }
@@ -4221,12 +4492,12 @@ else
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.operation[io].code + '">' +
                         '<td scope="row"  class="code">' + key + '</td>' +
                         '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"> <p>' + value + '</p> </td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_Over">' + data_T_port.operation[io].values.ae_ouvertop + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_Over">' + data_T_port.operation[io].values.cp_ouvertop + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_att">' + data_T_port.operation[io].values.ae_attenduop + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_att">' + data_T_port.operation[io].values.cp_attenduop + '</td>' +
-                        '<td  class="someae" id="AE_TT">' + data_T_port.operation[io].values.totalAEop + '</td>' +
-                        '<td  class="somecp" id="CP_TT">' + data_T_port.operation[io].values.totalCPop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_Over">' +ValAccountingFigures (data_T_port.operation[io].values.ae_ouvertop) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_Over">' +ValAccountingFigures (data_T_port.operation[io].values.cp_ouvertop) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_att">' +ValAccountingFigures (data_T_port.operation[io].values.ae_attenduop) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_att">' +ValAccountingFigures (data_T_port.operation[io].values.cp_attenduop) + '</td>' +
+                        '<td  class="someae" oninput="formatAccountingFigures(this)" id="AE_TT">' +ValAccountingFigures (data_T_port.operation[io].values.totalAEop) + '</td>' +
+                        '<td  class="somecp" oninput="formatAccountingFigures(this)" id="CP_TT">' +ValAccountingFigures (data_T_port.operation[io].values.totalCPop) + '</td>' +
                         '</tr>';
                     io++
                 }
@@ -4237,12 +4508,12 @@ else
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                         '<td scope="row"  class="code">' + key + '</td>' +
                         '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"> <p>' + value + '</p> </td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_Over">' + data_T_port.sousOperation[iso].values.ae_ouvertsousop + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_Over">' + data_T_port.sousOperation[iso].values.cp_ouvertsousop + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_att">' + data_T_port.sousOperation[iso].values.ae_attendusousop + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_att">' + data_T_port.sousOperation[iso].values.cp_attendsousuop + '</td>' +
-                        '<td  class="someae" id="AE_TT">' + data_T_port.sousOperation[iso].values.totalAEsousop + '</td>' +
-                        '<td  class="somecp" id="CP_TT">' + data_T_port.sousOperation[iso].values.totalCPsousop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_Over">' + ValAccountingFigures(data_T_port.sousOperation[iso].values.ae_ouvertsousop) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_Over">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_ouvertsousop) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_att">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_attendusousop) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_att">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_attendsousuop) + '</td>' +
+                        '<td  class="someae" oninput="formatAccountingFigures(this)" id="AE_TT">' +ValAccountingFigures( data_T_port.sousOperation[iso].values.totalAEsousop) + '</td>' +
+                        '<td  class="somecp"  oninput="formatAccountingFigures(this)" id="CP_TT">' +ValAccountingFigures( data_T_port.sousOperation[iso].values.totalCPsousop) + '</td>' +
                         '</tr>';
                     iso++
                 }
@@ -4250,6 +4521,8 @@ else
 }
             // Append the row to the table body
             $('#T-tables tbody').append(row);
+           
+            //formatAccountingFigures()
             Edit(id, T)
             if (current.length == 0) {
                 current = key;
@@ -4295,6 +4568,7 @@ else
     });
 }
 function T3_table(id, T, id_s_act, port,code) {
+    
     $('#reloading').addClass('reload-hidden')
    $('#T-tables tfoot').empty();
     var current = new Array();
@@ -4342,12 +4616,12 @@ if(code == 200){
                 cpnTpt=data_T_port.total[0].values.totalCPnotifievertical
                 cpcTpt=data_T_port.total[0].values.totalCPconsomevertical
                tfooter='<tr><td colspan="4">Total</td>'+
-                '<td  id="foot_AE_rpor">'+aerTpt + '</td>' +
-                '<td  id="foot_AE_not">'+aenTpt + '</td>' +
-                '<td  id="foot_AE_enga">'+aeeTpt + '</td>' +
-                '<td  id="foot_CP_rpor">'+cprTpt + '</td>' +
-                '<td  id="foot_CP_not">'+cpnTpt + '</td>' +
-                '<td  id="foot_CP_consom">'+cpcTpt + '</td> </tr>' ;
+                '<td  id="foot_AE_rpor">'+ValAccountingFigures(aerTpt) + '</td>' +
+                '<td  id="foot_AE_not">'+ValAccountingFigures(aenTpt) + '</td>' +
+                '<td  id="foot_AE_enga">'+ValAccountingFigures(aeeTpt) + '</td>' +
+                '<td  id="foot_CP_rpor">'+ValAccountingFigures(cprTpt) + '</td>' +
+                '<td  id="foot_CP_not">'+ValAccountingFigures(cpnTpt) + '</td>' +
+                '<td  id="foot_CP_consom">'+ValAccountingFigures(cpcTpt) + '</td> </tr>' ;
                
                 
             }
@@ -4422,12 +4696,12 @@ if(code == 200){
                         '<td id="nom_ops"><p>' + val[0] + '</p> </td>' +
                         '<td> - </td>' +
                         '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' + data_T_port.group[ig].values.ae_reportegrpop + ',00</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' + data_T_port.group[ig].values.ae_notifiegrpop + ',00</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' + data_T_port.group[ig].values.ae_engagegrpop + ',00</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_rpor">' + data_T_port.group[ig].values.cp_reportegrpop + ',00</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_not">' + data_T_port.group[ig].values.cp_notifiegrpop + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' + data_T_port.group[ig].values.cp_consomegrpop + ',00</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' +ValAccountingFigures (data_T_port.group[ig].values.ae_reportegrpop) + ',00</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' +ValAccountingFigures (data_T_port.group[ig].values.ae_notifiegrpop) + ',00</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' +ValAccountingFigures (data_T_port.group[ig].values.ae_engagegrpop) + ',00</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_rpor">' +ValAccountingFigures (data_T_port.group[ig].values.cp_reportegrpop) + ',00</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_not">' +ValAccountingFigures (data_T_port.group[ig].values.cp_notifiegrpop) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' +ValAccountingFigures (data_T_port.group[ig].values.cp_consomegrpop) + ',00</td>' +
                         '</tr>';
                     ig++;
                 }
@@ -4441,12 +4715,12 @@ if(code == 200){
                         '<td id="nom_ops"><p>' + val[0] + '</p> </td>' +
                         '<td> - </td>' +
                         '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' + data_T_port.operation[io].values.ae_reporteop + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' + data_T_port.operation[io].values.ae_notifieop + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' + data_T_port.operation[io].values.ae_engageop + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_rpor">' + data_T_port.operation[io].values.cp_reporteop + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_not">' + data_T_port.operation[io].values.cp_notifieop + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' + data_T_port.operation[io].values.cp_consomeop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' +ValAccountingFigures (data_T_port.operation[io].values.ae_reporteop) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' +ValAccountingFigures (data_T_port.operation[io].values.ae_notifieop) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' +ValAccountingFigures (data_T_port.operation[io].values.ae_engageop) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_rpor">' +ValAccountingFigures (data_T_port.operation[io].values.cp_reporteop) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_not">' +ValAccountingFigures (data_T_port.operation[io].values.cp_notifieop) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' +ValAccountingFigures (data_T_port.operation[io].values.cp_consomeop) + '</td>' +
                         '</tr>';
                     io++;
                 }
@@ -4474,12 +4748,12 @@ if(code == 200){
                         '<td id="nom_ops"><p>' +  nom + '</p> </td>' +
                         '<td> '+def+' </td>' +
                         '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + int + '</p></td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' + data_T_port.sousOperation[iso].values.ae_reportesousop + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' + data_T_port.sousOperation[iso].values.ae_notifiesousop + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' + data_T_port.sousOperation[iso].values.ae_engagesousop + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_rpor">' + data_T_port.sousOperation[iso].values.cp_reportesousuop + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_not">' + data_T_port.sousOperation[iso].values.cp_notifiesousop + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' + data_T_port.sousOperation[iso].values.cp_consomesousop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_reportesousop) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_notifiesousop) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_engagesousop) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_rpor">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_reportesousuop) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_not">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_notifiesousop) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_consomesousop) + '</td>' +
                         '</tr>';
                     iso++;
                 }
@@ -4493,12 +4767,12 @@ if(code == 200){
                     '<td id="nom_ops">'  +    data_T_port.sousOperation[iso].nom + '</td>' +
                     '<td>  - </td>' +
                     '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
-                    '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' + data_T_port.sousOperation[iso].values.ae_reportesousop + '</td>' +
-                    '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' + data_T_port.sousOperation[iso].values.ae_notifiesousop + '</td>' +
-                    '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' + data_T_port.sousOperation[iso].values.ae_engagesousop + '</td>' +
-                    '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_rpor">' + data_T_port.sousOperation[iso].values.cp_reportesousuop + '</td>' +
-                    '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_not">' + data_T_port.sousOperation[iso].values.cp_notifiesousop + '</td>' +
-                    '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' + data_T_port.sousOperation[iso].values.cp_consomesousop + '</td>' +
+                    '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_reportesousop) + '</td>' +
+                    '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_notifiesousop) + '</td>' +
+                    '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_engagesousop) + '</td>' +
+                    '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_rpor">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_reportesousuop) + '</td>' +
+                    '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_not">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_notifiesousop) + '</td>' +
+                    '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_consomesousop) + '</td>' +
                     '</tr>';
                     iso++;
                      $('#T-tables tbody').append(row);
@@ -4508,12 +4782,12 @@ if(code == 200){
                    '<td id="nom_ops">'  +    val[0] + '</td>' +
                    '<td id="def"> </td>' +
                    '<td id="sous_def" style="display: flex;align-items: center; justify-content: space-between;"></td>' +
-                   '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' + data_T_port.sousOperation[iso].values.ae_reportesousop + '</td>' +
-                   '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' + data_T_port.sousOperation[iso].values.ae_notifiesousop + '</td>' +
-                   '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' + data_T_port.sousOperation[iso].values.ae_engagesousop + '</td>' +
-                   '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_rpor">' + data_T_port.sousOperation[iso].values.cp_reportesousuop + '</td>' +
-                   '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_not">' + data_T_port.sousOperation[iso].values.cp_notifiesousop + '</td>' +
-                   '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' + data_T_port.sousOperation[iso].values.cp_consomesousop + '</td>' +
+                   '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' +ValAccountingFigures( data_T_port.sousOperation[iso].values.ae_reportesousop) + '</td>' +
+                   '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_notifiesousop) + '</td>' +
+                   '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_engagesousop) + '</td>' +
+                   '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_rpor">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_reportesousuop) + '</td>' +
+                   '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_not">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_notifiesousop) + '</td>' +
+                   '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_consomesousop) + '</td>' +
                    '</tr>';
                    iso++;
                  
@@ -4522,7 +4796,6 @@ if(code == 200){
             }
             }
             // Append the row to the table body
-
             $('#T-tables tbody').append(row);
            
             if (current.length == 0) {
@@ -4540,6 +4813,7 @@ if(code == 200){
                     console.log('testing ' + preve)
                     $('.ref' + preve + ' td').each(function () {
                         $(this).removeClass('editable')
+                        
                     })
                     preve = current;
 
@@ -4620,8 +4894,8 @@ function T4_table(id, T, id_s_act, port,code) {
                 console.log('data' + JSON.stringify(Object.keys(response.results)).length)
                 data_T_port = response.results;
                tfooter='<tr><td colspan="3">Total</td>'+
-                '<td id="foot_AE_T4">' + data_T_port.total[0].values.totalAE + '</td>' +
-                '<td id="foot_CP_T4">' + data_T_port.total[0].values.totalCP + '</td> </tr>';  
+                '<td id="foot_AE_T4">' + ValAccountingFigures(data_T_port.total[0].values.totalAE) + '</td>' +
+                '<td id="foot_CP_T4">' + ValAccountingFigures(data_T_port.total[0].values.totalCP) + '</td> </tr>';  
 
                
             }
@@ -4681,8 +4955,8 @@ function T4_table(id, T, id_s_act, port,code) {
                         '<td><p>' + value + '</p></td>' +
 
                         '<td  id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>null</p></td>'+
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T4">' + data_T_port.group[ig].values.ae_grpop + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T4">' + data_T_port.group[ig].values.cp_grpop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T4">' +ValAccountingFigures (data_T_port.group[ig].values.ae_grpop) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T4">' +ValAccountingFigures (data_T_port.group[ig].values.cp_grpop) + '</td>' +
                         '</tr>';
                     ig++;
                 }
@@ -4695,8 +4969,8 @@ function T4_table(id, T, id_s_act, port,code) {
                         '<td ><p>' + value + '</p></td>' +
 
                         '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>null</p></td>'+
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T4">' + data_T_port.operation[io].values.ae_op + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T4">' + data_T_port.operation[io].values.cp_op + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T4">' +ValAccountingFigures (data_T_port.operation[io].values.ae_op) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T4">' +ValAccountingFigures (data_T_port.operation[io].values.cp_op) + '</td>' +
                         '</tr>';
                     io++;
                 }
@@ -4709,8 +4983,8 @@ function T4_table(id, T, id_s_act, port,code) {
                         '<td ><p>' + value + '</p></td>' +
 
                         '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>null</p></td>'+
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T4">' + data_T_port.sousOperation[iso].values.ae_sousop + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T4">' + data_T_port.sousOperation[iso].values.cp_sousuop + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T4">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_sousop) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T4">' +ValAccountingFigures( data_T_port.sousOperation[iso].values.cp_sousuop) + '</td>' +
                         '</tr>';
                     iso++;
                 }
@@ -4724,8 +4998,8 @@ function T4_table(id, T, id_s_act, port,code) {
                             '<td scope="row" class="code" style="visibility: hidden;">'  +key+"-"+splitcode(data_T_port.sousOperation[iso].code, land)+'</td>' +
                             '<td id="def"></td>' +
                             '<td id="sous_def" ></td>'+
-                            '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T4">' + data_T_port.sousOperation[iso].values.ae_sousop + '</td>' +
-                            '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T4">' + data_T_port.sousOperation[iso].values.cp_sousuop + '</td>' +
+                            '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T4">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_sousop) + '</td>' +
+                            '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T4">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_sousuop) + '</td>' +
                             '</tr>';
                             $('#T-tables tbody').append(row);
                             iso++;
@@ -4733,8 +5007,8 @@ function T4_table(id, T, id_s_act, port,code) {
                             '<td scope="row" class="code" >'+key+'</td>' +
                             '<td id="def">'+value+'</td>' +
                             '<td id="sous_def" ></td>'+
-                            '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T4">' + data_T_port.sousOperation[iso].values.ae_sousop + '</td>' +
-                            '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T4">' + data_T_port.sousOperation[iso].values.cp_sousuop + '</td>' +
+                            '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T4">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_sousop) + '</td>' +
+                            '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T4">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_sousuop) + '</td>' +
                             '</tr>';
                             
                             iso++; 
@@ -4800,9 +5074,9 @@ function T4_table(id, T, id_s_act, port,code) {
                 }
             }
             if(code === 200)
-                {
+                {   
+                   Update_dpia('4',iupdate);
                    dataupdate=[]
-                   Update_dpia(T,iupdate);
                    console.log('testing new update function')
      
                 }else
@@ -4816,11 +5090,11 @@ function T4_table(id, T, id_s_act, port,code) {
         console.error('Error loading JSON file.');
     });
 }
-$(document).ready(function () {
+$(document).ready(function () { 
 
     $('#T1').on('click', function () {
         $('#reloading').removeClass('reload-hidden')
-
+        $("#expExcel").css('display','none')
         var indic = path3.length - 1
         var id = $(this).attr('id');
         var T = 1;
@@ -4836,6 +5110,7 @@ $(document).ready(function () {
                     T1_table(id, T, ssact, path3[0],response.code)
                     $('#T_port1').addClass('heilighter')
                     $('#reloading').addClass('reload-hidden')
+                    $("#expExcel").css('display','block')
                 }
                 else {
                
@@ -4843,11 +5118,14 @@ $(document).ready(function () {
                     code =404
                     T1_table(id, T, ssact, path3[0],code) 
                     $('#reloading').addClass('reload-hidden')
+                    $("#expExcel").css('display','block')
                 }
             }
         })
     })
     $('#T2').on('click', function () {
+        $('.btn_bg-handler').empty()
+        $("#expExcel").css('display','none')
         $('#reloading').removeClass('reload-hidden')
         var indic = path3.length - 1
         var T=2
@@ -4863,12 +5141,14 @@ $(document).ready(function () {
                     $('#reloading').addClass('reload-hidden')
                     T2_table(id, T, ssact, path3[0],response.code)
                     $('#T_port2').addClass('heilighter')
+                    $("#expExcel").css('display','block')
                 }
                 else {
                     alert('New')
                     $('#reloading').addClass('reload-hidden')
                    code=404
                     T2_table(id, T, ssact, path3[0],code)
+                    $("#expExcel").css('display','block')
                 }
             }
         })
@@ -4876,6 +5156,8 @@ $(document).ready(function () {
     })
 
     $('#T3').on('click', function () {
+        $('.btn_bg-handler').empty()
+        $("#expExcel").css('display','none')
         $('#reloading').removeClass('reload-hidden')
         var indic = path3.length - 1
         console.log('len' + path3.length + ' act ' + indic)
@@ -4890,18 +5172,22 @@ $(document).ready(function () {
                     $('#reloading').addClass('reload-hidden')
                     T3_table(id, T, ssact, path3[0],response.code)
                     $('#T_port3').addClass('heilighter')
+                    $("#expExcel").css('display','block')
                 }
                 else {
                     $('#reloading').addClass('reload-hidden')
                     alert('New')
                     code =404
                     T3_table(id, T, ssact, path3[0],code)
+                    $("#expExcel").css('display','block')
                 }
             }
         })
         //T3_table(id, T)
     })
     $('#T4').on('click', function () {
+        $('.btn_bg-handler').empty()
+        $("#expExcel").css('display','none')
         $('#reloading').removeClass('reload-hidden')
         var indic = path3.length - 1
         console.log('len' + path3.length + ' act ' + indic)
@@ -4916,12 +5202,14 @@ $(document).ready(function () {
                     $('#reloading').addClass('reload-hidden')
                     T4_table(id, T, ssact, path3[0],response.code)
                     $('#T_port4').addClass('heilighter')
+                    $("#expExcel").css('display','block')
                 }
                 else {
                     alert('New')
                     code =404
                     $('#reloading').addClass('reload-hidden')
                     T4_table(id, T, ssact, path3[0],code)
+                    $("#expExcel").css('display','block')
                 }
             }
         })
@@ -4933,8 +5221,10 @@ $(document).ready(function () {
         var id_tport_c = $(this).attr('id');
            $(this).addClass('heilighter')
         if (id_tport_c == 'T_port1') {
+            $('.btn_bg-handler').empty()
             $('#reloading').removeClass('reload-hidden')
             $('.opt_handle').empty()
+            $("#expExcel").css('display','none')
            $('#T_port2').removeClass('heilighter')
            $('#T_port3').removeClass('heilighter')
            $('#T_port4').removeClass('heilighter')
@@ -4951,6 +5241,7 @@ $(document).ready(function () {
 
                         T1_table(id, T, ssact, path3[0],response.code)
                         $('#reloading').addClass('reload-hidden')
+                        $("#expExcel").css('display','block')
 
                     }
                     else {
@@ -4960,14 +5251,17 @@ $(document).ready(function () {
                         code =404
                         T1_table(id, T, ssact, path3[0],code)
                         $('#reloading').addClass('reload-hidden')
+                        $("#expExcel").css('display','block')
                     }
                 }
             })
         }
         if (id_tport_c == 'T_port2') {
+            $('.btn_bg-handler').empty()
             $('#reloading').addClass('reload-hidden')
             $('#reloading').removeClass('reload-hidden')
             $('.opt_handle').empty()
+            $("#expExcel").css('display','none')
            $('#T_port1').removeClass('heilighter')
            $('#T_port3').removeClass('heilighter')
            $('#T_port4').removeClass('heilighter')
@@ -4981,20 +5275,24 @@ $(document).ready(function () {
                         alert('Exist')
                         $('#reloading').addClass('reload-hidden')
                         T2_table(id, T, ssact, path3[0],response.code)
+                        $("#expExcel").css('display','block')
                     }
                     else {
                         $('#reloading').addClass('reload-hidden')
                         alert('New')
                                code=404
                         T2_table(id, T, ssact, path3[0],code)
+                        $("#expExcel").css('display','block')
                     }
                 }
             })
         }
         if (id_tport_c == 'T_port3') {
+            $('.btn_bg-handler').empty()
             $('#reloading').addClass('reload-hidden')
             $('#reloading').removeClass('reload-hidden')
             $('.opt_handle').empty()
+            $("#expExcel").css('display','none')
            $('#T_port2').removeClass('heilighter')
            $('#T_port1').removeClass('heilighter')
            $('#T_port4').removeClass('heilighter')
@@ -5008,11 +5306,13 @@ $(document).ready(function () {
                         alert('Exist')
                         $('#reloading').addClass('reload-hidden')
                         T3_table(id, T, ssact, path3[0],response.code)
+                        $("#expExcel").css('display','block')
                     }
                     else {
                         alert('New ')
                         $('#reloading').addClass('reload-hidden')
                         T3_table(id, T, ssact, path3[0],code)
+                        $("#expExcel").css('display','block')
                     }
                 }
             })
@@ -5020,9 +5320,11 @@ $(document).ready(function () {
 
         }
         if (id_tport_c == 'T_port4') {
+            $('.btn_bg-handler').empty()
             $('#reloading').addClass('reload-hidden')
             $('#reloading').removeClass('reload-hidden')
             $('.opt_handle').empty()
+            $("#expExcel").css('display','none')
            $('#T_port2').removeClass('heilighter')
            $('#T_port3').removeClass('heilighter')
            $('#T_port1').removeClass('heilighter')
@@ -5036,13 +5338,16 @@ $(document).ready(function () {
                         alert('Exist')
                         $('#reloading').addClass('reload-hidden')
                         T4_table(id, T, ssact, path3[0],response.code)
+                        $("#expExcel").css('display','block')
                     }
                     else {
                         alert('New')
                         code =404
                         $('#reloading').addClass('reload-hidden')
                         T4_table(id, T, ssact, path3[0],code)
+                        $("#expExcel").css('display','block')
                     }
+
                 }
             })
 
@@ -5064,6 +5369,15 @@ $(document).ready(function () {
         $('.Budget_info').css('display','none')
        }
     })
+    $('#expExcel').on('click',function()
+{
+    let table = document.getElementById("T-tables"); 
+    let wb = XLSX.utils.book_new(); 
+    let ws = XLSX.utils.table_to_sheet(table); 
+
+    XLSX.utils.book_append_sheet(wb, ws, "Sheet1"); 
+    XLSX.writeFile(wb, "table_data.xlsx");
+})
 })
 
 /**
