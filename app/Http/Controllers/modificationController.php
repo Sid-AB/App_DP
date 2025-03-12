@@ -1295,7 +1295,7 @@ function delete_by_id($id)
     }
     if($split[0] == 'act')
     {
-        $deletmodel=Action::find($split[1]);
+        $deletmodel=SousAction::find($split[1].'-01');
 
         //dd($deletmodel);
         if($deletmodel)
