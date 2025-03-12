@@ -11,7 +11,7 @@ var  dataupdate=new Array();
  */
 
 
-function appliquer_up()
+function appliquer_up(T)
 {
     $('.change_app').on('click',function(){
         var idbtn=$(this).children('#changin').attr('id');
@@ -1114,7 +1114,8 @@ function add_newOPs_T3(id, value, key,code) {
                     }
                     if(code == 200)
                     {
-                        appliquer_up()
+                        T='3';
+                        appliquer_up(T)
                     }
                     else {
                         $('#changin').on('click',function(){
@@ -1231,7 +1232,8 @@ function add_newOPs_T4(id, value, key,code) {
        $('.Tsop_handler').addClass('Tsop_handler_h')
        if(code == 200)
         {
-            appliquer_up()
+            T=4;
+            appliquer_up(T)
         }   
    })
    $('#cancel_ops').click(function(){
@@ -1356,7 +1358,7 @@ function Update_dpia(T,iupdate)
                        somecp = parseFloat(testcpattendu) + parseFloat(testcpover)
                        someae = parseFloat(testaeattendu) + parseFloat(testaeover);
                        console.log('ae' + someae + ' cp ' + somecp)
-                    $('#foot_AE_att').text(sommevertAEatt);
+                    $('#foot_AE_att').text(ValAccountingFigures(sommevertAEatt));
                     $('#foot_CP_att').text(sommevertCPatt);
                     $('#foot_AE_Over').text(sommevertAEovr);
                     $('#foot_CP_Over').text(sommevertCPovr);
@@ -1417,14 +1419,14 @@ function Update_dpia(T,iupdate)
                }
                else
                {
-                if( T= '3')
+                if( T == '3')
                 {
-                    var sommevertAErepor=$('#foot_AE_rpor').text();
-                    var sommevertAEnot=$('#foot_AE_not').text();
-                    var sommevertAEenga=$('#foot_AE_enga').text();
-                    var sommevertCPrpor=$('#foot_CP_rpor').text();
-                    var sommevertCPnot=$('#foot_CP_not').text();
-                    var sommevertCPconsum=$('#foot_CP_consom').text();
+                    var sommevertAErepor=parseNumberWithoutCommas($('#foot_AE_rpor').text());
+                    var sommevertAEnot=parseNumberWithoutCommas($('#foot_AE_not').text());
+                    var sommevertAEenga=parseNumberWithoutCommas($('#foot_AE_enga').text());
+                    var sommevertCPrpor=parseNumberWithoutCommas($('#foot_CP_rpor').text());
+                    var sommevertCPnot=parseNumberWithoutCommas($('#foot_CP_not').text());
+                    var sommevertCPconsum=parseNumberWithoutCommas($('#foot_CP_consom').text());
                   
                    
                     var wit = $(this).parent().attr('id');
@@ -1655,15 +1657,17 @@ function Update_dpia(T,iupdate)
                        }
                        if(T == '3')
                        {
+                        console.log('i insert  T3'+JSON.stringify(dataupdate))
                            dataupdate.push({code:codesoup,value:{ae_notifie:ae_notifie,ae_reporte:ae_reporte,ae_engage:ae_engage,
                                                                  cp_notifie:cp_notifie,cp_reporte:cp_reporte,cp_consome:cp_consome}})
                        }
                        if(T == '4' || T==4)
                        {
+                        console.log('i insert  T4'+JSON.stringify(dataupdate))
                                dataupdate.push({code:codesoup,value:{ae:ae,cp:cp}})
                        }
 
-                   console.log('i insert '+JSON.stringify(dataupdate))
+                   
                    }
 
                }
@@ -5070,9 +5074,9 @@ function T4_table(id, T, id_s_act, port,code) {
                 }
             }
             if(code === 200)
-                {
+                {   
+                   Update_dpia('4',iupdate);
                    dataupdate=[]
-                   Update_dpia(T,iupdate);
                    console.log('testing new update function')
      
                 }else
@@ -5086,11 +5090,11 @@ function T4_table(id, T, id_s_act, port,code) {
         console.error('Error loading JSON file.');
     });
 }
-$(document).ready(function () {
+$(document).ready(function () { 
 
     $('#T1').on('click', function () {
         $('#reloading').removeClass('reload-hidden')
-
+        $("#expExcel").css('display','none')
         var indic = path3.length - 1
         var id = $(this).attr('id');
         var T = 1;
@@ -5106,6 +5110,7 @@ $(document).ready(function () {
                     T1_table(id, T, ssact, path3[0],response.code)
                     $('#T_port1').addClass('heilighter')
                     $('#reloading').addClass('reload-hidden')
+                    $("#expExcel").css('display','block')
                 }
                 else {
                
@@ -5113,12 +5118,14 @@ $(document).ready(function () {
                     code =404
                     T1_table(id, T, ssact, path3[0],code) 
                     $('#reloading').addClass('reload-hidden')
+                    $("#expExcel").css('display','block')
                 }
             }
         })
     })
     $('#T2').on('click', function () {
         $('.btn_bg-handler').empty()
+        $("#expExcel").css('display','none')
         $('#reloading').removeClass('reload-hidden')
         var indic = path3.length - 1
         var T=2
@@ -5134,12 +5141,14 @@ $(document).ready(function () {
                     $('#reloading').addClass('reload-hidden')
                     T2_table(id, T, ssact, path3[0],response.code)
                     $('#T_port2').addClass('heilighter')
+                    $("#expExcel").css('display','block')
                 }
                 else {
                     alert('New')
                     $('#reloading').addClass('reload-hidden')
                    code=404
                     T2_table(id, T, ssact, path3[0],code)
+                    $("#expExcel").css('display','block')
                 }
             }
         })
@@ -5148,6 +5157,7 @@ $(document).ready(function () {
 
     $('#T3').on('click', function () {
         $('.btn_bg-handler').empty()
+        $("#expExcel").css('display','none')
         $('#reloading').removeClass('reload-hidden')
         var indic = path3.length - 1
         console.log('len' + path3.length + ' act ' + indic)
@@ -5162,12 +5172,14 @@ $(document).ready(function () {
                     $('#reloading').addClass('reload-hidden')
                     T3_table(id, T, ssact, path3[0],response.code)
                     $('#T_port3').addClass('heilighter')
+                    $("#expExcel").css('display','block')
                 }
                 else {
                     $('#reloading').addClass('reload-hidden')
                     alert('New')
                     code =404
                     T3_table(id, T, ssact, path3[0],code)
+                    $("#expExcel").css('display','block')
                 }
             }
         })
@@ -5175,6 +5187,7 @@ $(document).ready(function () {
     })
     $('#T4').on('click', function () {
         $('.btn_bg-handler').empty()
+        $("#expExcel").css('display','none')
         $('#reloading').removeClass('reload-hidden')
         var indic = path3.length - 1
         console.log('len' + path3.length + ' act ' + indic)
@@ -5189,12 +5202,14 @@ $(document).ready(function () {
                     $('#reloading').addClass('reload-hidden')
                     T4_table(id, T, ssact, path3[0],response.code)
                     $('#T_port4').addClass('heilighter')
+                    $("#expExcel").css('display','block')
                 }
                 else {
                     alert('New')
                     code =404
                     $('#reloading').addClass('reload-hidden')
                     T4_table(id, T, ssact, path3[0],code)
+                    $("#expExcel").css('display','block')
                 }
             }
         })
@@ -5209,6 +5224,7 @@ $(document).ready(function () {
             $('.btn_bg-handler').empty()
             $('#reloading').removeClass('reload-hidden')
             $('.opt_handle').empty()
+            $("#expExcel").css('display','none')
            $('#T_port2').removeClass('heilighter')
            $('#T_port3').removeClass('heilighter')
            $('#T_port4').removeClass('heilighter')
@@ -5225,6 +5241,7 @@ $(document).ready(function () {
 
                         T1_table(id, T, ssact, path3[0],response.code)
                         $('#reloading').addClass('reload-hidden')
+                        $("#expExcel").css('display','block')
 
                     }
                     else {
@@ -5234,6 +5251,7 @@ $(document).ready(function () {
                         code =404
                         T1_table(id, T, ssact, path3[0],code)
                         $('#reloading').addClass('reload-hidden')
+                        $("#expExcel").css('display','block')
                     }
                 }
             })
@@ -5243,6 +5261,7 @@ $(document).ready(function () {
             $('#reloading').addClass('reload-hidden')
             $('#reloading').removeClass('reload-hidden')
             $('.opt_handle').empty()
+            $("#expExcel").css('display','none')
            $('#T_port1').removeClass('heilighter')
            $('#T_port3').removeClass('heilighter')
            $('#T_port4').removeClass('heilighter')
@@ -5256,12 +5275,14 @@ $(document).ready(function () {
                         alert('Exist')
                         $('#reloading').addClass('reload-hidden')
                         T2_table(id, T, ssact, path3[0],response.code)
+                        $("#expExcel").css('display','block')
                     }
                     else {
                         $('#reloading').addClass('reload-hidden')
                         alert('New')
                                code=404
                         T2_table(id, T, ssact, path3[0],code)
+                        $("#expExcel").css('display','block')
                     }
                 }
             })
@@ -5271,6 +5292,7 @@ $(document).ready(function () {
             $('#reloading').addClass('reload-hidden')
             $('#reloading').removeClass('reload-hidden')
             $('.opt_handle').empty()
+            $("#expExcel").css('display','none')
            $('#T_port2').removeClass('heilighter')
            $('#T_port1').removeClass('heilighter')
            $('#T_port4').removeClass('heilighter')
@@ -5284,11 +5306,13 @@ $(document).ready(function () {
                         alert('Exist')
                         $('#reloading').addClass('reload-hidden')
                         T3_table(id, T, ssact, path3[0],response.code)
+                        $("#expExcel").css('display','block')
                     }
                     else {
                         alert('New ')
                         $('#reloading').addClass('reload-hidden')
                         T3_table(id, T, ssact, path3[0],code)
+                        $("#expExcel").css('display','block')
                     }
                 }
             })
@@ -5300,6 +5324,7 @@ $(document).ready(function () {
             $('#reloading').addClass('reload-hidden')
             $('#reloading').removeClass('reload-hidden')
             $('.opt_handle').empty()
+            $("#expExcel").css('display','none')
            $('#T_port2').removeClass('heilighter')
            $('#T_port3').removeClass('heilighter')
            $('#T_port1').removeClass('heilighter')
@@ -5313,13 +5338,16 @@ $(document).ready(function () {
                         alert('Exist')
                         $('#reloading').addClass('reload-hidden')
                         T4_table(id, T, ssact, path3[0],response.code)
+                        $("#expExcel").css('display','block')
                     }
                     else {
                         alert('New')
                         code =404
                         $('#reloading').addClass('reload-hidden')
                         T4_table(id, T, ssact, path3[0],code)
+                        $("#expExcel").css('display','block')
                     }
+
                 }
             })
 
@@ -5341,6 +5369,15 @@ $(document).ready(function () {
         $('.Budget_info').css('display','none')
        }
     })
+    $('#expExcel').on('click',function()
+{
+    let table = document.getElementById("T-tables"); 
+    let wb = XLSX.utils.book_new(); 
+    let ws = XLSX.utils.table_to_sheet(table); 
+
+    XLSX.utils.book_append_sheet(wb, ws, "Sheet1"); 
+    XLSX.writeFile(wb, "table_data.xlsx");
+})
 })
 
 /**
