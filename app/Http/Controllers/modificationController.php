@@ -20,6 +20,7 @@ use App\Models\T4;
 
 use App\Services\CalculDpia;
 
+use Illuminate\Support\Facades\Schema;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -487,13 +488,32 @@ class modificationController extends Controller
             // création ou update de la vue
             
             $viewName = 'init_ports_' . str_replace('-', '_', $id_portefeuille);
+
+            //si la table n'existe pas alors on va la créer 
+            if (!Schema::hasTable($viewName)) {
+                
+                $sql = "CREATE TABLE {$viewName} AS 
+                        SELECT * FROM init_ports WHERE num_sous_prog LIKE '{$id_portefeuille}%'";
             
-            $sql = "CREATE table {$viewName} AS 
-                    SELECT * FROM init_ports WHERE num_sous_prog LIKE '{$id_portefeuille}%' ";
-            DB::statement($sql);
+                DB::statement($sql);
+            }
+            
+            // ajouter auto les nouvelles lignes de init 
+            $nouveaux_enregistrements = DB::table('init_ports')
+                ->where('num_sous_prog', 'LIKE', "{$id_portefeuille}%")
+                ->whereNotIn('id_init', function ($query) use ($viewName) {
+                    $query->select('id_init')->from($viewName);
+                })
+                ->get();
+            //dd($nouveaux_enregistrements);
+            foreach ($nouveaux_enregistrements as $newRow) {
+                DB::table($viewName)->insert((array) $newRow);
+            }
           
             $view = DB::table($viewName)->get();
-            //dd( $view);
+           // dd( $view);
+
+
 
             $validated=$request;
            //dd($validated);
@@ -882,7 +902,7 @@ class modificationController extends Controller
                     }
                 //update dans view 
                 foreach ($view as $row) {
-                    if ($row->num_sous_prog == $sousProgRetire->num_sous_prog && is_null($row->num_action)) {
+                    if ($row->num_sous_prog == $sousProgRetire->num_sous_prog && $row->num_action === null) {
                    // dd($row);
                         DB::table($viewName)
                             ->where('num_sous_prog', $sousProgRetire->num_sous_prog)
@@ -898,7 +918,7 @@ class modificationController extends Controller
                                 'CP_init_t4' => DB::raw("CP_init_t4 - $CP_env_T4")
                             ]);
 
-                    } elseif ($row->num_sous_prog == $sousProgReçoit->num_sous_prog && is_null($row->num_action)) {
+                    } if ($row->num_sous_prog == $sousProgReçoit->num_sous_prog && $row->num_action === null) {
                        
                         DB::table($viewName)
                             ->where('num_sous_prog', $row->num_sous_prog)
@@ -929,7 +949,7 @@ class modificationController extends Controller
                                 'AE_init_t4' => DB::raw("AE_init_t4 - $AE_env_T4"),
                                 'CP_init_t4' => DB::raw("CP_init_t4 - $CP_env_T4")
                             ]);
-                    } elseif ($row->num_action == $actionrec_->num_action ) {
+                    } if ($row->num_action == $actionrec_->num_action ) {
                        
                         DB::table($viewName)
                             ->where('num_action', $row->num_action)
@@ -1046,7 +1066,7 @@ class modificationController extends Controller
 
 
               ]);
-
+            
            //dd( $modif);
 
 

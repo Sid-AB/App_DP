@@ -40,8 +40,22 @@ class SousProgramme extends Model
         return $this->morphMany(Multimedia::class, 'related');
     }
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($parent) {
+            $parent->Action()->delete(); // Supprime les enfants
+            $parent->ModificationT()->delete(); // Supprime les enfants
+            $parent->multimedias()->delete(); // Supprime les enfants
+            $parent->InitPorts()->delete(); // Supprime les enfants
+        });
+    }
     public function InitPorts()
     {
         return $this->hasMany(initPort::class,'num_sous_prog','num_sous_prog');
+ 
     }
+
+   
 }

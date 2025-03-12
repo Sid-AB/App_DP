@@ -1661,7 +1661,7 @@ function Update_dpia(T,iupdate)
                            dataupdate.push({code:codesoup,value:{ae_notifie:ae_notifie,ae_reporte:ae_reporte,ae_engage:ae_engage,
                                                                  cp_notifie:cp_notifie,cp_reporte:cp_reporte,cp_consome:cp_consome}})
                        }
-                       if(T == '4')
+                       if(T == '4' || T==4)
                        {
                         console.log('i insert  T4'+JSON.stringify(dataupdate))
                                dataupdate.push({code:codesoup,value:{ae:ae,cp:cp}})
@@ -4308,7 +4308,7 @@ $('#port_T1').on('click',function()
             // Append the row to the table body
 
             $('#T-tables tbody').append(row);
-            formatAccountingFigures($('#AE_T1'))
+           
             if(code !== 200)
             {
                console.log('testing')
