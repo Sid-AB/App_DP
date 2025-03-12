@@ -29,5 +29,14 @@ class GroupOperation extends Model
     {
         return $this->hasMany(Operation::class,'code_grp_operation','code_grp_operation');
     }
+    protected static function boot()
+    {
+        parent::boot();
 
+        static::deleting(function ($parent) {
+            $parent->Operation()->delete(); // Supprime les enfants
+        });
+        
+       
+    }
 }

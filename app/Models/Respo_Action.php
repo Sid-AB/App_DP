@@ -38,6 +38,16 @@ class Respo_Action extends Model
         return $this->hasMany(ConstruireDPIA::class,'id_ra','id_ra');
     }
 
-    
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($parent) {
+            $parent->Action()->delete(); // Supprime les enfants
+            $parent->Realiser()->delete(); // Supprime les enfants
+            $parent->ConstruireDPIA()->delete(); // Supprime les enfants
+            
+        });
+    }
 }
 

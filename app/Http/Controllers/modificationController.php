@@ -902,7 +902,7 @@ class modificationController extends Controller
                     }
                 //update dans view 
                 foreach ($view as $row) {
-                    if ($row->num_sous_prog == $sousProgRetire->num_sous_prog && is_null($row->num_action)) {
+                    if ($row->num_sous_prog == $sousProgRetire->num_sous_prog && $row->num_action === null) {
                    // dd($row);
                         DB::table($viewName)
                             ->where('num_sous_prog', $sousProgRetire->num_sous_prog)
@@ -918,7 +918,7 @@ class modificationController extends Controller
                                 'CP_init_t4' => DB::raw("CP_init_t4 - $CP_env_T4")
                             ]);
 
-                    } elseif ($row->num_sous_prog == $sousProgReçoit->num_sous_prog && is_null($row->num_action)) {
+                    } if ($row->num_sous_prog == $sousProgReçoit->num_sous_prog && $row->num_action === null) {
                        
                         DB::table($viewName)
                             ->where('num_sous_prog', $row->num_sous_prog)
@@ -949,7 +949,7 @@ class modificationController extends Controller
                                 'AE_init_t4' => DB::raw("AE_init_t4 - $AE_env_T4"),
                                 'CP_init_t4' => DB::raw("CP_init_t4 - $CP_env_T4")
                             ]);
-                    } elseif ($row->num_action == $actionrec_->num_action ) {
+                    } if ($row->num_action == $actionrec_->num_action ) {
                        
                         DB::table($viewName)
                             ->where('num_action', $row->num_action)

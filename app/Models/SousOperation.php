@@ -49,5 +49,12 @@ class SousOperation extends Model
         return $this->hasMany(ConstruireDPIA::class,'code_sous_operation','code_sous_operation');
     }
 
+    protected static function boot()
+    {
+        parent::boot();
 
+        static::deleting(function ($parent) {
+            $parent->SousOperation()->delete(); // Supprime les enfants
+        });
+    }
 }
