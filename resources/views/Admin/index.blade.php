@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{asset('assets/css_admin/materialdesignicons.min.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/css_admin/fullcalendar.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/css_admin/main.css')}}" />
+    <link href="{{asset('assets/fontawesome-free/css/all.css')}}" rel="stylesheet"/>
   </head>
   <body>
     <!-- ======== Preloader =========== -->
@@ -159,19 +160,19 @@
                       <thead>
                         <tr>
                           <th>
-                            <h6>#</h6>
+                            <h6>Code</h6>
                           </th>
                           <th>
-                            <h6>Name</h6>
+                            <h6>nom complet</h6>
                           </th>
                           <th>
                             <h6>Email</h6>
                           </th>
                           <th>
-                            <h6>Project</h6>
+                            <h6>Sous Direction</h6>
                           </th>
                           <th>
-                            <h6>Status</h6>
+                            <h6>Privilège</h6>
                           </th>
                           <th>
                             <h6>Action</h6>
@@ -335,6 +336,9 @@
                           </td>
                           <td>
                             <div class="action">
+                              <button class="text-warning">
+                                <i class="fas fa-user-edit"></i>
+                              </button>
                               <button class="text-danger">
                                 <i class="lni lni-trash-can"></i>
                               </button>
