@@ -31,6 +31,11 @@ class CalculDpia
             'Programme.SousProgramme.Action.SousAction.GroupOperation.Operation.SousOperation'
         ])
         ->first();
+
+                
+
+
+
   // dd($portefeuille->orderBy('code_sous_operation', 'asc'));
   // $portefeuille=$portefeuille->orderBy('code_sous_operation', 'asc');
     //dd($portefeuille);

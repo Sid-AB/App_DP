@@ -63,7 +63,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
               <label for="validationCustom03" class="form-label">Sous Direction</label>
               <select class="form-select" id="validationCustom04" required>
                 <option selected disabled value="">Choisir...</option>
@@ -73,6 +73,18 @@
                 Please provide a valid city.
               </div>
             </div>
+
+            <div class="col-md-4">
+              <label for="validationCustom03" class="form-label">Position</label>
+              <select class="form-select" id="validationCustom04" required>
+                <option selected disabled value="">Choisir...</option>
+                <option>...</option>
+              </select>
+              <div class="invalid-feedback">
+                Please provide a valid city.
+              </div>
+            </div>
+
             <div class="col-md-3">
               <label for="validationCustom04" class="form-label">Previlaige</label>
               <select class="form-select" id="validationCustom04" required>
@@ -83,7 +95,7 @@
                 
               </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-6">
               <label for="validationCustom05" class="form-label">Le Code </label>
               <input type="text" class="form-control" id="validationCustom05" required>
               <div class="invalid-feedback">

@@ -27,12 +27,4 @@ class multimedia extends Model
         return $this->morphTo();
     }
 
-/*    protected static function boot()
-    {
-        parent::boot();
-
-        static::deleting(function ($parent) {
-            $parent->related()->delete(); // Supprime les enfants
-        });
-    }*/
 }

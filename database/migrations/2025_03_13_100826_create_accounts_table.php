@@ -9,18 +9,22 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('accounts', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->id(); 
+            $table->string('nome'); 
+            $table->string('prenom'); 
+            $table->string('email')->unique();
+            $table->string('post_occupe'); 
+            $table->string('sous_direction'); 
+            $table->string('code_generated'); 
+            $table->string('privilege')->default('consluter'); // Account Status
+            $table->timestamps(); // created_at & updated_at
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('accounts');
     }
