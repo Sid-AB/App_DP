@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\SousOperation;
+use App\Models\Operation;
+use App\Models\GroupOperation;
 use App\Models\Portefeuille;
 use App\Models\ModificationT;
 use App\Models\ConstruireDPIA;
@@ -1296,11 +1298,26 @@ function delete_by_id($id)
     if($split[0] == 'act')
     {
         $deletmodel=SousAction::find($split[1].'-01');
-
-        //dd($deletmodel);
-        if($deletmodel)
+        $deletmodelA=Action::find($split[1]);
+        //dd($deletmodel['num_sous_action'],$deletmodelA['num_action']);
+        if($deletmodel && $deletmodelA)
         {
-            $deletmodel->delete();
+            //$ops_delete=
+            $gropos=GroupOperation::where('num_sous_action','=',$deletmodel['num_sous_action'])->get();
+            //dd($gropos);
+            if($gropos)
+            {
+                foreach($gropos as $grpop )
+                {
+                    $grpop->delete();
+                }
+               
+                //dd($gropos);
+                $deletmodel->delete();
+                $deletmodelA->delete();
+                return response()->json(['code'=>200,'message '=>'success']);
+            }
+            
         return response()->json(['code'=>200,'message '=>'success']);
         }
         return response()->json(['code'=>404,'message '=>'unsuccess']);
