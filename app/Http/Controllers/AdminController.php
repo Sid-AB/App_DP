@@ -45,12 +45,12 @@ class AdminController extends Controller
 {
     $request->validate([
         'email' => 'required|email',
-        'password' => 'required'
+        'code_generated' => 'required'
     ]);
-        $code= Hash::make($validated['password']);
-    $user = Account::where('email', $request->email)->first();
+        $code= Hash::make($validated['code_generated']);
+    $user = Account::where('code_generated', $code)->first();
 
-    if (!$user || !Hash::check($request->password, $user->password)) {
+    if (!$user || !Hash::check($request->code_generated, $user->code_generated)) {
         return response()->json(['error' => 'Invalid credentials'], 401);
     }
 
