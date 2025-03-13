@@ -12,7 +12,7 @@
 <link href="{{asset('assets/css/Tree.css')}}" rel="stylesheet"/>
 <link href="{{asset('assets/css/main.css')}}" rel="stylesheet"/>
 <link href="{{asset('assets/bootstrap-5.0.2/css/bootstrap.css')}}" rel="stylesheet"/>
-<link href="{{asset('assets/  ')}}" rel="stylesheet"/>
+<!--link href="{{--asset('assets/  ')--}}" rel="stylesheet"/-->
 <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 <!-- Styles -->
 </head>
@@ -40,7 +40,9 @@
           <li>
           <div class="two_handel" style="display: flex;align-items: center;justify-content: center;" id="{{$allport['id']}}_file">
            <div class="modift_handler" id="{{$allport['id']}}_portf"><i class="far fa-edit"></i></div>
+           <div class="delete_handler" id="port_{{$allport['id']}}"><i class="fas fa-trash-alt"></i></div>
            <div class="file_handler" id="{{$allport['id']}}"><i class="fas fa-file-pdf"></i></div>
+           
           </div>
               <span class="member next" id="{{$allport['id']}}" style="display:inline-block;">
 
@@ -91,6 +93,7 @@
               <div class="edit-zone">
               <div class="two_handel" style="display: flex;align-items: center;justify-content: center;" id="{{$portf['id_prog']}}_file">
                 <div class="modift_handler" id="{{$portf['id_prog']}}_prog"><i class="far fa-edit"></i></div>
+                <div class="delete_handler" id="prog_{{$portf['id_prog']}}"><i class="fas fa-trash-alt"></i></div>
                 <div class="file_handler" id="{{$portf['id_prog']}}"><i class="fas fa-file-pdf"></i></div>
               </div>
                 
@@ -157,6 +160,7 @@
                 <div class="edit-zone">
                 <div class="two_handel" style="display: flex;align-items: center;justify-content: center;" id="{{$souportf['id_sous_prog']}}_file">
                   <div class="modift_handler" id="{{$souportf['id_sous_prog']}}_sprog"><i class="far fa-edit"></i></div> 
+                  <div class="delete_handler" id="sous_prog{{$souportf['id_sous_prog']}}"><i class="fas fa-trash-alt"></i></div>
                   <div class="file_handler" id="{{$souportf['id_sous_prog']}}"><i class="fas fa-file-pdf"></i></div>
                 </div>
                  
@@ -216,6 +220,7 @@
                   @if(count($act['sous_action'])>0)
                   <div class="two_handel" style="display: flex;align-items: center;justify-content: center;" id="{{$act['num_act']}}_file">
                    <div class="modift_handler" id="act_{{$act['num_act']}}"><i class="far fa-edit"></i></div> 
+                   <div class="delete_handler" id="act_{{$act['num_act']}}"><i class="fas fa-trash-alt"></i></div>
                    <div class="file_handler" id="{{$act['num_act']}}"><i class="fas fa-file-pdf"></i></div>
                 </div>
                  
@@ -571,7 +576,10 @@
 <div class="confirm-justfie">
  
 </div>
-
+<div class="reload-handle reload-hidden" id="reloading">
+  <div class="reload"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><radialGradient id="a12" cx=".66" fx=".66" cy=".3125" fy=".3125" gradientTransform="scale(1.5)"><stop offset="0" stop-color="#C6BC0A"></stop><stop offset=".3" stop-color="#C6BC0A" stop-opacity=".9"></stop><stop offset=".6" stop-color="#C6BC0A" stop-opacity=".6"></stop><stop offset=".8" stop-color="#C6BC0A" stop-opacity=".3"></stop><stop offset="1" stop-color="#C6BC0A" stop-opacity="0"></stop></radialGradient><circle transform-origin="center" fill="none" stroke="url(#a12)" stroke-width="29" stroke-linecap="round" stroke-dasharray="200 1000" stroke-dashoffset="0" cx="100" cy="100" r="70"><animateTransform type="rotate" attributeName="transform" calcMode="spline" dur="2" values="360;0" keyTimes="0;1" keySplines="0 0 1 1" repeatCount="indefinite"></animateTransform></circle><circle transform-origin="center" fill="none" opacity=".2" stroke="#C6BC0A" stroke-width="29" stroke-linecap="round" cx="100" cy="100" r="70"></circle></svg>
+  </div>
+</div>
 </body>
 <script src="{{asset('assets/bootstrap-5.0.2/js/bootstrap.js')}}"></script>
 <script src="{{asset('assets/fontawesome-free/js/all.js')}}"></script>
@@ -607,6 +615,34 @@
       var id=$(this).attr('id');
       console.log('the id is '+id)
       window.open('/live-pdf/'+id,'_blank')
+    })
+
+    $('.delete_handler').on('click',function(){
+      var id=$(this).attr('id');
+      console.log('the id is '+id);
+      $('#reloading').removeClass('reload-hidden')
+      $.ajax({
+        url:'/delete_from_portfeuille/'+id,
+        type:'GET',
+        success:function(response)
+        {
+          if(response.code == 200)
+        {
+          alert('Supprimer Avec successe')
+          $('#'+id).closest("li").remove();
+        }
+        else
+        {
+          alert('Supprimer Avec unsuccesse')
+        }
+          $('#reloading').addClass('reload-hidden')
+        },
+        error: function()
+        {
+          $('#reloading').addClass('reload-hidden')
+          alert('Peut pas Etre supprimer')
+        }
+      })
     })
     
     $('.next').on('dblclick',function(){

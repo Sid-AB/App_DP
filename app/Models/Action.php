@@ -41,9 +41,21 @@ class Action extends Model
     {
         return $this->morphMany(Multimedia::class, 'related');
     }
+    
+    protected static function boot()
+    {
+        parent::boot();
 
+        static::deleting(function ($parent) {
+            $parent->InitPorts()->delete(); // Supprime les enfants
+            $parent->SousAction()->delete(); // Supprime les enfants
+        });
+        
+    }
     public function InitPorts()
     {
         return $this->hasMany(initPort::class,'num_action','num_action');
     }
+
+   
 }
