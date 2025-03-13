@@ -23,6 +23,7 @@ use App\Http\Controllers\modificationController;
 use App\Http\Controllers\EmploiBudgetController;
 use App\Http\Controllers\FonctionController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PrimeController;
 
 Route::get('/', function () {
  $portfs =Portefeuille::get();
@@ -149,6 +150,9 @@ Route::controller(FonctionController::class)->group(function(){
 Route::controller(AdminController::class)->group(function(){
     Route::get('/admin','index')->name('Admin');
 });
+
+//===============ROUTE Prime==============================
+Route::put('/prime/{id}', [PrimeController::class, 'update']);
 
 
 /*Route::get('/testing/Action/{port}/{prog}/{sous_prog}/{act}/',function ($port,$prog,$sous_prog,$act){

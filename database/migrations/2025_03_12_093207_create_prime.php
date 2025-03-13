@@ -95,6 +95,69 @@ return new class extends Migration
                 'cpp' => 0,
                 'num_sous_action'=> 0,
             ],
+            [
+    
+                'nom' => 'Indemnité forfaitaire de nuisance, décret exécutif n10-135 du 13/05/2010, complété ',
+                'aep' => 0,
+                'cpp' => 0,
+                'num_sous_action'=> 0,
+            ],
+            [
+    
+                'nom' => 'Prime de rendement, décret exécutif n°10-136 du13/05/2010, complété',
+                'aep' => 0,
+                'cpp' => 0,
+                'num_sous_action'=> 0,
+            ],
+            [
+    
+                'nom' => 'Indemnité de risque et d astreinte, décret exécutif n°10-136 du13/05/2010, complété',
+                'aep' => 0,
+                'cpp' => 0,
+                'num_sous_action'=> 0,
+            ],
+            [
+    
+                'nom' => 'Indemnité forfaitaire de service, décret exécutif n°10-136 du13/05/2010, complété',
+                'aep' => 0,
+                'cpp' => 0,
+                'num_sous_action'=> 0,
+            ],
+            [
+    
+                'nom' => 'Indemnité de soutien aux activités de l administration, décrets  exécutifs    n° 13-190 du 09/05/2013',
+                'aep' => 0,
+                'cpp' => 0,
+                'num_sous_action'=> 0,
+            ],
+            [
+    
+                'nom' => 'Différentiel de revenu (IDR)',
+                'aep' => 0,
+                'cpp' => 0,
+                'num_sous_action'=> 0,
+            ],
+            [
+    
+                'nom' => 'Indemnité allouée aux cadres supérieurs retraités, décret présidentiel    n°01-199  du 23/07/2001, modifié',
+                'aep' => 0,
+                'cpp' => 0,
+                'num_sous_action'=> 0,
+            ],
+            [
+    
+                'nom' => 'Indemnité de responsabilité personnelle au profit des agents comptables agréés et des régisseurs, décret exécutif n°04-308 du 22/09/2004',
+                'aep' => 0,
+                'cpp' => 0,
+                'num_sous_action'=> 0,
+            ],
+            [
+    
+                'nom' => 'Indemnité des ayants droits et fils de Chahid, loi n° 99-07 du 05 avril 1999, relatif aux combattants et ayants droits',
+                'aep' => 0,
+                'cpp' => 0,
+                'num_sous_action'=> 0,
+            ],
             ]) ;
     }
 
