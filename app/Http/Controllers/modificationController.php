@@ -11,6 +11,7 @@ use App\Models\ModificationT;
 use App\Models\ConstruireDPIA;
 use App\Models\SousProgramme;
 use App\Models\Programme; 
+use App\Models\Multimedia; 
 use App\Models\Action;
 
 use App\Models\SousAction;
@@ -1281,17 +1282,33 @@ function delete_by_id($id)
         $deletmodel=Programme::find($split[1]);
         if($deletmodel)
         {
+            $deletmodel->delete();
         return response()->json(['code'=>200,'message '=>'success']);
         }
         return response()->json(['code'=>404,'message '=>'unsuccess']);
 
     }
-    if($split[0] == 'sous_prog')
+    if($split[0] == 'sousprog')
     {
+       // dd($split[0],$split[1]);
         $deletmodel=SousProgramme::find($split[1]);
+       // $deletmulti=multimedia::where('related_id','=',$split[1])->get();
+       // dd($deletmodel);
         if($deletmodel)
         {
-        return response()->json(['code'=>200,'message '=>'success']);
+            
+          /*  if(!isset($deletmulti))
+            {
+                
+                foreach ($deletmulti as $media)
+                {
+                    $media->delete();
+                }
+            
+            }*/
+            DB::delete('DELETE FROM sous_programmes WHERE num_sous_prog = ?',[ $split[1]]);
+            return response()->json(['code'=>200,'message '=>'success']);
+           
         }
         return response()->json(['code'=>404,'message '=>'unsuccess']);
     }
@@ -1309,6 +1326,22 @@ function delete_by_id($id)
             {
                 foreach($gropos as $grpop )
                 {
+                    $ops=Operation::where('code_grp_operation','=',$grpop['code_grp_operation'])->get();
+                    if($ops)
+                        {
+                            foreach($ops as $op)
+                            {
+                                $sou_ops=SousOperation::where('code_operation','=',$op['code_operation '])->get();
+                                if($sou_ops)
+                                {
+                                    foreach($sou_ops as $sous_op)
+                                    {
+                                        $sous_op->delete();
+                                    }
+                                }
+                                $op->delete();  
+                            }
+                        }
                     $grpop->delete();
                 }
                

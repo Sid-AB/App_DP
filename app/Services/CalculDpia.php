@@ -29,9 +29,10 @@ class CalculDpia
         })
         ->with([
             'Programme.SousProgramme.Action.SousAction.GroupOperation.Operation.SousOperation'
-        ])->first();
+        ])
+        ->first();
   // dd($portefeuille->orderBy('code_sous_operation', 'asc'));
-   $portefeuille=$portefeuille;
+  // $portefeuille=$portefeuille->orderBy('code_sous_operation', 'asc');
     //dd($portefeuille);
         // récupérer le portefeuille à partir du chemin
     /*  $portefeuille = Portefeuille::where('num_portefeuil', $port)

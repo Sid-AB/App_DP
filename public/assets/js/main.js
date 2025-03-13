@@ -4963,8 +4963,9 @@ function T4_table(id, T, id_s_act, port,code) {
             }
             if (data_T_port.operation.length > 0 && data_T_port.operation.length > io) {
                var land=data_T_port.operation[io].code.length-5;
+               console.log(data_T_port.operation[io].code+'-- code so split' +splitcode(data_T_port.operation[io].code, land)+'his leng'+land +"Key origin"+key)
                 if (key == splitcode(data_T_port.operation[io].code, land)) {
-                    row = '<tr class="ref'+key+'" id="ref' + data_T_port.operation[io].code + '">' +
+                    row = '<tr class="ref'+key+'" id="ref'+ data_T_port.operation[io].code + '">' +
                         '<td scope="row" class="code" >' + key + '</td>' +
                         '<td ><p>' + value + '</p></td>' +
 
@@ -4977,7 +4978,9 @@ function T4_table(id, T, id_s_act, port,code) {
             }
             if (data_T_port.sousOperation.length > 0 && data_T_port.sousOperation.length > iso) {
                var land=data_T_port.sousOperation[iso].code.length-5;
+              // console.log(data_T_port.sousOperation[iso].code+'-- code so split' +splitcode(data_T_port.sousOperation[iso].code, land)+'his leng'+land +"Key origin"+key)
                 if (key == splitcode(data_T_port.sousOperation[iso].code, land)  ) {
+                    
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                         '<td scope="row" class="code" >' + key + '</td>' +
                         '<td ><p>' + value + '</p></td>' +

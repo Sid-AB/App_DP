@@ -375,7 +375,7 @@ public function uploadPDF(Request $request)
 
            $file = $request->file('pdf_file');
            $path = $file->store('pdf_files', 'public'); // Enregistre dans storage/app/public/pdf_files
-        //  dd($file);
+          //dd($file);
           // Insérer les détails dans la base de données (table multimedia)
           $media= DB::table('multimedia')->insert([
               'nom_fichier' => $file->getClientOriginalName(),

@@ -160,7 +160,7 @@
                 <div class="edit-zone">
                 <div class="two_handel" style="display: flex;align-items: center;justify-content: center;" id="{{$souportf['id_sous_prog']}}_file">
                   <div class="modift_handler" id="{{$souportf['id_sous_prog']}}_sprog"><i class="far fa-edit"></i></div> 
-                  <div class="delete_handler" id="sous_prog{{$souportf['id_sous_prog']}}"><i class="fas fa-trash-alt"></i></div>
+                  <div class="delete_handler" id="sousprog_{{$souportf['id_sous_prog']}}"><i class="fas fa-trash-alt"></i></div>
                   <div class="file_handler" id="{{$souportf['id_sous_prog']}}"><i class="fas fa-file-pdf"></i></div>
                 </div>
                  

@@ -35,9 +35,9 @@ class SousProgramme extends Model
         return $this->hasMany(ModificationT::class,'num_sous_prog','num_sous_prog');
     }
 
-    public function multimedias()
+    public function multimedias():HasMany
     {
-        return $this->morphMany(Multimedia::class, 'related');
+        return $this->hasMany(Multimedia::class, 'related_id');
     }
 
     protected static function boot()
@@ -49,6 +49,7 @@ class SousProgramme extends Model
             $parent->ModificationT()->delete(); // Supprime les enfants
             $parent->multimedias()->delete(); // Supprime les enfants
             $parent->InitPorts()->delete(); // Supprime les enfants
+            $parent->multimedias()->delete();
         });
     }
     public function InitPorts()
