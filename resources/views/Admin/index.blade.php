@@ -6,14 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon" />
     <title>Tables | PlainAdmin Demo</title>
-
+    <meta name="csrf-token" content=" {{csrf_token()}}">
     <!-- ========== All CSS files linkup ========= -->
     <link rel="stylesheet" href="{{asset('assets/css_admin/bootstrap.min.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/css_admin/lineicons.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/css_admin/materialdesignicons.min.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/css_admin/fullcalendar.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/css_admin/main.css')}}" />
-    <link href="{{asset('assets/fontawesome-free/css/all.css')}}" rel="stylesheet"/>
+    <link rel="stylesheet" href="{{asset('assets/fontawesome-free/css/all.css')}}" rel="stylesheet"/>
   </head>
   <body>
     <!-- ======== Preloader =========== -->
@@ -37,82 +37,90 @@
 
 
           <div >
-          <form class="row g-3 needs-validation" style="padding: 5px 10px 15px 10px; " enctype="multipart/form-data"  novalidate>
+          <form class="row g-3 needs-validation" action="{{route('account_insertion') }}" style="padding: 5px 10px 15px 10px; " enctype="multipart/form-data" method="POST"  novalidate>
+            @csrf
             <div class="col-md-3">
-              <label for="validationCustom01" class="form-label">Nom</label>
-              <input type="text" class="form-control" id="validationCustom01" value="Mark" required>
-              <div class="valid-feedback">
-              
-              </div>
-            </div>
-            <div class="col-md-3">
-              <label for="validationCustom02" class="form-label">Prenom</label>
-              <input type="text" class="form-control" id="validationCustom02" value="Otto" required>
-              <div class="valid-feedback">
-               
-              </div>
-            </div>
-            <div class="col-md-6">
+              <label for="nome" class="form-label">Nom</label>
+              <input type="text" class="form-control @error('nome') is-invalid @enderror" id="nome" name="nome" value="{{ old('nome') }}" required>
+              @error('nome')
+                  <div class="invalid-feedback">{{ $message }}</div>
+              @enderror
+          </div>
+      
+          <div class="col-md-3">
+              <label for="prenom" class="form-label">Prenom</label>
+              <input type="text" class="form-control @error('prenom') is-invalid @enderror" id="prenom" name="prenom" value="{{ old('prenom') }}" required>
+              @error('prenom')
+                  <div class="invalid-feedback">{{ $message }}</div>
+              @enderror
+          </div>
+      
+          <div class="col-md-6">
               <label for="validationCustomUsername" class="form-label">Local Email</label>
               <div class="input-group has-validation">
-                <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
-                <span class="input-group-text" id="inputGroupPrepend">@mcomm.local</span>
-               
-                <div class="invalid-feedback" >
-                 
-                </div>
+                  <input type="text" class="form-control @error('email') is-invalid @enderror" id="validationCustomUsername" name="email" value="{{ old('email') }}" required>
+                  <span class="input-group-text" id="email">@mcomm.local</span>
+                  @error('email')
+                      <div class="invalid-feedback">{{ $message }}</div>
+                  @enderror
               </div>
-            </div>
-            <div class="col-md-4">
-              <label for="validationCustom03" class="form-label">Sous Direction</label>
-              <select class="form-select" id="validationCustom04" required>
-                <option selected disabled value="">Choisir...</option>
-                <option>...</option>
+          </div>
+      
+          <div class="col-md-4">
+              <label for="sous_direction" class="form-label">Sous Direction</label>
+              <select class="form-select @error('sous_direction') is-invalid @enderror" id="sous_direction" name="sous_direction" required>
+                  <option selected disabled value="">Choisir...</option>
+                  <option value="DEV">Développement</option>
+                  <option value="MEDIA">Media</option>
               </select>
-              <div class="invalid-feedback">
-                Please provide a valid city.
-              </div>
-            </div>
-
-            <div class="col-md-4">
-              <label for="validationCustom03" class="form-label">Position</label>
-              <select class="form-select" id="validationCustom04" required>
-                <option selected disabled value="">Choisir...</option>
-                <option>...</option>
+              @error('sous_direction')
+                  <div class="invalid-feedback">{{ $message }}</div>
+              @enderror
+          </div>
+      
+          <div class="col-md-4">
+              <label for="post_occupe" class="form-label">Position</label>
+              <select class="form-select @error('post_occupe') is-invalid @enderror" id="post_occupe" name="post_occupe" required>
+                  <option selected disabled value="">Choisir...</option>
+                  <option value="DIR">Directeur</option>
+                  <option value="SOUS_DIR">Sous Directeur</option>
               </select>
-              <div class="invalid-feedback">
-                Please provide a valid city.
-              </div>
-            </div>
-
-            <div class="col-md-3">
-              <label for="validationCustom04" class="form-label">Previlaige</label>
-              <select class="form-select" id="validationCustom04" required>
-                <option selected disabled value="">Choose...</option>
-                <option>...</option>
+              @error('post_occupe')
+                  <div class="invalid-feedback">{{ $message }}</div>
+              @enderror
+          </div>
+      
+          <div class="col-md-3">
+              <label for="privilege" class="form-label">Privilège</label>
+              <select class="form-select @error('privilege') is-invalid @enderror" id="privilege" name="privilege" required>
+                  <option selected disabled value="">Choisir...</option>
+                  <option value="0">Insertion</option>
+                  <option value="1">Modification</option>
               </select>
-              <div class="invalid-feedback">
-                
-              </div>
-            </div>
-            <div class="col-md-6">
-              <label for="validationCustom05" class="form-label">Le Code </label>
-              <input type="text" class="form-control" id="validationCustom05" required>
-              <div class="invalid-feedback">
-               
-              </div>
-            </div>
-            <div class="col-12">
+              @error('privilege')
+                  <div class="invalid-feedback">{{ $message }}</div>
+              @enderror
+          </div>
+      
+          <div class="col-md-6">
+              <label for="code_generated" class="form-label">Le Code</label>
+              <input type="text" class="form-control @error('code_generated') is-invalid @enderror" id="code_generated" name="code_generated" value="{{ old('code_generated') }}" required>
+              @error('code_generated')
+                  <div class="invalid-feedback">{{ $message }}</div>
+              @enderror
+          </div>
+      
+          <div class="col-12">
               <div class="form-check">
-                <input class="form-control" type="file" value="" id="file" required>
-                <label class="form-check-label" for="invalidCheck">
-                  Ajouter Decision
-                </label>
-                <div class="invalid-feedback">
-                  You must agree before submitting.
-                </div>
+                  <input class="form-control @error('profile_picture') is-invalid @enderror" type="file" id="profile_picture" name="profile_picture" required>
+                  <label class="form-check-label" for="profile_picture">
+                      Ajouter Decision
+                  </label>
+                  @error('profile_picture')
+                      <div class="invalid-feedback">{{ $message }}</div>
+                  @enderror
               </div>
-            </div>
+          </div>
             <div class="col-12">
               <button class="btn btn-primary" type="submit">Submit form</button>
             </div>

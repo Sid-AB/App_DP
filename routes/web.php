@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\portfeuilleController;
 use App\Http\Controllers\programmeControlleur;
 use App\Http\Controllers\sousProgrammeController;
-use App\Http\Controllers\initPortController;
+//use App\Http\Controllers\initPortController;
 use App\Http\Controllers\actionController;
 use App\Http\Controllers\sousActionController;
 use App\Http\Controllers\groupOperationController;
@@ -21,7 +21,7 @@ use App\Http\Controllers\opeartionController;
 use App\Http\Controllers\sousOperationController;
 use App\Http\Controllers\modificationController;
 use App\Http\Controllers\EmploiBudgetController;
-use App\Http\Controllers\FonctionController;
+//use App\Http\Controllers\FonctionController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PrimeController;
 
@@ -121,10 +121,10 @@ Route::controller(modificationController::class)->group(function(){
 
 
 });
-Route::controller(initPortController::class)->group(function(){
+/*Route::controller(initPortController::class)->group(function(){
     Route::post('/init_ports','create_sou_prog')->name('init.ports');
 
-});
+});*/
 
 Route::controller(EmploiBudgetController::class)->group(function(){
     Route::post('/insertemploi','insertemploi')->name('insertemploi');
@@ -141,14 +141,16 @@ Route::controller(EmploiBudgetController::class)->group(function(){
 });
 
 
-Route::controller(FonctionController::class)->group(function(){
+/*Route::controller(FonctionController::class)->group(function(){
     Route::get('/listeFct','get_list_fonction')->name('list_fct');
 
-});
+});*/
 
 
 Route::controller(AdminController::class)->group(function(){
     Route::get('/admin','index')->name('Admin');
+    Route::post('/insert/account','insert_account')->name('account_insertion');
+    Route::post('/login/account','access_login')->name('access_login');
 });
 
 //===============ROUTE Prime==============================
