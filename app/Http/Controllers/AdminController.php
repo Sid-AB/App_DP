@@ -12,7 +12,9 @@ class AdminController extends Controller
     //
    public function index()
     {
-        return view('Admin.index');
+        $accounts=Accounts::join('multimedia','multimedia.related_id','=','id')->get();
+        //dd($accounts);
+        return view('Admin.index',compact('accounts'));
     }
 
 
@@ -67,7 +69,7 @@ class AdminController extends Controller
                 ]);
                 if($media)
                 {
-                    return response()->json(['message' => 'Account created successfully!', 'account' => $account], 201);
+                    return back()->with('success', 'User registered successfully!');
                 }
             }
             return response()->json(['message' => 'Account created unsuccessfully!'], 404);
@@ -80,9 +82,9 @@ class AdminController extends Controller
         'email' => 'required|email',
         'code_generated' => 'required'
     ]);
-        $code= Hash::make($validated['code_generated']);
-    $user = Account::where('code_generated', $code)->first();
-
+        $mail= $validated['email'];
+    $user = Account::where('email', $mail)->first();
+dd($user);
     if (!$user || !Hash::check($request->code_generated, $user->code_generated)) {
         return response()->json(['error' => 'Invalid credentials'], 401);
     }

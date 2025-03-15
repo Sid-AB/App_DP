@@ -133,7 +133,11 @@
       </div>
       <section class="table-components">
        
-
+        @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 
         <div class="container-fluid">
           <!-- ========== title-wrapper start ========== -->
@@ -170,11 +174,12 @@
             <div class="row">
               <div class="col-lg-12">
                 <div class="card-style mb-30">
-                  <h6 class="mb-10">Data Table</h6>
-                  <p class="text-sm mb-20">
-                    For basic styling—light padding and only horizontal
-                    dividers—use the class table.
-                  </p>
+                  <h6 class="mb-10"> liste des Compts</h6>
+                  @if(session('success'))
+                  <div class="alert alert-success">
+                      {{ session('success') }}
+                  </div>
+                 @endif
                   <div class="table-wrapper table-responsive">
                     <table class="table">
                       <thead>
@@ -192,7 +197,13 @@
                             <h6>Sous Direction</h6>
                           </th>
                           <th>
+                            <h6>Post Occupe</h6>
+                          </th>
+                          <th>
                             <h6>Privilège</h6>
+                          </th>
+                          <th>
+                            <h6>Decision</h6>
                           </th>
                           <th>
                             <h6>Action</h6>
@@ -201,158 +212,47 @@
                         <!-- end table row-->
                       </thead>
                       <tbody>
+                        @php
+                        $i=1;    
+                        @endphp
+                        @foreach($accounts as $account)
                         <tr>
                           <td>
-                            <div class="employee-image">
-                              <img src="assets/images/lead/lead-1.png" alt="" />
+                            <div class="min-width">
+                              <p>{{$i}}</p>
                             </div>
                           </td>
                           <td class="min-width">
-                            <p>Esther Howard</p>
+                            <p>{{$account->nome}} {{$account->prenom}}</p>
                           </td>
                           <td class="min-width">
-                            <p><a href="#0">yourmail@gmail.com</a></p>
+                            <p><a href="#0">{{$account->email}}</a></p>
                           </td>
                           <td class="min-width">
-                            <p>Admin Dashboard Design</p>
+                            <p>{{$account->sous_direction}}</p>
                           </td>
                           <td class="min-width">
-                            <span class="status-btn active-btn">Active</span>
+                            <p>{{$account->post_occupe}}</p>
                           </td>
-                          <td>
-                            <div class="action">
-                              <button class="text-danger">
-                                <i class="lni lni-trash-can"></i>
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                        <!-- end table row -->
-                        <tr>
-                          <td>
-                            <div class="employee-image">
-                              <img src="assets/images/lead/lead-2.png" alt="" />
-                            </div>
-                          </td>
+                          @if($account->privilege == 0)
                           <td class="min-width">
-                            <p>D. Jonathon</p>
+                            <span class="status-btn active-btn">Insertion</span>
                           </td>
-                          <td class="min-width">
-                            <p><a href="#0">yourmail@gmail.com</a></p>
-                          </td>
-                          <td class="min-width">
-                            <p>React Dashboard</p>
-                          </td>
-                          <td class="min-width">
-                            <span class="status-btn active-btn">Active</span>
-                          </td>
+                          @else
+                            @if($account->privilege == 1)
+                            <td class="min-width">
+                              <span class="status-btn active-btn">Consultation</span>
+                            </td>
+                            @else
+                            <td class="min-width">
+                              <span class="status-btn active-btn">Aministateur</span>
+                            </td>
+                            @endif
+                          @endif
                           <td>
-                            <div class="action">
-                              <button class="text-danger">
-                                <i class="lni lni-trash-can"></i>
-                              </button>
+                            <div class="min-width">
+                              <a href="/live-pdf/{{$account->related_id}}" target="_blank"><i class="fas fa-file-alt"></i></a>
                             </div>
-                          </td>
-                        </tr>
-                        <!-- end table row -->
-                        <tr>
-                          <td>
-                            <div class="employee-image">
-                              <img src="assets/images/lead/lead-3.png" alt="" />
-                            </div>
-                          </td>
-                          <td>
-                            <p>John Doe</p>
-                          </td>
-                          <td>
-                            <p><a href="#0">yourmail@gmail.com</a></p>
-                          </td>
-                          <td>
-                            <p>Bootstrap Template</p>
-                          </td>
-                          <td>
-                            <span class="status-btn success-btn">Done</span>
-                          </td>
-                          <td>
-                            <div class="action">
-                              <button class="text-danger">
-                                <i class="lni lni-trash-can"></i>
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                        <!-- end table row -->
-                        <tr>
-                          <td>
-                            <div class="employee-image">
-                              <img src="assets/images/lead/lead-4.png" alt="" />
-                            </div>
-                          </td>
-                          <td>
-                            <p>Rayhan Jamil</p>
-                          </td>
-                          <td>
-                            <p><a href="#0">yourmail@gmail.com</a></p>
-                          </td>
-                          <td>
-                            <p>Css Grid Template</p>
-                          </td>
-                          <td>
-                            <span class="status-btn info-btn">Pending</span>
-                          </td>
-                          <td>
-                            <div class="action">
-                              <button class="text-danger">
-                                <i class="lni lni-trash-can"></i>
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                        <!-- end table row -->
-                        <tr>
-                          <td>
-                            <div class="employee-image">
-                              <img src="assets/images/lead/lead-5.png" alt="" />
-                            </div>
-                          </td>
-                          <td>
-                            <p>Esther Howard</p>
-                          </td>
-                          <td>
-                            <p><a href="#0">yourmail@gmail.com</a></p>
-                          </td>
-                          <td>
-                            <p>Admin Dashboard Design</p>
-                          </td>
-                          <td>
-                            <span class="status-btn close-btn">Close</span>
-                          </td>
-                          <td>
-                            <div class="action">
-                              <button class="text-danger">
-                                <i class="lni lni-trash-can"></i>
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                        <!-- end table row -->
-                        <tr>
-                          <td>
-                            <div class="employee-image">
-                              <img src="assets/images/lead/lead-6.png" alt="" />
-                            </div>
-                          </td>
-                          <td>
-                            <p>Anee Doe</p>
-                          </td>
-                          <td>
-                            <p><a href="#0">yourmail@gmail.com</a></p>
-                          </td>
-                          <td>
-                            <p>Space Template Update</p>
-                          </td>
-                          <td>
-                            <span class="status-btn active-btn">Active</span>
                           </td>
                           <td>
                             <div class="action">
@@ -365,6 +265,10 @@
                             </div>
                           </td>
                         </tr>
+                        @php
+                        $i++;
+                        @endphp
+                        @endforeach
                         <!-- end table row -->
                       </tbody>
                     </table>

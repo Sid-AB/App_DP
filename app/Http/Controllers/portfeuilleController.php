@@ -420,7 +420,10 @@ public function live_File($id)
     {
         $ups='Opération réussie';
         $upsnot='Echec D` Opération';
+        if(isset($id[1]))
+        {
         $numid=intval($id[1]);
+        }
         if(!isset($id))
         {
             return response()->json([
