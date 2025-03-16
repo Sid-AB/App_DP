@@ -22,7 +22,7 @@ use App\Models\Post_commun;
 use App\Models\OpConducteur;
 use App\Models\CDI;
 use App\Models\CDD;
-
+use App\Models\Accounts;
 
 use Barryvdh\DomPDF\Facade\pdf;
 use Illuminate\Support\Facades\Storage;
@@ -163,12 +163,21 @@ class sousOperationController extends Controller
     }
 
 
-    function AffichePortsAction ($port,$prog,$sous_prog,$act)
+    function AffichePortsAction ($port,$prog,$sous_prog,$act,Request $request)
     {
 
         $act1=explode('_',$act);
+        $code=$request['code'];
         
-        //dd($act1);
+        if(!isset($code))
+        {
+            return response()->view('errors.not_found', [], 404);
+        }
+        $account =Accounts::where('code_generated',$code)->first();
+        if(!isset($account))
+        {
+            return back()->with('unsuccess', 'User registered indefined!');
+        }
         if(count($act1) > 1)
         {
             $act=$act1[1];

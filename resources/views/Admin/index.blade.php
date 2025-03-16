@@ -132,12 +132,6 @@
         </div>
       </div>
       <section class="table-components">
-       
-        @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
 
         <div class="container-fluid">
           <!-- ========== title-wrapper start ========== -->
@@ -241,7 +235,7 @@
                           @else
                             @if($account->privilege == 1)
                             <td class="min-width">
-                              <span class="status-btn active-btn">Consultation</span>
+                              <span class="status-btn active-btn">Modifcation</span>
                             </td>
                             @else
                             <td class="min-width">

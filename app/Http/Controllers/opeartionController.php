@@ -45,7 +45,7 @@ class opeartionController extends Controller
             $sous_prog=0;
             $act=0;
             
-            
+              //  dd($request);
            // dd($resultats[$T]);
             try {
                 $resultats = $this->CalculDpia->calculdpiaFromPath($port, $prog, $sous_prog, $act,$s_act);

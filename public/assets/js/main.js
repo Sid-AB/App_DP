@@ -11,6 +11,15 @@ var  dataupdate=new Array();
  */
 
 
+function openForm() {
+    document.getElementById("myForm").style.display = "block";
+  }
+  
+  function closeForm() {
+    document.getElementById("myForm").style.display = "none";
+  }
+
+
 function appliquer_up(T)
 {
     $('.change_app').on('click',function(){

@@ -580,6 +580,7 @@
   <div class="reload"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><radialGradient id="a12" cx=".66" fx=".66" cy=".3125" fy=".3125" gradientTransform="scale(1.5)"><stop offset="0" stop-color="#C6BC0A"></stop><stop offset=".3" stop-color="#C6BC0A" stop-opacity=".9"></stop><stop offset=".6" stop-color="#C6BC0A" stop-opacity=".6"></stop><stop offset=".8" stop-color="#C6BC0A" stop-opacity=".3"></stop><stop offset="1" stop-color="#C6BC0A" stop-opacity="0"></stop></radialGradient><circle transform-origin="center" fill="none" stroke="url(#a12)" stroke-width="29" stroke-linecap="round" stroke-dasharray="200 1000" stroke-dashoffset="0" cx="100" cy="100" r="70"><animateTransform type="rotate" attributeName="transform" calcMode="spline" dur="2" values="360;0" keyTimes="0;1" keySplines="0 0 1 1" repeatCount="indefinite"></animateTransform></circle><circle transform-origin="center" fill="none" opacity=".2" stroke="#C6BC0A" stroke-width="29" stroke-linecap="round" cx="100" cy="100" r="70"></circle></svg>
   </div>
 </div>
+<div class="hide-access-form"></div>
 </body>
 <script src="{{asset('assets/bootstrap-5.0.2/js/bootstrap.js')}}"></script>
 <script src="{{asset('assets/fontawesome-free/js/all.js')}}"></script>
@@ -589,6 +590,24 @@
   
   var path=Array();
   var path3=Array();
+  var chekl='<div class="form-popup-access" id="myForm">'+
+        //  '<div class="row align-items-center"style="justify-content: center;">'+
+          '<img src="{{asset('assets/img/logo_ministere.svg')}}" alt="" style="width: 60%"/>'+
+         // '<div >'+
+        '<form class="form-container-access">'+
+      
+         '<h1>Login</h1>'+
+          '<p id="alert-access"></p>'+
+         '<label for="email"><b>Email</b></label>'+
+         '<input class="form-control" type="text" placeholder="Enter Email" name="email" id="email" required>'+
+
+         '<label for="psw"><b>Password</b></label>'+
+         '<input class="form-control" type="password" placeholder="Enter Password" name="psw" id="code_generated" required>'+
+
+         '<button type="button" class="btn" id="btn-form-access">Login</button>'+
+         '<button type="button" class="btn cancel" id="form-cancel">Close</button>'+
+        '</form>'+
+      '</div>';
  document.querySelectorAll('.next').forEach(member => {
   member.addEventListener('dblclick', function(event) {
     const children = member.nextElementSibling;
@@ -682,7 +701,41 @@ listItemsWithNestedUl.each(function(){
     if(typeact[0] =='act')
     {
       $(this).on('click',function(){
-        window.location.href='/testing/Action/'+path3[0]+'/'+path3[1]+'/'+path3[2]+'/'+typeact[1]+'/'
+        $('#myForm').css('display','block')
+        $('.hide-access-form').append(chekl)
+        $('.hide-access-form').addClass('form-access')
+        $('#form-cancel').on('click',function(){
+          $('#myForm').css('display','none')
+          $(".hide-access-form").removeClass('form-access');
+        })
+        var cosnt=0;
+        $('#btn-form-access').on('click',function(){
+          if(cosnt == 0) {
+          $.ajax({
+
+            url:'/login/account',
+            type:'POST',
+            data:{
+            email:$('#email').val(),
+            code_generated:$('#code_generated').val(),
+            _token: $('meta[name="csrf-token"]').attr("content"),
+            _method: "POST",},
+            success:function(response)
+            {
+              window.location.href='/testing/Action/'+path3[0]+'/'+path3[1]+'/'+path3[2]+'/'+typeact[1]+'/?code='+response.account
+             // 
+            },
+            error:function()
+            {
+              $('#email').css('border-color','red')
+              $('#code_generated').css('border-color','red')
+              console.log('out of range')
+            }
+          })
+          cosnt++;
+         }
+        })
+        //
       })
     
     }
@@ -690,6 +743,10 @@ listItemsWithNestedUl.each(function(){
     {
       console.log('sub action'+typeact[0])
     $(this).on('click',function(){
+
+      
+        $('#father4').append(chekl)
+        openForm()
      window.location.href='/testing/S_action/'+path3[0]+'/'+path3[1]+'/'+path3[2]+'/'+path3[3]+'/'+typeact[1]+'/'
       })
    
