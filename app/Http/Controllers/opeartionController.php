@@ -44,7 +44,7 @@ class opeartionController extends Controller
             $prog=0;
             $sous_prog=0;
             $act=0;
-
+            
             
            // dd($resultats[$T]);
             try {
