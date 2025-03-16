@@ -51,3 +51,8 @@
     mainWrapper.classList.remove("active");
   });
 })();
+$(document).ready(function(){
+
+  //$('#Submit').on('click',function(){})
+
+})

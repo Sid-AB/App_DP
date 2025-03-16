@@ -375,7 +375,7 @@ public function uploadPDF(Request $request)
 
            $file = $request->file('pdf_file');
            $path = $file->store('pdf_files', 'public'); // Enregistre dans storage/app/public/pdf_files
-        //  dd($file);
+          //dd($file);
           // Insérer les détails dans la base de données (table multimedia)
           $media= DB::table('multimedia')->insert([
               'nom_fichier' => $file->getClientOriginalName(),
@@ -420,7 +420,10 @@ public function live_File($id)
     {
         $ups='Opération réussie';
         $upsnot='Echec D` Opération';
+        if(isset($id[1]))
+        {
         $numid=intval($id[1]);
+        }
         if(!isset($id))
         {
             return response()->json([

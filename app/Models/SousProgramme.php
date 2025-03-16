@@ -49,6 +49,7 @@ class SousProgramme extends Model
             $parent->ModificationT()->delete(); // Supprime les enfants
             $parent->multimedias()->delete(); // Supprime les enfants
             $parent->InitPorts()->delete(); // Supprime les enfants
+          //  $parent->multimedias()->delete();
         });
     }
     public function InitPorts()

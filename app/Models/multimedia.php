@@ -26,4 +26,5 @@ class multimedia extends Model
     {
         return $this->morphTo();
     }
+
 }
