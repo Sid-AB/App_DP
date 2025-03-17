@@ -13,7 +13,7 @@ use App\Models\SousProgramme;
 use App\Models\Programme; 
 use App\Models\Multimedia; 
 use App\Models\Action;
-
+use App\Models\initPort;
 use App\Models\SousAction;
 
 use App\Models\T1;
@@ -1359,12 +1359,15 @@ function delete_by_id($id)
     {
        // dd($split[0],$split[1]);
         $deletmodel=SousProgramme::find($split[1]);
-       // $deletmulti=multimedia::where('related_id','=',$split[1])->get();
-       // dd($deletmodel);
+        $deletmulti=multimedia::where('related_id','=',$split[1])->get();
+        $init_sous= initPort::where('num_sous_prog', $split[1])
+        ->whereNull('num_action')
+        ->first();
+        //dd($deletmodel);
         if($deletmodel)
         {
             
-          /*  if(!isset($deletmulti))
+            if(isset($deletmulti))
             {
                 
                 foreach ($deletmulti as $media)
@@ -1372,7 +1375,11 @@ function delete_by_id($id)
                     $media->delete();
                 }
             
-            }*/
+            }
+            if(isset($init_sous))
+            {
+                $init_sous->delete();
+            }
             DB::delete('DELETE FROM sous_programmes WHERE num_sous_prog = ?',[ $split[1]]);
             return response()->json(['code'=>200,'message '=>'success']);
            
@@ -1425,5 +1432,66 @@ function delete_by_id($id)
     return response()->json(['code'=>404,'message '=>'unsuccess']);
 }
 
-
+function delete_by_t(Request $request)
+{
+    $code_t='';
+    $code=0;
+    $t=$request['T'];
+    $id_act=$request['Act'];
+    $gropos=GroupOperation::where('num_sous_action','=',$id_act)->get();
+    
+    if($t == "T4")
+    {
+        $code_t='code_t4';
+        $code=40000;
+    }
+    if($t == "T3")
+    {
+        $code_t='code_t3';
+        $code=30000;
+    }
+    if($t == "T2")
+    {
+        $code_t='code_t2';
+        $code=20000;
+    }
+    if($t == "T1")
+    {
+        $code_t='code_t1';
+        $code=10000;
+    }
+    //dd($code_t, $t);
+    if($gropos)
+    {
+        foreach($gropos as $grpop )
+        {
+            $ops=Operation::where('code_grp_operation','=',$grpop['code_grp_operation'])->get();
+           
+            if($ops)
+                {
+                    foreach($ops as $op)
+                    {
+                        $sou_ops=SousOperation::where('code_operation','=',$op['code_operation'])->where($code_t,'=',$code)->get();
+                        if(isset($sou_ops))
+                        { 
+                            //dd($sou_ops);
+                            foreach($sou_ops as $sous_op)
+                            {
+                                $construit_p=ConstruireDPIA::find($sous_op->code_sous_operation);
+                               // dd($construit_p);
+                                if($construit_p)
+                                {
+                                    $construit_p->delete(); 
+                                }
+                                $sous_op->delete();
+                            }
+                        }
+                        $op->delete();  
+                    }
+                }
+            $grpop->delete();
+        }
+return response()->json(['message'=>'suppimer avec success','code'=>200]);
+}
+}
 }

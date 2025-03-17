@@ -96,6 +96,10 @@
       <button class="element" id="expExcel" style="display: none">
         <i class="fas fa-print" ></i> Export Excel
       </button>
+      <hr>
+      <button class="element" id="vider_t" style="display: none">
+        <i class="fas fa-print" ></i> Vider Tableaux
+      </button>
   </div>
   <div class="menu-container-btn">
     <div class="menu-toggle-btn">

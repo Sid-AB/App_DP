@@ -15,11 +15,6 @@
 <link href="{{asset('assets/fontawesome-free/css/all.css')}}" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 <script src="{{asset('assets/js/xlsx.full.min.js')}}"></script>
-<link
-        rel="stylesheet"
-        href="https://unpkg.com/@patternfly/patternfly/patternfly.css"
-        crossorigin="anonymous"
-      >
 </head>
 <body>
 @include('side_bar.side-barV1')
