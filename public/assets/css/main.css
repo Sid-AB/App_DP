@@ -1428,3 +1428,96 @@ transition-timing-function: line;
 
 }
 /***------------------------------ end --------------------***/
+
+/****  ------------- form for login access  ------- ****/
+
+/* The popup form - hidden by default */
+.form-popup-access {
+  display: none;
+  position: absolute;
+  background-color: white;
+  bottom: 20%;
+  right: 45%;
+  width: 35%;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container-access {
+  /*max-width: 300px;*/
+  padding: 10px;
+  background-color: white;
+  
+}
+
+/* Full-width input fields */
+.form-container-access input[type=text], .form-container-access input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  /*border: none;*/
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container-access input[type=text]:focus, .form-container-access input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container-access .btn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container-access .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container-access .btn:hover, .open-button:hover {
+  opacity: 0.5;
+}
+
+@keyframes slideDown {
+  from {
+      transform: translateY(-100%);
+      opacity: 0;
+  }
+  to {
+
+      transform: translateY(-50%);
+      opacity: 1;
+  }
+}
+.hide-access-form
+{
+  display: none;
+}
+.form-access{
+  width: 100%;
+  height: 100%;
+  background-color: #00000026;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: slideDown 0.8s ease-out;
+  border-radius: 10px;
+  z-index: 1000;
+}
+/** ------------ end login form access  ------------ **/

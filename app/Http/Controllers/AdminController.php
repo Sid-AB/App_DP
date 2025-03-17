@@ -82,17 +82,17 @@ class AdminController extends Controller
         'email' => 'required|email',
         'code_generated' => 'required'
     ]);
-        $mail= $validated['email'];
-    $user = Account::where('email', $mail)->first();
-dd($user);
+    //dd( $request);
+        $mail= $request['email'];
+    $user = Accounts::where('email', $mail)->first();
+//dd($user);
     if (!$user || !Hash::check($request->code_generated, $user->code_generated)) {
-        return response()->json(['error' => 'Invalid credentials'], 401);
+        return response()->json(['error' => 'Invalid credentials','code'=>401], 401);
     }
 
     return response()->json([
         'message' => 'Login successful!',
-        'account' => $user,
-        'token' => $user->createToken('AuthToken')->plainTextToken, // If using Laravel Sanctum
+        'account' => $user->code_generated, // If using Laravel Sanctum
     ]);
 }
     

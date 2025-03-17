@@ -11,6 +11,15 @@ var  dataupdate=new Array();
  */
 
 
+function openForm() {
+    document.getElementById("myForm").style.display = "block";
+  }
+  
+  function closeForm() {
+    document.getElementById("myForm").style.display = "none";
+  }
+
+
 function appliquer_up(T)
 {
     $('.change_app').on('click',function(){
@@ -4934,6 +4943,7 @@ function T4_table(id, T, id_s_act, port,code) {
     var ig = 0;
     var io = 0;
     var iso = 0;
+    var sousou=true
         // Loop through each item in the JSON data
         $.each(data, function (key, value) {
             // Create a table row
@@ -4990,9 +5000,10 @@ function T4_table(id, T, id_s_act, port,code) {
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T4">' +ValAccountingFigures( data_T_port.sousOperation[iso].values.cp_sousuop) + '</td>' +
                         '</tr>';
                     iso++;
+                    sousou=true
                 }
                 else{
-                    var sousou=true
+                 
                     while (sousou) {
                         if(splitcode(data_T_port.sousOperation[iso].code, land).length < 5 )
                             {
@@ -5005,21 +5016,24 @@ function T4_table(id, T, id_s_act, port,code) {
                             '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T4">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_sousuop) + '</td>' +
                             '</tr>';
                             $('#T-tables tbody').append(row);
-                            iso++;
-                            row = '<tr class="ref'+data_T_port.sousOperation[iso].code+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
+                          //  iso++;
+                          
+                        }
+                    else
+                    {  
+                        row = '<tr class="ref'+data_T_port.sousOperation[iso].code+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                             '<td scope="row" class="code" >'+key+'</td>' +
                             '<td id="def">'+value+'</td>' +
-                            '<td id="sous_def" ></td>'+
+                            '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>null</p></td>'+
                             '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T4">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_sousop) + '</td>' +
                             '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T4">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_sousuop) + '</td>' +
                             '</tr>';
                             
-                            iso++; 
-                        }
-                    else
-                    {
+                         
+                            
                         sousou=false
                     }
+                    iso++; 
                     }
                   
                 }
