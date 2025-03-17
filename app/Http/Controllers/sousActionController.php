@@ -580,9 +580,52 @@ foreach ($progg as $programme) {
 
 // dd($lastModif);
 //dd($programmes);
+/* ============= nouveau tableau de modif en utilisant view ===================== */
+$viewName = 'init_ports_' . str_replace('-', '_', $numport);
 
-return view('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg'));
-$pdf=SnappyPdf::loadView('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg'))
+    // récupérer les sous programmes et ses actions avec leurs programmes
+    $view = DB::table($viewName)
+        ->join('sous_programmes', "$viewName.num_sous_prog", '=', 'sous_programmes.num_sous_prog')
+        ->join('programmes', 'sous_programmes.num_prog', '=', 'programmes.num_prog') 
+        ->get();
+   // dd( $view);
+
+   $prgrmsousact = $view->groupBy('num_prog')->map(function ($group) {
+    $actions = $group->where('num_action', '!=', null)->groupBy('num_sous_prog');
+    return [
+        'num_prog' => $group->first()->num_prog,
+        'nom_prog' => $group->first()->nom_prog,
+
+   
+        'total_AE_init_t1' => $group->where('num_action', null)->sum('AE_init_t1'),
+        'total_CP_init_t1' => $group->where('num_action', null)->sum('CP_init_t1'),
+        'total_AE_init_t2' => $group->where('num_action', null)->sum('AE_init_t2'),
+        'total_CP_init_t2' => $group->where('num_action', null)->sum('CP_init_t2'),
+        'total_AE_init_t3' => $group->where('num_action', null)->sum('AE_init_t3'),
+        'total_CP_init_t3' => $group->where('num_action', null)->sum('CP_init_t3'),
+        'total_AE_init_t4' => $group->where('num_action', null)->sum('AE_init_t4'),
+        'total_CP_init_t4' => $group->where('num_action', null)->sum('CP_init_t4'),
+
+
+       
+        
+        'sous_programmes' => $group->where('num_action', null)->values(),
+
+        'actions' => $actions->values(),
+
+        'total_act_AE_t1' => $actions->sum('AE_init_t1'),
+        'total_act_CP_t1' => $actions->sum('CP_init_t1'),
+        'total_act_AE_t2' => $actions->sum('AE_init_t2'),
+        'total_act_CP_t2' => $actions->sum('CP_init_t2'),
+        'total_act_AE_t3' => $actions->sum('AE_init_t3'),
+        'total_act_CP_t3' => $actions->sum('CP_init_t3'),
+        'total_act_AE_t4' => $actions->sum('AE_init_t4'),
+        'total_act_CP_t4' => $actions->sum('CP_init_t4'),
+    ];
+});
+dd($prgrmsousact);
+return view('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg','prgrmsousact'));
+$pdf=SnappyPdf::loadView('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg','prgrmsousact'))
 ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1);//lanscape mean orentation
 return $pdf->stream('impression_dpic.pdf');
 
