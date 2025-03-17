@@ -167,7 +167,7 @@ class sousOperationController extends Controller
     {
 
         $act1=explode('_',$act);
-        $code=$request['code'];
+       /* $code=$request['code'];
         
         if(!isset($code))
         {
@@ -177,7 +177,7 @@ class sousOperationController extends Controller
         if(!isset($account))
         {
             return back()->with('unsuccess', 'User registered indefined!');
-        }
+        }*/
         if(count($act1) > 1)
         {
             $act=$act1[1];

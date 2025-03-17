@@ -701,12 +701,13 @@ listItemsWithNestedUl.each(function(){
     if(typeact[0] =='act')
     {
       $(this).on('click',function(){
-        $('#myForm').css('display','block')
+       /* $('#myForm').css('display','block')
         $('.hide-access-form').append(chekl)
         $('.hide-access-form').addClass('form-access')
         $('#form-cancel').on('click',function(){
           $('#myForm').css('display','none')
           $(".hide-access-form").removeClass('form-access');
+          $('.hide-access-form').empty()
         })
         var cosnt=0;
         $('#btn-form-access').on('click',function(){
@@ -736,7 +737,9 @@ listItemsWithNestedUl.each(function(){
          }
         })
         //
-      })
+      */
+      window.location.href='/testing/Action/'+path3[0]+'/'+path3[1]+'/'+path3[2]+'/'+typeact[1]+'/'
+    })
     
     }
     if(typeact[0] == 'sact')

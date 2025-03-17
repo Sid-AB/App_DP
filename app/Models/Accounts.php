@@ -16,6 +16,7 @@ class Accounts extends Model
         'post_occupe',
         'sous_direction',
         'privilege',
+        'responable',
         'code_generated'
     ];
 
