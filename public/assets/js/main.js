@@ -5170,7 +5170,7 @@ $(document).ready(function () {
                     T1_table(id, T, ssact, path3[0],code) 
                     $('#reloading').addClass('reload-hidden')
                     $("#expExcel").css('display','block')
-                  
+                    $("#vider_t").css('display','none')
                 }
             }
         })
@@ -5206,7 +5206,7 @@ $(document).ready(function () {
                    code=404
                     T2_table(id, T, ssact, path3[0],code)
                     $("#expExcel").css('display','block')
-                   
+                    $("#vider_t").css('display','none')
                 }
             }
         })
@@ -5243,7 +5243,7 @@ $(document).ready(function () {
                     code =404
                     T3_table(id, T, ssact, path3[0],code)
                     $("#expExcel").css('display','block')
-                   
+                    $("#vider_t").css('display','none')
                 }
             }
         })
@@ -5279,7 +5279,7 @@ $(document).ready(function () {
                     $('#reloading').addClass('reload-hidden')
                     T4_table(id, T, ssact, path3[0],code)
                     $("#expExcel").css('display','block')
-                    
+                    $("#vider_t").css('display','none')
                 }
             }
         })
@@ -5327,7 +5327,7 @@ $(document).ready(function () {
                         T1_table(id, T, ssact, path3[0],code)
                         $('#reloading').addClass('reload-hidden')
                         $("#expExcel").css('display','block')
-                       
+                        $("#vider_t").css('display','none')
                     }
                 }
             })
@@ -5364,7 +5364,7 @@ $(document).ready(function () {
                                code=404
                         T2_table(id, T, ssact, path3[0],code)
                         $("#expExcel").css('display','block')
-                       
+                        $("#vider_t").css('display','none')
                     }
                 }
             })
@@ -5400,7 +5400,7 @@ $(document).ready(function () {
                         $('#reloading').addClass('reload-hidden')
                         T3_table(id, T, ssact, path3[0],code)
                         $("#expExcel").css('display','block')
-                        
+                        $("#vider_t").css('display','none')
                     }
                 }
             })
@@ -5439,7 +5439,7 @@ $(document).ready(function () {
                         $('#reloading').addClass('reload-hidden')
                         T4_table(id, T, ssact, path3[0],code)
                         $("#expExcel").css('display','block')
-                       
+                        $("#vider_t").css('display','none')
                     }
 
                 }
