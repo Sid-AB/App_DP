@@ -1103,7 +1103,7 @@ function add_newOPs_T3(id, value, key,code) {
                    if(idsfinal.length == 9 || idsfinal.length == 1)
                     {
                         //console.log('testing remplace'+idsfinal.length)
-                     $('#' + key).replaceWith(row)
+                     $('#' + key).after(row)
                     }
                     else
                     {
@@ -1206,9 +1206,8 @@ function add_newOPs_T4(id, value, key,code) {
    $('#ajt').click(function(){
     
     mount_chang=true;
-   var cp=$('.ref'+key+' td:last').text();
-   var ae=$('.ref'+key+' td').eq(-2).text();
-   console.log('td last id'+key+' ae'+ae+' cp '+cp)
+
+
     idsz=id+'-'+counter;
     var buttons = '<button class="btn btn-primary" id="changin"> appliquer</button>'
     $('.change_app').append(buttons)
@@ -1248,6 +1247,16 @@ function add_newOPs_T4(id, value, key,code) {
        '</tr>';
             $('#' + key).after(row)
         }
+
+        var cpold=parseNumberWithoutCommas($('#'+key+' td:last').text());
+        var aeold=parseNumberWithoutCommas($('#'+key+' td').eq(-2).text());
+        
+        var newcp=parseInt(cpold)+parseInt(data_add_ops.CP_T4)
+        var newae=parseInt(aeold)+parseInt(data_add_ops.AE_T4) 
+        console.log('ae'+newae+'cp'+newcp)
+        $('#'+key+' td:last').text(ValAccountingFigures(newcp))
+        $('#'+key+' td').eq(-2).text(ValAccountingFigures(newae))
+
         $('#ref' + idsz + ' #add_op').on('click', function () {
             var newKey=$(this).parent().attr('id');
             var ads = newKey.split('ref')[1]
