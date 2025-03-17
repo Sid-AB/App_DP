@@ -1433,7 +1433,7 @@ if (!$nom) {
                 //$codeSp = explode('-', $code)[0];
             }
     
-           
+          // dd($code2);
             if(($code2 == $codeOp)&& ($codeOp != $codeGp)){
             // Insertion dans la table sousoperation
            $sousoperation=sousoperation::updateOrCreate(

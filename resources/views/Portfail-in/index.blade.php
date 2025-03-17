@@ -32,6 +32,15 @@
         </ul>
     </div>
 @endif
+@if (session('unsuccess'))
+    <div class="alert alert-danger alert_func" style="
+    text-align: center;
+    width: 50%;
+    left: 20%;
+">
+        {{ session('unsuccess') }}
+    </div>
+@endif
  <div class="container">
  <div class="container family-tree" id="{{$allport['id']}}">
     <div class="row justify-content-center">
@@ -701,7 +710,7 @@ listItemsWithNestedUl.each(function(){
     if(typeact[0] =='act')
     {
       $(this).on('click',function(){
-       /* $('#myForm').css('display','block')
+        $('#myForm').css('display','block')
         $('.hide-access-form').append(chekl)
         $('.hide-access-form').addClass('form-access')
         $('#form-cancel').on('click',function(){
@@ -737,9 +746,7 @@ listItemsWithNestedUl.each(function(){
          }
         })
         //
-      */
-      window.location.href='/testing/Action/'+path3[0]+'/'+path3[1]+'/'+path3[2]+'/'+typeact[1]+'/'
-    })
+      })
     
     }
     if(typeact[0] == 'sact')
