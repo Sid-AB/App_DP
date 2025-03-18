@@ -5479,6 +5479,7 @@ $(document).ready(function () {
 })
 $('#vider_t').on('click',function()
 {
+    $('#reloading').removeClass('reload-hidden')
     var ids=$('#T-tables tbody').attr('id')
     var listid=ids.split('_')
     console.log('ids '+JSON.stringify(listid))
