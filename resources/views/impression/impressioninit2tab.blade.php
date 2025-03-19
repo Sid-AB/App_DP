@@ -51,6 +51,7 @@
         .T
         {
         background-color:#DDD9C4;
+        
      
         }
 
@@ -67,19 +68,19 @@
    
 </head>
 <body>
-<h1 style="text-align: center; font-family: Times New Roman, sans-serif; font-size: 18pt; font-weight: bold;">
+<h1 style="text-align: center; font-family: Times New Roman, sans-serif; font-size: 24pt; font-weight: bold;">
 الجمهورية الجزائرية الديمقراطية الشعبية
 </h1> 
-<h1 style="text-align: center; font-family: Arial, sans-serif; font-size: 18pt; font-weight: bold;">
+<h1 style="text-align: center; font-family: Arial Narrow, sans-serif; font-size: 16pt; font-weight: bold;">
 REPUBLIQUE ALGERIENNE DEMOCRATIQUE ET POPULAIRE
 </h1> 
-<p style="font-family: Arial, sans-serif; font-size: 1pt; font-weight: bold; margin-left: 40px;"> 
+<p style="font-family: Arial Narrow, sans-serif; font-size: 16pt; font-weight: bold; margin-left: 40px;"> 
 Ministère de la Communication
     </p>
-<h1 style="text-align: center; font-family: Cambria, sans-serif; font-size: 18pt; font-weight: bold;">
+<h1 style="text-align: center; font-family: Cambria (Titres) , sans-serif; font-size: 20pt; font-weight: bold;">
     1<span style="position: relative; top: -5px; font-size: 0.6em;">ERE</span> PARTIE:
 </h1>
-<p style="font-family: Arial, sans-serif; font-size: 16pt; font-weight: bold; text-align: center;/*margin-left: 820px;*/"> 
+<p style="font-family: Arial Narrow, sans-serif; font-size: 14pt; font-weight: bold; text-align: center;/*margin-left: 820px;*/"> 
             LES CREDITS BUDGETAIRES
     </p>
 <h1>
@@ -95,7 +96,7 @@ Ministère de la Communication
     @endforeach
     @endfor
     
-    <p style="font-family: Arial, sans-serif; font-size: 16pt; font-weight: bold;">1.1. LES CREDITS DU PORTEFEUILLE DE PROGRAMMES ( 
+    <p style="font-family: Arial Narrow, sans-serif; font-size: 14pt; font-weight: bold;">1.1. LES CREDITS DU PORTEFEUILLE DE PROGRAMMES ( 
     @for($i=0;$i< count($filcode);$i++)
     {{$filcode[$i]}} 
     @if ($i < count($filcode) - 1)
@@ -105,7 +106,7 @@ Ministère de la Communication
     ):
     </p>
     </h1>
-    <h1 style="font-family: Arial, sans-serif; font-size: 14pt; font-weight: bold;">1.1.1. CREDITS OUVERTS PAR LA LOI DE FINANCES ET REPARTIS PAR LE DECRET DE REPARTITION :</h1>
+    <h1 style="font-family: Arial Narrow, sans-serif; font-size: 14pt; font-weight: bold;">1.1.1. CREDITS OUVERTS PAR LA LOI DE FINANCES ET REPARTIS PAR LE DECRET DE REPARTITION :</h1>
     <table >
     
             <tr>
@@ -236,7 +237,7 @@ Ministère de la Communication
         </tbody>
     </table>
     <div class="page-break"> </div>
-    <h1 style="font-family: Arial, sans-serif; font-size: 14pt; font-weight: bold;"> 1.1.2. CREDITS ATTENDUS DEVENUS DISPONIBLES EN COURS D’ANNEE <?php echo date("Y"); ?> </h1>
+    <h1 style="font-family: Arial Narrow, sans-serif; font-size: 14pt; font-weight: bold;"> 1.1.2. CREDITS ATTENDUS DEVENUS DISPONIBLES EN COURS D’ANNEE <?php echo date("Y"); ?> </h1>
     <table >
     
             <tr>

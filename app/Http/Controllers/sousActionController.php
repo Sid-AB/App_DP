@@ -279,7 +279,7 @@ function print_dpa($numport)
     ->orderBy('m1.date_modif', 'desc') 
     ->first(); 
     //$modif = collect([$modif]);
-        //dd($modif);
+        dd($modif);
     $result = []; 
     $lastModif = null;
    // dd($art);
@@ -593,11 +593,8 @@ if ($tableExists) {
         ->join('sous_programmes', "$viewName.num_sous_prog", '=', 'sous_programmes.num_sous_prog')
         ->join('programmes', 'sous_programmes.num_prog', '=', 'programmes.num_prog') 
        
-        
-        ->leftJoin('actions', function ($join) use ($viewName) {
-            $join->on("$viewName.num_action", '=', 'actions.num_action');
-        })->get();
-    dd( $view);
+       ->get();
+   //dd( $view);
 
    
    $prgrmsousact = $view->groupBy('num_prog')->map(function ($group) {
@@ -652,7 +649,7 @@ if ($tableExists) {
 });
 //dd($prgrmsousact);
 
-return view('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg','prgrmsousact'));
+//return view('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg','prgrmsousact'));
 $pdf=SnappyPdf::loadView('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg','prgrmsousact'))
 ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1);//lanscape mean orentation
 return $pdf->stream('impression_dpic.pdf');
@@ -660,7 +657,7 @@ return $pdf->stream('impression_dpic.pdf');
 }else {
  
      
-return view('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg'));
+//return view('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg'));
 $pdf=SnappyPdf::loadView('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg'))
 ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1);//lanscape mean orentation
 return $pdf->stream('impression_dpic.pdf');

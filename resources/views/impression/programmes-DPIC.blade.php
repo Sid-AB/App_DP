@@ -114,10 +114,10 @@
 
 </head>
 <body>
-<h1 style="text-align: center; font-family: Cambria, sans-serif; font-size: 18pt; font-weight: bold;">
+<h1 style="text-align: center; font-family: Arial Narrow, sans-serif; font-size: 14pt; font-weight: bold;">
     1<span style="position: relative; top: -5px; font-size: 0.6em;">ERE</span> PARTIE:
 </h1>
-<p style="font-family: Arial, sans-serif; font-size: 16pt; font-weight: bold; text-align: center;/*margin-left: 820px;*/"> 
+<p style="font-family: Arial Narrow, sans-serif; font-size: 14pt; font-weight: bold; text-align: center;/*margin-left: 820px;*/"> 
             LES CREDITS BUDGETAIRES
     </p>
     <h1>
@@ -132,7 +132,7 @@
         @endphp
         @endforeach
         @endfor
-    <p style="font-family: Arial, sans-serif; font-size:18pt; font-weight: bold;"> 1.2. LA PROGRAMMTION DES CREDITS DES PROGRAMMES ( 
+    <p style="font-family: Arial Narrow, sans-serif; font-size:14pt; font-weight: bold;"> 1.2. LA PROGRAMMTION DES CREDITS DES PROGRAMMES ( 
     @for($i=0;$i< count($filcode);$i++)
     {{$filcode[$i]}} 
     @if ($i < count($filcode) - 1)
@@ -143,7 +143,7 @@
     </p>
    
     </h1>
-    <h1 style="font-family: Arial, sans-serif; font-size: 16pt; font-weight: bold;"> 1.2.1. PROGRAMMATION DES CREDITS OUVERTS PAR LA LOI DE FINANCES ET REPARTIS PAR LE DECRET DE REPARTITION :</h1>
+    <h1 style="font-family: Arial Narrow, sans-serif; font-size: 14pt; font-weight: bold;"> 1.2.1. PROGRAMMATION DES CREDITS OUVERTS PAR LA LOI DE FINANCES ET REPARTIS PAR LE DECRET DE REPARTITION :</h1>
     {{-- Boucle sur les programmes --}}
     @for($i = 0; $i < count($programmes); $i++)
         @foreach ($programmes[$i] as $programme)
@@ -342,7 +342,7 @@
     @endfor
 
     <div class="page-break"> </div>
-    <h1 style="font-family: Arial, sans-serif; font-size: 14pt; font-weight: bold;"> 1.2.2. PROGRAMMATION DES CREDITS ATTENDUS DEVENUS DISPONIBLES EN COURS D'ANNEE   <?php echo date("Y"); ?> </h1>
+    <h1 style="font-family: Arial Narrow, sans-serif; font-size: 14pt; font-weight: bold;"> 1.2.2. PROGRAMMATION DES CREDITS ATTENDUS DEVENUS DISPONIBLES EN COURS D'ANNEE   <?php echo date("Y"); ?> </h1>
     <table >
     
     <tr>
@@ -758,8 +758,11 @@
    @endfor
 </tbody>
 </table>
+@php
+    use Illuminate\Support\Facades\DB;
+@endphp
 <div class="page-break"> </div>
-<h1 style=" font-family: Cambria, sans-serif; font-size: 14pt; font-weight: bold;"> 1.2.3. PROGRAMMATION DES CREDITS DISPONIBLES (CREDITS OUVERTS + CREDITS ATTENDUS DEVENUS DISPONIBLES) :</h1>
+<h1 style=" font-family: Arial Narrow, sans-serif; font-size: 14pt; font-weight: bold;"> 1.2.3. PROGRAMMATION DES CREDITS DISPONIBLES (CREDITS OUVERTS + CREDITS ATTENDUS DEVENUS DISPONIBLES) :</h1>
 <table >
     
    
@@ -827,13 +830,14 @@
                                 $code =explode('-',$sous_programme['num_sous_prog']);
                                 $last =count($code)-1;
                                 //dd($programme['sous_programmes']);
-                                dd($sous_programme);
+                                //dd($sous_programme);
                                 $code = $code[$last];
-                                dd($code);
+                                //dd($code);
                             @endphp
                         <tr class="subprogram-title">
-                            
-                        <td colspan="2">Sous Programme {{ $code }} {{ $sous_programme['nom_sous_prog'] }}</td>
+                        <td class="subprogram-title">{{ $code }}</td>
+                        <td class="subprogram-title"> Sous Programme : {{ $sous_programme['nom_sous_prog']}}</td>
+                      
                         <td>{{ number_format($sous_programme['AE_init_t1'], 2, ',', ' ') }}</td>
                         <td>{{ number_format($sous_programme['CP_init_t1'], 2, ',', ' ') }}</td>
                         <td>{{ number_format($sous_programme['AE_init_t2'], 2, ',', ' ') }}</td>
@@ -853,10 +857,14 @@
                                 
                                 //dd($code);
                                 $code = $code[$last];
+                                $nomAction = DB::table('actions')
+                                        ->where('num_action', $action->num_action)
+                                        ->value('nom_action');
                             @endphp
                     <tr class="action-title">
-                      
-                    <td colspan="2">Action {{ $code }} {{ $action->nom_action }}</td>
+                    <td>{{ $code }}</td>
+                    <td>Action : {{ $nomAction }}</td>
+                   
                     <td>{{ number_format($action->AE_init_t1, 2, ',', ' ') }}</td>
                     <td>{{ number_format($action->CP_init_t1, 2, ',', ' ') }}</td>
                     <td>{{ number_format($action->AE_init_t2, 2, ',', ' ') }}</td>
@@ -869,21 +877,21 @@
                 @endforeach
         
                               
-                                <tr class="ttaction-title">
-                                    <td class="ttaction-title"colspan="2">Total des actions</td>
-                                    <td class="vert3">{{ number_format($sous_programme['total_act_AE_t1'], 2, ',', ' ') }}</td>
-                                    <td class="vert3">{{ number_format($sous_programme['total_act_CP_t1'], 2, ',', ' ') }}</td>
-                                    <td class="vert3">{{ number_format($sous_programme['total_act_AE_t2'], 2, ',', ' ') }}</td>
-                                    <td class="vert3">{{ number_format($sous_programme['total_act_CP_t2'], 2, ',', ' ') }}</td>
-                                    <td class="vert3">{{ number_format($sous_programme['total_act_CP_t2'], 2, ',', ' ') }}</td>
-                                    <td class="vert3">{{ number_format($sous_programme['total_act_AE_t3'], 2, ',', ' ') }}</td>
-                                    <td class="vert3">{{ number_format($sous_programme['total_act_CP_t3'], 2, ',', ' ') }}</td>
-                                    <td class="vert3">{{ number_format($sous_programme['total_act_AE_t4'], 2, ',', ' ') }}</td>
-                                    <td class="vert3">{{ number_format($sous_programme['total_act_CP_t4'], 2, ',', ' ') }}</td>
+                    <tr class="ttaction-title">
+                        <td class="ttaction-title"colspan="2">Total des actions</td>
+                        <td class="ttaction-title">{{ number_format($sous_programme['total_act_AE_t1'], 2, ',', ' ') }}</td>
+                        <td class="ttaction-title">{{ number_format($sous_programme['total_act_CP_t1'], 2, ',', ' ') }}</td>
+                        <td class="ttaction-title">{{ number_format($sous_programme['total_act_AE_t2'], 2, ',', ' ') }}</td>
+                        <td class="ttaction-title">{{ number_format($sous_programme['total_act_CP_t2'], 2, ',', ' ') }}</td>
+
+                        <td class="ttaction-title">{{ number_format($sous_programme['total_act_AE_t3'], 2, ',', ' ') }}</td>
+                        <td class="ttaction-title">{{ number_format($sous_programme['total_act_CP_t3'], 2, ',', ' ') }}</td>
+                        <td class="ttaction-title">{{ number_format($sous_programme['total_act_AE_t4'], 2, ',', ' ') }}</td>
+                        <td class="ttaction-title">{{ number_format($sous_programme['total_act_CP_t4'], 2, ',', ' ') }}</td>
   
-                                </tr>
+                     </tr>
             @endforeach
-        @endforeach    
+   
                                
                     @php
                     
@@ -896,19 +904,20 @@
                         $total_t4_ae += $programme['total_AE_init_t4'];
                         $total_t4_cp += $programme['total_CP_init_t4'];
                     @endphp
+                    @endforeach  
                     {{-- Total des actions/crédits ouverts pour le programme --}}
                     <tr class="totals">
                         <th class="totals" colspan="2">TOTAL ACTIONS/CREDITS OUVERTS</th>
                
-                        <th colspan="2" class="vert3">TOTAL DES CREDITS DISPONIBLES POUR LE PROGRAMME ({{ implode(') + (', $indiceProg) }}) </th>
-                        <td class="vert3">{{ number_format((float)$total_t1_ae, 2, '.', ',')}}</td>
-                        <td class="vert3">{{ number_format((float)$total_t1_cp, 2, '.', ',')}}</td>
-                        <td class="vert3">{{ number_format((float)$total_t2_ae, 2, '.', ',')}}</td> 
-                        <td class="vert3">{{ number_format((float)$total_t2_cp, 2, '.', ',')}}</td>
-                        <td class="vert3">{{ number_format((float)$total_t3_ae, 2, '.', ',')}}</td>
-                        <td class="vert3">{{ number_format((float)$total_t3_cp, 2, '.', ',')}}</td>
-                        <td class="vert3">{{ number_format((float)$total_t4_ae, 2, '.', ',')}}</td>
-                        <td class="vert3">{{ number_format((float)$total_t4_cp, 2, '.', ',')}}</td>
+                       
+                        <td >{{ number_format((float)$total_t1_ae, 2, '.', ',')}}</td>
+                        <td >{{ number_format((float)$total_t1_cp, 2, '.', ',')}}</td>
+                        <td >{{ number_format((float)$total_t2_ae, 2, '.', ',')}}</td> 
+                        <td >{{ number_format((float)$total_t2_cp, 2, '.', ',')}}</td>
+                        <td >{{ number_format((float)$total_t3_ae, 2, '.', ',')}}</td>
+                        <td >{{ number_format((float)$total_t3_cp, 2, '.', ',')}}</td>
+                        <td>{{ number_format((float)$total_t4_ae, 2, '.', ',')}}</td>
+                        <td>{{ number_format((float)$total_t4_cp, 2, '.', ',')}}</td>
                     </tr>
                  
                 @else 
@@ -1088,15 +1097,15 @@
 </tbody>
 </table>
 <div class="page-break"> </div>
-<h1 style="text-align: center; font-family: Cambria, sans-serif; font-size: 18pt; font-weight: bold;">
+<h1 style="text-align: center; font-family: Cambria (Titres), sans-serif; font-size: 20pt; font-weight: bold;">
     2<span style="position: relative; top: -5px; font-size: 0.6em;">ème </span> PARTIE:
 </h1>
-<p style="font-family: Arial, sans-serif; font-size: 16pt; font-weight: bold; text-align: center;/*margin-left: 820px;*/"> 
+<p style="font-family: Cambria (Titres), sans-serif; font-size: 20pt; font-weight: bold; text-align: center;/*margin-left: 820px;*/"> 
 LES EMPLOIS ET LES CREDITS BUDGETAIRES Y AFFERENTS
     </p>
     <table class="first-table">
     <thead>
-
+ 
         @foreach ($programmes as $programme)
             @foreach ($programme as $prog)
                 @php
@@ -1109,7 +1118,7 @@ LES EMPLOIS ET LES CREDITS BUDGETAIRES Y AFFERENTS
                 @endphp
 
              
-                @if($prog['nom'] === 'Administration générale')
+                @if($prog['nom'] === 'Administration Générale')
                     <tr>
                         <th style="text-align: center;">Code {{ $code }}</th>
                         <th style="text-align: center;">PROGRAMME {{$prog['nom']}}</th>
@@ -1121,35 +1130,40 @@ LES EMPLOIS ET LES CREDITS BUDGETAIRES Y AFFERENTS
                         <th style="text-align: center;">AE</th>
                         <th style="text-align: center;">CP</th>
                     </tr>
-
+                 
                     {{-- Boucle sur les sous-programmes --}}
-                    @foreach ($prog['sous_programmes'] as $sousProgramme)
-                          @foreach ($sousProgramme as $sousProgramme)
+                    @foreach ($prog['sous_programmes'] as $programme)
+   
                         @php
-                            // Accéder au code du sous-programme
+                            $sousProgramme = $programme['sous_programmes'];
+                            //dd( $sousProgramme);
                             $code_sous_prog = explode('-', $sousProgramme['code']);
                             $code_sous_prog = end($code_sous_prog);
-                            $total_AE += $sousProgramme['Total']['TotalT1_AE_ini'];
-                            $total_CP += $sousProgramme['Total']['TotalT1_CP_ini'];
+                            //dd( $code_sous_prog);
+                            $total_AE += $sousProgramme['Total']['TotalT1_AE'];
+                            $total_CP += $sousProgramme['Total']['TotalT1_CP'];
+                           // dd( $total_AE,$total_CP);
                         @endphp
-
-                  
-                        @if($sousProgramme['nom'] === 'Soutien administratif' && !isset($sousProgramme['actions'][0]))
+                        @if ($sousProgramme['nom'] === 'Soutien Administratif')
                             <tr style="text-align: center; ">
                                 <td class="subprogram-title">{{ $code_sous_prog }}</td>
                                 <td class="subprogram-title">Sous Programme : {{ $sousProgramme['nom'] }}</td>
-                                <td>{{ number_format((float)$sousProgramme['Total']['TotalT1_AE_ini'], 2, '.', ',') }}</td>
-                                <td >{{ number_format((float)$sousProgramme['Total']['TotalT1_CP_ini'], 2, '.', ',') }}</td>
+                                <td>{{ number_format((float)$sousProgramme['Total']['TotalT1_AE'], 2, '.', ',') }}</td>
+                                <td >{{ number_format((float)$sousProgramme['Total']['TotalT1_CP'], 2, '.', ',') }}</td>
                             </tr>
+
+                            @endif
+                @endforeach    
+              
                             <tr>
-                
+                           
                 <th colspan="2" class="headt1" style="text-align: center; ">TOTAL DES CREDITS DISPONIBLES</th>
-                <td class="headt1" style="text-align: center; ">{{ number_format((float)$total_AE, 2, '.', ',') ?? 'N/A' }}</td>
-                <td class="headt1" style="text-align: center; ">{{ number_format((float)$total_CP, 2, '.', ',') ?? 'N/A' }}</td>
+                <td class="headt1" style="text-align: center; font-weight: bold; ">{{ number_format((float)$total_AE, 2, '.', ',') ?? 0.00 }}</td>
+                <td class="headt1" style="text-align: center; font-weight: bold; ">{{ number_format((float)$total_CP, 2, '.', ',') ?? 0.00 }}</td>
             </tr>
-                        @endif
-                    @endforeach
-                    @endforeach
+                        
+                   
+               
                 @endif
             @endforeach
         @endforeach
