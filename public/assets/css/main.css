@@ -1419,12 +1419,25 @@ transition-timing-function: line;
   color: black;
   border-radius: 5px;
 }
+#expWord
+{
+  color: black;
+  border-radius: 5px;
+}
 #vider_t
 {
   color: black;
   border-radius: 5px;
 }
 #expExcel:hover
+{
+  -webkit-box-shadow: inset -2px 0px 40px -15px rgba(255,199,56,1);
+  -moz-box-shadow: inset -2px 0px 40px -15px rgba(255,199,56,1);
+  box-shadow: inset -2px 0px 40px -15px rgba(255,199,56,1);
+  cursor: pointer;
+
+}
+#expWord:hover
 {
   -webkit-box-shadow: inset -2px 0px 40px -15px rgba(255,199,56,1);
   -moz-box-shadow: inset -2px 0px 40px -15px rgba(255,199,56,1);
@@ -1439,6 +1452,16 @@ transition-timing-function: line;
   -moz-box-shadow: inset -2px 0px 40px -15px rgba(255,199,56,1);
   box-shadow: inset -2px 0px 40px -15px rgba(255,199,56,1);
   cursor: pointer;
+
+}
+.print_btn_holder
+{
+  
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: nowrap;
+  flex-direction: row;
 
 }
 /***------------------------------ end --------------------***/

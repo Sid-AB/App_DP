@@ -533,7 +533,7 @@ if (!empty($portefeuille)) {
                     }
                 }
             
-                //dd($groupT);
+                
                  // dd($totalAe,$totalCp);
                $totalt2[] = [
                     "values" => [
@@ -585,7 +585,7 @@ if (!empty($portefeuille)) {
 
                      // retourner les résultats
 
-
+                    // dd($operationT4);
                       return[
                            'T2'=>['sousOperation' => $sousOperationT2,
                             'operation' => $operationT2,

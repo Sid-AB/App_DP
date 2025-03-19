@@ -43,7 +43,7 @@ class modificationController extends Controller
 
         //récupérer les données de request
         $data = $request->all();
-       //dd($request);
+       dd($request);
         // déterminer le type de données reçues est ce qu'ils sont T ou les valeurs qui sont dans tableau T[]
         $Tport = $data['Tport']; 
         $resultats = $data['result']; //les valeurs [code_sous_op,ae et cp]
@@ -1405,11 +1405,17 @@ function delete_by_id($id)
                         {
                             foreach($ops as $op)
                             {
-                                $sou_ops=SousOperation::where('code_operation','=',$op['code_operation '])->get();
+                                //dd($op);
+                                $sou_ops=SousOperation::where('code_operation','=',$op['code_operation'])->get();
                                 if($sou_ops)
                                 {
                                     foreach($sou_ops as $sous_op)
                                     {
+                                        $construit_p=ConstruireDPIA::find($sous_op->code_sous_operation);
+                                        if($construit_p)
+                                        {
+                                            $construit_p->delete();
+                                        }
                                         $sous_op->delete();
                                     }
                                 }

@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;  
 use Illuminate\Http\Request;
 use App\Models\Accounts;
+use App\Models\SousProgramme;
+use App\Models\Programme; 
+use App\Models\Action;
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
@@ -12,9 +15,16 @@ class AdminController extends Controller
     //
    public function index()
     {
+        $prog=Programme::get();
+        $sprog=SousProgramme::get();
+        $act=Action::get();
         $accounts=Accounts::join('multimedia','multimedia.related_id','=','id')->get();
         //dd($accounts);
-        return view('Admin.index',compact('accounts'));
+        if(isset($accounts) && count($accounts) == 0)
+        {
+            $accounts=Accounts::get();
+        }
+        return view('Admin.index',compact('accounts','prog','sprog','act'));
     }
 
 
@@ -43,6 +53,7 @@ class AdminController extends Controller
         // ✅ Insert data into the database
         $email = $validated['email'];
         $uniqueId = substr(base_convert(md5($email), 16, 36), 0, 6);
+        $rep;
         $account = Accounts::create([
             'id'=>$uniqueId,
             'nome' => $validated['nome'],
