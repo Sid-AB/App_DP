@@ -533,7 +533,7 @@ if (!empty($portefeuille)) {
                     }
                 }
             
-                
+                //dd($operationT4);
                  // dd($totalAe,$totalCp);
                $totalt2[] = [
                     "values" => [

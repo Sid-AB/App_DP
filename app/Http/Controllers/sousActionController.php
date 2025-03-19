@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use App\Services\CalculDpia;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\Snappy\Facades\SnappyPdf;
+use Illuminate\Support\Facades\Schema;
 class sousActionController extends Controller
 {
     protected $CalculDpia;
@@ -149,7 +150,7 @@ function print_dpa($numport)
         foreach($sousprog as $sprog)
         {
             $initsprog=initPort::where('num_sous_prog',$sprog->num_sous_prog)->get();
-           //dd($initsprog);
+          // dd($initsprog);
             foreach($initsprog as $init)
             {
                 $ttall=[];
@@ -267,10 +268,12 @@ function print_dpa($numport)
     'TotalPortT4_AE'=>$TtportT4AE,'TotalPortT4_CP'=>$TtportT4CP]);
     //dd($Ttportglob);
     //modification et article 
+
     $art = Article::selectRaw("id_art, CONCAT(nom_art, ' (', code_art, ')') as nom")->get();
    // dd($art);
     $modif = DB::table('modification_t_s as m1')
     ->join('articles', 'm1.id_art', '=', 'articles.id_art')
+    ->whereRaw("SUBSTRING_INDEX(m1.num_prog, '-', 2) = ?", [$numport])
     ->select(
         'm1.*',
         DB::raw("CONCAT(articles.nom_art, ' (', articles.code_art, ')') as nom")
@@ -580,11 +583,91 @@ foreach ($progg as $programme) {
 
 // dd($lastModif);
 //dd($programmes);
+/* ============= nouveau tableau de modif en utilisant view ===================== */
 
-return view('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg'));
+$viewName = 'init_ports_' . str_replace('-', '_', $numport);
+
+$tableExists = Schema::hasTable($viewName);
+
+//dd( $viewName->num_sous_prog);
+if ($tableExists) {
+    $view = DB::table($viewName)
+        ->join('sous_programmes', "$viewName.num_sous_prog", '=', 'sous_programmes.num_sous_prog')
+        ->join('programmes', 'sous_programmes.num_prog', '=', 'programmes.num_prog') 
+       
+       ->get();
+   //dd( $view);
+
+   
+   $prgrmsousact = $view->groupBy('num_prog')->map(function ($group) {
+    return [
+        'num_prog' => $group->first()->num_prog,
+        'nom_prog' => $group->first()->nom_prog,
+
+        // tataux des sous programmes
+        'total_AE_init_t1' => $group->where('num_action', null)->sum('AE_init_t1'),
+        'total_CP_init_t1' => $group->where('num_action', null)->sum('CP_init_t1'),
+        'total_AE_init_t2' => $group->where('num_action', null)->sum('AE_init_t2'),
+        'total_CP_init_t2' => $group->where('num_action', null)->sum('CP_init_t2'),
+        'total_AE_init_t3' => $group->where('num_action', null)->sum('AE_init_t3'),
+        'total_CP_init_t3' => $group->where('num_action', null)->sum('CP_init_t3'),
+        'total_AE_init_t4' => $group->where('num_action', null)->sum('AE_init_t4'),
+        'total_CP_init_t4' => $group->where('num_action', null)->sum('CP_init_t4'),
+
+        
+        'sous_programmes' => $group->where('num_action', null)->map(function ($sous_prog) use ($group) {
+            // ses actions 
+            $actions = $group->where('num_sous_prog', $sous_prog->num_sous_prog)->where('num_action', '!=', null);
+
+            return [
+                'num_sous_prog' => $sous_prog->num_sous_prog,
+                'nom_sous_prog' => $sous_prog->nom_sous_prog,
+
+             
+                'AE_init_t1' => $sous_prog->AE_init_t1,
+                'CP_init_t1' => $sous_prog->CP_init_t1,
+                'AE_init_t2' => $sous_prog->AE_init_t2,
+                'CP_init_t2' => $sous_prog->CP_init_t2,
+                'AE_init_t3' => $sous_prog->AE_init_t3,
+                'CP_init_t3' => $sous_prog->CP_init_t3,
+                'AE_init_t4' => $sous_prog->AE_init_t4,
+                'CP_init_t4' => $sous_prog->CP_init_t4,
+
+                // totaux des actions du sousprog
+                'total_act_AE_t1' => $actions->sum('AE_init_t1'),
+                'total_act_CP_t1' => $actions->sum('CP_init_t1'),
+                'total_act_AE_t2' => $actions->sum('AE_init_t2'),
+                'total_act_CP_t2' => $actions->sum('CP_init_t2'),
+                'total_act_AE_t3' => $actions->sum('AE_init_t3'),
+                'total_act_CP_t3' => $actions->sum('CP_init_t3'),
+                'total_act_AE_t4' => $actions->sum('AE_init_t4'),
+                'total_act_CP_t4' => $actions->sum('CP_init_t4'),
+
+                // liste des actions
+                'actions' => $actions->values(),
+            ];
+        })->values(), //pour afficher les valeurs 
+    ];
+});
+//dd($prgrmsousact);
+
+//return view('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg','prgrmsousact'));
+$pdf=SnappyPdf::loadView('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg','prgrmsousact'))
+->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1);//lanscape mean orentation
+return $pdf->stream('impression_dpic.pdf');
+
+}else {
+ 
+     
+//return view('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg'));
 $pdf=SnappyPdf::loadView('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg'))
 ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1);//lanscape mean orentation
 return $pdf->stream('impression_dpic.pdf');
+
+
+}
+  
+   
 
 }
 
