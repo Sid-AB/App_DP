@@ -719,12 +719,8 @@ listItemsWithNestedUl.each(function(){
           $(".hide-access-form").removeClass('form-access');
           $('.hide-access-form').empty()
         })
-<<<<<<< HEAD
-        window.location.href='/testing/Action/'+path3[0]+'/'+path3[1]+'/'+path3[2]+'/'+typeact[1]
-=======
 
        
->>>>>>> 71f819d1bb5df2e14b3b7da1d86e8bd307c1e155
         var cosnt=0;
        /* $('#btn-form-access').on('click',function(){
           if(cosnt == 0) {

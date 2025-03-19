@@ -167,11 +167,7 @@ class sousOperationController extends Controller
     {
 
         $act1=explode('_',$act);
-<<<<<<< HEAD
-     /*   $code=$request['code'];
-=======
        /* $code=$request['code'];
->>>>>>> 71f819d1bb5df2e14b3b7da1d86e8bd307c1e155
         
         if(!isset($code))
         {
