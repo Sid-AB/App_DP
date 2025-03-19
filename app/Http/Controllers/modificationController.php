@@ -1341,7 +1341,7 @@ function affiche_modif($numport)
 
 function delete_by_id($id)
 {
-
+    $succe_pr_gr=false;
     $split=explode("_",$id);
     //dd($split);
     if($split[0] == 'prog')
@@ -1403,27 +1403,45 @@ function delete_by_id($id)
                     $ops=Operation::where('code_grp_operation','=',$grpop['code_grp_operation'])->get();
                     if($ops)
                         {
+                           //dd($ops);
                             foreach($ops as $op)
                             {
+                                 //dd($ops);
                                 $sou_ops=SousOperation::where('code_operation','=',$op['code_operation '])->get();
-                                if($sou_ops)
+                               
+                                //dd($sou_ops);
+                                 if(!empty($sou_ops) && count($sou_ops) !=0)
                                 {
+                                    dd($sou_ops);
                                     foreach($sou_ops as $sous_op)
                                     {
-                                        $sous_op->delete();
+                                       
+                                        if(!empty($sous_op)){
+                                        $construit_p=ConstruireDPIA::find($sous_op->code_sous_operation);
+                                        dd($construit_p);
+                                        if($construit_p)
+                                        {
+                                            $construit_p->delete(); 
+                                        }
+                                        $sous_op->delete();}
                                     }
+                                   
                                 }
-                                $op->delete();  
+                                $op->delete(); 
                             }
                         }
-                    $grpop->delete();
+                        if($succe_pr_gr)
+                        {
+                            
+                           
+                        }
                 }
                
-                //dd($gropos);
-                $deletmodel->delete();
-                $deletmodelA->delete();
-                return response()->json(['code'=>200,'message '=>'success']);
+                dd($gropos);
+                $grpop->delete();
             }
+            $deletmodel->delete();
+            $deletmodelA->delete();
             
         return response()->json(['code'=>200,'message '=>'success']);
         }
@@ -1472,11 +1490,11 @@ function delete_by_t(Request $request)
                 {
                     foreach($ops as $op)
                     {
-                        //dd($ops);
+                        dd($ops);
                         $sou_ops=SousOperation::where('code_operation','=',$op['code_operation'])->where($code_t,'=',$code)->get();
                         if(!empty($sou_ops) && count($sou_ops) !=0)
                         { 
-                           // dd($sou_ops);
+                            dd($sou_ops);
                             foreach($sou_ops as $sous_op)
                             {
                                 if(!empty($sous_op)){

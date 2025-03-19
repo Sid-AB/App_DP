@@ -1103,7 +1103,7 @@ function add_newOPs_T3(id, value, key,code) {
                    if(idsfinal.length == 9 || idsfinal.length == 1)
                     {
                         //console.log('testing remplace'+idsfinal.length)
-                     $('#' + key).replaceWith(row)
+                     $('#' + key).after(row)
                     }
                     else
                     {
@@ -1206,9 +1206,8 @@ function add_newOPs_T4(id, value, key,code) {
    $('#ajt').click(function(){
     
     mount_chang=true;
-   var cp=$('.ref'+key+' td:last').text();
-   var ae=$('.ref'+key+' td').eq(-2).text();
-   console.log('td last id'+key+' ae'+ae+' cp '+cp)
+
+
     idsz=id+'-'+counter;
     var buttons = '<button class="btn btn-primary" id="changin"> appliquer</button>'
     $('.change_app').append(buttons)
@@ -1248,6 +1247,16 @@ function add_newOPs_T4(id, value, key,code) {
        '</tr>';
             $('#' + key).after(row)
         }
+
+        var cpold=parseNumberWithoutCommas($('#'+key+' td:last').text());
+        var aeold=parseNumberWithoutCommas($('#'+key+' td').eq(-2).text());
+        
+        var newcp=parseInt(cpold)+parseInt(parseNumberWithoutCommas(data_add_ops.CP_T4))
+        var newae=parseInt(aeold)+parseInt(parseNumberWithoutCommas(data_add_ops.AE_T4)) 
+        console.log('ae'+newae+'cp'+newcp)
+        $('#'+key+' td:last').text(ValAccountingFigures(newcp))
+        $('#'+key+' td').eq(-2).text(ValAccountingFigures(newae))
+
         $('#ref' + idsz + ' #add_op').on('click', function () {
             var newKey=$(this).parent().attr('id');
             var ads = newKey.split('ref')[1]
@@ -5154,7 +5163,7 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.code == 200 && response.t1_exists==1) {
                
-
+                    counter=counter+10
                     alert('Exist')
                     T1_table(id, T, ssact, path3[0],response.code)
                     $('#T_port1').addClass('heilighter')
@@ -5162,6 +5171,7 @@ $(document).ready(function () {
                     $("#expExcel").css('display','block')
                     $("#vider_t").css('display','block')
                     $('#T-tables tbody').attr('id','T1_'+ssact+'')
+
                 }
                 else {
                
@@ -5190,7 +5200,7 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.code == 200 && response.t2_exists==1) {
                     alert('Exist')
-
+                    counter=counter+10
                     $('#reloading').addClass('reload-hidden')
                     T2_table(id, T, ssact, path3[0],response.code)
                     $('#T_port2').addClass('heilighter')
@@ -5226,6 +5236,7 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.code == 200 && response.t3_exists==1) {
                     alert('Exist')
+                    counter=counter+10
                     $('#reloading').addClass('reload-hidden')
                     T3_table(id, T, ssact, path3[0],response.code)
                     $('#T_port3').addClass('heilighter')
@@ -5263,6 +5274,7 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.code == 200 && response.t4_exists==1) {
                     alert('Exist')
+                    counter=counter+10
                     $('#reloading').addClass('reload-hidden')
                     T4_table(id, T, ssact, path3[0],response.code)
                     $('#T_port4').addClass('heilighter')
@@ -5306,7 +5318,7 @@ $(document).ready(function () {
                 success: function (response) {
                     if (response.code == 200 && response.t1_exists==1) {
                         alert('Exist')
-
+                        counter=counter+10
                         T1_table(id, T, ssact, path3[0],response.code)
                         $('#reloading').addClass('reload-hidden')
                         $("#expExcel").css('display','block')
@@ -5345,6 +5357,7 @@ $(document).ready(function () {
                 success: function (response) {
                     if (response.code == 200 && response.t2_exists==1) {
                         alert('Exist')
+                        counter=counter+10
                         $('#reloading').addClass('reload-hidden')
                         T2_table(id, T, ssact, path3[0],response.code)
                         $("#expExcel").css('display','block')
@@ -5380,6 +5393,7 @@ $(document).ready(function () {
                 success: function (response) {
                     if (response.code == 200 && response.t3_exists==1) {
                         alert('Exist')
+                        counter=counter+10
                         $('#reloading').addClass('reload-hidden')
                         T3_table(id, T, ssact, path3[0],response.code)
                         $("#expExcel").css('display','block')
@@ -5417,6 +5431,7 @@ $(document).ready(function () {
                 success: function (response) {
                     if (response.code == 200 && response.t4_exists==1) {
                         alert('Exist')
+                        counter=counter+10
                         $('#reloading').addClass('reload-hidden')
                         T4_table(id, T, ssact, path3[0],response.code)
                         $("#expExcel").css('display','block')
@@ -5464,6 +5479,7 @@ $(document).ready(function () {
 })
 $('#vider_t').on('click',function()
 {
+    $('#reloading').removeClass('reload-hidden')
     var ids=$('#T-tables tbody').attr('id')
     var listid=ids.split('_')
     console.log('ids '+JSON.stringify(listid))

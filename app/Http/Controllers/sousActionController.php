@@ -150,7 +150,7 @@ function print_dpa($numport)
         foreach($sousprog as $sprog)
         {
             $initsprog=initPort::where('num_sous_prog',$sprog->num_sous_prog)->get();
-           //dd($initsprog);
+          // dd($initsprog);
             foreach($initsprog as $init)
             {
                 $ttall=[];
@@ -268,10 +268,12 @@ function print_dpa($numport)
     'TotalPortT4_AE'=>$TtportT4AE,'TotalPortT4_CP'=>$TtportT4CP]);
     //dd($Ttportglob);
     //modification et article 
+
     $art = Article::selectRaw("id_art, CONCAT(nom_art, ' (', code_art, ')') as nom")->get();
    // dd($art);
     $modif = DB::table('modification_t_s as m1')
     ->join('articles', 'm1.id_art', '=', 'articles.id_art')
+    ->whereRaw("SUBSTRING_INDEX(m1.num_prog, '-', 2) = ?", [$numport])
     ->select(
         'm1.*',
         DB::raw("CONCAT(articles.nom_art, ' (', articles.code_art, ')') as nom")
@@ -279,7 +281,7 @@ function print_dpa($numport)
     ->orderBy('m1.date_modif', 'desc') 
     ->first(); 
     //$modif = collect([$modif]);
-        dd($modif);
+        //dd($modif);
     $result = []; 
     $lastModif = null;
    // dd($art);
