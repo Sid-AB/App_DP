@@ -8,6 +8,12 @@ use App\Models\Accounts;
 use App\Models\SousProgramme;
 use App\Models\Programme; 
 use App\Models\Action;
+
+use App\Models\Ministre;
+use App\Models\Respo_Action;
+use App\Models\Respo_Prog;
+
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
@@ -41,6 +47,9 @@ class AdminController extends Controller
             'code_generated' => 'required|min:6', // Requires password_confirmation field
             'post_occupe' => 'required|string|max:255',
             'privilege' => 'required|string|max:255',
+            'progs'=>'string|max:255',
+            'sous_progs'=>'string|max:255',
+            'acts'=>'string|max:255',
             'profile_picture' => 'nullable|mimes:jpg,png,jpeg,pdf|max:2048', // Validate image
 
         ]);
@@ -53,13 +62,76 @@ class AdminController extends Controller
         // ✅ Insert data into the database
         $email = $validated['email'];
         $uniqueId = substr(base_convert(md5($email), 16, 36), 0, 6);
-        $rep;
+        $idresp= rand(100000, 999999);
+        $id_res_Min=null;
+        $id_res_prg=null;
+        $id_res_act=null;
+        if(isset($validated['progs']) && isset($validated['sous_progs'])  && !isset($validated['acts']))
+        {
+            $res_prg=Respo_Prog::updateOrCreate([
+                'id_rp'=>$idresp,
+                'Date_installation_rp'=>Carbon::now(),
+               
+            ]);
+            $id_res_prg=$res_prg->id_rp;
+            $prog=Programme::where('num_prog',$validated['progs'])->first();
+            $prog->id_rp=$id_res_prg;
+           // $sous_prog=SousProgramme::where('num_sous_prog',$validated['sous_progs'])->first();
+            //$act=Action::where('num_action',isset($validated['acts']))->first();
+            //dd($res_prg);
+        }
+        if(!isset($validated['progs'])  && !isset($validated['sous_progs']) && isset($validated['acts']))
+        {
+            $res_act=Respo_Action::updateOrCreate([
+                'id_ra'=>$idresp,
+                'Date_installation_ra'=>Carbon::now(),
+               
+            ]);
+            $id_res_act=$res_act->id_ra;
+           // $prog=Programme::where('num_prog',$validated['progs'])->first();
+           // $sous_prog=SousProgramme::where('num_sous_prog',$validated['sous_progs'])->first();
+            $act=Action::where('num_action',isset($validated['acts']))->first();
+            $act->id_ra=$id_res_act;
+           // dd($res_act);
+        }
+
+        if(isset($validated['progs']) && isset($validated['sous_progs'])  && isset($validated['acts']))
+        {
+            $res_Min=Ministre::updateOrCreate([
+                'id_min'=>$idresp,
+                'Date_installation'=>Carbon::now(),
+            ]);
+            $res_act=Respo_Action::updateOrCreate([
+                'id_ra'=>$idresp,
+                'Date_installation_ra'=>Carbon::now(),
+               
+            ]);
+            $res_prg=Respo_Prog::updateOrCreate([
+                'id_rp'=>$idresp,
+                'Date_installation_rp'=>Carbon::now(),
+               
+            ]);
+            $id_res_Min=$res_Min->id_min;
+            $prog=Programme::where('num_prog',$validated['progs'])->first();
+           // $sous_prog=SousProgramme::where('num_sous_prog',$validated['sous_progs'])->first();
+            $act=Action::where('num_action',$validated['acts'])->first();
+           // dd($act);
+            $prog->id_rp=$id_res_Min;
+            $act->id_ra=$id_res_Min;
+            $prog->update();
+            $act->update();
+           // dd($res_Min->id_min);
+        }
+
         $account = Accounts::create([
             'id'=>$uniqueId,
             'nome' => $validated['nome'],
             'prenom' => $validated['prenom'],
             'sous_direction' => $validated['sous_direction'],
             'email' => $validated['email']."@mcomm.local",
+            'id_min'=>$id_res_Min,
+            'id_ra'=>$id_res_act,
+            'id_rp'=>$id_res_prg,
             'code_generated' => Hash::make($validated['code_generated']), // Hash the password
             'post_occupe' => $validated['post_occupe'],
             'privilege' => $validated['privilege'],

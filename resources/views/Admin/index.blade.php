@@ -103,41 +103,41 @@
           </div>
           {{-- cote progs  --}}
           <div class="col-md-4">
-            <label for="sous_direction" class="form-label">Prgrammes</label>
-            <select class="form-select @error('sous_direction') is-invalid @enderror" id="progs" name="sous_direction" required>
+            <label for="progs" class="form-label">Prgrammes</label>
+            <select class="form-select @error('progs') is-invalid @enderror" id="progs" name="progs" required>
                 <option selected disabled value="">Choisir...</option>
                 @foreach ($prog as $progs)
                 <option value="{{$progs['num_prog']}}">{{$progs['num_prog']}} {{$progs['nom_prog']}}</option>
                 @endforeach
                 
             </select>
-            @error('sous_direction')
+            @error('progs')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
 
         <div class="col-md-4">
-          <label for="sous_direction" class="form-label">Sous Prgrammes</label>
-          <select class="form-select @error('sous_direction') is-invalid @enderror" id="sous_progs" name="sous_direction" required>
+          <label for="sous_progs" class="form-label">Sous Prgrammes</label>
+          <select class="form-select @error('sous_progs') is-invalid @enderror" id="sous_progs" name="sous_progs" required>
               <option selected disabled value="">Choisir...</option>
               @foreach ($sprog as $sprogs)
               <option value="{{$sprogs['num_sous_prog']}}">{{$sprogs['num_sous_prog']}} {{$sprogs['nom_sous_prog']}}</option>
               @endforeach
           </select>
-          @error('sous_direction')
+          @error('sous_progs')
               <div class="invalid-feedback">{{ $message }}</div>
           @enderror
       </div>
 
       <div class="col-md-4">
-        <label for="sous_direction" class="form-label">Actions </label>
-        <select class="form-select @error('sous_direction') is-invalid @enderror" id="acts" name="sous_direction" required>
+        <label for="acts" class="form-label">Actions </label>
+        <select class="form-select @error('acts') is-invalid @enderror" id="acts" name="acts" required>
             <option selected disabled value="">Choisir...</option>
             @foreach ($act as $acts)
             <option value="{{$acts['num_action']}}">{{$acts['num_action']}} {{$acts['nom_action']}}</option>
             @endforeach
         </select>
-        @error('sous_direction')
+        @error('acts')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
