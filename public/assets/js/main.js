@@ -3426,7 +3426,7 @@ $('#corcom').on('click',function()
                   '<label>EMPLOIS BUDGETAIRES Vacants ou excédent </label>'+
                   '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="bg_vacant">'+
                   '<label>CLASSIFICATION CATEGORIE </label>'+
-                  '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="cl_cat">'+
+                  '<input type="text" class="form-control" id="cl_cat">'+
                   '<label>CLASSIFICATION MOYENNE </label>'+
                   '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="cl_moy">'+
                   '</div>'+
@@ -4074,7 +4074,7 @@ $('#funt').on('click',function()
                           '<label>EMPLOIS BUDGETAIRES Vacants ou excédent </label>'+
                           '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="bg_vacant">'+
                           '<label>CLASSIFICATION CATEGORIE </label>'+
-                          '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="cl_cat">'+
+                          '<input type="text" class="form-control" id="cl_cat">'+
                           '<label>CLASSIFICATION MOYENNE </label>'+
                           '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="cl_moy">'+
                           '</div>'+
