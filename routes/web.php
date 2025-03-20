@@ -150,6 +150,7 @@ Route::controller(EmploiBudgetController::class)->group(function(){
 
 Route::controller(AdminController::class)->group(function(){
     Route::get('/admin','index')->name('Admin');
+    Route::get('/admin/delete/{id}','delete_account')->name('delete.account');
     Route::post('/insert/account','insert_account')->name('account_insertion');
     Route::post('/login/account','access_login')->name('access_login');
 });

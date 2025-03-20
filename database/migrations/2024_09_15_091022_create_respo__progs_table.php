@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('respo__progs', function (Blueprint $table) {
             $table->integer('id_rp')->primary();
             $table->date('Date_installation_rp');
-            $table->integer('id_nin');
+            $table->integer('id_nin')->nullable();
             $table->foreign('id_nin')->references('id_nin')->on('personnes');
         });
 

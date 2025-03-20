@@ -41,7 +41,7 @@
             @csrf
             <div class="col-md-3">
               <label for="nome" class="form-label">Nom</label>
-              <input type="text" class="form-control @error('nome') is-invalid @enderror" id="nome" name="nome" value="{{ old('nome') }}" required>
+              <input type="text" class="form-control @error('nome') is-invalid @enderror" id="nome" name="nome" value="{{$account->nome ?? old('nome') }}" required>
               @error('nome')
                   <div class="invalid-feedback">{{ $message }}</div>
               @enderror
@@ -49,7 +49,7 @@
       
           <div class="col-md-3">
               <label for="prenom" class="form-label">Prenom</label>
-              <input type="text" class="form-control @error('prenom') is-invalid @enderror" id="prenom" name="prenom" value="{{ old('prenom') }}" required>
+              <input type="text" class="form-control @error('prenom') is-invalid @enderror" id="prenom" name="prenom" value="{{$account->prenom ??  old('prenom') }}" required>
               @error('prenom')
                   <div class="invalid-feedback">{{ $message }}</div>
               @enderror
@@ -58,7 +58,10 @@
           <div class="col-md-6">
               <label for="validationCustomUsername" class="form-label">Local Email</label>
               <div class="input-group has-validation">
-                  <input type="text" class="form-control @error('email') is-invalid @enderror" id="validationCustomUsername" name="email" value="{{ old('email') }}" required>
+                @php
+                $emailParts = explode('@', optional($account)->email ?? old('email'));
+                @endphp
+                  <input type="text" class="form-control @error('email') is-invalid @enderror" id="validationCustomUsername" name="email" value="{{$emailParts[0] ?? old('email') }}" required>
                   <span class="input-group-text" id="email">@mcomm.local</span>
                   @error('email')
                       <div class="invalid-feedback">{{ $message }}</div>
@@ -291,12 +294,12 @@
                           </td>
                           <td>
                             <div class="action">
-                              <button class="text-warning">
+                              <a href="/admin?idedit={{$account->id}}" class="text-warning">
                                 <i class="fas fa-user-edit"></i>
-                              </button>
-                              <button class="text-danger">
-                                <i class="lni lni-trash-can"></i>
-                              </button>
+                              </a>
+                              <a href="/admin/delete/{{$account->id}}" class="text-danger">
+                                <i  class="lni lni-trash-can"></i>
+                              </a>
                             </div>
                           </td>
                         </tr>

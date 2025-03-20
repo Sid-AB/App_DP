@@ -19,8 +19,38 @@ use Illuminate\Support\Facades\Hash;
 class AdminController extends Controller
 {
     //
-   public function index()
+   public function index(Request $request)
     {
+        if(isset($request['idedit']))
+        {
+        //dd($request);
+        $account=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_action','nom_action_ar','num_sous_prog')
+        ->join('multimedia','multimedia.related_id','=','id')
+        ->join('actions','actions.id_ra','=','accounts.id_ra')
+        ->join('programmes','programmes.id_rp','=','accounts.id_rp')
+        ->where('id',$request['idedit'])
+        ->first();
+        if(!isset($account))
+        {
+            $account=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_action','nom_action_ar','num_sous_prog')
+            ->join('multimedia','multimedia.related_id','=','id')
+            ->join('actions','actions.id_ra','=','accounts.id_ra')
+            //->join('programmes','programmes.id_rp','=','accounts.id_rp')
+            ->where('id',$request['idedit'])
+            ->first();
+            if(!isset($account))
+            {
+                $account=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_action','nom_action_ar','num_sous_prog')
+                ->join('multimedia','multimedia.related_id','=','id')
+                //->join('actions','actions.id_ra','=','accounts.id_ra')
+                ->join('programmes','programmes.id_rp','=','accounts.id_rp')
+                ->where('id',$request['idedit'])
+                ->first();
+            }
+        }
+        //$resact=Action::where('id_ra',$account->id_ra)->get();
+       // dd( $account);
+        }
         $prog=Programme::get();
         $sprog=SousProgramme::get();
         $act=Action::get();
@@ -30,7 +60,7 @@ class AdminController extends Controller
         {
             $accounts=Accounts::get();
         }
-        return view('Admin.index',compact('accounts','prog','sprog','act'));
+        return view('Admin.index',compact('accounts','prog','sprog','act','account'));
     }
 
 
@@ -76,6 +106,8 @@ class AdminController extends Controller
             $id_res_prg=$res_prg->id_rp;
             $prog=Programme::where('num_prog',$validated['progs'])->first();
             $prog->id_rp=$id_res_prg;
+            $prog->update();
+           // $act->update();
            // $sous_prog=SousProgramme::where('num_sous_prog',$validated['sous_progs'])->first();
             //$act=Action::where('num_action',isset($validated['acts']))->first();
             //dd($res_prg);
@@ -90,8 +122,10 @@ class AdminController extends Controller
             $id_res_act=$res_act->id_ra;
            // $prog=Programme::where('num_prog',$validated['progs'])->first();
            // $sous_prog=SousProgramme::where('num_sous_prog',$validated['sous_progs'])->first();
-            $act=Action::where('num_action',isset($validated['acts']))->first();
+            $act=Action::where('num_action',$validated['acts'])->first();
             $act->id_ra=$id_res_act;
+          //  $prog->update();
+            $act->update();
            // dd($res_act);
         }
 
@@ -123,7 +157,7 @@ class AdminController extends Controller
            // dd($res_Min->id_min);
         }
 
-        $account = Accounts::create([
+        $account = Accounts::updateOrCreate([
             'id'=>$uniqueId,
             'nome' => $validated['nome'],
             'prenom' => $validated['prenom'],
@@ -178,5 +212,14 @@ class AdminController extends Controller
         'account' => $user->code_generated, // If using Laravel Sanctum
     ]);
 }
-    
+    function delete_account($id)
+    {
+        $account=Accounts::find($id);
+        if($account)
+        {
+            $account->delete();
+            return back()->with('success', 'User deleted successfully!');
+        }
+        return back()->with('unsuccess', 'User deleted unsuccessfully!');
+    }
 }
