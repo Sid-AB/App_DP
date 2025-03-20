@@ -21,18 +21,20 @@ class AdminController extends Controller
     //
    public function index(Request $request)
     {
+        $account=null;
         if(isset($request['idedit']))
         {
         //dd($request);
-        $account=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_action','nom_action_ar','num_sous_prog')
+        $account=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_action','nom_action_ar','num_sous_prog','num_prog')
         ->join('multimedia','multimedia.related_id','=','id')
-        ->join('actions','actions.id_ra','=','accounts.id_ra')
-        ->join('programmes','programmes.id_rp','=','accounts.id_rp')
+        ->join('actions','actions.id_ra','=','accounts.id_min')
+        ->join('programmes','programmes.id_rp','=','accounts.id_min')
         ->where('id',$request['idedit'])
         ->first();
+      
         if(!isset($account))
         {
-            $account=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_action','nom_action_ar','num_sous_prog')
+            $account=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_action','nom_action_ar','num_sous_prog','num_prog')
             ->join('multimedia','multimedia.related_id','=','id')
             ->join('actions','actions.id_ra','=','accounts.id_ra')
             //->join('programmes','programmes.id_rp','=','accounts.id_rp')
@@ -40,7 +42,7 @@ class AdminController extends Controller
             ->first();
             if(!isset($account))
             {
-                $account=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_action','nom_action_ar','num_sous_prog')
+                $account=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_action','nom_action_ar','num_sous_prog','num_prog')
                 ->join('multimedia','multimedia.related_id','=','id')
                 //->join('actions','actions.id_ra','=','accounts.id_ra')
                 ->join('programmes','programmes.id_rp','=','accounts.id_rp')
@@ -49,7 +51,7 @@ class AdminController extends Controller
             }
         }
         //$resact=Action::where('id_ra',$account->id_ra)->get();
-       // dd( $account);
+          //dd( $account);
         }
         $prog=Programme::get();
         $sprog=SousProgramme::get();
