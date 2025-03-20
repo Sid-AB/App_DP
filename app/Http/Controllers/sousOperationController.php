@@ -438,7 +438,7 @@ class sousOperationController extends Controller
                         } 
                     }
                 }
-                                 //dd($sousOp['code'] );
+                                 dd($sousOpCode);
            // dd( $operationData['operation']['code'] );
             $resultstructur[$t] = [
                 'groupedData' => $groupedData,

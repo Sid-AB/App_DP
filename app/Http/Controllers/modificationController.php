@@ -1432,7 +1432,7 @@ function delete_by_id($id)
                         }
                 }
                
-                dd($gropos);
+                //dd($gropos);
                 $grpop->delete();
             }
             $deletmodel->delete();
