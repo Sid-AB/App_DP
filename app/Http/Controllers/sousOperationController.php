@@ -447,7 +447,7 @@ class sousOperationController extends Controller
             ];
              }
          }
-       //dd($resultstructur);
+      // dd($resultstructur['T4']);
       
         if (isset($resultstructur)) {
            /*return view   ('impression.liste_impression_dpia_4tables_combinées', compact(
