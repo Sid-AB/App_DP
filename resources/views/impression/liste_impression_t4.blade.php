@@ -145,7 +145,7 @@
         $code_separer = explode('-', $sousOp['code']);
         $codeextr = end($code_separer);
         $avantDernierePartie = $code_separer[count($code_separer) - 2] ?? null;
-        dd( $codeextr);
+        //dd( $codeextr);
         $nom = $avantDernierePartie ? App\Models\SousOperation::where('code_sous_operation', $sousOp['code'])->first()->nom_sous_operation : null;
         //dd($nom);
        
