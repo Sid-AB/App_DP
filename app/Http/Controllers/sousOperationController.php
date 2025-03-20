@@ -438,7 +438,7 @@ class sousOperationController extends Controller
                         } 
                     }
                 }
-                                 dd($sousOpCode);
+                                 //dd($sousOpCode);
            // dd( $operationData['operation']['code'] );
             $resultstructur[$t] = [
                 'groupedData' => $groupedData,
@@ -447,7 +447,7 @@ class sousOperationController extends Controller
             ];
              }
          }
-       // dd($resultstructur);
+       //dd($resultstructur);
       
         if (isset($resultstructur)) {
            /*return view   ('impression.liste_impression_dpia_4tables_combinées', compact(
