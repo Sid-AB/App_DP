@@ -21,18 +21,20 @@ class AdminController extends Controller
     //
    public function index(Request $request)
     {
+        $account=null;
         if(isset($request['idedit']))
         {
         //dd($request);
-        $account=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_action','nom_action_ar','num_sous_prog')
+        $account=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_action','nom_action_ar','num_sous_prog','num_prog')
         ->join('multimedia','multimedia.related_id','=','id')
-        ->join('actions','actions.id_ra','=','accounts.id_ra')
-        ->join('programmes','programmes.id_rp','=','accounts.id_rp')
+        ->join('actions','actions.id_ra','=','accounts.id_min')
+        ->join('programmes','programmes.id_rp','=','accounts.id_min')
         ->where('id',$request['idedit'])
         ->first();
+      
         if(!isset($account))
         {
-            $account=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_action','nom_action_ar','num_sous_prog')
+            $account=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_action','nom_action_ar','num_sous_prog','num_prog')
             ->join('multimedia','multimedia.related_id','=','id')
             ->join('actions','actions.id_ra','=','accounts.id_ra')
             //->join('programmes','programmes.id_rp','=','accounts.id_rp')
@@ -40,7 +42,7 @@ class AdminController extends Controller
             ->first();
             if(!isset($account))
             {
-                $account=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_action','nom_action_ar','num_sous_prog')
+                $account=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_action','nom_action_ar','num_sous_prog','num_prog')
                 ->join('multimedia','multimedia.related_id','=','id')
                 //->join('actions','actions.id_ra','=','accounts.id_ra')
                 ->join('programmes','programmes.id_rp','=','accounts.id_rp')
@@ -49,7 +51,7 @@ class AdminController extends Controller
             }
         }
         //$resact=Action::where('id_ra',$account->id_ra)->get();
-       // dd( $account);
+          //dd( $account);
         }
         $prog=Programme::get();
         $sprog=SousProgramme::get();
@@ -156,8 +158,44 @@ class AdminController extends Controller
             $act->update();
            // dd($res_Min->id_min);
         }
+        $account = Accounts::where('email',$validated['email']."@mcomm.local");
+       // dd($account);
+        if($account)
+        {
+            $account->update([
+               
+                'nome' => $validated['nome'],
+                'prenom' => $validated['prenom'],
+                'sous_direction' => $validated['sous_direction'],
+              
+                'id_min'=>$id_res_Min,
+                'id_ra'=>$id_res_act,
+                'id_rp'=>$id_res_prg,
+                'code_generated' => Hash::make($validated['code_generated']), // Hash the password
+                'post_occupe' => $validated['post_occupe'],
+                'privilege' => $validated['privilege'],
+            ]);
 
-        $account = Accounts::updateOrCreate([
+            $file=$request->file('profile_picture');
+            if($account)
+            {
+                    $media= DB::table('multimedia')->insert([
+                    'nom_fichier' => $file->getClientOriginalName(),
+                    'filepath' => $filePath,
+                    'filetype' => $file->getClientMimeType(),
+                    'size' => $file->getSize(),
+                    'date_upload'=>now(),
+                    'uploaded_by' => 1, // Assurez-vous que l'utilisateur est connecté
+                    'related_id' => $account->id,
+      
+                ]);
+                if($media)
+                {
+                    return back()->with('success', 'update registered successfully!');
+                }
+            }
+        }else
+        {$account = Accounts::updateOrCreate([
             'id'=>$uniqueId,
             'nome' => $validated['nome'],
             'prenom' => $validated['prenom'],
@@ -189,6 +227,7 @@ class AdminController extends Controller
                     return back()->with('success', 'User registered successfully!');
                 }
             }
+        }
             return response()->json(['message' => 'Account created unsuccessfully!'], 404);
         
     }

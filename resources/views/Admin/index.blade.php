@@ -72,9 +72,9 @@
           <div class="col-md-4">
               <label for="sous_direction" class="form-label">Sous Direction</label>
               <select class="form-select @error('sous_direction') is-invalid @enderror" id="sous_direction" name="sous_direction" required>
-                  <option selected disabled value="">Choisir...</option>
-                  <option value="DEV">Développement</option>
-                  <option value="MEDIA">Media</option>
+                  <option selected {{ is_null($account) ? 'disabled' :''}} value="">Choisir...</option>
+                  <option value="DEV" {{!is_null($account) ?? $account->sous_direction == 'DEV' ? 'selected':''}}>Développement</option>
+                  <option value="MEDIA" {{ !is_null($account) ?? $account->sous_direction == 'MEDIA' ? 'selected':''}}>Media</option>
               </select>
               @error('sous_direction')
                   <div class="invalid-feedback">{{ $message }}</div>
@@ -84,9 +84,9 @@
           <div class="col-md-4">
               <label for="post_occupe" class="form-label">Position</label>
               <select class="form-select @error('post_occupe') is-invalid @enderror" id="post_occupe" name="post_occupe" required>
-                  <option selected disabled value="">Choisir...</option>
-                  <option value="DIR">Directeur</option>
-                  <option value="SOUS_DIR">Sous Directeur</option>
+                  <option selected {{ is_null($account) ? 'disabled' :''}} value="">Choisir...</option>
+                  <option value="DIR"  {{ !is_null($account) ?? $account->post_occupe == 'DIR' ? 'selected':''}}>Directeur</option>
+                  <option value="SOUS_DIR"  {{ !is_null($account) ?? $account->post_occupe == 'SOUS_DIR' ? 'selected':''}}>Sous Directeur</option>
               </select>
               @error('post_occupe')
                   <div class="invalid-feedback">{{ $message }}</div>
@@ -96,9 +96,9 @@
           <div class="col-md-3">
               <label for="privilege" class="form-label">Privilège</label>
               <select class="form-select @error('privilege') is-invalid @enderror" id="privilege" name="privilege" required>
-                  <option selected disabled value="">Choisir...</option>
-                  <option value="2">Insertion</option>
-                  <option value="1">Modification</option>
+                  <option selected {{ is_null($account) ? 'disabled' :''}} value="">Choisir...</option>
+                  <option value="2" {{ !is_null($account) ?? $account->privilege == 2 ? 'selected':''}}>Insertion</option>
+                  <option value="1" {{ !is_null($account) ?? $account->privilege == 1 ? 'selected':''}}>Modification</option>
               </select>
               @error('privilege')
                   <div class="invalid-feedback">{{ $message }}</div>
@@ -108,9 +108,9 @@
           <div class="col-md-4">
             <label for="progs" class="form-label">Prgrammes</label>
             <select class="form-select @error('progs') is-invalid @enderror" id="progs" name="progs" required>
-                <option selected disabled value="">Choisir...</option>
+                <option selected {{ is_null($account) ? 'disabled' :''}} value="">Choisir...</option>
                 @foreach ($prog as $progs)
-                <option value="{{$progs['num_prog']}}">{{$progs['num_prog']}} {{$progs['nom_prog']}}</option>
+                <option value="{{$progs['num_prog']}}"  {{ !is_null($account) ?? $account->num_prog == $progs['num_prog'] ? 'selected':''}}>{{$progs['num_prog']}} {{$progs['nom_prog']}}</option>
                 @endforeach
                 
             </select>
@@ -122,9 +122,9 @@
         <div class="col-md-4">
           <label for="sous_progs" class="form-label">Sous Prgrammes</label>
           <select class="form-select @error('sous_progs') is-invalid @enderror" id="sous_progs" name="sous_progs" required>
-              <option selected disabled value="">Choisir...</option>
+              <option selected {{ is_null($account) ? 'disabled' :''}} value="">Choisir...</option>
               @foreach ($sprog as $sprogs)
-              <option value="{{$sprogs['num_sous_prog']}}">{{$sprogs['num_sous_prog']}} {{$sprogs['nom_sous_prog']}}</option>
+              <option value="{{$sprogs['num_sous_prog']}}" {{!is_null($account) ?? $account->num_sous_prog == $sprogs['num_sous_prog'] ? 'selected':''}}>{{$sprogs['num_sous_prog']}} {{$sprogs['nom_sous_prog']}}</option>
               @endforeach
           </select>
           @error('sous_progs')
@@ -135,9 +135,9 @@
       <div class="col-md-4">
         <label for="acts" class="form-label">Actions </label>
         <select class="form-select @error('acts') is-invalid @enderror" id="acts" name="acts" required>
-            <option selected disabled value="">Choisir...</option>
+            <option selected {{ is_null($account) ? 'disabled' :''}} value="">Choisir...</option>
             @foreach ($act as $acts)
-            <option value="{{$acts['num_action']}}">{{$acts['num_action']}} {{$acts['nom_action']}}</option>
+            <option value="{{$acts['num_action']}}" {{ !is_null($account) ?? $account->num_action == $acts['num_action'] ? 'selected':''}}>{{$acts['num_action']}} {{$acts['nom_action']}}</option>
             @endforeach
         </select>
         @error('acts')
