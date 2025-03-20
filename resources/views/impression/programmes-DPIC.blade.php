@@ -760,7 +760,30 @@
 </table>
 @php
     use Illuminate\Support\Facades\DB;
+    $indiceProg = []; 
 @endphp
+         
+           
+                @if(isset($prgrmsousact) && count($prgrmsousact) > 0)
+                    @php 
+                    $total_t1_ae = $total_t1_cp = 0;
+                    $total_t2_ae = $total_t2_cp = 0;
+                    $total_t3_ae = $total_t3_cp = 0;
+                    $total_t4_ae = $total_t4_cp = 0;
+                    @endphp
+                    {{-- Ligne principale pour le programme --}}
+                    <tr class="program-title">
+                    @foreach($prgrmsousact as $programme)
+                    @php
+                        $code =explode('-',$programme['num_prog']);
+                        $last =count($code)-1;
+                        //dd($code);
+                    
+                    
+                        $code = $code[$last];
+                        $indiceProg[] = count($indiceProg) + 1;
+                        //dd($indiceProg);
+                    @endphp
 <div class="page-break"> </div>
 <h1 style=" font-family: Arial Narrow, sans-serif; font-size: 14pt; font-weight: bold;"> 1.2.3. PROGRAMMATION DES CREDITS DISPONIBLES (CREDITS OUVERTS + CREDITS ATTENDUS DEVENUS DISPONIBLES) :</h1>
 <table >
@@ -786,29 +809,7 @@
                     </tr>
                
                 <tbody>
-                @php
-                    $indiceProg = []; 
-                @endphp
-                @if(isset($prgrmsousact) && count($prgrmsousact) > 0)
-                    @php 
-                    $total_t1_ae = $total_t1_cp = 0;
-                    $total_t2_ae = $total_t2_cp = 0;
-                    $total_t3_ae = $total_t3_cp = 0;
-                    $total_t4_ae = $total_t4_cp = 0;
-                    @endphp
-                    {{-- Ligne principale pour le programme --}}
-                    <tr class="program-title">
-                    @foreach($prgrmsousact as $programme)
-                    @php
-                        $code =explode('-',$programme['num_prog']);
-                        $last =count($code)-1;
-                        //dd($code);
-                    
-                    
-                        $code = $code[$last];
-                        $indiceProg[] = count($indiceProg) + 1;
-                        //dd($indiceProg);
-                    @endphp
+              
                     <tr class="program-title">
                     <td class="program-title" >{{ $code }}</td>
                         <td class="program-title">Programme :  {{ $programme['nom_prog']}}</td>
@@ -902,10 +903,10 @@
                         $total_t4_ae += $programme['total_AE_init_t4'];
                         $total_t4_cp += $programme['total_CP_init_t4'];
                     @endphp
-                    @endforeach  
+                    </tbody>
                     {{-- Total des actions/crédits ouverts pour le programme --}}
                     <tr class="totals">
-                        <th class="totals" colspan="2">TOTAL ACTIONS/CREDITS OUVERTS</th>
+                        <th class="totals" colspan="2">TOTAL ACTIONS/CREDITS DISPONIBLES</th>
                
                        
                         <td >{{ number_format((float)$total_t1_ae, 2, '.', ',')}}</td>
@@ -917,17 +918,55 @@
                         <td>{{ number_format((float)$total_t4_ae, 2, '.', ',')}}</td>
                         <td>{{ number_format((float)$total_t4_cp, 2, '.', ',')}}</td>
                     </tr>
-                 
+                    </table>
+                @endforeach
                 @else 
-                    {{-- Boucle sur les programmes --}}
-                    @for($i = 0; $i < count($programmes); $i++)
-                        @foreach ($programmes[$i] as $programme)
-                            @php
-                                $code = explode('-', $programme['code']);
-                                $last = count($code) - 1;
-                                $code = $code[$last];
-                            @endphp
-                    {{-- Ligne principale pour le programme --}}
+                <div class="page-break"> </div>
+                <h1 style=" font-family: Arial Narrow, sans-serif; font-size: 14pt; font-weight: bold;"> 1.2.3. PROGRAMMATION DES CREDITS DISPONIBLES (CREDITS OUVERTS + CREDITS ATTENDUS DEVENUS DISPONIBLES) :</h1>
+                <table >
+    
+    <tr>
+   
+    {{-- Boucle sur les programmes --}}
+    @for($i = 0; $i < count($programmes); $i++)
+    @php
+                $totalAE_t1 = $totalAE_t2 = $totalAE_t3 = $totalAE_t4 = 0;
+                $totalCP_t1 = $totalCP_t2 = $totalCP_t3 = $totalCP_t4 = 0;
+
+        
+                @endphp
+        @foreach ($programmes[$i] as $programme)
+            @php
+                $code = explode('-', $programme['code']);
+                $last = count($code) - 1;
+                $code = $code[$last];
+            @endphp
+
+            {{-- Nouveau tableau pour chaque programme --}}
+            <div>
+            <table >
+            
+                    <tr>
+                        <th  style="border: none; background: white;"  colspan=2></th>
+                        <th colspan="2" class="T">T1</th>
+                        <th colspan="2" class="T">T2</th>
+                        <th colspan="2" class="T">T3</th>
+                        <th colspan="2" class="T">T4</th>
+                    </tr>
+                    <tr>
+                        <th class="T">Code</th>
+                        <th class="T">Le Programme/Sous-programmes/Actions</th>
+                        <th>AE</th>
+                        <th>CP</th>
+                        <th>AE</th>
+                        <th>CP</th>
+                        <th>AE</th>
+                        <th>CP</th>
+                        <th>AE</th>
+                        <th>CP</th>
+                    </tr>
+               
+                <tbody>
                     <tr class="program-title">
                         <td class="program-title" >{{ $code }}</td>
                         <td class="program-title">Programme :  {{ $programme['nom'] }}</td>
@@ -1051,7 +1090,7 @@
 
                     {{-- Total des actions/crédits ouverts pour le programme --}}
                     <tr class="totals">
-                        <th class="totals" colspan="2">TOTAL DES ACTIONS/CREDITS OUVERTS</th>
+                        <th class="totals" colspan="2">TOTAL DES ACTIONS/CREDITS DISPONIBLES</th>
                         @if(!empty($programme['Total']))
                         <td>{{ number_format((float)$programme['Total']['TotalT1_AE'], 2, '.', ',') }}</td>
                         <td>{{ number_format((float)$programme['Total']['TotalT1_CP'], 2, '.', ',') }}</td>
@@ -1073,15 +1112,15 @@
                             <td >0</td>
                         @endif
                     </tr>
-                    @endforeach
-                    @endfor
-                    @endif
-                </tbody>
-            </table>
-            </div>
-         
-</tbody>
-</table>
+                    </tbody>
+           </table>
+           </div>
+           {{-- Ajouter un espace entre les tableaux --}}
+        
+       @endforeach
+   @endfor
+   </table>
+   @endif
 <div class="page-break"> </div>
 <h1 style="text-align: center; font-family: Cambria (Titres), sans-serif; font-size: 20pt; font-weight: bold;">
     2<span style="position: relative; top: -5px; font-size: 0.6em;">ème </span> PARTIE:

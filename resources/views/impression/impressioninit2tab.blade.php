@@ -142,6 +142,7 @@ Ministère de la Communication
             $last =count($code)-1;
             //dd($code);
             $code = $code[$last];
+            //dd($programme);
            
             @endphp
                 <tr class="program-title" >
