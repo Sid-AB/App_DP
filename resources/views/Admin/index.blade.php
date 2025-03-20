@@ -107,7 +107,7 @@
           {{-- cote progs  --}}
           <div class="col-md-4">
             <label for="progs" class="form-label">Prgrammes</label>
-            <select class="form-select @error('progs') is-invalid @enderror" id="progs" name="progs" required>
+            <select class="form-select @error('progs') is-invalid @enderror" id="progs" name="progs" >
                 <option selected {{ is_null($account) ? 'disabled' :''}} value="">Choisir...</option>
                 @foreach ($prog as $progs)
                 <option value="{{$progs['num_prog']}}"  {{ !is_null($account) ?? $account->num_prog == $progs['num_prog'] ? 'selected':''}}>{{$progs['num_prog']}} {{$progs['nom_prog']}}</option>
@@ -121,7 +121,7 @@
 
         <div class="col-md-4">
           <label for="sous_progs" class="form-label">Sous Prgrammes</label>
-          <select class="form-select @error('sous_progs') is-invalid @enderror" id="sous_progs" name="sous_progs" required>
+          <select class="form-select @error('sous_progs') is-invalid @enderror" id="sous_progs" name="sous_progs">
               <option selected {{ is_null($account) ? 'disabled' :''}} value="">Choisir...</option>
               @foreach ($sprog as $sprogs)
               <option value="{{$sprogs['num_sous_prog']}}" {{!is_null($account) ?? $account->num_sous_prog == $sprogs['num_sous_prog'] ? 'selected':''}}>{{$sprogs['num_sous_prog']}} {{$sprogs['nom_sous_prog']}}</option>
@@ -134,7 +134,7 @@
 
       <div class="col-md-4">
         <label for="acts" class="form-label">Actions </label>
-        <select class="form-select @error('acts') is-invalid @enderror" id="acts" name="acts" required>
+        <select class="form-select @error('acts') is-invalid @enderror" id="acts" name="acts" >
             <option selected {{ is_null($account) ? 'disabled' :''}} value="">Choisir...</option>
             @foreach ($act as $acts)
             <option value="{{$acts['num_action']}}" {{ !is_null($account) ?? $account->num_action == $acts['num_action'] ? 'selected':''}}>{{$acts['num_action']}} {{$acts['nom_action']}}</option>
@@ -241,6 +241,9 @@
                             <h6>Privilège</h6>
                           </th>
                           <th>
+                            <h6>Responsable</h6>
+                          </th>
+                          <th>
                             <h6>Decision</h6>
                           </th>
                           <th>
@@ -253,7 +256,7 @@
                         @php
                         $i=1;    
                         @endphp
-                        @foreach($accounts as $account)
+                        @foreach($accounts as $accountloop)
                         <tr>
                           <td>
                             <div class="min-width">
@@ -261,23 +264,23 @@
                             </div>
                           </td>
                           <td class="min-width">
-                            <p>{{$account->nome}} {{$account->prenom}}</p>
+                            <p>{{$accountloop->nome}} {{$accountloop->prenom}}</p>
                           </td>
                           <td class="min-width">
-                            <p><a href="#0">{{$account->email}}</a></p>
+                            <p><a href="#0">{{$accountloop->email}}</a></p>
                           </td>
                           <td class="min-width">
-                            <p>{{$account->sous_direction}}</p>
+                            <p>{{$accountloop->sous_direction}}</p>
                           </td>
                           <td class="min-width">
-                            <p>{{$account->post_occupe}}</p>
+                            <p>{{$accountloop->post_occupe}}</p>
                           </td>
-                          @if($account->privilege == 2)
+                          @if($accountloop->privilege == 2)
                           <td class="min-width">
                             <span class="status-btn active-btn">Insertion</span>
                           </td>
                           @else
-                            @if($account->privilege == 1)
+                            @if($accountloop->privilege == 1)
                             <td class="min-width">
                               <span class="status-btn active-btn">Modifcation</span>
                             </td>
@@ -289,15 +292,21 @@
                           @endif
                           <td>
                             <div class="min-width">
-                              <a href="/live-pdf/{{$account->related_id}}" target="_blank"><i class="fas fa-file-alt"></i></a>
+                              
+                              <p id="{{$accountloop->id}}"></p>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="min-width">
+                              <a href="/live-pdf/{{$accountloop->id}}" target="_blank"><i class="fas fa-file-alt"></i></a>
                             </div>
                           </td>
                           <td>
                             <div class="action">
-                              <a href="/admin?idedit={{$account->id}}" class="text-warning">
+                              <a href="/admin?idedit={{$accountloop->id}}" class="text-warning">
                                 <i class="fas fa-user-edit"></i>
                               </a>
-                              <a href="/admin/delete/{{$account->id}}" class="text-danger">
+                              <a href="/admin/delete/{{$accountloop->id}}" class="text-danger">
                                 <i  class="lni lni-trash-can"></i>
                               </a>
                             </div>

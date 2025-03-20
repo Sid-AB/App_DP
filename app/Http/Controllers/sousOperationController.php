@@ -167,20 +167,28 @@ class sousOperationController extends Controller
     {
 
         $act1=explode('_',$act);
-       /* $code=$request['code'];
+        if(count($act1) > 1)
+        {
+            $act=$act1[1];
+        }
+        $code=$request['code'];
         
         if(!isset($code))
         {
             return back()->with('unsuccess', 'User registered indefined!');
         }
-        $account =Accounts::where('code_generated',$code)->first();
-        if(!isset($account))
+        $account =Accounts::join('actions','actions.id_ra','accounts.id_ra')->where('code_generated',$code)->where('actions.num_action',$act)->first();
+       // dd($act,$account,$code);
+         if(!isset($account))
         {
+         $account =Accounts::join('actions','actions.id_ra','accounts.id_ra')
+         ->join('sous_actions','sous_actions.num_action','actions.num_action')
+         ->where('code_generated',$code)->where('sous_actions.num_action',$act)->first();
+         //dd($act,$account);
+         if(!isset($account))
+         {
             return back()->with('unsuccess', 'User registered indefined!');
-        }*/
-        if(count($act1) > 1)
-        {
-            $act=$act1[1];
+        }
         }
    
             $act=Action::where('num_action',$act)->first();

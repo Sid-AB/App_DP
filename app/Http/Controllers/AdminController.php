@@ -26,37 +26,51 @@ class AdminController extends Controller
         {
         //dd($request);
         $account=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_action','nom_action_ar','num_sous_prog','num_prog')
-        ->join('multimedia','multimedia.related_id','=','id')
+        //->join('multimedia','multimedia.related_id','=','id')
         ->join('actions','actions.id_ra','=','accounts.id_min')
         ->join('programmes','programmes.id_rp','=','accounts.id_min')
         ->where('id',$request['idedit'])
         ->first();
-      
+            
         if(!isset($account))
         {
-            $account=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_action','nom_action_ar','num_sous_prog','num_prog')
-            ->join('multimedia','multimedia.related_id','=','id')
-            ->join('actions','actions.id_ra','=','accounts.id_ra')
+            $account=Accounts::join('actions','actions.id_ra','=','accounts.id_ra')
+            //->join('multimedia','multimedia.related_id','=','id')
+            ->select('nome','prenom','email','post_occupe','sous_direction','privilege','num_action','nom_action_ar','num_sous_prog','accounts.id_ra')
             //->join('programmes','programmes.id_rp','=','accounts.id_rp')
             ->where('id',$request['idedit'])
             ->first();
             if(!isset($account))
             {
-                $account=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_action','nom_action_ar','num_sous_prog','num_prog')
-                ->join('multimedia','multimedia.related_id','=','id')
+                $account=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_prog','accounts.id_rp')
+                //->join('multimedia','multimedia.related_id','=','id')
                 //->join('actions','actions.id_ra','=','accounts.id_ra')
                 ->join('programmes','programmes.id_rp','=','accounts.id_rp')
                 ->where('id',$request['idedit'])
                 ->first();
+                if(!isset($account))
+                {
+                    $account=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege',)
+                //->join('multimedia','multimedia.related_id','=','id')
+                //->join('actions','actions.id_ra','=','accounts.id_ra')
+                //->join('programmes','programmes.id_rp','=','accounts.id_rp')
+                ->where('id',$request['idedit'])
+                ->first();
+                }
             }
+
         }
         //$resact=Action::where('id_ra',$account->id_ra)->get();
           //dd( $account);
         }
+        else
+        {
+           
+        }
         $prog=Programme::get();
         $sprog=SousProgramme::get();
         $act=Action::get();
-        $accounts=Accounts::join('multimedia','multimedia.related_id','=','id')->last();
+        $accounts=Accounts::get();
         //dd($accounts);
         if(isset($accounts) && count($accounts) == 0)
         {
@@ -79,9 +93,9 @@ class AdminController extends Controller
             'code_generated' => 'required|min:6', // Requires password_confirmation field
             'post_occupe' => 'required|string|max:255',
             'privilege' => 'required|string|max:255',
-            'progs'=>'string|max:255',
-            'sous_progs'=>'string|max:255',
-            'acts'=>'string|max:255',
+            'progs'=>'nullable|string|max:255',
+            'sous_progs'=>'nullable|string|max:255',
+            'acts'=>'nullable|string|max:255',
             'profile_picture' => 'nullable|mimes:jpg,png,jpeg,pdf|max:2048', // Validate image
 
         ]);
