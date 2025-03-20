@@ -1431,10 +1431,11 @@ function delete_by_id($id)
                             
                            
                         }
+                         $grpop->delete();
                 }
                
                // dd($gropos);
-                $grpop->delete();
+               
             }
             $deletmodel->delete();
             $deletmodelA->delete();
