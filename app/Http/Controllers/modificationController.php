@@ -1343,6 +1343,7 @@ function delete_by_id($id)
 {
     $succe_pr_gr=false;
     $split=explode("_",$id);
+    $gropos=null;
     //dd($split);
     if($split[0] == 'prog')
     {

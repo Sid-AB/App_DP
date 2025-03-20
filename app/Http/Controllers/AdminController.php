@@ -56,7 +56,7 @@ class AdminController extends Controller
         $prog=Programme::get();
         $sprog=SousProgramme::get();
         $act=Action::get();
-        $accounts=Accounts::join('multimedia','multimedia.related_id','=','id')->get();
+        $accounts=Accounts::join('multimedia','multimedia.related_id','=','id')->last();
         //dd($accounts);
         if(isset($accounts) && count($accounts) == 0)
         {
@@ -175,7 +175,7 @@ class AdminController extends Controller
                 'post_occupe' => $validated['post_occupe'],
                 'privilege' => $validated['privilege'],
             ]);
-
+            $account=$account->first();
             $file=$request->file('profile_picture');
             if($account)
             {
