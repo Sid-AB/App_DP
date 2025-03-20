@@ -93,13 +93,17 @@
       <i class="fas fa-print"></i> Emploi Bugdetaire
       </a>
       @endif
+      <div class="print_btn_holder">
       <button class="element" id="expExcel" style="display: none">
-        <i class="fas fa-print" ></i> Export Excel
+        <i class="fas fa-file-excel"></i> Export
       </button>
-      <hr>
+      <button class="element" id="expWord" style="display: none">
+        <i class="fas fa-file-word"></i></i> Export
+      </button>
       <button class="element" id="vider_t" style="display: none">
-        <i class="fas fa-print" ></i> Vider Tableaux
+        <i class="fas fa-recycle"></i> Vider
       </button>
+    </div>
   </div>
   <div class="menu-container-btn">
     <div class="menu-toggle-btn">

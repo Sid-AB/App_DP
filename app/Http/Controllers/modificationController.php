@@ -43,7 +43,7 @@ class modificationController extends Controller
 
         //récupérer les données de request
         $data = $request->all();
-       //dd($request);
+       dd($request);
         // déterminer le type de données reçues est ce qu'ils sont T ou les valeurs qui sont dans tableau T[]
         $Tport = $data['Tport']; 
         $resultats = $data['result']; //les valeurs [code_sous_op,ae et cp]
@@ -1406,24 +1406,19 @@ function delete_by_id($id)
                            //dd($ops);
                             foreach($ops as $op)
                             {
-                                 //dd($ops);
-                                $sou_ops=SousOperation::where('code_operation','=',$op['code_operation '])->get();
-                               
-                                //dd($sou_ops);
-                                 if(!empty($sou_ops) && count($sou_ops) !=0)
+                                //dd($op);
+                                $sou_ops=SousOperation::where('code_operation','=',$op['code_operation'])->get();
+                                if($sou_ops)
                                 {
                                     dd($sou_ops);
                                     foreach($sou_ops as $sous_op)
                                     {
-                                       
-                                        if(!empty($sous_op)){
                                         $construit_p=ConstruireDPIA::find($sous_op->code_sous_operation);
-                                        dd($construit_p);
                                         if($construit_p)
                                         {
-                                            $construit_p->delete(); 
+                                            $construit_p->delete();
                                         }
-                                        $sous_op->delete();}
+                                        $sous_op->delete();
                                     }
                                    
                                 }

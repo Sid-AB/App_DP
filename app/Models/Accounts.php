@@ -17,7 +17,10 @@ class Accounts extends Model
         'sous_direction',
         'privilege',
         'responable',
-        'code_generated'
+        'code_generated',
+        'id_min',
+        'id_rp',
+        'id_ra'
     ];
 
     protected $hidden = [

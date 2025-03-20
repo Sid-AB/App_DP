@@ -450,7 +450,18 @@ class sousOperationController extends Controller
        // dd($resultstructur);
       
         if (isset($resultstructur)) {
-          /* return view*/
+           /*return view   ('impression.liste_impression_dpia_4tables_combinées', compact(
+                'resultstructur', 
+                'sousProgramme', 
+                'names', 
+                'namesT2', 
+                'namesT3', 
+                'namesT4', 
+                'portefeuille', 
+                'prog', 
+                'action', 
+                'years',
+            ));*/
          $pdf=SnappyPdf::loadView
             ('impression.liste_impression_dpia_4tables_combinées', compact(
                 'resultstructur', 

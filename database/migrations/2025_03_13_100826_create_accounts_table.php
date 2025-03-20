@@ -18,14 +18,32 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('post_occupe'); 
             $table->string('sous_direction'); 
-            $table->string('code_generated'); 
-            $table->string('privilege')->default('consluter'); // Account Status
+            $table->string('code_generated')->default(0); 
+            $table->integer('id_min')->nullable();
+            $table->foreign('id_min')->references('id_min')->on('ministres');
+            $table->integer('id_rp')->nullable();
+            $table->foreign('id_rp')->references('id_rp')->on('respo__progs');
+            $table->integer('id_ra')->nullable();
+            $table->foreign('id_ra')->references('id_ra')->on('respo__actions');
+            $table->string('privilege')->default(0); // Account Status
             $table->timestamps(); // created_at & updated_at
         });
+        DB::table('accounts')->insert([
+            [
+                'nome'=>'Ministre',
+                'prenom'=>'Ministre',
+                'email'=>'Ministre@mcomm.local',
+                'sous_direction'=>'Minitre',
+                'post_occupe'=>'Minitre',
+                'id_min'=>1,
+            ], 
+        ]);
     }
 
     public function down()
     {
         Schema::dropIfExists('accounts');
     }
+
+  
 };

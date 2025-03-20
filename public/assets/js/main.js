@@ -1248,14 +1248,14 @@ function add_newOPs_T4(id, value, key,code) {
             $('#' + key).after(row)
         }
 
-        var cpold=parseNumberWithoutCommas($('#'+key+' td:last').text());
+       /* var cpold=parseNumberWithoutCommas($('#'+key+' td:last').text());
         var aeold=parseNumberWithoutCommas($('#'+key+' td').eq(-2).text());
         
         var newcp=parseInt(cpold)+parseInt(parseNumberWithoutCommas(data_add_ops.CP_T4))
         var newae=parseInt(aeold)+parseInt(parseNumberWithoutCommas(data_add_ops.AE_T4)) 
         console.log('ae'+newae+'cp'+newcp)
         $('#'+key+' td:last').text(ValAccountingFigures(newcp))
-        $('#'+key+' td').eq(-2).text(ValAccountingFigures(newae))
+        $('#'+key+' td').eq(-2).text(ValAccountingFigures(newae))*/
 
         $('#ref' + idsz + ' #add_op').on('click', function () {
             var newKey=$(this).parent().attr('id');
@@ -4984,6 +4984,7 @@ function T4_table(id, T, id_s_act, port,code) {
     var io = 0;
     var iso = 0;
     var sousou=true
+    var sop_to_op=false;
         // Loop through each item in the JSON data
         $.each(data, function (key, value) {
             // Create a table row
@@ -5014,7 +5015,7 @@ function T4_table(id, T, id_s_act, port,code) {
             if (data_T_port.operation.length > 0 && data_T_port.operation.length > io) {
                var land=data_T_port.operation[io].code.length-5;
                console.log(data_T_port.operation[io].code+'-- code so split' +splitcode(data_T_port.operation[io].code, land)+'his leng'+land +"Key origin"+key)
-                if (key == splitcode(data_T_port.operation[io].code, land)) {
+                if (key == splitcode(data_T_port.operation[io].code, land)  ) {
                     row = '<tr class="ref'+key+'" id="ref'+ data_T_port.operation[io].code + '">' +
                         '<td scope="row" class="code" >' + key + '</td>' +
                         '<td ><p>' + value + '</p></td>' +
@@ -5024,14 +5025,29 @@ function T4_table(id, T, id_s_act, port,code) {
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T4">' +ValAccountingFigures (data_T_port.operation[io].values.cp_op) + '</td>' +
                         '</tr>';
                     io++;
-                }
+               
             }
-            if (data_T_port.sousOperation.length > 0 && data_T_port.sousOperation.length > iso) {
+        }
+            if (data_T_port.sousOperation.length > 0 && data_T_port.sousOperation.length > iso  ) {
                var land=data_T_port.sousOperation[iso].code.length-5;
-              // console.log(data_T_port.sousOperation[iso].code+'-- code so split' +splitcode(data_T_port.sousOperation[iso].code, land)+'his leng'+land +"Key origin"+key)
-                if (key == splitcode(data_T_port.sousOperation[iso].code, land)  ) {
-                    
+               //&& data_T_port.operation[io]?.code !== undefined && data_T_port.sousOperation[iso]?.code !== undefined&& data_T_port.operation[io].code != data_T_port.sousOperation[iso].code
+               console.log('T 4 sous operation'+data_T_port.operation[io].code +'!='+ data_T_port.sousOperation[iso+1].code)
+                if (key == splitcode(data_T_port.sousOperation[iso].code, land) && data_T_port.operation[io]?.code !== undefined && data_T_port.sousOperation[iso]?.code !== undefined&& data_T_port.operation[io].code != data_T_port.sousOperation[iso+1].code ) {
+                    console.log('T 4' +data_T_port.operation[io-1].code)
+                    if(data_T_port.operation[io-1].code === data_T_port.sousOperation[iso].code)
+                        {
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
+                        '<td scope="row" class="code" >' + key + '</td>' +
+                        '<td ><p>' + value + '</p></td>' +
+
+                        '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>null</p></td>'+
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T4">' +ValAccountingFigures (data_T_port.operation[io-1].values.ae_op) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T4">' +ValAccountingFigures( data_T_port.operation[io-1].values.ae_op) + '</td>' +
+                        '</tr>';
+                    }
+                    else
+                    {
+                        row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                         '<td scope="row" class="code" >' + key + '</td>' +
                         '<td ><p>' + value + '</p></td>' +
 
@@ -5039,11 +5055,17 @@ function T4_table(id, T, id_s_act, port,code) {
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T4">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_sousop) + '</td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T4">' +ValAccountingFigures( data_T_port.sousOperation[iso].values.cp_sousuop) + '</td>' +
                         '</tr>';
+                    }
                     iso++;
                     sousou=true
                 }
                 else{
-                 
+                 if(data_T_port.operation[io]?.code !== undefined && data_T_port.sousOperation[iso]?.code !== undefined&& data_T_port.operation[io].code == data_T_port.sousOperation[iso+1].code)
+                 {
+                    
+                    console.log('else T4')
+                    iso++;
+                 }
                     while (sousou) {
                         if(splitcode(data_T_port.sousOperation[iso].code, land).length < 5 )
                             {
@@ -5078,6 +5100,11 @@ function T4_table(id, T, id_s_act, port,code) {
                   
                 }
             }
+            else
+            {
+                iso++;  
+            }
+           
            }
             // Append the row to the table body
             $('#T-tables tbody').append(row);

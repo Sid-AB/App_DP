@@ -1434,10 +1434,19 @@ if (!$nom) {
             }
     
           // dd($code2);
+         /* $sousoperation=sousoperation::updateOrCreate(
+            ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code ],
+            ['code_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp, 
+            'nom_sous_operation' => $nom,
+            'AE_sous_operation' => floatval(str_replace(',', '',  $value_ae)),
+            'code_t4' => 40000,
+            'CP_sous_operation' =>floatval(str_replace(',', '',  $value_cp))
+            , 'date_insert_SOUSoperation' => $currentDateTime]
+        );*/
             if(($code2 == $codeOp)&& ($codeOp != $codeGp)){
             // Insertion dans la table sousoperation
            $sousoperation=sousoperation::updateOrCreate(
-            ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$code ],
+            ['code_sous_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp.'-'.$code ],
             ['code_operation' =>$s_act.'-'.$codeGp.'-'.$codeOp, 
             'nom_sous_operation' => $nom,
             'AE_sous_operation' => floatval(str_replace(',', '',  $value_ae)),
