@@ -1410,7 +1410,7 @@ function delete_by_id($id)
                                 $sou_ops=SousOperation::where('code_operation','=',$op['code_operation'])->get();
                                 if($sou_ops)
                                 {
-                                    dd($sou_ops);
+                                    //dd($sou_ops);
                                     foreach($sou_ops as $sous_op)
                                     {
                                         $construit_p=ConstruireDPIA::find($sous_op->code_sous_operation);
@@ -1432,7 +1432,7 @@ function delete_by_id($id)
                         }
                 }
                
-                dd($gropos);
+               // dd($gropos);
                 $grpop->delete();
             }
             $deletmodel->delete();
@@ -1485,11 +1485,11 @@ function delete_by_t(Request $request)
                 {
                     foreach($ops as $op)
                     {
-                        dd($ops);
+                       // dd($ops);
                         $sou_ops=SousOperation::where('code_operation','=',$op['code_operation'])->where($code_t,'=',$code)->get();
                         if(!empty($sou_ops) && count($sou_ops) !=0)
                         { 
-                            dd($sou_ops);
+                           // dd($sou_ops);
                             foreach($sou_ops as $sous_op)
                             {
                                 if(!empty($sous_op)){

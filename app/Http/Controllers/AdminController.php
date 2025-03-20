@@ -158,8 +158,44 @@ class AdminController extends Controller
             $act->update();
            // dd($res_Min->id_min);
         }
+        $account = Accounts::where('email',$validated['email']."@mcomm.local");
+       // dd($account);
+        if($account)
+        {
+            $account->update([
+               
+                'nome' => $validated['nome'],
+                'prenom' => $validated['prenom'],
+                'sous_direction' => $validated['sous_direction'],
+              
+                'id_min'=>$id_res_Min,
+                'id_ra'=>$id_res_act,
+                'id_rp'=>$id_res_prg,
+                'code_generated' => Hash::make($validated['code_generated']), // Hash the password
+                'post_occupe' => $validated['post_occupe'],
+                'privilege' => $validated['privilege'],
+            ]);
 
-        $account = Accounts::updateOrCreate([
+            $file=$request->file('profile_picture');
+            if($account)
+            {
+                    $media= DB::table('multimedia')->insert([
+                    'nom_fichier' => $file->getClientOriginalName(),
+                    'filepath' => $filePath,
+                    'filetype' => $file->getClientMimeType(),
+                    'size' => $file->getSize(),
+                    'date_upload'=>now(),
+                    'uploaded_by' => 1, // Assurez-vous que l'utilisateur est connecté
+                    'related_id' => $account->id,
+      
+                ]);
+                if($media)
+                {
+                    return back()->with('success', 'update registered successfully!');
+                }
+            }
+        }else
+        {$account = Accounts::updateOrCreate([
             'id'=>$uniqueId,
             'nome' => $validated['nome'],
             'prenom' => $validated['prenom'],
@@ -191,6 +227,7 @@ class AdminController extends Controller
                     return back()->with('success', 'User registered successfully!');
                 }
             }
+        }
             return response()->json(['message' => 'Account created unsuccessfully!'], 404);
         
     }
