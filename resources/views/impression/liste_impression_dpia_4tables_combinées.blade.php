@@ -43,8 +43,8 @@
    
    
     
-    <script src="{{asset('assets/js/html-docx.min.js')}}"></script>
-    <!--script>
+    <!--script src="{{asset('assets/js/html-docx.min.js')}}"></script>
+    <script>
     
             var content1 = document.getElementById("print_T1").innerHTML;
             var content2 = document.getElementById("print_T2").innerHTML;
