@@ -140,12 +140,15 @@
     @endphp
 
     @if (count($operationData['sousOperations']) > 0)
+  
     @foreach ($operationData['sousOperations'] as $sousOp)
     @php
         $code_separer = explode('-', $sousOp['code']);
         $codeextr = end($code_separer);
         $avantDernierePartie = $code_separer[count($code_separer) - 2] ?? null;
-        //dd( $avantDernierePartie);
+        //dd( $codeop);
+        $avantavantDernierePartie = $code_separer[count($code_separer) - 3] ?? null;
+        //dd($avantavantDernierePartie);
         $nom = $avantDernierePartie ? App\Models\SousOperation::where('code_sous_operation', $sousOp['code'])->first()->nom_sous_operation : null;
         //dd($nom);
        
@@ -160,32 +163,48 @@
     @endphp
 
    
-
-    @if (strlen($codeextr) < 3 && $avantDernierePartie == $codeop)
+    @if (strlen($codeextr) < 3)
+    @if ($avantDernierePartie == $codeop)
+       
         <tr class="operation-row with-sousop">
-            <td class="code">{{  (strlen($codeextr) === 5) ? $codeextr : '' }}</td>
+            <td class="code">{{ (strlen($codeextr) === 5) ? $codeextr : '' }}</td>
             <td>{{ $namesT4[$avantDernierePartie] ?? 'Nom non trouvé' }}</td>
             <td class="vert4">{{ $dispo ?? $namesT4[$avantDernierePartie] }}</td>
-            <td class="aecp">{{ number_format((float)$operationData['operation']['values']['ae_op'], 2, '.', ',') ?? 'N/A' }}</td>
-            <td class="aecp">{{ number_format((float)$operationData['operation']['values']['cp_op'], 2, '.', ',') ?? 'N/A' }}</td>
-        </tr>
-    @elseif (strlen($codeextr) < 3 && $avantDernierePartie != $codeop)
-        <tr>
-            <td class="code">{{  (strlen($codeextr) === 5) ? $codeextr : ''  }}</td>
-            <td>{{ $namesT4[$avantDernierePartie] ?? 'Nom non trouvé' }}</td>
-            <td class="vert4">{{ $dispo ?? $namesT4[$avantDernierePartie] }}</td>
-            <td class="aecp">{{ number_format((float)$sousOp['values']['ae_sousop'], 2, '.', ',') ?? 'N/A' }}</td>
-            <td class="aecp">{{ number_format((float)$sousOp['values']['cp_sousuop'], 2, '.', ',') ?? 'N/A' }}</td>
+            <td class="aecp">{{ number_format((float) ($sousOp['values']['ae_sousop'] ?? 0), 2, '.', ',') }}</td>
+            <td class="aecp">{{ number_format((float) ($sousOp['values']['cp_sousuop'] ?? 0), 2, '.', ',') }}</td>
         </tr>
     @else
+     
         <tr>
-            <td class="code">{{  (strlen($codeextr) === 5) ? $codeextr : ''  }}</td>
-            <td>{{ $namesT4[$codeextr] ?? 'Nom non trouvé' }}</td>
+            <td class="code">{{ (strlen($codeextr) === 5) ? $codeextr : '' }}</td>
+            <td>{{ $namesT4[$avantDernierePartie] ?? 'Nom non trouvé' }}</td>
             <td class="vert4">{{ $dispo ?? $namesT4[$avantDernierePartie] }}</td>
-            <td class="aecp">{{ number_format((float)$sousOp['values']['ae_sousop'], 2, '.', ',') ?? 'N/A' }}</td>
-            <td class="aecp">{{ number_format((float)$sousOp['values']['cp_sousuop'], 2, '.', ',') ?? 'N/A' }}</td>
+            <td class="aecp">{{ number_format((float) ($sousOp['values']['ae_sousop'] ?? 0), 2, '.', ',') }}</td>
+            <td class="aecp">{{ number_format((float) ($sousOp['values']['cp_sousuop'] ?? 0), 2, '.', ',') }}</td>
         </tr>
     @endif
+@else
+    @if ($codeextr == $codeop)
+      
+        <tr>
+            <td class="code">{{ $codeop }}</td>
+            <td>{{ $namesT4[$codeop] ?? 'Nom non trouvé' }}</td>
+            <td class="vert4">{{ $dispo ?? $namesT4[$avantDernierePartie] }}</td>
+            <td class="aecp">{{ number_format((float) ($operationData['operation']['values']['ae_op'] ?? 0), 2, '.', ',') }}</td>
+            <td class="aecp">{{ number_format((float) ($operationData['operation']['values']['cp_op'] ?? 0), 2, '.', ',') }}</td>
+        </tr>
+    @else
+    
+        <tr>
+            <td class="code">{{ (strlen($codeextr) === 5) ? $codeextr : '' }}</td>
+            <td>{{ $namesT4[$codeextr] ?? 'Nom non trouvé' }}</td>
+            <td class="vert4">{{ $dispo ?? $namesT4[$avantDernierePartie] }}</td>
+            <td class="aecp">{{ number_format((float) ($sousOp['values']['ae_sousop'] ?? 0), 2, '.', ',') }}</td>
+            <td class="aecp">{{ number_format((float) ($sousOp['values']['cp_sousuop'] ?? 0), 2, '.', ',') }}</td>
+        </tr>
+    @endif
+@endif
+
 @endforeach
 
     @else
