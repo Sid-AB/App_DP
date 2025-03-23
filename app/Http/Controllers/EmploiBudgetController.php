@@ -18,7 +18,7 @@ class EmploiBudgetController extends Controller
 {
     //la fonction insert 
     public function insertemploi(Request $request){
-        //dd($request);
+       //dd($request);
         $emploi=Emploi_budget::updateOrCreate(
             [
                 'num_sous_action'=>$request->id_s_act,

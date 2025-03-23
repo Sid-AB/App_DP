@@ -43,10 +43,10 @@
     </style>
 </head>
 <body>
-    <h2 style="font-family: Arial, sans-serif; font-size: 16pt; font-weight: bold;">2. LA PROGRAMMTION DES EMPLOIS BUDGETAIRES  :</h2>
-    <h3  style="font-family: Arial, sans-serif; font-size: 14pt; font-weight: bold;">2.1 POUR LES SERVICES CENTRAUX :</h3>
-    <table>
-        <thead>
+<h2 style=" font-family: Cambria (Titres), sans-serif; font-size: 14pt; font-weight: bold;">2. LA PROGRAMMTION DES EMPLOIS BUDGETAIRES  :</h2>
+<h3  style="font-family: Cambria (Titres), sans-serif; font-size: 14pt; font-weight: bold;">2.1. POUR LES SERVICES CENTRAUX :</h3>
+  <table>
+       
             <tr class="mauve">
                 <th rowspan="1">ADMINISTRATION CENTRALE (SERVICES CENTRAUX) </th>
               
@@ -54,7 +54,7 @@
                 
                 <th colspan="5">REMUNERATION</th>
             </tr>
-        </thead>
+     
         @if($type == 'fonction')
         <tbody>
             <tr class="header-row">

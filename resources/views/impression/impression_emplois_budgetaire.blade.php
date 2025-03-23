@@ -43,10 +43,10 @@
     </style>
 </head>
 <body>
-<h2 style="font-family: Arial, sans-serif; font-size: 16pt; font-weight: bold;">2. LA PROGRAMMTION DES EMPLOIS BUDGETAIRES  :</h2>
-<h3  style="font-family: Arial, sans-serif; font-size: 14pt; font-weight: bold;">2.1 POUR LES SERVICES CENTRAUX :</h3>
+<h2 style=" font-family: Cambria (Titres), sans-serif; font-size: 14pt; font-weight: bold;">2. LA PROGRAMMTION DES EMPLOIS BUDGETAIRES  :</h2>
+<h3  style="font-family: Cambria (Titres), sans-serif; font-size: 14pt; font-weight: bold;">2.1. POUR LES SERVICES CENTRAUX :</h3>
     <table>
-        <thead>
+        
             <tr class="mauve">
                 <th rowspan="1">ADMINISTRATION CENTRALE </th>
               
@@ -54,7 +54,7 @@
                 
                 <th colspan="5">RÉMUNÉRATION</th>
             </tr>
-        </thead>
+        
         <tbody>
             <tr class="header-row">
             <td rowspan="1" class="header-row">Catégorie du personnel</td>
@@ -106,7 +106,7 @@
 
 
     <table>
-        <thead>
+     
             <tr>
                 <th rowspan="2"  class="mauve">Poste supérieur </th>
                 <th rowspan="2" class="highlight-gray">{{ $totalOuvertspost }}</th>
@@ -118,7 +118,7 @@
                 <th rowspan="2" colspan="2" class="header-row">DEPENSES ANNUELLES</th>
               
             </tr>
-        </thead>
+       
         <tbody>
         
         @foreach($posts as $post)
@@ -145,7 +145,7 @@
 
 
     <table>
-        <thead>
+      
             <tr>
                 <th rowspan="2"  class="mauve">Corps Communs </th>
                 <th rowspan="2" class="highlight-gray">{{ $totalOuvertscomm }}</th>
@@ -158,7 +158,7 @@
                 <th rowspan="2" class="header-row">DÉPENSES ANNUELLES</th>
               
             </tr>
-        </thead>
+     
         <tbody>
         
         @foreach($communs as $post)
