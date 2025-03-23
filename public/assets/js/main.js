@@ -4,6 +4,7 @@ var iupdate=1;
 var changing_mist = new Object();
 var value_chng = new Array()
 var  dataupdate=new Array();
+var replac=false;
 
 /**
  *
@@ -241,6 +242,7 @@ function insert_edit(tid,T)
     },
     error: function (response) {
     console.log('error')
+console.log('data ->'+JSON.stringify(data.ae_notifie))
     }
     
     
@@ -1049,8 +1051,13 @@ function add_newOPs_T3(id, value, key,code) {
   
    $('.Tsop_handler').append(champ);
    $('#ajt').on('click',function(){
-    
-    idsz=id+'-'+counter;
+    if(replac == false)
+        {
+    idsz=id+'-'+counter;}
+    else
+    {
+    idsz=id+'-'+counter
+    }
     counter++;
     var buttons = '<button class="btn btn-primary" id="changin"> appliquer</button>'
     $('.change_app').append(buttons)
@@ -1103,7 +1110,8 @@ function add_newOPs_T3(id, value, key,code) {
                    if(idsfinal.length == 9 || idsfinal.length == 1)
                     {
                         //console.log('testing remplace'+idsfinal.length)
-                     $('#' + key).after(row)
+                     $('#' + key).replaceWith(row)
+                     replac=true
                     }
                     else
                     {
@@ -1127,7 +1135,7 @@ function add_newOPs_T3(id, value, key,code) {
                         var ads = newKey.split('ref')[1]
                         $('.Tsop_handler').removeClass('Tsop_handler_h')
                         add_newOPs_T3(ads, 2500, newKey,code);
-
+                        Edit(tid, T)
                      })
 
                
@@ -1156,8 +1164,9 @@ function add_newOPs_T3(id, value, key,code) {
                         appliquer_up(T)
                     }
                     else {
+                        T='3';
                         $('#changin').on('click',function(){
-                            insert_edit(tid, T)
+                        insert_edit(tid, T)
                         })
                         
                     }
@@ -1284,6 +1293,13 @@ function add_newOPs_T4(id, value, key,code) {
             T=4;
             appliquer_up(T)
         }   
+        else {
+            T='3';
+            $('#changin').on('click',function(){
+                Edit(tid, T)
+            })
+            
+        }
    })
    $('#cancel_ops').click(function(){
        $('.Tsop_handler').empty();
@@ -2088,11 +2104,12 @@ data.descrp[code]=descr;
 data.disp[code]=dispo;
 data.ae[code] = aeValue;
 data.cp[code] = cpValue;
-console.log('T4'+JSON.stringify(data))
+console.log('T4'+JSON.stringify())
 
 }
 // value_chng.push(rw);
 })
+
 
 $('.change_app').empty()
   //console.log('path' + JSON.stringify(path))
@@ -4104,14 +4121,14 @@ $('#funt').on('click',function()
                             id_s_act:id_s_act,
                             type_pos:'funt',
                             funt_sup:$('#funt_sup').val(),
-                            bg_overt:$('#bg_overt').val(),
-                            bg_occup:$('#bg_occup').val(),
-                            bg_vacant:$('#bg_vacant').val(),
+                            bg_overt:parseInt(parseNumberWithoutCommas($('#bg_overt').val())),
+                            bg_occup:parseInt(parseNumberWithoutCommas($('#bg_occup').val())),
+                            bg_vacant:parseInt(parseNumberWithoutCommas($('#bg_vacant').val())),
                             cl_cat:$('#cl_cat').val(),
-                            cl_moy:$('#cl_moy').val(),
-                            tr_annuel:$('#tr_annuel').val(),
-                            pr_ind:$('#pr_ind').val(),
-                            depn_annuel:$('#depn_annuel').val(),
+                            cl_moy:parseNumberWithoutCommas($('#cl_moy').val()),
+                            tr_annuel:parseInt(parseNumberWithoutCommas($('#tr_annuel').val())),
+                            pr_ind:parseInt(parseNumberWithoutCommas($('#pr_ind').val())),
+                            depn_annuel:parseInt(parseNumberWithoutCommas($('#depn_annuel').val())),
                             code_t1:10000,
                             _token: $('meta[name="csrf-token"]').attr("content"),
                             _method: "POST",
@@ -4805,9 +4822,12 @@ if(code == 200){
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_consomesousop) + '</td>' +
                         '</tr>';
                     iso++;
+                   
                 }
                 else
                 { 
+                    
+                    console.log('testing'+splitcode(data_T_port.sousOperation[iso].code, land).length)
                    if(splitcode(data_T_port.sousOperation[iso].code, land).length < 5 )
                    {
                    

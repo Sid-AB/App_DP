@@ -710,6 +710,7 @@ elseif ($T == 2) {
 elseif ($T==3) {
     //dd($request);
        // Récupérer les données du formulaire
+       dd($request);
        $intitule = $request->input('intitule');
        $descr = $request->input('descr');
 
