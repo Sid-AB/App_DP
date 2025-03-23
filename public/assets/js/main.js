@@ -3476,7 +3476,7 @@ $('#corcom').on('click',function()
                 var formate={
                     id_s_act:id_s_act,
                     type_pos:'corcom',
-                    funt_sup:parseInt(parseNumberWithoutCommas($('#funt_sup').val())),
+                    funt_sup:$('#funt_sup').val(),
                     bg_overt:parseInt(parseNumberWithoutCommas($('#bg_overt').val())),
                     bg_occup:parseInt(parseNumberWithoutCommas($('#bg_occup').val())),
                     bg_vacant:parseInt(parseNumberWithoutCommas($('#bg_vacant').val())),
@@ -3806,7 +3806,7 @@ $('#post_sup').on('click',function()
                     var formate={
                         id_s_act:id_s_act,
                         type_pos:'post_sup',
-                        funt_sup:parseInt(parseNumberWithoutCommas($('#funt_sup').val())),
+                        funt_sup:$('#funt_sup').val(),
                         bg_overt:parseInt(parseNumberWithoutCommas($('#bg_overt').val())),
                         bg_occup:parseInt(parseNumberWithoutCommas($('#bg_occup').val())),
                         bg_vacant:parseInt(parseNumberWithoutCommas($('#bg_vacant').val())),
