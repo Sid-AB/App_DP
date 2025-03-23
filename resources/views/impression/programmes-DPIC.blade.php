@@ -1129,7 +1129,7 @@
 LES EMPLOIS ET LES CREDITS BUDGETAIRES Y AFFERENTS
     </p>
     <table class="first-table">
-    <thead>
+   
  
         @foreach ($programmes as $programme)
             @foreach ($programme as $prog)
@@ -1192,7 +1192,7 @@ LES EMPLOIS ET LES CREDITS BUDGETAIRES Y AFFERENTS
                 @endif
             @endforeach
         @endforeach
-    </thead>
+
     <tbody>
         
     </tbody>

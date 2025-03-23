@@ -2424,7 +2424,7 @@ $(document).ready(function () {
             num_portefeuil: numwall_year,
             Date_portefeuille: $("#date_crt_portf").val(),
             nom_journal: $("#nom_journ").val(),
-            num_journal: parseInt($("#num_journ").val()),
+            num_journal: $("#num_journ").val(),
             AE_portef: $("#AE_portef").val(),
             CP_portef: $("#CP_portef").val(),
             //year: year,

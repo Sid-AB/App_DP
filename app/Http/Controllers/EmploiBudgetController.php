@@ -18,7 +18,7 @@ class EmploiBudgetController extends Controller
 {
     //la fonction insert 
     public function insertemploi(Request $request){
-        //dd($request);
+       //dd($request);
         $emploi=Emploi_budget::updateOrCreate(
             [
                 'num_sous_action'=>$request->id_s_act,
@@ -115,10 +115,11 @@ class EmploiBudgetController extends Controller
     {
         // Récupérer toutes les données de la table Fonctions
 
-        $fonctions = Emploi_budget::join('fonctions','fonctions.id_emp','=','emploi_budgets.id_emp')->where('emploi_budgets.num_sous_action',$id)->get();
+        $fonctions = Emploi_budget::join('fonctions','fonctions.id_emp','=','emploi_budgets.id_emp')->where('emploi_budgets.num_sous_action',$id)->orderBy('fonctions.id_fonction')->get();
       
-        $posts = Emploi_budget::join('post_sups','post_sups.id_emp','=','emploi_budgets.id_emp')->where('emploi_budgets.num_sous_action',$id)->get();
-        $communs=  Emploi_budget::join('post_communs','post_communs.id_emp','=','emploi_budgets.id_emp')->where('emploi_budgets.num_sous_action',$id)->get();
+        $posts = Emploi_budget::join('post_sups','post_sups.id_emp','=','emploi_budgets.id_emp')->where('emploi_budgets.num_sous_action',$id)->orderBy('post_sups.id_postsup')->get();
+        //dd( $posts);
+        $communs=  Emploi_budget::join('post_communs','post_communs.id_emp','=','emploi_budgets.id_emp')->where('emploi_budgets.num_sous_action',$id)->orderBy('post_communs.id_post')->get();
         // Calcul des totaux des colonnes
        $totalOuvertsfct = $fonctions->sum('EmploiesOuverts');
        $totalOccupesfct = $fonctions->sum('EmploiesOccupes');
@@ -166,7 +167,7 @@ function get_list_postsup($id)
 
 {
 
-    $postssup=Emploi_budget::join('post_sups','post_sups.id_emp','=','emploi_budgets.id_emp')->get();
+    $postssup=Emploi_budget::join('post_sups','post_sups.id_emp','=','emploi_budgets.id_emp')->orderBy('post_sups.id_postsup')->get();
     if(!empty($postssup))
     {
         $totalOuverts = $postssup->sum('EmploiesOuverts');
@@ -196,7 +197,7 @@ function get_list_post_communs($id)
 
 {
 
-    $postssup=Emploi_budget::join('post_communs','post_communs.id_emp','=','emploi_budgets.id_emp')->get();
+    $postssup=Emploi_budget::join('post_communs','post_communs.id_emp','=','emploi_budgets.id_emp')->orderBy('post_communs.id_post')->get();
     if(!empty($postssup))
     {
         $totalOuverts = $postssup->sum('EmploiesOuverts');
@@ -226,7 +227,7 @@ function get_list_post_communs($id)
 function get_list_fonction($id)
 
 {
-    $postssup=Emploi_budget::join('fonctions','fonctions.id_emp','=','emploi_budgets.id_emp')->get();
+    $postssup=Emploi_budget::join('fonctions','fonctions.id_emp','=','emploi_budgets.id_emp')->orderBy('fonctions.id_fonction')->get();
     if(!empty($postssup))
     { $totalOuverts = $postssup->sum('EmploiesOuverts');
         $totalOccupes = $postssup->sum('EmploiesOccupes');
@@ -291,7 +292,8 @@ function del_emplois(Request $request)
 function print_list_fonction($id)
  {   
   
-    $data=Emploi_budget::join('fonctions','fonctions.id_emp','=','emploi_budgets.id_emp')->where('emploi_budgets.num_sous_action',$id)->get();
+    $data= Emploi_budget::join('fonctions','fonctions.id_emp','=','emploi_budgets.id_emp')->where('emploi_budgets.num_sous_action',$id)->orderBy('fonctions.id_fonction')->get();
+   
    // dd($fonction);
 
    return $this->imprimer($data, 'fonction'); 
@@ -300,7 +302,7 @@ function print_list_fonction($id)
 function print_list_postsup($id)
 {
     //dd($id);
-    $data=Emploi_budget::join('post_sups','post_sups.id_emp','=','emploi_budgets.id_emp')->where('emploi_budgets.num_sous_action',$id)->get();
+    $data=Emploi_budget::join('post_sups','post_sups.id_emp','=','emploi_budgets.id_emp')->where('emploi_budgets.num_sous_action',$id)->orderBy('post_sups.id_postsup')->get();
    // dd($data);
     return $this->imprimer($data, 'postsup');
 } //la fonction get pour afficher les resultats 
@@ -308,7 +310,7 @@ function print_list_postsup($id)
 function print_list_post_communs($id)
 
 {
-    $data=Emploi_budget::join('post_communs','post_communs.id_emp','=','emploi_budgets.id_emp')->where('emploi_budgets.num_sous_action',$id)->get();
+    $data=Emploi_budget::join('post_communs','post_communs.id_emp','=','emploi_budgets.id_emp')->where('emploi_budgets.num_sous_action',$id)->orderBy('post_communs.id_post')->get();
    //dd($data);
     return $this->imprimer($data, 'post_communs');
 }
