@@ -4838,7 +4838,7 @@ if(code == 200){
                 {  
                     console.log('new code'+data_T_port.sousOperation[iso].code.split('-')[last-1]+'leng'+data_T_port.sousOperation[iso].code.split('-').length)
 
-                    while(finder_s == false){
+                    
                    if(data_T_port.sousOperation[iso].code.split('-').length >9)
                    {
                         console.log('new code'+splitcode(data_T_port.sousOperation[iso].code, land)+'leng'+data_T_port.sousOperation[iso].code.split('-').length)
@@ -4884,8 +4884,7 @@ if(code == 200){
                 '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_not">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_notifiesousop) + '</td>' +
                 '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_consomesousop) + '</td>' +
                 '</tr>';
-                finder_s = true;
-               }
+               
             }
            
                 }
