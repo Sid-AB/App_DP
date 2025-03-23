@@ -144,7 +144,7 @@ function insert_edit(tid,T)
     data.cp_attendu[code] = cpDataAttendu;
     
     }
-    if (tid == 'T_port3' || tid == 'T3' || T == 3) {
+    if (tid == 'T_port3' || tid == 'T3' || tid == 3) {
     
     var code = $(this).find('td').eq(0).text();
     var descrip=$(this).find('td').eq(2).text();
@@ -169,7 +169,7 @@ function insert_edit(tid,T)
     data.cp_reporte[code] = cpDataReporte;
     data.cp_notifie[code] = cpDataNotifie;
     data.cp_consome[code] = cpDataEngage;
-    
+    console.log('code in tables'+code);
     }
     if (tid == 'T_port4' || tid == 'T4') {
     
@@ -1052,11 +1052,12 @@ function add_newOPs_T3(id, value, key,code) {
    $('.Tsop_handler').append(champ);
    $('#ajt').on('click',function(){
     if(replac == false)
-        {
+    {
     idsz=id+'-'+counter;}
     else
     {
-    idsz=id+'-'+counter
+    id=idsz;
+    idsz=id+counter
     }
     counter++;
     var buttons = '<button class="btn btn-primary" id="changin"> appliquer</button>'
@@ -1117,7 +1118,7 @@ function add_newOPs_T3(id, value, key,code) {
                     {
                        // console.log('testing append'+idsfinal.length)
                         row='<tr id="ref' + idsz + '">' +
-                   '<td class="code" style="visibility: hidden;">'+id+'</td>' +
+                   '<td class="code" >'+id+'</td>' +
                    '<td> - </td>' +
                    '<td>' + sopdata_add.descrp + '</td>' +
                    '<td ><p>' + sopdata_add.intituel + '</p></td>' +
@@ -1135,7 +1136,10 @@ function add_newOPs_T3(id, value, key,code) {
                         var ads = newKey.split('ref')[1]
                         $('.Tsop_handler').removeClass('Tsop_handler_h')
                         add_newOPs_T3(ads, 2500, newKey,code);
+                        if(code != 200)
+                            {
                         Edit(tid, T)
+                        }
                      })
 
                
@@ -1160,11 +1164,11 @@ function add_newOPs_T3(id, value, key,code) {
                     }
                     if(code == 200)
                     {
-                        T='3';
+                       
                         appliquer_up(T)
                     }
                     else {
-                        T='3';
+                      
                         $('#changin').on('click',function(){
                         insert_edit(tid, T)
                         })
@@ -1294,7 +1298,7 @@ function add_newOPs_T4(id, value, key,code) {
             appliquer_up(T)
         }   
         else {
-            T='3';
+            T=4;
             $('#changin').on('click',function(){
                 Edit(tid, T)
             })
@@ -3472,15 +3476,15 @@ $('#corcom').on('click',function()
                 var formate={
                     id_s_act:id_s_act,
                     type_pos:'corcom',
-                    funt_sup:$('#funt_sup').val(),
-                    bg_overt:$('#bg_overt').val(),
-                    bg_occup:$('#bg_occup').val(),
-                    bg_vacant:$('#bg_vacant').val(),
-                    cl_cat:$('#cl_cat').val(),
-                    cl_moy:$('#cl_moy').val(),
-                    tr_annuel:$('#tr_annuel').val(),
-                    pr_ind:$('#pr_ind').val(),
-                    depn_annuel:$('#depn_annuel').val(),
+                    funt_sup:parseInt(parseNumberWithoutCommas($('#funt_sup').val())),
+                    bg_overt:parseInt(parseNumberWithoutCommas($('#bg_overt').val())),
+                    bg_occup:parseInt(parseNumberWithoutCommas($('#bg_occup').val())),
+                    bg_vacant:parseInt(parseNumberWithoutCommas($('#bg_vacant').val())),
+                    cl_cat:parseInt(parseNumberWithoutCommas($('#cl_cat').val())),
+                    cl_moy:parseInt(parseNumberWithoutCommas($('#cl_moy').val())),
+                    tr_annuel:parseInt(parseNumberWithoutCommas($('#tr_annuel').val())),
+                    pr_ind:parseInt(parseNumberWithoutCommas($('#pr_ind').val())),
+                    depn_annuel:parseInt(parseNumberWithoutCommas($('#depn_annuel').val())),
                     code_t1:10000,
                     _token: $('meta[name="csrf-token"]').attr("content"),
                     _method: "POST",
@@ -3802,15 +3806,15 @@ $('#post_sup').on('click',function()
                     var formate={
                         id_s_act:id_s_act,
                         type_pos:'post_sup',
-                        funt_sup:$('#funt_sup').val(),
-                        bg_overt:$('#bg_overt').val(),
-                        bg_occup:$('#bg_occup').val(),
-                        bg_vacant:$('#bg_vacant').val(),
-                        cl_cat:$('#cl_cat').val(),
-                        cl_moy:$('#cl_moy').val(),
-                        tr_annuel:$('#tr_annuel').val(),
-                        pr_ind:$('#pr_ind').val(),
-                        depn_annuel:$('#depn_annuel').val(),
+                        funt_sup:parseInt(parseNumberWithoutCommas($('#funt_sup').val())),
+                        bg_overt:parseInt(parseNumberWithoutCommas($('#bg_overt').val())),
+                        bg_occup:parseInt(parseNumberWithoutCommas($('#bg_occup').val())),
+                        bg_vacant:parseInt(parseNumberWithoutCommas($('#bg_vacant').val())),
+                        cl_cat:parseInt(parseNumberWithoutCommas($('#cl_cat').val())),
+                        cl_moy:parseInt(parseNumberWithoutCommas($('#cl_moy').val())),
+                        tr_annuel:parseInt(parseNumberWithoutCommas($('#tr_annuel').val())),
+                        pr_ind:parseInt(parseNumberWithoutCommas($('#pr_ind').val())),
+                        depn_annuel:parseInt(parseNumberWithoutCommas($('#depn_annuel').val())),
                         code_t1:10000,
                         _token: $('meta[name="csrf-token"]').attr("content"),
                         _method: "POST",
