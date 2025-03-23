@@ -4737,6 +4737,7 @@ if(code == 200){
         var ig = 0;
         var io = 0;
         var iso = 0;
+        var finder_s=false;
         $.each(data, function (key, value) {
             // Create a table row
             var val = value.split('-')
@@ -4759,8 +4760,9 @@ if(code == 200){
 
             if (data_T_port.group.length > 0 && data_T_port.group.length > ig) {
                var land=data_T_port.group[ig].code.length-5;
-            
-                if (key == splitcode(data_T_port.group[ig].code, land)) {
+             
+                if (key == splitcode(data_T_port.group[ig].code, land) || key==data_T_port.group[ig].code.split('-')[6]) {
+                    console.log(key+'keys --codes groupe'+data_T_port.group[ig].code.split('-')[6])
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.group[ig].code + '">' +
                         '<td scope="row"  class="code">' + key + '</td>' +
                         '<td id="nom_ops"><p>' + val[0] + '</p> </td>' +
@@ -4778,8 +4780,9 @@ if(code == 200){
             }
             if (data_T_port.operation.length > 0 && data_T_port.operation.length > io) {
                var land=data_T_port.operation[io].code.length-5;
-                
-                if (key == splitcode(data_T_port.operation[io].code, land)) {
+             
+                if (key == splitcode(data_T_port.operation[io].code, land) || key==data_T_port.operation[io].code.split('-')[7]) {
+                    console.log(key+'keys --codes opiration'+data_T_port.operation[io].code.split('-')[7])
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.operation[io].code + '">' +
                         '<td scope="row"  class="code">' + key + '</td>' +
                         '<td id="nom_ops"><p>' + val[0] + '</p> </td>' +
@@ -4797,9 +4800,11 @@ if(code == 200){
             }
             if (data_T_port.sousOperation.length > 0 && data_T_port.sousOperation.length > iso) {
                var land=data_T_port.sousOperation[iso].code.length-5;
-                
-                if (key == splitcode(data_T_port.sousOperation[iso].code, land)) {
+               var last=data_T_port.sousOperation[iso].code.split('-').length
+                console.log('all'+land+' split code'+splitcode(data_T_port.sousOperation[iso].code, land)+'Key code'+key)
+                if (key == splitcode(data_T_port.sousOperation[iso].code, land) || key ==data_T_port.sousOperation[iso].code.split('-')[last-1]) {
                     //only_def(data_T_port.sousOperation[iso].code)
+                   console.log('code orignal')
                     var def='';
                     var nom='';
                     var int='';
@@ -4827,34 +4832,34 @@ if(code == 200){
                         '</tr>';
                     iso++;
                    
+                   
                 }
                 else
-                { 
-                    
-                    console.log('testing'+splitcode(data_T_port.sousOperation[iso].code, land).length)
-                   if(splitcode(data_T_port.sousOperation[iso].code, land).length < 5 )
+                {  
+                    console.log('new code'+data_T_port.sousOperation[iso].code.split('-')[last-1]+'leng'+data_T_port.sousOperation[iso].code.split('-').length)
+
+                    while(finder_s == false){
+                   if(data_T_port.sousOperation[iso].code.split('-').length >9)
                    {
-                   
-                    row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
-                    '<td scope="row"  class="code" style="visibility: hidden;">' + key + '</td>' +
-                    '<td id="nom_ops">'  +    data_T_port.sousOperation[iso].nom + '</td>' +
-                    '<td>  - </td>' +
-                    '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
-                    '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_reportesousop) + '</td>' +
-                    '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_notifiesousop) + '</td>' +
-                    '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_engagesousop) + '</td>' +
-                    '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_rpor">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_reportesousuop) + '</td>' +
-                    '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_not">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_notifiesousop) + '</td>' +
-                    '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_consomesousop) + '</td>' +
-                    '</tr>';
-                    iso++;
-                     $('#T-tables tbody').append(row);
-                       only_def(data_T_port.sousOperation[iso].code)
+                        console.log('new code'+splitcode(data_T_port.sousOperation[iso].code, land)+'leng'+data_T_port.sousOperation[iso].code.split('-').length)
+                        var def='';
+                        var nom='';
+                        var int='';
+                        if(data_T_port.sousOperation[iso].nom.split('_').length > 2)
+                        {
+                            def=data_T_port.sousOperation[iso].nom.split('_')[1]
+                            nom=data_T_port.sousOperation[iso].nom.split('_')[0]
+                            int=data_T_port.sousOperation[iso].nom.split('_')[2]
+                        }
+                        else
+                        {
+                            nom=data_T_port.sousOperation[iso].nom.split('_')[0]
+                        }
                    row = '<tr class="ref'+splitcode(data_T_port.sousOperation[iso].code, land)+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
-                   '<td scope="row"  class="code" >' +key+"-"+splitcode(data_T_port.sousOperation[iso].code, land) + '</td>' +
-                   '<td id="nom_ops">'  +    val[0] + '</td>' +
-                   '<td id="def"> </td>' +
-                   '<td id="sous_def" style="display: flex;align-items: center; justify-content: space-between;"></td>' +
+                   '<td scope="row"  class="code" style="visibility: hidden;" >' +key+"-"+splitcode(data_T_port.sousOperation[iso].code, land) + '</td>' +
+                   '<td id="nom_ops">'+nom+'</td>' +
+                   '<td id="def">'+def+'</td>' +
+                   '<td id="sous_def" style="display: flex;align-items: center; justify-content: space-between;">'+int+'</td>' +
                    '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' +ValAccountingFigures( data_T_port.sousOperation[iso].values.ae_reportesousop) + '</td>' +
                    '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_notifiesousop) + '</td>' +
                    '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_engagesousop) + '</td>' +
@@ -4862,11 +4867,30 @@ if(code == 200){
                    '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_not">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_notifiesousop) + '</td>' +
                    '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_consomesousop) + '</td>' +
                    '</tr>';
+                   //$('#T-tables tbody').append(row);
                    iso++;
-                 
                }
+               else
+               {
+                row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
+                '<td scope="row"  class="code" >' + key + '</td>' +
+                '<td id="nom_ops">'  +    nom + '</td>' +
+                '<td>  - </td>' +
+                '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + int + '</p></td>' +
+                '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_reportesousop) + '</td>' +
+                '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_notifiesousop) + '</td>' +
+                '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_engagesousop) + '</td>' +
+                '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_rpor">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_reportesousuop) + '</td>' +
+                '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_not">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_notifiesousop) + '</td>' +
+                '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_consomesousop) + '</td>' +
+                '</tr>';
+                finder_s = true;
+               }
+            }
+           
                 }
             }
+            
             }
             // Append the row to the table body
             $('#T-tables tbody').append(row);
