@@ -173,7 +173,7 @@ class AdminController extends Controller
         $account = Accounts::where('email',$validated['email']."@mcomm.local")->get();
 
         if(count($account)>0)
-        {        dd($account);
+        {       // dd($account);
             $account->update([
                
                 'nome' => $validated['nome'],
