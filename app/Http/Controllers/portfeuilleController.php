@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Portefeuille;
 use App\Models\Programme;
 use App\Models\Action;
-
+use App\Models\Accounts;
 use App\Models\SousAction;
 use App\Models\SousProgramme;
 use App\Models\Multimedia;
@@ -39,9 +39,17 @@ class portfeuilleController extends Controller
 
     //================================= Pour suivi Methode =====================//
 
-    function show_prsuiv($path)
+    function show_prsuiv($path,Request $request)
     {
         //$path=$request->all();
+
+        $code=$request['code'];
+        
+        if(!isset($code))
+        {
+            return back()->with('unsuccess', 'User registered indefined!');
+        }
+        
 
         $id=explode('_',$path);
         $num=$id[0];
@@ -52,23 +60,40 @@ class portfeuilleController extends Controller
         {
 
             $por=Portefeuille::findOrFail($num);
-
             $paths=['code_port'=>$por->num_portefeuil];
-
+            $account =Accounts::join('portefeuilles','portefeuilles.id_min','accounts.id_min')->where('code_generated',$code)->where('portefeuilles.num_portefeuil',$por->num_portefeuil)->first();
+       // dd($act,$account,$code);
+         if(!isset($account))
+        {
+            return back()->with('unsuccess', 'User registered indefined!');
+        }
         }
        if($cat == 'prog' )
        {
         $progms=Programme::where('num_prog',intval($num))->get();
        // dd($progms);
         $paths=['code_port'=>$progms[0]->num_portefeuil,'programme'=>$num];
+
+        $account =Accounts::join('portefeuilles','portefeuilles.id_min','accounts.id_min')->where('code_generated',$code)->where('portefeuilles.num_portefeuil',$progms[0]->num_portefeuil)->first();
+        // dd($progms,$account,$code);
+          if(!isset($account))
+         {
+             return back()->with('unsuccess', 'User registered indefined!');
+         }  
        // dd($paths);
        }
 
         if($cat == 'sprog')
         {
                 $sprog=SousProgramme::where('num_sous_prog',intval($num))->first();
-                $progms=Programme::where('num_prog',$sprog->num_prog)   ->first();
+                $progms=Programme::where('num_prog',$sprog->num_prog)->first();
                 $paths=['code_port'=>$progms->num_portefeuil,'programme'=>$progms->num_prog,'sous Programme'=>$num];
+                $account =Accounts::join('programmes','programmes.id_rp','accounts.id_rp')->where('code_generated',$code)->where('programmes.num_prog',$progms->num_prog)->first();
+        // dd($act,$account,$code);
+          if(!isset($account))
+         {
+             return back()->with('unsuccess', 'User registered indefined!');
+         }
              //    dd($paths);
         }
         if($cat == 'act' )
@@ -78,6 +103,26 @@ class portfeuilleController extends Controller
             $progms=Programme::where('num_prog',$sprog->num_prog)->first();
             $paths=['code_port'=>$progms->num_portefeuil,'programme'=>$progms->num_prog,'sous Programme'=>$sprog->num_sous_prog,'Action'=>$num];
              //   dd($paths);
+
+             $code=$request['code'];
+        
+             if(!isset($code))
+             {
+                 return back()->with('unsuccess', 'User registered indefined!');
+             }
+             $account =Accounts::join('actions','actions.id_ra','accounts.id_ra')->where('code_generated',$code)->where('actions.num_action',$act->num_action)->first();
+            // dd($act,$account,$code);
+              if(!isset($account))
+             {
+              $account =Accounts::join('actions','actions.id_ra','accounts.id_ra')
+              ->join('sous_actions','sous_actions.num_action','actions.num_action')
+              ->where('code_generated',$code)->where('sous_actions.num_action',$act->num_action)->first();
+              //dd($act,$account);
+              if(!isset($account))
+              {
+                 return back()->with('unsuccess', 'User registered indefined!');
+             }
+             }
         }
         $leng=count($paths);
       //  dd($leng);

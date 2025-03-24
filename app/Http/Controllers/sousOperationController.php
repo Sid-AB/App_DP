@@ -173,7 +173,7 @@ class sousOperationController extends Controller
         }
         $code=$request['code'];
         
-       /* if(!isset($code))
+        if(!isset($code))
         {
             return back()->with('unsuccess', 'User registered indefined!');
         }
@@ -189,7 +189,7 @@ class sousOperationController extends Controller
          {
             return back()->with('unsuccess', 'User registered indefined!');
         }
-        }*/
+        }
    
             $act=Action::where('num_action',$act)->first();
             $s_act=SousAction::where('num_action',$act)->first();

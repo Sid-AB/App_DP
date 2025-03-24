@@ -48,6 +48,7 @@ class AdminController extends Controller
                 ->join('programmes','programmes.id_rp','=','accounts.id_rp')
                 ->where('id',$request['idedit'])
                 ->first();
+              
                 if(!isset($account))
                 {
                     $account=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege',)
@@ -70,7 +71,7 @@ class AdminController extends Controller
         $prog=Programme::get();
         $sprog=SousProgramme::get();
         $act=Action::get();
-        $accounts=Accounts::get();
+        $accounts=Accounts::get();//join('actions','actions.id_ra','=','accounts.id_ra')->join('programmes','programmes.id_rp','=','accounts.id_rp')->
         //dd($accounts);
         if(isset($accounts) && count($accounts) == 0)
         {
@@ -147,10 +148,6 @@ class AdminController extends Controller
 
         if(isset($validated['progs']) && isset($validated['sous_progs'])  && isset($validated['acts']))
         {
-            $res_Min=Ministre::updateOrCreate([
-                'id_min'=>$idresp,
-                'Date_installation'=>Carbon::now(),
-            ]);
             $res_act=Respo_Action::updateOrCreate([
                 'id_ra'=>$idresp,
                 'Date_installation_ra'=>Carbon::now(),
@@ -161,21 +158,22 @@ class AdminController extends Controller
                 'Date_installation_rp'=>Carbon::now(),
                
             ]);
-            $id_res_Min=$res_Min->id_min;
+            $id_res_prg=$res_prg->id_rp;
+            $id_res_act=$res_act->id_ra;
             $prog=Programme::where('num_prog',$validated['progs'])->first();
            // $sous_prog=SousProgramme::where('num_sous_prog',$validated['sous_progs'])->first();
             $act=Action::where('num_action',$validated['acts'])->first();
            // dd($act);
-            $prog->id_rp=$id_res_Min;
-            $act->id_ra=$id_res_Min;
+            $prog->id_rp=$id_res_prg;
+            $act->id_ra=$id_res_act;
             $prog->update();
             $act->update();
            // dd($res_Min->id_min);
         }
-        $account = Accounts::where('email',$validated['email']."@mcomm.local");
-       // dd($account);
-        if($account)
-        {
+        $account = Accounts::where('email',$validated['email']."@mcomm.local")->get();
+
+        if(count($account)>0)
+        {        dd($account);
             $account->update([
                
                 'nome' => $validated['nome'],
@@ -209,7 +207,9 @@ class AdminController extends Controller
                 }
             }
         }else
-        {$account = Accounts::updateOrCreate([
+        {
+           // dd($account);
+            $account = Accounts::updateOrCreate([
             'id'=>$uniqueId,
             'nome' => $validated['nome'],
             'prenom' => $validated['prenom'],
@@ -275,4 +275,53 @@ class AdminController extends Controller
         }
         return back()->with('unsuccess', 'User deleted unsuccessfully!');
     }
+
+    public function get_responsable($id)
+    {
+        $account=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_action','nom_action_ar','num_sous_prog','num_prog')
+        //->join('multimedia','multimedia.related_id','=','id')
+        ->join('actions','actions.id_ra','=','accounts.id_min')
+        ->join('programmes','programmes.id_rp','=','accounts.id_min')
+        ->where('id',$request['idedit'])
+        ->first();
+            
+        if(!isset($account))
+        {
+            $account=Accounts::join('actions','actions.id_ra','=','accounts.id_ra')
+            //->join('multimedia','multimedia.related_id','=','id')
+            ->select('nome','prenom','email','post_occupe','sous_direction','privilege','num_action','nom_action_ar','num_sous_prog','accounts.id_ra')
+            //->join('programmes','programmes.id_rp','=','accounts.id_rp')
+            ->where('id',$request['idedit'])
+            ->first();
+            if(!isset($account))
+            {
+                $account=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_prog','accounts.id_rp')
+                //->join('multimedia','multimedia.related_id','=','id')
+                //->join('actions','actions.id_ra','=','accounts.id_ra')
+                ->join('programmes','programmes.id_rp','=','accounts.id_rp')
+                ->where('id',$request['idedit'])
+                ->first();
+              
+                if(!isset($account))
+                {
+                    $account=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege',)
+                //->join('multimedia','multimedia.related_id','=','id')
+                //->join('actions','actions.id_ra','=','accounts.id_ra')
+                //->join('programmes','programmes.id_rp','=','accounts.id_rp')
+                ->where('id',$request['idedit'])
+                ->first();
+                }
+            }
+
+        }
+        else
+        {
+            return response()->json(['code'=>404,'message'=>'not Trouve']);
+        }
+        return response()->json(['code'=>200,'message'=>'not Trouve','data'=>$account]);
+        //$resact=Action::where('id_ra',$account->id_ra)->get();
+          //dd( $account);
+          
+        }
+   
 }

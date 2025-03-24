@@ -710,7 +710,7 @@ listItemsWithNestedUl.each(function(){
     if(typeact[0] =='act')
     {
       $(this).on('click',function(){
-        window.location.href='/testing/Action/'+path3[0]+'/'+path3[1]+'/'+path3[2]+'/'+typeact[1]+'/?code='
+       // window.location.href='/testing/Action/'+path3[0]+'/'+path3[1]+'/'+path3[2]+'/'+typeact[1]+'/?code='
         $('#myForm').css('display','block')
         $('.hide-access-form').append(chekl)
         $('.hide-access-form').addClass('form-access')
@@ -722,10 +722,8 @@ listItemsWithNestedUl.each(function(){
 
        
         var cosnt=0;
-       /* $('#btn-form-access').on('click',function(){
-          if(cosnt == 0) {
+        $('#btn-form-access').on('click',function(){
           $.ajax({
-
             url:'/login/account',
             type:'POST',
             data:{
@@ -745,9 +743,7 @@ listItemsWithNestedUl.each(function(){
               console.log('out of range')
             }
           })
-          cosnt++;
-         }
-        })*/
+        })
         //
       })
     
@@ -766,10 +762,43 @@ listItemsWithNestedUl.each(function(){
     }
   })
   $('.add-btn').on('click',function(){
-            var id = $(this).attr("id");
+    
+     
+        $('.hide-access-form').append(chekl)
+        $('.hide-access-form').addClass('form-access')
+        $('#myForm').css('display','block')
+        $('#form-cancel').on('click',function(){
+        $('#myForm').css('display','none')
+        $(".hide-access-form").removeClass('form-access');
+        $('.hide-access-form').empty()
+        })
+        var cosnt=0;
+        var id = $(this).attr("id");
             var indice=id ;
-            console.log('i m the level '+indice)  
-            window.location.href='/creation/from/'+id;
+            console.log('i m the level '+indice) 
+        $('#btn-form-access').on('click',function(){
+          $.ajax({
+            url:'/login/account',
+            type:'POST',
+            data:{
+            email:$('#email').val(),
+            code_generated:$('#code_generated').val(),
+            _token: $('meta[name="csrf-token"]').attr("content"),
+            _method: "POST",},
+            success:function(response)
+            {
+              window.location.href='/creation/from/'+id+'/?code='+response.account;
+             // 
+            },
+            error:function()
+            {
+              $('#email').css('border-color','red')
+              $('#code_generated').css('border-color','red')
+              console.log('out of range')
+            }
+          })
+        })
+           
             var  news;
         })
 /*var idchfri=$('.chiffre')
