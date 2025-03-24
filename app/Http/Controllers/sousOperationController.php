@@ -41,7 +41,7 @@ class sousOperationController extends Controller
     }
 
 
-    function modif_handler($id)
+    function modif_handler($id,Request $request)
     {
         $oprt=$id;
         $chek=explode("_",$oprt);
@@ -49,7 +49,12 @@ class sousOperationController extends Controller
         $cp_glob=0;
         $nom="";
         $code="";
+        $codes=$request['code'];
         
+        if(!isset($codes))
+        {
+            return back()->with('unsuccess', 'User registered indefined!');
+        }
         $init_value=['ae_T1'=>0,
         'cp_T1'=>0,
         'ae_T2'=>0,
@@ -74,6 +79,12 @@ class sousOperationController extends Controller
                 $paths=['code_port'=>$progms->num_portefeuil];
                 $getcode=explode('-',$code);
                 $code=$getcode[0];
+                $account =Accounts::join('portefeuilles','portefeuilles.id_min','accounts.id_min')->where('code_generated',$codes)->where('portefeuilles.num_portefeuil',$progms->num_portefeuil)->first();
+                // dd($act,$account,$code);
+                  if(!isset($account))
+                 {
+                     return back()->with('unsuccess', 'User registered indefined!');
+                 }
                 //dd($progms);
                     return view('Portfail-in.modif',compact('ae_glob','cp_glob','nom','code','date','init_value','leng','paths','ref'));
             }
@@ -90,6 +101,13 @@ class sousOperationController extends Controller
                 $paths=['code_port'=>$progms->num_portefeuil,'programme'=>$code];
                 $getcode=explode('-',$code);
                 $code=$getcode[count(explode('-',$code))-1];
+
+                $account =Accounts::join('programmes','programmes.id_rp','accounts.id_rp')->where('code_generated',$codes)->where('programmes.num_prog',$progms->num_prog)->first();
+                // dd($act,$account,$code);
+                  if(!isset($account))
+                 {
+                     return back()->with('unsuccess', 'User registered indefined!');
+                 }
                 //dd($progms);
                     return view('Portfail-in.modif',compact('ae_glob','cp_glob','nom','code','date','init_value','leng','paths'));
                    
@@ -120,6 +138,12 @@ class sousOperationController extends Controller
                    // dd($init_value);
                     $getcode=explode('-',$code);
                     $code=$getcode[count(explode('-',$code))-1];
+                    $account =Accounts::join('programmes','programmes.id_rp','accounts.id_rp')->where('code_generated',$codes)->where('programmes.num_prog',$progms->num_prog)->first();
+                    // dd($act,$account,$code);
+                      if(!isset($account))
+                     {
+                         return back()->with('unsuccess', 'User registered indefined!');
+                     }
                     return view('Portfail-in.modif',compact('ae_glob','cp_glob','nom','code','date','init_value','leng','paths'));
 
                 }
@@ -152,6 +176,12 @@ class sousOperationController extends Controller
                     $paths=['code_port'=>$progms->num_portefeuil,'programme'=>$progms->num_prog,'sous Programme'=>$sprog->num_sous_prog,'Action'=>$code];
                     $getcode=explode('-',$code);
                     $code=$getcode[count(explode('-',$code))-1];
+                    $account =Accounts::join('actions','actions.id_ra','accounts.id_ra')->where('code_generated',$codes)->where('actions.num_action',$act->num_action)->first();
+                     //dd($act,$account,$codes);
+                      if(!isset($account))
+                     {
+                         return back()->with('unsuccess', 'User registered indefined!');
+                     }
                     return view('Portfail-in.modif',compact('ae_glob','cp_glob','nom','code','date','init_value','leng','paths'));
                 }
         }
@@ -233,7 +263,7 @@ class sousOperationController extends Controller
    
     }
 
-    function AffichePortsSousAct ($port,$prog,$sous_prog,$act,$s_act)
+    function AffichePortsSousAct ($port,$prog,$sous_prog,$act,$s_act,Request $request)
     {
         $s_act1=explode('_',$s_act);
         //dd($act1);
@@ -244,7 +274,25 @@ class sousOperationController extends Controller
         {
             $s_act=$s_act1[1];
         }
-
+        $code=$request['code'];
+        
+        if(!isset($code))
+        {
+            return back()->with('unsuccess', 'User registered indefined!');
+        }
+        $account =Accounts::join('actions','actions.id_ra','accounts.id_ra')->where('code_generated',$code)->where('actions.num_action',$s_act)->first();
+       // dd($act,$account,$code);
+         if(!isset($account))
+        {
+         $account =Accounts::join('actions','actions.id_ra','accounts.id_ra')
+         ->join('sous_actions','sous_actions.num_action','actions.num_action')
+         ->where('code_generated',$code)->where('sous_actions.num_action',$s_act)->first();
+         //dd($act,$account);
+         if(!isset($account))
+         {
+            return back()->with('unsuccess', 'User registered indefined!');
+         }
+        }
         $s_act=SousAction::where('num_sous_action',$s_act)->first();
         $act=Action::where('num_action',$s_act->num_action)->first();
         $sprog=SousProgramme::where('num_sous_prog',$act->num_sous_prog)->first();

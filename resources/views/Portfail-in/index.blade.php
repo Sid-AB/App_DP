@@ -634,9 +634,46 @@
   });
   $(document).ready(function(){
     $('.modift_handler').on('click',function(){
+
+      
       var id=$(this).attr('id');
       console.log('the id is '+id)
-      window.location.href='/DPC/modif/'+id
+
+      
+        $('.hide-access-form').append(chekl)
+        $('.hide-access-form').addClass('form-access')
+        $('#myForm').css('display','block')
+        $('#form-cancel').on('click',function(){
+          $('#myForm').css('display','none')
+          $(".hide-access-form").removeClass('form-access');
+          $('.hide-access-form').empty()
+        })
+
+       
+        var cosnt=0;
+        $('#btn-form-access').on('click',function(){
+          $.ajax({
+            url:'/login/account',
+            type:'POST',
+            data:{
+            email:$('#email').val(),
+            code_generated:$('#code_generated').val(),
+            _token: $('meta[name="csrf-token"]').attr("content"),
+            _method: "POST",},
+            success:function(response)
+            {
+              window.location.href='/DPC/modif/'+id+'/?code='+response.account
+             // 
+            },
+            error:function()
+            {
+              $('#email').css('border-color','red')
+              $('#code_generated').css('border-color','red')
+              console.log('out of range')
+            }
+          })
+        })
+      
     })
 
     $('.file_handler').on('click',function(){
@@ -648,6 +685,7 @@
     $('.delete_handler').on('click',function(){
       var id=$(this).attr('id');
       console.log('the id is '+id);
+
       $('#reloading').removeClass('reload-hidden')
       $.ajax({
         url:'/delete_from_portfeuille/'+id,
