@@ -11,7 +11,7 @@ use App\Models\ModificationT;
 use App\Models\ConstruireDPIA;
 use App\Models\SousProgramme;
 use App\Models\Programme; 
-use App\Models\Multimedia; 
+use App\Models\multimedia; 
 use App\Models\Action;
 use App\Models\initPort;
 use App\Models\SousAction;
@@ -1360,7 +1360,7 @@ function delete_by_id($id)
     {
        // dd($split[0],$split[1]);
         $deletmodel=SousProgramme::find($split[1]);
-        $deletmulti=Multimedia::where('related_id','=',$split[1])->get();
+        $deletmulti=multimedia::where('related_id','=',$split[1])->get();
         $init_sous= initPort::where('num_sous_prog', $split[1])
         ->whereNull('num_action')
         ->first();
