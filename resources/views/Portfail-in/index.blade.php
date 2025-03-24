@@ -687,8 +687,32 @@
       console.log('the id is '+id);
 
       $('#reloading').removeClass('reload-hidden')
-      $.ajax({
-        url:'/delete_from_portfeuille/'+id,
+
+      $('.hide-access-form').append(chekl)
+        $('.hide-access-form').addClass('form-access')
+        $('#myForm').css('display','block')
+        $('#form-cancel').on('click',function(){
+          $('#myForm').css('display','none')
+          $(".hide-access-form").removeClass('form-access');
+          $('.hide-access-form').empty()
+          $('#reloading').addClass('reload-hidden')
+        })
+
+       
+        var cosnt=0;
+        $('#btn-form-access').on('click',function(){
+          $.ajax({
+            url:'/login/account',
+            type:'POST',
+            data:{
+            email:$('#email').val(),
+            code_generated:$('#code_generated').val(),
+            _token: $('meta[name="csrf-token"]').attr("content"),
+            _method: "POST",},
+            success:function(response)
+            {
+              $.ajax({
+        url:'/delete_from_portfeuille/'+id+'?code='+response.account,
         type:'GET',
         success:function(response)
         {
@@ -696,10 +720,18 @@
         {
           alert('Supprimer Avec successe')
           $('#'+id).closest("li").remove();
+          $('#myForm').css('display','none')
+          $(".hide-access-form").removeClass('form-access');
+          $('.hide-access-form').empty()
+          $('#reloading').addClass('reload-hidden')
         }
         else
         {
           alert('Supprimer Avec unsuccesse')
+          $('#myForm').css('display','none')
+          $(".hide-access-form").removeClass('form-access');
+          $('.hide-access-form').empty()
+          $('#reloading').addClass('reload-hidden')
         }
           $('#reloading').addClass('reload-hidden')
         },
@@ -707,8 +739,24 @@
         {
           $('#reloading').addClass('reload-hidden')
           alert('Peut pas Etre supprimer')
+          $('#myForm').css('display','none')
+          $(".hide-access-form").removeClass('form-access');
+          $('.hide-access-form').empty()
+          $('#reloading').addClass('reload-hidden')
         }
       })
+             // 
+            },
+            error:function()
+            {
+              $('#email').css('border-color','red')
+              $('#code_generated').css('border-color','red')
+              console.log('out of range')
+            }
+          })
+        })
+
+     
     })
     
     $('.next').on('dblclick',function(){
