@@ -393,44 +393,51 @@
                         <td class="program-title">Programme :  {{ $programme['nom'] }}</td>
                         
                         @if(!empty($programme['Total']))
-                   
+                       
                         @php
+                   
                                 $totalprogAE = $totalprogCP = 0;
+                               
                             @endphp
                             @foreach(['t1', 't2', 't3', 't4'] as $key)
                                 @php
                                     $tabsousprogrecoit = $result[$key]['tabsousprogrecoit'] ?? []; 
-                                  //  dd( $tabsousprogrecoit);
+                                   // dd( $tabsousprogrecoit);
                                     $tabsousprogretir = $result[$key]['tabsousprogretir'] ?? [];
-                                    $valeurAE = $valeurCP = 0;
+                                 //  dd($tabsousprogretir);
+                                 $valeurAE = $valeurCP = 0;
                                 @endphp
 
                                 {{-- Boucle sur tabsousprogrecoit --}}
                                 @foreach($tabsousprogrecoit as $index => $item)
-                                    @if($item['prog'] === $programme['code'])
-                                       
+                               
+                                    @if(isset($item['prog']) && $item['prog'] === $programme['code'])
+                                 
                                         @php
                                             if ($index === 0) {  
-                                                $valeurAE = $item['valeurAE'] ?? 0;
+                                                $valeurAE = $item['valeurAE'] ?? $valeurAE;
                                             }
                                             if ($index === 1) {  
-                                                $valeurCP = $item['valeurCP'] ?? 0;
+                                                $valeurCP = $item['valeurCP'] ?? $valeurCP;
                                             }
+
                                            
                                         @endphp
+                                        
                                     @endif
                                 @endforeach
-
+                             
                                 {{-- Boucle sur tabsousprogretir --}}
                                 @foreach($tabsousprogretir as $index => $item)
-                                    @if($item['prog'] === $programme['code'])
-                                   
+                               
+                                @if(isset($item['prog']) && $item['prog'] === $programme['code'])
+                                @php dd($item['prog']);@endphp
                                         @php
                                             if ($index === 0) { 
-                                                $valeurAE = $item['valeurAE'] ?? 0;
+                                                $valeurAE = $item['valeurAE'] ??$valeurAE;
                                             }
                                             if ($index === 1) { 
-                                                $valeurCP = $item['valeurCP'] ?? 0;
+                                                $valeurCP = $item['valeurCP'] ?? $valeurCP;
                                             }
 
                                         @endphp
@@ -440,6 +447,7 @@
                                 @php
                                     $totalprogAE += $valeurAE;
                                     $totalprogCP += $valeurCP;
+                                    //dd($totalprogAE);
                                 @endphp
 
                                
@@ -462,8 +470,9 @@
                                     $AE_envoi_Key='AE_envoi_'.$key;
                                     $CP_envoi_Key='CP_envoi_'.$key;
                                     if(!empty($result[$key])){
-                                    $valeurAE=$result[$key]['lastModif']->$AE_recoit_Key + $result[$key]['lastModif']->$AE_envoi_Key;
-                                    $valeurCP=$result[$key]['lastModif']->$CP_recoit_Key + $result[$key]['lastModif']->$CP_envoi_Key;}
+                                      //dd($result);
+                                    $valeurAEr=$result[$key]['lastModif']->$AE_recoit_Key + $result[$key]['lastModif']->$AE_envoi_Key;
+                                    $valeurCPr=$result[$key]['lastModif']->$CP_recoit_Key + $result[$key]['lastModif']->$CP_envoi_Key;}
                                     //dd( $valeurAE,$valeurCP);
                                 @endphp
                                 
@@ -563,8 +572,8 @@
                                     $AE_envoi_Key='AE_envoi_'.$key;
                                     $CP_envoi_Key='CP_envoi_'.$key;
                                     if(!empty($result[$key])){
-                                    $valeurAE=$result[$key]['lastModif']->$AE_recoit_Key + $result[$key]['lastModif']->$AE_envoi_Key;
-                                    $valeurCP=$result[$key]['lastModif']->$CP_recoit_Key + $result[$key]['lastModif']->$CP_envoi_Key;}
+                                    $valeurAEsr=$result[$key]['lastModif']->$AE_recoit_Key + $result[$key]['lastModif']->$AE_envoi_Key;
+                                    $valeurCPsr=$result[$key]['lastModif']->$CP_recoit_Key + $result[$key]['lastModif']->$CP_envoi_Key;}
                                     //dd( $valeurAE,$valeurCP);
                                     @endphp
                                     {{-- Affichage des valeurs --}}
@@ -758,6 +767,9 @@
    @endfor
 </tbody>
 </table>
+<div class="page-break"> </div>
+<h1 style=" font-family: Arial Narrow, sans-serif; font-size: 14pt; font-weight: bold;"> 1.2.3. PROGRAMMATION DES CREDITS DISPONIBLES (CREDITS OUVERTS + CREDITS ATTENDUS DEVENUS DISPONIBLES) :</h1>
+
 @php
     use Illuminate\Support\Facades\DB;
     $indiceProg = []; 
@@ -784,8 +796,6 @@
                         $indiceProg[] = count($indiceProg) + 1;
                         //dd($indiceProg);
                     @endphp
-<div class="page-break"> </div>
-<h1 style=" font-family: Arial Narrow, sans-serif; font-size: 14pt; font-weight: bold;"> 1.2.3. PROGRAMMATION DES CREDITS DISPONIBLES (CREDITS OUVERTS + CREDITS ATTENDUS DEVENUS DISPONIBLES) :</h1>
 <table >
 
                     <tr>
