@@ -4737,7 +4737,7 @@ if(code == 200){
         var ig = 0;
         var io = 0;
         var iso = 0;
-        var finder_s=false;
+        var finder_s=true;
         $.each(data, function (key, value) {
             // Create a table row
             var val = value.split('-')
@@ -4775,7 +4775,7 @@ if(code == 200){
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_not">' +ValAccountingFigures (data_T_port.group[ig].values.cp_notifiegrpop) + '</td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' +ValAccountingFigures (data_T_port.group[ig].values.cp_consomegrpop) + ',00</td>' +
                         '</tr>';
-                    ig++;
+                    ig++;$('#T-tables tbody').append(row);
                 }
             }
             if (data_T_port.operation.length > 0 && data_T_port.operation.length > io) {
@@ -4795,13 +4795,14 @@ if(code == 200){
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_not">' +ValAccountingFigures (data_T_port.operation[io].values.cp_notifieop) + '</td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' +ValAccountingFigures (data_T_port.operation[io].values.cp_consomeop) + '</td>' +
                         '</tr>';
-                    io++;
+                    io++;$('#T-tables tbody').append(row);
                 }
             }
             if (data_T_port.sousOperation.length > 0 && data_T_port.sousOperation.length > iso) {
                var land=data_T_port.sousOperation[iso].code.length-5;
                var last=data_T_port.sousOperation[iso].code.split('-').length
-                console.log('all'+land+' split code'+splitcode(data_T_port.sousOperation[iso].code, land)+'Key code'+key)
+
+                console.log('all'+land+' split code'+splitcode(data_T_port.sousOperation[iso].code, land)+'Key code'+key+'the last'+data_T_port.sousOperation[iso].code.split('-')[last-1])
                 if (key == splitcode(data_T_port.sousOperation[iso].code, land) || key ==data_T_port.sousOperation[iso].code.split('-')[last-1]) {
                     //only_def(data_T_port.sousOperation[iso].code)
                    console.log('code orignal')
@@ -4830,18 +4831,18 @@ if(code == 200){
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_not">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_notifiesousop) + '</td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_consomesousop) + '</td>' +
                         '</tr>';
-                    iso++;
+                    iso++;$('#T-tables tbody').append(row);
                    
                    
                 }
                 else
                 {  
-                    console.log('new code'+data_T_port.sousOperation[iso].code.split('-')[last-1]+'leng'+data_T_port.sousOperation[iso].code.split('-').length)
-
-                    
-                   if(data_T_port.sousOperation[iso].code.split('-').length >9)
+                   if(data_T_port.sousOperation[iso].code != data_T_port.operation[io].code && data_T_port.sousOperation[iso].code !=data_T_port.group[ig].code)
                    {
-                        console.log('new code'+splitcode(data_T_port.sousOperation[iso].code, land)+'leng'+data_T_port.sousOperation[iso].code.split('-').length)
+                    console.log('new code  '+data_T_port.sousOperation[iso].code.split('-')[last-1]+'-- -leng --- '+data_T_port.sousOperation[iso].code.split('-').length)
+                    while(finder_s){
+                    if(data_T_port.sousOperation[iso].code.split('-').length >=10 && key!=data_T_port.sousOperation[iso].code){
+                        console.log('new code >> '+splitcode(data_T_port.sousOperation[iso].code, land)+' >> leng >>'+data_T_port.sousOperation[iso].code.split('-').length)
                         var def='';
                         var nom='';
                         var int='';
@@ -4868,7 +4869,7 @@ if(code == 200){
                    '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_consomesousop) + '</td>' +
                    '</tr>';
                    //$('#T-tables tbody').append(row);
-                   iso++;
+                   iso++;$('#T-tables tbody').append(row);
                }
                else
                {
@@ -4884,15 +4885,17 @@ if(code == 200){
                 '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_not">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_notifiesousop) + '</td>' +
                 '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_consomesousop) + '</td>' +
                 '</tr>';
-               
+                finder_s = false;$('#T-tables tbody').append(row);
+               }
             }
            
+            }
                 }
             }
             
             }
             // Append the row to the table body
-            $('#T-tables tbody').append(row);
+            //$('#T-tables tbody').append(row);
            
             if (current.length == 0) {
                 current = key;
