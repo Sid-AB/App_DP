@@ -557,7 +557,7 @@ $progg[$cleprog] = $item;
 // Réindexer le tableau
 $progg = array_values($progg);
 
-//dd($progg);
+//  dd($progg);
 //afficher les t qui n'ont pas une valeur 
 $resultT=[];
 $allT = ["t1", "t2", "t3", "t4"];

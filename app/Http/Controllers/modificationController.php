@@ -1360,7 +1360,7 @@ function delete_by_id($id)
     {
        // dd($split[0],$split[1]);
         $deletmodel=SousProgramme::find($split[1]);
-        $deletmulti=multimedia::where('related_id','=',$split[1])->get();
+        $deletmulti=Multimedia::where('related_id','=',$split[1])->get();
         $init_sous= initPort::where('num_sous_prog', $split[1])
         ->whereNull('num_action')
         ->first();
