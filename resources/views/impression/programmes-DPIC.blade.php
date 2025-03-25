@@ -931,9 +931,7 @@
                     </table>
                 @endforeach
                 @else 
-                <div class="page-break"> </div>
-                <h1 style=" font-family: Arial Narrow, sans-serif; font-size: 14pt; font-weight: bold;"> 1.2.3. PROGRAMMATION DES CREDITS DISPONIBLES (CREDITS OUVERTS + CREDITS ATTENDUS DEVENUS DISPONIBLES) :</h1>
-                <table >
+                 <table >
     
     <tr>
    
