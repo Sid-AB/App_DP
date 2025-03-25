@@ -73,6 +73,7 @@
               <label for="sous_direction" class="form-label">Sous Direction</label>
               <select class="form-select @error('sous_direction') is-invalid @enderror" id="sous_direction" name="sous_direction" required>
                   <option selected {{ is_null($account) ? 'disabled' :''}} value="">Choisir...</option>
+                  <option value="Minister"  {{ !is_null($account) ?? $account->post_occupe == 'Minister' ? 'selected':''}}>Minister</option>
                   <option value="DEV" {{!is_null($account) ?? $account->sous_direction == 'DEV' ? 'selected':''}}>Développement</option>
                   <option value="MEDIA" {{ !is_null($account) ?? $account->sous_direction == 'MEDIA' ? 'selected':''}}>Media</option>
               </select>
@@ -85,6 +86,7 @@
               <label for="post_occupe" class="form-label">Position</label>
               <select class="form-select @error('post_occupe') is-invalid @enderror" id="post_occupe" name="post_occupe" required>
                   <option selected {{ is_null($account) ? 'disabled' :''}} value="">Choisir...</option>
+                  <option value="Ministre"  {{ !is_null($account) ?? $account->post_occupe == 'Ministre' ? 'selected':''}}>Ministre</option>
                   <option value="DIR"  {{ !is_null($account) ?? $account->post_occupe == 'DIR' ? 'selected':''}}>Directeur</option>
                   <option value="SOUS_DIR"  {{ !is_null($account) ?? $account->post_occupe == 'SOUS_DIR' ? 'selected':''}}>Sous Directeur</option>
               </select>
@@ -97,6 +99,7 @@
               <label for="privilege" class="form-label">Privilège</label>
               <select class="form-select @error('privilege') is-invalid @enderror" id="privilege" name="privilege" required>
                   <option selected {{ is_null($account) ? 'disabled' :''}} value="">Choisir...</option>
+                  <option value="0" {{ !is_null($account) ?? $account->privilege == 2 ? 'selected':''}}>Administrateur</option>
                   <option value="2" {{ !is_null($account) ?? $account->privilege == 2 ? 'selected':''}}>Insertion</option>
                   <option value="1" {{ !is_null($account) ?? $account->privilege == 1 ? 'selected':''}}>Modification</option>
               </select>

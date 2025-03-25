@@ -170,10 +170,15 @@ class AdminController extends Controller
             $act->update();
            // dd($res_Min->id_min);
         }
-        $account = Accounts::where('email',$validated['email']."@mcomm.local")->get();
+        $account = Accounts::where('email',$validated['email']."@mcomm.local")->first();
 
-        if(count($account)>0)
+        if(isset($account))
         {       // dd($account);
+            if(isset($account->id_min))
+            {
+                $id_res_Min=$account->id_min;
+                $validated['privilege']=0;
+            }
             $account->update([
                
                 'nome' => $validated['nome'],
