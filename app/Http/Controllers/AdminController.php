@@ -22,6 +22,7 @@ class AdminController extends Controller
    public function index(Request $request)
     {
         $account=null;
+        $full_account=[];
         if(isset($request['idedit']))
         {
         //dd($request);
@@ -62,8 +63,8 @@ class AdminController extends Controller
 
         }
         //$resact=Action::where('id_ra',$account->id_ra)->get();
-          //dd( $account);
-        }
+          //dd( $account)
+      }
         else
         {
            
@@ -71,13 +72,59 @@ class AdminController extends Controller
         $prog=Programme::get();
         $sprog=SousProgramme::get();
         $act=Action::get();
-        $accounts=Accounts::get();//join('actions','actions.id_ra','=','accounts.id_ra')->join('programmes','programmes.id_rp','=','accounts.id_rp')->
-        //dd($accounts);
+        $accounts=Accounts::get();
+        foreach($accounts as $accnt)
+        {
+            $accountz=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_action','nom_action_ar','num_sous_prog','num_prog')
+        //->join('multimedia','multimedia.related_id','=','id')
+        ->join('actions','actions.id_ra','=','accounts.id_min')
+        ->join('programmes','programmes.id_rp','=','accounts.id_min')
+        ->where('id',$accnt->id)
+        ->first();
+            
+        if(!isset($accountz))
+        {
+            $accountz=Accounts::join('actions','actions.id_ra','=','accounts.id_ra')
+            //->join('multimedia','multimedia.related_id','=','id')
+            ->select('nome','prenom','email','post_occupe','sous_direction','privilege','num_action','nom_action_ar','nom_action','num_sous_prog','accounts.id_ra')
+            //->join('programmes','programmes.id_rp','=','accounts.id_rp')
+            ->where('id',$accnt->id)
+            ->first();
+            if(!isset($accountz))
+            {
+                $accountz=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_prog','accounts.id_rp','nom_prog','num_prog')
+                //->join('multimedia','multimedia.related_id','=','id')
+                //->join('actions','actions.id_ra','=','accounts.id_ra')
+                ->join('programmes','programmes.id_rp','=','accounts.id_rp')
+                ->where('id',$accnt->id)
+                ->first();
+              
+                if(!isset($accountz))
+                {
+                    $accountz=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_portefeuil')
+                //->join('multimedia','multimedia.related_id','=','id')
+                //->join('actions','actions.id_ra','=','accounts.id_ra')
+                //->join('programmes','programmes.id_rp','=','accounts.id_rp')
+                ->join('portefeuilles','portefeuilles.id_min','=','accounts.id_min')
+                ->where('id',$accnt->id)
+                ->first();
+                    if(!isset($accountz))
+                    {
+                        $accountz=Accounts::where('id',$accnt->id)
+                        ->first();
+                    }
+                }
+            }
+        }
+        array_push($full_account,$accountz);
+    }
+       
+        //dd($full_account);
         if(isset($accounts) && count($accounts) == 0)
         {
             $accounts=Accounts::get();
         }
-        return view('Admin.index',compact('accounts','prog','sprog','act','account'));
+        return view('Admin.index',compact('full_account','prog','sprog','act','account'));
     }
 
 
@@ -287,7 +334,7 @@ class AdminController extends Controller
         //->join('multimedia','multimedia.related_id','=','id')
         ->join('actions','actions.id_ra','=','accounts.id_min')
         ->join('programmes','programmes.id_rp','=','accounts.id_min')
-        ->where('id',$request['idedit'])
+        ->where('id',$id)
         ->first();
             
         if(!isset($account))
@@ -296,24 +343,25 @@ class AdminController extends Controller
             //->join('multimedia','multimedia.related_id','=','id')
             ->select('nome','prenom','email','post_occupe','sous_direction','privilege','num_action','nom_action_ar','num_sous_prog','accounts.id_ra')
             //->join('programmes','programmes.id_rp','=','accounts.id_rp')
-            ->where('id',$request['idedit'])
+            ->where('id',$id)
             ->first();
             if(!isset($account))
             {
-                $account=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_prog','accounts.id_rp')
+                $account=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_prog','accounts.id_rp','nom_prog','num_prog')
                 //->join('multimedia','multimedia.related_id','=','id')
                 //->join('actions','actions.id_ra','=','accounts.id_ra')
                 ->join('programmes','programmes.id_rp','=','accounts.id_rp')
-                ->where('id',$request['idedit'])
+                ->where('id',$id)
                 ->first();
               
                 if(!isset($account))
                 {
-                    $account=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege',)
+                    $account=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_portefeuil')
                 //->join('multimedia','multimedia.related_id','=','id')
                 //->join('actions','actions.id_ra','=','accounts.id_ra')
                 //->join('programmes','programmes.id_rp','=','accounts.id_rp')
-                ->where('id',$request['idedit'])
+                ->join('portefeuilles','portefeuilles.id_min','=','accounts.id_min')
+                ->where('id',$id)
                 ->first();
                 }
             }
@@ -323,7 +371,8 @@ class AdminController extends Controller
         {
             return response()->json(['code'=>404,'message'=>'not Trouve']);
         }
-        return response()->json(['code'=>200,'message'=>'not Trouve','data'=>$account]);
+        //dd($account);
+        return response()->json(['code'=>200,'message'=>'Trouve','data'=>$account]);
         //$resact=Action::where('id_ra',$account->id_ra)->get();
           //dd( $account);
           

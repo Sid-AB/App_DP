@@ -259,7 +259,7 @@
                         @php
                         $i=1;    
                         @endphp
-                        @foreach($accounts as $accountloop)
+                        @foreach($full_account as $accountloop)
                         <tr>
                           <td>
                             <div class="min-width">
@@ -295,11 +295,25 @@
                           @endif
                           <td>
                             <div class="min-width">
-                              
-                              <p id="{{$accountloop->id}}"></p>
+                              @if($accountloop->num_portefeuil)
+                              <p class="status-btn success-btn" id="{{$accountloop->id}}">{{$accountloop->num_portefeuil}}</p>
+
+                              @else
+                               @if($accountloop->num_action)
+                                <p class="status-btn success-btn" id="{{$accountloop->id}}">{{$accountloop->nom_action}}</p>
+                               @else
+                                @if($accountloop->num_prog)
+                                 <p class="status-btn success-btn" id="{{$accountloop->id}}">{{$accountloop->nom_prog }}</p>
+                                @else
+                                <p class="status-btn close-btn" id="{{$accountloop->id}}">Annuller</p>
+                                @endif
+                              @endif
+                            @endif
                             </div>
                           </td>
-                          <td>
+                          <td style="
+                          text-align: center;
+                      ">
                             <div class="min-width">
                               <a href="/live-pdf/{{$accountloop->id}}" target="_blank"><i class="fas fa-file-alt"></i></a>
                             </div>
