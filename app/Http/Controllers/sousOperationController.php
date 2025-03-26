@@ -208,28 +208,30 @@ class sousOperationController extends Controller
             return back()->with('unsuccess', 'User registered indefined!');
         }
         $account =Accounts::join('actions','actions.id_ra','accounts.id_ra')->where('code_generated',$code)->where('actions.num_action',$act)->first();
+        $account =Accounts::join('actions','actions.id_ra','accounts.id_ra')
+        ->join('sous_actions','sous_actions.num_action','actions.num_action')
+        ->where('code_generated',$code)->where('sous_actions.num_action',$act)->first();
        // dd($act,$account,$code);
          if(!isset($account))
         {
             $account =Accounts::join('programmes','programmes.id_rp','accounts.id_rp')
                                 ->join('sous_programmes','sous_programmes.num_prog','programmes.num_prog')
-                                ->join('actions','actions.num_sous_prog ','sous_programmes.num_sous_prog ')
+                                ->join('actions','actions.num_sous_prog','sous_programmes.num_sous_prog')
                                 ->where('code_generated',$code)
                                 ->where('actions.num_action',$act)
                                 ->first();
             if(!isset($account))
             {
                 $account =Accounts::join('programmes','programmes.id_rp','accounts.id_rp')
+                ->join('portefeuilles','portefeuilles.num_portefeuil','programmes.num_portefeuil')
                 ->join('sous_programmes','sous_programmes.num_prog','programmes.num_prog')
-                ->join('actions','actions.num_sous_prog ','sous_programmes.num_sous_prog ')
+                ->join('actions','actions.num_sous_prog','sous_programmes.num_sous_prog')
                 ->where('code_generated',$code)
                 ->where('actions.num_action',$act)
                 ->first();
             }
-         $account =Accounts::join('actions','actions.id_ra','accounts.id_ra')
-         ->join('sous_actions','sous_actions.num_action','actions.num_action')
-         ->where('code_generated',$code)->where('sous_actions.num_action',$act)->first();
-         //dd($act,$account);
+      
+         dd($act,$account);
          if(!isset($account))
          {
             return back()->with('unsuccess', 'User registered indefined!');
