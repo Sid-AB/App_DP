@@ -4755,7 +4755,10 @@ if(code == 200){
                 '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_not">' + 0 + '</td>' +
                 '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' + 0 + '</td>' +
                 '</tr>';
-
+                if(code !=200)
+                    {
+                        $('#T-tables tbody').append(row);
+                    }
             if(Object.keys(data_T_port).length > 0){
 
             if (data_T_port.group.length > 0 && data_T_port.group.length > ig) {
@@ -4891,9 +4894,12 @@ if(code == 200){
            
             }
                 }
+                
+                
             }
             
             }
+          
             // Append the row to the table body
             //$('#T-tables tbody').append(row);
            

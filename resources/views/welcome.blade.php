@@ -14,7 +14,7 @@
         <link href="{{asset('assets/fontawesome-free/css/all.css')}}" rel="stylesheet"/>
         <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 
-        <link
+        <!--link
                 rel="stylesheet"
                 href="https://unpkg.com/@patternfly/patternfly/patternfly.css"
                 crossorigin="anonymous"
