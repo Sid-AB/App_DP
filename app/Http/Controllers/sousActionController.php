@@ -16,6 +16,12 @@ use App\Services\CalculDpia;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\Snappy\Facades\SnappyPdf;
 use Illuminate\Support\Facades\Schema;
+
+use PhpOffice\PhpWord\IOFactory;
+use PhpOffice\PhpWord\PhpWord;
+use Illuminate\Support\Facades\View;
+
+
 class sousActionController extends Controller
 {
     protected $CalculDpia;
@@ -652,25 +658,62 @@ if ($tableExists) {
 //dd($prgrmsousact);
 
 //return view('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg','prgrmsousact'));
-$pdf=SnappyPdf::loadView('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg','prgrmsousact'))
+/*$pdf=SnappyPdf::loadView('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg','prgrmsousact'))
 ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1);//lanscape mean orentation
-return $pdf->stream('impression_dpic.pdf');
+return $pdf->stream('impression_dpic.pdf');*/
+$data = [
+    'programmes' => $programmes ?? [],
+    'Ttportglob' => $Ttportglob ?? [],
+    'art' => $art ?? [],
+    'modif' => $modif ?? null,
+    'result' => $result ?? [],
+    'prgrmsousact' => $prgrmsousact ?? []
+];
 
-}else {
- 
-     
-//return view('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg'));
-$pdf=SnappyPdf::loadView('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg'))
-->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1);//lanscape mean orentation
-return $pdf->stream('impression_dpic.pdf');
+$phpWord = new PhpWord();
+        $section = $phpWord->addSection(['orientation' => 'landscape']);
 
+        // Rendre la vue Blade en HTML
+        $html = View::make('impression.impression_dpic_init', $data)->render();
 
-}
+        // Nettoyer le HTML pour éviter les erreurs DOMDocument
+        if (extension_loaded('tidy')) {
+            $tidy = new \tidy();
+            $cleanHtml = $tidy->repairString($html, [
+                'output-html' => true,
+                'wrap' => 0,
+                'show-body-only' => false,
+                'clean' => true,
+                'char-encoding' => 'utf8',
+                'newline' => 'LF',
+                'indent' => false
+            ]);
+        } else {
+            // Alternative si Tidy n'est pas disponible : suppression des caractères problématiques
+            $cleanHtml = mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8');
+            $cleanHtml = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/u', '', $cleanHtml); // Supprime les caractères de contrôle
+        }
+
+        // Ajouter le HTML nettoyé au document Word
+        try {
+            \PhpOffice\PhpWord\Shared\Html::addHtml($section, $cleanHtml, false, false);
+        } catch (\Exception $e) {
+            // En cas d'erreur persistante, loguer pour débogage
+            \Log::error('Erreur lors de l’ajout du HTML dans PhpWord : ' . $e->getMessage());
+            return response()->json(['error' => 'Erreur lors de la génération du Word'], 500);
+        }
+
+        // Sauvegarder le fichier Word
+        $filePath = storage_path('app/impression_dpic.docx');
+        $writer = IOFactory::createWriter($phpWord, 'Word2007');
+        $writer->save($filePath);
+
+        // Télécharger le fichier
+        return response()->download($filePath, 'impression_dpic.docx')->deleteFileAfterSend(true);}
   
    
 
 }
-
 //==============================fct compareT====================================================*
 function compareT($lastModif, $t) {
 
