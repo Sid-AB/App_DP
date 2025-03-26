@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        <meta name="csrf-token" content=" {{csrf_token()}}">
         <title>Portefeuille</title>
 
         <!-- Fonts -->
@@ -27,7 +27,17 @@
 <!-- Container for Car Cards -->
 <div>
  {{--@include('progress_step.progress_step')--}}
+
  <br>
+ @if (session('unsuccess'))
+ <div class="alert alert-danger alert_func" style="
+ text-align: center;
+ width: 50%;
+ left: 20%;
+">
+     {{ session('unsuccess') }}
+ </div>
+@endif
  </div>
  @php
  $j=1;
@@ -159,7 +169,7 @@
 </div>
 
 
-
+<div class="hide-access-form"></div>
 
 </div>
 
@@ -180,15 +190,64 @@ let arrow = document.querySelectorAll(".arrow");
   let sidebar = document.querySelector(".sidebar");
   let sidebarBtn = document.querySelector(".bx-menu");
   console.log(sidebarBtn);
+  var chekl='<div class="form-popup-access" id="myForm">'+
+        //  '<div class="row align-items-center"style="justify-content: center;">'+
+          '<img src="{{asset('assets/img/logo_ministere.svg')}}" alt="" style="width: 60%"/>'+
+         // '<div >'+
+        '<form class="form-container-access">'+
+      
+         '<h1>Login</h1>'+
+          '<p id="alert-access"></p>'+
+         '<label for="email"><b>Email</b></label>'+
+         '<input class="form-control" type="text" placeholder="Enter Email" name="email" id="email" required>'+
+
+         '<label for="psw"><b>Password</b></label>'+
+         '<input class="form-control" type="password" placeholder="Enter Password" name="psw" id="code_generated" required>'+
+
+         '<button type="button" class="btn" id="btn-form-access">Login</button>'+
+         '<button type="button" class="btn cancel" id="form-cancel">Close</button>'+
+        '</form>'+
+      '</div>';
 /*  sidebarBtn.addEventListener("click", ()=>{
     sidebar.classList.toggle("close");
   });*/
   $(document).ready(function(){
     $('.card-photo-holder').on('click',function(){
-    //  console.log('{{--route('home.portfail')--}}'+'---'+$(this).attr('id'));
+      console.log('{{--route('home.portfail')--}}'+'---'+$(this).attr('id'));
       if($(this).attr('id') == 'create-dir')
       {
-        window.location.href='{{route('form.portfail')}}'
+        $('.hide-access-form').append(chekl)
+        $('.hide-access-form').addClass('form-access')
+        $('#myForm').css('display','block')
+        $('#form-cancel').on('click',function(){
+        $('#myForm').css('display','none')
+        $(".hide-access-form").removeClass('form-access');
+        $('.hide-access-form').empty()
+        })
+      
+        $('#btn-form-access').on('click',function(){
+          $.ajax({
+            url:'/login/account',
+            type:'POST',
+            data:{
+            email:$('#email').val(),
+            code_generated:$('#code_generated').val(),
+            _token: $('meta[name="csrf-token"]').attr("content"),
+            _method: "POST",},
+            success:function(response)
+            {
+              window.location.href='/Form/?code='+response.account;
+             // 
+            },
+            error:function()
+            {
+              $('#email').css('border-color','red')
+              $('#code_generated').css('border-color','red')
+              console.log('out of range')
+            }
+          })
+        })
+       
       }else{
       window.location.href='/Portfail/'+$(this).attr('id')}
     })

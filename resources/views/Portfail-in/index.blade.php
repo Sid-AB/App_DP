@@ -849,7 +849,10 @@ listItemsWithNestedUl.each(function(){
   })
   $('.add-btn').on('click',function(){
     
-     
+       var cosnt=0;
+        var id = $(this).attr("id");
+            var indice=id ;
+            console.log('i m the level '+indice) 
         $('.hide-access-form').append(chekl)
         $('.hide-access-form').addClass('form-access')
         $('#myForm').css('display','block')
@@ -858,10 +861,7 @@ listItemsWithNestedUl.each(function(){
         $(".hide-access-form").removeClass('form-access');
         $('.hide-access-form').empty()
         })
-        var cosnt=0;
-        var id = $(this).attr("id");
-            var indice=id ;
-            console.log('i m the level '+indice) 
+      
         $('#btn-form-access').on('click',function(){
           $.ajax({
             url:'/login/account',

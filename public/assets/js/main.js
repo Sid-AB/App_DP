@@ -5545,7 +5545,8 @@ $(document).ready(function () {
         $('.Budget_info').css('display','none')
        }
     })
-    $('#expExcel').on('click',function()
+
+$('#expExcel').on('click',function()
 {
     let table = document.getElementById("T-tables"); 
     let wb = XLSX.utils.book_new(); 
