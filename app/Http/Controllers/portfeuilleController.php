@@ -45,10 +45,10 @@ class portfeuilleController extends Controller
 
         $code=$request['code'];
         
-        if(!isset($code))
+       /* if(!isset($code))
         {
             return back()->with('unsuccess', 'User registered indefined!');
-        }
+        }*/
         
 
         $id=explode('_',$path);
@@ -65,6 +65,7 @@ class portfeuilleController extends Controller
        // dd($act,$account,$code);
          if(!isset($account))
         {
+            
             return back()->with('unsuccess', 'User registered indefined!');
         }
         }
@@ -75,10 +76,19 @@ class portfeuilleController extends Controller
         $paths=['code_port'=>$progms[0]->num_portefeuil,'programme'=>$num];
 
         $account =Accounts::join('portefeuilles','portefeuilles.id_min','accounts.id_min')->where('code_generated',$code)->where('portefeuilles.num_portefeuil',$progms[0]->num_portefeuil)->first();
-        // dd($progms,$account,$code);
+         //dd($progms,$account,$code);
           if(!isset($account))
          {
-             return back()->with('unsuccess', 'User registered indefined!');
+            $account =Accounts::join('programmes','programmes.id_rp','accounts.id_rp')
+           // ->join('sous_programmes','sous_programmes.num_prog','programmes.num_prog')
+            ->where('code_generated',$code)
+            ->where('programmes.num_prog',$progms[0]->num_prog)
+            ->first();
+            //dd($account,$code);
+            if(!isset($account))
+            {
+            return back()->with('unsuccess', 'User registered indefined!');
+            }
          }  
        // dd($paths);
        }
@@ -88,11 +98,20 @@ class portfeuilleController extends Controller
                 $sprog=SousProgramme::where('num_sous_prog',intval($num))->first();
                 $progms=Programme::where('num_prog',$sprog->num_prog)->first();
                 $paths=['code_port'=>$progms->num_portefeuil,'programme'=>$progms->num_prog,'sous Programme'=>$num];
-                $account =Accounts::join('programmes','programmes.id_rp','accounts.id_rp')->where('code_generated',$code)->where('programmes.num_prog',$progms->num_prog)->first();
-        // dd($act,$account,$code);
+                $account =Accounts::join('portefeuilles','portefeuilles.id_min','accounts.id_min')->where('code_generated',$code)->where('portefeuilles.num_portefeuil',$progms->num_portefeuil)->first();
+        // dd($account,$code);
           if(!isset($account))
          {
-             return back()->with('unsuccess', 'User registered indefined!');
+            $account =Accounts::join('programmes','programmes.id_rp','accounts.id_rp')
+            ->join('sous_programmes','sous_programmes.num_prog','programmes.num_prog')
+            ->where('code_generated',$code)
+            ->where('sous_programmes.num_sous_prog',$sprog->num_sous_prog)
+            ->first();
+            //dd($account,$code);
+            if(!isset($account))
+            {
+            return back()->with('unsuccess', 'User registered indefined!');
+            }
          }
              //    dd($paths);
         }
@@ -104,13 +123,13 @@ class portfeuilleController extends Controller
             $paths=['code_port'=>$progms->num_portefeuil,'programme'=>$progms->num_prog,'sous Programme'=>$sprog->num_sous_prog,'Action'=>$num];
              //   dd($paths);
 
-             $code=$request['code'];
+         /*    $code=$request['code'];
         
              if(!isset($code))
              {
                  return back()->with('unsuccess', 'User registered indefined!');
-             }
-             $account =Accounts::join('actions','actions.id_ra','accounts.id_ra')->where('code_generated',$code)->where('actions.num_action',$act->num_action)->first();
+             }*/
+             /*$account =Accounts::join('actions','actions.id_ra','accounts.id_ra')->where('code_generated',$code)->where('actions.num_action',$act->num_action)->first();
             // dd($act,$account,$code);
               if(!isset($account))
              {
@@ -122,7 +141,7 @@ class portfeuilleController extends Controller
               {
                  return back()->with('unsuccess', 'User registered indefined!');
              }
-             }
+             }*/
         }
         $leng=count($paths);
       //  dd($leng);
@@ -272,12 +291,12 @@ class portfeuilleController extends Controller
     //affichage formulaire
     function form_portef(Request $request)
     {
-        $code=$request['code'];
+       /* $code=$request['code'];
         
         if(!isset($code))
         {
             return back()->with('unsuccess', 'User registered indefined!');
-        }
+        }*/
         $account =Accounts::join('portefeuilles','portefeuilles.id_min','accounts.id_min')->where('code_generated',$code)->first();
        // dd($act,$account,$code);
          if(!isset($account))
