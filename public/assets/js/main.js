@@ -4760,23 +4760,23 @@ if(code == 200){
                 '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_not">' + 0 + '</td>' +
                 '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' + 0 + '</td>' +
                 '</tr>';
-               /* if(code !=200)
+               if(code !=200)
                     {
                         $('#T-tables tbody').append(row);
                     }
-                });*/
-            if(Object.keys(data_T_port).length > 0){
+                });
+            for( i = 0; i<Object.keys(data_T_port).length ;i++){
 
             if (data_T_port.group.length > 0 && data_T_port.group.length > ig) {
                var land=data_T_port.group[ig].code.length-5;
-             
-                if (key == splitcode(data_T_port.group[ig].code, land) || key==data_T_port.group[ig].code.split('-')[6]) {
+                key=splitcode(data_T_port.group[ig].code, land)
+                if (key==data_T_port.group[ig].code.split('-')[6]) {
                     console.log(key+'keys --codes groupe'+data_T_port.group[ig].code.split('-')[6])
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.group[ig].code + '">' +
                         '<td scope="row"  class="code">' + key + '</td>' +
-                        '<td id="nom_ops"><p>' + val[0] + '</p> </td>' +
+                        '<td id="nom_ops"><p>'+data_T_port.group[ig].nom+'</p> </td>' +
                         '<td> - </td>' +
-                        '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
+                        '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p></p></td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' +ValAccountingFigures (data_T_port.group[ig].values.ae_reportegrpop) + ',00</td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' +ValAccountingFigures (data_T_port.group[ig].values.ae_notifiegrpop) + ',00</td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' +ValAccountingFigures (data_T_port.group[ig].values.ae_engagegrpop) + ',00</td>' +
@@ -4789,14 +4789,14 @@ if(code == 200){
             }
             if (data_T_port.operation.length > 0 && data_T_port.operation.length > io) {
                var land=data_T_port.operation[io].code.length-5;
-             
-                if (key == splitcode(data_T_port.operation[io].code, land) || key==data_T_port.operation[io].code.split('-')[7]) {
+               key = splitcode(data_T_port.operation[io].code, land)
+                if ( key==data_T_port.operation[io].code.split('-')[7]) {
                     console.log(key+'keys --codes opiration'+data_T_port.operation[io].code.split('-')[7])
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.operation[io].code + '">' +
                         '<td scope="row"  class="code">' + key + '</td>' +
-                        '<td id="nom_ops"><p>' + val[0] + '</p> </td>' +
+                        '<td id="nom_ops"><p>' + data_T_port.operation[io].nom + '</p> </td>' +
                         '<td> - </td>' +
-                        '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
+                        '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p></p></td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' +ValAccountingFigures (data_T_port.operation[io].values.ae_reporteop) + '</td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' +ValAccountingFigures (data_T_port.operation[io].values.ae_notifieop) + '</td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' +ValAccountingFigures (data_T_port.operation[io].values.ae_engageop) + '</td>' +
@@ -4812,7 +4812,8 @@ if(code == 200){
                var last=data_T_port.sousOperation[iso].code.split('-').length
 
                 console.log('all'+land+' split code'+splitcode(data_T_port.sousOperation[iso].code, land)+'Key code'+key+'the last'+data_T_port.sousOperation[iso].code.split('-')[last-1])
-                if (key == splitcode(data_T_port.sousOperation[iso].code, land) || key ==data_T_port.sousOperation[iso].code.split('-')[last-1]) {
+                key = splitcode(data_T_port.sousOperation[iso].code, land)
+                if (key ==data_T_port.sousOperation[iso].code.split('-')[last-1]) {
                     //only_def(data_T_port.sousOperation[iso].code)
                    console.log('code orignal')
                     var def='';
@@ -4904,7 +4905,7 @@ if(code == 200){
                 
             }
             
-            }
+           
           
             // Append the row to the table body
             //$('#T-tables tbody').append(row);
@@ -4961,7 +4962,8 @@ if(code == 200){
                 }
             }
             Edit(id, T)
-        });
+        }
+       // });
         if(code === 200)
         {
            
