@@ -258,6 +258,7 @@
                       <tbody>
                         @php
                         $i=1;    
+                        //dd($full_account );
                         @endphp
                         @foreach($full_account as $accountloop)
                         <tr>

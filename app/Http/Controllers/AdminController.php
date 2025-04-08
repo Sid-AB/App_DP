@@ -86,13 +86,13 @@ class AdminController extends Controller
         {
             $accountz=Accounts::join('actions','actions.id_ra','=','accounts.id_ra')
             //->join('multimedia','multimedia.related_id','=','id')
-            ->select('nome','prenom','email','post_occupe','sous_direction','privilege','num_action','nom_action_ar','nom_action','num_sous_prog','accounts.id_ra')
+            ->select('nome','prenom','email','post_occupe','sous_direction','privilege','num_action','nom_action_ar','nom_action','num_sous_prog','accounts.id_ra','id')
             //->join('programmes','programmes.id_rp','=','accounts.id_rp')
             ->where('id',$accnt->id)
             ->first();
             if(!isset($accountz))
             {
-                $accountz=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_prog','accounts.id_rp','nom_prog','num_prog')
+                $accountz=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_prog','accounts.id_rp','nom_prog','num_prog','id')
                 //->join('multimedia','multimedia.related_id','=','id')
                 //->join('actions','actions.id_ra','=','accounts.id_ra')
                 ->join('programmes','programmes.id_rp','=','accounts.id_rp')
@@ -101,7 +101,7 @@ class AdminController extends Controller
               
                 if(!isset($accountz))
                 {
-                    $accountz=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_portefeuil')
+                    $accountz=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_portefeuil','id')
                 //->join('multimedia','multimedia.related_id','=','id')
                 //->join('actions','actions.id_ra','=','accounts.id_ra')
                 //->join('programmes','programmes.id_rp','=','accounts.id_rp')

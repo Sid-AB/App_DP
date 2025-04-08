@@ -80,8 +80,9 @@ Route::controller(sousActionController::class)->group(function(){
     Route::get('/allaction/{numport}','allact')->name('action.lists');
     Route::get('/printdpic/{numport}','printdpic')->name('print-dpic.lists');
     Route::get('/printDPA/{numport}','print_dpa')->name('print-dpa.lists');
-    Route::get('/test_print','print_test')->name('print-dpa.lists');
+    Route::get('/test_print','print_test')->name('print-dpa.listss');
     Route::get('/check-sousaction','check_sousaction')->name('check.sousaction');
+    Route::get('/convert/{numport}','showConvertPage')->name('convert');
 });
 
 //===============ROUTE GROUPE D'OPERATIONS==============================
