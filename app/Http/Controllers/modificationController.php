@@ -1347,24 +1347,24 @@ function delete_by_id($id,Request $request)
     $split=explode("_",$id);
     $gropos=null;
     //dd($split);
-   /* $code=$request['code'];
+    $code=$request['code'];
         
     if(!isset($code))
     {
         return back()->with('unsuccess', 'User registered indefined!');
-    }*/
+    }
     if($split[0] == 'prog')
     {
         $deletmodel=Programme::find($split[1]);
 
         if($deletmodel)
         {
-            /*$account =Accounts::join('programmes','programmes.id_rp','accounts.id_rp')->where('code_generated',$code)->where('programmes.num_prog',$deletmodel->num_prog)->first();
+            $account =Accounts::join('programmes','programmes.id_rp','accounts.id_rp')->where('code_generated',$code)->where('programmes.num_prog',$deletmodel->num_prog)->first();
                     // dd($act,$account,$code);
                 if(!isset($account))
                   {
                          return back()->with('unsuccess', 'User registered indefined!');
-                  }*/
+                  }
             $deletmodel->delete();
         return response()->json(['code'=>200,'message '=>'success']);
         }
@@ -1383,12 +1383,12 @@ function delete_by_id($id,Request $request)
         if(isset($deletmodel))
         {
             //dd($deletmodel);
-           /* $account =Accounts::join('programmes','programmes.id_rp','accounts.id_rp')->where('code_generated',$code)->where('programmes.num_prog',$deletmodel->num_prog)->first();
+            $account =Accounts::join('programmes','programmes.id_rp','accounts.id_rp')->where('code_generated',$code)->where('programmes.num_prog',$deletmodel->num_prog)->first();
                     // dd($act,$account,$code);
                       if(!isset($account))
                      {
                          return back()->with('unsuccess', 'User registered indefined!');
-                     }*/
+                     }
             if(isset($deletmulti))
             {
                 
@@ -1417,7 +1417,7 @@ function delete_by_id($id,Request $request)
         if($deletmodel && $deletmodelA)
         {
             //$ops_delete=
-          /*  $account =Accounts::join('actions','actions.id_ra','accounts.id_ra')->where('code_generated',$code)->where('actions.num_action',$deletmodelA->num_action)->first();
+            $account =Accounts::join('actions','actions.id_ra','accounts.id_ra')->where('code_generated',$code)->where('actions.num_action',$deletmodelA->num_action)->first();
             // dd($act,$account,$code);
               if(!isset($account))
              {
@@ -1429,7 +1429,7 @@ function delete_by_id($id,Request $request)
               {
                  return back()->with('unsuccess', 'User registered indefined!');
              }
-             }*/
+             }
             $gropos=GroupOperation::where('num_sous_action','=',$deletmodel['num_sous_action'])->get();
             //dd($gropos);
             if($gropos)

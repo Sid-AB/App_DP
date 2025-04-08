@@ -796,7 +796,7 @@ listItemsWithNestedUl.each(function(){
     if(typeact[0] =='act')
     {
       $(this).on('click',function(){
-        window.location.href='/testing/Action/'+path3[0]+'/'+path3[1]+'/'+path3[2]+'/'+typeact[1]+'/?code='
+       // window.location.href='/testing/Action/'+path3[0]+'/'+path3[1]+'/'+path3[2]+'/'+typeact[1]+'/?code='
         $('#myForm').css('display','block')
         $('.hide-access-form').append(chekl)
         $('.hide-access-form').addClass('form-access')
@@ -819,7 +819,7 @@ listItemsWithNestedUl.each(function(){
             _method: "POST",},
             success:function(response)
             {
-           //   window.location.href='/testing/Action/'+path3[0]+'/'+path3[1]+'/'+path3[2]+'/'+typeact[1]+'/?code='+response.account
+              window.location.href='/testing/Action/'+path3[0]+'/'+path3[1]+'/'+path3[2]+'/'+typeact[1]+'/?code='+response.account
              // 
             },
             error:function()

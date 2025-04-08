@@ -201,7 +201,7 @@ class sousOperationController extends Controller
         {
             $act=$act1[1];
         }
-       /* $code=$request['code'];
+        $code=$request['code'];
         
         if(!isset($code))
         {
@@ -237,7 +237,7 @@ class sousOperationController extends Controller
             return back()->with('unsuccess', 'User registered indefined!');
         }
         }
-   */
+   
             $act=Action::where('num_action',$act)->first();
             $s_act=SousAction::where('num_action',$act)->first();
             $sprog=SousProgramme::where('num_sous_prog',$act->num_sous_prog)->first();
@@ -291,13 +291,13 @@ class sousOperationController extends Controller
         {
             $s_act=$s_act1[1];
         }
-      /*  $code=$request['code'];
+        $code=$request['code'];
         
         if(!isset($code))
         {
             return back()->with('unsuccess', 'User registered indefined!');
-        }*/
-        /*$account =Accounts::join('actions','actions.id_ra','accounts.id_ra')->where('code_generated',$code)->where('actions.num_action',$s_act)->first();
+        }
+        $account =Accounts::join('actions','actions.id_ra','accounts.id_ra')->where('code_generated',$code)->where('actions.num_action',$s_act)->first();
        // dd($act,$account,$code);
          if(!isset($account))
         {
@@ -309,7 +309,7 @@ class sousOperationController extends Controller
          {
             return back()->with('unsuccess', 'User registered indefined!');
          }
-        }*/
+        }
         $s_act=SousAction::where('num_sous_action',$s_act)->first();
         $act=Action::where('num_action',$s_act->num_action)->first();
         $sprog=SousProgramme::where('num_sous_prog',$act->num_sous_prog)->first();
