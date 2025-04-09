@@ -4768,7 +4768,7 @@ if(code == 200){
                var land=data_T_port.group[ig].code.length-5;
                // key=splitcode(data_T_port.group[ig].code, land)
                 if (key==data_T_port.group[ig].code.split('-')[6]) {
-                    console.log(key+'keys --codes groupe'+data_T_port.group[ig].code.split('-')[6])
+                   // console.log(key+'keys --codes groupe'+data_T_port.group[ig].code.split('-')[6])
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.group[ig].code + '">' +
                         '<td scope="row"  class="code">' + key + '</td>' +
                         '<td id="nom_ops"><p>'+data_T_port.group[ig].nom+'</p> </td>' +
@@ -4808,9 +4808,9 @@ if(code == 200){
                var land=data_T_port.sousOperation[iso].code.length-5;
                var last=data_T_port.sousOperation[iso].code.split('-').length
 
-                console.log('all'+land+' split code'+splitcode(data_T_port.sousOperation[iso].code, land)+'Key code'+key+'the last'+data_T_port.sousOperation[iso].code.split('-')[last-1])
+                //console.log('all'+land+' split code'+splitcode(data_T_port.sousOperation[iso].code, land)+'Key code'+key+'the last'+data_T_port.sousOperation[iso].code.split('-')[last-1])
                // key = splitcode(data_T_port.sousOperation[iso].code, land)
-                if (data_T_port.sousOperation[iso].code.split('-').length == 9) {
+                if (key==data_T_port.sousOperation[iso].code.split('-')[last-1] && data_T_port.sousOperation[iso].code.split('-').length <= 9) {
                     //only_def(data_T_port.sousOperation[iso].code)
                    console.log('code orignal')
                     var def='';
