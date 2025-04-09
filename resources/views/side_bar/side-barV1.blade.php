@@ -23,7 +23,7 @@
       <a class="element" href="#">
       <div class="update-handl" style="display: flex;align-items: flex-start;justify-content: flex-start;flex-wrap: nowrap;">
         <i class="fas fa-edit"></i>
-        <h6 >Creation Modifcation</h6>
+        <h6 >Créer Modifcation</h6>
       </div>
     </a>
     @endif
@@ -32,11 +32,11 @@
       @if( isset($port) && isset($prog) && isset($sous_prog) && isset($act))
       @if(isset($s_act))
     <a class="element" href="/testing/{{$port}}/{{$prog}}/{{$sous_prog}}/{{$act}}/{{$s_act}}/pdf" target="_blank">
-      <i class="fas fa-calendar-check"></i> DPA à imprimer
+      <i class="fas fa-calendar-check"></i> Imprimer DPA
     </a>
     @else
     <a class="element" href="/testing/{{$port}}/{{$prog}}/{{$sous_prog}}/{{$act}}/{{$sact}}/pdf" target="_blank">
-      <i class="fas fa-calendar-check"></i> DPA à imprimer
+      <i class="fas fa-calendar-check"></i> Imprimer DPA
     </a>
     @endif
     @endif
@@ -51,7 +51,7 @@
       <a class="element" href="/affiche_transacation/{{$allport['id']}}">
         @endif
       @endif
-        <i class="fas fa-wrench"></i> Suivi Des Transaction Du Portfail
+        <i class="fas fa-wrench"></i> Suivi Des Transactions Du Portefeuille
       </a>
       @endif
       @if(isset($port) || isset($allport) || isset($paths))
@@ -64,7 +64,7 @@
       <a class="element" href="/printdpic/{{$allport['id']}}" target="_blank">
         @endif
       @endif
-      <i class="fas fa-print"></i> Imprimer Dpic
+      <i class="fas fa-print"></i> Imprimer Dpic 
       </a>
       @endif
 
@@ -90,18 +90,18 @@
           @endif
         @endif
       @endif
-      <i class="fas fa-print"></i> Emploi Bugdetaire
+      <i class="fas fa-print"></i> Imprimer les Emplois Budgetaires
       </a>
       @endif
       <div class="print_btn_holder">
       <button class="element" id="expExcel" style="display: none">
-        <i class="fas fa-file-excel"></i> Export
+        <i class="fas fa-file-excel"></i> Exporter en Excel
       </button>
       <button class="element" id="expWord" style="display: none">
-        <i class="fas fa-file-word"></i></i> Export
+        <i class="fas fa-file-word"></i></i>Exporter en word 
       </button>
       <button class="element" id="vider_t" style="display: none">
-        <i class="fas fa-recycle"></i> Vider
+        <i class="fas fa-recycle"></i> Vider la table
       </button>
     </div>
   </div>

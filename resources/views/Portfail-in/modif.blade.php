@@ -104,7 +104,7 @@ Object.entries(paths).forEach(([code,value])=>{
                         <form >
                         <div class="form-group">
                         <label for="input1">Code D 'ACTION</label>
-                        <input type="text" class="form-control" id="num_act" placeholder="Entrer le Code dACTION" value="{{$code}}">
+                        <input type="text" class="form-control" id="num_act" placeholder="Entrer le Code d'ACTION" value="{{$code}}">
                         </div>
                         <div class="form-group">
                         <label for="inputDate">Date du Journal</label>
@@ -112,8 +112,8 @@ Object.entries(paths).forEach(([code,value])=>{
                         <input type="date" class="form-control" id="date_insert_action" value="{{$date}}">
                         </div>
                         <div class="form-group">
-                        <label for="input1">Nom dACTION</label>
-                        <input type="text" class="form-control" id="nom_act" placeholder="Entrer le Nom dACTION" value="{{$nom}}">
+                        <label for="input1">Nom d'ACTION</label>
+                        <input type="text" class="form-control" id="nom_act" placeholder="Entrer le Nom d'ACTION" value="{{$nom}}">
                         </div>
                         <div class="form-group" id="ElAE_act">
                         <label for="input1">AE pour Action</label>

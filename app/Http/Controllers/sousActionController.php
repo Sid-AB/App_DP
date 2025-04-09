@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Schema;
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
 
-
+use \CloudConvert\Api;
 class sousActionController extends Controller
 {
     protected $CalculDpia;
@@ -659,9 +659,9 @@ if ($tableExists) {
 //return view('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg','prgrmsousact'));
 $pdf=SnappyPdf::loadView('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg','prgrmsousact'))
 ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1);//lanscape mean orentation
-
-
 return $pdf->stream('impression_dpic.pdf');
+
+
 
 }else {
  

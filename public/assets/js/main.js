@@ -1016,29 +1016,29 @@ function add_newOPs_T3(id, value, key,code) {
     var T=3
     var tid='T3'
    $("#dispo").text('');
-   $('.desp').text('Intituler');
+   $('.desp').text('INTITULE DE L\'OPERATION');
    var champ='<div class="Tsop_add_handle">'+
    '<form id="add_sops">'+
    '<div class="form-group">'+
-   '<label class="desp">descrption</label>'+
-    '<input type="text" class="form-control" id="dispo" placeholder="Entrer  N° DE DECISION INSCRIPTION">'+
-    '<label class="desp">Intituler</label>'+
-    '<input type="text" class="form-control" id="int-T3" placeholder="Entrer INTITULE ">'+
+   '<label class="desp"> N° DE DECISION D\'INSCRIPTION</label>'+
+    '<input type="text" class="form-control" id="dispo" placeholder="Veuillez Entrer  N° DE DECISION  d\'INSCRIPTION">'+
+    '<label class="desp">INTITULE DE L\'OPERATION D\'INVESTISSEMENT PUBLIC (PROJET)</label>'+
+    '<input type="text" class="form-control" id="int-T3" placeholder="Veuillez Entrer INTITULE DE L\'OPERATION ">'+
     '</div>'+
     '<div class="T3-ops_inpt_handle">' +
-    '<div><label>AE Reportter</label>'+
+    '<div><label>AE REPORTEE</label>'+
              '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="add_AE_rpor">'+
-             '<label>AE Notifier</label>'+
+             '<label>AE NOTIFIEE</label>'+
              '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="add_AE_not">'+
-             '<label>AE Engager</label>'+
+             '<label>AE ENGAGEE</label>'+
              '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="add_AE_enga">'+
              '</div>'+
              '<div>'+
-             '<label>CP Reporter</label>'+
+             '<label>CP CP REPORTES</label>'+
              '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="add_CP_rpor">'+
-             '<label>CP Notifier</label>'+
+             '<label>CP NOTIFIES</label>'+
              '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="add_CP_not">'+
-             '<label>CP Consumer</label>'+
+             '<label>CP CONSOMMES</label>'+
              '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="add_CP_consom">'+
              '</div>'+
    '</div>'+
@@ -1193,8 +1193,8 @@ function add_newOPs_T4(id, value, key,code) {
    var champ='<div class="Tsop_add_handle">'+
                '<form id="add_sops">'+
                '<div class="form-group">'+
-               '<label class="desp">Dispositif </label>'+
-            '<input type="text" class="form-control" id="dispo" placeholder="Entrer Dispositif">'+
+               '<label class="desp">Dispositif d\'intervention </label>'+
+            '<input type="text" class="form-control" id="dispo" placeholder="Veuillez Entrer le Dispositif d\'intervention">'+
            '</div>'+
 
            '<div class="form-group" id="Tport-vals">'+
@@ -3254,7 +3254,7 @@ function T1_table(id, T, id_s_act, port,code) {
 
     var headT = '<tr>' +
         '<th ><h1>Code</h1></th>' +
-        '<th ><h1>T Description</h1></th>' +
+        '<th ><h1>T1. DEPENSES DE PERSONNEL</h1></th>' +
         '<th><h1>AE</h1></th>' +
         '<th><h1>CP</h1></th>' +
         '</tr>';
@@ -3267,17 +3267,17 @@ function T1_table(id, T, id_s_act, port,code) {
   
         '<label for="opt1" class="radio" id="funt">'+
           '<input type="radio" name="rdo" id="opt1" class="hidden"/>'+
-          '<span class="label"></span>Fonction'+
+          '<span class="label"></span>Fonction supérieure'+
         '</label>'+
         
         '<label for="opt2" class="radio" id="post_sup">'+
           '<input type="radio" name="rdo" id="opt2" class="hidden"/>'+
-          '<span class="label"></span>Post Superieur'+
+          '<span class="label"></span>Poste supérieur'+
         '</label>'+
         
        ' <label for="opt3" class="radio" id="corcom">'+
           '<input type="radio" name="rdo" id="opt3" class="hidden"/>'+
-          '<span class="label"></span>Corps Commun'+
+          '<span class="label"></span>Corps Communs'+
         '</label>'+
 
         ' <label for="opt4" class="radio" id="port_T1">'+
@@ -3288,6 +3288,7 @@ function T1_table(id, T, id_s_act, port,code) {
       '</div>'+
 '<hr>';
 var cnter=0
+var currentYear = new Date().getFullYear();
 $('.opt_handle').append(Radio)
 $('#corcom').on('click',function()
 {
@@ -3295,6 +3296,7 @@ $('#corcom').on('click',function()
     $('#reloading').removeClass('reload-hidden')
     $('.ports_info').css('display','none')
     $('.Budget_info').css('display','')
+    var currentYear = new Date().getFullYear(); 
     var headBF='  <tr>'+
     ' <th> ADMINISTRATION CENTRALE (SERVICES CENTRAUX)</th>'+
      '<th colspan="3"> EMPLOIS BUDGETAIRES</th>'+
@@ -3302,7 +3304,7 @@ $('#corcom').on('click',function()
   ' </tr>'+
    '<tr>'+
      '<th> Catégorie du personnel</th>'+
-     '<th> Ouverts </th>'+
+     '<th> Ouverts (' + currentYear + ')  </th>'+
      '<th> Occupés au 31 décembre </th>'+
      '<th>Vacants ou excédent</th>'+
      '<th colspan="2"> CLASSIFICATION</th>'+
@@ -3437,7 +3439,7 @@ $('#corcom').on('click',function()
         '<form id="add_sops">'+
         '<div class="form-group">'+
         '<label class="desp">Corps Communs</label>'+
-         '<input type="text" class="form-control" id="funt_sup" placeholder="Entrer Nom Corps Communs">'+
+         '<input type="text" class="form-control" id="funt_sup" placeholder="Veuillez Entrer le Nom du Corps Communs">'+
          '</div>'+
          '<div class="T3-ops_inpt_handle">' +
          '<div><label>EMPLOIS BUDGETAIRES Ouverts</label>'+
@@ -3636,6 +3638,7 @@ $('#post_sup').on('click',function()
     $('#T-tables thead').empty()
     $('#T-tables tbody').empty()
     $('#T-tables tfoot').empty()
+    var currentYear = new Date().getFullYear(); 
     var headPS='  <tr>'+
     ' <th> ADMINISTRATION CENTRALE (SERVICES CENTRAUX)</th>'+
      '<th colspan="3"> EMPLOIS BUDGETAIRES</th>'+
@@ -3643,7 +3646,7 @@ $('#post_sup').on('click',function()
   ' </tr>'+
    '<tr>'+
      '<th> Catégorie du personnel</th>'+
-     '<th> Ouverts </th>'+
+     '<th> Ouverts (' + currentYear + ')</th>'+
      '<th> Occupés au 31 décembre </th>'+
      '<th>Vacants ou excédent</th>'+
      '<th colspan="2"> CLASSIFICATION</th>'+
@@ -3651,7 +3654,7 @@ $('#post_sup').on('click',function()
      '<th rowspan="2" colspan="2"> DEPENSES ANNUELLES</th>'+
    '</tr>'+
    '<tr>'+
-     '<th>Post supérieure</th>'+
+     '<th>Poste supérieur</th>'+
      '<th id="nbr_over"> 00</th>'+
      '<th id="nbr_occup"> 00</th>'+
      '<th id="nbr_vacants"> 00</th>'+
@@ -3767,7 +3770,7 @@ $('#post_sup').on('click',function()
             '<form id="add_sops">'+
             '<div class="form-group">'+
             '<label class="desp">Poste supérieur</label>'+
-             '<input type="text" class="form-control" id="funt_sup" placeholder="Entrer Nom du Poste supérieur">'+
+             '<input type="text" class="form-control" id="funt_sup" placeholder="Veuillez Entrer le Nom du Poste supérieur">'+
              '</div>'+
              '<div class="T3-ops_inpt_handle">' +
              '<div><label>EMPLOIS BUDGETAIRES Ouverts</label>'+
@@ -3951,6 +3954,7 @@ $('#funt').on('click',function()
     $('#T-tables thead').empty()
     $('#T-tables tbody').empty()
     $('#T-tables tfoot').empty()
+    var currentYear = new Date().getFullYear(); 
     var headBF='  <tr>'+
     ' <th> ADMINISTRATION CENTRALE (SERVICES CENTRAUX)</th>'+
      '<th colspan="3"> EMPLOIS BUDGETAIRES</th>'+
@@ -3958,7 +3962,7 @@ $('#funt').on('click',function()
   ' </tr>'+
    '<tr>'+
      '<th> Catégorie du personnel</th>'+
-     '<th> Ouverts </th>'+
+     '<th> Ouverts (' + currentYear + ')  </th>'+
      '<th> Occupés au 31 décembre </th>'+
      '<th>Vacants ou excédent</th>'+
      '<th colspan="2"> CLASSIFICATION</th>'+
@@ -4085,7 +4089,7 @@ $('#funt').on('click',function()
                 '<form id="add_sops">'+
                 '<div class="form-group">'+
                 '<label class="desp">Fonction supérieure</label>'+
-                 '<input type="text" class="form-control" id="funt_sup" placeholder="Entrer Nom Fonction supérieure">'+
+                 '<input type="text" class="form-control" id="funt_sup" placeholder="Veuillez Entrer le Nom de la Fonction supérieure">'+
                  '</div>'+
                  '<div class="T3-ops_inpt_handle">' +
                  '<div><label>EMPLOIS BUDGETAIRES Ouverts</label>'+
@@ -4488,7 +4492,8 @@ else
    }
 
     var headT = '<tr>' +
-        '<th colspan="2"><h1>T Description</h1></th>' +
+        '<th><h1>Code</h1></th>' +
+        '<th><h1>T2. DEPENSES DE FONCTIONNEMENT DES SERVICES</h1></th>' +
         ' <th colspan="2">' +
         ' <div class="fusion-father">' +
         ' <h1>CREDITS OUVERTS</h1>' +
@@ -4713,19 +4718,19 @@ if(code == 200){
        var lasty=parseInt(yearport) - 1
     var headT = '<tr>' +
         '<th><h1>code</h1></th>' +
-        '<th><h1>T Description</h1></th>' +
-        '<th><h1>Numero de Decision</h1></th>' +
-        '<th><h1>Intitule de L`Operation</h1></th>' +
+        '<th><h1>T3.DEPENSES D\'INV</h1></th>' +
+        '<th><h1>N° DE DECISION </h1></th>' +
+        '<th><h1>INTITULE DE L\'OP</h1></th>' +
         '<th colspan="6">' +
         '<div class="fusion-father">' +
         '<h1>MONTANT ANNEE (N)</h1>' +
         '<div class="fusion-child">' +
         '<h1>AE Reportee <p>31-12-'+lasty+'</p></h1>' +
         '<h1>AE Notifiee <p>'+yearport+'<p></h1>' +
-        '<h1>AE Engagée  <p>31-12-'+lasty+'</p></h1>' +
-        '<h1>CP Reportee <p>31-12-'+lasty+'</p></h1>' +
-        '<h1>CP Notifiée <p>'+yearport+'<p></h1>' +
-        '<h1>CP Engagée  <p>31-12-'+lasty+'</p></h1>' +
+        '<h1>AE Engagee  <p>31-12-'+lasty+'</p></h1>' +
+        '<h1>CP Reportes <p>31-12-'+lasty+'</p></h1>' +
+        '<h1>CP Notifies <p>'+yearport+'<p></h1>' +
+        '<h1>CP Consommes <p>31-12-'+lasty+'</p></h1>' +
         '</div>' +
         '</th>' +
         '</tr>';
@@ -5029,8 +5034,8 @@ function T4_table(id, T, id_s_act, port,code) {
 
     var headT = '<tr>' +
         '<th><h1>Code</h1></th>' +
-        '<th><h1>DEPENSES DE TRANSFERT</h1></th>' +
-        '<th><h1>Detail</h1></th>'+
+        '<th><h1>T4. DEPENSES DE TRANSFERT</h1></th>' +
+        '<th><h1>Dispositifs d\'interventions</h1></th>'+
         '<th colspan="2">' +
         '<div class="fusion-father">' +
         '<h1>MONTANT ANNEE (N)</h1>' +
@@ -5258,7 +5263,7 @@ $(document).ready(function () {
                 if (response.code == 200 && response.t1_exists==1) {
                
                     counter=counter+10
-                    alert('Exist')
+                    alert('Existe')
                     T1_table(id, T, ssact, path3[0],response.code)
                     $('#T_port1').addClass('heilighter')
                     $('#reloading').addClass('reload-hidden')
@@ -5269,7 +5274,7 @@ $(document).ready(function () {
                 }
                 else {
                
-                    alert('New')
+                    alert('Nouveau')
                     code =404
                     T1_table(id, T, ssact, path3[0],code) 
                     $('#reloading').addClass('reload-hidden')
@@ -5293,7 +5298,7 @@ $(document).ready(function () {
             type: 'GET',
             success: function (response) {
                 if (response.code == 200 && response.t2_exists==1) {
-                    alert('Exist')
+                    alert('Existe')
                     counter=counter+10
                     $('#reloading').addClass('reload-hidden')
                     T2_table(id, T, ssact, path3[0],response.code)
@@ -5303,7 +5308,7 @@ $(document).ready(function () {
                     $('#T-tables tbody').attr('id','T2_'+ssact+'')
                 }
                 else {
-                    alert('New')
+                    alert('Nouveau')
                     $('#reloading').addClass('reload-hidden')
                    code=404
                     T2_table(id, T, ssact, path3[0],code)
@@ -5329,7 +5334,7 @@ $(document).ready(function () {
             type: 'GET',
             success: function (response) {
                 if (response.code == 200 && response.t3_exists==1) {
-                    alert('Exist')
+                    alert('Existe')
                     counter=counter+10
                     $('#reloading').addClass('reload-hidden')
                     T3_table(id, T, ssact, path3[0],response.code)
@@ -5343,7 +5348,7 @@ $(document).ready(function () {
                 }
                 else {
                     $('#reloading').addClass('reload-hidden')
-                    alert('New')
+                    alert('Nouveau')
                     code =404
                     T3_table(id, T, ssact, path3[0],code)
                     $("#expExcel").css('display','block')
@@ -5367,7 +5372,7 @@ $(document).ready(function () {
             type: 'GET',
             success: function (response) {
                 if (response.code == 200 && response.t4_exists==1) {
-                    alert('Exist')
+                    alert('Existe')
                     counter=counter+10
                     $('#reloading').addClass('reload-hidden')
                     T4_table(id, T, ssact, path3[0],response.code)
@@ -5377,7 +5382,7 @@ $(document).ready(function () {
                     $('#T-tables tbody').attr('id','T4_'+ssact+'')
                 }
                 else {
-                    alert('New')
+                    alert('Nouveau')
                     code =404
                     $('#reloading').addClass('reload-hidden')
                     T4_table(id, T, ssact, path3[0],code)
@@ -5411,7 +5416,7 @@ $(document).ready(function () {
                 type: 'GET',
                 success: function (response) {
                     if (response.code == 200 && response.t1_exists==1) {
-                        alert('Exist')
+                        alert('Existe')
                         counter=counter+10
                         T1_table(id, T, ssact, path3[0],response.code)
                         $('#reloading').addClass('reload-hidden')
@@ -5423,7 +5428,7 @@ $(document).ready(function () {
                     else {
                         
 
-                        alert('New')
+                        alert('Nouveau')
                         code =404
                         T1_table(id, T, ssact, path3[0],code)
                         $('#reloading').addClass('reload-hidden')
@@ -5450,7 +5455,7 @@ $(document).ready(function () {
                 type: 'GET',
                 success: function (response) {
                     if (response.code == 200 && response.t2_exists==1) {
-                        alert('Exist')
+                        alert('Existe')
                         counter=counter+10
                         $('#reloading').addClass('reload-hidden')
                         T2_table(id, T, ssact, path3[0],response.code)
@@ -5460,7 +5465,7 @@ $(document).ready(function () {
                     }
                     else {
                         $('#reloading').addClass('reload-hidden')
-                        alert('New')
+                        alert('Nouveau')
                                code=404
                         T2_table(id, T, ssact, path3[0],code)
                         $("#expExcel").css('display','block')
@@ -5486,7 +5491,7 @@ $(document).ready(function () {
                 type: 'GET',
                 success: function (response) {
                     if (response.code == 200 && response.t3_exists==1) {
-                        alert('Exist')
+                        alert('Existe')
                         counter=counter+10
                         $('#reloading').addClass('reload-hidden')
                         T3_table(id, T, ssact, path3[0],response.code)
@@ -5496,7 +5501,7 @@ $(document).ready(function () {
                         
                     }
                     else {
-                        alert('New ')
+                        alert('Nouveau ')
                         $('#reloading').addClass('reload-hidden')
                         T3_table(id, T, ssact, path3[0],code)
                         $("#expExcel").css('display','block')
@@ -5524,7 +5529,7 @@ $(document).ready(function () {
                 type: 'GET',
                 success: function (response) {
                     if (response.code == 200 && response.t4_exists==1) {
-                        alert('Exist')
+                        alert('Existe')
                         counter=counter+10
                         $('#reloading').addClass('reload-hidden')
                         T4_table(id, T, ssact, path3[0],response.code)
@@ -5533,7 +5538,7 @@ $(document).ready(function () {
                         $('#T-tables tbody').attr('id','T4_'+ssact+'')
                     }
                     else {
-                        alert('New')
+                        alert('Nouveau')
                         code =404
                         $('#reloading').addClass('reload-hidden')
                         T4_table(id, T, ssact, path3[0],code)

@@ -608,13 +608,13 @@
          '<h1>Login</h1>'+
           '<p id="alert-access"></p>'+
          '<label for="email"><b>Email</b></label>'+
-         '<input class="form-control" type="text" placeholder="Enter Email" name="email" id="email" required>'+
+         '<input class="form-control" type="text" placeholder="Veuillez entrer votre adresse email" name="email" id="email" required>'+
 
          '<label for="psw"><b>Password</b></label>'+
-         '<input class="form-control" type="password" placeholder="Enter Password" name="psw" id="code_generated" required>'+
+         '<input class="form-control" type="password" placeholder="Veuillez entrer votre mot de passe" name="psw" id="code_generated" required>'+
 
-         '<button type="button" class="btn" id="btn-form-access">Login</button>'+
-         '<button type="button" class="btn cancel" id="form-cancel">Close</button>'+
+         '<button type="button" class="btn" id="btn-form-access">Se connecter</button>'+
+         '<button type="button" class="btn cancel" id="form-cancel">Fermer</button>'+
         '</form>'+
       '</div>';
  document.querySelectorAll('.next').forEach(member => {

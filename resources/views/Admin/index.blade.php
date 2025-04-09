@@ -48,7 +48,7 @@
           </div>
       
           <div class="col-md-3">
-              <label for="prenom" class="form-label">Prenom</label>
+              <label for="prenom" class="form-label">Prénom</label>
               <input type="text" class="form-control @error('prenom') is-invalid @enderror" id="prenom" name="prenom" value="{{$account->prenom ??  old('prenom') }}" required>
               @error('prenom')
                   <div class="invalid-feedback">{{ $message }}</div>
@@ -56,7 +56,7 @@
           </div>
       
           <div class="col-md-6">
-              <label for="validationCustomUsername" class="form-label">Local Email</label>
+              <label for="validationCustomUsername" class="form-label">Email Local</label>
               <div class="input-group has-validation">
                 @php
                 $emailParts = explode('@', optional($account)->email ?? old('email'));
@@ -70,10 +70,10 @@
           </div>
       
           <div class="col-md-4">
-              <label for="sous_direction" class="form-label">Sous Direction</label>
+              <label for="sous_direction" class="form-label">Organe</label>
               <select class="form-select @error('sous_direction') is-invalid @enderror" id="sous_direction" name="sous_direction" required>
                   <option selected {{ is_null($account) ? 'disabled' :''}} value="">Choisir...</option>
-                  <option value="Minister"  {{ !is_null($account) ?? $account->post_occupe == 'Minister' ? 'selected':''}}>Minister</option>
+                  <option value="Minister"  {{ !is_null($account) ?? $account->post_occupe == 'Minister' ? 'selected':''}}>Ministère</option>
                   <option value="DEV" {{!is_null($account) ?? $account->sous_direction == 'DEV' ? 'selected':''}}>Développement</option>
                   <option value="MEDIA" {{ !is_null($account) ?? $account->sous_direction == 'MEDIA' ? 'selected':''}}>Media</option>
               </select>
@@ -109,7 +109,7 @@
           </div>
           {{-- cote progs  --}}
           <div class="col-md-4">
-            <label for="progs" class="form-label">Prgrammes</label>
+            <label for="progs" class="form-label">Programmes</label>
             <select class="form-select @error('progs') is-invalid @enderror" id="progs" name="progs" >
                 <option selected {{ is_null($account) ? 'disabled' :''}} value="">Choisir...</option>
                 @foreach ($prog as $progs)
@@ -123,7 +123,7 @@
         </div>
 
         <div class="col-md-4">
-          <label for="sous_progs" class="form-label">Sous Prgrammes</label>
+          <label for="sous_progs" class="form-label">Sous Programmes</label>
           <select class="form-select @error('sous_progs') is-invalid @enderror" id="sous_progs" name="sous_progs">
               <option selected {{ is_null($account) ? 'disabled' :''}} value="">Choisir...</option>
               @foreach ($sprog as $sprogs)
@@ -171,7 +171,7 @@
               <div class="form-check">
                   <input class="form-control @error('profile_picture') is-invalid @enderror" type="file" id="profile_picture" name="profile_picture" required>
                   <label class="form-check-label" for="profile_picture">
-                      Ajouter Decision
+                      Ajouter la Décision
                   </label>
                   @error('profile_picture')
                       <div class="invalid-feedback">{{ $message }}</div>
@@ -179,7 +179,7 @@
               </div>
           </div>
             <div class="col-12">
-              <button class="btn btn-primary" type="submit">Submit form</button>
+              <button class="btn btn-primary" type="submit">Soumettre le formulaire</button>
             </div>
           </form>
           </div>
@@ -205,7 +205,7 @@
                   <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                       <li class="breadcrumb-item">
-                        <a href="#0">Dashboard</a>
+                        <a href="#0">Tableau de bord</a>
                       </li>
                       <li class="breadcrumb-item active" aria-current="page">
                        <a href="/admin/"> Tables</a>
@@ -225,7 +225,7 @@
             <div class="row">
               <div class="col-lg-12">
                 <div class="card-style mb-30">
-                  <h6 class="mb-10"> liste des Compts</h6>
+                  <h6 class="mb-10"> Liste des Compts</h6>
                   @if(session('success'))
                   <div class="alert alert-success">
                       {{ session('success') }}
@@ -239,28 +239,28 @@
                             <h6>Code</h6>
                           </th>
                           <th>
-                            <h6>nom complet</h6>
+                            <h6>Nom complet</h6>
                           </th>
                           <th>
                             <h6>Email</h6>
                           </th>
                           <th>
-                            <h6>Sous Direction</h6>
+                            <h6>Organe</h6>
                           </th>
                           <th>
-                            <h6>Post Occupe</h6>
+                            <h6>Poste occupé</h6>
                           </th>
                           <th>
                             <h6>Privilège</h6>
                           </th>
                           <th>
-                            <h6>Delegue</h6>
+                            <h6>Délegué</h6>
                           </th>
                           <th>
-                            <h6>Responsable</h6>
+                            <h6>Résponsable</h6>
                           </th>
                           <th>
-                            <h6>Decision</h6>
+                            <h6>Décision</h6>
                           </th>
                           <th>
                             <h6>Action</h6>
@@ -300,11 +300,11 @@
                           @else
                             @if($accountloop->privilege == 1)
                             <td class="min-width">
-                              <span class="status-btn {{ $accountloop->id_deleg_resp  ? 'close-btn':' active-btn'}}">Modifcation </span>
+                              <span class="status-btn {{ $accountloop->id_deleg_resp  ? 'close-btn':' active-btn'}}">Modification</span>
                             </td>
                             @else
                             <td class="min-width">
-                              <span class="status-btn {{ $accountloop->id_deleg_resp  ? 'close-btn':' active-btn'}}">Aministateur </span>
+                              <span class="status-btn {{ $accountloop->id_deleg_resp  ? 'close-btn':' active-btn'}}">Administrateur</span>
                             </td>
                             @endif
                           @endif
