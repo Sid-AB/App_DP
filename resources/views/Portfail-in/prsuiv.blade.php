@@ -100,16 +100,16 @@ Object.entries(paths).forEach(([code,value])=>{
   <div class="form-container" id="creati-act">
                         <form >
                         <div class="form-group">
-                        <label for="input1">Code dACTION</label>
-                        <input type="text" class="form-control" id="num_act" placeholder="Entrer le Code dACTION">
+                        <label for="input1">Code d'ACTION</label>
+                        <input type="text" class="form-control" id="num_act" placeholder="Entrer le Code d'ACTION">
                         </div>
                         <div class="form-group">
                         <label for="inputDate">Date du Journal</label>
                         <input type="date" class="form-control" id="date_insert_action">
                         </div>
                         <div class="form-group">
-                        <label for="input1">Nom dACTION</label>
-                        <input type="text" class="form-control" id="nom_act" placeholder="Entrer le Nom dACTION">
+                        <label for="input1">Nom d'ACTION</label>
+                        <input type="text" class="form-control" id="nom_act" placeholder="Entrer le Nom d'ACTION">
                         </div>
                         <div class="form-group" id="ElAE_act">
                         <label for="input1">AE pour Action</label>

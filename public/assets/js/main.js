@@ -1016,29 +1016,29 @@ function add_newOPs_T3(id, value, key,code) {
     var T=3
     var tid='T3'
    $("#dispo").text('');
-   $('.desp').text('Intituler');
+   $('.desp').text('INTITULE DE L\'OPERATION');
    var champ='<div class="Tsop_add_handle">'+
    '<form id="add_sops">'+
    '<div class="form-group">'+
-   '<label class="desp">descrption</label>'+
-    '<input type="text" class="form-control" id="dispo" placeholder="Entrer  N° DE DECISION INSCRIPTION">'+
-    '<label class="desp">Intituler</label>'+
-    '<input type="text" class="form-control" id="int-T3" placeholder="Entrer INTITULE ">'+
+   '<label class="desp"> N° DE DECISION D\'INSCRIPTION</label>'+
+    '<input type="text" class="form-control" id="dispo" placeholder="Veuillez Entrer  N° DE DECISION  d\'INSCRIPTION">'+
+    '<label class="desp">INTITULE DE L\'OPERATION D\'INVESTISSEMENT PUBLIC (PROJET)</label>'+
+    '<input type="text" class="form-control" id="int-T3" placeholder="Veuillez Entrer INTITULE DE L\'OPERATION ">'+
     '</div>'+
     '<div class="T3-ops_inpt_handle">' +
-    '<div><label>AE Reportter</label>'+
+    '<div><label>AE REPORTEE</label>'+
              '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="add_AE_rpor">'+
-             '<label>AE Notifier</label>'+
+             '<label>AE NOTIFIEE</label>'+
              '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="add_AE_not">'+
-             '<label>AE Engager</label>'+
+             '<label>AE ENGAGEE</label>'+
              '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="add_AE_enga">'+
              '</div>'+
              '<div>'+
-             '<label>CP Reporter</label>'+
+             '<label>CP CP REPORTES</label>'+
              '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="add_CP_rpor">'+
-             '<label>CP Notifier</label>'+
+             '<label>CP NOTIFIES</label>'+
              '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="add_CP_not">'+
-             '<label>CP Consumer</label>'+
+             '<label>CP CONSOMMES</label>'+
              '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="add_CP_consom">'+
              '</div>'+
    '</div>'+
@@ -1193,8 +1193,8 @@ function add_newOPs_T4(id, value, key,code) {
    var champ='<div class="Tsop_add_handle">'+
                '<form id="add_sops">'+
                '<div class="form-group">'+
-               '<label class="desp">Dispositif </label>'+
-            '<input type="text" class="form-control" id="dispo" placeholder="Entrer Dispositif">'+
+               '<label class="desp">Dispositif d\'intervention </label>'+
+            '<input type="text" class="form-control" id="dispo" placeholder="Veuillez Entrer le Dispositif d\'intervention">'+
            '</div>'+
 
            '<div class="form-group" id="Tport-vals">'+
@@ -5263,7 +5263,7 @@ $(document).ready(function () {
                 if (response.code == 200 && response.t1_exists==1) {
                
                     counter=counter+10
-                    alert('Exist')
+                    alert('Existe')
                     T1_table(id, T, ssact, path3[0],response.code)
                     $('#T_port1').addClass('heilighter')
                     $('#reloading').addClass('reload-hidden')
@@ -5298,7 +5298,7 @@ $(document).ready(function () {
             type: 'GET',
             success: function (response) {
                 if (response.code == 200 && response.t2_exists==1) {
-                    alert('Exist')
+                    alert('Existe')
                     counter=counter+10
                     $('#reloading').addClass('reload-hidden')
                     T2_table(id, T, ssact, path3[0],response.code)
@@ -5334,7 +5334,7 @@ $(document).ready(function () {
             type: 'GET',
             success: function (response) {
                 if (response.code == 200 && response.t3_exists==1) {
-                    alert('Exist')
+                    alert('Existe')
                     counter=counter+10
                     $('#reloading').addClass('reload-hidden')
                     T3_table(id, T, ssact, path3[0],response.code)
@@ -5372,7 +5372,7 @@ $(document).ready(function () {
             type: 'GET',
             success: function (response) {
                 if (response.code == 200 && response.t4_exists==1) {
-                    alert('Exist')
+                    alert('Existe')
                     counter=counter+10
                     $('#reloading').addClass('reload-hidden')
                     T4_table(id, T, ssact, path3[0],response.code)
@@ -5416,7 +5416,7 @@ $(document).ready(function () {
                 type: 'GET',
                 success: function (response) {
                     if (response.code == 200 && response.t1_exists==1) {
-                        alert('Exist')
+                        alert('Existe')
                         counter=counter+10
                         T1_table(id, T, ssact, path3[0],response.code)
                         $('#reloading').addClass('reload-hidden')
@@ -5455,7 +5455,7 @@ $(document).ready(function () {
                 type: 'GET',
                 success: function (response) {
                     if (response.code == 200 && response.t2_exists==1) {
-                        alert('Exist')
+                        alert('Existe')
                         counter=counter+10
                         $('#reloading').addClass('reload-hidden')
                         T2_table(id, T, ssact, path3[0],response.code)
@@ -5491,7 +5491,7 @@ $(document).ready(function () {
                 type: 'GET',
                 success: function (response) {
                     if (response.code == 200 && response.t3_exists==1) {
-                        alert('Exist')
+                        alert('Existe')
                         counter=counter+10
                         $('#reloading').addClass('reload-hidden')
                         T3_table(id, T, ssact, path3[0],response.code)
@@ -5529,7 +5529,7 @@ $(document).ready(function () {
                 type: 'GET',
                 success: function (response) {
                     if (response.code == 200 && response.t4_exists==1) {
-                        alert('Exist')
+                        alert('Existe')
                         counter=counter+10
                         $('#reloading').addClass('reload-hidden')
                         T4_table(id, T, ssact, path3[0],response.code)
