@@ -21,7 +21,8 @@ class Accounts extends Model
         'code_generated',
         'id_min',
         'id_rp',
-        'id_ra'
+        'id_ra',
+        'id_deleg_resp',
     ];
 
     protected $hidden = [

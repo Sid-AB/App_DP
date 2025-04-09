@@ -25,8 +25,8 @@ class AdminController extends Controller
         $full_account=[];
         if(isset($request['idedit']))
         {
-        //dd($request);
-        $account=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_action','nom_action_ar','num_sous_prog','num_prog')
+        //dd($request); 'id_deleg_resp'=>'nullable'
+        $account=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_action','nom_action_ar','num_sous_prog','num_prog','id_deleg_resp')
         //->join('multimedia','multimedia.related_id','=','id')
         ->join('actions','actions.id_ra','=','accounts.id_min')
         ->join('programmes','programmes.id_rp','=','accounts.id_min')
@@ -75,7 +75,7 @@ class AdminController extends Controller
         $accounts=Accounts::get();
         foreach($accounts as $accnt)
         {
-            $accountz=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_action','nom_action_ar','num_sous_prog','num_prog')
+            $accountz=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_action','nom_action_ar','num_sous_prog','num_prog','id_deleg_resp')
         //->join('multimedia','multimedia.related_id','=','id')
         ->join('actions','actions.id_ra','=','accounts.id_min')
         ->join('programmes','programmes.id_rp','=','accounts.id_min')
@@ -86,13 +86,13 @@ class AdminController extends Controller
         {
             $accountz=Accounts::join('actions','actions.id_ra','=','accounts.id_ra')
             //->join('multimedia','multimedia.related_id','=','id')
-            ->select('nome','prenom','email','post_occupe','sous_direction','privilege','num_action','nom_action_ar','nom_action','num_sous_prog','accounts.id_ra','id')
+            ->select('nome','prenom','email','post_occupe','sous_direction','privilege','num_action','nom_action_ar','nom_action','num_sous_prog','accounts.id_ra','id','id_deleg_resp')
             //->join('programmes','programmes.id_rp','=','accounts.id_rp')
             ->where('id',$accnt->id)
             ->first();
             if(!isset($accountz))
             {
-                $accountz=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_prog','accounts.id_rp','nom_prog','num_prog','id')
+                $accountz=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_prog','accounts.id_rp','nom_prog','num_prog','id','id_deleg_resp')
                 //->join('multimedia','multimedia.related_id','=','id')
                 //->join('actions','actions.id_ra','=','accounts.id_ra')
                 ->join('programmes','programmes.id_rp','=','accounts.id_rp')
@@ -101,7 +101,7 @@ class AdminController extends Controller
               
                 if(!isset($accountz))
                 {
-                    $accountz=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_portefeuil','id')
+                    $accountz=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_portefeuil','id','id_deleg_resp')
                 //->join('multimedia','multimedia.related_id','=','id')
                 //->join('actions','actions.id_ra','=','accounts.id_ra')
                 //->join('programmes','programmes.id_rp','=','accounts.id_rp')
@@ -119,7 +119,7 @@ class AdminController extends Controller
         array_push($full_account,$accountz);
     }
        
-        //dd($full_account);
+       // dd($full_account);
         if(isset($accounts) && count($accounts) == 0)
         {
             $accounts=Accounts::get();
@@ -131,7 +131,7 @@ class AdminController extends Controller
     public function insert_account(Request $request)
     {
         // ✅ Validate the request
-
+       // dd($request);
        
         $validated = $request->validate([
             'nome' => 'required|string|max:255',
@@ -144,8 +144,9 @@ class AdminController extends Controller
             'progs'=>'nullable|string|max:255',
             'sous_progs'=>'nullable|string|max:255',
             'acts'=>'nullable|string|max:255',
+             'id_deleg_resp'=>'nullable',
             'profile_picture' => 'nullable|mimes:jpg,png,jpeg,pdf|max:2048', // Validate image
-
+           
         ]);
         //dd($validated);
         if ($request->hasFile('profile_picture')) {
@@ -238,6 +239,7 @@ class AdminController extends Controller
                 'code_generated' => Hash::make($validated['code_generated']), // Hash the password
                 'post_occupe' => $validated['post_occupe'],
                 'privilege' => $validated['privilege'],
+                'id_deleg_resp'=>$validated['id_deleg_resp']
             ]);
             $account=$account->first();
             $file=$request->file('profile_picture');
@@ -273,6 +275,7 @@ class AdminController extends Controller
             'code_generated' => Hash::make($validated['code_generated']), // Hash the password
             'post_occupe' => $validated['post_occupe'],
             'privilege' => $validated['privilege'],
+            'id_deleg_resp'=>$validated['id_deleg_resp']
         ]);
         
         $file=$request->file('profile_picture');
@@ -376,6 +379,15 @@ class AdminController extends Controller
         //$resact=Action::where('id_ra',$account->id_ra)->get();
           //dd( $account);
           
+        }
+        function get_respo_acc()
+        {
+            $accounts=Accounts::select('id','nome','prenom')->whereNull('id_deleg_resp')->get();
+            if(isset($accounts))
+            {
+                return response()->json(['message'=>'success','code'=>200,'data'=>$accounts]);
+            }
+            return response()->json(['message'=>'unsuccess','code'=>404,]);
         }
    
 }
