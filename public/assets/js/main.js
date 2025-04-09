@@ -4760,16 +4760,13 @@ if(code == 200){
                 '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_not">' + 0 + '</td>' +
                 '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' + 0 + '</td>' +
                 '</tr>';
-               if(code !=200)
-                    {
-                        $('#T-tables tbody').append(row);
-                    }
-                });
-            for( i = 0; i<Object.keys(data_T_port).length ;i++){
+
+           
+            if(Object.keys(data_T_port).length > 0){
 
             if (data_T_port.group.length > 0 && data_T_port.group.length > ig) {
                var land=data_T_port.group[ig].code.length-5;
-                key=splitcode(data_T_port.group[ig].code, land)
+               // key=splitcode(data_T_port.group[ig].code, land)
                 if (key==data_T_port.group[ig].code.split('-')[6]) {
                     console.log(key+'keys --codes groupe'+data_T_port.group[ig].code.split('-')[6])
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.group[ig].code + '">' +
@@ -4789,14 +4786,14 @@ if(code == 200){
             }
             if (data_T_port.operation.length > 0 && data_T_port.operation.length > io) {
                var land=data_T_port.operation[io].code.length-5;
-               key = splitcode(data_T_port.operation[io].code, land)
+              // key = splitcode(data_T_port.operation[io].code, land)
                 if ( key==data_T_port.operation[io].code.split('-')[7]) {
                     console.log(key+'keys --codes opiration'+data_T_port.operation[io].code.split('-')[7])
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.operation[io].code + '">' +
                         '<td scope="row"  class="code">' + key + '</td>' +
                         '<td id="nom_ops"><p>' + data_T_port.operation[io].nom + '</p> </td>' +
                         '<td> - </td>' +
-                        '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p></p></td>' +
+                        '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>'+val[0]+'</p></td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' +ValAccountingFigures (data_T_port.operation[io].values.ae_reporteop) + '</td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' +ValAccountingFigures (data_T_port.operation[io].values.ae_notifieop) + '</td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' +ValAccountingFigures (data_T_port.operation[io].values.ae_engageop) + '</td>' +
@@ -4812,8 +4809,8 @@ if(code == 200){
                var last=data_T_port.sousOperation[iso].code.split('-').length
 
                 console.log('all'+land+' split code'+splitcode(data_T_port.sousOperation[iso].code, land)+'Key code'+key+'the last'+data_T_port.sousOperation[iso].code.split('-')[last-1])
-                key = splitcode(data_T_port.sousOperation[iso].code, land)
-                if (key ==data_T_port.sousOperation[iso].code.split('-')[last-1]) {
+               // key = splitcode(data_T_port.sousOperation[iso].code, land)
+                if (data_T_port.sousOperation[iso].code.split('-').length == 9) {
                     //only_def(data_T_port.sousOperation[iso].code)
                    console.log('code orignal')
                     var def='';
@@ -4847,11 +4844,12 @@ if(code == 200){
                 }
                 else
                 {  
-                   if(data_T_port.sousOperation[iso].code != data_T_port.operation[io].code && data_T_port.sousOperation[iso].code !=data_T_port.group[ig].code)
+                   if(data_T_port.sousOperation[iso].code.split('-').length > 9 )
                    {
+                    finder_s = true;
                     console.log('new code  '+data_T_port.sousOperation[iso].code.split('-')[last-1]+'-- -leng --- '+data_T_port.sousOperation[iso].code.split('-').length)
                     while(finder_s){
-                    if(data_T_port.sousOperation[iso].code.split('-').length < 9 && key!=data_T_port.sousOperation[iso].code){
+                    if(data_T_port.sousOperation[iso].code.split('-').length > 9 && key!=data_T_port.sousOperation[iso].code){
                         console.log('new code >> '+splitcode(data_T_port.sousOperation[iso].code, land)+' >> leng >>'+data_T_port.sousOperation[iso].code.split('-').length)
                         var def='';
                         var nom='';
@@ -4895,7 +4893,8 @@ if(code == 200){
                 '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_not">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_notifiesousop) + '</td>' +
                 '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_consomesousop) + '</td>' +
                 '</tr>';
-                finder_s = false;$('#T-tables tbody').append(row);
+                finder_s = false;
+               // $('#T-tables tbody').append(row);
                }
             }
            
@@ -4909,7 +4908,11 @@ if(code == 200){
           
             // Append the row to the table body
             //$('#T-tables tbody').append(row);
-           
+        }
+        else
+        {
+            $('#T-tables tbody').append(row);
+        }
             if (current.length == 0) {
                 current = key;
                 preve = current;
@@ -4948,7 +4951,7 @@ if(code == 200){
                 }
                 current = key;
             }
-            i++
+            
             if (i == lengT) {
                 if ($('.ref' + key + ' td').hasClass("editable")) {
                     $('.ref' + key + ' #add_op').append(newbtn)
@@ -4962,8 +4965,8 @@ if(code == 200){
                 }
             }
             Edit(id, T)
-        }
-       // });
+     
+        });
         if(code === 200)
         {
            
