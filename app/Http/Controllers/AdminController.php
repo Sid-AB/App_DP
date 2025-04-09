@@ -155,7 +155,7 @@ class AdminController extends Controller
         }
         // ✅ Insert data into the database
         $email = $validated['email'];
-        $uniqueId = substr(base_convert(md5($email), 16, 36), 0, 6);
+        $uniqueId = hexdec(substr(base_convert(md5($email), 16, 36), 0, 6));
         $idresp= rand(100000, 999999);
         $id_res_Min=null;
         $id_res_prg=null;
@@ -260,7 +260,7 @@ class AdminController extends Controller
             }
         }else
         {
-           // dd($account);
+           // dd($account,$uniqueId);
             $account = Accounts::updateOrCreate([
             'id'=>$uniqueId,
             'nome' => $validated['nome'],
