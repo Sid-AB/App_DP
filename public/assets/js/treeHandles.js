@@ -164,9 +164,9 @@ $(document).ready(function(){
  $('#id_env').on('change',function(){
       sousprogbum=$(this).val();
       var selectACT_ret='<div class="form-group">'+
-       ' <label for="input1">Action a modifier - Envoyer</label>'+
+       ' <label for="input1">L\'action destinataire </label>'+
           '<select type="text" class="form-control" id="id_cible_env" placeholder="Entrer le Nom du Programme">'+
-           '<option value="0" >Selectionner Article</option>'+
+           '<option value="0" >Séléctionner l\'action</option>'+
           '</select>'+
         '</div>';
       $.ajax({
@@ -178,7 +178,7 @@ $(document).ready(function(){
           {
           
             $('#prog_env').empty()
-            var inpsts='<hr><label>appratian a programme :</label><p type="text" class="id_prog_env" id="'+response.prog.num_prog+'">'+response.prog.nom_prog+'</p><hr>'
+            var inpsts='<hr><label>Appartenant au programme :</label><p type="text" class="id_prog_env" id="'+response.prog.num_prog+'">'+response.prog.nom_prog+'</p><hr>'
             $('#prog_env').append(inpsts);
             $('#prog_env').append(selectACT_ret);
             prognum=response.prog.num_prog;
@@ -202,13 +202,13 @@ $(document).ready(function(){
     selectedHobby = $('input[name="type_modif"]:checked').val();
    if (selectedHobby === "inter") {
     $('#button-71').prop("disabled", false)
-    $("#dif").text('Sous Programme a l`envoie')
+    $("#dif").text('Le sous-programme destinataire')
     $('.exter_type').empty();
     console.log('testing radio'+selectedHobby);
     var chose ='<div class="form-group">'+
-    ' <label for="input1">Sous programme a Reterie montant</label>'+
+    ' <label for="input1">Le sous-programme source</label>'+
     '<select class="form-control" id="id-retire_sous_prog" >'+
-    '<option value="0" >Selectionner Article</option>'+
+    '<option value="0" >Séléctionner le Sous Programme</option>'+
     '</select>'+
     '</div><div class="section-env"></div><hr>';
     $('.add-envoi').append(chose);
@@ -220,9 +220,9 @@ $(document).ready(function(){
     }
     
     var choseT ='<div id="prog_ret"></div><div class="form-group">'+
-    ' <label for="input1">Tport Reterie montant</label>'+
+    ' <label for="input1">Tports source</label>'+
     '<select class="form-control" id="id-T-retire">'+
-    '<option value="T0" >Selectionner TPort</option>'+
+    '<option value="T0" >Séléctionner TPort</option>'+
     '<option value="T1" >Port 01</option>'+
     '<option value="T2" >Port 02</option>'+
     '<option value="T3" >Port 03</option>'+
@@ -234,9 +234,9 @@ $(document).ready(function(){
       $('#id-retire_sous_prog').on('change',function(){
         console.log('i act chnage')
         var selectACT_ret='<div class="form-group">'+
-        ' <label for="input1">Action a modifier - Retirer</label>'+
+        ' <label for="input1">L\'action source</label>'+
            '<select type="text" class="form-control" id="id_cible_ret" placeholder="Entrer le Nom du Programme">'+
-            '<option value="0" >Selectionner Article</option>'+
+            '<option value="0" >Séléctionner l\'action</option>'+
            '</select>'+
          '</div>';
         selectdsousret = $('#id-retire_sous_prog').val();  
@@ -248,7 +248,7 @@ $(document).ready(function(){
             if(response.exists)
             {
               $('#prog_ret').empty()
-              var inpsts='<hr><label>appratian a programme :</label><p type="text" class="id-retire_prog" id="'+response.prog.num_prog+'">'+response.prog.nom_prog+'</p>'
+              var inpsts='<hr><label>appartenant au programme :</label><p type="text" class="id-retire_prog" id="'+response.prog.num_prog+'">'+response.prog.nom_prog+'</p>'
               $('#prog_ret').append(inpsts);
               $('#prog_ret').append(selectACT_ret);
               selectedprogret=response.prog.num_prog;
@@ -306,6 +306,7 @@ $(document).ready(function(){
       if(selectedHobby == "exter")
       {
         $('#button-71').prop("disabled", false)
+        $("#dif").text('Le sous-programme destinataire/source')
         $('.exter_type').empty()
         $("#dif").text('Sous Programme de L`Operation')
         var type_extr='<div>'+
@@ -330,21 +331,21 @@ $(document).ready(function(){
       $('.exter_type').empty()
         var init_port='<div>'+
        ' <div>'+
-          '  <label for="Tports">Select from :</label>'+
+          '  <label for="Tports">Choisir :</label>'+
                 '<select class="form-control" id="Type_op_port">'+
                   '  <option value="recoit_port">'+
-                        'Recoit'+
+                        'Réception'+
                    ' </option>'+
                    ' <option value="envoi_port">'+
-                       ' Envoi'+
+                       'Envoi'+
                  '   </option>'+
               '  </select>'+
        ' </div>'+
        '<br>'+
        ' <div>'+
-           ' <label for="Tports">Code</label><input type="text" class="form-control" id="Code_port" name="interest">'+
+           ' <label for="Tports">Code du Portefeuille Externe :</label><input type="text" class="form-control" id="Code_port" name="interest">'+
       '  </div>'+
-       ' <label>Montant:</label><br>'+
+       ' <label> Montant du Portefeuille Externe :</label><br>'+
     '<label for="Tports">AE</label><input type="number" class="form-control" id="AE_Port" name="interest"><label for="number">CP</label><input type="number" class="form-control" id="CP_Port" name="interest"></div>';
        $('.exter_type').append(init_port)
        $('#Type_op_port').change(function(){

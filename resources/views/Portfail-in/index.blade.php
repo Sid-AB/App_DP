@@ -270,6 +270,7 @@
                         <p class="fs-7 mb-0">Sous Action :{{$sous_act['num_act']}} </p>
                        @else
                        @foreach($sous_act['Tports'] as $key=>$values)
+                    
                        <div class="T-holder"> 
                         <p class="fs-7 mb-0"> {{$key}} </p>
                         <div class="TotalT-holder">
@@ -484,9 +485,9 @@
         <hr>
 
         <div class="form-group">
-          <label for="input1">Article</label>
+          <label for="input1">L'Opération effectuée</label>
           <select type="text" class="form-control" id="id" placeholder="Entrer le Nom du Programme">
-           <option value="0" >Séléctionner Article</option>
+           <option value="0" >Séléctionner une opération  </option>
            @foreach ($art as $key=>$actelement )
            <option value="{{$actelement['id_art']}}" >{{$actelement['nom_art'].' / '.$actelement['code_art']}}</option>
            @endforeach
@@ -498,7 +499,7 @@
         <div class="form-group">
           <label id="dif" for="input1">Sous Programmes</label>
           <select type="text" class="form-control" id="id_env" placeholder="Entrer le Nom du Programme">
-           <option value="0" >Selectionner Sous Porgramme</option>
+           <option value="0" >Séléctionner le Sous Programme</option>
            @foreach($allsous_progr as $souportf)
            @foreach($souportf as $sp)
            <option value="{{$sp['id_sous_prog']}}" >{{$sp['data']['nom_sous_prog']}}</option>
@@ -510,7 +511,7 @@
   
         <div class="form-group">
         <fieldset>
-        <legend>Choisir Les Port</legend>
+        <legend>Choisir Les Ports </legend>
         <div class="Tchecks">
         <div class="Tfields" >
         <label for="Tports">T1</label>
@@ -579,7 +580,7 @@
         </div-->
       </div>
     </form>
-    <button class="button-70" id="button-71" role="button" >modifier</button>
+    <button class="button-70" id="button-71" role="button" >Envoyer</button>
   </div>
   </div>
  </div>
