@@ -16,6 +16,7 @@
 <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 <!-- Styles -->
 </head>
+
 <body>
 @include('side_bar.side-barV1')
 <!-- Container for Car Cards -->
@@ -403,7 +404,7 @@
     </div>
     <div class="card-body" >
       <h5 class="card-title">Gestion des Opérations et Modifications sur ce Portefeuille</h5>
-      <p class="card-text">   Ce formulaire permet de gérer l'ensemble des opérations sur ce portefeuille, incluant les reports de CP sur T3 (limités à 5 %)
+      <p class="card-text"> &nbsp;&nbsp;&nbsp;Ce formulaire permet de gérer l'ensemble des opérations sur ce portefeuille, incluant les reports de CP sur T3 (limités à 5 %)
         , les reports d'AE non engagée sur T3, les reports d'AE et de CP fonds de concours,
          les décrets d'avance, les virements, les transferts, ainsi que toute autre modification.</p>
     </div>
@@ -470,7 +471,7 @@
         <label for="Tports">Exterieur</label>
          <input type="radio" class="form-check-input" id="extr" name="type_modif" value="exter" />
         </div-->
-        <label for="Tports">Exterieur Portfail vers Portfail</label>
+        <label for="Tports">Exterieur (Portefeuille vers Portefeuille)</label>
         <input type="radio" class="form-check-input" id="extr_port" name="type_modif" value="exter_port" />
        </div>
         </div>
@@ -485,7 +486,7 @@
         <div class="form-group">
           <label for="input1">Article</label>
           <select type="text" class="form-control" id="id" placeholder="Entrer le Nom du Programme">
-           <option value="0" >Selectionner Article</option>
+           <option value="0" >Séléctionner Article</option>
            @foreach ($art as $key=>$actelement )
            <option value="{{$actelement['id_art']}}" >{{$actelement['nom_art'].' / '.$actelement['code_art']}}</option>
            @endforeach
