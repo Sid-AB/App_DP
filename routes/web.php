@@ -156,6 +156,7 @@ Route::controller(AdminController::class)->group(function(){
     Route::get('/admin/responsable/{id}','get_responsable')->name('get_responsable.account');
     Route::post('/insert/account','insert_account')->name('account_insertion');
     Route::post('/login/account','access_login')->name('access_login');
+    Route::get('/get-accounts','get_respo_acc')->name('get_respo_acc');
 });
 
 //===============ROUTE Prime==============================

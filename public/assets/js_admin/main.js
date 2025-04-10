@@ -1,3 +1,5 @@
+
+
 (function () {
   /* ========= Preloader ======== */
   const preloader = document.querySelectorAll('#preloader')
@@ -51,8 +53,3 @@
     mainWrapper.classList.remove("active");
   });
 })();
-$(document).ready(function(){
-
-  //  $('#Submit').on('click',function(){})
-
-})

@@ -156,6 +156,16 @@
                   <div class="invalid-feedback">{{ $message }}</div>
               @enderror
           </div>
+          <div class="col-md-6">
+            <input type="checkbox" class="@error('code_generated') is-invalid @enderror" id="select-deleg" name="select-deleg" >
+            @error('code_generated')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+            <label for="code_generated" class="form-label">Delegué </label>
+            <div class="col-md-6" id="deleg-handle">
+
+            </div>
+        </div>
       
           <div class="col-12">
               <div class="form-check">
@@ -244,6 +254,9 @@
                             <h6>Privilège</h6>
                           </th>
                           <th>
+                            <h6>Délegué</h6>
+                          </th>
+                          <th>
                             <h6>Résponsable</h6>
                           </th>
                           <th>
@@ -279,21 +292,25 @@
                           <td class="min-width">
                             <p>{{$accountloop->post_occupe}}</p>
                           </td>
+
                           @if($accountloop->privilege == 2)
                           <td class="min-width">
-                            <span class="status-btn active-btn">Insertion</span>
+                            <span class="status-btn {{ $accountloop->id_deleg_resp  ? 'close-btn':' active-btn'}}">Insertion</span>
                           </td>
                           @else
                             @if($accountloop->privilege == 1)
                             <td class="min-width">
-                              <span class="status-btn active-btn">Modification</span>
+                              <span class="status-btn {{ $accountloop->id_deleg_resp  ? 'close-btn':' active-btn'}}">Modification</span>
                             </td>
                             @else
                             <td class="min-width">
-                              <span class="status-btn active-btn">Administrateur</span>
+                              <span class="status-btn {{ $accountloop->id_deleg_resp  ? 'close-btn':' active-btn'}}">Administrateur</span>
                             </td>
                             @endif
                           @endif
+                          <td class="min-width">
+                            <span class="status-btn">{{ $accountloop->id_deleg_resp  ? 'D' :'R'}}</span>
+                          </td>
                           <td>
                             <div class="min-width">
                               @if($accountloop->num_portefeuil)
@@ -355,6 +372,7 @@
     <!-- ======== main-wrapper end =========== -->
 
     <!-- ========= All Javascript files linkup ======== -->
+    <script src="{{asset('assets/js/jquery-3.7.1.min.js')}}"></script>
     <script src="{{asset('assets/js_admin/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('assets/js_admin/Chart.min.js')}}"></script>
     <script src="{{asset('assets/js_admin/dynamic-pie-chart.js')}}"></script>
@@ -364,5 +382,42 @@
     <script src="{{asset('assets/js_admin/world-merc.js')}}"></script>
     <script src="{{asset('assets/js_admin/polyfill.js')}}"></script>
     <script src="{{asset('assets/js_admin/main.js')}}"></script>
+    <script>
+    $(document).ready(function(){
+
+//  $('#Submit').on('click',function(){}) 
+      var allaccount;
+    $('#select-deleg').change(function(){
+      console.log('i click')
+      $('#deleg-handle').empty()
+      if( $(this).is(":checked"))
+      {
+        $.ajax({
+        url:'/get-accounts/',
+        type:'GET',
+        success:function(response)
+        {
+          allaccount=response.data
+          var options='';
+          allaccount.forEach(element => {
+            console.log('click'+JSON.stringify(element))
+            options+='<option value='+element.id+'>'+element.nome+' '+element.prenom+'</option>'
+          });
+      var html=' <select class="form-select" id="id_deleg_resp" name="id_deleg_resp">'+
+                '<option disabled value="" selected>Choisir...</option>'+
+                  options+
+                '</select>';
+                $('#deleg-handle').append(html)
+        },
+      })
+     }
+     else
+     {
+      $('#deleg-handle').empty()
+     }
+    })
+
+})
+    </script>
   </body>
 </html>
