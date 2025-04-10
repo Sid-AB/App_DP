@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Schema;
 
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
-
+use PhpOffice\PhpWord\Shared\Converter;
 use \CloudConvert\Api;
 class sousActionController extends Controller
 {
@@ -677,6 +677,7 @@ return $pdf->stream('impression_dpic.pdf');
    
 
 }
+
 //==============================fct compareT====================================================*
 function compareT($lastModif, $t) {
 

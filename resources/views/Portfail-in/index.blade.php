@@ -402,11 +402,13 @@
       </div>
     </div>
     <div class="card-body" >
-      <h5 class="card-title">Les modification Sur Notre Portefeuille</h5>
-      <p class="card-text">Tout concerner les Modification Movemement ou bien transfer , virement</p>
+      <h5 class="card-title">Gestion des Opérations et Modifications sur ce Portefeuille</h5>
+      <p class="card-text">   Ce formulaire permet de gérer l'ensemble des opérations sur ce portefeuille, incluant les reports de CP sur T3 (limités à 5 %)
+        , les reports d'AE non engagée sur T3, les reports d'AE et de CP fonds de concours,
+         les décrets d'avance, les virements, les transferts, ainsi que toute autre modification.</p>
     </div>
     <div class="card-footer">
-      <small class="text-muted">Darnier Modification </small>
+      <small class="text-muted">Dernière Modification </small>
     </div>
   </div>
 </div>

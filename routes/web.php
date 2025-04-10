@@ -83,6 +83,7 @@ Route::controller(sousActionController::class)->group(function(){
     Route::get('/test_print','print_test')->name('print-dpa.listss');
     Route::get('/check-sousaction','check_sousaction')->name('check.sousaction');
     Route::get('/convert/{numport}','showConvertPage')->name('convert');
+
 });
 
 //===============ROUTE GROUPE D'OPERATIONS==============================
