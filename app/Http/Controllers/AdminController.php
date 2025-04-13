@@ -84,30 +84,32 @@ class AdminController extends Controller
             
         if(!isset($accountz))
         {
-            $accountz=Accounts::join('actions','actions.id_ra','=','accounts.id_ra')
-            //->join('multimedia','multimedia.related_id','=','id')
-            ->select('nome','prenom','email','post_occupe','sous_direction','privilege','num_action','nom_action_ar','nom_action','num_sous_prog','accounts.id_ra','id','id_deleg_resp')
-            //->join('programmes','programmes.id_rp','=','accounts.id_rp')
-            ->where('id',$accnt->id)
+            $accountz=Accounts::from('accounts as a1')->join('accounts as a2','a1.id_deleg_resp','=','a2.id')
+            ->join('actions','actions.id_ra','=','a1.id_ra')
+            ->select('a1.nome','a1.prenom','a1.email','a1.post_occupe','a1.sous_direction','a1.privilege','num_action','nom_action_ar','nom_action','a1.id','a1.id_deleg_resp','a2.nome as delege_nome','a2.prenom as delege_prenom')
+            ->where('a1.id',$accnt->id)
             ->first();
             if(!isset($accountz))
             {
-                $accountz=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_prog','accounts.id_rp','nom_prog','num_prog','id','id_deleg_resp')
+                $accountz=Accounts::from('accounts as a1')->join('accounts as a2','a1.id_deleg_resp','=','a2.id')
+                ->select('a1.nome','a1.prenom','a1.email','a1.post_occupe','a1.sous_direction','a1.privilege','num_prog','a1.id_rp','nom_prog','num_prog','a1.id','a1.id_deleg_resp','a2.nome as delege_nome','a2.prenom as delege_prenom')
                 //->join('multimedia','multimedia.related_id','=','id')
                 //->join('actions','actions.id_ra','=','accounts.id_ra')
-                ->join('programmes','programmes.id_rp','=','accounts.id_rp')
-                ->where('id',$accnt->id)
+                ->join('programmes','programmes.id_rp','=','a1.id_rp')
+                ->where('a1.id',$accnt->id)
                 ->first();
               
                 if(!isset($accountz))
                 {
-                    $accountz=Accounts::select('nome','prenom','email','post_occupe','sous_direction','privilege','num_portefeuil','id','id_deleg_resp')
-                //->join('multimedia','multimedia.related_id','=','id')
+                    $accountz=Accounts::from('accounts as a1')->join('accounts as a2','a1.id_deleg_resp','=','a2.id')
+                    //->select('nome','prenom','email','post_occupe','sous_direction','privilege','num_portefeuil','id','id_deleg_resp')
+                    ->select('a1.nome','a1.prenom','a1.email','a1.post_occupe','a1.sous_direction','a1.privilege','num_portefeuil','a1.id','a1.id_deleg_resp','a2.nome as delege_nome','a2.prenom as delege_prenom')
+
                 //->join('actions','actions.id_ra','=','accounts.id_ra')
                 //->join('programmes','programmes.id_rp','=','accounts.id_rp')
-                ->join('portefeuilles','portefeuilles.id_min','=','accounts.id_min')
-                ->where('id',$accnt->id)
-                ->first();
+                    ->join('portefeuilles','portefeuilles.id_min','=','a1.id_min')
+                    ->where('a1.id',$accnt->id)
+                    ->first();
                     if(!isset($accountz))
                     {
                         $accountz=Accounts::where('id',$accnt->id)
@@ -119,7 +121,12 @@ class AdminController extends Controller
         array_push($full_account,$accountz);
     }
        
-       // dd($full_account);
+        //dd($full_account);
+       /*
+       Accounts::from('accounts as a1')->join('accounts as a2','a1.id_deleg_resp','=','a2.id')
+                                ->select('a1.id','a1.nome','a1.prenom','a2.nome as name_delege','a2.prenom as prenom_delege')
+                                ->whereNull('a2.id_deleg_resp')->get();
+       */
         if(isset($accounts) && count($accounts) == 0)
         {
             $accounts=Accounts::get();

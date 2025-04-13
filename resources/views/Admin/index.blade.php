@@ -308,8 +308,8 @@
                             </td>
                             @endif
                           @endif
-                          <td class="min-width">
-                            <span class="status-btn">{{ $accountloop->id_deleg_resp  ? 'D' :'R'}}</span>
+                          <td class="min-width" id="deleg_of{{ $accountloop->id_deleg_resp}}">
+                            <span class="status-btn">{{ $accountloop->id_deleg_resp  ? $accountloop->delege_prenom.' '.$accountloop->delege_nome :'R'}}</span>
                           </td>
                           <td>
                             <div class="min-width">
