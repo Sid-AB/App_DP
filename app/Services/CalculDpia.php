@@ -535,6 +535,15 @@ if (!empty($portefeuille)) {
             
              //  dd($operationT4);
                  // dd($totalAe,$totalCp);
+                 $totalt[] = [
+                    "values" => [
+
+                        'totalAE' => $totalAe,
+                        'totalCP' => $totalCp,
+                    ]
+
+                    ];
+
                $totalt2[] = [
                     "values" => [
                         'totalAEouvrtvertical'=> $totalAeOuvertGlobal,
@@ -565,15 +574,7 @@ if (!empty($portefeuille)) {
 
                         ];
 
-                        $totalt[] = [
-                            "values" => [
-
-                                'totalAE' => $totalAe,
-                                'totalCP' => $totalCp,
-                            ]
-
-                            ];
-
+                       
                             $totalt4[] = [
                                 "values" => [
 
@@ -587,7 +588,12 @@ if (!empty($portefeuille)) {
 
                     // dd($operationT4);
                       return[
-                           'T2'=>['sousOperation' => $sousOperationT2,
+                            'T1'=>['sousOperation' => $sousOperationT,
+                            'operation' => $operationT,
+                            'group' => $groupT,
+                            'total' => $totalt,] ,
+                            
+                            'T2'=>['sousOperation' => $sousOperationT2,
                             'operation' => $operationT2,
                             'group' => $groupT2,
                             'total' => $totalt2,] ,
@@ -598,10 +604,7 @@ if (!empty($portefeuille)) {
                             'group' => $groupT3,
                             'total' => $totalt3,] ,
 
-                            'T1'=>['sousOperation' => $sousOperationT,
-                            'operation' => $operationT,
-                            'group' => $groupT,
-                            'total' => $totalt,] ,
+                           
 
                            'T4'=>['sousOperation' => $sousOperationT4,
                             'operation' => $operationT4,
