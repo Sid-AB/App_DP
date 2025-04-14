@@ -123,7 +123,7 @@ class AdminController extends Controller
         array_push($full_account,$accountz);
     }
        
-        dd($full_account);
+        //dd($full_account);
        /*
        Accounts::from('accounts as a1')->join('accounts as a2','a1.id_deleg_resp','=','a2.id')
                                 ->select('a1.id','a1.nome','a1.prenom','a2.nome as name_delege','a2.prenom as prenom_delege')
