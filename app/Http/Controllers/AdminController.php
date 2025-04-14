@@ -85,17 +85,19 @@ class AdminController extends Controller
         if(!isset($accountz))
         {
             $accountz=Accounts::from('accounts as a1')->join('accounts as a2','a1.id_deleg_resp','=','a2.id')
-            ->join('actions','actions.id_ra','=','a1.id_ra')
+            ->join('actions','actions.id_ra','=','a2.id_ra')
             ->select('a1.nome','a1.prenom','a1.email','a1.post_occupe','a1.sous_direction','a1.privilege','num_action','nom_action_ar','nom_action','a1.id','a1.id_deleg_resp','a2.nome as delege_nome','a2.prenom as delege_prenom')
             ->where('a1.id',$accnt->id)
             ->first();
+            //if()
             if(!isset($accountz))
             {
                 $accountz=Accounts::from('accounts as a1')->join('accounts as a2','a1.id_deleg_resp','=','a2.id')
-                ->select('a1.nome','a1.prenom','a1.email','a1.post_occupe','a1.sous_direction','a1.privilege','num_prog','a1.id_rp','nom_prog','num_prog','a1.id','a1.id_deleg_resp','a2.nome as delege_nome','a2.prenom as delege_prenom')
+                
                 //->join('multimedia','multimedia.related_id','=','id')
                 //->join('actions','actions.id_ra','=','accounts.id_ra')
-                ->join('programmes','programmes.id_rp','=','a1.id_rp')
+                ->join('programmes','programmes.id_rp','=','a2.id_rp')
+                ->select('a1.nome','a1.prenom','a1.email','a1.post_occupe','a1.sous_direction','a1.privilege','num_prog','a1.id_rp','nom_prog','num_prog','a1.id','a1.id_deleg_resp','a2.nome as delege_nome','a2.prenom as delege_prenom')
                 ->where('a1.id',$accnt->id)
                 ->first();
               
@@ -121,7 +123,7 @@ class AdminController extends Controller
         array_push($full_account,$accountz);
     }
        
-        //dd($full_account);
+        dd($full_account);
        /*
        Accounts::from('accounts as a1')->join('accounts as a2','a1.id_deleg_resp','=','a2.id')
                                 ->select('a1.id','a1.nome','a1.prenom','a2.nome as name_delege','a2.prenom as prenom_delege')
@@ -168,6 +170,7 @@ class AdminController extends Controller
         $id_res_Min=null;
         $id_res_prg=null;
         $id_res_act=null;
+        $deleg=null;
         if(isset($validated['progs']) && isset($validated['sous_progs'])  && !isset($validated['acts']))
         {
             $res_prg=Respo_Prog::updateOrCreate([
@@ -234,6 +237,10 @@ class AdminController extends Controller
                 $id_res_Min=$account->id_min;
                 $validated['privilege']=0;
             }
+            if(isset($validated['id_deleg_resp']))
+            {
+                $deleg=$validated['id_deleg_resp'];
+            }
             $account->update([
                
                 'nome' => $validated['nome'],
@@ -246,7 +253,7 @@ class AdminController extends Controller
                 'code_generated' => Hash::make($validated['code_generated']), // Hash the password
                 'post_occupe' => $validated['post_occupe'],
                 'privilege' => $validated['privilege'],
-                'id_deleg_resp'=>$validated['id_deleg_resp']
+                'id_deleg_resp'=> $deleg
             ]);
             $account=$account->first();
             $file=$request->file('profile_picture');
@@ -282,7 +289,7 @@ class AdminController extends Controller
             'code_generated' => Hash::make($validated['code_generated']), // Hash the password
             'post_occupe' => $validated['post_occupe'],
             'privilege' => $validated['privilege'],
-            'id_deleg_resp'=>$validated['id_deleg_resp']
+            'id_deleg_resp'=> $deleg
         ]);
         
         $file=$request->file('profile_picture');

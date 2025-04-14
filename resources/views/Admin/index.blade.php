@@ -254,7 +254,7 @@
                             <h6>Privilège</h6>
                           </th>
                           <th>
-                            <h6>Délegué</h6>
+                            <h6>Délégué</h6>
                           </th>
                           <th>
                             <h6>Résponsable</h6>
