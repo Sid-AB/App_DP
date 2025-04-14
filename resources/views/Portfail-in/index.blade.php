@@ -823,7 +823,14 @@ listItemsWithNestedUl.each(function(){
             _method: "POST",},
             success:function(response)
             {
+                if(response.code == 200)
+                {
               window.location.href='/testing/Action/'+path3[0]+'/'+path3[1]+'/'+path3[2]+'/'+typeact[1]+'/?code='+response.account
+                }
+                else
+                {
+                  window.location.href='/update/pass?code='+response.code_generated+'&mail='+response.account
+                }
              // 
             },
             error:function()

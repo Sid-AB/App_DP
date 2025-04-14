@@ -18,7 +18,10 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('post_occupe'); 
             $table->string('sous_direction'); 
-            $table->string('code_generated')->default(0); 
+            $table->string('code_generated')->default(0);
+            $table->integer('update_code')->default(0); 
+            $table->string('init_code')->default(0);  
+            $table->timestamp('password_changed_at')->nullable();
             $table->integer('id_min')->nullable();
             $table->foreign('id_min')->references('id_min')->on('ministres');
             $table->integer('id_rp')->nullable();
@@ -29,6 +32,7 @@ return new class extends Migration
             $table->integer('id_deleg_resp')->nullable();
             $table->foreign('id_deleg_resp')->references('id')->on('accounts');
             $table->timestamps(); // created_at & updated_at
+
         });
         DB::table('accounts')->insert([
             [
@@ -37,6 +41,8 @@ return new class extends Migration
                 'email'=>'Ministre@mcomm.local',
                 'sous_direction'=>'Minitre',
                 'post_occupe'=>'Minitre',
+                'update_code'=>0,
+                'init_code'=>"@mc#2025-mnc",
                 'id_min'=>1,
             ], 
         ]);

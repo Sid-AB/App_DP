@@ -19,6 +19,8 @@ class Accounts extends Model
         'privilege',
         'responable',
         'code_generated',
+        'update_code',
+        'init_code',
         'id_min',
         'id_rp',
         'id_ra',

@@ -157,6 +157,8 @@ Route::controller(AdminController::class)->group(function(){
     Route::post('/insert/account','insert_account')->name('account_insertion');
     Route::post('/login/account','access_login')->name('access_login');
     Route::get('/get-accounts','get_respo_acc')->name('get_respo_acc');
+    Route::get('/update/pass','indexupdate')->name('passhander');
+    Route::post('/update/login','update_pass')->name('password_update');
 });
 
 //===============ROUTE Prime==============================

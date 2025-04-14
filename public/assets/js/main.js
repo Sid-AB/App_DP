@@ -1238,8 +1238,8 @@ function add_newOPs_T4(id, value, key,code) {
        '<td class="code" >' +idsz + '</td>' +
        '<td>'+value+'</td>'+
        '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + data_add_ops.descrp + '</p> <i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i></td>' +
-       '<td id="AE_T4">' + data_add_ops.AE_T4 + '</td>' +
-       '<td  id="CP_T4">' + data_add_ops.CP_T4 + '</td>' +
+       '<td id="AE_T4" class="init_AE_T4">' + data_add_ops.AE_T4 + '</td>' +
+       '<td id="CP_T4" class="init_CP_T4">' + data_add_ops.CP_T4 + '</td>' +
        '</tr>';
 
        if(idsfinal.length == 9 || idsfinal.length == 1)
@@ -1254,7 +1254,7 @@ function add_newOPs_T4(id, value, key,code) {
             row='<tr id="ref' + idsz + '">' +
        '<td class="code" style="visibility: hidden;">' +idsz + '</td>' +
        '<td>-</td>'+
-       '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + data_add_ops.descrp + '</p><i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i></td>' +
+       '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + data_add_ops.descrp + '</p></td>' +
        '<td id="AE_T4">' + data_add_ops.AE_T4 + '</td>' +
        '<td  id="CP_T4">' + data_add_ops.CP_T4 + '</td>' +
        '</tr>';
@@ -2100,7 +2100,24 @@ if (tid == 'T_port4' || tid == 'T4') {
 
 var code = $(this).find('td').eq(0).text();
 var descr= $(this).find('td').eq(1).text();
-var dispo= $(this).find('td').eq(2).text()
+var dispo= $(this).find('td').eq(2).text();
+/*if($(this).find('td').eq(3).attr('class') == 'init_AE_T4')
+{
+    var aeValue = 0;
+}
+else
+{
+    var aeValue = $(this).find('td').eq(3).text();
+}
+
+if($(this).find('td').eq(4).attr('class') == 'init_CP_T4')
+{
+        var cpValue = 0;
+}
+else
+{
+        var cpValue = $(this).find('td').eq(4).text();
+}*/
 var aeValue = $(this).find('td').eq(3).text();
 var cpValue = $(this).find('td').eq(4).text();
 // Ajoute les valeurs dans les objets
