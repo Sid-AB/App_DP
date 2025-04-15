@@ -81,7 +81,6 @@ class AdminController extends Controller
         ->join('programmes','programmes.id_rp','=','accounts.id_min')
         ->where('id',$accnt->id)
         ->first();
-            
         if(!isset($accountz))
         {
             $accountz=Accounts::from('accounts as a1')->join('accounts as a2','a1.id_deleg_resp','=','a2.id')
@@ -89,18 +88,34 @@ class AdminController extends Controller
             ->select('a1.nome','a1.prenom','a1.email','a1.post_occupe','a1.sous_direction','a1.privilege','num_action','nom_action_ar','nom_action','a1.id','a1.id_deleg_resp','a2.nome as delege_nome','a2.prenom as delege_prenom')
             ->where('a1.id',$accnt->id)
             ->first();
-            //if()
+             if(!isset($accountz->id_deleg_resp))
+            {
+                $accountz=Accounts::from('accounts')
+                ->join('actions','actions.id_ra','=','accounts.id_ra')
+                ->select('nome','prenom','email','post_occupe','sous_direction','privilege','num_action','nom_action_ar','nom_action','id')
+                ->where('id',$accnt->id)
+                ->first();
+            }
             if(!isset($accountz))
             {
                 $accountz=Accounts::from('accounts as a1')->join('accounts as a2','a1.id_deleg_resp','=','a2.id')
                 
                 //->join('multimedia','multimedia.related_id','=','id')
                 //->join('actions','actions.id_ra','=','accounts.id_ra')
-                ->join('programmes','programmes.id_rp','=','a2.id_rp')
+                ->join('programmes','programmes.id_rp','=','a1.id_rp')
                 ->select('a1.nome','a1.prenom','a1.email','a1.post_occupe','a1.sous_direction','a1.privilege','num_prog','a1.id_rp','nom_prog','num_prog','a1.id','a1.id_deleg_resp','a2.nome as delege_nome','a2.prenom as delege_prenom')
                 ->where('a1.id',$accnt->id)
                 ->first();
-              
+                    if(!isset($accountz))
+                    {
+                        $accountz=Accounts::from('accounts as a1')
+                        //->join('multimedia','multimedia.related_id','=','id')
+                        //->join('actions','actions.id_ra','=','accounts.id_ra')
+                        ->join('programmes','programmes.id_rp','=','a1.id_rp')
+                        ->select('a1.nome','a1.prenom','a1.email','a1.post_occupe','a1.sous_direction','a1.privilege','num_prog','a1.id_rp','nom_prog','num_prog','a1.id','a1.id_deleg_resp')
+                        ->where('a1.id',$accnt->id)
+                        ->first();
+                    }
                 if(!isset($accountz))
                 {
                     $accountz=Accounts::from('accounts as a1')->join('accounts as a2','a1.id_deleg_resp','=','a2.id')
