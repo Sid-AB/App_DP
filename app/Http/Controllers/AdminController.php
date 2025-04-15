@@ -329,17 +329,17 @@ class AdminController extends Controller
         //dd($user);
         return response()->json(['error' => 'Invalid credentials','code'=>401], 401);
     }
-   /* if($user->update_code == 0)
+    if($user->update_code == 0)
     {
         //dd($user);
         $mail= $request['email'];
         return response()->json([
-            'code'=>200,
+            'code'=>201,
             'message' => 'Login update!',
             'code_generated'=>$user->code_generated,
             'account' => $mail, // If using Laravel Sanctum
         ]);
-    }*/
+    }
     return response()->json([
         'code'=>200,
         'message' => 'Login successful!',
@@ -423,36 +423,37 @@ class AdminController extends Controller
 
             //App::setLocale(Session::get('locale', config('app.locale')));
             // Valider les données de la requête
-            dd($request);
+           
             $request->validate([
-                'email'=>'required|string',
-                'code_portfail'=>'required|string',
+                'mail'=>'required|string',
+                'code'=>'required|string',
+                'code_portfail'=>'string',
                 'current_password' => 'required|string',
                 'new_password' => 'required|confirmed|min:8',
                
             ]);
-            
+            $user = Accounts::where('email', $request->mail)->where('code_generated', $request->code)->first();
             // Vérifier le mot de passe actuel
             if (!Hash::check($request->current_password, $user->code_generated)) {
                
                 return back()->withErrors(['current_password' =>'Verifier Mot de pass']);
             }
-    
+           
             // Mettre à jour le mot de passe
-            $user = Auth::user();
             if ($user->update_code == 1) {
                 return back()->withErrors(['error' => 'Le mot de pass en peut être misà jour quune seul fois']);
             } else {
+               
                 $user->code_generated = Hash::make($request->new_password);
                 $user->password_changed_at = now();
                 $user->update_code += 1;
                 $user->save();
-        
+              
                 // Déconnecter l'utilisateur
                 //Auth::logout();
         
                 // Rediriger avec un message de succès
-                return back()->with(['status'=>'success']);
+                return redirect()->to('/');;
             }
     }
     public function indexupdate(Request $request)

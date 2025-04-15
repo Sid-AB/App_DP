@@ -164,7 +164,8 @@
                 <span class="error">{{ $errors->first('new_password_confirmation') }}</span>
             @endif
         </div>
-        <input id="mail" value="{{$mail}}" hidden>
+        <input id="mail" name="mail" value="{{$mail}}" hidden>
+        <input id="code" name="code" value="{{$code}}" hidden>
         <button type="submit" class="btn">{{ __('lang.Changerlemotdepass') }}</button>
     </form>
 
