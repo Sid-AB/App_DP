@@ -170,6 +170,7 @@
             @endif
         </div>
         <input id="mail" value="{{$mail}}" hidden>
+        <input id="code" name="code" value="{{$code}}" hidden>
         <!--button type="submit" class="btn">{{ __('lang.Changerlemotdepass') }}</button-->
         <button type="submit" class="btn">Changer le mot de passe</button>
     </form>

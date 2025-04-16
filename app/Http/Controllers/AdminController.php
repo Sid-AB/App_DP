@@ -81,7 +81,6 @@ class AdminController extends Controller
         ->join('programmes','programmes.id_rp','=','accounts.id_min')
         ->where('id',$accnt->id)
         ->first();
-            
         if(!isset($accountz))
         {
             $accountz=Accounts::from('accounts as a1')->join('accounts as a2','a1.id_deleg_resp','=','a2.id')
@@ -89,18 +88,34 @@ class AdminController extends Controller
             ->select('a1.nome','a1.prenom','a1.email','a1.post_occupe','a1.sous_direction','a1.privilege','num_action','nom_action_ar','nom_action','a1.id','a1.id_deleg_resp','a2.nome as delege_nome','a2.prenom as delege_prenom')
             ->where('a1.id',$accnt->id)
             ->first();
-            //if()
+             if(!isset($accountz->id_deleg_resp))
+            {
+                $accountz=Accounts::from('accounts')
+                ->join('actions','actions.id_ra','=','accounts.id_ra')
+                ->select('nome','prenom','email','post_occupe','sous_direction','privilege','num_action','nom_action_ar','nom_action','id')
+                ->where('id',$accnt->id)
+                ->first();
+            }
             if(!isset($accountz))
             {
                 $accountz=Accounts::from('accounts as a1')->join('accounts as a2','a1.id_deleg_resp','=','a2.id')
                 
                 //->join('multimedia','multimedia.related_id','=','id')
                 //->join('actions','actions.id_ra','=','accounts.id_ra')
-                ->join('programmes','programmes.id_rp','=','a2.id_rp')
+                ->join('programmes','programmes.id_rp','=','a1.id_rp')
                 ->select('a1.nome','a1.prenom','a1.email','a1.post_occupe','a1.sous_direction','a1.privilege','num_prog','a1.id_rp','nom_prog','num_prog','a1.id','a1.id_deleg_resp','a2.nome as delege_nome','a2.prenom as delege_prenom')
                 ->where('a1.id',$accnt->id)
                 ->first();
-              
+                    if(!isset($accountz))
+                    {
+                        $accountz=Accounts::from('accounts as a1')
+                        //->join('multimedia','multimedia.related_id','=','id')
+                        //->join('actions','actions.id_ra','=','accounts.id_ra')
+                        ->join('programmes','programmes.id_rp','=','a1.id_rp')
+                        ->select('a1.nome','a1.prenom','a1.email','a1.post_occupe','a1.sous_direction','a1.privilege','num_prog','a1.id_rp','nom_prog','num_prog','a1.id','a1.id_deleg_resp')
+                        ->where('a1.id',$accnt->id)
+                        ->first();
+                    }
                 if(!isset($accountz))
                 {
                     $accountz=Accounts::from('accounts as a1')->join('accounts as a2','a1.id_deleg_resp','=','a2.id')
@@ -329,17 +344,17 @@ class AdminController extends Controller
         //dd($user);
         return response()->json(['error' => 'Invalid credentials','code'=>401], 401);
     }
-   /* if($user->update_code == 0)
+    if($user->update_code == 0)
     {
         //dd($user);
         $mail= $request['email'];
         return response()->json([
-            'code'=>200,
+            'code'=>201,
             'message' => 'Login update!',
             'code_generated'=>$user->code_generated,
             'account' => $mail, // If using Laravel Sanctum
         ]);
-    }*/
+    }
     return response()->json([
         'code'=>200,
         'message' => 'Login successful!',
@@ -423,36 +438,37 @@ class AdminController extends Controller
 
             //App::setLocale(Session::get('locale', config('app.locale')));
             // Valider les données de la requête
-            dd($request);
+           
             $request->validate([
-                'email'=>'required|string',
-                'code_portfail'=>'required|string',
+                'mail'=>'required|string',
+                'code'=>'required|string',
+                'code_portfail'=>'string',
                 'current_password' => 'required|string',
                 'new_password' => 'required|confirmed|min:8',
                
             ]);
-            
+            $user = Accounts::where('email', $request->mail)->where('code_generated', $request->code)->first();
             // Vérifier le mot de passe actuel
             if (!Hash::check($request->current_password, $user->code_generated)) {
                
                 return back()->withErrors(['current_password' =>'Verifier Mot de pass']);
             }
-    
+           
             // Mettre à jour le mot de passe
-            $user = Auth::user();
             if ($user->update_code == 1) {
                 return back()->withErrors(['error' => 'Le mot de pass en peut être misà jour quune seul fois']);
             } else {
+               
                 $user->code_generated = Hash::make($request->new_password);
                 $user->password_changed_at = now();
                 $user->update_code += 1;
                 $user->save();
-        
+              
                 // Déconnecter l'utilisateur
                 //Auth::logout();
         
                 // Rediriger avec un message de succès
-                return back()->with(['status'=>'success']);
+                return redirect()->to('/');;
             }
     }
     public function indexupdate(Request $request)
