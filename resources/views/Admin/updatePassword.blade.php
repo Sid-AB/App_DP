@@ -60,7 +60,7 @@
 
         .form-group .toggle-password {
             position: absolute;
-            top: 50%;
+            top: 65%;
             right: 10px;
             transform: translateY(-50%);
             cursor: pointer;
