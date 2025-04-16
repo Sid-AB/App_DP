@@ -74,8 +74,23 @@
               <select class="form-select @error('sous_direction') is-invalid @enderror" id="sous_direction" name="sous_direction" required>
                   <option selected {{ is_null($account) ? 'disabled' :''}} value="">Choisir...</option>
                   <option value="Minister"  {{ !is_null($account) ?? $account->post_occupe == 'Minister' ? 'selected':''}}>Ministère</option>
-                  <option value="DEV" {{!is_null($account) ?? $account->sous_direction == 'DEV' ? 'selected':''}}>Développement</option>
-                  <option value="MEDIA" {{ !is_null($account) ?? $account->sous_direction == 'MEDIA' ? 'selected':''}}>Media</option>
+                  <option value="DEV" {{!is_null($account) ?? $account->sous_direction == 'DEV' ? 'selected':''}}>Direction du Développement et de l'Investissement</option>
+                  <option value="FORMATION" {{ !is_null($account) ?? $account->sous_direction == 'formation' ? 'selected':''}}>Direction de la Coopération et de la Formation</option>
+
+                  <option value="Administration" {{!is_null($account) ?? $account->sous_direction == 'Administration' ? 'selected':''}}>Direction de l'Administration et des Moyens</option>
+                  <option value="Communication" {{ !is_null($account) ?? $account->sous_direction == 'Communication ' ? 'selected':''}}>Direction de la Communication Institutionnelle</option>
+                 
+                  <option value="Affaires" {{!is_null($account) ?? $account->sous_direction == 'Affaires' ? 'selected':''}}>Direction des Affaires Juridiques, de la Documentation et des Archives</option>
+                  <option value="MEDIA" {{ !is_null($account) ?? $account->sous_direction == 'MEDIA' ? 'selected':''}}>Direction des Médias</option>
+
+                  <option value="coordination" {{ !is_null($account) ?? $account->sous_direction == ' coordination' ? 'selected':''}}>Sous-direction de la coordination des Actions de Communication</option>
+
+                  <option value=" budget" {{!is_null($account) ?? $account->sous_direction == ' budget' ? 'selected':''}}> Sous-direction du budget, de la comptabilité et des marchés publics</option>
+                  
+                  <option value=" moyens" {{!is_null($account) ?? $account->sous_direction == 'moyens' ? 'selected':''}}>Sous-direction des moyens généraux</option>
+
+
+               
               </select>
               @error('sous_direction')
                   <div class="invalid-feedback">{{ $message }}</div>
