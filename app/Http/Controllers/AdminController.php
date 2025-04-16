@@ -468,7 +468,7 @@ class AdminController extends Controller
                 //Auth::logout();
         
                 // Rediriger avec un message de succès
-                return redirect()->to('/');
+                return redirect()->to('/')->with('success', 'Mot de passe mis à jour avec succès');
             }
     }
     public function indexupdate(Request $request)
