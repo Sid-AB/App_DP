@@ -451,12 +451,12 @@ class AdminController extends Controller
             // Vérifier le mot de passe actuel
             if (!Hash::check($request->current_password, $user->code_generated)) {
                
-                return back()->withErrors(['current_password' =>'Verifier Mot de pass']);
+                return back()->withErrors(['current_password' =>'Vérifier votre Mot de passe']);
             }
            
             // Mettre à jour le mot de passe
             if ($user->update_code == 1) {
-                return back()->withErrors(['error' => 'Le mot de pass en peut être misà jour quune seul fois']);
+                return back()->withErrors(['error' => 'Le mot de passe ne peut être mise à jour qu\'une seule fois']);
             } else {
                
                 $user->code_generated = Hash::make($request->new_password);
@@ -468,7 +468,7 @@ class AdminController extends Controller
                 //Auth::logout();
         
                 // Rediriger avec un message de succès
-                return redirect()->to('/');;
+                return redirect()->to('/');
             }
     }
     public function indexupdate(Request $request)
