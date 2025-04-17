@@ -3296,9 +3296,30 @@ function T1_table(id, T, id_s_act, port,code) {
           '<input type="radio" name="rdo" id="opt3" class="hidden"/>'+
           '<span class="label"></span>Corps Communs'+
         '</label>'+
+        
+      ' <label for="opt6" class="radio" id="opconducteur">'+
+        '<input type="radio" name="rdo" id="opt6" class="hidden"/>'+
+        '<span class="label"></span> OP + APPARITEURS + CONDUCTEURS'+
+        '</label>'+
 
-        ' <label for="opt4" class="radio" id="port_T1">'+
+        ' <label for="opt4" class="radio" id="cdi">'+
         '<input type="radio" name="rdo" id="opt4" class="hidden"/>'+
+        '<span class="label"></span> CDI'+
+        '</label>'+
+
+        ' <label for="opt5" class="radio" id="cdd">'+
+        '<input type="radio" name="rdo" id="opt5" class="hidden"/>'+
+        '<span class="label"></span> CDD'+
+        '</label>'+
+
+  
+        ' <label for="opt7" class="radio" id="indemin">'+
+        '<input type="radio" name="rdo" id="opt7" class="hidden"/>'+
+        '<span class="label"></span> Primes & Indemnites'+
+        '</label>'+
+
+        ' <label for="opt8" class="radio" id="port_T1">'+
+        '<input type="radio" name="rdo" id="opt8" class="hidden"/>'+
         '<span class="label"></span>Port'+
       '</label>'+
 
@@ -3307,6 +3328,1039 @@ function T1_table(id, T, id_s_act, port,code) {
 var cnter=0
 var currentYear = new Date().getFullYear();
 $('.opt_handle').append(Radio)
+
+/**
+ * opconducteur
+ */
+$('#opconducteur').on('click',function()
+{
+   
+    $('#reloading').removeClass('reload-hidden')
+    $('.ports_info').css('display','none')
+    $('.Budget_info').css('display','')
+    var currentYear = new Date().getFullYear(); 
+    var headBF='  <tr>'+
+    ' <th> ADMINISTRATION CENTRALE (SERVICES CENTRAUX)</th>'+
+     '<th colspan="3"> EMPLOIS BUDGETAIRES</th>'+
+     '<th colspan="5"> REMUNERATION</th>'+
+  ' </tr>'+
+   '<tr>'+
+     '<th> Catégorie du personnel</th>'+
+     '<th> Ouverts (' + currentYear + ')  </th>'+
+     '<th> Occupés au 31 décembre </th>'+
+     '<th>Vacants ou excédent</th>'+
+     '<th colspan="2"> CLASSIFICATION</th>'+
+     '<th rowspan="2"> TRAITEMENT ANNUEL</th>'+
+     '<th rowspan="2"> PRIMES ET INDEMNITES</th>'+
+     '<th rowspan="2"> DEPENSES ANNUELLES</th>'+
+   '</tr>'+
+   '<tr>'+
+     '<th>OP + APPARITEURS + CONDUCTEURS</th>'+
+     '<th id="nbr_over"> 00</th>'+
+     '<th id="nbr_occup"> 00</th>'+
+     '<th id="nbr_vacants"> 00</th>'+
+     '<th> CATEGORIE</th>'+
+     '<th> MOYENNE</th>'+
+   '</tr>';
+
+    if($(this).children().first().is(':checked') )
+        {
+            
+            $('.btn_bg-handler').empty()
+            $('#T-tables thead').empty()
+            $('#T-tables tbody').empty()
+            $('#T-tables tfoot').empty()
+        console.log('inside corcome');
+        $('.btn_bg-handler').append(newbtn)
+        $('#T-tables thead').append(headBF)
+
+        
+        $.ajax({
+            url:'/getlist_cdd/'+id_s_act,
+            type:'GET',
+            success:function(response){
+                if(response.code == 200)
+                    {
+                        $('#reloading').addClass('reload-hidden')
+                        $('#T-tables tbody').empty();
+                    response.postsup.forEach(element=>{
+                    bodyadd='<tr id='+element.id_emp+'>'+
+                    '<td>'+element.Nom_post+' </td>'+
+                    '<td>'+element.EmploiesOuverts+' </td>'+
+                    '<td>'+element.EmploiesOccupes+'</td>'+
+                    '<td>'+element.EmploiesVacants+'</td>'+
+            
+                    '<td>'+element.CATEGORIE_post+' </td>'+
+                    '<td>'+element.MOYENNE_post+' </td>'+
+                   
+                    '<td>'+element.TRAITEMENT_ANNUEL+'</td>'+
+                    '<td>'+element.PRIMES_INDEMNITES+'</td>'+
+                    '<td style="display: flex;align-items: center;flex-direction: row;justify-content: space-around;"><p>'+element.DEPENSES_ANNUELLES+'</p><p class="del_btn"><i class="fas fa-trash-alt"></i></p></td>';
+                    $('#T-tables tbody').append(bodyadd);
+
+                    $('#reloading').addClass('reload-hidden')
+                    $('#nbr_over').text(response.totalOuverts)
+                    $('#nbr_occup').text(response.totalOccupes)
+                    $('#nbr_vacants').text(response.totalVacants)
+                    $('.del_btn').on('click',function()
+                    {
+                        console.log('the id is'+$(this).closest("tr").attr('id'))
+                        var delID=$(this).closest("tr").attr('id')
+                        $.ajax({
+                            url:'/del_emplois',
+                            type:'POST',
+                            data:{
+                                delID:delID,
+                                type_pos:'opconducteur',
+                                _token: $('meta[name="csrf-token"]').attr("content"),
+                                _method: "POST",
+                            },
+                            success:function(response)
+                            {
+                                if(response.code == 200)
+                                    {
+                                newover=parseInt($('#nbr_over').text())-parseInt( element.EmploiesOuverts)
+                                newoccup=parseInt($('#nbr_occup').text())-parseInt( element.EmploiesOccupes)
+                                newvacant=parseInt($('#nbr_vacants').text())-parseInt( element.EmploiesVacants)
+
+
+                                var t_tr=parseInt($('#T_tr').text())-parseInt(element.EmploiesOuverts)
+                            var t_pr=parseInt($('#T_pr').text())-parseInt(element.EmploiesOccupes)
+                            var t_dp=parseInt($('#T_dp').text())-parseInt(element.EmploiesVacants)
+                                $('#T_tr').text(t_tr)
+                                $('#T_pr').text(t_pr)                   
+                                $('#T_dp').text(t_dp)
+                    
+                                var t_ov=parseInt($('#T_ov').text())-parseInt(element.TRAITEMENT_ANNUEL)
+                                var t_oc=parseInt($('#T_oc').text())-parseInt(element.PRIMES_INDEMNITES)
+                                var t_va=parseInt($('#T_va').text())-parseInt(element.DEPENSES_ANNUELLES)
+                                $('#T_ov').text(t_ov)
+                                $('#T_oc').text(t_oc) 
+                                $('#T_va').text(t_va)
+
+                              // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
+                               $('#'+delID).remove();   
+                               $('#nbr_over').text(newover);
+                               $('#nbr_occup').text(newoccup);
+                               $('#nbr_vacants').text(newvacant);
+                                }
+                                else
+                                {
+                                   $('#reloading').addClass('reload-hidden')
+                                }
+                            }
+                        })
+                        
+                        
+                    })
+
+                })
+            }
+            else
+            {
+               $('#reloading').addClass('reload-hidden')
+            }
+            },
+            error: function (response) {
+                alert('error')
+                $('#reloading').addClass('reload-hidden')
+               
+            }
+        })
+    /**
+     *  add handling button
+     * */    
+
+    $('.print_apt').on('click',function(){
+        //window.open('/printlist_commun/'+id_s_act,'_blank')
+    })
+
+    $(".btn_add_budg").on('click',function(){
+        
+        var champ='<div class="Tsop_add_handle">'+
+        '<form id="add_sops">'+
+        '<div class="form-group">'+
+        '<label class="desp">Corps Communs</label>'+
+         '<input type="text" class="form-control" id="funt_sup" placeholder="Veuillez Entrer le Nom du OAP">'+
+         '</div>'+
+         '<div class="T3-ops_inpt_handle">' +
+         '<div><label>EMPLOIS BUDGETAIRES Ouverts</label>'+
+                  '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="bg_overt">'+
+                  '<label>EMPLOIS BUDGETAIRES Occupés</label>'+
+                  '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="bg_occup">'+
+                  '<label>EMPLOIS BUDGETAIRES Vacants ou excédent </label>'+
+                  '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="bg_vacant">'+
+                  '<label>CLASSIFICATION CATEGORIE </label>'+
+                  '<input type="text" class="form-control" id="cl_cat">'+
+                  '<label>CLASSIFICATION MOYENNE </label>'+
+                  '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="cl_moy">'+
+                  '</div>'+
+                  '<div>'+
+                  '<label>TRAITEMENT ANNUEL</label>'+
+                  '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="tr_annuel">'+
+                  '<label>PRIMES ET INDEMNITES</label>'+
+                  '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="pr_ind">'+
+                  '<label>DEPENSES ANNUELLES</label>'+
+                  '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="depn_annuel">'+
+                  '</div>'+
+        '</div>'+
+     '</form>'+
+     '<div class="Tsop_btn_handle">'+
+     '<div><button  class="btn btn-primary" id="ajt"> Ajouter </button></div>'+
+     '<div><button  class="btn btn-primary" id="cancel_ops"> Cancel </button></div>'+
+     '</div>'+
+     '</div>';
+       
+        $('.Tsop_handler').append(champ);
+        $('.Tsop_handler').removeClass('Tsop_handler_h')    
+
+
+        $('#ajt').on('click',function(){
+            $('#reloading').removeClass('reload-hidden')
+                var formate={
+                    id_s_act:id_s_act,
+                    type_pos:'opconducteur',
+                    funt_sup:$('#funt_sup').val(),
+                    bg_overt:parseInt(parseNumberWithoutCommas($('#bg_overt').val())),
+                    bg_occup:parseInt(parseNumberWithoutCommas($('#bg_occup').val())),
+                    bg_vacant:parseInt(parseNumberWithoutCommas($('#bg_vacant').val())),
+                    cl_cat:parseInt(parseNumberWithoutCommas($('#cl_cat').val())),
+                    cl_moy:parseInt(parseNumberWithoutCommas($('#cl_moy').val())),
+                    tr_annuel:parseInt(parseNumberWithoutCommas($('#tr_annuel').val())),
+                    pr_ind:parseInt(parseNumberWithoutCommas($('#pr_ind').val())),
+                    depn_annuel:parseInt(parseNumberWithoutCommas($('#depn_annuel').val())),
+                    code_t1:10000,
+                    _token: $('meta[name="csrf-token"]').attr("content"),
+                    _method: "POST",
+                }
+                console.log('befor ajax')
+                $.ajax({
+                    url:'/insertemploi',
+                    type:'POST',
+                    data:formate,
+                    success:function(response)
+                    {
+                        if(response.code == 200)
+                            {
+                                $('#reloading').addClass('reload-hidden')   
+                        console.log('consl'+response.id_emp)
+                        $('#reloading').addClass('reload-hidden')
+                        id_empl=response.id_emp
+              
+                console.log('tesign'+id_empl)
+            var bodyadd='<tr id='+id_empl+'>'+
+            '<td>'+formate.funt_sup+' </td>'+
+            '<td>'+formate.bg_overt+' </td>'+
+            '<td>'+formate.bg_occup+'</td>'+
+            '<td>'+formate.bg_vacant+'</td>'+
+    
+            '<td>'+formate.cl_cat+' </td>'+
+            '<td>'+formate.cl_moy+' </td>'+
+           
+            '<td>'+formate.tr_annuel+'</td>'+
+            '<td>'+formate.pr_ind+'</td>'+
+            '<td style="display: flex;align-items: center;flex-direction: row;justify-content: space-around;"><p>'+formate.depn_annuel+'</p><p class="del_btn"><i class="fas fa-trash-alt"></i></p></td>';
+           
+           
+            var newover=parseInt(formate.bg_overt)+parseInt($('#nbr_over').text())
+            var newoccup=parseInt(formate.bg_occup)+parseInt($('#nbr_occup').text())
+            var newvacant=parseInt(formate.bg_vacant)+parseInt($('#nbr_vacants').text())
+            
+            var t_tr=parseInt(formate.tr_annuel)+parseInt($('#T_tr').text())
+            var t_pr=parseInt(formate.pr_ind)+parseInt($('#T_pr').text())
+            var t_dp=parseInt(formate.depn_annuel)+parseInt($('#T_dp').text())
+            $('#T_tr').text(t_tr)
+            $('#T_pr').text(t_pr)                   
+            $('#T_dp').text(t_dp)
+
+            var t_ov=parseInt(formate.bg_overt)+parseInt($('#T_ov').text())
+            var t_oc=parseInt(formate.bg_occup)+parseInt($('#T_oc').text())
+            var t_va=parseInt(formate.bg_vacant)+parseInt($('#T_va').text())
+            $('#T_ov').text(t_ov)
+            $('#T_oc').text(t_oc) 
+            $('#T_va').text(t_va)                  
+
+
+            $('#nbr_over').text(newover);
+            $('#nbr_occup').text(newoccup);
+            $('#nbr_vacants').text(newvacant);
+            $('#T-tables tbody').append(bodyadd);
+
+                $('.del_btn').on('click',function()
+            {
+                $('#reloading').removeClass('reload-hidden')
+                console.log('the id is'+$(this).closest("tr").attr('id'))
+                var delID=$(this).closest("tr").attr('id')
+                $.ajax({
+                    url:'/del_emplois',
+                    type:'POST',
+                    data:{
+                        id_s_act:id_s_act,
+                        delID:delID,
+                        type_pos:'opconducteur',
+                        _token: $('meta[name="csrf-token"]').attr("content"),
+                        _method: "POST",
+                    },
+                    success:function(response)
+                    {
+                        if(response.code == 200)
+                            {$('#reloading').addClass('reload-hidden')
+                        newover=parseInt($('#nbr_over').text())-parseInt(formate.bg_overt)
+                        newoccup=parseInt($('#nbr_occup').text())-parseInt(formate.bg_occup)
+                        newvacant=parseInt($('#nbr_vacants').text())-parseInt(formate.bg_vacant)
+
+                        var t_tr=parseInt($('#T_tr').text())-parseInt(formate.tr_annuel)
+                        var t_pr=parseInt($('#T_pr').text())-parseInt(formate.pr_ind)
+                        var t_dp=parseInt($('#T_dp').text())-parseInt(formate.depn_annuel)
+                        $('#T_tr').text(t_tr)
+                        $('#T_pr').text(t_pr)                   
+                        $('#T_dp').text(t_dp)
+            
+                        var t_ov=parseInt($('#T_ov').text())-parseInt(formate.bg_overt)
+                        var t_oc=parseInt($('#T_oc').text())-parseInt(formate.bg_occup)
+                        var t_va=parseInt($('#T_va').text())-parseInt(formate.bg_vacant)
+                        $('#T_ov').text(t_ov)
+                        $('#T_oc').text(t_oc) 
+                        $('#T_va').text(t_va)
+
+                      // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
+                       $('#'+delID).remove();   
+                       $('#nbr_over').text(newover);
+                       $('#nbr_occup').text(newoccup);
+                       $('#nbr_vacants').text(newvacant);
+                        }
+                    },
+                    error: function (response) {
+                        alert('error')
+                        $('#reloading').addClass('reload-hidden')
+                       
+                    }
+                })
+                
+            })
+
+        }
+        else
+        {
+           $('#reloading').addClass('reload-hidden')
+        }
+    },
+    error: function (response) {
+        alert('error')
+        $('#reloading').addClass('reload-hidden')
+       
+    }
+    })
+
+            $('.Tsop_handler').addClass('Tsop_handler_h')
+            $('#Tport-vals').empty()
+            $('.Tsop_handler').empty();
+        })
+
+        $('#cancel_ops').click(function(){
+            $('.change_app').empty()
+            $('.Tsop_handler').addClass('Tsop_handler_h')
+            $('#Tport-vals').empty()
+            $('.Tsop_handler').empty();
+            alert('cancel op')
+        })
+    })
+
+    }
+      
+})
+
+
+/**
+ * 
+ * CDD
+ */
+
+$('#cdd').on('click',function()
+{
+   
+    $('#reloading').removeClass('reload-hidden')
+    $('.ports_info').css('display','none')
+    $('.Budget_info').css('display','')
+    var currentYear = new Date().getFullYear(); 
+    var headBF='  <tr>'+
+    ' <th> ADMINISTRATION CENTRALE (SERVICES CENTRAUX)</th>'+
+     '<th colspan="3"> EMPLOIS BUDGETAIRES</th>'+
+     '<th colspan="5"> REMUNERATION</th>'+
+  ' </tr>'+
+   '<tr>'+
+     '<th> Catégorie du personnel</th>'+
+     '<th> Ouverts (' + currentYear + ')  </th>'+
+     '<th> Occupés au 31 décembre </th>'+
+     '<th>Vacants ou excédent</th>'+
+     '<th colspan="2"> CLASSIFICATION</th>'+
+     '<th rowspan="2"> TRAITEMENT ANNUEL</th>'+
+     '<th rowspan="2"> PRIMES ET INDEMNITES</th>'+
+     '<th rowspan="2"> DEPENSES ANNUELLES</th>'+
+   '</tr>'+
+   '<tr>'+
+     '<th>CDD</th>'+
+     '<th id="nbr_over"> 00</th>'+
+     '<th id="nbr_occup"> 00</th>'+
+     '<th id="nbr_vacants"> 00</th>'+
+     '<th> CATEGORIE</th>'+
+     '<th> MOYENNE</th>'+
+   '</tr>';
+
+    if($(this).children().first().is(':checked') )
+        {
+            
+            $('.btn_bg-handler').empty()
+            $('#T-tables thead').empty()
+            $('#T-tables tbody').empty()
+            $('#T-tables tfoot').empty()
+        console.log('inside corcome');
+        $('.btn_bg-handler').append(newbtn)
+        $('#T-tables thead').append(headBF)
+
+        
+        $.ajax({
+            url:'/getlist_cdd/'+id_s_act,
+            type:'GET',
+            success:function(response){
+                if(response.code == 200)
+                    {
+                        $('#reloading').addClass('reload-hidden')
+                        $('#T-tables tbody').empty();
+                    response.postsup.forEach(element=>{
+                    bodyadd='<tr id='+element.id_emp+'>'+
+                    '<td>'+element.Nom_post+' </td>'+
+                    '<td>'+element.EmploiesOuverts+' </td>'+
+                    '<td>'+element.EmploiesOccupes+'</td>'+
+                    '<td>'+element.EmploiesVacants+'</td>'+
+            
+                    '<td>'+element.CATEGORIE_post+' </td>'+
+                    '<td>'+element.MOYENNE_post+' </td>'+
+                   
+                    '<td>'+element.TRAITEMENT_ANNUEL+'</td>'+
+                    '<td>'+element.PRIMES_INDEMNITES+'</td>'+
+                    '<td style="display: flex;align-items: center;flex-direction: row;justify-content: space-around;"><p>'+element.DEPENSES_ANNUELLES+'</p><p class="del_btn"><i class="fas fa-trash-alt"></i></p></td>';
+                    $('#T-tables tbody').append(bodyadd);
+
+                    $('#reloading').addClass('reload-hidden')
+                    $('#nbr_over').text(response.totalOuverts)
+                    $('#nbr_occup').text(response.totalOccupes)
+                    $('#nbr_vacants').text(response.totalVacants)
+                    $('.del_btn').on('click',function()
+                    {
+                        console.log('the id is'+$(this).closest("tr").attr('id'))
+                        var delID=$(this).closest("tr").attr('id')
+                        $.ajax({
+                            url:'/del_emplois',
+                            type:'POST',
+                            data:{
+                                delID:delID,
+                                type_pos:'cdd',
+                                _token: $('meta[name="csrf-token"]').attr("content"),
+                                _method: "POST",
+                            },
+                            success:function(response)
+                            {
+                                if(response.code == 200)
+                                    {
+                                newover=parseInt($('#nbr_over').text())-parseInt( element.EmploiesOuverts)
+                                newoccup=parseInt($('#nbr_occup').text())-parseInt( element.EmploiesOccupes)
+                                newvacant=parseInt($('#nbr_vacants').text())-parseInt( element.EmploiesVacants)
+
+
+                                var t_tr=parseInt($('#T_tr').text())-parseInt(element.EmploiesOuverts)
+                            var t_pr=parseInt($('#T_pr').text())-parseInt(element.EmploiesOccupes)
+                            var t_dp=parseInt($('#T_dp').text())-parseInt(element.EmploiesVacants)
+                                $('#T_tr').text(t_tr)
+                                $('#T_pr').text(t_pr)                   
+                                $('#T_dp').text(t_dp)
+                    
+                                var t_ov=parseInt($('#T_ov').text())-parseInt(element.TRAITEMENT_ANNUEL)
+                                var t_oc=parseInt($('#T_oc').text())-parseInt(element.PRIMES_INDEMNITES)
+                                var t_va=parseInt($('#T_va').text())-parseInt(element.DEPENSES_ANNUELLES)
+                                $('#T_ov').text(t_ov)
+                                $('#T_oc').text(t_oc) 
+                                $('#T_va').text(t_va)
+
+                              // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
+                               $('#'+delID).remove();   
+                               $('#nbr_over').text(newover);
+                               $('#nbr_occup').text(newoccup);
+                               $('#nbr_vacants').text(newvacant);
+                                }
+                                else
+                                {
+                                   $('#reloading').addClass('reload-hidden')
+                                }
+                            }
+                        })
+                        
+                        
+                    })
+
+                })
+            }
+            else
+            {
+               $('#reloading').addClass('reload-hidden')
+            }
+            },
+            error: function (response) {
+                alert('error')
+                $('#reloading').addClass('reload-hidden')
+               
+            }
+        })
+    /**
+     *  add handling button
+     * */    
+
+    $('.print_apt').on('click',function(){
+        //window.open('/printlist_commun/'+id_s_act,'_blank')
+    })
+
+    $(".btn_add_budg").on('click',function(){
+        
+        var champ='<div class="Tsop_add_handle">'+
+        '<form id="add_sops">'+
+        '<div class="form-group">'+
+        '<label class="desp">Corps Communs</label>'+
+         '<input type="text" class="form-control" id="funt_sup" placeholder="Veuillez Entrer le Nom du CDD">'+
+         '</div>'+
+         '<div class="T3-ops_inpt_handle">' +
+         '<div><label>EMPLOIS BUDGETAIRES Ouverts</label>'+
+                  '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="bg_overt">'+
+                  '<label>EMPLOIS BUDGETAIRES Occupés</label>'+
+                  '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="bg_occup">'+
+                  '<label>EMPLOIS BUDGETAIRES Vacants ou excédent </label>'+
+                  '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="bg_vacant">'+
+                  '<label>CLASSIFICATION CATEGORIE </label>'+
+                  '<input type="text" class="form-control" id="cl_cat">'+
+                  '<label>CLASSIFICATION MOYENNE </label>'+
+                  '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="cl_moy">'+
+                  '</div>'+
+                  '<div>'+
+                  '<label>TRAITEMENT ANNUEL</label>'+
+                  '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="tr_annuel">'+
+                  '<label>PRIMES ET INDEMNITES</label>'+
+                  '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="pr_ind">'+
+                  '<label>DEPENSES ANNUELLES</label>'+
+                  '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="depn_annuel">'+
+                  '</div>'+
+        '</div>'+
+     '</form>'+
+     '<div class="Tsop_btn_handle">'+
+     '<div><button  class="btn btn-primary" id="ajt"> Ajouter </button></div>'+
+     '<div><button  class="btn btn-primary" id="cancel_ops"> Cancel </button></div>'+
+     '</div>'+
+     '</div>';
+       
+        $('.Tsop_handler').append(champ);
+        $('.Tsop_handler').removeClass('Tsop_handler_h')    
+
+
+        $('#ajt').on('click',function(){
+            $('#reloading').removeClass('reload-hidden')
+                var formate={
+                    id_s_act:id_s_act,
+                    type_pos:'cdd',
+                    funt_sup:$('#funt_sup').val(),
+                    bg_overt:parseInt(parseNumberWithoutCommas($('#bg_overt').val())),
+                    bg_occup:parseInt(parseNumberWithoutCommas($('#bg_occup').val())),
+                    bg_vacant:parseInt(parseNumberWithoutCommas($('#bg_vacant').val())),
+                    cl_cat:parseInt(parseNumberWithoutCommas($('#cl_cat').val())),
+                    cl_moy:parseInt(parseNumberWithoutCommas($('#cl_moy').val())),
+                    tr_annuel:parseInt(parseNumberWithoutCommas($('#tr_annuel').val())),
+                    pr_ind:parseInt(parseNumberWithoutCommas($('#pr_ind').val())),
+                    depn_annuel:parseInt(parseNumberWithoutCommas($('#depn_annuel').val())),
+                    code_t1:10000,
+                    _token: $('meta[name="csrf-token"]').attr("content"),
+                    _method: "POST",
+                }
+                console.log('befor ajax')
+                $.ajax({
+                    url:'/insertemploi',
+                    type:'POST',
+                    data:formate,
+                    success:function(response)
+                    {
+                        if(response.code == 200)
+                            {
+                                $('#reloading').addClass('reload-hidden')   
+                        console.log('consl'+response.id_emp)
+                        $('#reloading').addClass('reload-hidden')
+                        id_empl=response.id_emp
+              
+                console.log('tesign'+id_empl)
+            var bodyadd='<tr id='+id_empl+'>'+
+            '<td>'+formate.funt_sup+' </td>'+
+            '<td>'+formate.bg_overt+' </td>'+
+            '<td>'+formate.bg_occup+'</td>'+
+            '<td>'+formate.bg_vacant+'</td>'+
+    
+            '<td>'+formate.cl_cat+' </td>'+
+            '<td>'+formate.cl_moy+' </td>'+
+           
+            '<td>'+formate.tr_annuel+'</td>'+
+            '<td>'+formate.pr_ind+'</td>'+
+            '<td style="display: flex;align-items: center;flex-direction: row;justify-content: space-around;"><p>'+formate.depn_annuel+'</p><p class="del_btn"><i class="fas fa-trash-alt"></i></p></td>';
+           
+           
+            var newover=parseInt(formate.bg_overt)+parseInt($('#nbr_over').text())
+            var newoccup=parseInt(formate.bg_occup)+parseInt($('#nbr_occup').text())
+            var newvacant=parseInt(formate.bg_vacant)+parseInt($('#nbr_vacants').text())
+            
+            var t_tr=parseInt(formate.tr_annuel)+parseInt($('#T_tr').text())
+            var t_pr=parseInt(formate.pr_ind)+parseInt($('#T_pr').text())
+            var t_dp=parseInt(formate.depn_annuel)+parseInt($('#T_dp').text())
+            $('#T_tr').text(t_tr)
+            $('#T_pr').text(t_pr)                   
+            $('#T_dp').text(t_dp)
+
+            var t_ov=parseInt(formate.bg_overt)+parseInt($('#T_ov').text())
+            var t_oc=parseInt(formate.bg_occup)+parseInt($('#T_oc').text())
+            var t_va=parseInt(formate.bg_vacant)+parseInt($('#T_va').text())
+            $('#T_ov').text(t_ov)
+            $('#T_oc').text(t_oc) 
+            $('#T_va').text(t_va)                  
+
+
+            $('#nbr_over').text(newover);
+            $('#nbr_occup').text(newoccup);
+            $('#nbr_vacants').text(newvacant);
+            $('#T-tables tbody').append(bodyadd);
+
+                $('.del_btn').on('click',function()
+            {
+                $('#reloading').removeClass('reload-hidden')
+                console.log('the id is'+$(this).closest("tr").attr('id'))
+                var delID=$(this).closest("tr").attr('id')
+                $.ajax({
+                    url:'/del_emplois',
+                    type:'POST',
+                    data:{
+                        id_s_act:id_s_act,
+                        delID:delID,
+                        type_pos:'cdd',
+                        _token: $('meta[name="csrf-token"]').attr("content"),
+                        _method: "POST",
+                    },
+                    success:function(response)
+                    {
+                        if(response.code == 200)
+                            {$('#reloading').addClass('reload-hidden')
+                        newover=parseInt($('#nbr_over').text())-parseInt(formate.bg_overt)
+                        newoccup=parseInt($('#nbr_occup').text())-parseInt(formate.bg_occup)
+                        newvacant=parseInt($('#nbr_vacants').text())-parseInt(formate.bg_vacant)
+
+                        var t_tr=parseInt($('#T_tr').text())-parseInt(formate.tr_annuel)
+                        var t_pr=parseInt($('#T_pr').text())-parseInt(formate.pr_ind)
+                        var t_dp=parseInt($('#T_dp').text())-parseInt(formate.depn_annuel)
+                        $('#T_tr').text(t_tr)
+                        $('#T_pr').text(t_pr)                   
+                        $('#T_dp').text(t_dp)
+            
+                        var t_ov=parseInt($('#T_ov').text())-parseInt(formate.bg_overt)
+                        var t_oc=parseInt($('#T_oc').text())-parseInt(formate.bg_occup)
+                        var t_va=parseInt($('#T_va').text())-parseInt(formate.bg_vacant)
+                        $('#T_ov').text(t_ov)
+                        $('#T_oc').text(t_oc) 
+                        $('#T_va').text(t_va)
+
+                      // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
+                       $('#'+delID).remove();   
+                       $('#nbr_over').text(newover);
+                       $('#nbr_occup').text(newoccup);
+                       $('#nbr_vacants').text(newvacant);
+                        }
+                    },
+                    error: function (response) {
+                        alert('error')
+                        $('#reloading').addClass('reload-hidden')
+                       
+                    }
+                })
+                
+            })
+
+        }
+        else
+        {
+           $('#reloading').addClass('reload-hidden')
+        }
+    },
+    error: function (response) {
+        alert('error')
+        $('#reloading').addClass('reload-hidden')
+       
+    }
+    })
+
+            $('.Tsop_handler').addClass('Tsop_handler_h')
+            $('#Tport-vals').empty()
+            $('.Tsop_handler').empty();
+        })
+
+        $('#cancel_ops').click(function(){
+            $('.change_app').empty()
+            $('.Tsop_handler').addClass('Tsop_handler_h')
+            $('#Tport-vals').empty()
+            $('.Tsop_handler').empty();
+            alert('cancel op')
+        })
+    })
+
+    }
+      
+})
+
+/*
+CDI
+*/
+
+
+$('#cdi').on('click',function()
+{
+   
+    $('#reloading').removeClass('reload-hidden')
+    $('.ports_info').css('display','none')
+    $('.Budget_info').css('display','')
+    var currentYear = new Date().getFullYear(); 
+    var headBF='  <tr>'+
+    ' <th> ADMINISTRATION CENTRALE (SERVICES CENTRAUX)</th>'+
+     '<th colspan="3"> EMPLOIS BUDGETAIRES</th>'+
+     '<th colspan="5"> REMUNERATION</th>'+
+  ' </tr>'+
+   '<tr>'+
+     '<th> Catégorie du personnel</th>'+
+     '<th> Ouverts (' + currentYear + ')  </th>'+
+     '<th> Occupés au 31 décembre </th>'+
+     '<th>Vacants ou excédent</th>'+
+     '<th colspan="2"> CLASSIFICATION</th>'+
+     '<th rowspan="2"> TRAITEMENT ANNUEL</th>'+
+     '<th rowspan="2"> PRIMES ET INDEMNITES</th>'+
+     '<th rowspan="2"> DEPENSES ANNUELLES</th>'+
+   '</tr>'+
+   '<tr>'+
+     '<th>CDI</th>'+
+     '<th id="nbr_over"> 00</th>'+
+     '<th id="nbr_occup"> 00</th>'+
+     '<th id="nbr_vacants"> 00</th>'+
+     '<th> CATEGORIE</th>'+
+     '<th> MOYENNE</th>'+
+   '</tr>';
+
+    if($(this).children().first().is(':checked') )
+        {
+            
+            $('.btn_bg-handler').empty()
+            $('#T-tables thead').empty()
+            $('#T-tables tbody').empty()
+            $('#T-tables tfoot').empty()
+        console.log('inside corcome');
+        $('.btn_bg-handler').append(newbtn)
+        $('#T-tables thead').append(headBF)
+
+        
+        $.ajax({
+            url:'/getlist_cdi/'+id_s_act,
+            type:'GET',
+            success:function(response){
+                if(response.code == 200)
+                    {
+                        $('#reloading').addClass('reload-hidden')
+                        $('#T-tables tbody').empty();
+                    response.postsup.forEach(element=>{
+                    bodyadd='<tr id='+element.id_emp+'>'+
+                    '<td>'+element.Nom_post+' </td>'+
+                    '<td>'+element.EmploiesOuverts+' </td>'+
+                    '<td>'+element.EmploiesOccupes+'</td>'+
+                    '<td>'+element.EmploiesVacants+'</td>'+
+            
+                    '<td>'+element.CATEGORIE_post+' </td>'+
+                    '<td>'+element.MOYENNE_post+' </td>'+
+                   
+                    '<td>'+element.TRAITEMENT_ANNUEL+'</td>'+
+                    '<td>'+element.PRIMES_INDEMNITES+'</td>'+
+                    '<td style="display: flex;align-items: center;flex-direction: row;justify-content: space-around;"><p>'+element.DEPENSES_ANNUELLES+'</p><p class="del_btn"><i class="fas fa-trash-alt"></i></p></td>';
+                    $('#T-tables tbody').append(bodyadd);
+
+                    $('#reloading').addClass('reload-hidden')
+                    $('#nbr_over').text(response.totalOuverts)
+                    $('#nbr_occup').text(response.totalOccupes)
+                    $('#nbr_vacants').text(response.totalVacants)
+                    $('.del_btn').on('click',function()
+                    {
+                        console.log('the id is'+$(this).closest("tr").attr('id'))
+                        var delID=$(this).closest("tr").attr('id')
+                        $.ajax({
+                            url:'/del_emplois',
+                            type:'POST',
+                            data:{
+                                delID:delID,
+                                type_pos:'cdi',
+                                _token: $('meta[name="csrf-token"]').attr("content"),
+                                _method: "POST",
+                            },
+                            success:function(response)
+                            {
+                                if(response.code == 200)
+                                    {
+                                newover=parseInt($('#nbr_over').text())-parseInt( element.EmploiesOuverts)
+                                newoccup=parseInt($('#nbr_occup').text())-parseInt( element.EmploiesOccupes)
+                                newvacant=parseInt($('#nbr_vacants').text())-parseInt( element.EmploiesVacants)
+
+
+                                var t_tr=parseInt($('#T_tr').text())-parseInt(element.EmploiesOuverts)
+                            var t_pr=parseInt($('#T_pr').text())-parseInt(element.EmploiesOccupes)
+                            var t_dp=parseInt($('#T_dp').text())-parseInt(element.EmploiesVacants)
+                                $('#T_tr').text(t_tr)
+                                $('#T_pr').text(t_pr)                   
+                                $('#T_dp').text(t_dp)
+                    
+                                var t_ov=parseInt($('#T_ov').text())-parseInt(element.TRAITEMENT_ANNUEL)
+                                var t_oc=parseInt($('#T_oc').text())-parseInt(element.PRIMES_INDEMNITES)
+                                var t_va=parseInt($('#T_va').text())-parseInt(element.DEPENSES_ANNUELLES)
+                                $('#T_ov').text(t_ov)
+                                $('#T_oc').text(t_oc) 
+                                $('#T_va').text(t_va)
+
+                              // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
+                               $('#'+delID).remove();   
+                               $('#nbr_over').text(newover);
+                               $('#nbr_occup').text(newoccup);
+                               $('#nbr_vacants').text(newvacant);
+                                }
+                                else
+                                {
+                                   $('#reloading').addClass('reload-hidden')
+                                }
+                            }
+                        })
+                        
+                        
+                    })
+
+                })
+            }
+            else
+            {
+               $('#reloading').addClass('reload-hidden')
+            }
+            },
+            error: function (response) {
+                alert('error')
+                $('#reloading').addClass('reload-hidden')
+               
+            }
+        })
+    /**
+     *  add handling button
+     * */    
+
+    $('.print_apt').on('click',function(){
+    //    window.open('/printlist_commun/'+id_s_act,'_blank')
+    })
+
+    $(".btn_add_budg").on('click',function(){
+        
+        var champ='<div class="Tsop_add_handle">'+
+        '<form id="add_sops">'+
+        '<div class="form-group">'+
+        '<label class="desp">CDI</label>'+
+         '<input type="text" class="form-control" id="funt_sup" placeholder="Veuillez Entrer le Nom du CDI">'+
+         '</div>'+
+         '<div class="T3-ops_inpt_handle">' +
+         '<div><label>EMPLOIS BUDGETAIRES Ouverts</label>'+
+                  '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="bg_overt">'+
+                  '<label>EMPLOIS BUDGETAIRES Occupés</label>'+
+                  '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="bg_occup">'+
+                  '<label>EMPLOIS BUDGETAIRES Vacants ou excédent </label>'+
+                  '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="bg_vacant">'+
+                  '<label>CLASSIFICATION CATEGORIE </label>'+
+                  '<input type="text" class="form-control" id="cl_cat">'+
+                  '<label>CLASSIFICATION MOYENNE </label>'+
+                  '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="cl_moy">'+
+                  '</div>'+
+                  '<div>'+
+                  '<label>TRAITEMENT ANNUEL</label>'+
+                  '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="tr_annuel">'+
+                  '<label>PRIMES ET INDEMNITES</label>'+
+                  '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="pr_ind">'+
+                  '<label>DEPENSES ANNUELLES</label>'+
+                  '<input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="depn_annuel">'+
+                  '</div>'+
+        '</div>'+
+     '</form>'+
+     '<div class="Tsop_btn_handle">'+
+     '<div><button  class="btn btn-primary" id="ajt"> Ajouter </button></div>'+
+     '<div><button  class="btn btn-primary" id="cancel_ops"> Cancel </button></div>'+
+     '</div>'+
+     '</div>';
+       
+        $('.Tsop_handler').append(champ);
+        $('.Tsop_handler').removeClass('Tsop_handler_h')    
+
+
+        $('#ajt').on('click',function(){
+            $('#reloading').removeClass('reload-hidden')
+                var formate={
+                    id_s_act:id_s_act,
+                    type_pos:'cdi',
+                    funt_sup:$('#funt_sup').val(),
+                    bg_overt:parseInt(parseNumberWithoutCommas($('#bg_overt').val())),
+                    bg_occup:parseInt(parseNumberWithoutCommas($('#bg_occup').val())),
+                    bg_vacant:parseInt(parseNumberWithoutCommas($('#bg_vacant').val())),
+                    cl_cat:parseInt(parseNumberWithoutCommas($('#cl_cat').val())),
+                    cl_moy:parseInt(parseNumberWithoutCommas($('#cl_moy').val())),
+                    tr_annuel:parseInt(parseNumberWithoutCommas($('#tr_annuel').val())),
+                    pr_ind:parseInt(parseNumberWithoutCommas($('#pr_ind').val())),
+                    depn_annuel:parseInt(parseNumberWithoutCommas($('#depn_annuel').val())),
+                    code_t1:10000,
+                    _token: $('meta[name="csrf-token"]').attr("content"),
+                    _method: "POST",
+                }
+                console.log('befor ajax')
+                $.ajax({
+                    url:'/insertemploi',
+                    type:'POST',
+                    data:formate,
+                    success:function(response)
+                    {
+                        if(response.code == 200)
+                            {
+                                $('#reloading').addClass('reload-hidden')   
+                        console.log('consl'+response.id_emp)
+                        $('#reloading').addClass('reload-hidden')
+                        id_empl=response.id_emp
+              
+                console.log('tesign'+id_empl)
+            var bodyadd='<tr id='+id_empl+'>'+
+            '<td>'+formate.funt_sup+' </td>'+
+            '<td>'+formate.bg_overt+' </td>'+
+            '<td>'+formate.bg_occup+'</td>'+
+            '<td>'+formate.bg_vacant+'</td>'+
+    
+            '<td>'+formate.cl_cat+' </td>'+
+            '<td>'+formate.cl_moy+' </td>'+
+           
+            '<td>'+formate.tr_annuel+'</td>'+
+            '<td>'+formate.pr_ind+'</td>'+
+            '<td style="display: flex;align-items: center;flex-direction: row;justify-content: space-around;"><p>'+formate.depn_annuel+'</p><p class="del_btn"><i class="fas fa-trash-alt"></i></p></td>';
+           
+           
+            var newover=parseInt(formate.bg_overt)+parseInt($('#nbr_over').text())
+            var newoccup=parseInt(formate.bg_occup)+parseInt($('#nbr_occup').text())
+            var newvacant=parseInt(formate.bg_vacant)+parseInt($('#nbr_vacants').text())
+            
+            var t_tr=parseInt(formate.tr_annuel)+parseInt($('#T_tr').text())
+            var t_pr=parseInt(formate.pr_ind)+parseInt($('#T_pr').text())
+            var t_dp=parseInt(formate.depn_annuel)+parseInt($('#T_dp').text())
+            $('#T_tr').text(t_tr)
+            $('#T_pr').text(t_pr)                   
+            $('#T_dp').text(t_dp)
+
+            var t_ov=parseInt(formate.bg_overt)+parseInt($('#T_ov').text())
+            var t_oc=parseInt(formate.bg_occup)+parseInt($('#T_oc').text())
+            var t_va=parseInt(formate.bg_vacant)+parseInt($('#T_va').text())
+            $('#T_ov').text(t_ov)
+            $('#T_oc').text(t_oc) 
+            $('#T_va').text(t_va)                  
+
+
+            $('#nbr_over').text(newover);
+            $('#nbr_occup').text(newoccup);
+            $('#nbr_vacants').text(newvacant);
+            $('#T-tables tbody').append(bodyadd);
+
+                $('.del_btn').on('click',function()
+            {
+                $('#reloading').removeClass('reload-hidden')
+                console.log('the id is'+$(this).closest("tr").attr('id'))
+                var delID=$(this).closest("tr").attr('id')
+                $.ajax({
+                    url:'/del_emplois',
+                    type:'POST',
+                    data:{
+                        id_s_act:id_s_act,
+                        delID:delID,
+                        type_pos:'cdi',
+                        _token: $('meta[name="csrf-token"]').attr("content"),
+                        _method: "POST",
+                    },
+                    success:function(response)
+                    {
+                        if(response.code == 200)
+                            {$('#reloading').addClass('reload-hidden')
+                        newover=parseInt($('#nbr_over').text())-parseInt(formate.bg_overt)
+                        newoccup=parseInt($('#nbr_occup').text())-parseInt(formate.bg_occup)
+                        newvacant=parseInt($('#nbr_vacants').text())-parseInt(formate.bg_vacant)
+
+                        var t_tr=parseInt($('#T_tr').text())-parseInt(formate.tr_annuel)
+                        var t_pr=parseInt($('#T_pr').text())-parseInt(formate.pr_ind)
+                        var t_dp=parseInt($('#T_dp').text())-parseInt(formate.depn_annuel)
+                        $('#T_tr').text(t_tr)
+                        $('#T_pr').text(t_pr)                   
+                        $('#T_dp').text(t_dp)
+            
+                        var t_ov=parseInt($('#T_ov').text())-parseInt(formate.bg_overt)
+                        var t_oc=parseInt($('#T_oc').text())-parseInt(formate.bg_occup)
+                        var t_va=parseInt($('#T_va').text())-parseInt(formate.bg_vacant)
+                        $('#T_ov').text(t_ov)
+                        $('#T_oc').text(t_oc) 
+                        $('#T_va').text(t_va)
+
+                      // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
+                       $('#'+delID).remove();   
+                       $('#nbr_over').text(newover);
+                       $('#nbr_occup').text(newoccup);
+                       $('#nbr_vacants').text(newvacant);
+                        }
+                    },
+                    error: function (response) {
+                        alert('error')
+                        $('#reloading').addClass('reload-hidden')
+                       
+                    }
+                })
+                
+            })
+
+        }
+        else
+        {
+           $('#reloading').addClass('reload-hidden')
+        }
+    },
+    error: function (response) {
+        alert('error')
+        $('#reloading').addClass('reload-hidden')
+       
+    }
+    })
+
+            $('.Tsop_handler').addClass('Tsop_handler_h')
+            $('#Tport-vals').empty()
+            $('.Tsop_handler').empty();
+        })
+
+        $('#cancel_ops').click(function(){
+            $('.change_app').empty()
+            $('.Tsop_handler').addClass('Tsop_handler_h')
+            $('#Tport-vals').empty()
+            $('.Tsop_handler').empty();
+            alert('cancel op')
+        })
+    })
+
+    }
+      
+})
+
+
+/**
+ * corcom
+ */
 $('#corcom').on('click',function()
 {
    
