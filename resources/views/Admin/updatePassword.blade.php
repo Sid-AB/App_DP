@@ -187,14 +187,14 @@
         window.history.back();
     }
 
-    function togglePassword(fieldId) {
+  /*  function togglePassword(fieldId) {
         const field = document.getElementById(fieldId);
         const type = field.getAttribute('type') === 'password' ? 'text' : 'password';
         field.setAttribute('type', type);
         const icon = field.nextElementSibling;
         icon.classList.toggle('fa-eye');
         icon.classList.toggle('fa-eye-slash');
-    }
+    }*/
 </script>
 
 </body>
