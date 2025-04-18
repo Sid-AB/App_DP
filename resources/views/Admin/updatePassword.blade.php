@@ -164,7 +164,7 @@
             <!--label for="new_password_confirmation">{{ __('lang.Confirmervotrenouveaumotdepass') }}</label-->
             <label for="new_password_confirmation">Confirmer votre nouveau mot de passe</label>
             <input type="password" id="new_password_confirmation" name="new_password_confirmation" required>
-            <i class="fas fa-eye toggle-password" onclick="togglePassword('new_password_confirmation')"></i>
+            
             @if ($errors->has('new_password_confirmation'))
                 <span class="error">{{ $errors->first('new_password_confirmation') }}</span>
             @endif

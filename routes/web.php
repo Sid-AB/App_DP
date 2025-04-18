@@ -6,7 +6,8 @@ use App\Models\Programme;
 use App\Models\Action;
 use App\Models\SousProgramme;
 use App\Models\Fonctions;
-
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Route;
 
@@ -151,14 +152,28 @@ Route::controller(EmploiBudgetController::class)->group(function(){
 
 
 Route::controller(AdminController::class)->group(function(){
-    Route::get('/admin','index')->name('Admin');
-    Route::get('/admin/delete/{id}','delete_account')->name('delete.account');
-    Route::get('/admin/responsable/{id}','get_responsable')->name('get_responsable.account');
-    Route::post('/insert/account','insert_account')->name('account_insertion');
-    Route::post('/login/account','access_login')->name('access_login');
-    Route::get('/get-accounts','get_respo_acc')->name('get_respo_acc');
-    Route::get('/update/pass','indexupdate')->name('passhander');
-    Route::post('/update/login','update_pass')->name('password_update');
+    Route::post('/login', function (Request $request) {
+        $credentials = $request->only('name', 'password');
+    
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->route('Admin');
+        }
+    
+        return back()->with('error', 'Nom d\'utilisateur ou mot de passe incorrect.');
+    })->name('login');
+    Route::middleware(['auth'])->group(function () {
+        
+        Route::get('/admin','index')->name('Admin');
+        
+        Route::get('/admin/delete/{id}','delete_account')->name('delete.account');
+        Route::get('/admin/responsable/{id}','get_responsable')->name('get_responsable.account');
+        Route::post('/insert/account','insert_account')->name('account_insertion');
+        Route::post('/login/account','access_login')->name('access_login');
+        Route::get('/get-accounts','get_respo_acc')->name('get_respo_acc');
+        Route::get('/update/pass','indexupdate')->name('passhander');
+        Route::post('/update/login','update_pass')->name('password_update');
+        });
 });
 
 //===============ROUTE Prime==============================
