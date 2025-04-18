@@ -137,9 +137,11 @@ Route::controller(EmploiBudgetController::class)->group(function(){
     Route::get('/getlist_PostSup/{id}','get_list_postsup')->name('emplois.Post_Sup');
     Route::get('/getlist_PostCommuns/{id}','get_list_post_communs')->name('emplois.post_communs');
     Route::get('/getlist_fonctions/{id}','get_list_fonction')->name('emplois.fonctions');
+    Route::get('/getlist_cdi/{id}','get_list_cdi')->name('emplois.cdi');
+    Route::get('/getlist_cdd/{id}','get_list_cdd')->name('emplois.cdd');
     Route::get('/printlist_fonctions/{id}','print_list_fonction')->name('emplois.printfonctions');
     Route::get('/printlist_posts/{id}','print_list_postsup')->name('emplois.printposts');
-    Route::get('/printlist_commun/{id}','print_list_post_communs')->name('emplois.printcommun');
+    Route::get('/printlist_commun/{id}','print_list_post_communs')->name('emplois.printcommun');//get_list_cdi
     Route::post('/del_emplois','del_emplois')->name('emplois.delete');
 
 });

@@ -224,6 +224,98 @@ function get_list_post_communs($id)
 }
 
 
+function get_list_cdd($id)
+
+{
+
+    $postssup=Emploi_budget::join('c_d_d_s','c_d_d_s.id_emp','=','emploi_budgets.id_emp')->orderBy('c_d_d_s.id_c_d_d_s')->get();
+    if(!empty($postssup))
+    {
+        $totalOuverts = $postssup->sum('EmploiesOuverts');
+       $totalOccupes = $postssup->sum('EmploiesOccupes');
+       $totalVacants = $postssup->sum('EmploiesVacants');
+         return response()->json([
+            'code' => 200,
+            'message' => 'Données insérées ou mises à jour avec succès',
+            'postsup' => $postssup,
+            'totalOuverts'=>$totalOuverts,
+            'totalOccupes'=>$totalOccupes,
+            'totalVacants'=>$totalVacants,
+        ]);
+    }
+    else
+    {
+         return response()->json([
+            'code' => 500,
+            'message' => 'Function Errors',
+            
+        ]);
+    }
+
+}
+
+
+function get_list_cdi($id)
+
+{
+
+    $postssup=Emploi_budget::join('c_d_i_s','c_d_i_s.id_emp','=','emploi_budgets.id_emp')->orderBy('c_d_i_s.id_c_d_i_s')->get();
+    if(!empty($postssup))
+    {
+        $totalOuverts = $postssup->sum('EmploiesOuverts');
+       $totalOccupes = $postssup->sum('EmploiesOccupes');
+       $totalVacants = $postssup->sum('EmploiesVacants');
+         return response()->json([
+            'code' => 200,
+            'message' => 'Données insérées ou mises à jour avec succès',
+            'postsup' => $postssup,
+            'totalOuverts'=>$totalOuverts,
+            'totalOccupes'=>$totalOccupes,
+            'totalVacants'=>$totalVacants,
+        ]);
+    }
+    else
+    {
+         return response()->json([
+            'code' => 500,
+            'message' => 'Function Errors',
+            
+        ]);
+    }
+
+}
+
+
+function get_list_OAC($id)
+
+{
+
+    $postssup=Emploi_budget::join('opconducteurs','opconducteurs.id_emp','=','emploi_budgets.id_emp')->orderBy('opconducteurs.id_opconducteurs')->get();
+    if(!empty($postssup))
+    {
+        $totalOuverts = $postssup->sum('EmploiesOuverts');
+       $totalOccupes = $postssup->sum('EmploiesOccupes');
+       $totalVacants = $postssup->sum('EmploiesVacants');
+         return response()->json([
+            'code' => 200,
+            'message' => 'Données insérées ou mises à jour avec succès',
+            'postsup' => $postssup,
+            'totalOuverts'=>$totalOuverts,
+            'totalOccupes'=>$totalOccupes,
+            'totalVacants'=>$totalVacants,
+        ]);
+    }
+    else
+    {
+         return response()->json([
+            'code' => 500,
+            'message' => 'Function Errors',
+            
+        ]);
+    }
+
+}
+
 function get_list_fonction($id)
 
 {
@@ -284,6 +376,35 @@ function del_emplois(Request $request)
     {
         return response()->json(['code'=>200]);
     }
+    }
+    if($request->type_pos == 'cdi')
+    {
+      if(  CDI::where('id_emp',$request->delID)->delete() &&
+        Emploi_budget::where('id_emp',$request->delID)->delete()
+    )
+    {
+        return response()->json(['code'=>200]);
+    }
+    }
+    if($request->type_pos == 'cdd')
+    {
+      if(  CDD::where('id_emp',$request->delID)->delete() &&
+        Emploi_budget::where('id_emp',$request->delID)->delete()
+    )
+    {
+        return response()->json(['code'=>200]);
+    }
+    
+}
+if($request->type_pos == 'opconducteur')
+{
+  if(  OpConducteur::where('id_emp',$request->delID)->delete() &&
+    Emploi_budget::where('id_emp',$request->delID)->delete()
+)
+{
+    return response()->json(['code'=>200]);
+}
+
 }
 }
 
