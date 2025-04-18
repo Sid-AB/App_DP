@@ -144,7 +144,7 @@
             <!--label for="current_password">{{ __('lang.Ancienmotdepass') }}</label-->
             <label for="current_password">Ancien mot de passe</label>
             <input type="password" id="current_password" name="current_password" required>
-            <i class="fas fa-eye toggle-password" onclick="togglePassword('current_password')"></i>
+           
             @if ($errors->has('current_password'))
                 <span class="error">{{ $errors->first('current_password') }}</span>
             @endif
@@ -154,7 +154,7 @@
             <!--label for="new_password">{{ __('lang.Nouveaumotdepass') }}</label-->
             <label for="new_password">Nouveau mot de passe</label>
             <input type="password" id="new_password" name="new_password" required>
-            <i class="fas fa-eye toggle-password" onclick="togglePassword('new_password')"></i>
+   
             @if ($errors->has('new_password'))
                 <span class="error">{{ $errors->first('new_password') }}</span>
             @endif

@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Hash;
 class AdminController extends Controller
 {
     //
-   public function index(Request $request)
+    public function index(Request $request)
     {
         $account=null;
         $full_account=[];
