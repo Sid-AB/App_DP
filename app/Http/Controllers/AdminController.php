@@ -168,7 +168,7 @@ class AdminController extends Controller
             'progs'=>'nullable|string|max:255',
             'sous_progs'=>'nullable|string|max:255',
             'acts'=>'nullable|string|max:255',
-             'id_deleg_resp'=>'nullable',
+            'id_deleg_resp'=>'nullable',
             'profile_picture' => 'nullable|mimes:jpg,png,jpeg,pdf|max:2048', // Validate image
            
         ]);
@@ -219,6 +219,33 @@ class AdminController extends Controller
            // dd($res_act);
         }
 
+
+        if(isset($validated['progs']) && !isset($validated['sous_progs'])  && !isset($validated['acts']))
+        {
+            $res_act=Respo_Action::updateOrCreate([
+                'id_ra'=>$idresp,
+                'Date_installation_ra'=>Carbon::now(),
+               
+            ]);
+            $res_prg=Respo_Prog::updateOrCreate([
+                'id_rp'=>$idresp,
+                'Date_installation_rp'=>Carbon::now(),
+               
+            ]);
+            $id_res_prg=$res_prg->id_rp;
+            $id_res_act=$res_act->id_ra;
+            $prog=Programme::where('num_prog',$validated['progs'])->first();
+           // $sous_prog=SousProgramme::where('num_sous_prog',$validated['sous_progs'])->first();
+            //$act=Action::where('num_action',$validated['acts'])->first();
+            //dd($prog,$act);
+            $prog->id_rp=$id_res_prg;
+            //$act->id_ra=$id_res_act;
+            $prog->update();
+            //$act->update();
+           // dd($res_Min->id_min);
+        }
+
+
         if(isset($validated['progs']) && isset($validated['sous_progs'])  && isset($validated['acts']))
         {
             $res_act=Respo_Action::updateOrCreate([
@@ -236,7 +263,7 @@ class AdminController extends Controller
             $prog=Programme::where('num_prog',$validated['progs'])->first();
            // $sous_prog=SousProgramme::where('num_sous_prog',$validated['sous_progs'])->first();
             $act=Action::where('num_action',$validated['acts'])->first();
-           // dd($act);
+            dd($prog,$act);
             $prog->id_rp=$id_res_prg;
             $act->id_ra=$id_res_act;
             $prog->update();
@@ -246,7 +273,7 @@ class AdminController extends Controller
         $account = Accounts::where('email',$validated['email']."@mcomm.local")->first();
 
         if(isset($account))
-        {       // dd($account);
+        {       // dd($account,$id_res_prg);
             if(isset($account->id_min))
             {
                 $id_res_Min=$account->id_min;
