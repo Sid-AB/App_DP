@@ -84,6 +84,12 @@ Object.entries(paths).forEach(([code,value])=>{
                         <label for="input1">CP pour Sous_ACTION</label>
                         <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="CP_sous_act" placeholder="Entrer CP sous Action">
                         </div>
+
+                        <div class="form-group">
+                          <label for="CP_sous_act">Action de Delegatiion</label>
+                         <input type="checkbox" class="form-control" id="act_deleg">
+                       </div>
+
                         </form>
                         <br>
                         <div id="confirm-holder">
@@ -143,6 +149,10 @@ Object.entries(paths).forEach(([code,value])=>{
                                  </div>
 
                         </div>
+                        <div class="form-group">
+                          <label for="CP_sous_act">Action de Delegatiion</label>
+                         <input type="checkbox" class="form-control" id="act_deleg">
+                       </div>
 
                         </form>
                         <br>
@@ -260,6 +270,10 @@ Object.entries(paths).forEach(([code,value])=>{
                                  </div>
 
                         </div>
+                        <div class="form-group">
+                          <label for="CP_sous_act">Action de Delegatiion</label>
+                         <input type="checkbox" class="form-control" id="act_deleg">
+                       </div>
 
                         </form>
                         <br>
@@ -415,7 +429,10 @@ Object.entries(paths).forEach(([code,value])=>{
                                  </div>
 
                         </div>
-
+                        <div class="form-group">
+                          <label for="CP_sous_act">Action de Delegatiion</label>
+                         <input type="checkbox" class="form-control" id="act_deleg">
+                       </div>
                         </form>
                         <br>
                         <div id="confirm-holder">

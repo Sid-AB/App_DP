@@ -1010,7 +1010,7 @@ calaulsomeAE_CP_sprog()
                     
                                         var T4_AE_init = $('#T4_AE_init').val()
                                         var T4_CP_init = $('#T4_CP_init').val()
-
+                                        var deleg_act=$('#act_deleg').val()
                                         var id_sou_prog = path[2];
                                         var numaction_year = id_sou_prog +'-'+num_act ;
                                         var nexthop = '<div class="pinfo-handle">' +
@@ -1042,7 +1042,7 @@ calaulsomeAE_CP_sprog()
                                                 T4_AE_init: T4_AE_init,
                                                 T4_CP_init: T4_CP_init,
                                                 code_t4: 40000,
-
+                                                action_delege:deleg_act,
                                             id_sous_prog: path[2],
                                             AE_act: AE_act,
                                             CP_act: CP_act,
@@ -1172,7 +1172,7 @@ calaulsomeAE_CP_sprog()
                     
                                         var T4_AE_init_AC = $('#T4_AE_init_AC').val()
                                         var T4_CP_init_AC = $('#T4_CP_init_AC').val()
-
+                                        var deleg_act=$('#act_deleg').va()
                                         var id_sou_prog = path[2];
                                         var numaction_year = id_sou_prog +'-'+num_act ;
 
@@ -1195,11 +1195,11 @@ calaulsomeAE_CP_sprog()
                                                 T3_AE_init_AC: T3_AE_init_AC,
                                                 T3_CP_init_AC: T3_CP_init_AC,
                                                 code_t3: 30000,
-                    
+                                              
                                                 T4_AE_init_AC: T4_AE_init_AC,
                                                 T4_CP_init_AC: T4_CP_init_AC,
                                                 code_t4: 40000,
-
+                                                action_delege:deleg_act,
                                             _token: $('meta[name="csrf-token"]').attr('content'),
                                             _method: 'POST'
                                         };
