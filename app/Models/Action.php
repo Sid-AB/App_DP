@@ -16,7 +16,7 @@ class Action extends Model
 
     protected $fillable = [
        'num_action','nom_action','nom_action_ar','date_insert_action','AE_action','CP_action','date_update_action','id_ra','num_sous_prog','AE_action_NONREPARTIS',
- 'CP_action_NONREPARTIS',];
+ 'CP_action_NONREPARTIS','type_action'];
 
     public function Respo_Action()
     {

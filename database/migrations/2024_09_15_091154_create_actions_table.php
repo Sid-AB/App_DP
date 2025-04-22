@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('nom_action_ar')->nullable();
             $table->float('AE_action');
             $table->float('CP_action');
+            $table->string('type_action')->default("centrale");
 
             $table->Date('date_insert_action');
             $table->DateTime('date_update_action')->nullable();

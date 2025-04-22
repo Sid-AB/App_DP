@@ -138,7 +138,10 @@ if (!empty($portefeuille)) {
         $totalCpReporteGlobal=0;
         $totalCpConsomeGlobal=0;
 
-
+        $calculs = [
+            'centrale' => [],
+            'delegation' => [],
+        ];
 
         // parcourir tous les programmes du portefeuille
         foreach ($portefeuille->Programme as $programme) {
@@ -147,6 +150,7 @@ if (!empty($portefeuille)) {
               //  dd($sousProgramme);
                 foreach ($sousProgramme->Action as $action) {
                    // dd($action);
+                   $typeAction = $action->type_action;
                     foreach ($action->SousAction as $sousAction) {
                        // dd($sousAction);
                         foreach ($sousAction->GroupOperation as $groupe) {
@@ -206,7 +210,15 @@ if (!empty($portefeuille)) {
                                           $totalSousAeGlobal = $sousopAeouvert + $sousopAeattendu; // AE_ouvert + AE_attendu global
                                           $totalSousCpGlobal = $sousopCpouvert + $sousopCpattendu; // CP_ouvert + CP_attendu global
                                           //dd($totalSousAeGlobal,$totalSousCpGlobal);
-    
+
+                                          if (!isset($calculs[$typeAction]['totalsousAe'])) {
+                                            $calculs[$typeAction]['totalsousAe'] = 0;
+                                            $calculs[$typeAction]['totalsousCp'] = 0;
+                                        }
+                
+                                        $calculs[$typeAction]['totalsousAe'] += $totalSousAeGlobal;
+                                        $calculs[$typeAction]['totalsousCp'] += $totalSousCpGlobal;
+                
                                                   //calcul l'operation depuis les sous operations
                                           $operationAeOuvert += $sousOperation->AE_ouvert;
                                           $operationAeAttendu += $sousOperation->AE_atendu;
@@ -216,10 +228,18 @@ if (!empty($portefeuille)) {
                                           $totalOPAeGlobal = $operationAeOuvert + $operationAeAttendu; // AE_ouvert + AE_attendu global ligne(horizontale)
                                           $totalOPCpGlobal = $operationCPOuvert + $operationCPAttendu;
 
+                                          if (!isset($calculs[$typeAction]['totalopAe'])) {
+                                            $calculs[$typeAction]['totalopAe'] = 0;
+                                            $calculs[$typeAction]['totalopCp'] = 0;
+                                        }
+                
+                                        $calculs[$typeAction]['totalopAe'] += $totalOPAeGlobal;
+                                        $calculs[$typeAction]['totalopCp'] += $totalOPCpGlobal;
+                
                                      
                                         
                                           if($sousOperation->code_t2==20000) {
-                                            $sousOperationT2[] = [
+                                            $calculs[$typeAction]['sousOperationT2'][]= [
                                                 "code" => $sousOperation->code_sous_operation,
                                                 "nom" => $sousOperation->nom_sous_operation,
                                                 "values" => [
@@ -265,7 +285,7 @@ if (!empty($portefeuille)) {
                                            //dd($operationAeReporte,$operationAeNotife, $operationAeEngage,$operationCPReporte,$operationCPNotife,$operationCPConsome);
     
                                            if($sousOperation->code_t3==30000) {
-                                           $sousOperationT3[] = [
+                                            $calculs[$typeAction]['sousOperationT3'][] = [
                                                "code" => $sousOperation->code_sous_operation,
                                                "nom" => $sousOperation->nom_sous_operation,
                                                "values" => [
@@ -301,7 +321,7 @@ if (!empty($portefeuille)) {
                                            $operationCP+= $sousOperation->CP_sous_operation;
     
                                            if($sousOperation->code_t1==10000) {
-                                            $sousOperationT[] = [
+                                            $calculs[$typeAction]['sousOperationT'][] = [
                                                 "code" => $sousOperation->code_sous_operation,
                                                 "nom" => $sousOperation->nom_sous_operation,
                                                 "values" => [
@@ -325,7 +345,7 @@ if (!empty($portefeuille)) {
                                              $operationCPt4 += $sousOperation->CP_sous_operation;
     
                                              if(isset($sousOperation) && $sousOperation->code_t4==40000) {
-                                              $sousOperationT4[] = [
+                                                $calculs[$typeAction]['sousOperationT4'][] = [
                                                   "code" => $sousOperation->code_sous_operation,
                                                   "nom" => $sousOperation->nom_sous_operation,
                                                   "values" => [
