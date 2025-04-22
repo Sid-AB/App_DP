@@ -87,6 +87,12 @@ Object.entries(paths).forEach(([code,value])=>{
                         <label for="input1">CP pour Sous_ACTION</label>
                         <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="CP_sous_act" placeholder="Entrer CP sous Action">
                         </div>
+
+                        <div class="form-group">
+                          <label for="CP_sous_act">Action de Delegatiion</label>
+                         <input type="checkbox" class="form-control" id="act_deleg">
+                       </div>
+
                         </form>
                         <br>
                         <div id="confirm-holder">
@@ -148,6 +154,11 @@ Object.entries(paths).forEach(([code,value])=>{
 
                         </div>
 
+                        <div class="form-group">
+                           <label for="CP_sous_act">Action de Delegatiion</label>
+                          <input type="checkbox" class="form-control" id="act_deleg">
+                        </div>
+
                         </form>
                         <br>
                         <div id="confirm-holder">
@@ -204,8 +215,6 @@ Object.entries(paths).forEach(([code,value])=>{
                                  <label for="input1">T4 pour Sous Programme</label>
                                  <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T4_AE_init"   placeholder="Entrer T4 AE Sous Programme" value={{$init_value['ae_T4']}}>
                                  <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T4_CP_init"   placeholder="Entrer T4 CP Sous Programme" value={{$init_value['cp_T4']}}>
-                                 </div>
-
                                  </div>
                         </form>
                         <br>

@@ -2792,6 +2792,10 @@ $("#add-prg").on('click', function () {
                         '</div>'+
                         '</div>'+
                         '</div>'+
+                       ' <div class="form-group">'+
+                       ' <label for="CP_sous_act">Action de Delegatiion</label>'+
+                       '<input type="checkbox" class="form-control" id="act_deleg" placeholder="Entrer CP Sous Action">'+
+                        '</div>'+
                         ' </form>' +
                         ' <br>' +
                         '<div id="confirm-holder_sprog">' +
@@ -2943,6 +2947,7 @@ $("#add-prg").on('click', function () {
                                     var num_act = $('#num_act').val();
                                     var AE_act = $('#AE_act').val()
                                     var CP_act = $('#CP_act').val()
+                                    var deleg_act=$('#act_deleg').val()
                                     var dat_inst = $('#date_insert_action').val();
                                     var id_sou_prog = path[2];
                                     check_ifnull('#add-prg3')
@@ -2962,6 +2967,7 @@ $("#add-prg").on('click', function () {
                                             nom_action: nom_act,
                                             AE_act: AE_act,
                                             CP_act: CP_act,
+                                            action_delege:deleg_act,
                                             date_insert_action: dat_inst,
                                             id_sous_prog: path[2],
                                             _token: $('meta[name="csrf-token"]').attr('content'),
@@ -3018,7 +3024,10 @@ $("#add-prg").on('click', function () {
                                                               <label for="CP_sous_act">CP pour Sous Action</label>
                                                             <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="CP_sous_act" placeholder="Entrer CP Sous Action">
                                                                </div>
-
+                                                             <div class="form-group">
+                                                              <label for="CP_sous_act">Action de Delegatiion</label>
+                                                            <input type="checkbox" class="form-control" id="act_deleg" placeholder="Entrer CP Sous Action">
+                                                              </div>
                                                                </form>
                                                                <br>
                                                                <button class="btn btn-primary" id="add-prg4">Ajouter Sous Action</button>
@@ -3071,6 +3080,7 @@ $("#add-prg").on('click', function () {
                                                         var num_sous_act = $('#num_sous_act').val();
                                                         var AE_sous_act = $('#AE_sous_act').val()
                                                         var CP_sous_act = $('#CP_sous_act').val()
+                                                        var deleg=$("#act_deleg").val()
                                                         var dat_inst = $('#date_insert_sou_action').val();
                                                         console.log("ae= ",AE_sous_act,"      " );
                                                         console.log("cp= ",CP_sous_act );
@@ -3084,6 +3094,7 @@ $("#add-prg").on('click', function () {
                                                             AE_sous_act: AE_sous_act,
                                                             CP_sous_act: CP_sous_act,
                                                             date_insert_sous_action: dat_inst,
+                                                            action_delege:deleg,
                                                             num_act: path[3],
                                                             //id_sous_act: path[2],
                                                             //id_prog: path[1],
