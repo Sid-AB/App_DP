@@ -49,7 +49,7 @@ class opeartionController extends Controller
            // dd($resultats[$T]);
             try {
                 $resultats = $this->CalculDpia->calculdpiaFromPath($port, $prog, $sous_prog, $act,$s_act);
-                 // dd($s_act, $T);
+                 // dd($resultats, $T);
             //get toutes les données des 3 tables 
           /*  $groupOperations = DB::table('group_operations as go')
             ->leftJoin('operations as o', 'go.code_grp_operation', '=', 'o.code_grp_operation')
@@ -120,12 +120,22 @@ class opeartionController extends Controller
             }
             }*/
                 //retourner results
-              //  dd($resultats[$T]);
+               
+                if(isset($resultats['centrale']))
+                {
+                    $fullresult=$resultats['centrale'][$T];
+                }
+                
+                if(isset($resultats['delegation']))
+                {
+                    $fullresult=$resultats['delegation'][$T];
+                }
+            
+               // dd($fullresult);
                 return response()->json([
                     'code' =>200, //success
                     'message' => 'Données récupérées avec succès.',
-                    'results' => $resultats[$T]  ,
-                 
+                    'results' => $fullresult  ,
                 ]);
         
             } catch (\Exception $e) {
@@ -218,6 +228,7 @@ class opeartionController extends Controller
             }
             
                 //retourner results
+                dd($results);
                 return response()->json([
                     'code' =>200, //success
                     'message' => 'Données récupérées avec succès.',
@@ -261,8 +272,9 @@ class opeartionController extends Controller
                
                 ////max prend le max des résultats pour toutes les lignes si au moins 1 est non null elle retourne 1;
                   // ->exists();
-           dd($exists);
+           
                 if ($exists) {
+                   // dd($exists);
                     return response()->json([
                         'code' => 200,
                         't1_exists' => $exists->t1_exists,

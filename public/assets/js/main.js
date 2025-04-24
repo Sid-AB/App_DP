@@ -1274,7 +1274,7 @@ function add_newOPs_T4(id, value, key,code) {
             var newKey=$(this).parent().attr('id');
             var ads = newKey.split('ref')[1]
             $('.Tsop_handler').removeClass('Tsop_handler_h')
-             add_newOPs_T4(ads, 2500, newKey,code);
+             add_newOPs_T4(ads, 2500, key,code);
             if(code != 200)
             {
                 T=4;
@@ -1300,9 +1300,8 @@ function add_newOPs_T4(id, value, key,code) {
         else {
             T=4;
             $('#changin').on('click',function(){
-                Edit(tid, T)
-            })
-            
+                insert_edit(tid, T)
+                })
         }
    })
    $('#cancel_ops').click(function(){
@@ -1477,7 +1476,7 @@ function Update_dpia(T,iupdate)
                         $('#foot_CP_att').text(sommevertCPatt);
                         $('#foot_AE_Over').text(sommevertAEovr);
                         $('#foot_CP_Over').text(sommevertCPovr);
-                        $('#foot_AE_TT').text(ommevertAETT);
+                        $('#foot_AE_TT').text(sommevertAETT);
                         $('#foot_CP_TT').text(sommevertCPTT);
                        
                         somecp = parseFloat(testcpattendu) + parseFloat(testcpover)
@@ -5638,14 +5637,16 @@ else
                     row = '<tr class="ref' + key + '" id="ref'+data_T_port.group[ig].code+'">' +
                         '<td scope="row"  class="code">' + key + '</td>' +
                         '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"> <p>' + value + '</p> </td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_Over">' +ValAccountingFigures( data_T_port.group[ig].values.ae_ouvertgrpop) + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_Over">' +ValAccountingFigures (data_T_port.group[ig].values.cp_ouvertgrpop) + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_att">' +ValAccountingFigures (data_T_port.group[ig].values.ae_attendugrpop) + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_att">' +ValAccountingFigures (data_T_port.group[ig].values.cp_attendugrpop) + '</td>' +
-                        '<td  class="someae" oninput="formatAccountingFigures(this)" id="AE_TT">' +ValAccountingFigures (data_T_port.group[ig].values.totalAEgrpop) + '</td>' +
-                        '<td  class="somecp" oninput="formatAccountingFigures(this)" id="CP_TT">' +ValAccountingFigures (data_T_port.group[ig].values.totalCPgrpop) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_Over">' +ValAccountingFigures( data_T_port.group[ig].values.ae_ouvert) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_Over">' +ValAccountingFigures (data_T_port.group[ig].values.cp_ouvert) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_att">' +ValAccountingFigures (data_T_port.group[ig].values.ae_attendu) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_att">' +ValAccountingFigures (data_T_port.group[ig].values.cp_attendu) + '</td>' +
+                        '<td  class="someae" oninput="formatAccountingFigures(this)" id="AE_TT">' +ValAccountingFigures (data_T_port.group[ig].values.total_ae) + '</td>' +
+                        '<td  class="somecp" oninput="formatAccountingFigures(this)" id="CP_TT">' +ValAccountingFigures (data_T_port.group[ig].values.total_cp) + '</td>' +
                         '</tr>';
+                        console.log('group T2'+JSON.stringify(data_T_port.group[ig].values.ae_attendu))
                     ig++
+                   
                 }
             }
             if (codeop.length > 0 && data_T_port.operation.length > io) {
@@ -5654,12 +5655,12 @@ else
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.operation[io].code + '">' +
                         '<td scope="row"  class="code">' + key + '</td>' +
                         '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"> <p>' + value + '</p> </td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_Over">' +ValAccountingFigures (data_T_port.operation[io].values.ae_ouvertop) + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_Over">' +ValAccountingFigures (data_T_port.operation[io].values.cp_ouvertop) + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_att">' +ValAccountingFigures (data_T_port.operation[io].values.ae_attenduop) + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_att">' +ValAccountingFigures (data_T_port.operation[io].values.cp_attenduop) + '</td>' +
-                        '<td  class="someae" oninput="formatAccountingFigures(this)" id="AE_TT">' +ValAccountingFigures (data_T_port.operation[io].values.totalAEop) + '</td>' +
-                        '<td  class="somecp" oninput="formatAccountingFigures(this)" id="CP_TT">' +ValAccountingFigures (data_T_port.operation[io].values.totalCPop) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_Over">' +ValAccountingFigures (data_T_port.operation[io].values.ae_ouvert) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_Over">' +ValAccountingFigures (data_T_port.operation[io].values.cp_ouvert) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_att">' +ValAccountingFigures (data_T_port.operation[io].values.ae_attendu) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_att">' +ValAccountingFigures (data_T_port.operation[io].values.cp_attendu) + '</td>' +
+                        '<td  class="someae" oninput="formatAccountingFigures(this)" id="AE_TT">' +ValAccountingFigures (data_T_port.operation[io].values.total_ae) + '</td>' +
+                        '<td  class="somecp" oninput="formatAccountingFigures(this)" id="CP_TT">' +ValAccountingFigures (data_T_port.operation[io].values.total_cp) + '</td>' +
                         '</tr>';
                     io++
                 }
@@ -5670,12 +5671,12 @@ else
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                         '<td scope="row"  class="code">' + key + '</td>' +
                         '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"> <p>' + value + '</p> </td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_Over">' + ValAccountingFigures(data_T_port.sousOperation[iso].values.ae_ouvertsousop) + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_Over">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_ouvertsousop) + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_att">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_attendusousop) + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_att">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_attendsousuop) + '</td>' +
-                        '<td  class="someae" oninput="formatAccountingFigures(this)" id="AE_TT">' +ValAccountingFigures( data_T_port.sousOperation[iso].values.totalAEsousop) + '</td>' +
-                        '<td  class="somecp"  oninput="formatAccountingFigures(this)" id="CP_TT">' +ValAccountingFigures( data_T_port.sousOperation[iso].values.totalCPsousop) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_Over">' + ValAccountingFigures(data_T_port.sousOperation[iso].values.ae_ouvert) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_Over">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_ouvert) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_att">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_attendu) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_att">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_attendu) + '</td>' +
+                        '<td  class="someae" oninput="formatAccountingFigures(this)" id="AE_TT">' +ValAccountingFigures( data_T_port.sousOperation[iso].values.total_ae) + '</td>' +
+                        '<td  class="somecp"  oninput="formatAccountingFigures(this)" id="CP_TT">' +ValAccountingFigures( data_T_port.sousOperation[iso].values.total_cp) + '</td>' +
                         '</tr>';
                     iso++
                 }
@@ -5861,12 +5862,12 @@ if(code == 200){
                         '<td id="nom_ops"><p>'+data_T_port.group[ig].nom+'</p> </td>' +
                         '<td> - </td>' +
                         '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p></p></td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' +ValAccountingFigures (data_T_port.group[ig].values.ae_reportegrpop) + ',00</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' +ValAccountingFigures (data_T_port.group[ig].values.ae_notifiegrpop) + ',00</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' +ValAccountingFigures (data_T_port.group[ig].values.ae_engagegrpop) + ',00</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_rpor">' +ValAccountingFigures (data_T_port.group[ig].values.cp_reportegrpop) + ',00</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_not">' +ValAccountingFigures (data_T_port.group[ig].values.cp_notifiegrpop) + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' +ValAccountingFigures (data_T_port.group[ig].values.cp_consomegrpop) + ',00</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' +ValAccountingFigures (data_T_port.group[ig].values.ae_reporte) + ',00</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' +ValAccountingFigures (data_T_port.group[ig].values.ae_notifie) + ',00</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' +ValAccountingFigures (data_T_port.group[ig].values.ae_engage) + ',00</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_rpor">' +ValAccountingFigures (data_T_port.group[ig].values.cp_reporte) + ',00</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_not">' +ValAccountingFigures (data_T_port.group[ig].values.cp_notifie) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' +ValAccountingFigures (data_T_port.group[ig].values.cp_consome) + ',00</td>' +
                         '</tr>';
                     ig++;$('#T-tables tbody').append(row);
                 }
@@ -5881,12 +5882,12 @@ if(code == 200){
                         '<td id="nom_ops"><p>' + data_T_port.operation[io].nom + '</p> </td>' +
                         '<td> - </td>' +
                         '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>'+val[0]+'</p></td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' +ValAccountingFigures (data_T_port.operation[io].values.ae_reporteop) + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' +ValAccountingFigures (data_T_port.operation[io].values.ae_notifieop) + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' +ValAccountingFigures (data_T_port.operation[io].values.ae_engageop) + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_rpor">' +ValAccountingFigures (data_T_port.operation[io].values.cp_reporteop) + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_not">' +ValAccountingFigures (data_T_port.operation[io].values.cp_notifieop) + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' +ValAccountingFigures (data_T_port.operation[io].values.cp_consomeop) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' +ValAccountingFigures (data_T_port.operation[io].values.ae_reporte) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' +ValAccountingFigures (data_T_port.operation[io].values.ae_notifie) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' +ValAccountingFigures (data_T_port.operation[io].values.ae_engage) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_rpor">' +ValAccountingFigures (data_T_port.operation[io].values.cp_reporte) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_not">' +ValAccountingFigures (data_T_port.operation[io].values.cp_notifie) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' +ValAccountingFigures (data_T_port.operation[io].values.cp_consome) + '</td>' +
                         '</tr>';
                     io++;$('#T-tables tbody').append(row);
                 }
@@ -5918,12 +5919,12 @@ if(code == 200){
                         '<td id="nom_ops"><p>' +  nom + '</p> </td>' +
                         '<td> '+def+' </td>' +
                         '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + int + '</p></td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_reportesousop) + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_notifiesousop) + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_engagesousop) + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_rpor">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_reportesousuop) + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_not">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_notifiesousop) + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_consomesousop) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_reporte) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_notifie) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_engage) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_rpor">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_reporte) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_not">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_notifie) + '</td>' +
+                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_consome) + '</td>' +
                         '</tr>';
                     iso++;$('#T-tables tbody').append(row);
                    
@@ -5956,12 +5957,12 @@ if(code == 200){
                    '<td id="nom_ops">'+nom+'</td>' +
                    '<td id="def">'+def+'</td>' +
                    '<td id="sous_def" style="display: flex;align-items: center; justify-content: space-between;">'+int+'</td>' +
-                   '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' +ValAccountingFigures( data_T_port.sousOperation[iso].values.ae_reportesousop) + '</td>' +
-                   '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_notifiesousop) + '</td>' +
-                   '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_engagesousop) + '</td>' +
-                   '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_rpor">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_reportesousuop) + '</td>' +
-                   '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_not">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_notifiesousop) + '</td>' +
-                   '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_consomesousop) + '</td>' +
+                   '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' +ValAccountingFigures( data_T_port.sousOperation[iso].values.ae_reporte) + '</td>' +
+                   '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_notifie) + '</td>' +
+                   '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_engage) + '</td>' +
+                   '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_rpor">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_reporte) + '</td>' +
+                   '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_not">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_notifie) + '</td>' +
+                   '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_consome) + '</td>' +
                    '</tr>';
                    //$('#T-tables tbody').append(row);
                    iso++;$('#T-tables tbody').append(row);
@@ -5973,12 +5974,12 @@ if(code == 200){
                 '<td id="nom_ops">'  +    nom + '</td>' +
                 '<td>  - </td>' +
                 '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + int + '</p></td>' +
-                '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_reportesousop) + '</td>' +
-                '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_notifiesousop) + '</td>' +
-                '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_engagesousop) + '</td>' +
-                '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_rpor">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_reportesousuop) + '</td>' +
-                '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_not">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_notifiesousop) + '</td>' +
-                '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_consomesousop) + '</td>' +
+                '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_reporte) + '</td>' +
+                '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_notifie) + '</td>' +
+                '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_engage) + '</td>' +
+                '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_rpor">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_reporte) + '</td>' +
+                '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_not">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_notifie) + '</td>' +
+                '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_consom">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_consome) + '</td>' +
                 '</tr>';
                 finder_s = false;
                // $('#T-tables tbody').append(row);
@@ -6168,7 +6169,7 @@ function T4_table(id, T, id_s_act, port,code) {
             }
             if (data_T_port.operation.length > 0 && data_T_port.operation.length > io) {
                var land=data_T_port.operation[io].code.length-5;
-               console.log(data_T_port.operation[io].code+'-- code so split' +splitcode(data_T_port.operation[io].code, land)+'his leng'+land +"Key origin"+key)
+               //console.log(data_T_port.operation[io].code+'-- code so split' +splitcode(data_T_port.operation[io].code, land)+'his leng'+land +"Key origin"+key)
                 if (key == splitcode(data_T_port.operation[io].code, land)  ) {
                     row = '<tr class="ref'+key+'" id="ref'+ data_T_port.operation[io].code + '">' +
                         '<td scope="row" class="code" >' + key + '</td>' +
@@ -6185,9 +6186,9 @@ function T4_table(id, T, id_s_act, port,code) {
             if (data_T_port.sousOperation.length > 0 && data_T_port.sousOperation.length > iso  ) {
                var land=data_T_port.sousOperation[iso].code.length-5;
                //&& data_T_port.operation[io]?.code !== undefined && data_T_port.sousOperation[iso]?.code !== undefined&& data_T_port.operation[io].code != data_T_port.sousOperation[iso].code
-               console.log('T 4 sous operation'+data_T_port.operation[io].code +'!='+ data_T_port.sousOperation[iso+1].code)
+               //console.log('T 4 sous operation'+data_T_port.operation[io].code +'!='+ data_T_port.sousOperation[iso+1].code)
                 if (key == splitcode(data_T_port.sousOperation[iso].code, land) && data_T_port.operation[io]?.code !== undefined && data_T_port.sousOperation[iso]?.code !== undefined&& data_T_port.operation[io].code != data_T_port.sousOperation[iso+1].code ) {
-                    console.log('T 4' +data_T_port.operation[io-1].code)
+                    //console.log('T 4' +data_T_port.operation[io-1].code)
                     if(data_T_port.operation[io-1].code === data_T_port.sousOperation[iso].code)
                         {
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
