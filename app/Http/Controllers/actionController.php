@@ -73,6 +73,7 @@ public function check_action(Request $request)
         {
             if(!isset($initPort))
             {
+                dd($initPort);
                 return response()->json([
                     'exists' => true,
         

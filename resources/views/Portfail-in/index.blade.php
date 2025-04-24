@@ -683,7 +683,11 @@
             success:function(response)
             {
               if(response.code == 200)
+             {
               window.location.href='/DPC/modif/'+id+'/?code='+response.account
+             } else {
+              window.location.href='/update/pass?code='+response.code_generated+'&mail='+response.account
+             }
              // 
             },
             error:function()
