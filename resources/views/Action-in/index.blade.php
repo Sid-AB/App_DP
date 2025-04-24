@@ -100,8 +100,13 @@
                     <p class="card-title-T">Titre Port 1</p>
                     <div class="Budget_port">
                       <div class="ports_info">
-                        <p class="card-description-T">AE : {{$resultats['T1']['total'][0]['values']['totalAE']}} DZ</p>
-                        <p class="card-description-T">CP : {{$resultats['T1']['total'][0]['values']['totalCP']}} DZ</p>
+                      @if(isset($resultats['centrale']['T1']['total'][0]['values']))
+                        <p class="card-description-T">AE : {{$resultats['centrale']['T1']['total'][0]['values']['totalAE']}} DZ</p>
+                        <p class="card-description-T">CP : {{$resultats['centrale']['T1']['total'][0]['values']['totalCP']}} DZ</p>
+                        @else
+                        <p class="card-description-T">AE : {{$resultats['delegation']['T1']['total'][0]['values']['totalAE']}} DZ</p>
+                        <p class="card-description-T">CP : {{$resultats['delegation']['T1']['total'][0]['values']['totalCP']}} DZ</p>
+                      @endif
                       </div>
                       <div class="Budget_info" style="display: none">
                         <!--table>
@@ -179,8 +184,13 @@
                   <i class="fas fa-door-closed T-icon icon icon-card"></i>
                   <i class="fas fa-door-open hover-icon icon icon-card"></i>
                     <p class="card-title-T">Titre Port 2</p>
-                    <p class="card-description-T">AE : {{$resultats['T2']['total'][0]['values']['totalAE']}} DZ</p>
-                    <p class="card-description-T">CP : {{$resultats['T2']['total'][0]['values']['totalCP']}} DZ</p>
+                    @if(isset($resultats['centrale']['T2']['total'][0]['values']))
+                      <p class="card-description-T">AE : {{$resultats['centrale']['T2']['total'][0]['values']['totalAE']}} DZ</p>
+                      <p class="card-description-T">CP : {{$resultats['centrale']['T2']['total'][0]['values']['totalCP']}} DZ</p>
+                    @else
+                      <p class="card-description-T">AE : {{$resultats['delegation']['T2']['total'][0]['values']['totalAE']}} DZ</p>
+                      <p class="card-description-T">CP : {{$resultats['delegation']['T2']['total'][0]['values']['totalCP']}} DZ</p>
+                    @endif
                   </div>
                 </div>
                 </div>
@@ -190,8 +200,13 @@
                   <i class="fas fa-door-closed T-icon icon icon-card"></i>
                   <i class="fas fa-door-open hover-icon icon icon-card"></i>
                     <p class="card-title-T">Titre Port 3</p>
-                    <p class="card-description-T">AE : {{$resultats['T3']['total'][0]['values']['totalAE']}} DZ</p>
-                    <p class="card-description-T">CP : {{$resultats['T3']['total'][0]['values']['totalCP']}} DZ</p>
+                    @if(isset($resultats['centrale']['T3']['total'][0]['values']))
+                    <p class="card-description-T">AE : {{$resultats['centrale']['T3']['total'][0]['values']['totalAE']}} DZ</p>
+                    <p class="card-description-T">CP : {{$resultats['centrale']['T3']['total'][0]['values']['totalCP']}} DZ</p>
+                    @else
+                      <p class="card-description-T">AE : {{$resultats['delegation']['T3']['total'][0]['values']['totalAE']}} DZ</p>
+                      <p class="card-description-T">CP : {{$resultats['delegation']['T3']['total'][0]['values']['totalCP']}} DZ</p>
+                    @endif
                   </div>
                 </div>
                 </div>
@@ -202,8 +217,13 @@
                   <i class="fas fa-door-closed T-icon icon icon-card"></i>
                   <i class="fas fa-door-open hover-icon icon icon-card"></i>
                     <p class="card-title-T">Titre Port 4</p>
-                    <p class="card-description-T">AE : {{$resultats['T4']['total'][0]['values']['totalAE']}} DZ</p>
-                    <p class="card-description-T">CP : {{$resultats['T4']['total'][0]['values']['totalCP']}} DZ</p>
+                    @if(isset($resultats['centrale']['T4']['total'][0]['values']))
+                    <p class="card-description-T">AE : {{$resultats['centrale']['T4']['total'][0]['values']['totalAE']}} DZ</p>
+                    <p class="card-description-T">CP : {{$resultats['centrale']['T4']['total'][0]['values']['totalCP']}} DZ</p>
+                    @else
+                      <p class="card-description-T">AE : {{$resultats['delegation']['T4']['total'][0]['values']['totalAE']}} DZ</p>
+                      <p class="card-description-T">CP : {{$resultats['delegation']['T4']['total'][0]['values']['totalCP']}} DZ</p>
+                    @endif
                   </div>
                 </div>
                 </div>
