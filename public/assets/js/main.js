@@ -2403,6 +2403,16 @@ $(document).ready(function () {
             });
         }
     });
+    var deleg_action="centrale"
+    $('#act_deleg').change(function() {
+        if ($(this).is(':checked')) {
+            deleg_action="delegation"
+            console.log('Checkbox is checked. Value:', $(this).val());
+        } else {
+              deleg_action="centrale"
+            console.log('Checkbox is unchecked.', $(this).val());
+        }
+    });
 
 
     $("#add-wallet").on("click", function () {
@@ -2793,8 +2803,8 @@ $("#add-prg").on('click', function () {
                         '</div>'+
                         '</div>'+
                        ' <div class="form-group">'+
-                       ' <label for="CP_sous_act">Action de Delegatiion</label>'+
-                       '<input type="checkbox" class="form-control" id="act_deleg" placeholder="Entrer CP Sous Action">'+
+                       ' <label for="CP_sous_act">Action de Délégation</label>'+
+                       '<input type="checkbox"  id="act_deleg">'+
                         '</div>'+
                         ' </form>' +
                         ' <br>' +
@@ -2967,7 +2977,7 @@ $("#add-prg").on('click', function () {
                                             nom_action: nom_act,
                                             AE_act: AE_act,
                                             CP_act: CP_act,
-                                            action_delege:deleg_act,
+                                            action_delege:deleg_action,
                                             date_insert_action: dat_inst,
                                             id_sous_prog: path[2],
                                             _token: $('meta[name="csrf-token"]').attr('content'),
@@ -3025,8 +3035,8 @@ $("#add-prg").on('click', function () {
                                                             <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="CP_sous_act" placeholder="Entrer CP Sous Action">
                                                                </div>
                                                              <div class="form-group">
-                                                              <label for="CP_sous_act">Action de Delegatiion</label>
-                                                            <input type="checkbox" class="form-control" id="act_deleg" placeholder="Entrer CP Sous Action">
+                                                              <label for="CP_sous_act">Action de Délégation</label>
+                                                            <input type="checkbox" id="act_deleg" >
                                                               </div>
                                                                </form>
                                                                <br>
@@ -3094,7 +3104,7 @@ $("#add-prg").on('click', function () {
                                                             AE_sous_act: AE_sous_act,
                                                             CP_sous_act: CP_sous_act,
                                                             date_insert_sous_action: dat_inst,
-                                                            action_delege:deleg,
+                                                            action_delege:deleg_action,
                                                             num_act: path[3],
                                                             //id_sous_act: path[2],
                                                             //id_prog: path[1],

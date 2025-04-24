@@ -219,6 +219,7 @@
                                 $code = explode('-', $sousProgramme['code']);
                                 $last = count($code) - 1;
                                 $code = $code[$last];
+                               // dd($sousProgramme)
                             @endphp
                             <tr>
                                 <td class="subprogram-title">{{ $code }}</td>
@@ -236,13 +237,14 @@
                             @if(isset($sousProgramme['actions'][0]))
                                 @for($k = 0; $k < count($sousProgramme['actions']); $k++)
                                     @foreach ($sousProgramme['actions'][$k] as $action)
+
                                         @php
                                             $code = explode('-', $action['code']);
                                             $last = count($code) - 1;
                                             $code = $code[$last];
                                             //dd($action);
                                         @endphp
-
+                                 
                                         <tr >
                                             <td>{{ $code }}</td>
                                             <td>Action : {{ $action['nom'] }}</td>
@@ -255,13 +257,11 @@
                                             <td>{{ number_format((float)$action['TotalT']['TotalT4_AE_ini'], 2, '.', ',') }}</td>
                                             <td>{{ number_format((float)$action['TotalT']['TotalT4_CP_ini'], 2, '.', ',') }}</td>
                                         </tr>
-
-                                        {{-- Total des actions pour le sous-programme --}}
-                                       
-                                      
+                                   
                                     @endforeach
                                     
                                 @endfor
+                              
                                 <tr class="ttaction-title">
                                     <td class="ttaction-title"colspan="2">Total des actions</td>
                                     @php
@@ -300,6 +300,7 @@
 
                                 </tr>
                             @endif
+                       
 
                          
                         @endforeach
