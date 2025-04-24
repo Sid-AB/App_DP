@@ -155,15 +155,16 @@ function print_dpa($numport)
         foreach($sousprog as $sprog)
         {
             $initsprog=initPort::where('num_sous_prog',$sprog->num_sous_prog)->get();
-          // dd($initsprog);
+          //dd($initsprog);
             foreach($initsprog as $init)
             {
                 $ttall=[];
-               
+               //dd( $ttall);
                if (isset($init->num_action))
             {
 
                 $actsect=Action::where('num_action',$init->num_action)->firstOrFail();
+                dd($actsect);
                 $TtAE1+=$init['AE_init_t1'];
                 $TtCP1+=$init['CP_init_t1'];
     
@@ -192,8 +193,8 @@ function print_dpa($numport)
                 'TotalT3_AE_ini'=>$init['AE_init_t3'],'TotalT3_CP_ini'=>$init['CP_init_t3'],
                 'TotalT4_AE_ini'=>$init['AE_init_t4'],'TotalT4_CP_ini'=>$init['CP_init_t4'],
             ];
-                array_push($act_ini,['actions'=>['code'=>$actsect->num_action,"nom"=>$actsect->nom_action,'TotalT'=>$ttall]]);
-               // dd($act_ini); 
+                array_push($act_ini,['actions'=>['code'=>$actsect->num_action,"nom"=>$actsect->nom_action,$actsect->type_action,'TotalT'=>$ttall]]);
+               dd($act_ini); 
                $ttall_ini=['TotalT1_AE'=>$TtAE1_act,'TotalT1_CP'=>$TtCP1_act,
                'TotalT2_AE'=>$TtAE2_act,'TotalT2_CP'=>$TtCP2_act,
                'TotalT3_AE'=>$TtAE3_act,'TotalT3_CP'=>$TtCP3_act,
@@ -228,7 +229,7 @@ function print_dpa($numport)
             }
 
            
-         // dd($sousprog_ini);
+          dd($sousprog_ini);
            
                    
         //array_push();
@@ -275,7 +276,7 @@ function print_dpa($numport)
     //modification et article 
 
     $art = Article::selectRaw("id_art, CONCAT(nom_art, ' (', code_art, ')') as nom")->get();
-   // dd($art);
+   dd($art);
     $modif = DB::table('modification_t_s as m1')
     ->join('articles', 'm1.id_art', '=', 'articles.id_art')
     ->whereRaw("SUBSTRING_INDEX(m1.num_prog, '-', 2) = ?", [$numport])
