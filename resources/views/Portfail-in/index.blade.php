@@ -269,7 +269,10 @@
                       @if(count($act['sous_action']) != 1)
                         <p class="fs-7 mb-0">Sous Action :{{$sous_act['num_act']}} </p>
                        @else
-                       @foreach($sous_act['Tports'] as $key=>$values)
+                       @if(!isset($sous_act['Tports']['centrale'] ))
+
+                       @foreach($sous_act['Tports']['centrale'] as $key=>$values)
+                       
                     
                        <div class="T-holder"> 
                         <p class="fs-7 mb-0"> {{$key}} </p>
@@ -279,6 +282,19 @@
                         </div>
                         </div>
                       @endforeach
+                      @else
+                      @foreach($sous_act['Tports']['delegation'] as $key=>$values)
+                       
+                    
+                       <div class="T-holder"> 
+                        <p class="fs-7 mb-0"> {{$key}} </p>
+                        <div class="TotalT-holder">
+                          <p>AE : {{$values['total'][0]['values']['totalAE']}} </p>
+                          <p>CP : {{$values['total'][0]['values']['totalCP']}} </p>
+                        </div>
+                        </div>
+                      @endforeach
+                      @endif
                        @endif 
                       @endforeach
                       @endif
@@ -666,6 +682,7 @@
             _method: "POST",},
             success:function(response)
             {
+              if(response.code == 200)
               window.location.href='/DPC/modif/'+id+'/?code='+response.account
              // 
             },
@@ -884,7 +901,14 @@ listItemsWithNestedUl.each(function(){
             _method: "POST",},
             success:function(response)
             {
+              if(response.code == 200)
+              {
               window.location.href='/creation/from/'+id+'/?code='+response.account;
+              }
+              else
+                {
+                  window.location.href='/update/pass?code='+response.code_generated+'&mail='+response.account
+                }
              // 
             },
             error:function()

@@ -236,7 +236,7 @@ let arrow = document.querySelectorAll(".arrow");
             _method: "POST",},
             success:function(response)
             {
-              window.location.href='/Form/?code='+response.account;
+             window.location.href='/Form/?code='+response.account;
              // 
             },
             error:function()

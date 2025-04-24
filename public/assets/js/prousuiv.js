@@ -623,6 +623,16 @@ $(document).ready(function(){
     $('input').focus(function() {
         $(this).removeAttr('style');
     });
+ var deleg_action="centrale"
+    $('#act_deleg').change(function() {
+        if ($(this).is(':checked')) {
+            deleg_action="delegation"
+            console.log('Checkbox is checked. Value:', $(this).val());
+        } else {
+              deleg_action="centrale"
+            console.log('Checkbox is unchecked.', $(this).val());
+        }
+    });
 
 //===================CHECK PROG==================================
 $("#date_insert_portef").on('focusout', function () {
@@ -874,7 +884,8 @@ calaulsomeAE_CP_sprog()
                     
                                         var T4_AE_init = $('#T4_AE_init').val()
                                         var T4_CP_init = $('#T4_CP_init').val()
-                                        var deleg_action=$('#act_deleg').val()
+                                        
+                                        
                                         var id_sou_prog = path[2];
                                         var numaction_year = id_sou_prog +'-'+num_act ;
                                         var nexthop = '<div class="pinfo-handle">' +
@@ -1063,7 +1074,7 @@ calaulsomeAE_CP_sprog()
                                                 T4_AE_init_AC: T4_AE_init,
                                                 T4_CP_init_AC: T4_CP_init,
                                                 code_t4: 40000,
-                                            action_delege:deleg_act,
+                                            action_delege:deleg_action,
                                             _token: $('meta[name="csrf-token"]').attr('content'),
                                             _method: 'POST'
                                         };

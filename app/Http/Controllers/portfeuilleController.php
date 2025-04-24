@@ -218,9 +218,17 @@ class portfeuilleController extends Controller
                                       {
                                         foreach($resultats as $Tresult)
                                         {
-                                           // dd($Tresult);
-                                            $AE_All_sous_act+=$Tresult['total'][0]['values']['totalAE'];
+                                           //dd($Tresult);
+                                           /* $AE_All_sous_act+=$Tresult['total'][0]['values']['totalAE'];
                                             $CP_All_sous_act+=$Tresult['total'][0]['values']['totalCP'];
+                                            dd($AE_All_sous_act);*/
+                                            foreach (['centrale', 'delegation'] as $typeAction) {
+                                                foreach (['T1', 'T2', 'T3', 'T4'] as $periode) {
+                                                    $AE_All_sous_act += $resultats[$typeAction][$periode]['total'][0]['values']['totalAE'];
+                                                    $CP_All_sous_act += $resultats[$typeAction][$periode]['total'][0]['values']['totalCP'];
+                                                   // dd($AE_All_sous_act );
+                                                }
+                                            }
                                         }
 
                                       }

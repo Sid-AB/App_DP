@@ -195,7 +195,7 @@ class sousOperationController extends Controller
 
     function AffichePortsAction ($port,$prog,$sous_prog,$act,Request $request)
     {
-
+      
         $act1=explode('_',$act);
         if(count($act1) > 1)
         {
@@ -281,7 +281,7 @@ class sousOperationController extends Controller
     }
 
     function AffichePortsSousAct ($port,$prog,$sous_prog,$act,$s_act,Request $request)
-    {
+    {  
         $s_act1=explode('_',$s_act);
         //dd($act1);
 
@@ -355,7 +355,7 @@ class sousOperationController extends Controller
 
             //dd($port, $prog, $sous_prog, $act,$s_act);
             $resultats = $this->CalculDpia->calculdpiaFromPath($port, $prog, $sous_prog, $act,$s_act);
-           // dd($resultats );
+          //  dd($resultats );
            
           //pour t3 
           $years=Portefeuille::where('num_portefeuil',$port)->firstOrFail();
@@ -412,7 +412,7 @@ class sousOperationController extends Controller
              if (isset($resultats[$t])) {
             // dd($resultats);
                  $tdata = $resultats[$t];
-                 
+                 //dd($tdata);
                  // chaque grp avec leurs sous operations
                  $groupedData = [];
                  foreach ($tdata['group'] as $group) {

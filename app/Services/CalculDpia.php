@@ -90,57 +90,51 @@ if (!empty($portefeuille)) {
             throw new \Exception("Portefeuille introuvable");
         }
          //dd( $portefeuille);
-        $totalAeT2 = 0;
-        $totalCpT2 = 0;
+         $calculs = [
+            'centrale' => [
+                'T1' => ['sousOperation' => [], 'operation' => [], 'group' => [], 'total' => []],
+                'T2' => ['sousOperation' => [], 'operation' => [], 'group' => [], 'total' => []],
+                'T3' => ['sousOperation' => [], 'operation' => [], 'group' => [], 'total' => []],
+                'T4' => ['sousOperation' => [], 'operation' => [], 'group' => [], 'total' => []]
+            ],
+            'delegation' => [
+                'T1' => ['sousOperation' => [], 'operation' => [], 'group' => [], 'total' => []],
+                'T2' => ['sousOperation' => [], 'operation' => [], 'group' => [], 'total' => []],
+                'T3' => ['sousOperation' => [], 'operation' => [], 'group' => [], 'total' => []],
+                'T4' => ['sousOperation' => [], 'operation' => [], 'group' => [], 'total' => []]
+            ]
+        ];
 
-        $totalAeT3 = 0;
-        $totalCpT3 = 0;
-
-        $totalAe = 0; //pour t1
-        $totalCp = 0;
-
-
-        $totalAet4 = 0; //pour  t4
-        $totalCpt4 = 0;
-
-        $groupT2 = [];
-        $totalt2= [];
-        $operationT2 = [];
-        $sousOperationT2 = [];
-
-        $groupT3 = [];
-        $totalt3= [];
-        $operationT3 = [];
-        $sousOperationT3 = [];
-
-        //pour t1
-        $groupT = [];
-        $totalt= [];
-        $operationT = [];
-        $sousOperationT = [];
-
-        //pour t1
-        $groupT4= [];
-        $totalt4= [];
-        $operationT4 = [];
-        $sousOperationT4 = [];
-
-        $totalAeOuvertGlobal=0;
-        $totalAeAttenduGlobal=0;
-        $totalCpOuvertGlobal=0;
-        $totalCpAttenduGlobal=0;
-
-
-        $totalAeNotifieGlobal=0;
-        $totalAeReporteGlobal=0;
-        $totalAeEngageGlobal=0;
-        $totalCpNotifieGlobal=0;
-        $totalCpReporteGlobal=0;
-        $totalCpConsomeGlobal=0;
-
-        $calculs = [
-            'centrale' => [],
-            'delegation' => [],
+   //initialisation des totaux globaaux
+        $totauxGlobaux = [
+            'centrale' => [
+                'T1' => ['totalAE' => 0, 'totalCP' => 0],
+                'T2' => [
+                    'totalAEouvrtvertical' => 0, 'totalAEattenduvertical' => 0,
+                    'totalCPouvrtvertical' => 0, 'totalCPattenduvertical' => 0,
+                    'totalAE' => 0, 'totalCP' => 0
+                ],
+                'T3' => [
+                    'totalAEreportevertical' => 0, 'totalAEnotifievertical' => 0, 'totalAEengagevertical' => 0,
+                    'totalCPreportevertical' => 0, 'totalCPnotifievertical' => 0, 'totalCPconsomevertical' => 0,
+                    'totalAE' => 0, 'totalCP' => 0
+                ],
+                'T4' => ['totalAE' => 0, 'totalCP' => 0]
+            ],
+            'delegation' => [
+                'T1' => ['totalAE' => 0, 'totalCP' => 0],
+                'T2' => [
+                    'totalAEouvrtvertical' => 0, 'totalAEattenduvertical' => 0,
+                    'totalCPouvrtvertical' => 0, 'totalCPattenduvertical' => 0,
+                    'totalAE' => 0, 'totalCP' => 0
+                ],
+                'T3' => [
+                    'totalAEreportevertical' => 0, 'totalAEnotifievertical' => 0, 'totalAEengagevertical' => 0,
+                    'totalCPreportevertical' => 0, 'totalCPnotifievertical' => 0, 'totalCPconsomevertical' => 0,
+                    'totalAE' => 0, 'totalCP' => 0
+                ],
+                'T4' => ['totalAE' => 0, 'totalCP' => 0]
+            ]
         ];
 
         // parcourir tous les programmes du portefeuille
@@ -151,395 +145,297 @@ if (!empty($portefeuille)) {
                 foreach ($sousProgramme->Action as $action) {
                    // dd($action);
                    $typeAction = $action->type_action;
+                   //dd($typeAction);
                     foreach ($action->SousAction as $sousAction) {
                        // dd($sousAction);
                         foreach ($sousAction->GroupOperation as $groupe) {
                             if($groupe->num_sous_action==$s_act)
                             {
                               //  dd($groupe);
-                                $groupeAeOuvert = 0;
-                                $groupeAeAttendu = 0;
-                                $groupeCpOuvert = 0;
-                                $groupeCpAttendu = 0;
-    
-                                $groupeAeReporte = 0; 
-                                $groupeAeNotife= 0;
-                                $groupeAeEngage= 0;
-                                $groupeCpReporte = 0;
-                                $groupeCpNotife= 0;
-                                $groupeCpConsome= 0;
-    
-                                //pour t1
-                                $groupeAe = 0;
-                                $groupeCp= 0;
-    
-                                $groupeAet4 = 0;
-                                $groupeCpt4 = 0;
+                              $groupeTotals = [
+                                'T2' => [
+                                    'ae_ouvert' => 0, 'ae_attendu' => 0, 'cp_ouvert' => 0, 'cp_attendu' => 0,
+                                    'total_ae' => 0, 'total_cp' => 0
+                                ],
+                                'T3' => [
+                                    'ae_reporte' => 0, 'ae_notifie' => 0, 'ae_engage' => 0,
+                                    'cp_reporte' => 0, 'cp_notifie' => 0, 'cp_consome' => 0
+                                ],
+                                'T1' => ['ae' => 0, 'cp' => 0],
+                                'T4' => ['ae' => 0, 'cp' => 0]
+                            ];
                                 foreach ($groupe->Operation as $operation) {
                                   // dd($operation);
-                                    $operationAeOuvert = 0;
-                                    $operationAeAttendu = 0;
-                                    $operationCPOuvert = 0;
-                                    $operationCPAttendu = 0;
-    
-                                    $operationAeReporte = 0;
-                                    $operationAeNotife = 0;
-                                    $operationAeEngage= 0;
-                                    $operationCPReporte = 0;
-                                    $operationCPNotife = 0;
-                                    $operationCPConsome = 0;
-    
-                                   //pour t1
-                                    $operationAe = 0;
-                                    $operationCP = 0;
-    
-                                    $operationAet4 = 0;
-                                    $operationCPt4 = 0;
+                                  $operationTotals = [
+                                    'T2' => [
+                                        'ae_ouvert' => 0, 'ae_attendu' => 0, 'cp_ouvert' => 0, 'cp_attendu' => 0,
+                                        'total_ae' => 0, 'total_cp' => 0
+                                    ],
+                                    'T3' => [
+                                        'ae_reporte' => 0, 'ae_notifie' => 0, 'ae_engage' => 0,
+                                        'cp_reporte' => 0, 'cp_notifie' => 0, 'cp_consome' => 0
+                                    ],
+                                    'T1' => ['ae' => 0, 'cp' => 0],
+                                    'T4' => ['ae' => 0, 'cp' => 0]
+                                ];
                                         // calculer la somme de chaque sous op
                                         foreach ($operation->SousOperation as $sousOperation) {
                                           //dd($sousOperation);
                          /***************************************** T2 ********************************************************** */
-                                            $sousopAeouvert= $sousOperation->AE_ouvert;
-                                            $sousopAeattendu= $sousOperation->AE_atendu;
-                                             // dd($sousopAeouvert,$sousopAeattendu);
-    
-                                             $sousopCpouvert= $sousOperation->CP_ouvert;
-                                            $sousopCpattendu= $sousOperation->CP_atendu;
-                                          //  dd($sousopCpouvert,$sousopCpattendu);
-    
-                                          $totalSousAeGlobal = $sousopAeouvert + $sousopAeattendu; // AE_ouvert + AE_attendu global
-                                          $totalSousCpGlobal = $sousopCpouvert + $sousopCpattendu; // CP_ouvert + CP_attendu global
-                                          //dd($totalSousAeGlobal,$totalSousCpGlobal);
-
-                                          if (!isset($calculs[$typeAction]['totalsousAe'])) {
-                                            $calculs[$typeAction]['totalsousAe'] = 0;
-                                            $calculs[$typeAction]['totalsousCp'] = 0;
-                                        }
-                
-                                        $calculs[$typeAction]['totalsousAe'] += $totalSousAeGlobal;
-                                        $calculs[$typeAction]['totalsousCp'] += $totalSousCpGlobal;
-                
-                                                  //calcul l'operation depuis les sous operations
-                                          $operationAeOuvert += $sousOperation->AE_ouvert;
-                                          $operationAeAttendu += $sousOperation->AE_atendu;
-                                          $operationCPOuvert += $sousOperation->CP_ouvert;
-                                          $operationCPAttendu += $sousOperation->CP_atendu;
-    
-                                          $totalOPAeGlobal = $operationAeOuvert + $operationAeAttendu; // AE_ouvert + AE_attendu global ligne(horizontale)
-                                          $totalOPCpGlobal = $operationCPOuvert + $operationCPAttendu;
-
-                                          if (!isset($calculs[$typeAction]['totalopAe'])) {
-                                            $calculs[$typeAction]['totalopAe'] = 0;
-                                            $calculs[$typeAction]['totalopCp'] = 0;
-                                        }
-                
-                                        $calculs[$typeAction]['totalopAe'] += $totalOPAeGlobal;
-                                        $calculs[$typeAction]['totalopCp'] += $totalOPCpGlobal;
-                
-                                     
                                         
                                           if($sousOperation->code_t2==20000) {
-                                            $calculs[$typeAction]['sousOperationT2'][]= [
-                                                "code" => $sousOperation->code_sous_operation,
-                                                "nom" => $sousOperation->nom_sous_operation,
-                                                "values" => [
-                                                    'ae_ouvertsousop' => $sousopAeouvert,
-                                                    'ae_attendusousop' => $sousopAeattendu,
-                                                    'cp_ouvertsousop' => $sousopCpouvert,
-                                                    'cp_attendsousuop' => $sousopCpattendu,
-                                                    'ae_ouvertsousop_NONREPARTIS' => $sousOperation->AE_ouvert_NONREPARTIS,
-                                                    'ae_attendusousop_NONREPARTIS' => $sousOperation->AE_atendu_NONREPARTIS,
-                                                    'cp_ouvertsousop_NONREPARTIS' => $sousOperation->CP_ouvert_NONREPARTIS,
-                                                    'cp_attendsousuop_NONREPARTIS' => $sousOperation->CP_atendu_NONREPARTIS,
-                                                    'totalAEsousop' => $totalSousAeGlobal,
-                                                    'totalCPsousop' => $totalSousCpGlobal,
-
-                                                    'totalAEsousop_NONREPARTIS' =>  $sousOperation->AE_ouvert_NONREPARTIS+ $sousOperation->AE_atendu_NONREPARTIS,
-                                                    'totalCPsousop_NONREPARTIS' => $sousOperation->CP_ouvert_NONREPARTIS+ $sousOperation->CP_atendu_NONREPARTIS,
-                                                ]  ];
-                                          }
-    
-   
+                                            $totalSousAe = $sousOperation->AE_ouvert + $sousOperation->AE_atendu;
+                                            $totalSousCp = $sousOperation->CP_ouvert + $sousOperation->CP_atendu;
+                                            $calculs[$typeAction]['T2']['sousOperation'][] = [
+                                                'code' => $sousOperation->code_sous_operation,
+                                                'nom' => $sousOperation->nom_sous_operation,
+                                                'values' => [
+                                                    'ae_ouvert' => $sousOperation->AE_ouvert,
+                                                    'ae_attendu' => $sousOperation->AE_atendu,
+                                                    'cp_ouvert' => $sousOperation->CP_ouvert,
+                                                    'cp_attendu' => $sousOperation->CP_atendu,
+                                                    'total_ae' => $totalSousAe,
+                                                    'total_cp' => $totalSousCp,
+                                                    'ae_ouvert_nonrepartis' => $sousOperation->AE_ouvert_NONREPARTIS,
+                                                    'ae_attendu_nonrepartis' => $sousOperation->AE_atendu_NONREPARTIS,
+                                                    'cp_ouvert_nonrepartis' => $sousOperation->CP_ouvert_NONREPARTIS,
+                                                    'cp_attendu_nonrepartis' => $sousOperation->CP_atendu_NONREPARTIS,
+                                                    'total_ae_nonrepartis' => $sousOperation->AE_ouvert_NONREPARTIS + $sousOperation->AE_atendu_NONREPARTIS,
+                                                    'total_cp_nonrepartis' => $sousOperation->CP_ouvert_NONREPARTIS + $sousOperation->CP_atendu_NONREPARTIS
+                                                ]
+                                            ];
+                                            // dd($calculs[$typeAction]['T2']['sousOperation']);
+                                            $operationTotals['T2']['ae_ouvert'] += $sousOperation->AE_ouvert;
+                                            $operationTotals['T2']['ae_attendu'] += $sousOperation->AE_atendu;
+                                            $operationTotals['T2']['cp_ouvert'] += $sousOperation->CP_ouvert;
+                                            $operationTotals['T2']['cp_attendu'] += $sousOperation->CP_atendu;
+                                            $operationTotals['T2']['total_ae'] += $totalSousAe;
+                                            $operationTotals['T2']['total_cp'] += $totalSousCp;
+                                            // dd( $operationTotals['T2']['ae_ouvert']);
+                                            
+                                        }
     
                           /****************************************T3******************************************************************* */
     
-                                             $sousopAereporte= $sousOperation->AE_reporte;
-                                             $sousopAenotifie= $sousOperation->AE_notifie;
-                                             $sousopAeengage= $sousOperation->AE_engage;
-                                            //dd($sousopAereporte,$sousopAenotifie, $sousopAeengage);
-    
-    
-                                          $sousopCpreporte= $sousOperation->CP_reporte;
-                                          $sousopCpnotifie= $sousOperation->CP_notifie;
-                                          $sousopCpconsome= $sousOperation->CP_consome;
-                                         // dd($sousopCpreporte,$sousopCpnotifie, $sousopCpconsome);
-    
-    
-                                           //calcul l'operation depuis les sous operations
-                                           $operationAeReporte += $sousOperation->AE_reporte;
-                                           $operationAeNotife += $sousOperation->AE_notifie;
-                                           $operationAeEngage += $sousOperation->AE_engage;
-                                           $operationCPReporte += $sousOperation->CP_reporte;
-                                           $operationCPNotife += $sousOperation->CP_notifie;
-                                           $operationCPConsome += $sousOperation->CP_consome;
-                                           //dd($operationAeReporte,$operationAeNotife, $operationAeEngage,$operationCPReporte,$operationCPNotife,$operationCPConsome);
-    
-                                           if($sousOperation->code_t3==30000) {
-                                            $calculs[$typeAction]['sousOperationT3'][] = [
-                                               "code" => $sousOperation->code_sous_operation,
-                                               "nom" => $sousOperation->nom_sous_operation,
-                                               "values" => [
-                                                   'ae_reportesousop' => $sousopAereporte,
-                                                   'ae_notifiesousop' => $sousopAenotifie,
-                                                   'ae_engagesousop' => $sousopAeengage,
-                                                   'cp_reportesousuop' => $sousopCpreporte,
-                                                   'cp_notifiesousop' => $sousopCpnotifie,
-                                                   'cp_consomesousop' => $sousopCpconsome,
-
-                                                   'ae_reportesousop_NONREPARTIS' =>  $sousOperation->AE_reporte_NONREPARTIS,
-                                                   'ae_notifiesousop_NONREPARTIS' => $sousOperation->AE_notifie_NONREPARTIS,
-                                                   'ae_engagesousop_NONREPARTIS' => $sousOperation->AE_engage_NONREPARTIS,
-                                                   'cp_reportesousuop_NONREPARTIS' => $sousOperation->CP_reporte_NONREPARTIS,
-                                                   'cp_notifiesousop_NONREPARTIS' => $sousOperation->CP_notifie_NONREPARTIS,
-                                                   'cp_consomesousop_NONREPARTIS' => $sousOperation->CP_consome_NONREPARTIS,
-
-                                                   'totalae_NONREPARTIS'=>$sousOperation->AE_reporte_NONREPARTIS+$sousOperation->AE_notifie_NONREPARTIS+$sousOperation->AE_engage_NONREPARTIS,
-                                                   'totalcp_NONREPARTIS'=>$sousOperation->CP_reporte_NONREPARTIS+$sousOperation->CP_notifie_NONREPARTIS+$sousOperation->CP_consome_NONREPARTIS,
-
-
-                                               ]  ];
-                                           }
-    
+                                        if ($sousOperation->code_t3 == 30000) {
+                                            $calculs[$typeAction]['T3']['sousOperation'][] = [
+                                                'code' => $sousOperation->code_sous_operation,
+                                                'nom' => $sousOperation->nom_sous_operation,
+                                                'values' => [
+                                                    'ae_reporte' => $sousOperation->AE_reporte,
+                                                    'ae_notifie' => $sousOperation->AE_notifie,
+                                                    'ae_engage' => $sousOperation->AE_engage,
+                                                    'cp_reporte' => $sousOperation->CP_reporte,
+                                                    'cp_notifie' => $sousOperation->CP_notifie,
+                                                    'cp_consome' => $sousOperation->CP_consome,
+                                                    'ae_reporte_nonrepartis' => $sousOperation->AE_reporte_NONREPARTIS,
+                                                    'ae_notifie_nonrepartis' => $sousOperation->AE_notifie_NONREPARTIS,
+                                                    'ae_engage_nonrepartis' => $sousOperation->AE_engage_NONREPARTIS,
+                                                    'cp_reporte_nonrepartis' => $sousOperation->CP_reporte_NONREPARTIS,
+                                                    'cp_notifie_nonrepartis' => $sousOperation->CP_notifie_NONREPARTIS,
+                                                    'cp_consome_nonrepartis' => $sousOperation->CP_consome_NONREPARTIS,
+                                                    'total_ae_nonrepartis' => $sousOperation->AE_reporte_NONREPARTIS + $sousOperation->AE_notifie_NONREPARTIS + $sousOperation->AE_engage_NONREPARTIS,
+                                                    'total_cp_nonrepartis' => $sousOperation->CP_reporte_NONREPARTIS + $sousOperation->CP_notifie_NONREPARTIS + $sousOperation->CP_consome_NONREPARTIS
+                                                ]
+                                            ];
+                                                //dd( $calculs[$typeAction]['T3']['sousOperation']);
+                                            $operationTotals['T3']['ae_reporte'] += $sousOperation->AE_reporte;
+                                            $operationTotals['T3']['ae_notifie'] += $sousOperation->AE_notifie;
+                                            $operationTotals['T3']['ae_engage'] += $sousOperation->AE_engage;
+                                            $operationTotals['T3']['cp_reporte'] += $sousOperation->CP_reporte;
+                                            $operationTotals['T3']['cp_notifie'] += $sousOperation->CP_notifie;
+                                            $operationTotals['T3']['cp_consome'] += $sousOperation->CP_consome;
+                                        }
+                                       
                             /************************************T1********************************************************** */
     
-                                            $sousopAe= $sousOperation->AE_sous_operation;
-                                            $sousopcP= $sousOperation->CP_sous_operation;
-                                            //dd($sousopAe,$sousopcP);
-    
-                                           //calcul l'operation depuis les sous operations
-                                           $operationAe+= $sousOperation->AE_sous_operation;
-                                           $operationCP+= $sousOperation->CP_sous_operation;
-    
-                                           if($sousOperation->code_t1==10000) {
-                                            $calculs[$typeAction]['sousOperationT'][] = [
-                                                "code" => $sousOperation->code_sous_operation,
-                                                "nom" => $sousOperation->nom_sous_operation,
-                                                "values" => [
-                                                    'ae_sousop' => $sousopAe,
-                                                    'cp_sousuop' => $sousopcP,
+                                            if ($sousOperation->code_t1 == 10000) {
+                                                $calculs[$typeAction]['T1']['sousOperation'][] = [
+                                                    'code' => $sousOperation->code_sous_operation,
+                                                    'nom' => $sousOperation->nom_sous_operation,
+                                                    'values' => [
+                                                        'ae_sousop' => $sousOperation->AE_sous_operation,
+                                                        'cp_sousop' => $sousOperation->CP_sous_operation,
+                                                        'ae_sousop_nonrepartis' => $sousOperation->AE_sous_operation_NONREPARTIS ?? $sousOperation->AE_sous_operation,
+                                                        'cp_sousop_nonrepartis' => $sousOperation->CP_sous_operation_NONREPARTIS ?? $sousOperation->CP_sous_operation
+                                                    ]
+                                                ];
 
-                                                    'ae_sousop_NONREPARTIS' => $sousOperation->AE_sous_operation,
-                                                    'cp_sousuop_NONREPARTIS' => $sousOperation->CP_sous_operation,
-                                                  
-    
-                                                ]  ];
-                                          }
-                /*****************************************T4********************************************************** */
-    
-                                              $sousopAet4= $sousOperation->AE_sous_operation;
-                                              $sousopcPt4= $sousOperation->CP_sous_operation;
-                                              //dd($sousopAet4,$sousopcPt4);
-    
-                                             //calcul l'operation depuis les sous operations
-                                             $operationAet4 += $sousOperation->AE_sous_operation;
-                                             $operationCPt4 += $sousOperation->CP_sous_operation;
-    
-                                             if(isset($sousOperation) && $sousOperation->code_t4==40000) {
-                                                $calculs[$typeAction]['sousOperationT4'][] = [
-                                                  "code" => $sousOperation->code_sous_operation,
-                                                  "nom" => $sousOperation->nom_sous_operation,
-                                                  "values" => [
-                                                      'ae_sousop' => $sousopAet4,
-                                                      'cp_sousuop' => $sousopcPt4,
-
-                                                      'ae_sousop_NONREPARTIS' => $sousOperation->AE_sous_operation,
-                                                      'cp_sousuop_NONREPARTIS' => $sousOperation->CP_sous_operation,
-    
-                                                  ]  ];
+                                                $operationTotals['T1']['ae'] += $sousOperation->AE_sous_operation;
+                                                $operationTotals['T1']['cp'] += $sousOperation->CP_sous_operation;
                                             }
-    
-    
+                /*****************************************T4********************************************************** */
+                                                if ($sousOperation->code_t4 == 40000) {
+                                                    $calculs[$typeAction]['T4']['sousOperation'][] = [
+                                                        'code' => $sousOperation->code_sous_operation,
+                                                        'nom' => $sousOperation->nom_sous_operation,
+                                                        'values' => [
+                                                            'ae_sousop' => $sousOperation->AE_sous_operation,
+                                                            'cp_sousop' => $sousOperation->CP_sous_operation,
+                                                            'ae_sousop_nonrepartis' => $sousOperation->AE_sous_operation_NONREPARTIS ?? $sousOperation->AE_sous_operation,
+                                                            'cp_sousop_nonrepartis' => $sousOperation->CP_sous_operation_NONREPARTIS ?? $sousOperation->CP_sous_operation
+                                                        ]
+                                                    ];
+
+                                                    $operationTotals['T4']['ae'] += $sousOperation->AE_sous_operation;
+                                                    $operationTotals['T4']['cp'] += $sousOperation->CP_sous_operation;
+                                                }
                                         }
     
                                    // dd($operationAeOuvert,$operationAeAttendu,$operationCPOuvert , $operationCPAttendu);
                                     //dd($totalOPAeGlobal,$totalOPCpGlobal);
-                                    if(isset($sousOperation) && $sousOperation->code_t2==20000) {
-                                    $operationT2[] = [
-                                        "code" => $operation->code_operation,
-                                        "nom" => $operation->nom_operation,
-                                        "values" => [
-                                            'ae_ouvertop' => $operationAeOuvert,
-                                            'ae_attenduop' => $operationAeAttendu,
-                                            'cp_ouvertop' => $operationCPOuvert,
-                                            'cp_attenduop' => $operationCPAttendu,
-                                            'totalAEop' => $totalOPAeGlobal, //total horizontal
-                                            'totalCPop' => $totalOPCpGlobal,
-                                        ]  ];}
-    
+                                // Ajouter les opérations aux résultats
+                                if ($operationTotals['T2']['total_ae'] > 0 || $operationTotals['T2']['total_cp'] > 0) {
+                                    $calculs[$typeAction]['T2']['operation'][] = [
+                                        'code' => $operation->code_operation,
+                                        'nom' => $operation->nom_operation,
+                                        'values' => [
+                                            'ae_ouvert' => $operationTotals['T2']['ae_ouvert'],
+                                            'ae_attendu' => $operationTotals['T2']['ae_attendu'],
+                                            'cp_ouvert' => $operationTotals['T2']['cp_ouvert'],
+                                            'cp_attendu' => $operationTotals['T2']['cp_attendu'],
+                                            'total_ae' => $operationTotals['T2']['total_ae'],
+                                            'total_cp' => $operationTotals['T2']['total_cp']
+                                        ]
+                                    ];
+                                }
                                         // ajouter les valeurs de l'operation au groupe d'op
-                                        $groupeAeOuvert += $operationAeOuvert;
-                                        $groupeAeAttendu += $operationAeAttendu;
-                                        $groupeCpOuvert += $operationCPOuvert;
-                                        $groupeCpAttendu += $operationCPAttendu;
+                                     
     
-                                        //dd($groupeAeOuvert,$groupeAeAttendu,$groupeCpOuvert , $groupeCpAttendu);
-    
-                                        $totalgroupAeGlobal = $groupeAeOuvert + $groupeAeAttendu; // AE_ouvert + AE_attendu global horizental
-                                        $totalgroupCpGlobal = $groupeCpOuvert + $groupeCpAttendu;
-    
-                                       // dd($totalgroupAeGlobal,$totalgroupCpGlobal);
-    
+                                     
                 /********************************************************************* T3******************************************************* */
-                                      if(isset($sousOperation) && $sousOperation->code_t3==30000) {
-                                        $operationT3[] = [
-                                            "code" => $operation->code_operation,
-                                            "nom" => $operation->nom_operation,
-                                            "values" => [
-                                                'ae_reporteop' => $operationAeReporte,
-                                                'ae_notifieop' => $operationAeNotife,
-                                                'ae_engageop' => $operationAeEngage,
-                                                'cp_reporteop' => $operationCPReporte,
-                                                'cp_notifieop' => $operationCPNotife,
-                                                'cp_consomeop' => $operationCPConsome,
-    
-                                            ]  ];  }
-    
+                                        if ($operationTotals['T3']['ae_reporte'] > 0 || $operationTotals['T3']['cp_reporte'] > 0) {
+                                            $calculs[$typeAction]['T3']['operation'][] = [
+                                                'code' => $operation->code_operation,
+                                                'nom' => $operation->nom_operation,
+                                                'values' => [
+                                                    'ae_reporte' => $operationTotals['T3']['ae_reporte'],
+                                                    'ae_notifie' => $operationTotals['T3']['ae_notifie'],
+                                                    'ae_engage' => $operationTotals['T3']['ae_engage'],
+                                                    'cp_reporte' => $operationTotals['T3']['cp_reporte'],
+                                                    'cp_notifie' => $operationTotals['T3']['cp_notifie'],
+                                                    'cp_consome' => $operationTotals['T3']['cp_consome']
+                                                ]
+                                            ];
+                                        }
                                              // ajouter les valeurs de l'operation au groupe d'op
-                                        $groupeAeReporte += $operationAeReporte;
-                                        $groupeAeNotife += $operationAeNotife;
-                                        $groupeAeEngage += $operationAeEngage;
-                                        $groupeCpReporte += $operationCPReporte;
-                                        $groupeCpNotife += $operationCPNotife;
-                                        $groupeCpConsome += $operationCPConsome;
+                                      
     
-                                        //dd($groupeAeReporte,$groupeAeNotife,$groupeAeEngage , $groupeCpReporte,$groupeCpNotife,$groupeCpConsome);
+                                       
            /********************************************************************* T1******************************************************* */
-                                        if(isset($sousOperation) && $sousOperation->code_t1==10000) {
-                                            $operationT[] = [
-                                                "code" => $operation->code_operation,
-                                                "nom" => $operation->nom_operation,
-                                                "values" => [
-                                                    'ae_op' => $operationAe,
-                                                    'cp_op' => $operationCP,
-    
-                                                ]  ];
-                                             }
+                                        if ($operationTotals['T1']['ae'] > 0 || $operationTotals['T1']['cp'] > 0) {
+                                            $calculs[$typeAction]['T1']['operation'][] = [
+                                                'code' => $operation->code_operation,
+                                                'nom' => $operation->nom_operation,
+                                                'values' => [
+                                                    'ae_op' => $operationTotals['T1']['ae'],
+                                                    'cp_op' => $operationTotals['T1']['cp']
+                                                ]
+                                            ];
+                                        }
                                                      // ajouter les valeurs de l'operation au groupe d'op
-                                            $groupeAe += $operationAe;
-                                            $groupeCp += $operationCP;
-                                           // dd($groupeAe,$groupeCp);
+                                           
     
             /********************************************************************* T4******************************************************* */
-                                        if(isset($sousOperation) && $sousOperation->code_t4==40000) {
-                                            $operationT4[] = [
-                                                "code" => $operation->code_operation,
-                                                "nom" => $operation->nom_operation,
-                                                "values" => [
-                                                    'ae_op' => $operationAet4,
-                                                    'cp_op' => $operationCPt4,
-    
-                                                ]  ];
-                                             }
-    
+                                        if ($operationTotals['T4']['ae'] > 0 || $operationTotals['T4']['cp'] > 0) {
+                                            $calculs[$typeAction]['T4']['operation'][] = [
+                                                'code' => $operation->code_operation,
+                                                'nom' => $operation->nom_operation,
+                                                'values' => [
+                                                    'ae_op' => $operationTotals['T4']['ae'],
+                                                    'cp_op' => $operationTotals['T4']['cp']
+                                                ]
+                                            ];
+                                        }
     
                                                 // ajouter les valeurs de l'operation au groupe d'op
-                                            $groupeAet4 += $operationAet4;
-                                            $groupeCpt4 += $operationCPt4;
-                                           // dd($groupeAe,$groupeCp);
+                                        
+                                                foreach ($operationTotals as $t => $totals) {
+                                                    foreach ($totals as $aecp => $value) {
+                                                        $groupeTotals[$t][$aecp] += $value;
+                                                    }
+                                                   
+                                                }
+                                               
+                                            }
+                                            //dd($groupeTotals[$t][$aecp]);
     
-                                        }
-    
-                                        if(isset($sousOperation) && $sousOperation->code_t2==20000) {
-                                        $groupT2[] = [
-                                            "code" => $groupe->code_grp_operation,
-                                            "nom" => $groupe->nom_grp_operation,
-                                             "values" => [
-                                                'ae_ouvertgrpop' => $groupeAeOuvert,
-                                                'ae_attendugrpop' => $groupeAeAttendu,
-                                                'cp_ouvertgrpop' => $groupeCpOuvert,
-                                                'cp_attendugrpop' => $groupeCpAttendu,
-                                                'totalAEgrpop' => $totalgroupAeGlobal,
-                                                'totalCPgrpop' => $totalgroupCpGlobal,
-    
-                                        ]
-                                    ];}
-                                        // calculer le total ae et cp par colonne
-                                        $totalAeOuvertGlobal += $groupeAeOuvert;
-                                        $totalAeAttenduGlobal += $groupeAeAttendu;
-                                        $totalCpOuvertGlobal += $groupeCpOuvert;
-                                        $totalCpAttenduGlobal += $groupeCpAttendu;
-    
-                                        //dd($totalAeOuvertGlobal,$totalAeAttenduGlobal,$totalCpOuvertGlobal,$totalCpAttenduGlobal);
-    
-                                        $totalAeT2= $totalAeOuvertGlobal + $totalAeAttenduGlobal; // AE_ouvert + AE_attendu global
-                                        $totalCpT2 = $totalCpOuvertGlobal + $totalCpAttenduGlobal;
-                                        //dd($totalAeT2,$totalCpT2); //total de sous action
-    
+                                            if ($groupeTotals['T2']['total_ae'] > 0 || $groupeTotals['T2']['total_cp'] > 0) {
+                                                $calculs[$typeAction]['T2']['group'][] = [
+                                                    'code' => $groupe->code_grp_operation,
+                                                    'nom' => $groupe->nom_grp_operation,
+                                                    'values' => [
+                                                        'ae_ouvert' => $groupeTotals['T2']['ae_ouvert'],
+                                                        'ae_attendu' => $groupeTotals['T2']['ae_attendu'],
+                                                        'cp_ouvert' => $groupeTotals['T2']['cp_ouvert'],
+                                                        'cp_attendu' => $groupeTotals['T2']['cp_attendu'],
+                                                        'total_ae' => $groupeTotals['T2']['total_ae'],
+                                                        'total_cp' => $groupeTotals['T2']['total_cp']
+                                                    ]
+                                                ];
+                
+                                      
+                                                $totauxGlobaux[$typeAction]['T2']['totalAEouvrtvertical'] += $groupeTotals['T2']['ae_ouvert'];
+                                                $totauxGlobaux[$typeAction]['T2']['totalAEattenduvertical'] += $groupeTotals['T2']['ae_attendu'];
+                                                $totauxGlobaux[$typeAction]['T2']['totalCPouvrtvertical'] += $groupeTotals['T2']['cp_ouvert'];
+                                                $totauxGlobaux[$typeAction]['T2']['totalCPattenduvertical'] += $groupeTotals['T2']['cp_attendu'];
+                                                $totauxGlobaux[$typeAction]['T2']['totalAE'] += $groupeTotals['T2']['total_ae'];
+                                                $totauxGlobaux[$typeAction]['T2']['totalCP'] += $groupeTotals['T2']['total_cp'];
+                                            }
              /*************************************************T3*********************************************************************** */
-                                         if(isset($sousOperation) && $sousOperation->code_t3==30000) {
-                                            $groupT3[] = [
-                                                "code" => $groupe->code_grp_operation,
-                                                "nom" => $groupe->nom_grp_operation,
-                                                "values" => [
-                                                    'ae_reportegrpop' => $groupeAeReporte,
-                                                    'ae_notifiegrpop' => $groupeAeNotife,
-                                                    'ae_engagegrpop' => $groupeAeEngage,
-                                                    'cp_reportegrpop' => $groupeCpReporte,
-                                                    'cp_notifiegrpop' => $groupeCpNotife,
-                                                    'cp_consomegrpop' => $groupeCpConsome,
-    
-                                            ]
-                                        ]; }
-    
-                                        // calculer le total ae et cp par colonne
-                                        $totalAeReporteGlobal += $groupeAeReporte;
-                                        $totalAeNotifieGlobal += $groupeAeNotife;
-                                        $totalAeEngageGlobal += $groupeAeEngage;
-                                        $totalCpReporteGlobal += $groupeCpReporte;
-                                        $totalCpNotifieGlobal += $groupeCpNotife;
-                                        $totalCpConsomeGlobal += $groupeCpConsome;
-                                        //dd($totalAeReporteGlobal,$totalAeNotifieGlobal,$totalAeEngageGlobal,$totalCpReporteGlobal,$totalCpNotifieGlobal,$totalCpConsomeGlobal);
-    
-                                        $totalAeT3= $totalAeReporteGlobal + $totalAeNotifieGlobal+ $totalAeEngageGlobal ;
-                                        $totalCpT3 = $totalCpReporteGlobal + $totalCpNotifieGlobal+$totalCpConsomeGlobal;
-                                        //dd($totalAeT3,$totalCpT3); //total de sous action
-    
+                                            if ($groupeTotals['T3']['ae_reporte'] > 0 || $groupeTotals['T3']['cp_reporte'] > 0) {
+                                                $calculs[$typeAction]['T3']['group'][] = [
+                                                    'code' => $groupe->code_grp_operation,
+                                                    'nom' => $groupe->nom_grp_operation,
+                                                    'values' => [
+                                                        'ae_reporte' => $groupeTotals['T3']['ae_reporte'],
+                                                        'ae_notifie' => $groupeTotals['T3']['ae_notifie'],
+                                                        'ae_engage' => $groupeTotals['T3']['ae_engage'],
+                                                        'cp_reporte' => $groupeTotals['T3']['cp_reporte'],
+                                                        'cp_notifie' => $groupeTotals['T3']['cp_notifie'],
+                                                        'cp_consome' => $groupeTotals['T3']['cp_consome']
+                                                    ]
+                                                ];
+
+                                               
+                                                $totauxGlobaux[$typeAction]['T3']['totalAEreportevertical'] += $groupeTotals['T3']['ae_reporte'];
+                                                $totauxGlobaux[$typeAction]['T3']['totalAEnotifievertical'] += $groupeTotals['T3']['ae_notifie'];
+                                                $totauxGlobaux[$typeAction]['T3']['totalAEengagevertical'] += $groupeTotals['T3']['ae_engage'];
+                                                $totauxGlobaux[$typeAction]['T3']['totalCPreportevertical'] += $groupeTotals['T3']['cp_reporte'];
+                                                $totauxGlobaux[$typeAction]['T3']['totalCPnotifievertical'] += $groupeTotals['T3']['cp_notifie'];
+                                                $totauxGlobaux[$typeAction]['T3']['totalCPconsomevertical'] += $groupeTotals['T3']['cp_consome'];
+                                                $totauxGlobaux[$typeAction]['T3']['totalAE'] += $groupeTotals['T3']['ae_reporte'] + $groupeTotals['T3']['ae_notifie'] + $groupeTotals['T3']['ae_engage'];
+                                                $totauxGlobaux[$typeAction]['T3']['totalCP'] += $groupeTotals['T3']['cp_reporte'] + $groupeTotals['T3']['cp_notifie'] + $groupeTotals['T3']['cp_consome'];
+                                            }
             /*********************************************************************T1***************************************************** ********/
-                                            if(isset($sousOperation) && $sousOperation->code_t1==10000) {
-                                                $groupT[] = [
-                                                    "code" => $groupe->code_grp_operation,
-                                                    "nom" => $groupe->nom_grp_operation,
-                                                    "values" => [
-                                                        'ae_grpop' => $groupeAe,
-                                                        'cp_grpop' => $groupeCp,
-    
-                                                ]
-                                            ];
-                                            // calculer le total ae et cp par colonne
-                                            $totalAe += $groupeAe;
-                                            $totalCp += $groupeCp;}
-                                            //dd($totalAe,$totalCp);
-    
+                                            if ($groupeTotals['T1']['ae'] > 0 || $groupeTotals['T1']['cp'] > 0) {
+                                                $calculs[$typeAction]['T1']['group'][] = [
+                                                    'code' => $groupe->code_grp_operation,
+                                                    'nom' => $groupe->nom_grp_operation,
+                                                    'values' => [
+                                                        'ae_grpop' => $groupeTotals['T1']['ae'],
+                                                        'cp_grpop' => $groupeTotals['T1']['cp']
+                                                    ]
+                                                ];
+
+                                                $totauxGlobaux[$typeAction]['T1']['totalAE'] += $groupeTotals['T1']['ae'];
+                                                $totauxGlobaux[$typeAction]['T1']['totalCP'] += $groupeTotals['T1']['cp'];
+                                            }
          /*********************************************************************T1/T4***************************************************** ********/
-                                            if(isset($sousOperation) && $sousOperation->code_t4==40000)
-                                             {
-                                                $groupT4[] = [
-                                                    "code" => $groupe->code_grp_operation,
-                                                    "nom" => $groupe->nom_grp_operation,
-                                                    "values" => [
-                                                        'ae_grpop' => $groupeAet4,
-                                                        'cp_grpop' => $groupeCpt4,
-    
+                                        if ($groupeTotals['T4']['ae'] > 0 || $groupeTotals['T4']['cp'] > 0) {
+                                            $calculs[$typeAction]['T4']['group'][] = [
+                                                'code' => $groupe->code_grp_operation,
+                                                'nom' => $groupe->nom_grp_operation,
+                                                'values' => [
+                                                    'ae_grpop' => $groupeTotals['T4']['ae'],
+                                                    'cp_grpop' => $groupeTotals['T4']['cp']
                                                 ]
                                             ];
-    
-    
-                                            // calculer le total ae et cp par colonne
-                                            $totalAet4 += $groupeAet4;
-                                            $totalCpt4 += $groupeCpt4;
+
+                                       
+                                            $totauxGlobaux[$typeAction]['T4']['totalAE'] += $groupeTotals['T4']['ae'];
+                                            $totauxGlobaux[$typeAction]['T4']['totalCP'] += $groupeTotals['T4']['cp'];
                                         }
-                                         //   dd($totalAe,$totalCp);
-    
     
                             }
                              
@@ -555,87 +451,17 @@ if (!empty($portefeuille)) {
             
              //  dd($operationT4);
                  // dd($totalAe,$totalCp);
-                 $totalt[] = [
-                    "values" => [
-
-                        'totalAE' => $totalAe,
-                        'totalCP' => $totalCp,
-                    ]
-
-                    ];
-
-               $totalt2[] = [
-                    "values" => [
-                        'totalAEouvrtvertical'=> $totalAeOuvertGlobal,
-                        'totalAEattenduvertical'=> $totalAeAttenduGlobal ,
-                        'totalCPouvrtvertical'=>  $totalCpOuvertGlobal ,
-                        'totalCPattenduvertical'=> $totalCpAttenduGlobal ,
-
-                        'totalAE' => $totalAeT2,
-                        'totalCP' => $totalCpT2,
-
-                     
-                                            ]
-
-                    ];
-
-                    $totalt3[] = [
-                        "values" => [
-                            'totalAEreportevertical'=> $totalAeReporteGlobal,
-                            'totalAEnotifievertical'=> $totalAeNotifieGlobal ,
-                            'totalAEengagevertical'=> $totalAeEngageGlobal ,
-                            'totalCPreportevertical'=>  $totalCpReporteGlobal ,
-                            'totalCPnotifievertical'=> $totalCpNotifieGlobal ,
-                            'totalCPconsomevertical'=> $totalCpConsomeGlobal ,
-
-                            'totalAE' => $totalAeT3,
-                            'totalCP' => $totalCpT3,
-                        ]
-
-                        ];
-
-                       
-                            $totalt4[] = [
-                                "values" => [
-
-                                    'totalAE' => $totalAet4,
-                                    'totalCP' => $totalCpt4,
-                                ]
-
-                                ];
+                 foreach (['centrale', 'delegation'] as $typeAction) {
+                    $calculs[$typeAction]['T1']['total'] = [['values' => $totauxGlobaux[$typeAction]['T1']]];
+                    $calculs[$typeAction]['T2']['total'] = [['values' => $totauxGlobaux[$typeAction]['T2']]];
+                    $calculs[$typeAction]['T3']['total'] = [['values' => $totauxGlobaux[$typeAction]['T3']]];
+                    $calculs[$typeAction]['T4']['total'] = [['values' => $totauxGlobaux[$typeAction]['T4']]];
+                }
 
                      // retourner les résultats
 
                     // dd($operationT4);
-                      return[
-                            'T1'=>['sousOperation' => $sousOperationT,
-                            'operation' => $operationT,
-                            'group' => $groupT,
-                            'total' => $totalt,] ,
-                            
-                            'T2'=>['sousOperation' => $sousOperationT2,
-                            'operation' => $operationT2,
-                            'group' => $groupT2,
-                            'total' => $totalt2,] ,
-
-
-                           'T3'=>['sousOperation' => $sousOperationT3,
-                            'operation' => $operationT3,
-                            'group' => $groupT3,
-                            'total' => $totalt3,] ,
-
-                           
-
-                           'T4'=>['sousOperation' => $sousOperationT4,
-                            'operation' => $operationT4,
-                            'group' => $groupT4,
-                            'total' => $totalt4,] ,
-                        ];
-
-
-
-
-
+                    return $calculs;
 
                             }
 }

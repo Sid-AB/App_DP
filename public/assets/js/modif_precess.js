@@ -845,6 +845,8 @@ calaulsomeAE_CP_sprog()
 
 
 
+
+
     $('.btn-primary').on('click',function(event){
         event.preventDefault(); // Prevents default button behavior
         id=$(this).attr('id')
@@ -987,6 +989,7 @@ calaulsomeAE_CP_sprog()
     if(id == "add-prg3")
     {
 
+        
         console.log($('#AE_act').val()+ 'fdyudg');
       let userResponse = confirm('Voulez-vous ajouter une sous-action pour cette action ?');
                                     if (userResponse) {
@@ -1010,7 +1013,7 @@ calaulsomeAE_CP_sprog()
                     
                                         var T4_AE_init = $('#T4_AE_init').val()
                                         var T4_CP_init = $('#T4_CP_init').val()
-                                        var deleg_act=$('#act_deleg').val()
+                              
                                         var id_sou_prog = path[2];
                                         var numaction_year = id_sou_prog +'-'+num_act ;
                                         var nexthop = '<div class="pinfo-handle">' +
@@ -1172,7 +1175,7 @@ calaulsomeAE_CP_sprog()
                     
                                         var T4_AE_init_AC = $('#T4_AE_init_AC').val()
                                         var T4_CP_init_AC = $('#T4_CP_init_AC').val()
-                                        var deleg_act=$('#act_deleg').va()
+                                        var deleg_act=$('#act_deleg').val()
                                         var id_sou_prog = path[2];
                                         var numaction_year = id_sou_prog +'-'+num_act ;
 

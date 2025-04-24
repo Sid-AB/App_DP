@@ -42,15 +42,17 @@ public function check_action(Request $request)
         $action = Action::where('num_action', $request->num_action)->first();
         $initPort = initPort::where('num_action', $request->num_action)->first();
       //dd($initPort);
-      // dd($request);
+       //dd($request);
         if ($action  && $initPort) {
             return response()->json([
                 'exists' => true,
                 'num_action' => $action->num_action,
                 'nom_action' => $action->nom_action,
+                'type_action' => $action->type_action,
                 'date_insert_action' => $action->date_insert_action,
                 'AE_act'=>$action->AE_action,
                 'CP_act'=>$action->CP_action,
+
 
                 
                 'T1_AE_init' => $initPort->AE_init_t1,
@@ -76,6 +78,7 @@ public function check_action(Request $request)
         
                     'num_action' => $action->num_action,
                     'nom_action' => $action->nom_action,
+                    'type_action' => $action->type_action,
                     'date_insert_action' => $action->date_insert_action,
                     'AE_act'=>$action->AE_action,
                     'CP_act'=>$action->CP_action,
@@ -126,6 +129,7 @@ public function check_action(Request $request)
         $action->nom_action = $request->nom_action;
         $action->AE_action=floatval(str_replace(',', '', $request->AE_act));
         $action->CP_action=floatval(str_replace(',', '', $request->CP_act));
+        $action->type_action = $request->action_delege;
         $action->id_ra = 1;//periodiquement
         $action->date_update_action = now();
         $action->save();
@@ -209,6 +213,7 @@ public function check_action(Request $request)
         $action->num_action = $request->num_action;
         $action->num_sous_prog =$request->id_sous_prog;
         $action->nom_action = $request->nom_action;
+        $action->type_action = $request->action_delege;
         $action->AE_action=floatval(str_replace(',', '', $request->AE_act));
         $action->CP_action=floatval(str_replace(',', '', $request->CP_act));
         $action->id_ra = 1;//periodiquement

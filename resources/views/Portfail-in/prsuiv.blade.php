@@ -151,7 +151,7 @@ Object.entries(paths).forEach(([code,value])=>{
                         </div>
                         <div class="form-group">
                           <label for="CP_sous_act">Action de Delegatiion</label>
-                         <input type="checkbox" class="form-control" id="act_deleg">
+                         <input type="checkbox" id="act_deleg">
                        </div>
 
                         </form>

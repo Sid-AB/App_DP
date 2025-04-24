@@ -263,7 +263,7 @@ class AdminController extends Controller
             $prog=Programme::where('num_prog',$validated['progs'])->first();
            // $sous_prog=SousProgramme::where('num_sous_prog',$validated['sous_progs'])->first();
             $act=Action::where('num_action',$validated['acts'])->first();
-            dd($prog,$act);
+           // dd($prog,$act);
             $prog->id_rp=$id_res_prg;
             $act->id_ra=$id_res_act;
             $prog->update();
