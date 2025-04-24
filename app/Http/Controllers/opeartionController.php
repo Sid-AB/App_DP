@@ -261,7 +261,7 @@ class opeartionController extends Controller
                
                 ////max prend le max des résultats pour toutes les lignes si au moins 1 est non null elle retourne 1;
                   // ->exists();
-          // dd($exists);
+           dd($exists);
                 if ($exists) {
                     return response()->json([
                         'code' => 200,

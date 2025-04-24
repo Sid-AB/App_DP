@@ -236,7 +236,12 @@ let arrow = document.querySelectorAll(".arrow");
             _method: "POST",},
             success:function(response)
             {
-             window.location.href='/Form/?code='+response.account;
+              if(response.code == 200){
+             window.location.href='/Form/?code='+response.account;}
+             else
+             {
+              window.location.href='/update/pass?code='+response.code_generated+'&mail='+response.account
+             }
              // 
             },
             error:function()
