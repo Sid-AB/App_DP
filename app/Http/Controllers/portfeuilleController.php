@@ -300,7 +300,7 @@ class portfeuilleController extends Controller
     //affichage formulaire
     function form_portef(Request $request)
     {
-       $code=$request['code'];
+        $code=$request['code'];
         
         if(!isset($code))
         {
@@ -308,10 +308,6 @@ class portfeuilleController extends Controller
         }
         $account =Accounts::join('portefeuilles','portefeuilles.id_min','accounts.id_min')->where('code_generated',$code)->first();
        // dd($act,$account,$code);
-         if(!isset($account))
-        {
-            return back()->with('unsuccess', 'User registered indefined!');
-        }
         return view('Portfail-in.creation');
     }
 //===================================================================================

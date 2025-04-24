@@ -29,8 +29,7 @@ return new class extends Migration
             $table->integer('id_ra')->nullable();
             $table->foreign('id_ra')->references('id_ra')->on('respo__actions');
             $table->string('privilege')->default(0); // Account Status
-            $table->integer('id_deleg_resp')->nullable();
-            $table->foreign('id_deleg_resp')->references('id')->on('accounts');
+            $table->foreignId('id_deleg_resp')->nullable()->constrained('accounts')->nullOnDelete();
             $table->timestamps(); // created_at & updated_at
 
         });
