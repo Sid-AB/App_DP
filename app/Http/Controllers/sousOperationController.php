@@ -351,176 +351,180 @@ class sousOperationController extends Controller
 
    public function impressionpdf($port, $prog, $sous_prog, $act,$s_act)
    {
-        try {
+    try {
 
-            //dd($port, $prog, $sous_prog, $act,$s_act);
-            $resultats = $this->CalculDpia->calculdpiaFromPath($port, $prog, $sous_prog, $act,$s_act);
-          //  dd($resultats );
-           
-          //pour t3 
-          $years=Portefeuille::where('num_portefeuil',$port)->firstOrFail();
-          $years = Carbon::parse($years->Date_portefeuille)->year;
+        //dd($port, $prog, $sous_prog, $act,$s_act);
+        $resultats = $this->CalculDpia->calculdpiaFromPath($port, $prog, $sous_prog, $act,$s_act);
+      //  dd($resultats );
+       
+      //pour t3 
+      $years=Portefeuille::where('num_portefeuil',$port)->firstOrFail();
+      $years = Carbon::parse($years->Date_portefeuille)->year;
 
-          // Chargement du fichier JSON
-        $jsonData = file_get_contents(public_path('assets/Titre/dataT1.json')); //la fonction file_get_contents() lire directement depuis le système de fichiers :
-       // dd($jsonData);  
-        $operations = json_decode($jsonData, true); // décoder en tableau 
-        //dd($operations);  
+      // Chargement du fichier JSON
+    $jsonData = file_get_contents(public_path('assets/Titre/dataT1.json')); //la fonction file_get_contents() lire directement depuis le système de fichiers :
+   // dd($jsonData);  
+    $operations = json_decode($jsonData, true); // décoder en tableau 
+    //dd($operations);  
 
-        $jsonDataT2 = file_get_contents(public_path('assets/Titre/dataT2.json'));
-        $operationsT2 = json_decode($jsonDataT2, true);
-    
-        $jsonDataT3 = file_get_contents(public_path('assets/Titre/dataT3.json'));
-        $operationsT3 = json_decode($jsonDataT3, true);
-    
-        $jsonDataT4 = file_get_contents(public_path('assets/Titre/dataT4.json'));
-        $operationsT4 = json_decode($jsonDataT4, true);
-    
-        // fonction prepareer names
-        $names= $this->prepareNames($operations);
-       // dd($names);
-        $namesT2 = $this->prepareNames($operationsT2);
-        $namesT3 = $this->prepareNames($operationsT3);
-        $namesT4 = $this->prepareNames($operationsT4);
-            //dd($namesT3);
-        //envoyer le sousprogramme dans compact avec son code  
-           $sousProgramme = SousProgramme::where('num_sous_prog', $sous_prog)->first();
-          //dd($sousProgramme );
-           // vérifier si le sous programme existe
-           if (!$sousProgramme) {
-            throw new \Exception("Sous programme introuvable");
-        }
+    $jsonDataT2 = file_get_contents(public_path('assets/Titre/dataT2.json'));
+    $operationsT2 = json_decode($jsonDataT2, true);
 
-            // envoyer tous le chemin 
-            $portefeuille = Portefeuille::with(['Programme.SousProgramme.Action.SousAction'])
-            ->where('num_portefeuil', $port) 
-            ->first();
-                   //dd($portefeuille);
-        if (!$portefeuille) {
-            throw new \Exception("Programme introuvable");
-        }
+    $jsonDataT3 = file_get_contents(public_path('assets/Titre/dataT3.json'));
+    $operationsT3 = json_decode($jsonDataT3, true);
 
-        $prog=$portefeuille->Programme->first();
-        //dd($prog);
+    $jsonDataT4 = file_get_contents(public_path('assets/Titre/dataT4.json'));
+    $operationsT4 = json_decode($jsonDataT4, true);
 
-        $action=$sousProgramme->Action->first();
-      //  dd($action);
-            // pour bien structurer les données de resultats (calcul dpia)
-           
-         $resultstructur = [];
-         foreach (['T1', 'T2', 'T3', 'T4'] as $t) {
-             if (isset($resultats[$t])) {
-            // dd($resultats);
-                 $tdata = $resultats[$t];
-                 //dd($tdata);
-                 // chaque grp avec leurs sous operations
-                 $groupedData = [];
-                 foreach ($tdata['group'] as $group) {
-                     $groupCode = $group['code'];
-                    //dd($groupCode);
-                    $groupedData[$groupCode] = [
-                        'group' => $group,
-                        'operations' => [],
-                    
-                    ];//dd( $groupedData);
-                 }
-               // dd( $groupedData);
-               foreach ($tdata['operation'] as $operation) {
-               // $groupCode = substr($operation['code'], 0, strlen($operation['code']) - 6); //extraire depuis l'op jusqu'à grp 
-               $operationCode = $operation['code'];
-               //dd($operationCode);
-               // extraire les parties du code op
-                $operationsParts = explode('-', $operationCode);
-                //dd($operationsParts);
-                $groupCode = implode('-', array_slice($operationsParts, 0, 7)); // extraire la partie groupe ppour savooir quel grp appartient op
-               // dd(  $operationsParts,$groupCode);
-           
-                if (isset($groupedData[$groupCode])) {
-                    //ajouter les op au grp
-                    $groupedData[$groupCode]['operations'][] = [
-                        'operation' => $operation,
-                        'sousOperations' => [], 
-                    ];       //dd( $groupedData);
-                    } 
-            } 
-             //dd( $groupedData);
-            // les sous operations dans operations 
-            foreach ($tdata['sousOperation'] as $sousOp) {
-                //dd($tdata['sousOperation'] );
-               /* $sousOpCodeLength = strlen($sousOp['code']);
-                //dd($sousOpCodeLength );
-                if ($sousOpCodeLength > 34) { //operation =35
-                    // extraire  la dernière partie du code apres 35 -...
-                    $lastPartOfCode = substr($sousOp['code'], 34);
-                   // dd($lastPartOfCode);
-                    if (strlen($lastPartOfCode) > 6) {
-                        // récupérer le nom 
-                        $nomComplet = DB::table('sous_operations')
-                            ->where('code_sous_operation', 'like', "%-$lastPartOfCode")
-                            ->value('nom_sous_operation');
-                       //dd($nomComplet);
-                        
-                        if ($nomComplet) {
-                            // la chaine avec -
-                            $nom_sepa = explode('_', $nomComplet);
+    // fonction prepareer names
+    $names= $this->prepareNames($operations);
+   // dd($names);
+    $namesT2 = $this->prepareNames($operationsT2);
+    $namesT3 = $this->prepareNames($operationsT3);
+    $namesT4 = $this->prepareNames($operationsT4);
+        //dd($namesT3);
+    //envoyer le sousprogramme dans compact avec son code  
+       $sousProgramme = SousProgramme::where('num_sous_prog', $sous_prog)->first();
+      //dd($sousProgramme );
+       // vérifier si le sous programme existe
+       if (!$sousProgramme) {
+        throw new \Exception("Sous programme introuvable");
+    }
+
+        // envoyer tous le chemin 
+        $portefeuille = Portefeuille::with(['Programme.SousProgramme.Action.SousAction'])
+        ->where('num_portefeuil', $port) 
+        ->first();
+               //dd($portefeuille);
+    if (!$portefeuille) {
+        throw new \Exception("Programme introuvable");
+    }
+
+    $prog=$portefeuille->Programme->first();
+    //dd($prog);
+
+    $action=$sousProgramme->Action->first();
+  //  dd($action);
+        // pour bien structurer les données de resultats (calcul dpia)
+       
+     $resultstructur = [];
+     foreach (['centrale', 'delegation'] as $type) {
+        if (isset($resultats[$type])) {
+     foreach (['T1', 'T2', 'T3', 'T4'] as $t) {
+        if (isset($resultats[$type][$t])) {
+        // dd($resultats);
+            $tdata = $resultats[$type][$t];
+             //dd($tdata);
+             // chaque grp avec leurs sous operations
+             $groupedData = [];
+             foreach ($tdata['group'] as $group) {
+                 $groupCode = $group['code'];
+                //dd($groupCode);
+                $groupedData[$groupCode] = [
+                    'group' => $group,
+                    'operations' => [],
                 
-                            // récupérer le 1er "intitule" et last  "décision"
-                            $intitule = reset($nom_sepa);
-                            $decision = end($nom_sepa);
-                
-                        
-                           //dd( $intitule, $decision);
-                        }
-                    }
-                    elseif (strlen($lastPartOfCode) > 1 && strlen($lastPartOfCode) < 5) {
-                        $nomComplet = DB::table('sous_operations')
+                ];//dd( $groupedData);
+             }
+           // dd( $groupedData);
+           foreach ($tdata['operation'] as $operation) {
+           // $groupCode = substr($operation['code'], 0, strlen($operation['code']) - 6); //extraire depuis l'op jusqu'à grp 
+           $operationCode = $operation['code'];
+           //dd($operationCode);
+           // extraire les parties du code op
+            $operationsParts = explode('-', $operationCode);
+            //dd($operationsParts);
+            $groupCode = implode('-', array_slice($operationsParts, 0, 7)); // extraire la partie groupe ppour savooir quel grp appartient op
+           // dd(  $operationsParts,$groupCode);
+       
+            if (isset($groupedData[$groupCode])) {
+                //ajouter les op au grp
+                $groupedData[$groupCode]['operations'][] = [
+                    'operation' => $operation,
+                    'sousOperations' => [], 
+                ];       //dd( $groupedData);
+                } 
+        } 
+         //dd( $groupedData);
+        // les sous operations dans operations 
+        foreach ($tdata['sousOperation'] as $sousOp) {
+            //dd($tdata['sousOperation'] );
+           /* $sousOpCodeLength = strlen($sousOp['code']);
+            //dd($sousOpCodeLength );
+            if ($sousOpCodeLength > 34) { //operation =35
+                // extraire  la dernière partie du code apres 35 -...
+                $lastPartOfCode = substr($sousOp['code'], 34);
+               // dd($lastPartOfCode);
+                if (strlen($lastPartOfCode) > 6) {
+                    // récupérer le nom 
+                    $nomComplet = DB::table('sous_operations')
                         ->where('code_sous_operation', 'like', "%-$lastPartOfCode")
                         ->value('nom_sous_operation');
-                         // dd($nomComplet);
-                        if ($nomComplet) {
-                            // la chaine avec -
-                            $nom_sepa = explode('_', $nomComplet);
-                
-                            // récupérer le 1er "intitule" et last  "décision"
-                            $intitule = reset($nom_sepa);
-                            $decision = end($nom_sepa);
-             
-                     
-                       //  dd( $intitule, $decision);
-                     }
-                     }   
-
-                    }*/  
-                    $sousOpCode = $sousOp['code'];
-                    //dd( $sousOpCode );
-                    $sousOpParts = explode('-', $sousOpCode);
-                    //dd($sousOpParts);
-                    $operationCode = implode('-', array_slice($sousOpParts, 0, 8)); // extrait la partie opération
-                    //dd($operationCode);
-                   
-                    foreach ($groupedData as $groupCode => $groupData) {
-                        foreach ($groupData['operations'] as $code => $operationData) {
-                            // Extrait les 5 chiffres de l'opération
-                            $opCode = $operationData['operation']['code'];
-                            //dd( $opCode);
-                            if (substr($opCode, 0, strlen($operationCode)) === $operationCode) {
-                                // Ajouter la sous-opération si elle appartient à l'opération
-                                $groupedData[$groupCode]['operations'][$code]['sousOperations'][] = $sousOp;
-                                break;
-                            }
-                        } 
+                   //dd($nomComplet);
+                    
+                    if ($nomComplet) {
+                        // la chaine avec -
+                        $nom_sepa = explode('_', $nomComplet);
+            
+                        // récupérer le 1er "intitule" et last  "décision"
+                        $intitule = reset($nom_sepa);
+                        $decision = end($nom_sepa);
+            
+                    
+                       //dd( $intitule, $decision);
                     }
                 }
-                                 //dd($sousOpCode);
-           // dd( $operationData['operation']['code'] );
-            $resultstructur[$t] = [
-                'groupedData' => $groupedData,
-                'total' => $tdata['total'] ?? [], 
-                // Ajoute le total (si disponible)
-            ];
-             }
+                elseif (strlen($lastPartOfCode) > 1 && strlen($lastPartOfCode) < 5) {
+                    $nomComplet = DB::table('sous_operations')
+                    ->where('code_sous_operation', 'like', "%-$lastPartOfCode")
+                    ->value('nom_sous_operation');
+                     // dd($nomComplet);
+                    if ($nomComplet) {
+                        // la chaine avec -
+                        $nom_sepa = explode('_', $nomComplet);
+            
+                        // récupérer le 1er "intitule" et last  "décision"
+                        $intitule = reset($nom_sepa);
+                        $decision = end($nom_sepa);
+         
+                 
+                   //  dd( $intitule, $decision);
+                 }
+                 }   
+
+                }*/  
+                $sousOpCode = $sousOp['code'];
+                //dd( $sousOpCode );
+                $sousOpParts = explode('-', $sousOpCode);
+                //dd($sousOpParts);
+                $operationCode = implode('-', array_slice($sousOpParts, 0, 8)); // extrait la partie opération
+                //dd($operationCode);
+               
+                foreach ($groupedData as $groupCode => $groupData) {
+                    foreach ($groupData['operations'] as $code => $operationData) {
+                        // Extrait les 5 chiffres de l'opération
+                        $opCode = $operationData['operation']['code'];
+                        //dd( $opCode);
+                        if (substr($opCode, 0, strlen($operationCode)) === $operationCode) {
+                            // Ajouter la sous-opération si elle appartient à l'opération
+                            $groupedData[$groupCode]['operations'][$code]['sousOperations'][] = $sousOp;
+                            break;
+                        }
+                    } 
+                }
+            }
+                             //dd($sousOpCode);
+       // dd( $operationData['operation']['code'] );
+        $resultstructur[$type][$t] = [
+            'groupedData' => $groupedData,
+            'total' => $tdata['total'] ?? [], 
+            // Ajoute le total (si disponible)
+        ];
          }
-      // dd($resultstructur['T4']);
+     }
+    }
+}
+   //dd($resultstructur);
       
         if (isset($resultstructur)) {
            /*return view   ('impression.liste_impression_dpia_4tables_combinées', compact(

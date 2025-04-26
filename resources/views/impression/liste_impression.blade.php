@@ -98,14 +98,14 @@
             <td>{{ $codeact }}</th-->
             <td style="text-align: center; ">{{ $codesousprg}}</th>
             <th style="text-align: center; ">Sous-programme {{ $sousProgramme->nom_sous_prog }}</th>
-            <td style="text-align: center; ">{{ number_format((float)$resultstructur['T1']['total'][0]['values']['totalAE'], 2, '.', ',') ?? 'N/A' }}</td>
-            <td style="text-align: center; ">{{ number_format((float)$resultstructur['T1']['total'][0]['values']['totalCP'], 2, '.', ',') ?? 'N/A' }}</td>
+            <td style="text-align: center; ">{{ number_format((float)$resultstructur['centrale']['T1']['total'][0]['values']['totalAE'], 2, '.', ',') ?? 'N/A' }}</td>
+            <td style="text-align: center; ">{{ number_format((float)$resultstructur['centrale']['T1']['total'][0]['values']['totalCP'], 2, '.', ',') ?? 'N/A' }}</td>
         </tr>
         <tr>
                 
             <th colspan="2" class="headt1" style="text-align: center; ">TOTAL DES CREDITS DISPONIBLES</th>
-            <td class="headt1" style="text-align: center; ">{{ number_format((float)$resultstructur['T1']['total'][0]['values']['totalAE'], 2, '.', ',') ?? 'N/A' }}</td>
-            <td class="headt1" style="text-align: center; ">{{ number_format((float)$resultstructur['T1']['total'][0]['values']['totalCP'], 2, '.', ',') ?? 'N/A' }}</td>
+            <td class="headt1" style="text-align: center; ">{{ number_format((float)$resultstructur['centrale']['T1']['total'][0]['values']['totalAE'], 2, '.', ',') ?? 'N/A' }}</td>
+            <td class="headt1" style="text-align: center; ">{{ number_format((float)$resultstructur['centrale']['T1']['total'][0]['values']['totalCP'], 2, '.', ',') ?? 'N/A' }}</td>
         </tr>
     </thead>
     
@@ -130,8 +130,8 @@
             </tr>
    
         <tbody>
-            @if(!empty($resultstructur['T1']['groupedData']))
-                @foreach ($resultstructur['T1']['groupedData'] as $groupData)
+            @if(!empty($resultstructur['centrale']['T1']['groupedData']))
+                @foreach ($resultstructur['centrale']['T1']['groupedData'] as $groupData)
                 @php
                     // extraire la dernière partie du code grp
                     $code_grpsepar = explode('-', $groupData['group']['code']);
@@ -183,7 +183,7 @@
                     <td class="code1" style="text-align: center; ">{{ $codeextr }}</td>
                     <td>{{ $names[$codeextr]?? 'Nom non trouvé' }}</td>
                     <td style="text-align: center; ">{{ number_format((float)$sousOp['values']['ae_sousop'], 2, '.', ',') ?? 'N/A' }}</td>
-                    <td style="text-align: center; ">{{ number_format((float)$sousOp['values']['cp_sousuop'], 2, '.', ',') ?? 'N/A' }}</td>
+                    <td style="text-align: center; ">{{ number_format((float)$sousOp['values']['cp_sousop'], 2, '.', ',') ?? 'N/A' }}</td>
                 </tr>
                 @endif
             @endforeach
@@ -205,11 +205,11 @@
         @endif
     </tbody>
 
-    @if(!empty($resultstructur['T1']['groupedData']))
+    @if(!empty($resultstructur['centrale']['T1']['groupedData']))
         <tr  class="total1">
             <td colspan="2" style="text-align: center; font-weight: bold;font-size:20px;">TOTAL</td>
-            <td style="text-align: center; font-weight: bold;font-size:20px;">{{ number_format((float)$resultstructur['T1']['total'][0]['values']['totalAE'], 2, '.', ',') ?? 'N/A' }}</td>
-            <td style="text-align: center; font-weight: bold; font-size:20px;">{{ number_format((float)$resultstructur['T1']['total'][0]['values']['totalCP'], 2, '.', ',') ?? 'N/A' }}</td>
+            <td style="text-align: center; font-weight: bold;font-size:20px;">{{ number_format((float)$resultstructur['centrale']['T1']['total'][0]['values']['totalAE'], 2, '.', ',') ?? 'N/A' }}</td>
+            <td style="text-align: center; font-weight: bold; font-size:20px;">{{ number_format((float)$resultstructur['centrale']['T1']['total'][0]['values']['totalCP'], 2, '.', ',') ?? 'N/A' }}</td>
         </tr>
     @else 
     <tr  class="total1">

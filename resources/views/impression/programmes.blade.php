@@ -206,20 +206,36 @@
                                             $code = explode('-', $action['code']);
                                             $last = count($code) - 1;
                                             $code = $code[$last];
+                                           // dd($action);
+                         
                                         @endphp
-
+                                        @if($action['type_action']=='centrale')
                                         <tr >
                                             <td>{{ $code }}</td>
                                             <td>Action : {{ $action['nom'] }}</td>
-                                            <td>{{ number_format((float)$action['TotalT']['T1']['total'][0]['values']['totalAE'], 2, '.', ',') }}</td>
-                                            <td>{{ number_format((float)$action['TotalT']['T1']['total'][0]['values']['totalCP'], 2, '.', ',') }}</td>
-                                            <td>{{ number_format((float)$action['TotalT']['T2']['total'][0]['values']['totalAE'], 2, '.', ',') }}</td>
-                                            <td>{{ number_format((float)$action['TotalT']['T2']['total'][0]['values']['totalCP'], 2, '.', ',') }}</td>
-                                            <td>{{ number_format((float)$action['TotalT']['T3']['total'][0]['values']['totalAE'], 2, '.', ',') }}</td>
-                                            <td>{{ number_format((float)$action['TotalT']['T3']['total'][0]['values']['totalCP'], 2, '.', ',') }}</td>
-                                            <td>{{ number_format((float)$action['TotalT']['T4']['total'][0]['values']['totalAE'], 2, '.', ',') }}</td>
-                                            <td>{{ number_format((float)$action['TotalT']['T4']['total'][0]['values']['totalCP'], 2, '.', ',') }}</td>
+                                            <td>{{ number_format((float)$action['TotalT']['centrale']['T1']['total'][0]['values']['totalAE'], 2, '.', ',') }}</td>
+                                            <td>{{ number_format((float)$action['TotalT']['centrale']['T1']['total'][0]['values']['totalCP'], 2, '.', ',') }}</td>
+                                            <td>{{ number_format((float)$action['TotalT']['centrale']['T2']['total'][0]['values']['totalAE'], 2, '.', ',') }}</td>
+                                            <td>{{ number_format((float)$action['TotalT']['centrale']['T2']['total'][0]['values']['totalCP'], 2, '.', ',') }}</td>
+                                            <td>{{ number_format((float)$action['TotalT']['centrale']['T3']['total'][0]['values']['totalAE'], 2, '.', ',') }}</td>
+                                            <td>{{ number_format((float)$action['TotalT']['centrale']['T3']['total'][0]['values']['totalCP'], 2, '.', ',') }}</td>
+                                            <td>{{ number_format((float)$action['TotalT']['centrale']['T4']['total'][0]['values']['totalAE'], 2, '.', ',') }}</td>
+                                            <td>{{ number_format((float)$action['TotalT']['centrale']['T4']['total'][0]['values']['totalCP'], 2, '.', ',') }}</td>
                                         </tr>
+                                        @elseif ($action['type_action']=='delegation')
+                                        <tr >
+                                            <td>{{ $code }}</td>
+                                            <td>Action : {{ $action['nom'] }}</td>
+                                            <td>{{ number_format((float)$action['TotalT']['delegation']['T1']['total'][0]['values']['totalAE'], 2, '.', ',') }}</td>
+                                            <td>{{ number_format((float)$action['TotalT']['delegation']['T1']['total'][0]['values']['totalCP'], 2, '.', ',') }}</td>
+                                            <td>{{ number_format((float)$action['TotalT']['delegation']['T2']['total'][0]['values']['totalAE'], 2, '.', ',') }}</td>
+                                            <td>{{ number_format((float)$action['TotalT']['delegation']['T2']['total'][0]['values']['totalCP'], 2, '.', ',') }}</td>
+                                            <td>{{ number_format((float)$action['TotalT']['delegation']['T3']['total'][0]['values']['totalAE'], 2, '.', ',') }}</td>
+                                            <td>{{ number_format((float)$action['TotalT']['delegation']['T3']['total'][0]['values']['totalCP'], 2, '.', ',') }}</td>
+                                            <td>{{ number_format((float)$action['TotalT']['delegation']['T4']['total'][0]['values']['totalAE'], 2, '.', ',') }}</td>
+                                            <td>{{ number_format((float)$action['TotalT']['delegation']['T4']['total'][0]['values']['totalCP'], 2, '.', ',') }}</td>
+                                        </tr>
+                                        @endif
                                     @endforeach
                                 @endfor
                             @endif

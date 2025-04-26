@@ -92,8 +92,8 @@
             <th>Action {{ $action->nom_action }}</th>
             <th>Code</th>
             <td>{{ $codeact }}</th>
-            <td>{{ number_format((float)$resultstructur['T4']['total'][0]['values']['totalAE'], 2, '.', ',') ?? 'N/A' }}</td>
-            <td>{{ number_format((float)$resultstructur['T4']['total'][0]['values']['totalCP'], 2, '.', ',') ?? 'N/A' }}</td>
+            <td>{{ number_format((float)$resultstructur['centrale']['T4']['total'][0]['values']['totalAE'], 2, '.', ',') ?? 'N/A' }}</td>
+            <td>{{ number_format((float)$resultstructur['centrale']['T4']['total'][0]['values']['totalCP'], 2, '.', ',') ?? 'N/A' }}</td>
         </tr>
     </thead>
   
@@ -118,8 +118,8 @@
         <tbody>
       
             
-        @if(!empty($resultstructur['T4']['groupedData']))
-              @foreach ($resultstructur['T4']['groupedData'] as $groupData)
+        @if(!empty($resultstructur['centrale']['T4']['groupedData']))
+              @foreach ($resultstructur['centrale']['T4']['groupedData'] as $groupData)
                 @php
                     // extraire la dernière partie du code grp
                     $code_grpsepar = explode('-', $groupData['group']['code']);
@@ -235,11 +235,11 @@
 </tbody>
 
 
-    @if(!empty($resultstructur['T4']['groupedData']))
+    @if(!empty($resultstructur['centrale']['T4']['groupedData']))
         <tr  class="total4">
             <td colspan="3" style="text-align: center; font-weight: bold;font-size:20px;">TOTAL</td>
-            <td style="text-align: center; font-weight: bold;font-size:20px;">{{ number_format((float)$resultstructur['T4']['total'][0]['values']['totalAE'], 2, '.', ',') ?? 'N/A' }}</td>
-            <td style="text-align: center; font-weight: bold; font-size:20px;">{{ number_format((float)$resultstructur['T4']['total'][0]['values']['totalCP'], 2, '.', ',') ?? 'N/A' }}</td>
+            <td style="text-align: center; font-weight: bold;font-size:20px;">{{ number_format((float)$resultstructur['centrale']['T4']['total'][0]['values']['totalAE'], 2, '.', ',') ?? 'N/A' }}</td>
+            <td style="text-align: center; font-weight: bold; font-size:20px;">{{ number_format((float)$resultstructur['centrale']['T4']['total'][0]['values']['totalCP'], 2, '.', ',') ?? 'N/A' }}</td>
         </tr>
     @else 
     <tr  class="total4">
