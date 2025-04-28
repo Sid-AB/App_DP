@@ -195,7 +195,7 @@ class sousOperationController extends Controller
 
     function AffichePortsAction ($port,$prog,$sous_prog,$act,Request $request)
     {
-      
+       $deleg_centre='central';
         $act1=explode('_',$act);
         if(count($act1) > 1)
         {
@@ -243,6 +243,14 @@ class sousOperationController extends Controller
             $sprog=SousProgramme::where('num_sous_prog',$act->num_sous_prog)->first();
             $sact=SousAction::where('num_action',$act->num_action)->first();
             $progms=Programme::where('num_prog',$sprog->num_prog)->first();
+            if($act->type_action == "centrale")
+            {
+                $deleg_centre="centrale";
+            }
+            if($act->type_action == "delegation")
+            {
+                $deleg_centre= "delegation";
+            }
             $act=$act->num_action;
             $sact=$sact->num_sous_action;
             $sous_prog=$sprog->num_sous_prog;
@@ -268,7 +276,14 @@ class sousOperationController extends Controller
             try{
                 $resultats = $this->CalculDpia->calculdpiaFromPath($port, $prog, $sous_prog, $act,$sact);
                 //dd($port, $prog, $sous_prog, $act,$act);
-       
+                if($deleg_centre == "centrale")
+                {
+                    $resultats=$resultats['centrale'];
+                }
+                if($deleg_centre == "delegation")
+                {
+                    $resultats=$resultats['delegation'];
+                }
         //dd($resultats);
            return view('Action-in.index',compact('port','prog','sous_prog','act','sact','resultats','years','totaltrait','totalprimes','totaldepense','totalOuverts','totalOccupes','totalVacants'));
    
