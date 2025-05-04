@@ -355,7 +355,7 @@ class sousOperationController extends Controller
 
         //dd($port, $prog, $sous_prog, $act,$s_act);
         $resultats = $this->CalculDpia->calculdpiaFromPath($port, $prog, $sous_prog, $act,$s_act);
-      //  dd($resultats );
+      // dd($resultats );
        
       //pour t3 
       $years=Portefeuille::where('num_portefeuil',$port)->firstOrFail();
@@ -412,7 +412,7 @@ class sousOperationController extends Controller
         if (isset($resultats[$type])) {
      foreach (['T1', 'T2', 'T3', 'T4'] as $t) {
         if (isset($resultats[$type][$t])) {
-        // dd($resultats);
+        //dd($resultats);
             $tdata = $resultats[$type][$t];
              //dd($tdata);
              // chaque grp avec leurs sous operations
