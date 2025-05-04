@@ -104,6 +104,7 @@
                   <option value="Ministre"  {{ !is_null($account) ?? $account->post_occupe == 'Ministre' ? 'selected':''}}>Ministre</option>
                   <option value="DIR"  {{ !is_null($account) ?? $account->post_occupe == 'DIR' ? 'selected':''}}>Directeur</option>
                   <option value="SOUS_DIR"  {{ !is_null($account) ?? $account->post_occupe == 'SOUS_DIR' ? 'selected':''}}>Sous Directeur</option>
+                  <option value="employe"  {{ !is_null($account) ?? $account->post_occupe == 'Employe' ? 'selected':''}}>Employé</option>
               </select>
               @error('post_occupe')
                   <div class="invalid-feedback">{{ $message }}</div>
