@@ -1422,15 +1422,15 @@ function delete_by_id($id,Request $request)
               if(!isset($account))
              {
               $account =Accounts::join('portefeuilles','portefeuilles.id_min','accounts.id_min')
+              ->join('programmes','programmes.num_portefeuil','portefeuilles.num_portefeuil')
+              ->join('sous_programmes','sous_programmes.num_prog','programmes.num_prog')
+              ->join('actions','actions.num_sous_prog','sous_programmes.num_sous_prog')
               ->join('sous_actions','sous_actions.num_action','actions.num_action')
-              ->join('sous_programmes','actions.num_sous_prog','sous_programmes.num_sous_prog')
-              ->join('programmes','sous_programmes.num_prog','programmes.num_prog')
-              ->join('actions','prorammes.num_portefeuil','portefeuilles.num_portefeuil')
               ->where('code_generated',$code)->where('sous_actions.num_action',$deletmodelA->num_action)->first();
              // dd($deletmodelA,$account);
               if(!isset($account))
               {
-               // dd($deletmodelA,$account);
+                dd($deletmodelA,$account);
                 $account =Accounts::join('actions','actions.id_ra','accounts.id_ra')
                 ->join('sous_actions','sous_actions.num_action','actions.num_action')
                 ->where('code_generated',$code)->where('sous_actions.num_action',$deletmodelA->num_action)->first();
