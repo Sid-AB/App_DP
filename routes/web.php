@@ -164,6 +164,7 @@ Route::controller(AdminController::class)->group(function(){
     
         return back()->with('error', 'Nom d\'utilisateur ou mot de passe incorrect.');
     })->name('login');
+    Route::post('/login/account','access_login')->name('access_login');
     Route::middleware(['auth'])->group(function () {
         
         Route::get('/admin','index')->name('Admin');
@@ -171,7 +172,7 @@ Route::controller(AdminController::class)->group(function(){
         Route::get('/admin/delete/{id}','delete_account')->name('delete.account');
         Route::get('/admin/responsable/{id}','get_responsable')->name('get_responsable.account');
         Route::post('/insert/account','insert_account')->name('account_insertion');
-        Route::post('/login/account','access_login')->name('access_login');
+       
         Route::get('/get-accounts','get_respo_acc')->name('get_respo_acc');
         Route::get('/update/pass','indexupdate')->name('passhander');
         Route::post('/update/login','update_pass')->name('password_update');

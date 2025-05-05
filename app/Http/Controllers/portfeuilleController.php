@@ -292,12 +292,7 @@ class portfeuilleController extends Controller
               'prgrammes'=>$allprogram,
           ];    
          // dd($allprogram[1]['sous_program'][2]);
-<<<<<<< HEAD
-        //dd($allport['prgrammes'][0]['sous_program'][0]['Action'][0]['sous_action']);
-        // dd($allsous_progr['Action']);
-=======
        //  dd($allport);
->>>>>>> 065f0b1f4e3ecef444990173f073132a10179772
       // Passer les données à la vue
       return view('Portfail-in.index', compact('allport','art','allsous_progr'));
 

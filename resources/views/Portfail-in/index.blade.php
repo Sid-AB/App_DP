@@ -740,6 +740,7 @@
             _method: "POST",},
             success:function(response)
             {
+              console.log('responsee',JSON.stringify(response))
               $.ajax({
         url:'/delete_from_portfeuille/'+id+'?code='+response.account,
         type:'GET',
