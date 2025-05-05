@@ -287,9 +287,10 @@ class portfeuilleController extends Controller
               'TotalAE'=>$por->AE_portef,
               'TotalCP'=>$por->CP_portef,
               'prgrammes'=>$allprogram,
-          ];
+          ];    
          // dd($allprogram[1]['sous_program'][2]);
-         //dd($allport);
+        //dd($allport['prgrammes'][0]['sous_program'][0]['Action'][0]['sous_action']);
+        // dd($allsous_progr['Action']);
       // Passer les données à la vue
       return view('Portfail-in.index', compact('allport','art','allsous_progr'));
 

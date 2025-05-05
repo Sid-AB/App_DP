@@ -471,7 +471,7 @@ class AdminController extends Controller
                 'code'=>'required|string',
                 'code_portfail'=>'string',
                 'current_password' => 'required|string',
-                'new_password' => 'required|confirmed|min:8',
+                'new_password' => 'required|confirmed|min:5',
                
             ]);
             $user = Accounts::where('email', $request->mail)->where('code_generated', $request->code)->first();

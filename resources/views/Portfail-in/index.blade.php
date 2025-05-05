@@ -264,6 +264,7 @@
                         <i class="bi bi-arrow-right-short bsb-rotate-45"></i>
                       </span>
                       <div style="display:flex;width: 23rem;">
+               
                       @if(count($act['sous_action'])>0)
                       @foreach($act['sous_action'] as $sous_act)
                       @if(count($act['sous_action']) != 1)
@@ -272,8 +273,8 @@
                        @if(!isset($sous_act['Tports']['centrale'] ))
 
                        @foreach($sous_act['Tports']['centrale'] as $key=>$values)
-                       
                     
+                      
                        <div class="T-holder"> 
                         <p class="fs-7 mb-0"> {{$key}} </p>
                         <div class="TotalT-holder">
