@@ -182,6 +182,7 @@ class portfeuilleController extends Controller
            $CP_All_sous_prog=0;
            $AE_All_prog=0;
            $CP_All_prog=0;
+           $deleg="aucun";
 
            // $tesitng = SousAction::with(['GroupOperation.Operation'])->get();
           //  dd($tesitng);
@@ -199,6 +200,7 @@ class portfeuilleController extends Controller
                       {
                           if(isset($listact))
                           {
+                            $deleg=$listact->type_action;
                               $sous_act=SousAction::where('num_action',$listact->num_action)->get();
                             //  dd($sous_act);
                               foreach($sous_act as $listsousact)
@@ -224,6 +226,7 @@ class portfeuilleController extends Controller
                                             dd($AE_All_sous_act);*/
                                             foreach (['centrale', 'delegation'] as $typeAction) {
                                                 foreach (['T1', 'T2', 'T3', 'T4'] as $t) {
+                                                    
                                                     $AE_All_sous_act += $resultats[$typeAction][$t]['total'][0]['values']['totalAE'];
                                                     $CP_All_sous_act += $resultats[$typeAction][$t]['total'][0]['values']['totalCP'];
                                                    // dd($AE_All_sous_act );
@@ -238,7 +241,7 @@ class portfeuilleController extends Controller
                                         }
                                      // dd($resultats);
 
-                                      array_push($allsous_action,['num_act'=>$listsousact->num_sous_action,'init_AE'=>$listsousact->AE_sous_action,'init_CP'=>$listsousact->CP_sous_action,'TotalAE'=>$AE_All_sous_act,'TotalCP'=>$CP_All_sous_act,'data'=>$listsousact,'Tports'=>$resultats]);
+                                      array_push($allsous_action,['num_act'=>$listsousact->num_sous_action,'init_AE'=>$listsousact->AE_sous_action,'init_CP'=>$listsousact->CP_sous_action,'TotalAE'=>$AE_All_sous_act,'TotalCP'=>$CP_All_sous_act,'data'=>$listsousact,"type_act"=>$deleg,'Tports'=>$resultats]);
                                       $AE_All_sous_act=0;
                                       $CP_All_sous_act=0;
                                   }
@@ -289,7 +292,7 @@ class portfeuilleController extends Controller
               'prgrammes'=>$allprogram,
           ];
          // dd($allprogram[1]['sous_program'][2]);
-         //dd($allport);
+       //  dd($allport);
       // Passer les données à la vue
       return view('Portfail-in.index', compact('allport','art','allsous_progr'));
 

@@ -266,14 +266,17 @@
                       <div style="display:flex;width: 23rem;">
                       @if(count($act['sous_action'])>0)
                       @foreach($act['sous_action'] as $sous_act)
+    
                       @if(count($act['sous_action']) != 1)
                         <p class="fs-7 mb-0">Sous Action :{{$sous_act['num_act']}} </p>
+                       
                        @else
-                       @if(!isset($sous_act['Tports']['centrale'] ))
-
+                       @if($sous_act['type_act'] == 'centrale')
+                       
+                        
                        @foreach($sous_act['Tports']['centrale'] as $key=>$values)
                        
-                    
+
                        <div class="T-holder"> 
                         <p class="fs-7 mb-0"> {{$key}} </p>
                         <div class="TotalT-holder">
@@ -282,10 +285,11 @@
                         </div>
                         </div>
                       @endforeach
-                      @else
+                      @else 
                       @foreach($sous_act['Tports']['delegation'] as $key=>$values)
                        
-                    
+                      <p>{{ $sous_act['Tports']['delegation']['T2']['total'][0]['values']['totalAE'] }}</p>
+
                        <div class="T-holder"> 
                         <p class="fs-7 mb-0"> {{$key}} </p>
                         <div class="TotalT-holder">
