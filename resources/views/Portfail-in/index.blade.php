@@ -288,7 +288,6 @@
                       @else 
                       @foreach($sous_act['Tports']['delegation'] as $key=>$values)
                        
-                      <p>{{ $sous_act['Tports']['delegation']['T2']['total'][0]['values']['totalAE'] }}</p>
 
                        <div class="T-holder"> 
                         <p class="fs-7 mb-0"> {{$key}} </p>
