@@ -73,7 +73,7 @@ public function check_action(Request $request)
         {
             if(!isset($initPort))
             {
-                dd($initPort);
+                //dd($initPort);
                 return response()->json([
                     'exists' => true,
         
@@ -131,7 +131,7 @@ public function check_action(Request $request)
         $action->AE_action=floatval(str_replace(',', '', $request->AE_act));
         $action->CP_action=floatval(str_replace(',', '', $request->CP_act));
         $action->type_action = $request->action_delege;
-        $action->id_ra = 1;//periodiquement
+        //$action->id_ra = 1;//periodiquement
         $action->date_update_action = now();
         $action->save();
 

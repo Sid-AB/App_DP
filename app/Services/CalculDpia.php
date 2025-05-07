@@ -8,71 +8,70 @@ class CalculDpia
 {
     public function calculdpiaFromPath($port, $prog, $sous_prog, $act, $s_act)
     {
-        // Charger le portefeuille avec les relations
         $portefeuille = Portefeuille::where('num_portefeuil', $port)
-            ->whereHas('Programme.SousProgramme.Action.SousAction', function ($query) use ($s_act) {
-                $query->where('num_sous_action', $s_act);
-            })
-            ->with([
-                'Programme.SousProgramme.Action.SousAction.GroupOperation.Operation.SousOperation'
-            ])->first();
+        ->whereHas('Programme.SousProgramme.Action.SousAction', function ($query) use ($s_act) {
+            $query->where('num_sous_action', $s_act);
+        })
+        ->with([
+            'Programme.SousProgramme.Action.SousAction.GroupOperation.Operation.SousOperation'
+        ])->first();
 
-        if (!$portefeuille) {
-            Log::error("Portefeuille introuvable pour num_portefeuil: {$port}, num_sous_action: {$s_act}");
-            throw new \Exception("Portefeuille introuvable");
-        }
+    if (!$portefeuille) {
+        throw new \Exception("Portefeuille introuvable");
+    }
 
-        // Initialisation des calculs
-        $calculs = [
-            'centrale' => [
-                'T1' => ['sousOperation' => [], 'operation' => [], 'group' => [], 'total' => []],
-                'T2' => ['sousOperation' => [], 'operation' => [], 'group' => [], 'total' => []],
-                'T3' => ['sousOperation' => [], 'operation' => [], 'group' => [], 'total' => []],
-                'T4' => ['sousOperation' => [], 'operation' => [], 'group' => [], 'total' => []]
-            ],
-            'delegation' => [
-                'T1' => ['sousOperation' => [], 'operation' => [], 'group' => [], 'total' => []],
-                'T2' => ['sousOperation' => [], 'operation' => [], 'group' => [], 'total' => []],
-                'T3' => ['sousOperation' => [], 'operation' => [], 'group' => [], 'total' => []],
-                'T4' => ['sousOperation' => [], 'operation' => [], 'group' => [], 'total' => []]
-            ]
-        ];
+    // Initialisation des calculs
+    $calculs = [
+        'centrale' => [
+            'T1' => ['sousOperation' => [], 'operation' => [], 'group' => [], 'total' => []],
+            'T2' => ['sousOperation' => [], 'operation' => [], 'group' => [], 'total' => []],
+            'T3' => ['sousOperation' => [], 'operation' => [], 'group' => [], 'total' => []],
+            'T4' => ['sousOperation' => [], 'operation' => [], 'group' => [], 'total' => []]
+        ],
+        'delegation' => [
+            'T1' => ['sousOperation' => [], 'operation' => [], 'group' => [], 'total' => []],
+            'T2' => ['sousOperation' => [], 'operation' => [], 'group' => [], 'total' => []],
+            'T3' => ['sousOperation' => [], 'operation' => [], 'group' => [], 'total' => []],
+            'T4' => ['sousOperation' => [], 'operation' => [], 'group' => [], 'total' => []]
+        ]
+    ];
 
-        // Initialisation des totaux globaux
-        $totauxGlobaux = [
-            'centrale' => [
-                'T1' => ['totalAE' => 0, 'totalCP' => 0],
-                'T2' => ['totalAEouvrtvertical' => 0, 'totalAEattenduvertical' => 0, 'totalCPouvrtvertical' => 0, 'totalCPattenduvertical' => 0, 'totalAE' => 0, 'totalCP' => 0],
-                'T3' => ['totalAEreportevertical' => 0, 'totalAEnotifievertical' => 0, 'totalAEengagevertical' => 0, 'totalCPreportevertical' => 0, 'totalCPnotifievertical' => 0, 'totalCPconsomevertical' => 0, 'totalAE' => 0, 'totalCP' => 0],
-                'T4' => ['totalAE' => 0, 'totalCP' => 0]
-            ],
-            'delegation' => [
-                'T1' => ['totalAE' => 0, 'totalCP' => 0],
-                'T2' => ['totalAEouvrtvertical' => 0, 'totalAEattenduvertical' => 0, 'totalCPouvrtvertical' => 0, 'totalCPattenduvertical' => 0, 'totalAE' => 0, 'totalCP' => 0],
-                'T3' => ['totalAEreportevertical' => 0, 'totalAEnotifievertical' => 0, 'totalAEengagevertical' => 0, 'totalCPreportevertical' => 0, 'totalCPnotifievertical' => 0, 'totalCPconsomevertical' => 0, 'totalAE' => 0, 'totalCP' => 0],
-                'T4' => ['totalAE' => 0, 'totalCP' => 0]
-            ]
-        ];
-
-        // Liste pour déboguer les groupes
+    // Initialisation des totaux globaux
+    $totauxGlobaux = [
+        'centrale' => [
+            'T1' => ['totalAE' => 0, 'totalCP' => 0],
+            'T2' => ['totalAEouvrtvertical' => 0, 'totalAEattenduvertical' => 0, 'totalCPouvrtvertical' => 0, 'totalCPattenduvertical' => 0, 'totalAE' => 0, 'totalCP' => 0],
+            'T3' => ['totalAEreportevertical' => 0, 'totalAEnotifievertical' => 0, 'totalAEengagevertical' => 0, 'totalCPreportevertical' => 0, 'totalCPnotifievertical' => 0, 'totalCPconsomevertical' => 0, 'totalAE' => 0, 'totalCP' => 0],
+            'T4' => ['totalAE' => 0, 'totalCP' => 0]
+        ],
+        'delegation' => [
+            'T1' => ['totalAE' => 0, 'totalCP' => 0],
+            'T2' => ['totalAEouvrtvertical' => 0, 'totalAEattenduvertical' => 0, 'totalCPouvrtvertical' => 0, 'totalCPattenduvertical' => 0, 'totalAE' => 0, 'totalCP' => 0],
+            'T3' => ['totalAEreportevertical' => 0, 'totalAEnotifievertical' => 0, 'totalAEengagevertical' => 0, 'totalCPreportevertical' => 0, 'totalCPnotifievertical' => 0, 'totalCPconsomevertical' => 0, 'totalAE' => 0, 'totalCP' => 0],
+            'T4' => ['totalAE' => 0, 'totalCP' => 0]
+        ]
+    ];
+  
         $groupesTrouves = [];
 
-        // Parcourir les programmes
+
         foreach ($portefeuille->Programme as $programme) {
             foreach ($programme->SousProgramme as $sousProgramme) {
                 foreach ($sousProgramme->Action as $action) {
                     $typeAction = $action->type_action;
+                   // dd(  $typeAction);
                     foreach ($action->SousAction as $sousAction) {
                         foreach ($sousAction->GroupOperation as $groupe) {
                             if ($groupe->num_sous_action == $s_act) {
-                                // Enregistrer le groupe pour débogage
+                                //dd(  $typeAction);
+
                                 $groupesTrouves[] = [
                                     'code' => $groupe->code_grp_operation,
                                     'nom' => $groupe->nom_grp_operation,
                                     'type_action' => $typeAction
                                 ];
-
-                                // Initialiser les totaux du groupe
+                               // dd(  $groupesTrouves);
+                               
                                 $groupeTotals = [
                                     'T1' => ['ae' => 0, 'cp' => 0],
                                     'T2' => ['ae_ouvert' => 0, 'ae_attendu' => 0, 'cp_ouvert' => 0, 'cp_attendu' => 0, 'total_ae' => 0, 'total_cp' => 0],
@@ -86,11 +85,6 @@ class CalculDpia
                                 $hasGroupT4 = false;
 
                                 foreach ($groupe->Operation as $operation) {
-                                    // Log des opérations pour débogage
-                                    Log::info("Operation: {$operation->code_operation}", [
-                                        'groupe' => $groupe->code_grp_operation,
-                                        'sous_action' => $s_act
-                                    ]);
 
                                     $operationTotals = [
                                         'T1' => ['ae' => 0, 'cp' => 0],
@@ -103,24 +97,22 @@ class CalculDpia
                                     $hasT2 = false;
                                     $hasT3 = false;
                                     $hasT4 = false;
-
+                                       // dd($typeAction);
                                     $codeParts = explode('-', $operation->code_operation);
                                     $operationCode = end($codeParts);
                                     $prefix = substr($operationCode, 0, 1);
 
-                                    foreach ($operation->SousOperation as $sousOperation) {
-                                        // Log des sous-opérations pour débogage
-                                        Log::info("SousOperation: {$sousOperation->code_sous_operation}", [
-                                            'code_operation' => $operation->code_operation,
-                                            'prefix' => $prefix,
-                                            'code_t1' => $sousOperation->code_t1,
-                                            'code_t2' => $sousOperation->code_t2,
-                                            'code_t3' => $sousOperation->code_t3,
-                                            'code_t4' => $sousOperation->code_t4
-                                        ]);
+                                    $typeActionInitiale = $typeAction;
+                                    //dd('avant modification', $typeActionInitiale, $typeAction);
 
+                                    foreach ($operation->SousOperation as $sousOperation) {
+                                       
+                                       //dd($typeAction);
+                                       $typeAction = $typeActionInitiale;
+                                      // dd($typeAction);
                                         // T1: Préfixe 1
                                         if ($sousOperation->code_t1 == 10000 && $prefix == '1') {
+                                           // dd("prefix: $prefix", "code_t1: $sousOperation->code_t1", "typeAction: $typeAction");
                                             $calculs[$typeAction]['T1']['sousOperation'][] = [
                                                 'code' => $sousOperation->code_sous_operation,
                                                 'nom' => $sousOperation->nom_sous_operation,
@@ -135,6 +127,8 @@ class CalculDpia
                                             $operationTotals['T1']['cp'] += $sousOperation->CP_sous_operation;
                                             $hasT1 = true;
                                             $hasGroupT1 = true;
+                                            //dd($calculs);
+                                          
                                         }
 
                                         // T2: Préfixe 2
@@ -219,7 +213,7 @@ class CalculDpia
                                             $hasGroupT4 = true;
                                         }
                                     }
-
+                                    //dd($typeAction);
                                     // Ajouter les opérations aux résultats
                                     if ($hasT1) {
                                         $calculs[$typeAction]['T1']['operation'][] = [
@@ -289,9 +283,10 @@ class CalculDpia
                                         $groupeTotals['T4']['cp'] += $operationTotals['T4']['cp'];
                                     }
                                 }
-
+                                //dd($typeAction);
                                 // Ajouter les groupes aux sections où ils ont des opérations
                                 if ($hasGroupT1) {
+                                    //dd($typeAction);
                                     $calculs[$typeAction]['T1']['group'][] = [
                                         'code' => $groupe->code_grp_operation,
                                         'nom' => $groupe->nom_grp_operation,
@@ -299,9 +294,16 @@ class CalculDpia
                                             'ae_grpop' => $groupeTotals['T1']['ae'],
                                             'cp_grpop' => $groupeTotals['T1']['cp']
                                         ]
-                                    ];
-                                    $totauxGlobaux[$typeAction]['T1']['totalAE'] += $groupeTotals['T1']['ae'];
-                                    $totauxGlobaux[$typeAction]['T1']['totalCP'] += $groupeTotals['T1']['cp'];
+                                    ];//    dd($typeAction); 
+                                    //dd($groupeTotals);
+                                    if (isset($groupeTotals['T1']['ae'], $groupeTotals['T1']['cp'])) {
+                                        $totauxGlobaux[$typeAction]['T1']['totalAE'] += $groupeTotals['T1']['ae'];
+                                        $totauxGlobaux[$typeAction]['T1']['totalCP'] += $groupeTotals['T1']['cp'];
+                                    } else {
+                                        // Pour debug : voir quelles clés sont disponibles
+                                        logger()->warning('Clés manquantes dans groupeTotals', ['dispo' => array_keys($groupeTotals)]);
+                                    }
+                                   
                                 }
 
                                 if ($hasGroupT2) {

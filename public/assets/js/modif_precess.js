@@ -847,6 +847,7 @@ calaulsomeAE_CP_sprog()
 
 
 
+
     $('.btn-primary').on('click',function(event){
         event.preventDefault(); // Prevents default button behavior
         id=$(this).attr('id')
@@ -1045,7 +1046,7 @@ calaulsomeAE_CP_sprog()
                                                 T4_AE_init: T4_AE_init,
                                                 T4_CP_init: T4_CP_init,
                                                 code_t4: 40000,
-                                                action_delege:deleg_act,
+                                                action_delege:deleg_action,
                                             id_sous_prog: path[2],
                                             AE_act: AE_act,
                                             CP_act: CP_act,
@@ -1187,6 +1188,7 @@ calaulsomeAE_CP_sprog()
                                             AE_act: AE_act,
                                             CP_act: CP_act,
 
+
                                             T1_AE_init_AC: T1_AE_init_AC,
                                             T1_CP_init_AC: T1_CP_init_AC,
                                             code_t1: 10000,
@@ -1202,7 +1204,7 @@ calaulsomeAE_CP_sprog()
                                                 T4_AE_init_AC: T4_AE_init_AC,
                                                 T4_CP_init_AC: T4_CP_init_AC,
                                                 code_t4: 40000,
-                                                action_delege:deleg_act,
+                                                action_delege:deleg_action,
                                             _token: $('meta[name="csrf-token"]').attr('content'),
                                             _method: 'POST'
                                         };

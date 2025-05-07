@@ -43,6 +43,7 @@ class sousOperationController extends Controller
 
     function modif_handler($id,Request $request)
     {
+        //dd($request);
         $oprt=$id;
         $chek=explode("_",$oprt);
         $ae_glob=0;
@@ -50,7 +51,7 @@ class sousOperationController extends Controller
         $nom="";
         $code="";
         $codes=$request['code'];
-        
+       // dd( $codes);
         if(!isset($codes))
         {
             return back()->with('unsuccess', 'User registered indefined!');
@@ -160,8 +161,9 @@ class sousOperationController extends Controller
                     $cp_glob=$act->CP_action;
                     $nom=$act->nom_action;
                     $code=$act->num_action;
+                    $type_action=$act->type_action;
                     $date=$act->date_insert_action;
-
+                    //dd($type_action);
                     $init=initPort::where('num_action',$code)->first();
                     if(!empty($init->num_action)){
                     $init_value['ae_T1']=$init->AE_init_t1;
@@ -189,7 +191,7 @@ class sousOperationController extends Controller
         {
             return response()->view('errors.404', [], 404); 
         }
-        dd($chek);
+       // dd($chek);
     }
 
 

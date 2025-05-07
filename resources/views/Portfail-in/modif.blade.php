@@ -90,7 +90,7 @@ Object.entries(paths).forEach(([code,value])=>{
 
                         <div class="form-group">
                           <label for="CP_sous_act">Action de Delegatiion</label>
-                         <input type="checkbox" class="form-control" id="act_deleg">
+                         <input type="checkbox" id="act_deleg">
                        </div>
 
                         </form>
@@ -156,7 +156,7 @@ Object.entries(paths).forEach(([code,value])=>{
 
                         <div class="form-group">
                            <label for="CP_sous_act">Action de Delegatiion</label>
-                          <input type="checkbox" class="form-control" id="act_deleg">
+                          <input type="checkbox" id="act_deleg">
                         </div>
 
                         </form>
@@ -324,11 +324,23 @@ Object.entries(paths).forEach(([code,value])=>{
                  </div>
                  <script>
                  var path3=Array()
+                 
                  </script>
 <script src="{{asset('assets/bootstrap-5.0.2/js/bootstrap.js')}}"></script>
 <script src="{{asset('assets/fontawesome-free/js/all.js')}}"></script>
 <script src="{{asset('assets/js/jquery-3.7.1.min.js')}}"></script>
 <script src="{{asset('assets/js/modif_precess.js')}}">
+</script>
+<script>var deleg_action="centrale"
+$('#act_deleg').change(function() {
+    if ($(this).is(':checked')) {
+        deleg_action="delegation"
+        console.log('Checkbox is checked. Value:', $(this).val()+'deleg_action'+deleg_action);
+    } else {
+          deleg_action="centrale"
+        console.log('Checkbox is unchecked.', $(this).val()+'deleg_action'+deleg_action);
+    }
+});
 </script>
  </body>
 

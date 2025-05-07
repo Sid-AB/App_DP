@@ -101,7 +101,7 @@ class programmeControlleur extends Controller
         $programme->ae_prog=floatval(str_replace(',', '', $request->ae_prog));
         $programme->cp_prog=floatval(str_replace(',', '', $request->cp_prog));
         $programme->date_insert_portef = $request->date_insert_portef;
-        $programme->id_rp = 1; //periodiquement
+       // $programme->id_rp = 1; //periodiquement
 
         $programme->save();
 

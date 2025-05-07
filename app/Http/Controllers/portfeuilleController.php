@@ -374,7 +374,7 @@ public function check_portef(Request $request)
         $portefeuille->CP_portef = floatval(str_replace(',', '', $request->CP_portef));
         $portefeuille->Date_portefeuille = $request->Date_portefeuille;
         $portefeuille->Date_update_portefeuille = Carbon::now();
-        $portefeuille->id_min =1;//periodiquement
+        //$portefeuille->id_min =1;//periodiquement
         $portefeuille->save();
 
         $this->updateOrCreateDPIC($portefeuille, true);//mettre à jr dpic

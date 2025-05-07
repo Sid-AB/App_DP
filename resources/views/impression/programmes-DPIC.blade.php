@@ -432,7 +432,7 @@
                                 @foreach($tabsousprogretir as $index => $item)
                                
                                 @if(isset($item['prog']) && $item['prog'] === $programme['code'])
-                                @php dd($item['prog']);@endphp
+                               
                                         @php
                                             if ($index === 0) { 
                                                 $valeurAE = $item['valeurAE'] ??$valeurAE;
