@@ -163,9 +163,8 @@ class EmploiBudgetController extends Controller
           'posts',
           'communs','op','cdd','cdi'
 
-        ))->setPaper("A4","landscape")
-          ->setOption('dpi', 300) 
-          ->setOption('zoom', 1.75);  // Augmenter la résolution pour améliorer la lisibilité du texte
+        ))->setPaper("A4","landscape");
+           // Augmenter la résolution pour améliorer la lisibilité du texte
           return $pdf->stream('liste_budgetaires.pdf');
         // Passer les données à la vue sans les afficher directement
        // return view('impression_emplois_budgetaire', compact('fonctions'));
