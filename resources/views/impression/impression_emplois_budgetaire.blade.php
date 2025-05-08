@@ -47,12 +47,28 @@
             font-weight: bold;
             background-color: #60497A; /* Couleur plus sombre pour les programmes principaux */
             color:white;
-            width:36.4%;
-            height:40px;
+            /*width:36.4%;
+            height:40px;*/
         }
         .page-break {
             page-break-after: always;
         }
+        .equal-table {
+    table-layout: fixed; /* Forcer la largeur fixe des colonnes */
+    width: 100%; /* Ou une valeur fixe comme 1000px */
+    border-collapse: collapse;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+.equal-table th, .equal-table td {
+    width: 11.11%; /* 100% ÷ 9 colonnes, ajuste si tu as un autre nombre */
+    height: 50px;   /* Fixer la hauteur de toutes les cellules */
+    border: 1px solid #000;
+    padding: 8px;
+    vertical-align: middle;
+}
+
     </style>
 </head>
 <body>
@@ -60,7 +76,7 @@
 <h2 style=" font-family: Cambria (Titres), sans-serif; font-size: 14pt; font-weight: bold;">2. LA PROGRAMMATION DES EMPLOIS BUDGÉTAIRES :</h2>
 <h3 style="font-family: Cambria (Titres), sans-serif; font-size: 14pt; font-weight: bold;">2.1. POUR LES SERVICES CENTRAUX :</h3>
 
-<table>
+<table  class="equal-table">
     <tr class="mauve">
         <th rowspan="1">ADMINISTRATION CENTRALE</th>
         <th colspan="3">EMPLOIS BUDGÉTAIRES</th>
@@ -99,11 +115,11 @@
         </tr>
         @endforeach
     </tbody>
-</table>
+</table  >
 
 <div class="page-break"></div>
 
-<table>
+<table  class="equal-table">
     <tr>
         <th rowspan="2" class="mauve">Poste supérieur</th>
         <th rowspan="2" class="highlight-gray">{{ $totalOuvertspost }}</th>
@@ -133,7 +149,7 @@
 
 <div class="page-break"></div>
 
-<table>
+<table  class="equal-table">
     <tr>
         <th rowspan="2" class="mauve">Corps Communs</th>
         <th rowspan="2" class="highlight-gray">{{ $totalOuvertscomm }}</th>
@@ -161,9 +177,9 @@
         @endforeach
     </tbody>
 </table>
-<table>
+<table  class="equal-table">
     <tr>
-        <th rowspan="2" class="mauve" style="width:36.42%;">OP + APPARITEURS + CONDUCTEURS</th>
+        <th rowspan="2" class="mauve" >OP + APPARITEURS + CONDUCTEURS</th>
         <th rowspan="2" class="highlight-gray" >{{ $totalOuvertscomm }}</th>
         <th rowspan="2" class="highlight-gray">{{ $totalOccupescomm }}</th>
         <th rowspan="2" class="highlight-gray" >{{ $totalVacantscomm }}</th>
@@ -188,11 +204,11 @@
         </tr>
         @endforeach
     </tbody>
-</table>
+</table >
 
 <div class="page-break"></div>
 
-<table>
+<table  class="equal-table">
     <tr>
         <th rowspan="2" class="mauve">CDI</th>
         <th rowspan="2" class="highlight-gray">{{ $totalOuvertscomm }}</th>
@@ -221,7 +237,7 @@
     </tbody>
 </table>
 
-<table>
+<table  class="equal-table">
     <tr>
         <th rowspan="2" class="mauve">CDD</th>
         <th rowspan="2" class="highlight-gray">{{ $totalOuvertscomm }}</th>
