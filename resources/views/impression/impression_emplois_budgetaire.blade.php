@@ -87,7 +87,7 @@
     <tr class="mauve">
         <th rowspan="1" class="large-col">ADMINISTRATION CENTRALE</th>
         <th colspan="3">EMPLOIS BUDGÉTAIRES</th>
-        <th colspan="5" class="larg">RÉMUNÉRATION</th>
+        <th colspan="5" >RÉMUNÉRATION</th>
     </tr>
     <tbody>
         <tr >
