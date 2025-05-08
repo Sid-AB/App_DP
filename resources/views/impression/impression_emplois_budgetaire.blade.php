@@ -72,9 +72,6 @@
     .large-col {
             width: 25%;
         }
-    .larg{
-        width: 5%;
-    }
 
     </style>
 </head>
@@ -132,9 +129,9 @@
         <th rowspan="2" class="highlight-gray">{{ $totalOuvertspost }}</th>
         <th rowspan="2" class="highlight-gray">{{ $totalOccupespost }}</th>
         <th rowspan="2" class="highlight-gray">{{ $totalVacantspost }}</th>
-        <th rowspan="2" class="header-row larg">BONIFICATION INDICIAIRE / NIVEAU</th>
-        <th rowspan="2" class="header-row larg" >BONIFICATION INDICIAIRE / POINTS</th>
-        <th rowspan="2" class="header-row larg">BONIFICATION INDICIAIRE / MONTANT</th>
+        <th rowspan="2" class="header-row ">BONIFICATION INDICIAIRE / NIVEAU</th>
+        <th rowspan="2" class="header-row">BONIFICATION INDICIAIRE / POINTS</th>
+        <th rowspan="2" class="header-row">BONIFICATION INDICIAIRE / MONTANT</th>
         <th rowspan="2" colspan="2" class="header-row">DEPENSES ANNUELLES</th>
     </tr>
     <tbody>
@@ -144,9 +141,9 @@
             <td>{{ $post->EmploiesOuverts }}</td>
             <td>{{ $post->EmploiesOccupes }}</td>
             <td>{{ $post->EmploiesVacants }}</td>
-            <td class="larg">{{ $post->Niveau_sup }}</td>
-            <td class="larg">{{ $post->point_indsup }}</td>
-            <td class="larg">{{ $post->TRAITEMENT_ANNUEL }}</td>
+            <td>{{ $post->Niveau_sup }}</td>
+            <td>{{ $post->point_indsup }}</td>
+            <td>{{ $post->TRAITEMENT_ANNUEL }}</td>
             <td>{{ $post->PRIMES_INDEMNITES }}</td>
             <td>{{ $post->DEPENSES_ANNUELLES }}</td>
         </tr>
