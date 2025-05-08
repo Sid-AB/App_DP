@@ -70,7 +70,7 @@
         vertical-align: middle;
     }
     .large-col {
-            width: 30%;
+            width: 25%;
         }
 
     </style>
