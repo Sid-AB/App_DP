@@ -164,9 +164,9 @@
 <table>
     <tr>
         <th rowspan="2" class="mauve" style="width:36.3%;">OP + APPARITEURS + CONDUCTEURS</th>
-        <th rowspan="2" class="highlight-gray" style="width:2.3%;">{{ $totalOuvertscomm }}</th>
-        <th rowspan="2" class="highlight-gray" style="width:2.3%;">{{ $totalOccupescomm }}</th>
-        <th rowspan="2" class="highlight-gray" style="width:2.3%;">{{ $totalVacantscomm }}</th>
+        <th rowspan="2" class="highlight-gray" style="width:3.5%;">{{ $totalOuvertscomm }}</th>
+        <th rowspan="2" class="highlight-gray" style="width:3%;">{{ $totalOccupescomm }}</th>
+        <th rowspan="2" class="highlight-gray" style="width:2.5%;">{{ $totalVacantscomm }}</th>
         <th rowspan="2" class="header-row">CATEGORIE</th>
         <th rowspan="2" class="header-row">MOYENNE</th>
         <th rowspan="2" class="header-row">TRAITEMENT ANNUEL</th>
