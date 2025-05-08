@@ -40,6 +40,9 @@
         tbody tr:hover {
             background-color: #E5E5E5; /* Gris foncé pour le survol */
         }
+        tbody td {
+            padding: 13px 20px;
+        }
         .mauve {
             font-weight: bold;
             background-color: #60497A; /* Couleur plus sombre pour les programmes principaux */
@@ -160,7 +163,7 @@
 </table>
 <table>
     <tr>
-        <th rowspan="2" class="mauve" >OP+APPARITEURS+CONDUCTEURS</th>
+        <th rowspan="2" class="mauve" style="padding:0px">OP + APPARITEURS + CONDUCTEURS</th>
         <th rowspan="2" class="highlight-gray">{{ $totalOuvertscomm }}</th>
         <th rowspan="2" class="highlight-gray">{{ $totalOccupescomm }}</th>
         <th rowspan="2" class="highlight-gray">{{ $totalVacantscomm }}</th>
