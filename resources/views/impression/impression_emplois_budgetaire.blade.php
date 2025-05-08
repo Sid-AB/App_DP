@@ -73,7 +73,7 @@
             width: 25%;
         }
     .larg{
-        width: 10%;
+        width: 5%;
     }
 
     </style>
