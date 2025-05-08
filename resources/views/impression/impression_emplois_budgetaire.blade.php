@@ -75,7 +75,9 @@
     .larg{
         width:10%;
     }
-
+    .lrge{
+        width:49%;
+    }
     </style>
 </head>
 <body>
@@ -87,7 +89,7 @@
     <tr class="mauve">
         <th rowspan="1" class="large-col">ADMINISTRATION CENTRALE</th>
         <th colspan="3">EMPLOIS BUDGÉTAIRES</th>
-        <th colspan="5" >RÉMUNÉRATION</th>
+        <th colspan="5" class="lrge">RÉMUNÉRATION</th>
     </tr>
     <tbody>
         <tr >
