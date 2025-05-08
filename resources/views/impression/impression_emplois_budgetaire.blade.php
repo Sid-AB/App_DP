@@ -74,7 +74,7 @@
             <td rowspan="2" class="header-row">PRIMES ET INDEMNITÉS</td>
             <td rowspan="2" class="header-row">DEPENSES ANNUELLES</td>
         </tr>
-        <tr class="category-header">
+        <tr >
             <td class="mauve">Fonction supérieure</td>
             <td class="highlight-gray">{{ $totalOuvertsfct }}</td>
             <td class="highlight-gray">{{ $totalOccupesfct }}</td>
