@@ -72,6 +72,9 @@
     .large-col {
             width: 25%;
         }
+    .larg{
+        width:10%;
+    }
 
     </style>
 </head>
@@ -89,11 +92,11 @@
     <tbody>
         <tr >
             <td class="header-row large-col">Catégorie du personnel</td>
-            <td class="header-row">Ouverts (<?php echo date("Y"); ?>)</td>
-            <td class="header-row">Occupés au 31 décembre (<?php echo (date("Y") - 1); ?>)</td>
-            <td class="header-row">Vacants ou excédent</td>
-            <td colspan="2" class="header-row">CLASSIFICATION</td>
-            <td rowspan="2" class="header-row">TRAITEMENT ANNUEL</td>
+            <td class="header-row ">Ouverts (<?php echo date("Y"); ?>)</td>
+            <td class="header-row ">Occupés au 31 décembre (<?php echo (date("Y") - 1); ?>)</td>
+            <td class="header-row ">Vacants ou excédent</td>
+            <td colspan="2" class="header-row larg">CLASSIFICATION</td>
+            <td rowspan="2" class="header-row larg">TRAITEMENT ANNUEL</td>
             <td rowspan="2" class="header-row">PRIMES ET INDEMNITÉS</td>
             <td rowspan="2" class="header-row">DEPENSES ANNUELLES</td>
         </tr>
@@ -101,9 +104,9 @@
             <td class="mauve large-col">Fonction supérieure</td>
             <td class="highlight-gray">{{ $totalOuvertsfct }}</td>
             <td class="highlight-gray">{{ $totalOccupesfct }}</td>
-            <td class="highlight-gray">{{ $totalVacantsfct }}</td>
-            <td class="highlight-gray">CATEGORIE</td>
-            <td class="highlight-gray">MOYENNE</td>
+            <td class="highlight-gray " >{{ $totalVacantsfct }}</td>
+            <td class="highlight-gray larg">CATEGORIE</td>
+            <td class="highlight-gray larg">MOYENNE</td>
         </tr>
         @foreach($fonctions as $fonction)
         <tr>
@@ -111,9 +114,9 @@
             <td>{{ $fonction->EmploiesOuverts }}</td>
             <td>{{ $fonction->EmploiesOccupes }}</td>
             <td>{{ $fonction->EmploiesVacants }}</td>
-            <td>{{ $fonction->CATEGORIE }}</td>
-            <td>{{ $fonction->Moyenne }}</td>
-            <td>{{ $fonction->TRAITEMENT_ANNUEL }}</td>
+            <td class="larg">{{ $fonction->CATEGORIE }}</td>
+            <td class="larg">{{ $fonction->Moyenne }}</td>
+            <td class="larg">{{ $fonction->TRAITEMENT_ANNUEL }}</td>
             <td>{{ $fonction->PRIMES_INDEMNITES }}</td>
             <td>{{ $fonction->DEPENSES_ANNUELLES }}</td>
         </tr>
@@ -129,9 +132,9 @@
         <th rowspan="2" class="highlight-gray">{{ $totalOuvertspost }}</th>
         <th rowspan="2" class="highlight-gray">{{ $totalOccupespost }}</th>
         <th rowspan="2" class="highlight-gray">{{ $totalVacantspost }}</th>
-        <th rowspan="2" class="header-row ">BONIFICATION INDICIAIRE / NIVEAU</th>
-        <th rowspan="2" class="header-row">BONIFICATION INDICIAIRE / POINTS</th>
-        <th rowspan="2" class="header-row">BONIFICATION INDICIAIRE / MONTANT</th>
+        <th rowspan="2" class="header-row larg ">BONIFICATION INDICIAIRE / NIVEAU</th>
+        <th rowspan="2" class="header-row larg">BONIFICATION INDICIAIRE / POINTS</th>
+        <th rowspan="2" class="header-row larg">BONIFICATION INDICIAIRE / MONTANT</th>
         <th rowspan="2" colspan="2" class="header-row">DEPENSES ANNUELLES</th>
     </tr>
     <tbody>
@@ -141,9 +144,9 @@
             <td>{{ $post->EmploiesOuverts }}</td>
             <td>{{ $post->EmploiesOccupes }}</td>
             <td>{{ $post->EmploiesVacants }}</td>
-            <td>{{ $post->Niveau_sup }}</td>
-            <td>{{ $post->point_indsup }}</td>
-            <td>{{ $post->TRAITEMENT_ANNUEL }}</td>
+            <td class="larg">{{ $post->Niveau_sup }}</td>
+            <td class="larg">{{ $post->point_indsup }}</td>
+            <td class="larg">{{ $post->TRAITEMENT_ANNUEL }}</td>
             <td>{{ $post->PRIMES_INDEMNITES }}</td>
             <td>{{ $post->DEPENSES_ANNUELLES }}</td>
         </tr>
@@ -159,9 +162,9 @@
         <th rowspan="2" class="highlight-gray">{{ $totalOuvertscomm }}</th>
         <th rowspan="2" class="highlight-gray">{{ $totalOccupescomm }}</th>
         <th rowspan="2" class="highlight-gray">{{ $totalVacantscomm }}</th>
-        <th rowspan="2" class="header-row">CATEGORIE</th>
-        <th rowspan="2" class="header-row">MOYENNE</th>
-        <th rowspan="2" class="header-row">TRAITEMENT ANNUEL</th>
+        <th rowspan="2" class="header-row larg">CATEGORIE</th>
+        <th rowspan="2" class="header-row larg">MOYENNE</th>
+        <th rowspan="2" class="header-row larg">TRAITEMENT ANNUEL</th>
         <th rowspan="2" class="header-row">PRIMES ET INDEMNITÉS</th>
         <th rowspan="2" class="header-row">DEPENSES ANNUELLES</th>
     </tr>
@@ -172,9 +175,9 @@
             <td>{{ $post->EmploiesOuverts }}</td>
             <td>{{ $post->EmploiesOccupes }}</td>
             <td>{{ $post->EmploiesVacants }}</td>
-            <td>{{ $post->CATEGORIE_post }}</td>
-            <td>{{ $post->MOYENNE_post }}</td>
-            <td>{{ $post->TRAITEMENT_ANNUEL }}</td>
+            <td class="larg">{{ $post->CATEGORIE_post }}</td>
+            <td class="larg">{{ $post->MOYENNE_post }}</td>
+            <td class="larg">{{ $post->TRAITEMENT_ANNUEL }}</td>
             <td>{{ $post->PRIMES_INDEMNITES }}</td>
             <td>{{ $post->DEPENSES_ANNUELLES }}</td>
         </tr>
@@ -187,9 +190,9 @@
         <th rowspan="2" class="highlight-gray" >{{ $totalOuvertscomm }}</th>
         <th rowspan="2" class="highlight-gray">{{ $totalOccupescomm }}</th>
         <th rowspan="2" class="highlight-gray" >{{ $totalVacantscomm }}</th>
-        <th rowspan="2" class="header-row">CATEGORIE</th>
-        <th rowspan="2" class="header-row">MOYENNE</th>
-        <th rowspan="2" class="header-row">TRAITEMENT ANNUEL</th>
+        <th rowspan="2" class="header-row larg">CATEGORIE</th>
+        <th rowspan="2" class="header-row larg">MOYENNE</th>
+        <th rowspan="2" class="header-row larg">TRAITEMENT ANNUEL</th>
         <th rowspan="2" class="header-row">PRIMES ET INDEMNITÉS</th>
         <th rowspan="2" class="header-row">DEPENSES ANNUELLES</th>
     </tr>
@@ -200,9 +203,9 @@
             <td>{{ $post->EmploiesOuverts }}</td>
             <td>{{ $post->EmploiesOccupes }}</td>
             <td>{{ $post->EmploiesVacants }}</td>
-            <td>{{ $post->CATEGORIE_opconducteurs }}</td>
-            <td>{{ $post->MOYENNE_opconducteurs }}</td>
-            <td>{{ $post->TRAITEMENT_ANNUEL }}</td>
+            <td class="larg">{{ $post->CATEGORIE_opconducteurs }}</td>
+            <td class="larg">{{ $post->MOYENNE_opconducteurs }}</td>
+            <td class="larg">{{ $post->TRAITEMENT_ANNUEL }}</td>
             <td>{{ $post->PRIMES_INDEMNITES }}</td>
             <td>{{ $post->DEPENSES_ANNUELLES }}</td>
         </tr>
@@ -218,9 +221,9 @@
         <th rowspan="2" class="highlight-gray">{{ $totalOuvertscomm }}</th>
         <th rowspan="2" class="highlight-gray">{{ $totalOccupescomm }}</th>
         <th rowspan="2" class="highlight-gray">{{ $totalVacantscomm }}</th>
-        <th rowspan="2" class="header-row">CATEGORIE</th>
-        <th rowspan="2" class="header-row">MOYENNE</th>
-        <th rowspan="2" class="header-row">TRAITEMENT ANNUEL</th>
+        <th rowspan="2" class="header-row larg">CATEGORIE</th>
+        <th rowspan="2" class="header-row larg">MOYENNE</th>
+        <th rowspan="2" class="header-row larg">TRAITEMENT ANNUEL</th>
         <th rowspan="2" class="header-row">PRIMES ET INDEMNITÉS</th>
         <th rowspan="2" class="header-row">DEPENSES ANNUELLES</th>
     </tr>
@@ -231,9 +234,9 @@
             <td>{{ $post->EmploiesOuverts }}</td>
             <td>{{ $post->EmploiesOccupes }}</td>
             <td>{{ $post->EmploiesVacants }}</td>
-            <td>{{ $post->CATEGORIE_c_d_i_s }}</td>
-            <td>{{ $post->MOYENNE_c_d_i_s }}</td>
-            <td>{{ $post->TRAITEMENT_ANNUEL }}</td>
+            <td class="larg">{{ $post->CATEGORIE_c_d_i_s }}</td>
+            <td class="larg">{{ $post->MOYENNE_c_d_i_s }}</td>
+            <td class="larg">{{ $post->TRAITEMENT_ANNUEL }}</td>
             <td>{{ $post->PRIMES_INDEMNITES }}</td>
             <td>{{ $post->DEPENSES_ANNUELLES }}</td>
         </tr>
@@ -247,9 +250,9 @@
         <th rowspan="2" class="highlight-gray">{{ $totalOuvertscomm }}</th>
         <th rowspan="2" class="highlight-gray">{{ $totalOccupescomm }}</th>
         <th rowspan="2" class="highlight-gray">{{ $totalVacantscomm }}</th>
-        <th rowspan="2" class="header-row">CATEGORIE</th>
-        <th rowspan="2" class="header-row">MOYENNE</th>
-        <th rowspan="2" class="header-row">TRAITEMENT ANNUEL</th>
+        <th rowspan="2" class="header-row larg">CATEGORIE</th>
+        <th rowspan="2" class="header-row larg">MOYENNE</th>
+        <th rowspan="2" class="header-row larg">TRAITEMENT ANNUEL</th>
         <th rowspan="2" class="header-row">PRIMES ET INDEMNITÉS</th>
         <th rowspan="2" class="header-row">DEPENSES ANNUELLES</th>
     </tr>
@@ -260,9 +263,9 @@
             <td>{{ $post->EmploiesOuverts }}</td>
             <td>{{ $post->EmploiesOccupes }}</td>
             <td>{{ $post->EmploiesVacants }}</td>
-            <td>{{ $post->CATEGORIE_c_d_i_s }}</td>
-            <td>{{ $post->MOYENNE_c_d_i_s }}</td>
-            <td>{{ $post->TRAITEMENT_ANNUEL }}</td>
+            <td class="larg">{{ $post->CATEGORIE_c_d_i_s }}</td>
+            <td class="larg">{{ $post->MOYENNE_c_d_i_s }}</td>
+            <td class="larg">{{ $post->TRAITEMENT_ANNUEL }}</td>
             <td>{{ $post->PRIMES_INDEMNITES }}</td>
             <td>{{ $post->DEPENSES_ANNUELLES }}</td>
         </tr>
