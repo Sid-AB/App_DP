@@ -3396,7 +3396,7 @@ $('#opconducteur').on('click',function()
 
         
         $.ajax({
-            url:'/getlist_cdd/'+id_s_act,
+            url:'/get_list_OAC/'+id_s_act,
             type:'GET',
             success:function(response){
                 if(response.code == 200)
@@ -3405,13 +3405,13 @@ $('#opconducteur').on('click',function()
                         $('#T-tables tbody').empty();
                     response.postsup.forEach(element=>{
                     bodyadd='<tr id='+element.id_emp+'>'+
-                    '<td>'+element.Nom_post+' </td>'+
+                    '<td>'+element.Nom_opconducteurs+' </td>'+
                     '<td>'+element.EmploiesOuverts+' </td>'+
                     '<td>'+element.EmploiesOccupes+'</td>'+
                     '<td>'+element.EmploiesVacants+'</td>'+
             
-                    '<td>'+element.CATEGORIE_post+' </td>'+
-                    '<td>'+element.MOYENNE_post+' </td>'+
+                    '<td>'+element.CATEGORIE_opconducteurs+' </td>'+
+                    '<td>'+element.MOYENNE_opconducteurs+' </td>'+
                    
                     '<td>'+element.TRAITEMENT_ANNUEL+'</td>'+
                     '<td>'+element.PRIMES_INDEMNITES+'</td>'+
@@ -3492,7 +3492,7 @@ $('#opconducteur').on('click',function()
      * */    
 
     $('.print_apt').on('click',function(){
-        //window.open('/printlist_commun/'+id_s_act,'_blank')
+        window.open('/printlist_oap/'+id_s_act,'_blank')
     })
 
     $(".btn_add_budg").on('click',function(){
@@ -3500,8 +3500,8 @@ $('#opconducteur').on('click',function()
         var champ='<div class="Tsop_add_handle">'+
         '<form id="add_sops">'+
         '<div class="form-group">'+
-        '<label class="desp">Corps Communs</label>'+
-         '<input type="text" class="form-control" id="funt_sup" placeholder="Veuillez Entrer le Nom du OAP">'+
+        '<label class="desp">OP + APPARITEURS + CONDUCTEURS</label>'+
+         '<input type="text" class="form-control" id="funt_sup" placeholder="Veuillez Entrer le Nom du OP + APPARITEURS + CONDUCTEURS">'+
          '</div>'+
          '<div class="T3-ops_inpt_handle">' +
          '<div><label>EMPLOIS BUDGETAIRES Ouverts</label>'+
@@ -3749,13 +3749,13 @@ $('#cdd').on('click',function()
                         $('#T-tables tbody').empty();
                     response.postsup.forEach(element=>{
                     bodyadd='<tr id='+element.id_emp+'>'+
-                    '<td>'+element.Nom_post+' </td>'+
+                    '<td>'+element.Nom_c_d_d_s+' </td>'+
                     '<td>'+element.EmploiesOuverts+' </td>'+
                     '<td>'+element.EmploiesOccupes+'</td>'+
                     '<td>'+element.EmploiesVacants+'</td>'+
             
-                    '<td>'+element.CATEGORIE_post+' </td>'+
-                    '<td>'+element.MOYENNE_post+' </td>'+
+                    '<td>'+element.CATEGORIE_c_d_d_s+' </td>'+
+                    '<td>'+element.MOYENNE_c_d_d_s+' </td>'+
                    
                     '<td>'+element.TRAITEMENT_ANNUEL+'</td>'+
                     '<td>'+element.PRIMES_INDEMNITES+'</td>'+
@@ -3836,7 +3836,7 @@ $('#cdd').on('click',function()
      * */    
 
     $('.print_apt').on('click',function(){
-        //window.open('/printlist_commun/'+id_s_act,'_blank')
+        window.open('/printlist_cdd/'+id_s_act,'_blank')
     })
 
     $(".btn_add_budg").on('click',function(){
@@ -4092,13 +4092,13 @@ $('#cdi').on('click',function()
                         $('#T-tables tbody').empty();
                     response.postsup.forEach(element=>{
                     bodyadd='<tr id='+element.id_emp+'>'+
-                    '<td>'+element.Nom_post+' </td>'+
+                    '<td>'+element.	Nom_c_d_i_s+' </td>'+
                     '<td>'+element.EmploiesOuverts+' </td>'+
                     '<td>'+element.EmploiesOccupes+'</td>'+
                     '<td>'+element.EmploiesVacants+'</td>'+
             
-                    '<td>'+element.CATEGORIE_post+' </td>'+
-                    '<td>'+element.MOYENNE_post+' </td>'+
+                    '<td>'+element.CATEGORIE_c_d_i_s+' </td>'+
+                    '<td>'+element.MOYENNE_c_d_i_s+' </td>'+
                    
                     '<td>'+element.TRAITEMENT_ANNUEL+'</td>'+
                     '<td>'+element.PRIMES_INDEMNITES+'</td>'+
@@ -4179,7 +4179,7 @@ $('#cdi').on('click',function()
      * */    
 
     $('.print_apt').on('click',function(){
-    //    window.open('/printlist_commun/'+id_s_act,'_blank')
+        window.open('/printlist_cdi/'+id_s_act,'_blank')
     })
 
     $(".btn_add_budg").on('click',function(){

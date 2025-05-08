@@ -10,10 +10,14 @@
             border-collapse: collapse;
             text-align: center;
             font-family: Arial, sans-serif;
+            
+          
         }
         th, td {
             border: 1px solid #000;
             padding: 8px;
+            
+        
         }
        
         .header-row {
@@ -40,6 +44,8 @@
             font-weight: bold;
             background-color: #60497A; /* Couleur plus sombre pour les programmes principaux */
             color:white;
+            width:3000px;
+            height:40px;
         }
         .page-break {
             page-break-after: always;
@@ -66,14 +72,14 @@
             <td colspan="2" class="header-row">CLASSIFICATION</td>
             <td rowspan="2" class="header-row">TRAITEMENT ANNUEL</td>
             <td rowspan="2" class="header-row">PRIMES ET INDEMNITÉS</td>
-            <td rowspan="2" class="header-row">DÉPENSES ANNUELLES</td>
+            <td rowspan="2" class="header-row">DEPENSES ANNUELLES</td>
         </tr>
         <tr class="category-header">
             <td class="mauve">Fonction supérieure</td>
             <td class="highlight-gray">{{ $totalOuvertsfct }}</td>
             <td class="highlight-gray">{{ $totalOccupesfct }}</td>
             <td class="highlight-gray">{{ $totalVacantsfct }}</td>
-            <td class="highlight-gray">CATÉGORIE</td>
+            <td class="highlight-gray">CATEGORIE</td>
             <td class="highlight-gray">MOYENNE</td>
         </tr>
         @foreach($fonctions as $fonction)
@@ -103,7 +109,7 @@
         <th rowspan="2" class="header-row">BONIFICATION INDICIAIRE / NIVEAU</th>
         <th rowspan="2" class="header-row">BONIFICATION INDICIAIRE / POINTS</th>
         <th rowspan="2" class="header-row">BONIFICATION INDICIAIRE / MONTANT</th>
-        <th rowspan="2" colspan="2" class="header-row">DÉPENSES ANNUELLES</th>
+        <th rowspan="2" colspan="2" class="header-row">DEPENSES ANNUELLES</th>
     </tr>
     <tbody>
         @foreach($posts as $post)
@@ -130,11 +136,11 @@
         <th rowspan="2" class="highlight-gray">{{ $totalOuvertscomm }}</th>
         <th rowspan="2" class="highlight-gray">{{ $totalOccupescomm }}</th>
         <th rowspan="2" class="highlight-gray">{{ $totalVacantscomm }}</th>
-        <th rowspan="2" class="header-row">CATÉGORIE</th>
+        <th rowspan="2" class="header-row">CATEGORIE</th>
         <th rowspan="2" class="header-row">MOYENNE</th>
         <th rowspan="2" class="header-row">TRAITEMENT ANNUEL</th>
         <th rowspan="2" class="header-row">PRIMES ET INDEMNITÉS</th>
-        <th rowspan="2" class="header-row">DÉPENSES ANNUELLES</th>
+        <th rowspan="2" class="header-row">DEPENSES ANNUELLES</th>
     </tr>
     <tbody>
         @foreach($communs as $post)
@@ -145,6 +151,94 @@
             <td>{{ $post->EmploiesVacants }}</td>
             <td>{{ $post->CATEGORIE_post }}</td>
             <td>{{ $post->MOYENNE_post }}</td>
+            <td>{{ $post->TRAITEMENT_ANNUEL }}</td>
+            <td>{{ $post->PRIMES_INDEMNITES }}</td>
+            <td>{{ $post->DEPENSES_ANNUELLES }}</td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
+<table>
+    <tr>
+        <th rowspan="2" class="mauve">OP + APPARITEURS + CONDUCTEURS</th>
+        <th rowspan="2" class="highlight-gray">{{ $totalOuvertscomm }}</th>
+        <th rowspan="2" class="highlight-gray">{{ $totalOccupescomm }}</th>
+        <th rowspan="2" class="highlight-gray">{{ $totalVacantscomm }}</th>
+        <th rowspan="2" class="header-row">CATEGORIE</th>
+        <th rowspan="2" class="header-row">MOYENNE</th>
+        <th rowspan="2" class="header-row">TRAITEMENT ANNUEL</th>
+        <th rowspan="2" class="header-row">PRIMES ET INDEMNITÉS</th>
+        <th rowspan="2" class="header-row">DEPENSES ANNUELLES</th>
+    </tr>
+    <tbody>
+        @foreach($op as $post)
+        <tr>
+            <td>{{ $post->Nom_opconducteurs }}</td>
+            <td>{{ $post->EmploiesOuverts }}</td>
+            <td>{{ $post->EmploiesOccupes }}</td>
+            <td>{{ $post->EmploiesVacants }}</td>
+            <td>{{ $post->CATEGORIE_opconducteurs }}</td>
+            <td>{{ $post->MOYENNE_opconducteurs }}</td>
+            <td>{{ $post->TRAITEMENT_ANNUEL }}</td>
+            <td>{{ $post->PRIMES_INDEMNITES }}</td>
+            <td>{{ $post->DEPENSES_ANNUELLES }}</td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
+
+<div class="page-break"></div>
+
+<table>
+    <tr>
+        <th rowspan="2" class="mauve">CDI</th>
+        <th rowspan="2" class="highlight-gray">{{ $totalOuvertscomm }}</th>
+        <th rowspan="2" class="highlight-gray">{{ $totalOccupescomm }}</th>
+        <th rowspan="2" class="highlight-gray">{{ $totalVacantscomm }}</th>
+        <th rowspan="2" class="header-row">CATEGORIE</th>
+        <th rowspan="2" class="header-row">MOYENNE</th>
+        <th rowspan="2" class="header-row">TRAITEMENT ANNUEL</th>
+        <th rowspan="2" class="header-row">PRIMES ET INDEMNITÉS</th>
+        <th rowspan="2" class="header-row">DEPENSES ANNUELLES</th>
+    </tr>
+    <tbody>
+        @foreach($cdi as $post)
+        <tr>
+            <td>{{ $post->Nom_c_d_i_s }}</td>
+            <td>{{ $post->EmploiesOuverts }}</td>
+            <td>{{ $post->EmploiesOccupes }}</td>
+            <td>{{ $post->EmploiesVacants }}</td>
+            <td>{{ $post->CATEGORIE_c_d_i_s }}</td>
+            <td>{{ $post->MOYENNE_c_d_i_s }}</td>
+            <td>{{ $post->TRAITEMENT_ANNUEL }}</td>
+            <td>{{ $post->PRIMES_INDEMNITES }}</td>
+            <td>{{ $post->DEPENSES_ANNUELLES }}</td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
+
+<table>
+    <tr>
+        <th rowspan="2" class="mauve">CDD</th>
+        <th rowspan="2" class="highlight-gray">{{ $totalOuvertscomm }}</th>
+        <th rowspan="2" class="highlight-gray">{{ $totalOccupescomm }}</th>
+        <th rowspan="2" class="highlight-gray">{{ $totalVacantscomm }}</th>
+        <th rowspan="2" class="header-row">CATEGORIE</th>
+        <th rowspan="2" class="header-row">MOYENNE</th>
+        <th rowspan="2" class="header-row">TRAITEMENT ANNUEL</th>
+        <th rowspan="2" class="header-row">PRIMES ET INDEMNITÉS</th>
+        <th rowspan="2" class="header-row">DEPENSES ANNUELLES</th>
+    </tr>
+    <tbody>
+        @foreach($cdi as $post)
+        <tr>
+            <td>{{ $post->	Nom_c_d_i_s }}</td>
+            <td>{{ $post->EmploiesOuverts }}</td>
+            <td>{{ $post->EmploiesOccupes }}</td>
+            <td>{{ $post->EmploiesVacants }}</td>
+            <td>{{ $post->CATEGORIE_c_d_i_s }}</td>
+            <td>{{ $post->MOYENNE_c_d_i_s }}</td>
             <td>{{ $post->TRAITEMENT_ANNUEL }}</td>
             <td>{{ $post->PRIMES_INDEMNITES }}</td>
             <td>{{ $post->DEPENSES_ANNUELLES }}</td>

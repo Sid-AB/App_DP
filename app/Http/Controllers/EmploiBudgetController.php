@@ -113,14 +113,20 @@ class EmploiBudgetController extends Controller
     }
     public function printallemploi($id)
     {
-        // Récupérer toutes les données de la table Fonctions
-
+       
+            //recuperer toutes les données des tables 
         $fonctions = Emploi_budget::join('fonctions','fonctions.id_emp','=','emploi_budgets.id_emp')->where('emploi_budgets.num_sous_action',$id)->orderBy('fonctions.id_fonction')->get();
       
         $posts = Emploi_budget::join('post_sups','post_sups.id_emp','=','emploi_budgets.id_emp')->where('emploi_budgets.num_sous_action',$id)->orderBy('post_sups.id_postsup')->get();
         //dd( $posts);
         $communs=  Emploi_budget::join('post_communs','post_communs.id_emp','=','emploi_budgets.id_emp')->where('emploi_budgets.num_sous_action',$id)->orderBy('post_communs.id_post')->get();
-        // Calcul des totaux des colonnes
+        
+        $op= Emploi_budget::join('opconducteurs','opconducteurs.id_emp','=','emploi_budgets.id_emp')->where('emploi_budgets.num_sous_action',$id)->orderBy('opconducteurs.id_opconducteurs')->get();
+        //dd($op);
+        $cdd=  Emploi_budget::join('c_d_d_s','c_d_d_s.id_emp','=','emploi_budgets.id_emp')->where('emploi_budgets.num_sous_action',$id)->orderBy('c_d_d_s.id_c_d_d_s')->get();
+        $cdi=  Emploi_budget::join('c_d_i_s','c_d_i_s.id_emp','=','emploi_budgets.id_emp')->where('emploi_budgets.num_sous_action',$id)->orderBy('c_d_i_s.id_c_d_i_s')->get();
+        
+        // calcul des totaux des colonnes
        $totalOuvertsfct = $fonctions->sum('EmploiesOuverts');
        $totalOccupesfct = $fonctions->sum('EmploiesOccupes');
        $totalVacantsfct = $fonctions->sum('EmploiesVacants');
@@ -132,6 +138,18 @@ class EmploiBudgetController extends Controller
        $totalOuvertscomm = $communs->sum('EmploiesOuverts');
        $totalOccupescomm = $communs->sum('EmploiesOccupes');
        $totalVacantscomm = $communs->sum('EmploiesVacants');
+
+       $totalOuvertsfct = $op->sum('EmploiesOuverts');
+       $totalOccupesfct = $op->sum('EmploiesOccupes');
+       $totalVacantsfct = $op->sum('EmploiesVacants');
+
+       $totalOuvertspost = $cdd->sum('EmploiesOuverts');
+       $totalOccupespost = $cdd->sum('EmploiesOccupes');
+       $totalVacantspost = $cdd->sum('EmploiesVacants');
+
+       $totalOuvertscomm = $cdi->sum('EmploiesOuverts');
+       $totalOccupescomm = $cdi->sum('EmploiesOccupes');
+       $totalVacantscomm = $cdi->sum('EmploiesVacants');
         $pdf=SnappyPdf::loadView
         ('impression.impression_emplois_budgetaire', compact(
            'fonctions',
@@ -143,7 +161,7 @@ class EmploiBudgetController extends Controller
           'totalVacantspost',
           'totalOuvertscomm', 'totalOccupescomm','totalVacantscomm',
           'posts',
-          'communs'
+          'communs','op','cdd','cdi'
 
         ))->setPaper("A4","landscape")
           ->setOption('dpi', 300) 
@@ -291,6 +309,7 @@ function get_list_OAC($id)
 {
 
     $postssup=Emploi_budget::join('opconducteurs','opconducteurs.id_emp','=','emploi_budgets.id_emp')->orderBy('opconducteurs.id_opconducteurs')->get();
+   // dd($postssup);
     if(!empty($postssup))
     {
         $totalOuverts = $postssup->sum('EmploiesOuverts');
@@ -436,6 +455,29 @@ function print_list_post_communs($id)
     return $this->imprimer($data, 'post_communs');
 }
 
+function print_list_OAP($id)
+
+{
+    $data=Emploi_budget::join('opconducteurs','opconducteurs.id_emp','=','emploi_budgets.id_emp')->where('emploi_budgets.num_sous_action',$id)->orderBy('opconducteurs.id_opconducteurs')->get();
+   //dd($data);
+    return $this->imprimer($data, 'OAP');
+}
+
+function print_list_CDD($id)
+
+{
+    $data=Emploi_budget::join('c_d_d_s','c_d_d_s.id_emp','=','emploi_budgets.id_emp')->where('emploi_budgets.num_sous_action',$id)->orderBy('c_d_d_s.id_c_d_d_s')->get();
+   //dd($data);
+    return $this->imprimer($data, 'cdd');
+}
+
+function print_list_CDI($id)
+
+{
+    $data=Emploi_budget::join('c_d_i_s','c_d_i_s.id_emp','=','emploi_budgets.id_emp')->where('emploi_budgets.num_sous_action',$id)->orderBy('c_d_i_s.id_c_d_i_s')->get();
+   //dd($data);
+    return $this->imprimer($data, 'cdi');
+}
 function imprimer($data, $type)
 {
     if(!empty($data))

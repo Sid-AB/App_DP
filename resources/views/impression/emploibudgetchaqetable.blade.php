@@ -159,6 +159,104 @@
                 
             </tr>
         </tbody>
+        @elseif($type == 'OAP')
+        <tbody>
+            
+        
+            <tr class="category-header">
+                <td class="mauve">OP + APPARITEURS + CONDUCTEURS</td>
+                <td class="highlight-gray" >{{ $totalOuverts }}</td>
+                <td class="highlight-gray">{{ $totalOccupes }}</td>
+                <td class="highlight-gray">{{ $totalVacants }}</td>
+                <td class="header-row">CATEGORIE</td>
+                <td class="header-row">MOYENNE</td>
+                <td class="header-row">TRAITEMENT ANNUEL</td>
+                <td class="header-row">PRIMES ET INDEMNITES</td>
+                <td class="header-row">DEPENSES ANNUELLES</td>
+              
+            </tr>
+            @foreach($data as $post)
+            <tr>
+                <td>{{  $post->Nom_opconducteurs }}</td>
+                <td>{{  $post->EmploiesOuverts }}</td>
+                <td>{{  $post->EmploiesOccupes }}</td>
+                <td>{{  $post->EmploiesVacants }}</td>
+                <td>{{  $post->	CATEGORIE_opconducteurs }}</td>
+                <td>{{ $post->MOYENNE_opconducteurs }}</td>
+                <td>{{ $post->TRAITEMENT_ANNUEL }}</td>
+                <td>{{ $post->PRIMES_INDEMNITES }}</td>
+                <td>{{ $post->DEPENSES_ANNUELLES }}</td>
+            @endforeach
+          
+                
+            </tr>
+        </tbody>
+
+        @elseif($type == 'cdi')
+        <tbody>
+            
+        
+            <tr class="category-header">
+                <td class="mauve">CDI</td>
+                <td class="highlight-gray" >{{ $totalOuverts }}</td>
+                <td class="highlight-gray">{{ $totalOccupes }}</td>
+                <td class="highlight-gray">{{ $totalVacants }}</td>
+                <td class="header-row">CATEGORIE</td>
+                <td class="header-row">MOYENNE</td>
+                <td class="header-row">TRAITEMENT ANNUEL</td>
+                <td class="header-row">PRIMES ET INDEMNITES</td>
+                <td class="header-row">DEPENSES ANNUELLES</td>
+              
+            </tr>
+            @foreach($data as $post)
+            <tr>
+                <td>{{  $post->Nom_c_d_i_s }}</td>
+                <td>{{  $post->EmploiesOuverts }}</td>
+                <td>{{  $post->EmploiesOccupes }}</td>
+                <td>{{  $post->EmploiesVacants }}</td>
+                <td>{{  $post->	CATEGORIE_c_d_i_s }}</td>
+                <td>{{ $post->MOYENNE_c_d_i_s }}</td>
+                <td>{{ $post->TRAITEMENT_ANNUEL }}</td>
+                <td>{{ $post->PRIMES_INDEMNITES }}</td>
+                <td>{{ $post->DEPENSES_ANNUELLES }}</td>
+            @endforeach
+          
+                
+            </tr>
+        </tbody>
+
+        @elseif($type == 'cdd')
+        <tbody>
+            
+        
+            <tr class="category-header">
+                <td class="mauve">CDD</td>
+                <td class="highlight-gray" >{{ $totalOuverts }}</td>
+                <td class="highlight-gray">{{ $totalOccupes }}</td>
+                <td class="highlight-gray">{{ $totalVacants }}</td>
+                <td class="header-row">CATEGORIE</td>
+                <td class="header-row">MOYENNE</td>
+                <td class="header-row">TRAITEMENT ANNUEL</td>
+                <td class="header-row">PRIMES ET INDEMNITES</td>
+                <td class="header-row">DEPENSES ANNUELLES</td>
+              
+            </tr>
+            @foreach($data as $post)
+            <tr>
+                <td>{{  $post->Nom_c_d_d_s }}</td>
+                <td>{{  $post->EmploiesOuverts }}</td>
+                <td>{{  $post->EmploiesOccupes }}</td>
+                <td>{{  $post->EmploiesVacants }}</td>
+                <td>{{  $post->	CATEGORIE_c_d_d_s }}</td>
+                <td>{{ $post->MOYENNE_c_d_d_s }}</td>
+                <td>{{ $post->TRAITEMENT_ANNUEL }}</td>
+                <td>{{ $post->PRIMES_INDEMNITES }}</td>
+                <td>{{ $post->DEPENSES_ANNUELLES }}</td>
+            @endforeach
+          
+                
+            </tr>
+        </tbody>
         @endif
     </table>
 </body>
