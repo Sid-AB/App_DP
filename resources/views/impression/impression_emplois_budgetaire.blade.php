@@ -47,6 +47,7 @@
             font-weight: bold;
             background-color: #60497A; /* Couleur plus sombre pour les programmes principaux */
             color:white;
+            
             /*width:36.4%;
             height:40px;*/
         }
@@ -62,7 +63,7 @@
     }
 
     .table th, .table td {
-        width: 10%; 
+  
         height: 50px;   
         border: 1px solid #000;
         padding: 8px;
@@ -77,7 +78,7 @@
 <h2 style=" font-family: Cambria (Titres), sans-serif; font-size: 14pt; font-weight: bold;">2. LA PROGRAMMATION DES EMPLOIS BUDGÉTAIRES :</h2>
 <h3 style="font-family: Cambria (Titres), sans-serif; font-size: 14pt; font-weight: bold;">2.1. POUR LES SERVICES CENTRAUX :</h3>
 
-<table >
+<table class="table" >
     <tr class="mauve">
         <th rowspan="1">ADMINISTRATION CENTRALE</th>
         <th colspan="3">EMPLOIS BUDGÉTAIRES</th>
