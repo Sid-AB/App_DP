@@ -76,14 +76,14 @@
 <h2 style=" font-family: Cambria (Titres), sans-serif; font-size: 14pt; font-weight: bold;">2. LA PROGRAMMATION DES EMPLOIS BUDGÉTAIRES :</h2>
 <h3 style="font-family: Cambria (Titres), sans-serif; font-size: 14pt; font-weight: bold;">2.1. POUR LES SERVICES CENTRAUX :</h3>
 
-<table  class="equal-table">
+<table >
     <tr class="mauve">
         <th rowspan="1">ADMINISTRATION CENTRALE</th>
         <th colspan="3">EMPLOIS BUDGÉTAIRES</th>
         <th colspan="5">RÉMUNÉRATION</th>
     </tr>
     <tbody>
-        <tr class="header-row">
+        <tr >
             <td class="header-row">Catégorie du personnel</td>
             <td class="header-row">Ouverts (<?php echo date("Y"); ?>)</td>
             <td class="header-row">Occupés au 31 décembre (<?php echo (date("Y") - 1); ?>)</td>
