@@ -47,7 +47,7 @@
             font-weight: bold;
             background-color: #60497A; /* Couleur plus sombre pour les programmes principaux */
             color:white;
-            width:3000px;
+            width:36.4%;
             height:40px;
         }
         .page-break {
@@ -164,9 +164,9 @@
 <table>
     <tr>
         <th rowspan="2" class="mauve" style="width:36.42%;">OP + APPARITEURS + CONDUCTEURS</th>
-        <th rowspan="2" class="highlight-gray" style="width:5.1%;">{{ $totalOuvertscomm }}</th>
-        <th rowspan="2" class="highlight-gray" style="width:5.1%;">{{ $totalOccupescomm }}</th>
-        <th rowspan="2" class="highlight-gray" style="width:5.1%;">{{ $totalVacantscomm }}</th>
+        <th rowspan="2" class="highlight-gray" >{{ $totalOuvertscomm }}</th>
+        <th rowspan="2" class="highlight-gray">{{ $totalOccupescomm }}</th>
+        <th rowspan="2" class="highlight-gray" >{{ $totalVacantscomm }}</th>
         <th rowspan="2" class="header-row">CATEGORIE</th>
         <th rowspan="2" class="header-row">MOYENNE</th>
         <th rowspan="2" class="header-row">TRAITEMENT ANNUEL</th>
