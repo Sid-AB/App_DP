@@ -55,7 +55,7 @@
             page-break-after: always;
         }
         .table {
-        table-layout: fixed; /* Forcer la largeur fixe des colonnes */
+        table-layout: fixed; 
         width: 100%; 
         border-collapse: collapse;
         text-align: center;
@@ -63,13 +63,15 @@
     }
 
     .table th, .table td {
-        /*width: 10%; */
+       
         height: 50px;   
         border: 1px solid #000;
         padding: 8px;
         vertical-align: middle;
     }
-  
+    .large-col {
+            width: 25%;
+        }
 
     </style>
 </head>
@@ -78,15 +80,15 @@
 <h2 style=" font-family: Cambria (Titres), sans-serif; font-size: 14pt; font-weight: bold;">2. LA PROGRAMMATION DES EMPLOIS BUDGÉTAIRES :</h2>
 <h3 style="font-family: Cambria (Titres), sans-serif; font-size: 14pt; font-weight: bold;">2.1. POUR LES SERVICES CENTRAUX :</h3>
 
-<table class="table" >
+<table >
     <tr class="mauve">
-        <th rowspan="1">ADMINISTRATION CENTRALE</th>
+        <th rowspan="1" class="large-col">ADMINISTRATION CENTRALE</th>
         <th colspan="3">EMPLOIS BUDGÉTAIRES</th>
         <th colspan="5">RÉMUNÉRATION</th>
     </tr>
     <tbody>
         <tr >
-            <td class="header-row">Catégorie du personnel</td>
+            <td class="header-row large-col">Catégorie du personnel</td>
             <td class="header-row">Ouverts (<?php echo date("Y"); ?>)</td>
             <td class="header-row">Occupés au 31 décembre (<?php echo (date("Y") - 1); ?>)</td>
             <td class="header-row">Vacants ou excédent</td>
@@ -96,7 +98,7 @@
             <td rowspan="2" class="header-row">DEPENSES ANNUELLES</td>
         </tr>
         <tr >
-            <td class="mauve">Fonction supérieure</td>
+            <td class="mauve large-col">Fonction supérieure</td>
             <td class="highlight-gray">{{ $totalOuvertsfct }}</td>
             <td class="highlight-gray">{{ $totalOccupesfct }}</td>
             <td class="highlight-gray">{{ $totalVacantsfct }}</td>
@@ -105,7 +107,7 @@
         </tr>
         @foreach($fonctions as $fonction)
         <tr>
-            <td>{{ $fonction->Nom_fonction }}</td>
+            <td class="large-col">{{ $fonction->Nom_fonction }}</td>
             <td>{{ $fonction->EmploiesOuverts }}</td>
             <td>{{ $fonction->EmploiesOccupes }}</td>
             <td>{{ $fonction->EmploiesVacants }}</td>
@@ -123,7 +125,7 @@
 
 <table  class="table">
     <tr>
-        <th rowspan="2" class="mauve">Poste supérieur</th>
+        <th rowspan="2" class="mauve large-col">Poste supérieur</th>
         <th rowspan="2" class="highlight-gray">{{ $totalOuvertspost }}</th>
         <th rowspan="2" class="highlight-gray">{{ $totalOccupespost }}</th>
         <th rowspan="2" class="highlight-gray">{{ $totalVacantspost }}</th>
@@ -135,7 +137,7 @@
     <tbody>
         @foreach($posts as $post)
         <tr>
-            <td>{{ $post->Nom_postsup }}</td>
+            <td class="large-col">{{ $post->Nom_postsup }}</td>
             <td>{{ $post->EmploiesOuverts }}</td>
             <td>{{ $post->EmploiesOccupes }}</td>
             <td>{{ $post->EmploiesVacants }}</td>
@@ -153,7 +155,7 @@
 
 <table  class="table">
     <tr>
-        <th rowspan="2" class="mauve">Corps Communs</th>
+        <th rowspan="2" class="mauve large-col">Corps Communs</th>
         <th rowspan="2" class="highlight-gray">{{ $totalOuvertscomm }}</th>
         <th rowspan="2" class="highlight-gray">{{ $totalOccupescomm }}</th>
         <th rowspan="2" class="highlight-gray">{{ $totalVacantscomm }}</th>
@@ -166,7 +168,7 @@
     <tbody>
         @foreach($communs as $post)
         <tr>
-            <td>{{ $post->Nom_post }}</td>
+            <td class="large-col">{{ $post->Nom_post }}</td>
             <td>{{ $post->EmploiesOuverts }}</td>
             <td>{{ $post->EmploiesOccupes }}</td>
             <td>{{ $post->EmploiesVacants }}</td>
@@ -181,7 +183,7 @@
 </table>
 <table  class="table">
     <tr>
-        <th rowspan="2" class="mauve" >OP + APPARITEURS + CONDUCTEURS</th>
+        <th rowspan="2" class="mauve large-col" >OP + APPARITEURS + CONDUCTEURS</th>
         <th rowspan="2" class="highlight-gray" >{{ $totalOuvertscomm }}</th>
         <th rowspan="2" class="highlight-gray">{{ $totalOccupescomm }}</th>
         <th rowspan="2" class="highlight-gray" >{{ $totalVacantscomm }}</th>
@@ -194,7 +196,7 @@
     <tbody>
         @foreach($op as $post)
         <tr>
-            <td>{{ $post->Nom_opconducteurs }}</td>
+            <td class="large-col">{{ $post->Nom_opconducteurs }}</td>
             <td>{{ $post->EmploiesOuverts }}</td>
             <td>{{ $post->EmploiesOccupes }}</td>
             <td>{{ $post->EmploiesVacants }}</td>
@@ -212,7 +214,7 @@
 
 <table  class="table">
     <tr>
-        <th rowspan="2" class="mauve">CDI</th>
+        <th rowspan="2" class="mauve large-col">CDI</th>
         <th rowspan="2" class="highlight-gray">{{ $totalOuvertscomm }}</th>
         <th rowspan="2" class="highlight-gray">{{ $totalOccupescomm }}</th>
         <th rowspan="2" class="highlight-gray">{{ $totalVacantscomm }}</th>
@@ -225,7 +227,7 @@
     <tbody>
         @foreach($cdi as $post)
         <tr>
-            <td>{{ $post->Nom_c_d_i_s }}</td>
+            <td class="large-col">{{ $post->Nom_c_d_i_s }}</td>
             <td>{{ $post->EmploiesOuverts }}</td>
             <td>{{ $post->EmploiesOccupes }}</td>
             <td>{{ $post->EmploiesVacants }}</td>
@@ -241,7 +243,7 @@
 
 <table  class="table">
     <tr>
-        <th rowspan="2" class="mauve">CDD</th>
+        <th rowspan="2" class="mauve large-col">CDD</th>
         <th rowspan="2" class="highlight-gray">{{ $totalOuvertscomm }}</th>
         <th rowspan="2" class="highlight-gray">{{ $totalOccupescomm }}</th>
         <th rowspan="2" class="highlight-gray">{{ $totalVacantscomm }}</th>
@@ -254,7 +256,7 @@
     <tbody>
         @foreach($cdi as $post)
         <tr>
-            <td>{{ $post->	Nom_c_d_i_s }}</td>
+            <td class="large-col">{{ $post->Nom_c_d_i_s }}</td>
             <td>{{ $post->EmploiesOuverts }}</td>
             <td>{{ $post->EmploiesOccupes }}</td>
             <td>{{ $post->EmploiesVacants }}</td>
