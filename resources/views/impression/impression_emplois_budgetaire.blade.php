@@ -160,7 +160,7 @@
 </table>
 <table>
     <tr>
-        <th rowspan="2" class="mauve" style="width:15%;">OP + APPARITEURS + CONDUCTEURS</th>
+        <th rowspan="2" class="mauve" style="width:40%;">OP + APPARITEURS + CONDUCTEURS</th>
         <th rowspan="2" class="highlight-gray">{{ $totalOuvertscomm }}</th>
         <th rowspan="2" class="highlight-gray">{{ $totalOccupescomm }}</th>
         <th rowspan="2" class="highlight-gray">{{ $totalVacantscomm }}</th>
