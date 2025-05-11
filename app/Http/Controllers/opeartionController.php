@@ -119,14 +119,14 @@ class opeartionController extends Controller
                    
             }
             }*/
-                //retourner results
-               
-                if(isset($resultats['centrale']))
+               // dd($resultats);
+               $fullresult=[];
+                if(count($resultats['centrale'][$T]['sousOperation']) > 0 && count($resultats['delegation'][$T]['sousOperation']) == 0)
                 {
                     $fullresult=$resultats['centrale'][$T];
                 }
                 
-                if(isset($resultats['delegation']))
+                elseif(count($resultats['centrale'][$T]['sousOperation']) == 0 && count($resultats['delegation'][$T]['sousOperation']) > 0)
                 {
                     $fullresult=$resultats['delegation'][$T];
                 }
