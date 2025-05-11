@@ -84,6 +84,11 @@
 
 <h2 style=" font-family: Cambria (Titres), sans-serif; font-size: 14pt; font-weight: bold;">2. LA PROGRAMMATION DES EMPLOIS BUDGÉTAIRES :</h2>
 <h3 style="font-family: Cambria (Titres), sans-serif; font-size: 14pt; font-weight: bold;">2.1. POUR LES SERVICES CENTRAUX :</h3>
+@php
+    $globalTraitement = 0;
+    $globalPrimes = 0;
+    $globalDepenses = 0;
+@endphp
 
 <table  class="table" >
     <tr class="mauve">
@@ -111,6 +116,11 @@
             <td class="highlight-gray larg">MOYENNE</td>
         </tr>
         @foreach($fonctions as $fonction)
+        @php
+            $globalTraitement += $fonction->TRAITEMENT_ANNUEL;
+            $globalPrimes += $fonction->PRIMES_INDEMNITES;
+            $globalDepenses += $fonction->DEPENSES_ANNUELLES;
+        @endphp
         <tr>
             <td class="large-col">{{ $fonction->Nom_fonction }}</td>
             <td>{{ $fonction->EmploiesOuverts }}</td>
@@ -141,6 +151,11 @@
     </tr>
     <tbody>
         @foreach($posts as $post)
+        @php
+            $globalTraitement += $post->TRAITEMENT_ANNUEL;
+            $globalPrimes += $post->PRIMES_INDEMNITES;
+            $globalDepenses += $post->DEPENSES_ANNUELLES;
+        @endphp
         <tr>
             <td class="large-col">{{ $post->Nom_postsup }}</td>
             <td>{{ $post->EmploiesOuverts }}</td>
@@ -172,6 +187,11 @@
     </tr>
     <tbody>
         @foreach($communs as $post)
+        @php
+            $globalTraitement += $post->TRAITEMENT_ANNUEL;
+            $globalPrimes += $post->PRIMES_INDEMNITES;
+            $globalDepenses += $post->DEPENSES_ANNUELLES;
+        @endphp
         <tr>
             <td class="large-col">{{ $post->Nom_post }}</td>
             <td>{{ $post->EmploiesOuverts }}</td>
@@ -189,9 +209,9 @@
 <table  class="table">
     <tr>
         <th rowspan="2" class="mauve large-col" >OP + APPARITEURS + CONDUCTEURS</th>
-        <th rowspan="2" class="highlight-gray" >{{ $totalOuvertscomm }}</th>
-        <th rowspan="2" class="highlight-gray">{{ $totalOccupescomm }}</th>
-        <th rowspan="2" class="highlight-gray" >{{ $totalVacantscomm }}</th>
+        <th rowspan="2" class="highlight-gray" >{{ $totalOuvertsop}}</th>
+        <th rowspan="2" class="highlight-gray">{{ $totalOccupesop }}</th>
+        <th rowspan="2" class="highlight-gray" >{{ $totalVacantsop }}</th>
         <th rowspan="2" class="header-row larg">CATEGORIE</th>
         <th rowspan="2" class="header-row larg">MOYENNE</th>
         <th rowspan="2" class="header-row larg">TRAITEMENT ANNUEL</th>
@@ -200,6 +220,11 @@
     </tr>
     <tbody>
         @foreach($op as $post)
+        @php
+            $globalTraitement += $post->TRAITEMENT_ANNUEL;
+            $globalPrimes += $post->PRIMES_INDEMNITES;
+            $globalDepenses += $post->DEPENSES_ANNUELLES;
+        @endphp
         <tr>
             <td class="large-col">{{ $post->Nom_opconducteurs }}</td>
             <td>{{ $post->EmploiesOuverts }}</td>
@@ -220,9 +245,9 @@
 <table  class="table">
     <tr>
         <th rowspan="2" class="mauve large-col">CDI</th>
-        <th rowspan="2" class="highlight-gray">{{ $totalOuvertscomm }}</th>
-        <th rowspan="2" class="highlight-gray">{{ $totalOccupescomm }}</th>
-        <th rowspan="2" class="highlight-gray">{{ $totalVacantscomm }}</th>
+        <th rowspan="2" class="highlight-gray">{{ $totalOuvertscdi}}</th>
+        <th rowspan="2" class="highlight-gray">{{ $totalOccupescdi }}</th>
+        <th rowspan="2" class="highlight-gray">{{ $totalVacantscdi}}</th>
         <th rowspan="2" class="header-row larg">CATEGORIE</th>
         <th rowspan="2" class="header-row larg">MOYENNE</th>
         <th rowspan="2" class="header-row larg">TRAITEMENT ANNUEL</th>
@@ -231,6 +256,11 @@
     </tr>
     <tbody>
         @foreach($cdi as $post)
+        @php
+            $globalTraitement += $post->TRAITEMENT_ANNUEL;
+            $globalPrimes += $post->PRIMES_INDEMNITES;
+            $globalDepenses += $post->DEPENSES_ANNUELLES;
+        @endphp
         <tr>
             <td class="large-col">{{ $post->Nom_c_d_i_s }}</td>
             <td>{{ $post->EmploiesOuverts }}</td>
@@ -249,9 +279,9 @@
 <table  class="table">
     <tr>
         <th rowspan="2" class="mauve large-col">CDD</th>
-        <th rowspan="2" class="highlight-gray">{{ $totalOuvertscomm }}</th>
-        <th rowspan="2" class="highlight-gray">{{ $totalOccupescomm }}</th>
-        <th rowspan="2" class="highlight-gray">{{ $totalVacantscomm }}</th>
+        <th rowspan="2" class="highlight-gray">{{ $totalOuvertscdd}}</th>
+        <th rowspan="2" class="highlight-gray">{{ $totalOccupescdd }}</th>
+        <th rowspan="2" class="highlight-gray">{{ $totalVacantscdd }}</th>
         <th rowspan="2" class="header-row larg">CATEGORIE</th>
         <th rowspan="2" class="header-row larg">MOYENNE</th>
         <th rowspan="2" class="header-row larg">TRAITEMENT ANNUEL</th>
@@ -259,19 +289,40 @@
         <th rowspan="2" class="header-row">DEPENSES ANNUELLES</th>
     </tr>
     <tbody>
-        @foreach($cdi as $post)
+        @foreach($cdd as $post)
+        @php
+            $globalTraitement += $post->TRAITEMENT_ANNUEL;
+            $globalPrimes += $post->PRIMES_INDEMNITES;
+            $globalDepenses += $post->DEPENSES_ANNUELLES;
+        @endphp
         <tr>
-            <td class="large-col">{{ $post->Nom_c_d_i_s }}</td>
+            <td class="large-col">{{ $post->Nom_c_d_d_s }}</td>
             <td>{{ $post->EmploiesOuverts }}</td>
             <td>{{ $post->EmploiesOccupes }}</td>
             <td>{{ $post->EmploiesVacants }}</td>
-            <td class="larg">{{ $post->CATEGORIE_c_d_i_s }}</td>
-            <td class="larg">{{ $post->MOYENNE_c_d_i_s }}</td>
+            <td class="larg">{{ $post->CATEGORIE_c_d_d_s }}</td>
+            <td class="larg">{{ $post->MOYENNE_c_d_d_s }}</td>
             <td class="larg">{{ $post->TRAITEMENT_ANNUEL }}</td>
             <td>{{ $post->PRIMES_INDEMNITES }}</td>
             <td>{{ $post->DEPENSES_ANNUELLES }}</td>
         </tr>
         @endforeach
+        <tr>
+                <th  >TOTAL ADMINISTRATION CENTRALE </th>
+
+                <td style="font-weight:bold";>{{ $totalOuvertscdd+$totalOuvertscdi+$totalOuvertsop+$totalOuvertscomm+$totalOuvertspost+$totalOuvertsfct}}</td>
+                <td style="font-weight:bold";>{{$totalOccupesfct+$totalOccupespost+$totalOccupescomm+$totalOccupesop+$totalOccupescdd+$totalOccupescdi }}</td>
+                <td style="font-weight:bold";>{{ $totalVacantsfct+$totalVacantspost+$totalVacantscomm+$totalVacantsop+$totalVacantscdd+$totalVacantscdi}}</td>
+                <td ></td>
+                <td ></td>
+                <td style="font-weight:bold";>{{ $globalTraitement }}</td>
+                <td style="font-weight:bold";>{{ $globalPrimes }}</td>
+                <td style="font-weight:bold";>{{ $globalDepenses }}</td>
+
+            
+
+        </tr>
+
     </tbody>
 </table>
 
