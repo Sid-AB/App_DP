@@ -2095,7 +2095,7 @@ data.cp_notifie[code] = cpDataNotifie;
 data.cp_consome[code] = cpDataEngage;
 
 }
-if (tid == 'T_port4' || tid == 'T4') {
+if (tid == 'T_port4' || tid == 'T4' || T == 4) {
 
 var code = $(this).find('td').eq(0).text();
 var descr= $(this).find('td').eq(1).text();
