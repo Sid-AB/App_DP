@@ -139,17 +139,17 @@ class EmploiBudgetController extends Controller
        $totalOccupescomm = $communs->sum('EmploiesOccupes');
        $totalVacantscomm = $communs->sum('EmploiesVacants');
 
-       $totalOuvertsfct = $op->sum('EmploiesOuverts');
-       $totalOccupesfct = $op->sum('EmploiesOccupes');
-       $totalVacantsfct = $op->sum('EmploiesVacants');
+       $totalOuvertsop = $op->sum('EmploiesOuverts');
+       $totalOccupesop = $op->sum('EmploiesOccupes');
+       $totalVacantsop = $op->sum('EmploiesVacants');
 
-       $totalOuvertspost = $cdd->sum('EmploiesOuverts');
-       $totalOccupespost = $cdd->sum('EmploiesOccupes');
-       $totalVacantspost = $cdd->sum('EmploiesVacants');
+       $totalOuvertscdd = $cdd->sum('EmploiesOuverts');
+       $totalOccupescdd = $cdd->sum('EmploiesOccupes');
+       $totalVacantscdd = $cdd->sum('EmploiesVacants');
 
-       $totalOuvertscomm = $cdi->sum('EmploiesOuverts');
-       $totalOccupescomm = $cdi->sum('EmploiesOccupes');
-       $totalVacantscomm = $cdi->sum('EmploiesVacants');
+       $totalOuvertscdi = $cdi->sum('EmploiesOuverts');
+       $totalOccupescdi= $cdi->sum('EmploiesOccupes');
+       $totalVacantscdi= $cdi->sum('EmploiesVacants');
         $pdf=SnappyPdf::loadView
         ('impression.impression_emplois_budgetaire', compact(
            'fonctions',
@@ -161,11 +161,17 @@ class EmploiBudgetController extends Controller
           'totalVacantspost',
           'totalOuvertscomm', 'totalOccupescomm','totalVacantscomm',
           'posts',
-          'communs','op','cdd','cdi'
+          'communs','op','cdd','cdi', 'totalOuvertsop',
+          'totalOccupesop',
+          'totalVacantsop',
+         'totalOuvertscdd',
+         'totalOccupescdd',
+         'totalVacantscdd',
+         'totalOuvertscdi', 'totalOccupescdi','totalVacantscdi',
 
-        ))->setPaper("A4","landscape")
-          ->setOption('dpi', 300) 
-          ->setOption('zoom', 1.75);  // Augmenter la résolution pour améliorer la lisibilité du texte
+        ))->setPaper("A4","landscape");
+          //->setOption('dpi', 300) 
+          //->setOption('zoom', 1.75);  // Augmenter la résolution pour améliorer la lisibilité du texte
           return $pdf->stream('liste_budgetaires.pdf');
         // Passer les données à la vue sans les afficher directement
        // return view('impression_emplois_budgetaire', compact('fonctions'));
