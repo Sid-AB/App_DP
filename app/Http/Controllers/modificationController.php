@@ -1183,7 +1183,7 @@ function affiche_modif($numport)
                 foreach($act as $listact)
                 {
                     if(isset($listact))
-                    {
+                    {//dd($listact);
                         $sous_act=SousAction::where('num_action',$listact->num_action)->get();
                       //  dd($sous_act);
                         foreach($sous_act as $listsousact)
@@ -1194,7 +1194,7 @@ function affiche_modif($numport)
 
                                 $resultats = $this->CalculDpia->calculdpiaFromPath($numport, $progm->num_prog, $sprog->num_sous_prog, $listact->num_action,$listsousact->num_sous_action);
 
-                                array_push($allaction,['actions'=>['code'=>$listsousact->num_sous_action,"nom"=>$listsousact->nom_sous_action,'TotalT'=>$resultats]]);
+                                array_push($allaction,['actions'=>['code'=>$listsousact->num_sous_action,"nom"=>$listsousact->nom_sous_action,"type_action"=>$listact->type_action,'TotalT'=>$resultats]]);
                                 $all_act= $allaction;
 
                             }
@@ -1205,24 +1205,25 @@ function affiche_modif($numport)
 
                 }
 
-               // dd($allaction);
+                //dd($allaction);
                 for($i=0 ;$i<count($allaction);$i++)
                 {
                 foreach($allaction[$i] as $actsect)
                 {
-                    $TtAE1+=$actsect['TotalT']['T1']['total'][0]['values']['totalAE'];
-                    $TtCP1+=$actsect['TotalT']['T1']['total'][0]['values']['totalCP'];
+                    foreach (['centrale', 'delegation'] as $typeAction) {
+                    $TtAE1+=$actsect['TotalT'][$typeAction]['T1']['total'][0]['values']['totalAE'];
+                    $TtCP1+=$actsect['TotalT'][$typeAction]['T1']['total'][0]['values']['totalCP'];
 
-                    $TtAE2+=$actsect['TotalT']['T2']['total'][0]['values']['totalAE'];
-                    $TtCP2+=$actsect['TotalT']['T2']['total'][0]['values']['totalCP'];
+                    $TtAE2+=$actsect['TotalT'][$typeAction]['T2']['total'][0]['values']['totalAE'];
+                    $TtCP2+=$actsect['TotalT'][$typeAction]['T2']['total'][0]['values']['totalCP'];
 
-                    $TtAE3+=$actsect['TotalT']['T3']['total'][0]['values']['totalAE'];
-                    $TtCP3+=$actsect['TotalT']['T3']['total'][0]['values']['totalCP'];
+                    $TtAE3+=$actsect['TotalT'][$typeAction]['T3']['total'][0]['values']['totalAE'];
+                    $TtCP3+=$actsect['TotalT'][$typeAction]['T3']['total'][0]['values']['totalCP'];
 
-                    $TtAE4+=$actsect['TotalT']['T4']['total'][0]['values']['totalAE'];
-                    $TtCP4+=$actsect['TotalT']['T4']['total'][0]['values']['totalCP'];
+                    $TtAE4+=$actsect['TotalT'][$typeAction]['T4']['total'][0]['values']['totalAE'];
+                    $TtCP4+=$actsect['TotalT'][$typeAction]['T4']['total'][0]['values']['totalCP'];
 
-                };
+                }};
 
                 };
 
@@ -1283,7 +1284,7 @@ function affiche_modif($numport)
             $TtCP4=0;
             $allsous_prog=[];
         }
-             // dd($programmes);
+           //  dd($programmes);
              
              for ($i=0; $i < count($programmes) ; $i++)
              {
@@ -1321,7 +1322,7 @@ function affiche_modif($numport)
              *  Modif table
              * 
             */
-            
+           // dd($Ttportglob);
             //dd($moficat_program);
 
 

@@ -221,22 +221,37 @@
                                             $code = explode('-', $action['code']);
                                             $last = count($code) -2;
                                             $code = $code[$last];
-                                            //dd($code);
+                                           // dd($action);
                                         @endphp
-
+                                        @if($action['type_action']=='centrale')
                                         <tr >
                                             <td>{{ $code }}</td>
                                             <td>Action : {{ $action['nom'] }}</td>
-                                            <td>{{ $action['TotalT']['T1']['total'][0]['values']['totalAE'] }}</td>
-                                            <td>{{ $action['TotalT']['T1']['total'][0]['values']['totalCP'] }}</td>
-                                            <td>{{ $action['TotalT']['T2']['total'][0]['values']['totalAE'] }}</td>
-                                            <td>{{ $action['TotalT']['T2']['total'][0]['values']['totalCP'] }}</td>
-                                            <td>{{ $action['TotalT']['T3']['total'][0]['values']['totalAE'] }}</td>
-                                            <td>{{ $action['TotalT']['T3']['total'][0]['values']['totalCP'] }}</td>
-                                            <td>{{ $action['TotalT']['T4']['total'][0]['values']['totalAE'] }}</td>
-                                            <td>{{ $action['TotalT']['T4']['total'][0]['values']['totalCP'] }}</td>
+                                            <td>{{ $action['TotalT']['centrale']['T1']['total'][0]['values']['totalAE'] }}</td>
+                                            <td>{{ $action['TotalT']['centrale']['T1']['total'][0]['values']['totalCP'] }}</td>
+                                            <td>{{ $action['TotalT']['centrale']['T2']['total'][0]['values']['totalAE'] }}</td>
+                                            <td>{{ $action['TotalT']['centrale']['T2']['total'][0]['values']['totalCP'] }}</td>
+                                            <td>{{ $action['TotalT']['centrale']['T3']['total'][0]['values']['totalAE'] }}</td>
+                                            <td>{{ $action['TotalT']['centrale']['T3']['total'][0]['values']['totalCP'] }}</td>
+                                            <td>{{ $action['TotalT']['centrale']['T4']['total'][0]['values']['totalAE'] }}</td>
+                                            <td>{{ $action['TotalT']['centrale']['T4']['total'][0]['values']['totalCP'] }}</td>
                                         </tr>
+                                        @elseif ($action['type_action']=='delegation')
+                                        <tr >
+                                            <td>{{ $code }}</td>
+                                            <td>Action : {{ $action['nom'] }}</td>
+                                            <td>{{ $action['TotalT']['delegation']['T1']['total'][0]['values']['totalAE'] }}</td>
+                                            <td>{{ $action['TotalT']['delegation']['T1']['total'][0]['values']['totalCP'] }}</td>
+                                            <td>{{ $action['TotalT']['delegation']['T2']['total'][0]['values']['totalAE'] }}</td>
+                                            <td>{{ $action['TotalT']['delegation']['T2']['total'][0]['values']['totalCP'] }}</td>
+                                            <td>{{ $action['TotalT']['delegation']['T3']['total'][0]['values']['totalAE'] }}</td>
+                                            <td>{{ $action['TotalT']['delegation']['T3']['total'][0]['values']['totalCP'] }}</td>
+                                            <td>{{ $action['TotalT']['delegation']['T4']['total'][0]['values']['totalAE'] }}</td>
+                                            <td>{{ $action['TotalT']['delegation']['T4']['total'][0]['values']['totalCP'] }}</td>
+                                        </tr>
+                                        @endif
                                     @endforeach
+                             
                                 @endfor
                             @endif
 
