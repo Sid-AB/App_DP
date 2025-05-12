@@ -313,34 +313,73 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>id_prog</th>
-                        <th>id_sous prog</th>
+                        <th>Programme destinataire</th>
+                        <th>Sous programme destinataire</th>
+                        <th>Action destinataire</th>
                         <th>code T</th>
-                        <th>T 1 AE</th>
-                        <th>T 1 CP</th>
-                        <th>T 2 AE</th>
-                        <th>T 2 CP</th>
-                        <th>T 3 AE</th>
-                        <th>T 3 CP</th>
-                        <th>T 4 AE</th>
-                        <th>T 4 CP</th>
-                        <th>situation modif</th>
+                        <th>T1 AE</th>
+                        <th>T1 CP</th>
+                        <th>T2 AE</th>
+                        <th>T2 CP</th>
+                        <th>T3 AE</th>
+                        <th>T3 CP</th>
+                        <th>T4 AE</th>
+                        <th>T4 CP</th>
                         <th>type modif</th>
+                        <th>Programme source</th>
+                        <th>Sous programme source</th>
+                        <th>Action source</th>
+                        <!--th>situation modif</th-->
                         <th>Date modif </th>
-                        <th>Action modifie</th>
-                        <th>id_prog retire</th>
-                        <th>id_sous_prog retire</th>
+                       
                     </tr>
                 </thead>
+
                 <tbody>
                    
                         @for($i=0;$i< count($moficat_program); $i++)
+                        @php
+                                $code = explode('-', $moficat_program[$i]['code_prog']);
+                                //dd($code)
+                                $last = count($code) - 1;
+                                $code = $code[$last];
+                                //dd($code);
+                        @endphp
                             @for($j=0;$j< count($moficat_program[$i]['reslut']); $j++)
-                            
+                         
+                            @php
+                                $codesp = explode('-', $moficat_program[$i]['reslut'][$j]['num_sous_prog']);
+                                //dd($codesp)
+                                $last = count($codesp) - 1;
+                                $codesp = $codesp[$last];
+                                //dd($codesp);
+
+                                $codeA = explode('-',$moficat_program[$i]['reslut'][$j]['num_sous_action']);
+                                //dd($codeA)
+                                $last = count($codeA) - 1;
+                                $codeA = $codeA[$last];
+                                //dd($codeA);
+
+                                $codepR = explode('-', $moficat_program[$i]['reslut'][$j]['num_prog_retire']);
+                                $last = count($codepR) - 1;
+                                $codepR = $codepR[$last];
+                             
+                                $codespR = explode('-', $moficat_program[$i]['reslut'][$j]['num_sous_prog_retire']);
+                                $last = count($codespR) - 1;
+                                $codespR = $codespR[$last];
+                             
+
+                                $codeAR= explode('-',$moficat_program[$i]['reslut'][$j]['num_sous_action_retire']);
+                                $last = count($codeAR) - 1;
+                                $codeAR = $codeAR[$last];
+                        
+                        @endphp
+                         
                             <tr id="{{$moficat_program[$i]['code_prog']}}">
                             <th>{{$j}}</th>
-                            <th>{{$moficat_program[$i]['nom_prog']}} </th>
-                           <th>{{$moficat_program[$i]['reslut'][$j]['num_sous_prog']}}</th>
+                            <th>{{$code}} </th>
+                           <th>{{$codesp}}</th>
+                           <th>{{$codeA}}</th>
                             <th>{{$moficat_program[$i]['reslut'][$j]['code_t1'].'-'.
                                 $moficat_program[$i]['reslut'][$j]['code_t2'].'-'.
                                 $moficat_program[$i]['reslut'][$j]['code_t3'].'-'.
@@ -354,12 +393,14 @@
                             <th>{{$moficat_program[$i]['reslut'][$j]['CP_recoit_t3']}} </th>
                             <th>{{$moficat_program[$i]['reslut'][$j]['AE_recoit_t4']}} </th>
                             <th>{{$moficat_program[$i]['reslut'][$j]['CP_recoit_t4']}} </th>
-                            <th>{{$moficat_program[$i]['reslut'][$j]['situation_modif']}} </th>
                             <th>{{$moficat_program[$i]['reslut'][$j]['type_modif']}} </th>
+                            <th id="">{{$codepR}} </th>
+                            <th>{{$codespR}}</th>
+                            <th>{{$codeAR}} </th>
+                            <!--th>{{$moficat_program[$i]['reslut'][$j]['situation_modif']}} </th-->
                             <th>{{$moficat_program[$i]['reslut'][$j]['date_modif']}}  </th>
-                            <th>{{$moficat_program[$i]['reslut'][$j]['action_modifie']}} </th>
-                            <th id="">{{$moficat_program[$i]['reslut'][$j]['num_prog_retire']}} </th>
-                            <th>{{$moficat_program[$i]['reslut'][$j]['num_sous_prog_retire']}}</th>
+                        
+                            
                             </tr>
                           
                             @endfor
@@ -375,8 +416,11 @@
             $(document).ready(function() {
                 var tabls = $('#ModiftT').DataTable({
                     language: {
-                        url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/fr-FR.json"
+                        url: "https://cdn.datatables.net/plug-ins/1.13.6/i18n/fr-FR.json"
+
                     }
+             
+               
                 });
 
                 $('#ModiftT tbody').on('click', 'tr', function() {
