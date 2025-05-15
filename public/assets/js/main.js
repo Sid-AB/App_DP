@@ -6173,8 +6173,8 @@ function T4_table(id, T, id_s_act, port,code) {
                         '<td><p>' + value + '</p></td>' +
 
                         '<td  id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>null</p></td>'+
-                        '<td  oninput="formatAccountingFigures(this)" id="AE_T4">' +ValAccountingFigures(data_T_port.group[ig].values.ae_grpop) + '</td>' +
-                        '<td  oninput="formatAccountingFigures(this)" id="CP_T4">' +ValAccountingFigures(data_T_port.group[ig].values.cp_grpop) + '</td>' +
+                        '<td  class="editable" oninput="formatAccountingFigures(this)" id="AE_T4">' +ValAccountingFigures(data_T_port.group[ig].values.ae_grpop) + '</td>' +
+                        '<td  class="editable" oninput="formatAccountingFigures(this)" id="CP_T4">' +ValAccountingFigures(data_T_port.group[ig].values.cp_grpop) + '</td>' +
                         '</tr>';
                     ig++;
                     $('#T-tables tbody').append(row);
@@ -6212,7 +6212,7 @@ function T4_table(id, T, id_s_act, port,code) {
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T4">' +ValAccountingFigures (data_T_port.operation[io-1].values.ae_op) + '</td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T4">' +ValAccountingFigures( data_T_port.operation[io-1].values.ae_op) + '</td>' +
                         '</tr>';
-                        $('#T-tables tbody').append(row);
+                       // $('#T-tables tbody').append(row);
                     }
                     else
                     {
@@ -6224,21 +6224,22 @@ function T4_table(id, T, id_s_act, port,code) {
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T4">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_sousop) + '</td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T4">' +ValAccountingFigures( data_T_port.sousOperation[iso].values.cp_sousuop) + '</td>' +
                         '</tr>';
-                        $('#T-tables tbody').append(row);
+                      
                     }
                     iso++;
                     sousou=true
+                    $('#T-tables tbody').append(row);
                 }
                 else{
                  if(data_T_port.operation[io]?.code !== undefined && data_T_port.sousOperation[iso]?.code !== undefined&& data_T_port.operation[io].code == data_T_port.sousOperation[iso+1].code)
                  {
-                    
                     //console.log('else T4')
                     iso++;
                  }
                     while (sousou) {
                         if(splitcode(data_T_port.sousOperation[iso].code, land).length < 5 )
                             {
+                                console.log('else insert ')
                                 only_def(data_T_port.sousOperation[iso].code)
                             row = '<tr class="ref'+data_T_port.sousOperation[iso].code+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                             '<td scope="row" class="code" style="visibility: hidden;">'  +key+"-"+splitcode(data_T_port.sousOperation[iso].code, land)+'</td>' +
@@ -6253,18 +6254,16 @@ function T4_table(id, T, id_s_act, port,code) {
                         }
                     else
                     {  
-                        row = '<tr class="ref'+data_T_port.sousOperation[iso].code+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
+                        console.log('else insert ')
+                        /*row = '<tr class="ref'+data_T_port.sousOperation[iso].code+'" id="ref' + data_T_port.sousOperation[iso].code +'">' +
                             '<td scope="row" class="code" >'+key+'</td>' +
                             '<td id="def">'+value+'</td>' +
                             '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>null</p></td>'+
                             '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T4">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_sousop) + '</td>' +
                             '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T4">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_sousuop) + '</td>' +
-                            '</tr>';
-                            
-                         
-                            
+                            '</tr>';   */
                         sousou=false
-                        $('#T-tables tbody').append(row);
+                        //$('#T-tables tbody').append(row);
                     }
                     iso++; 
                     }
@@ -6278,7 +6277,7 @@ function T4_table(id, T, id_s_act, port,code) {
            
            }
             // Append the row to the table body
-           
+           // $('#T-tables tbody').append(row);
 
             if (current.length == 0) {
                 current = key;
