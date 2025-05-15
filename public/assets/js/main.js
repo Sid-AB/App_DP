@@ -23,7 +23,7 @@ function openForm() {
 function vider_t(t,id,id_sa)
 {
     if($(id).is(":visible")) {
-        console.log("Element is visible");
+        //console.log("Element is visible");
 
         $.ajax({
             url:'/viderTab/',
@@ -42,12 +42,12 @@ function vider_t(t,id,id_sa)
                 }
                 else
                 {
-                    console.log('pas option de supprission')
+                    //console.log('pas option de supprission')
                 }
             }
         })
     } else {
-        console.log("Element is hidden");
+        //console.log("Element is hidden");
     }
 }
 function appliquer_up(T)
@@ -56,11 +56,11 @@ function appliquer_up(T)
         var idbtn=$(this).children('#changin').attr('id');
         if(idbtn =='changin' )
         {
-            console.log('i insert '+JSON.stringify(dataupdate))
-            console.log('click once'+iupdate);
+            //console.log('i insert '+JSON.stringify(dataupdate))
+            //console.log('click once'+iupdate);
 
 
-            console.log('click after'+iupdate);
+            //console.log('click after'+iupdate);
    $.ajax({
         url:'/update',
         type:'POST',
@@ -74,7 +74,7 @@ function appliquer_up(T)
                 if(response.code == 200)
                     {
                 dataupdate.forEach(elemnt=>{
-                    console.log('green add to '+elemnt.code)
+                    //console.log('green add to '+elemnt.code)
                     $('#ref'+elemnt.code).addClass('row-updated');
 
                     dataupdate=Array();
@@ -85,7 +85,7 @@ function appliquer_up(T)
 
     })
 
-       console.log('testing'+JSON.stringify(dataupdate))
+       //console.log('testing'+JSON.stringify(dataupdate))
        $('.change_app').empty()
     click=0;
 
@@ -123,7 +123,7 @@ function insert_edit(tid,T)
     // Ajoute les valeurs dans les objets
     data.ae[code] = aeValue;
     data.cp[code] = cpValue;
-    console.log('Data of T1'+JSON.stringify(data));
+    //console.log('Data of T1'+JSON.stringify(data));
     
     
     }
@@ -159,7 +159,7 @@ function insert_edit(tid,T)
     
     
     // Ajoute les valeurs dans les objet
-    //console.log("ddcss");
+    ////console.log("ddcss");
     data.descrp[code]=descrip
     data.intituel[code]=intituel
     data.ae_reporte[code] = aeDataReporte;
@@ -169,7 +169,7 @@ function insert_edit(tid,T)
     data.cp_reporte[code] = cpDataReporte;
     data.cp_notifie[code] = cpDataNotifie;
     data.cp_consome[code] = cpDataEngage;
-    console.log('code in tables'+code);
+    //console.log('code in tables'+code);
     }
     if (tid == 'T_port4' || tid == 'T4') {
     
@@ -183,26 +183,26 @@ function insert_edit(tid,T)
     data.disp[code]=dispo;
     data.ae[code] = aeValue;
     data.cp[code] = cpValue;
-    console.log('T4'+JSON.stringify(data))
+    //console.log('T4'+JSON.stringify(data))
     
     }
     // value_chng.push(rw);
     })
     
     $('.change_app').empty()
-    //  console.log('path' + JSON.stringify(path))
-    console.log('path' + JSON.stringify(path3))
+    //  //console.log('path' + JSON.stringify(path))
+    //console.log('path' + JSON.stringify(path3))
     //var url=   '/testing/Action/' + path.join('/');
-    console.log(" eat " + path3.length)
+    //console.log(" eat " + path3.length)
     if (path3.length > 4) {
-    console.log('URL plus' + url)
+    //console.log('URL plus' + url)
     var url = '/testing/S_action/' + path3[0] + '/' + path3[1] + '/' + path3[2] + '/' + path3[3] + '/' + path3[4] + '/' + T;
     //var id_sous_action= path[4];
     } else {
-        console.log('path' + JSON.stringify(path3))
+        //console.log('path' + JSON.stringify(path3))
     // var id_sous_action= path[3];
     var url = '/testing/S_action/' + path3[0] + '/' + path3[1] + '/' + path3[2] + '/' + path3[3] + '/' + path3[3] + '/' + T;
-    console.log('URL less' + url)
+    //console.log('URL less' + url)
     }
     
     $.ajax({
@@ -237,12 +237,12 @@ function insert_edit(tid,T)
     }
     else
     {
-    console.log(response.message)
+    //console.log(response.message)
     }
     },
     error: function (response) {
-    console.log('error')
-console.log('data ->'+JSON.stringify(data.ae_notifie))
+    //console.log('error')
+//console.log('data ->'+JSON.stringify(data.ae_notifie))
     }
     
     
@@ -263,11 +263,11 @@ function calaulsomeAE_CP_sprog()
     $('#T1_AE_init').on('focusin',function(){
         oldTT=$('#AE_sous_prog').val();
         old=$(this).val();
-        console.log('old value'+oldTT);
+        //console.log('old value'+oldTT);
     })
     $('#T1_AE_init').on('focusout',function(){
         
-        console.log('old before if'+oldTT);
+        //console.log('old before if'+oldTT);
         if(old == 0 || old == '' || old == '0' || old == null || old =='NaN')
         {
             old='0'
@@ -277,15 +277,15 @@ function calaulsomeAE_CP_sprog()
                 someAE_TT=0;
             someAE_TT+=parseNumberWithoutCommas($(this).val())
             $('#AE_sous_prog').val(ValAccountingFigures(someAE_TT))
-            console.log('TT '+someAE_TT)
+            //console.log('TT '+someAE_TT)
             }
             else
             {
             someAE_TT=parseNumberWithoutCommas(oldTT) - parseNumberWithoutCommas(old)
-            console.log('TT befor addin'+someAE_TT);
+            //console.log('TT befor addin'+someAE_TT);
             someAE_TT+=parseNumberWithoutCommas($(this).val())
             $('#AE_sous_prog').val(ValAccountingFigures(someAE_TT))
-            console.log('old TT '+someAE_TT)
+            //console.log('old TT '+someAE_TT)
             }
             
     })
@@ -293,11 +293,11 @@ function calaulsomeAE_CP_sprog()
     $('#T2_AE_init').on('focusin',function(){
         oldTT=$('#AE_sous_prog').val();
         old=$(this).val();
-        console.log('old value'+oldTT);
+        //console.log('old value'+oldTT);
     })
 
     $('#T2_AE_init').on('focusout',function(){
-        console.log('old before if'+oldTT);
+        //console.log('old before if'+oldTT);
         if(old == 0 || old == '' || old == '0' || old == null || old =='NaN')
             {
                 old='0'
@@ -307,26 +307,26 @@ function calaulsomeAE_CP_sprog()
                 someAE_TT=0;
             someAE_TT+=parseNumberWithoutCommas($(this).val())
             $('#AE_sous_prog').val(ValAccountingFigures(someAE_TT))
-            console.log('TT '+someAE_TT)
+            //console.log('TT '+someAE_TT)
             }
             else
             {
                 someAE_TT=parseNumberWithoutCommas(oldTT) - parseNumberWithoutCommas(old)
-            console.log('TT befor addin'+someAE_TT);
+            //console.log('TT befor addin'+someAE_TT);
             someAE_TT+=parseNumberWithoutCommas($(this).val())
             $('#AE_sous_prog').val(ValAccountingFigures(someAE_TT))
-            console.log('old TT '+someAE_TT)
+            //console.log('old TT '+someAE_TT)
             }
     })
 
     $('#T3_AE_init').on('focusin',function(){
         oldTT=$('#AE_sous_prog').val();
         old=$(this).val();
-        console.log('old value'+oldTT);
+        //console.log('old value'+oldTT);
     })
 
     $('#T3_AE_init').on('focusout',function(){
-        console.log('old before if'+oldTT);
+        //console.log('old before if'+oldTT);
         if(old == 0 || old == '' || old == '0' || old == null || old =='NaN')
             {
                 old='0'
@@ -336,26 +336,26 @@ function calaulsomeAE_CP_sprog()
                 someAE_TT=0;
             someAE_TT+=parseNumberWithoutCommas($(this).val())
             $('#AE_sous_prog').val(ValAccountingFigures(someAE_TT))
-            console.log('TT '+someAE_TT)
+            //console.log('TT '+someAE_TT)
             }
             else
             {
             someAE_TT=parseNumberWithoutCommas(oldTT) - parseNumberWithoutCommas(old)
-            console.log('TT befor addin'+someAE_TT);
+            //console.log('TT befor addin'+someAE_TT);
             someAE_TT+=parseNumberWithoutCommas($(this).val())
             $('#AE_sous_prog').val(ValAccountingFigures(someAE_TT))
-            console.log('old TT '+someAE_TT)
+            //console.log('old TT '+someAE_TT)
             }
     })
 
     $('#T4_AE_init').on('focusin',function(){
         oldTT=$('#AE_sous_prog').val();
         old=$(this).val();
-        console.log('old value'+oldTT);
+        //console.log('old value'+oldTT);
     })
 
     $('#T4_AE_init').on('focusout',function(){
-        console.log('old before if'+oldTT);
+        //console.log('old before if'+oldTT);
         if(old == 0 || old == '' || old == '0' || old == null || old =='NaN')
             {
                 old='0'
@@ -365,16 +365,16 @@ function calaulsomeAE_CP_sprog()
             someAE_TT=0
             someAE_TT+=parseNumberWithoutCommas($(this).val())
             $('#AE_sous_prog').val(ValAccountingFigures(someAE_TT))
-            console.log('null TT '+someAE_TT)
+            //console.log('null TT '+someAE_TT)
             }
             else
             {
-            console.log('TT refresh new Value some '+someAE_TT+' old'+oldTT);
+            //console.log('TT refresh new Value some '+someAE_TT+' old'+oldTT);
             someAE_TT=parseNumberWithoutCommas(oldTT) - parseNumberWithoutCommas(old)
             
             someAE_TT+=parseNumberWithoutCommas($(this).val())
             $('#AE_sous_prog').val(ValAccountingFigures(someAE_TT))
-            console.log('old TT '+someAE_TT)
+            //console.log('old TT '+someAE_TT)
             }
     })
     /**  ------------------------------------------------------ rnf ---------------- */
@@ -383,14 +383,14 @@ function calaulsomeAE_CP_sprog()
     $('#T1_CP_init').on('focusin',function(){
         oldTTCP=$('#CP_sous_prog').val();
         oldCP=$(this).val();
-        console.log('old value'+oldTTCP);
+        //console.log('old value'+oldTTCP);
     })
 
 
     $('#T1_CP_init').on('focusout',function(){
 
 
-        console.log('old before if'+oldTTCP);
+        //console.log('old before if'+oldTTCP);
         if(oldCP == 0 || oldCP == '' || oldCP == '0' || oldCP == null || oldCP =='NaN')
         {
             oldCP='0'
@@ -400,15 +400,15 @@ function calaulsomeAE_CP_sprog()
                 someCP_TT=0;
             someCP_TT+=parseNumberWithoutCommas($(this).val())
             $('#CP_sous_prog').val(ValAccountingFigures(someCP_TT))
-            console.log('TT '+someCP_TT)
+            //console.log('TT '+someCP_TT)
             }
             else
             {
             someCP_TT=parseNumberWithoutCommas(oldTTCP) - parseNumberWithoutCommas(oldCP)
-            console.log('TT befor addin'+someCP_TT);
+            //console.log('TT befor addin'+someCP_TT);
             someCP_TT+=parseNumberWithoutCommas($(this).val())
             $('#CP_sous_prog').val(ValAccountingFigures(someCP_TT))
-            console.log('old TT '+someCP_TT)
+            //console.log('old TT '+someCP_TT)
             }
 
     })
@@ -416,13 +416,13 @@ function calaulsomeAE_CP_sprog()
     $('#T2_CP_init').on('focusin',function(){
         oldTTCP=$('#CP_sous_prog').val();
         oldCP=$(this).val();
-        console.log('old value'+oldTT);
+        //console.log('old value'+oldTT);
     })
 
 
     $('#T2_CP_init').on('focusout',function(){
 
-        console.log('old before if'+oldTTCP);
+        //console.log('old before if'+oldTTCP);
         if(oldCP == 0 || oldCP == '' || oldCP == '0' || oldCP == null || oldCP =='NaN')
         {
             oldCP='0'
@@ -432,15 +432,15 @@ function calaulsomeAE_CP_sprog()
                 someCP_TT=0;
             someCP_TT+=parseNumberWithoutCommas($(this).val())
             $('#CP_sous_prog').val(ValAccountingFigures(someCP_TT))
-            console.log('TT '+someCP_TT)
+            //console.log('TT '+someCP_TT)
             }
             else
             {
             someCP_TT=parseNumberWithoutCommas(oldTTCP) - parseNumberWithoutCommas(oldCP)
-            console.log('TT befor addin'+someCP_TT);
+            //console.log('TT befor addin'+someCP_TT);
             someCP_TT+=parseNumberWithoutCommas($(this).val())
             $('#CP_sous_prog').val(ValAccountingFigures(someCP_TT))
-            console.log('old TT '+someCP_TT)
+            //console.log('old TT '+someCP_TT)
             }
         
     })
@@ -448,12 +448,12 @@ function calaulsomeAE_CP_sprog()
     $('#T3_CP_init').on('focusin',function(){
         oldTTCP=$('#CP_sous_prog').val();
         oldCP=$(this).val();
-        console.log('old value'+oldTTCP);
+        //console.log('old value'+oldTTCP);
     })
 
     $('#T3_CP_init').on('focusout',function(){
 
-        console.log('old before if'+oldTTCP);
+        //console.log('old before if'+oldTTCP);
         if(oldCP == 0 || oldCP == '' || oldCP == '0' || oldCP == null || oldCP =='NaN')
         {
             oldCP='0'
@@ -463,15 +463,15 @@ function calaulsomeAE_CP_sprog()
                 someCP_TT=0;
             someCP_TT+=parseNumberWithoutCommas($(this).val())
             $('#CP_sous_prog').val(ValAccountingFigures(someCP_TT))
-            console.log('TT '+someCP_TT)
+            //console.log('TT '+someCP_TT)
             }
             else
             {
             someCP_TT=parseNumberWithoutCommas(oldTTCP) - parseNumberWithoutCommas(oldCP)
-            console.log('TT befor addin'+someCP_TT);
+            //console.log('TT befor addin'+someCP_TT);
             someCP_TT+=parseNumberWithoutCommas($(this).val())
             $('#CP_sous_prog').val(ValAccountingFigures(someCP_TT))
-            console.log('old TT '+someCP_TT)
+            //console.log('old TT '+someCP_TT)
             }
         
     })
@@ -479,12 +479,12 @@ function calaulsomeAE_CP_sprog()
     $('#T4_CP_init').on('focusin',function(){
         oldTTCP=$('#CP_sous_prog').val();
         oldCP=$(this).val();
-        console.log('old value'+oldTTCP);
+        //console.log('old value'+oldTTCP);
     })
 
     $('#T4_CP_init').on('focusout',function(){
 
-        console.log('old before if'+oldTT);
+        //console.log('old before if'+oldTT);
         if(oldCP == 0 || oldCP == '' || oldCP == '0' || oldCP == null || oldCP =='NaN')
         {
             oldCP='0'
@@ -494,15 +494,15 @@ function calaulsomeAE_CP_sprog()
             someCP_TT=0;
             someCP_TT+=parseNumberWithoutCommas($(this).val())
             $('#CP_sous_prog').val(ValAccountingFigures(someCP_TT))
-            console.log('TT '+someCP_TT)
+            //console.log('TT '+someCP_TT)
             }
             else
             {
             someCP_TT=parseNumberWithoutCommas(oldTTCP) - parseNumberWithoutCommas(oldCP)
-            console.log('TT befor addin'+someCP_TT);
+            //console.log('TT befor addin'+someCP_TT);
             someCP_TT+=parseNumberWithoutCommas($(this).val())
             $('#CP_sous_prog').val(ValAccountingFigures(someCP_TT))
-            console.log('old TT '+someCP_TT)
+            //console.log('old TT '+someCP_TT)
             }
         
     })
@@ -521,11 +521,11 @@ function calaulsomeAE_CP_act()
     $('#T1_AE_init_AC').on('focusin',function(){
         oldTT=$('#AE_act').val();
         old=$(this).val();
-        console.log('old value'+oldTT);
+        //console.log('old value'+oldTT);
     })
     $('#T1_AE_init_AC').on('focusout',function(){
         
-        console.log('old before if'+oldTT);
+        //console.log('old before if'+oldTT);
         if(old == 0 || old == '' || old == '0' || old == null || old =='NaN')
         {
             old='0'
@@ -535,15 +535,15 @@ function calaulsomeAE_CP_act()
                 someAE_TT=0;
             someAE_TT+=parseNumberWithoutCommas($(this).val())
             $('#AE_act').val(ValAccountingFigures(someAE_TT))
-            console.log('TT '+someAE_TT)
+            //console.log('TT '+someAE_TT)
             }
             else
             {
             someAE_TT=parseNumberWithoutCommas(oldTT) - parseNumberWithoutCommas(old)
-            console.log('TT befor addin'+someAE_TT);
+            //console.log('TT befor addin'+someAE_TT);
             someAE_TT+=parseNumberWithoutCommas($(this).val())
             $('#AE_act').val(ValAccountingFigures(someAE_TT))
-            console.log('old TT '+someAE_TT)
+            //console.log('old TT '+someAE_TT)
             }
             
     })
@@ -551,11 +551,11 @@ function calaulsomeAE_CP_act()
     $('#T2_AE_init_AC').on('focusin',function(){
         oldTT=$('#AE_act').val();
         old=$(this).val();
-        console.log('old value'+oldTT);
+        //console.log('old value'+oldTT);
     })
 
     $('#T2_AE_init_AC').on('focusout',function(){
-        console.log('old before if'+oldTT);
+        //console.log('old before if'+oldTT);
         if(old == 0 || old == '' || old == '0' || old == null || old =='NaN')
             {
                 old='0'
@@ -565,26 +565,26 @@ function calaulsomeAE_CP_act()
                 someAE_TT=0;
             someAE_TT+=parseNumberWithoutCommas($(this).val())
             $('#AE_act').val(ValAccountingFigures(someAE_TT))
-            console.log('TT '+someAE_TT)
+            //console.log('TT '+someAE_TT)
             }
             else
             {
                 someAE_TT=parseNumberWithoutCommas(oldTT) - parseNumberWithoutCommas(old)
-            console.log('TT befor addin'+someAE_TT);
+            //console.log('TT befor addin'+someAE_TT);
             someAE_TT+=parseNumberWithoutCommas($(this).val())
             $('#AE_act').val(ValAccountingFigures(someAE_TT))
-            console.log('old TT '+someAE_TT)
+            //console.log('old TT '+someAE_TT)
             }
     })
 
     $('#T3_AE_init_AC').on('focusin',function(){
         oldTT=$('#AE_act').val();
         old=$(this).val();
-        console.log('old value'+oldTT);
+        //console.log('old value'+oldTT);
     })
 
     $('#T3_AE_init_AC').on('focusout',function(){
-        console.log('old before if'+oldTT);
+        //console.log('old before if'+oldTT);
         if(old == 0 || old == '' || old == '0' || old == null || old =='NaN')
             {
                 old='0'
@@ -594,26 +594,26 @@ function calaulsomeAE_CP_act()
                 someAE_TT=0;
             someAE_TT+=parseNumberWithoutCommas($(this).val())
             $('#AE_act').val(ValAccountingFigures(someAE_TT))
-            console.log('TT '+someAE_TT)
+            //console.log('TT '+someAE_TT)
             }
             else
             {
             someAE_TT=parseNumberWithoutCommas(oldTT) - parseNumberWithoutCommas(old)
-            console.log('TT befor addin'+someAE_TT);
+            //console.log('TT befor addin'+someAE_TT);
             someAE_TT+=parseNumberWithoutCommas($(this).val())
             $('#AE_act').val(ValAccountingFigures(someAE_TT))
-            console.log('old TT '+someAE_TT)
+            //console.log('old TT '+someAE_TT)
             }
     })
 
     $('#T4_AE_init_AC').on('focusin',function(){
         oldTT=$('#AE_act').val();
         old=$(this).val();
-        console.log('old value'+oldTT);
+        //console.log('old value'+oldTT);
     })
 
     $('#T4_AE_init_AC').on('focusout',function(){
-        console.log('old before if'+oldTT);
+        //console.log('old before if'+oldTT);
         if(old == 0 || old == '' || old == '0' || old == null || old =='NaN')
             {
                 old='0'
@@ -623,16 +623,16 @@ function calaulsomeAE_CP_act()
             someAE_TT=0
             someAE_TT+=parseNumberWithoutCommas($(this).val())
             $('#AE_sous_prog').val(ValAccountingFigures(someAE_TT))
-            console.log('null TT '+someAE_TT)
+            //console.log('null TT '+someAE_TT)
             }
             else
             {
-            console.log('TT refresh new Value some '+someAE_TT+' old'+oldTT);
+            //console.log('TT refresh new Value some '+someAE_TT+' old'+oldTT);
             someAE_TT=parseNumberWithoutCommas(oldTT) - parseNumberWithoutCommas(old)
             
             someAE_TT+=parseNumberWithoutCommas($(this).val())
             $('#AE_act').val(ValAccountingFigures(someAE_TT))
-            console.log('old TT '+someAE_TT)
+            //console.log('old TT '+someAE_TT)
             }
     })
     /**  ------------------------------------------------------ rnf ---------------- */
@@ -641,14 +641,14 @@ function calaulsomeAE_CP_act()
     $('#T1_CP_init_AC').on('focusin',function(){
         oldTTCP=$('#CP_act').val();
         oldCP=$(this).val();
-        console.log('old value'+oldTTCP);
+        //console.log('old value'+oldTTCP);
     })
 
 
     $('#T1_CP_init_AC').on('focusout',function(){
 
 
-        console.log('old before if'+oldTTCP);
+        //console.log('old before if'+oldTTCP);
         if(oldCP == 0 || oldCP == '' || oldCP == '0' || oldCP == null || oldCP =='NaN')
         {
             oldCP='0'
@@ -658,15 +658,15 @@ function calaulsomeAE_CP_act()
                 someCP_TT=0;
             someCP_TT+=parseNumberWithoutCommas($(this).val())
             $('#CP_act').val(ValAccountingFigures(someCP_TT))
-            console.log('TT '+someCP_TT)
+            //console.log('TT '+someCP_TT)
             }
             else
             {
             someCP_TT=parseNumberWithoutCommas(oldTTCP) - parseNumberWithoutCommas(oldCP)
-            console.log('TT befor addin'+someCP_TT);
+            //console.log('TT befor addin'+someCP_TT);
             someCP_TT+=parseNumberWithoutCommas($(this).val())
             $('#CP_act').val(ValAccountingFigures(someCP_TT))
-            console.log('old TT '+someCP_TT)
+            //console.log('old TT '+someCP_TT)
             }
 
     })
@@ -674,13 +674,13 @@ function calaulsomeAE_CP_act()
     $('#T2_CP_init_AC').on('focusin',function(){
         oldTTCP=$('#CP_act').val();
         oldCP=$(this).val();
-        console.log('old value'+oldTT);
+        //console.log('old value'+oldTT);
     })
 
 
     $('#T2_CP_init_AC').on('focusout',function(){
 
-        console.log('old before if'+oldTTCP);
+        //console.log('old before if'+oldTTCP);
         if(oldCP == 0 || oldCP == '' || oldCP == '0' || oldCP == null || oldCP =='NaN')
         {
             oldCP='0'
@@ -690,15 +690,15 @@ function calaulsomeAE_CP_act()
                 someCP_TT=0;
             someCP_TT+=parseNumberWithoutCommas($(this).val())
             $('#CP_act').val(ValAccountingFigures(someCP_TT))
-            console.log('TT '+someCP_TT)
+            //console.log('TT '+someCP_TT)
             }
             else
             {
             someCP_TT=parseNumberWithoutCommas(oldTTCP) - parseNumberWithoutCommas(oldCP)
-            console.log('TT befor addin'+someCP_TT);
+            //console.log('TT befor addin'+someCP_TT);
             someCP_TT+=parseNumberWithoutCommas($(this).val())
             $('#CP_act').val(ValAccountingFigures(someCP_TT))
-            console.log('old TT '+someCP_TT)
+            //console.log('old TT '+someCP_TT)
             }
         
     })
@@ -706,12 +706,12 @@ function calaulsomeAE_CP_act()
     $('#T3_CP_init_AC').on('focusin',function(){
         oldTTCP=$('#CP_act').val();
         oldCP=$(this).val();
-        console.log('old value'+oldTTCP);
+        //console.log('old value'+oldTTCP);
     })
 
     $('#T3_CP_init_AC').on('focusout',function(){
 
-        console.log('old before if'+oldTTCP);
+        //console.log('old before if'+oldTTCP);
         if(oldCP == 0 || oldCP == '' || oldCP == '0' || oldCP == null || oldCP =='NaN')
         {
             oldCP='0'
@@ -721,15 +721,15 @@ function calaulsomeAE_CP_act()
                 someCP_TT=0;
             someCP_TT+=parseNumberWithoutCommas($(this).val())
             $('#CP_act').val(ValAccountingFigures(someCP_TT))
-            console.log('TT '+someCP_TT)
+            //console.log('TT '+someCP_TT)
             }
             else
             {
             someCP_TT=parseNumberWithoutCommas(oldTTCP) - parseNumberWithoutCommas(oldCP)
-            console.log('TT befor addin'+someCP_TT);
+            //console.log('TT befor addin'+someCP_TT);
             someCP_TT+=parseNumberWithoutCommas($(this).val())
             $('#CP_act').val(ValAccountingFigures(someCP_TT))
-            console.log('old TT '+someCP_TT)
+            //console.log('old TT '+someCP_TT)
             }
         
     })
@@ -737,12 +737,12 @@ function calaulsomeAE_CP_act()
     $('#T4_CP_init_AC').on('focusin',function(){
         oldTTCP=$('#CP_act').val();
         oldCP=$(this).val();
-        console.log('old value'+oldTTCP);
+        //console.log('old value'+oldTTCP);
     })
 
     $('#T4_CP_init').on('focusout',function(){
 
-        console.log('old before if'+oldTT);
+        //console.log('old before if'+oldTT);
         if(oldCP == 0 || oldCP == '' || oldCP == '0' || oldCP == null || oldCP =='NaN')
         {
             oldCP='0'
@@ -752,15 +752,15 @@ function calaulsomeAE_CP_act()
             someCP_TT=0;
             someCP_TT+=parseNumberWithoutCommas($(this).val())
             $('#CP_act').val(ValAccountingFigures(someCP_TT))
-            console.log('TT '+someCP_TT)
+            //console.log('TT '+someCP_TT)
             }
             else
             {
             someCP_TT=parseNumberWithoutCommas(oldTTCP) - parseNumberWithoutCommas(oldCP)
-            console.log('TT befor addin'+someCP_TT);
+            //console.log('TT befor addin'+someCP_TT);
             someCP_TT+=parseNumberWithoutCommas($(this).val())
             $('#CP_act').val(ValAccountingFigures(someCP_TT))
-            console.log('old TT '+someCP_TT)
+            //console.log('old TT '+someCP_TT)
             }
         
     })
@@ -816,7 +816,7 @@ function only_def(id)
            if(response.code == 200)
            {
                defss=response.result.nom_sous_operation 
-               console.log('def '+defss)
+               //console.log('def '+defss)
                newdfs=defss.split('_')
                if(newdfs.length > 2){
                $('#ref'+id+" #def").text(newdfs[0])
@@ -879,9 +879,9 @@ function check_ifnull(button) {
     var indice = 0;
     var isEmpty = false
     var formId = $(button).parents('.form-container').attr('id');
-    console.log('and form id' + formId);
+    //console.log('and form id' + formId);
     $('#' + formId + ' form').find('input').each(function () {
-        console.log('before the loop')
+        //console.log('before the loop')
         var inputValue = $(this).val();
 
         // Check if the input is not empty
@@ -1078,7 +1078,7 @@ function add_newOPs_T3(id, value, key,code) {
        }
        dataupdate.push({code:idsz,value:{ae_notifie:sopdata_add.AE_not,ae_reporte:sopdata_add.AE_rpor,ae_engage:sopdata_add.AE_enga,
         cp_notifie:sopdata_add.CP_not,cp_reporte:sopdata_add.CP_rpor,cp_consome:sopdata_add.CP_consom,desc:sopdata_add.descrp,intitule:sopdata_add.intituel}})
-       console.log('data T3'+JSON.stringify(sopdata_add))
+       //console.log('data T3'+JSON.stringify(sopdata_add))
        /*$.ajax({
            url:'',
            type:'POST',
@@ -1093,7 +1093,7 @@ function add_newOPs_T3(id, value, key,code) {
        })*/
             
             var idsfinal=id.split("-")
-            //console.log('split -'+idsfinal)
+            ////console.log('split -'+idsfinal)
             var lng=idsfinal.length
            var row = '<tr id="ref' + idsz + '">' +
                    '<td class="code">'+idsfinal[idsfinal.length-1]+'</td>' +
@@ -1110,13 +1110,13 @@ function add_newOPs_T3(id, value, key,code) {
                   
                    if(idsfinal.length == 9 || idsfinal.length == 1)
                     {
-                        //console.log('testing remplace'+idsfinal.length)
+                        ////console.log('testing remplace'+idsfinal.length)
                      $('#' + key).replaceWith(row)
                      replac=true
                     }
                     else
                     {
-                       // console.log('testing append'+idsfinal.length)
+                       // //console.log('testing append'+idsfinal.length)
                         row='<tr id="ref' + idsz + '">' +
                    '<td class="code" >'+id+'</td>' +
                    '<td> - </td>' +
@@ -1244,13 +1244,13 @@ function add_newOPs_T4(id, value, key,code) {
 
        if(idsfinal.length == 9 || idsfinal.length == 1)
         {
-             console.log('testing remplace'+idsfinal.length)
+             //console.log('testing remplace'+idsfinal.length)
          $('#' + key).after(row)
       
         }
         else
         {
-             console.log('testing remplace'+idsfinal.length)
+             //console.log('testing remplace'+idsfinal.length)
             row='<tr id="ref' + idsz + '">' +
        '<td class="code" style="visibility: hidden;">' +idsz + '</td>' +
        '<td>-</td>'+
@@ -1266,7 +1266,7 @@ function add_newOPs_T4(id, value, key,code) {
         
         var newcp=parseInt(cpold)+parseInt(parseNumberWithoutCommas(data_add_ops.CP_T4))
         var newae=parseInt(aeold)+parseInt(parseNumberWithoutCommas(data_add_ops.AE_T4)) 
-        console.log('ae'+newae+'cp'+newcp)
+        //console.log('ae'+newae+'cp'+newcp)
         $('#'+key+' td:last').text(ValAccountingFigures(newcp))
         $('#'+key+' td').eq(-2).text(ValAccountingFigures(newae))*/
 
@@ -1286,7 +1286,7 @@ function add_newOPs_T4(id, value, key,code) {
   /* $('#' + key + ' td').each(function () {
        $(this).removeClass('editable');
    })*/
-       console.log('data T4'+JSON.stringify(data_add_ops))
+       //console.log('data T4'+JSON.stringify(data_add_ops))
         $('#Tport-vals').removeClass('T4')
         $("#dispo").val('');
        $('.Tsop_handler').empty();
@@ -1346,16 +1346,16 @@ function Update_dpia(T,iupdate)
            var cp_notifie =0
            var cp_consome =0
            var clickid = $(this).attr('id');
-           console.log('testing the id'+clickid);
+           //console.log('testing the id'+clickid);
             var clickedRow = $(this).closest('tr');
             var code = clickedRow.find('td:first-child');
             let cell = $(this);  // Reference to the clicked cell
             var currentText = cell.text();
 
             var exist=false;  // Get current text
-            console.log('odl ' + code.text() +'old '+old)
+            //console.log('odl ' + code.text() +'old '+old)
             var codesoup=clickedRow.attr('id').split('ref')[1];
-            console.log('sis -'+JSON.stringify(codesoup))
+            //console.log('sis -'+JSON.stringify(codesoup))
             // Create an input element and set its value
             let input = $('<input type="text" oninput="formatAccountingFigures(this)" step="0.01" class="form-control" min="0"/>').val(currentText);
             cell.html(input);  // Replace the cell content with the input
@@ -1364,7 +1364,7 @@ function Update_dpia(T,iupdate)
             input.blur(function()
            {
                let newText = $(this).val();
-               console.log('zero'+newText)
+               //console.log('zero'+newText)
                if (T == '2') {
                    var sommevertAEatt=parseNumberWithoutCommas($('#foot_AE_att').text());
                    var sommevertCPatt=parseNumberWithoutCommas($('#foot_CP_att').text());
@@ -1372,7 +1372,7 @@ function Update_dpia(T,iupdate)
                    var sommevertCPovr=parseNumberWithoutCommas($('#foot_CP_Over').text());
                    var sommevertAETT=parseNumberWithoutCommas($('#foot_AE_TT').text());
                    var sommevertCPTT=parseNumberWithoutCommas($('#foot_CP_TT').text());
-                   console.log('footer info'+sommevertAEatt+'--'+sommevertCPatt+'--'+sommevertAEovr+'--'+sommevertCPovr)
+                   //console.log('footer info'+sommevertAEatt+'--'+sommevertCPatt+'--'+sommevertAEovr+'--'+sommevertCPovr)
                    var testcpattendu = parseNumberWithoutCommas(clickedRow.find('td').eq(5).text());//cpattendu
                    var testaeattendu = parseNumberWithoutCommas(clickedRow.find('td').eq(4).text());//aeattendu
                    var testcpover = parseNumberWithoutCommas(clickedRow.find('td').eq(3).text());//cpovert
@@ -1383,7 +1383,7 @@ function Update_dpia(T,iupdate)
                    if (newText != 0 && newText != '' && newText != null ) {
                      someae = clickedRow.find('td').eq(6).text();
                      somecp = clickedRow.find('td').eq(7).text();
-                       console.log('ae -> ' + testaeover + 'cp ->' + testcpover + ' ae ett -> ' + testaeattendu + ' cp ett ->' + testcpattendu + 'value change ->' + JSON.stringify(wit))
+                       //console.log('ae -> ' + testaeover + 'cp ->' + testcpover + ' ae ett -> ' + testaeattendu + ' cp ett ->' + testcpattendu + 'value change ->' + JSON.stringify(wit))
                        if (wit == 'CP_att') {
                            testcpattendu = newText
                            sommevertCPatt=parseFloat(sommevertCPatt)-parseFloat(old)
@@ -1391,7 +1391,7 @@ function Update_dpia(T,iupdate)
                            sommevertCPatt=parseFloat(sommevertCPatt)+parseFloat(newText)
                            sommevertCPTT=parseFloat(sommevertCPTT)+parseFloat(newText)
                            somecp-=parseFloat(old)
-                           console.log('new AE_Over'+sommevertCPatt)
+                           //console.log('new AE_Over'+sommevertCPatt)
                        }
                        if (wit == 'AE_att') {
                            testaeattendu = newText
@@ -1403,7 +1403,7 @@ function Update_dpia(T,iupdate)
                                sommevertAETT=parseFloat(sommevertAETT)+parseFloat(newText)
                                someae-=parseFloat(old)
                           
-                           console.log('new AE_Over'+sommevertAEatt)
+                           //console.log('new AE_Over'+sommevertAEatt)
                        }
                        if (wit == 'AE_Over') {
                            testaeover = newText
@@ -1412,7 +1412,7 @@ function Update_dpia(T,iupdate)
                            sommevertAEovr=parseFloat(sommevertAEovr)+parseFloat(newText)
                            sommevertAETT=parseFloat(sommevertAETT)+parseFloat(newText)
                            someae-=parseFloat(old)
-                           console.log('new AE_Over'+sommevertAEovr)
+                           //console.log('new AE_Over'+sommevertAEovr)
                        }
                        if (wit == 'CP_Over') {
                            testcpover = newText
@@ -1421,11 +1421,11 @@ function Update_dpia(T,iupdate)
                            somecp-=parseFloat(old)
                            sommevertCPovr=parseFloat(sommevertCPovr)+parseFloat(newText)
                            sommevertCPTT=parseFloat(sommevertCPTT)+parseFloat(newText)
-                           console.log('new CP_Over'+sommevertCPovr)
+                           //console.log('new CP_Over'+sommevertCPovr)
                        }
                        somecp = parseFloat(testcpattendu) + parseFloat(testcpover)
                        someae = parseFloat(testaeattendu) + parseFloat(testaeover);
-                       console.log('ae' + someae + ' cp ' + somecp)
+                       //console.log('ae' + someae + ' cp ' + somecp)
                     $('#foot_AE_att').text(ValAccountingFigures(sommevertAEatt));
                     $('#foot_CP_att').text(sommevertCPatt);
                     $('#foot_AE_Over').text(sommevertAEovr);
@@ -1433,14 +1433,14 @@ function Update_dpia(T,iupdate)
                     $('#foot_AE_TT').text(sommevertAETT);
                     $('#foot_CP_TT').text(sommevertCPTT);
 
-                    console.log('footer info'+sommevertAEatt+'--'+sommevertCPatt+'--'+sommevertAEovr+'--'+sommevertCPovr)
+                    //console.log('footer info'+sommevertAEatt+'--'+sommevertCPatt+'--'+sommevertAEovr+'--'+sommevertCPovr)
                        clickedRow.find('td').eq(6).text(someae);
                        clickedRow.find('td').eq(7).text(somecp);
                    } else
                    {
                     someae = clickedRow.find('td').eq(6).text();
                     somecp = clickedRow.find('td').eq(7).text();
-                       console.log('deminuis'+old+'of '+wit)
+                       //console.log('deminuis'+old+'of '+wit)
                        if (wit == 'CP_att') {
                            testcpattendu = newText
                            sommevertCPatt=parseFloat(sommevertCPatt)-parseFloat(old)
@@ -1499,7 +1499,7 @@ function Update_dpia(T,iupdate)
                    
                     var wit = $(this).parent().attr('id');
                     if (newText != 0 && newText != '' && newText != null ) {
-                       // console.log('ae -> ' + testaeover + 'cp ->' + testcpover + ' ae ett -> ' + testaeattendu + ' cp ett ->' + testcpattendu + 'value change ->' + JSON.stringify(wit))
+                       // //console.log('ae -> ' + testaeover + 'cp ->' + testcpover + ' ae ett -> ' + testaeattendu + ' cp ett ->' + testcpattendu + 'value change ->' + JSON.stringify(wit))
                         if (wit == 'AE_rpor') {
                             
                             sommevertAErepor=parseFloat(sommevertAErepor)-parseFloat(old)
@@ -1591,7 +1591,7 @@ function Update_dpia(T,iupdate)
                    const element = dataupdate[index];
                     if(element.code === codesoup)
                     {
-                       console.log('code exisit'+JSON.stringify(element))
+                       //console.log('code exisit'+JSON.stringify(element))
                       if( clickid == 'AE_T1' || clickid == 'AE_T4')
                       {
                        element.value.ae=newText;
@@ -1661,7 +1661,7 @@ function Update_dpia(T,iupdate)
                        $('.change_app').append(buttons)
 
 
-                   //  console.log('all table'+JSON.stringify(value_chng))
+                   //  //console.log('all table'+JSON.stringify(value_chng))
                    cell.text(newText);
                    if(!exist){
                        if(clickid == 'AE_T1' || clickid == 'AE_T4')
@@ -1725,13 +1725,13 @@ function Update_dpia(T,iupdate)
                        }
                        if(T == '3')
                        {
-                        console.log('i insert  T3'+JSON.stringify(dataupdate))
+                        //console.log('i insert  T3'+JSON.stringify(dataupdate))
                            dataupdate.push({code:codesoup,value:{ae_notifie:ae_notifie,ae_reporte:ae_reporte,ae_engage:ae_engage,
                                                                  cp_notifie:cp_notifie,cp_reporte:cp_reporte,cp_consome:cp_consome}})
                        }
                        if(T == '4' || T==4)
                        {
-                        console.log('i insert  T4'+JSON.stringify(dataupdate))
+                        //console.log('i insert  T4'+JSON.stringify(dataupdate))
                                dataupdate.push({code:codesoup,value:{ae:ae,cp:cp}})
                        }
 
@@ -1757,11 +1757,11 @@ function Update_dpia(T,iupdate)
            var idbtn=$(this).children('#changin').attr('id');
            if(idbtn =='changin' )
            {
-               console.log('i insert '+JSON.stringify(dataupdate))
-               console.log('click once'+iupdate);
+               //console.log('i insert '+JSON.stringify(dataupdate))
+               //console.log('click once'+iupdate);
 
 
-               console.log('click after'+iupdate);
+               //console.log('click after'+iupdate);
       $.ajax({
            url:'/update',
            type:'POST',
@@ -1775,7 +1775,7 @@ function Update_dpia(T,iupdate)
                    if(response.code == 200)
                        {
                    dataupdate.forEach(elemnt=>{
-                       console.log('green add to '+elemnt.code)
+                       //console.log('green add to '+elemnt.code)
                        $('#ref'+elemnt.code).addClass('row-updated');
 
                        dataupdate=Array();
@@ -1786,7 +1786,7 @@ function Update_dpia(T,iupdate)
 
        })
 
-          console.log('testing'+JSON.stringify(dataupdate))
+          //console.log('testing'+JSON.stringify(dataupdate))
           $('.change_app').empty()
        click=0;
 
@@ -1831,7 +1831,7 @@ function Edit(tid, T) {
             var code = clickedRow.find('td:first-child');
             let cell = $(this);  // Reference to the clicked cell
             var currentText = cell.text();  // Get current text
-            console.log('odl ' + code.text())
+            //console.log('odl ' + code.text())
             // Create an input element and set its value
             let input = $('<input type="text" oninput="formatAccountingFigures(this)" step="0.01" class="form-control"/>').val(currentText);
             cell.html(input);  // Replace the cell content with the input
@@ -1851,7 +1851,7 @@ function Edit(tid, T) {
                     var somecp = 0;
                     if (newText != 0 && newText != '' && newText != null) {
                         var wit = $(this).parent().attr('id');
-                        console.log('ae -> ' + testaeover + 'cp ->' + testcpover + ' ae ett -> ' + testaeattendu + ' cp ett ->' + testcpattendu + 'value change ->' + JSON.stringify(wit))
+                        //console.log('ae -> ' + testaeover + 'cp ->' + testcpover + ' ae ett -> ' + testaeattendu + ' cp ett ->' + testcpattendu + 'value change ->' + JSON.stringify(wit))
                         if (wit == 'CP_att') {
                             testcpattendu = newText
                         }
@@ -1866,7 +1866,7 @@ function Edit(tid, T) {
                         }
                         somecp = parseNumberWithoutCommas(testcpattendu) + parseNumberWithoutCommas(testcpover)
                         someae = parseNumberWithoutCommas(testaeattendu) + parseNumberWithoutCommas(testaeover);
-                        console.log('ae' + someae + ' cp ' + somecp)
+                        //console.log('ae' + someae + ' cp ' + somecp)
                         clickedRow.find('td').eq(6).text(ValAccountingFigures(someae));
                         clickedRow.find('td').eq(7).text(ValAccountingFigures(somecp));
                     }
@@ -1895,7 +1895,7 @@ function Edit(tid, T) {
                                     // Ajoute les valeurs dans les objets
                                     data.ae[code] = aeValue;
                                     data.cp[code] = cpValue;
-                                    console.log('Data of T1'+JSON.stringify(data));
+                                    //console.log('Data of T1'+JSON.stringify(data));
 
 
                                 }
@@ -1927,7 +1927,7 @@ function Edit(tid, T) {
 
 
                                     // Ajoute les valeurs dans les objets
-                                    //console.log("ddcss");
+                                    ////console.log("ddcss");
                                     data.ae_reporte[code] = aeDataReporte;
                                     data.ae_notifie[code] = aeDataNotifie;
                                     data.ae_engage[code] = aeDataEngage;
@@ -1945,26 +1945,26 @@ function Edit(tid, T) {
                                     // Ajoute les valeurs dans les objets
                                     data.ae[code] = aeValue;
                                     data.cp[code] = cpValue;
-                                   console.log('T4'+JSON.stringify(data))
+                                   //console.log('T4'+JSON.stringify(data))
 
                                 }
                                 // value_chng.push(rw);
                             })
 
                             $('.change_app').empty()
-                            //  console.log('path' + JSON.stringify(path))
-                            //console.log('path' + JSON.stringify(path3))
+                            //  //console.log('path' + JSON.stringify(path))
+                            ////console.log('path' + JSON.stringify(path3))
                             //var url=   '/testing/Action/' + path.join('/');
-                            console.log(" eat " + path3.length)
+                            //console.log(" eat " + path3.length)
                             if (path3.length > 4) {
-                               console.log('URL plus' + url)
+                               //console.log('URL plus' + url)
                                 var url = '/testing/S_action/' + path3[0] + '/' + path3[1] + '/' + path3[2] + '/' + path3[3] + '/' + path3[4] + '/' + T;
                                 //var id_sous_action= path[4];
                             } else {
 
                                 // var id_sous_action= path[3];
                                 var url = '/testing/S_action/' + path3[0] + '/' + path3[1] + '/' + path3[2] + '/' + path3[3] + '/' + path3[3] + '/' + T;
-                                console.log('URL less' + url)
+                                //console.log('URL less' + url)
                             }
 
                             $.ajax({
@@ -1992,16 +1992,16 @@ function Edit(tid, T) {
                                 success: function (response) {
                                     if (response.code == 200 || response.code == 404) {
                                         window.location.reload();
-                                        //console.log('path' + JSON.stringify(path))
+                                        ////console.log('path' + JSON.stringify(path))
 
                                     }
                                     else
                                     {
-                                       console.log(response.message)
+                                       //console.log(response.message)
                                     }
                                 },
                                 error: function (response) {
-                                    console.log('error')
+                                    //console.log('error')
                                 }
 
 
@@ -2009,7 +2009,7 @@ function Edit(tid, T) {
                             click = 0;
                         })*/
                     }
-                    //  console.log('all table'+JSON.stringify(value_chng))
+                    //  //console.log('all table'+JSON.stringify(value_chng))
                     cell.text(newText);
                 }
                 else {
@@ -2047,7 +2047,7 @@ var cpValue = $(this).find('td').eq(3).text();
 // Ajoute les valeurs dans les objets
 data.ae[code] = aeValue;
 data.cp[code] = cpValue;
-console.log('Data of T1'+JSON.stringify(data));
+//console.log('Data of T1'+JSON.stringify(data));
 
 
 }
@@ -2083,7 +2083,7 @@ var cpDataEngage = $(this).find('td').eq(9).text();
 
 
 // Ajoute les valeurs dans les objet
-//console.log("ddcss");
+////console.log("ddcss");
 data.descrp[code]=descrip
 data.intituel[code]=intituel
 data.ae_reporte[code] = aeDataReporte;
@@ -2124,7 +2124,7 @@ data.descrp[code]=descr;
 data.disp[code]=dispo;
 data.ae[code] = aeValue;
 data.cp[code] = cpValue;
-console.log('T4'+JSON.stringify())
+//console.log('T4'+JSON.stringify())
 
 }
 // value_chng.push(rw);
@@ -2132,19 +2132,19 @@ console.log('T4'+JSON.stringify())
 
 
 $('.change_app').empty()
-  //console.log('path' + JSON.stringify(path))
-console.log('path' + JSON.stringify(path3))
+  ////console.log('path' + JSON.stringify(path))
+//console.log('path' + JSON.stringify(path3))
 //var url=   '/testing/Action/' + path.join('/');
-console.log(" eat " + path3.length)
+//console.log(" eat " + path3.length)
 if (path3.length > 4) {
-console.log('URL plus' + url)
+//console.log('URL plus' + url)
 var url = '/testing/S_action/' + path3[0] + '/' + path3[1] + '/' + path3[2] + '/' + path3[3] + '/' + path3[4] + '/' + T;
 //var id_sous_action= path[4];
 } else {
-    console.log('path' + JSON.stringify(path3))
+    //console.log('path' + JSON.stringify(path3))
 // var id_sous_action= path[3];
 var url = '/testing/S_action/' + path3[0] + '/' + path3[1] + '/' + path3[2] + '/' + path3[3] + '/' + path3[3] + '/' + T;
-console.log('URL less' + url)
+//console.log('URL less' + url)
 }
 
 $.ajax({
@@ -2179,11 +2179,11 @@ window.location.reload();
 }
 else
 {
-console.log(response.message)
+//console.log(response.message)
 }
 },
 error: function (response) {
-console.log('error')
+//console.log('error')
 }
 
 
@@ -2370,9 +2370,9 @@ $(document).ready(function () {
                 },
                 success: function (response) {
                     if (response.exists) {
-                        console.log(response); // Vérifiez la réponse
+                        //console.log(response); // Vérifiez la réponse
 
-                        console.log('numwall_year path3: ' + JSON.stringify(path3));
+                        //console.log('numwall_year path3: ' + JSON.stringify(path3));
                          $('#file_holder   ').empty()
 
                         // Remplir les champs du formulaire avec les données récupérées
@@ -2382,7 +2382,7 @@ $(document).ready(function () {
                         $('#nom_journ').val(response.nom_journal).trigger('change'); // Remplir et déclencher l'événement change
                         $('#num_journ').val(response.num_journal).trigger('change'); // Remplir et déclencher l'événement change
                         $('#add-wallet').text('Modifier')
-                        console.log(response.Date_portefeuille);
+                        //console.log(response.Date_portefeuille);
                         alert('Le portefeuille existe déjà');
 
                         //$('.font-bk').removeClass('back-bk')
@@ -2406,10 +2406,10 @@ $(document).ready(function () {
     $('#act_deleg').change(function() {
         if ($(this).is(':checked')) {
             deleg_action="delegation"
-            console.log('Checkbox is checked. Value:', $(this).val());
+            //console.log('Checkbox is checked. Value:', $(this).val());
         } else {
               deleg_action="centrale"
-            console.log('Checkbox is unchecked.', $(this).val());
+            //console.log('Checkbox is unchecked.', $(this).val());
         }
     });
 
@@ -2422,11 +2422,11 @@ $(document).ready(function () {
         var indice = 0;
         var isEmpty = false;
         var formId = $(this).parents(".card-body").attr("id");
-        console.log("and form id" + formId);
+        //console.log("and form id" + formId);
         $("#" + formId + " form")
             .find("input")
             .each(function () {
-                console.log("before the loop");
+                //console.log("before the loop");
                 var inputValue = $(this).val();
 
                 // Check if the input is not empty
@@ -2445,7 +2445,7 @@ $(document).ready(function () {
                     );
                 }
             });
-        // console.log('id'+num_wallet)
+        // //console.log('id'+num_wallet)
         var formportinsert = {
             num_portefeuil: numwall_year,
             Date_portefeuille: $("#date_crt_portf").val(),
@@ -2465,13 +2465,13 @@ $(document).ready(function () {
             data: formportinsert,
             success: function (response) {
                 if (response.code == 200 ) {
-                    console.log('createing')
+                    //console.log('createing')
                    
                     alert(response.message);
                     path.push(numwall_year);
                     path3.push(num_wallet);
                     upload_file('file',numwall_year) 
-                    console.log("numwall_year path: " + JSON.stringify(path));
+                    //console.log("numwall_year path: " + JSON.stringify(path));
 
                     $(".font-bk").removeClass("back-bk");
                     $(".wallet-path").css("display", "flex");
@@ -2489,7 +2489,7 @@ $(document).ready(function () {
                    path.push(numwall_year);
                    path3.push(num_wallet);
                    upload_file('file',numwall_year) 
-                   console.log("numwall_year path: " + JSON.stringify(path));
+                   //console.log("numwall_year path: " + JSON.stringify(path));
                    $(".font-bk").removeClass("back-bk");
                    $(".wallet-path").css("display", "flex");
                    $(".wallet-handle").empty();
@@ -2526,7 +2526,7 @@ $("#date_insert_portef").on('focusout', function () {
     if (Date_prog && num_prog) {
         // Appel AJAX pour vérifier le portefeuille dans la base de données
 
-        console.log('data' + numprog_year)
+        //console.log('data' + numprog_year)
         $.ajax({
             url: '/check-prog',  // Route pour vérifier l'existence du portefeuille
             type: 'GET',
@@ -2537,11 +2537,11 @@ $("#date_insert_portef").on('focusout', function () {
             },
             success: function (response) {
                 if (response.exists) {
-                    console.log(response); // Vérifiez la réponse
-                    console.log('numwall_year path3: ' + JSON.stringify(path3));
+                    //console.log(response); // Vérifiez la réponse
+                    //console.log('numwall_year path3: ' + JSON.stringify(path3));
                     $("#file_holder_prog").empty();
                     // Remplir les champs du formulaire avec les données récupérées
-                    console.log('response.CP_prog' + response.CP_prog)
+                    //console.log('response.CP_prog' + response.CP_prog)
                     $('#date_insert_portef').val(response.date_insert_portef).trigger('change');
                     $('#nom_prog').val(response.nom_prog).trigger('change'); // Remplir et déclencher l'événement change
                     $('#AE_prog').val(ValAccountingFigures(response.AE_prog)).trigger('change'); // Remplir et déclencher l'événement change
@@ -2568,9 +2568,9 @@ $("#add-prg").on('click', function () {
     var ae_prog = $('#AE_prog').val()
     var cp_prog = $('#CP_prog').val()
     var numprog_year =path[0] +'-'+ id_prog;
-    console.log("path[0]",path[0] );
-    console.log("id_prog",id_prog );
-    console.log("prog",numprog_year );
+    //console.log("path[0]",path[0] );
+    //console.log("id_prog",id_prog );
+    //console.log("prog",numprog_year );
     var date_sort_jour = $('#date_insert_portef').val();
     check_ifnull(this)
     var formprogdata = {
@@ -2663,8 +2663,8 @@ $("#add-prg").on('click', function () {
                }}
                 path.push(numprog_year);
                 path3.push(id_prog);
-                console.log('numprog_year path: ' + JSON.stringify(path));
-                console.log('numprog path: ' + JSON.stringify(path3));
+                //console.log('numprog_year path: ' + JSON.stringify(path));
+                //console.log('numprog path: ' + JSON.stringify(path3));
                 $('.next-handle svg').removeClass('waiting-icon')
                 $('.next-handle svg').addClass('complet-icon')
                 $('.the-path').append(nexthop)
@@ -2688,7 +2688,7 @@ $("#add-prg").on('click', function () {
                             },
                             success: function (response) {
                                if (response.exists) {
-                                   console.log(response); // Vérifiez la réponse
+                                   //console.log(response); // Vérifiez la réponse
 
                                    // Remplir les champs du formulaire avec les données récupérées
                                    $('#nom_sous_prog').val(response.nom_sous_prog).trigger('change');
@@ -2865,7 +2865,7 @@ $("#add-prg").on('click', function () {
                        _token: $('meta[name="csrf-token"]').attr('content'),
                        _method: 'POST'
                     }
-                    console.log('data' + JSON.stringify(formdatasou_prog))
+                    //console.log('data' + JSON.stringify(formdatasou_prog))
                     $.ajax({
                         url: '/creationSousProg',
                         type: "POST",
@@ -2898,7 +2898,7 @@ $("#add-prg").on('click', function () {
                                 alert(response.message)
                                 path.push(numsouprog_year);
                                 path3.push(sou_prog);
-                                console.log('num_sou_program path: ' + JSON.stringify(path));
+                                //console.log('num_sou_program path: ' + JSON.stringify(path));
 
                                 $('.next-handle svg').removeClass('waiting-icon')
                                 $('.next-handle svg').addClass('complet-icon')
@@ -2908,13 +2908,13 @@ $("#add-prg").on('click', function () {
                                 focus_()
 
                                 $('#date_insert_action').on('focusout', function () {
-                                    console.log('out')
+                                    //console.log('out')
                                     var date_act = $(this).val();
                                     var num_act = $('#num_act').val();
                                     //  var date_act=  new Date(date_act).getFullYear();
                                     var numact_year = path[2] +'-'+num_act ;
-                                    console.log('the new id' + numact_year + ' with ' + JSON.stringify(path))
-                                    console.log('jhvgf');
+                                    //console.log('the new id' + numact_year + ' with ' + JSON.stringify(path))
+                                    //console.log('jhvgf');
                                     if (date_act && num_act) {
                                         $.ajax({
                                             url: '/check-action',  // Route pour vérifier l'existence du programme
@@ -2933,7 +2933,7 @@ $("#add-prg").on('click', function () {
 
                                                 }
                                                 else {
-                                                    console.log('Erreur d`Opération');
+                                                    //console.log('Erreur d`Opération');
 
                                                 }
                                             }
@@ -2970,7 +2970,7 @@ $("#add-prg").on('click', function () {
                                             '<i class="fas fa-angle-double-right waiting-icon"></i>' +
                                             '</div>'
                                         // Création du formData pour l'action
-                                        console.log('action sous prog '+path[2])
+                                        //console.log('action sous prog '+path[2])
                                         var formdata_act = {
                                             num_action: numaction_year,
                                             nom_action: nom_act,
@@ -3008,7 +3008,7 @@ $("#add-prg").on('click', function () {
                                                   /*  $('#confirm-holder_act').empty()
                                                     $('#confirm-holder_act').append('<i class="fas fa-wrench"></i>')*/
                                                     $(this).text('Modifier')
-                                                    console.log('A path: ' + JSON.stringify(path));
+                                                    //console.log('A path: ' + JSON.stringify(path));
                                                     
                                                     // Création du formulaire pour la sous-action après l'ajout de l'action
                                                     var prg4 = `<div class="form-container" id="creati-act">
@@ -3054,7 +3054,7 @@ $("#add-prg").on('click', function () {
                                                        var num_sousact = $('#num_sous_act').val();
                                                        //  var date_act=  new Date(date_act).getFullYear();
                                                        var numsousact_year = path[3] +'-'+num_sousact ;
-                                                       console.log('numsousact_year' + numsousact_year + ' with ' + JSON.stringify(path))
+                                                       //console.log('numsousact_year' + numsousact_year + ' with ' + JSON.stringify(path))
                                                        if (date_sousact && num_sousact) {
                                                            $.ajax({
                                                                url: '/check-sousaction',  // Route pour vérifier l'existence du programme
@@ -3084,15 +3084,15 @@ $("#add-prg").on('click', function () {
                                                     // Ajout de l'événement d'ajout pour la sous-action
                                                     $('#add-prg4').on('click', function () {
                                                         $('#reloading').removeClass('reload-hidden')
-                                                        console.log('inside sous_action')
+                                                        //console.log('inside sous_action')
                                                         var nom_sous_act = $('#nom_sous_act').val();
                                                         var num_sous_act = $('#num_sous_act').val();
                                                         var AE_sous_act = $('#AE_sous_act').val()
                                                         var CP_sous_act = $('#CP_sous_act').val()
                                                         var deleg=$("#act_deleg").val()
                                                         var dat_inst = $('#date_insert_sou_action').val();
-                                                        console.log("ae= ",AE_sous_act,"      " );
-                                                        console.log("cp= ",CP_sous_act );
+                                                        //console.log("ae= ",AE_sous_act,"      " );
+                                                        //console.log("cp= ",CP_sous_act );
                                                         check_ifnull('#add-prg4')
                                                         var numaction_year = path[3];
                                                         var numsousaction_year = numaction_year +'-'+num_sous_act ;
@@ -3123,7 +3123,7 @@ $("#add-prg").on('click', function () {
                                                                     $('#reloading').addClass('reload-hidden')
                                                                     path.push(numsousaction_year);
                                                                     path3.push(num_sous_act);
-                                                                    console.log('path: ' + JSON.stringify(path));
+                                                                    //console.log('path: ' + JSON.stringify(path));
 
                                                                     // Redirection vers la page suivante après l'ajout de la sous-action
                                                                     alert('testing')
@@ -3207,13 +3207,13 @@ $("#add-prg").on('click', function () {
                                                    }
                                                     path.push(numaction_year);
                                                     path3.push(num_act);
-                                                    console.log('response.num_sous_action: ' + response.num_sous_action);
+                                                    //console.log('response.num_sous_action: ' + response.num_sous_action);
                                                     path.push(response.num_sous_action);
                                                     if (response.num_sous_action) {
-                                                       // console.log('path: ' + JSON.stringify(path));
+                                                       // //console.log('path: ' + JSON.stringify(path));
                                                        window.location.href = '/testing/S_action/' + path.join('/');
                                                    }else{
-                                                       // console.log('path: ' + JSON.stringify(path));
+                                                       // //console.log('path: ' + JSON.stringify(path));
                                                    window.location.href = '/testing/Action/' + path.join('/');
                                                    }
 
@@ -3275,7 +3275,7 @@ function T1_table(id, T, id_s_act, port,code) {
         '<i class="fas fa-print"></i>'
         '</div>';
     var data_T_port = new Array();
-    console.log('T is' + T)
+    //console.log('T is' + T)
     $('#Tport-handle').addClass('scale-out');
     var tfooter='<tr><td colspan="2">Total</td>'+
                 '<td id="foot_AE_T1">' + 0 + '</td>' +
@@ -3390,7 +3390,7 @@ $('#opconducteur').on('click',function()
             $('#T-tables thead').empty()
             $('#T-tables tbody').empty()
             $('#T-tables tfoot').empty()
-        console.log('inside corcome');
+        //console.log('inside corcome');
         $('.btn_bg-handler').append(newbtn)
         $('#T-tables thead').append(headBF)
 
@@ -3424,7 +3424,7 @@ $('#opconducteur').on('click',function()
                     $('#nbr_vacants').text(response.totalVacants)
                     $('.del_btn').on('click',function()
                     {
-                        console.log('the id is'+$(this).closest("tr").attr('id'))
+                        //console.log('the id is'+$(this).closest("tr").attr('id'))
                         var delID=$(this).closest("tr").attr('id')
                         $.ajax({
                             url:'/del_emplois',
@@ -3458,7 +3458,7 @@ $('#opconducteur').on('click',function()
                                 $('#T_oc').text(t_oc) 
                                 $('#T_va').text(t_va)
 
-                              // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
+                              // //console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
                                $('#'+delID).remove();   
                                $('#nbr_over').text(newover);
                                $('#nbr_occup').text(newoccup);
@@ -3553,7 +3553,7 @@ $('#opconducteur').on('click',function()
                     _token: $('meta[name="csrf-token"]').attr("content"),
                     _method: "POST",
                 }
-                console.log('befor ajax')
+                //console.log('befor ajax')
                 $.ajax({
                     url:'/insertemploi',
                     type:'POST',
@@ -3563,11 +3563,11 @@ $('#opconducteur').on('click',function()
                         if(response.code == 200)
                             {
                                 $('#reloading').addClass('reload-hidden')   
-                        console.log('consl'+response.id_emp)
+                        //console.log('consl'+response.id_emp)
                         $('#reloading').addClass('reload-hidden')
                         id_empl=response.id_emp
               
-                console.log('tesign'+id_empl)
+                //console.log('tesign'+id_empl)
             var bodyadd='<tr id='+id_empl+'>'+
             '<td>'+formate.funt_sup+' </td>'+
             '<td>'+formate.bg_overt+' </td>'+
@@ -3609,7 +3609,7 @@ $('#opconducteur').on('click',function()
                 $('.del_btn').on('click',function()
             {
                 $('#reloading').removeClass('reload-hidden')
-                console.log('the id is'+$(this).closest("tr").attr('id'))
+                //console.log('the id is'+$(this).closest("tr").attr('id'))
                 var delID=$(this).closest("tr").attr('id')
                 $.ajax({
                     url:'/del_emplois',
@@ -3643,7 +3643,7 @@ $('#opconducteur').on('click',function()
                         $('#T_oc').text(t_oc) 
                         $('#T_va').text(t_va)
 
-                      // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
+                      // //console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
                        $('#'+delID).remove();   
                        $('#nbr_over').text(newover);
                        $('#nbr_occup').text(newoccup);
@@ -3734,7 +3734,7 @@ $('#cdd').on('click',function()
             $('#T-tables thead').empty()
             $('#T-tables tbody').empty()
             $('#T-tables tfoot').empty()
-        console.log('inside corcome');
+        //console.log('inside corcome');
         $('.btn_bg-handler').append(newbtn)
         $('#T-tables thead').append(headBF)
 
@@ -3768,7 +3768,7 @@ $('#cdd').on('click',function()
                     $('#nbr_vacants').text(response.totalVacants)
                     $('.del_btn').on('click',function()
                     {
-                        console.log('the id is'+$(this).closest("tr").attr('id'))
+                        //console.log('the id is'+$(this).closest("tr").attr('id'))
                         var delID=$(this).closest("tr").attr('id')
                         $.ajax({
                             url:'/del_emplois',
@@ -3802,7 +3802,7 @@ $('#cdd').on('click',function()
                                 $('#T_oc').text(t_oc) 
                                 $('#T_va').text(t_va)
 
-                              // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
+                              // //console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
                                $('#'+delID).remove();   
                                $('#nbr_over').text(newover);
                                $('#nbr_occup').text(newoccup);
@@ -3897,7 +3897,7 @@ $('#cdd').on('click',function()
                     _token: $('meta[name="csrf-token"]').attr("content"),
                     _method: "POST",
                 }
-                console.log('befor ajax')
+                //console.log('befor ajax')
                 $.ajax({
                     url:'/insertemploi',
                     type:'POST',
@@ -3907,11 +3907,11 @@ $('#cdd').on('click',function()
                         if(response.code == 200)
                             {
                                 $('#reloading').addClass('reload-hidden')   
-                        console.log('consl'+response.id_emp)
+                        //console.log('consl'+response.id_emp)
                         $('#reloading').addClass('reload-hidden')
                         id_empl=response.id_emp
               
-                console.log('tesign'+id_empl)
+                //console.log('tesign'+id_empl)
             var bodyadd='<tr id='+id_empl+'>'+
             '<td>'+formate.funt_sup+' </td>'+
             '<td>'+formate.bg_overt+' </td>'+
@@ -3953,7 +3953,7 @@ $('#cdd').on('click',function()
                 $('.del_btn').on('click',function()
             {
                 $('#reloading').removeClass('reload-hidden')
-                console.log('the id is'+$(this).closest("tr").attr('id'))
+                //console.log('the id is'+$(this).closest("tr").attr('id'))
                 var delID=$(this).closest("tr").attr('id')
                 $.ajax({
                     url:'/del_emplois',
@@ -3987,7 +3987,7 @@ $('#cdd').on('click',function()
                         $('#T_oc').text(t_oc) 
                         $('#T_va').text(t_va)
 
-                      // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
+                      // //console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
                        $('#'+delID).remove();   
                        $('#nbr_over').text(newover);
                        $('#nbr_occup').text(newoccup);
@@ -4077,7 +4077,7 @@ $('#cdi').on('click',function()
             $('#T-tables thead').empty()
             $('#T-tables tbody').empty()
             $('#T-tables tfoot').empty()
-        console.log('inside corcome');
+        //console.log('inside corcome');
         $('.btn_bg-handler').append(newbtn)
         $('#T-tables thead').append(headBF)
 
@@ -4111,7 +4111,7 @@ $('#cdi').on('click',function()
                     $('#nbr_vacants').text(response.totalVacants)
                     $('.del_btn').on('click',function()
                     {
-                        console.log('the id is'+$(this).closest("tr").attr('id'))
+                        //console.log('the id is'+$(this).closest("tr").attr('id'))
                         var delID=$(this).closest("tr").attr('id')
                         $.ajax({
                             url:'/del_emplois',
@@ -4145,7 +4145,7 @@ $('#cdi').on('click',function()
                                 $('#T_oc').text(t_oc) 
                                 $('#T_va').text(t_va)
 
-                              // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
+                              // //console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
                                $('#'+delID).remove();   
                                $('#nbr_over').text(newover);
                                $('#nbr_occup').text(newoccup);
@@ -4240,7 +4240,7 @@ $('#cdi').on('click',function()
                     _token: $('meta[name="csrf-token"]').attr("content"),
                     _method: "POST",
                 }
-                console.log('befor ajax')
+                //console.log('befor ajax')
                 $.ajax({
                     url:'/insertemploi',
                     type:'POST',
@@ -4250,11 +4250,11 @@ $('#cdi').on('click',function()
                         if(response.code == 200)
                             {
                                 $('#reloading').addClass('reload-hidden')   
-                        console.log('consl'+response.id_emp)
+                        //console.log('consl'+response.id_emp)
                         $('#reloading').addClass('reload-hidden')
                         id_empl=response.id_emp
               
-                console.log('tesign'+id_empl)
+                //console.log('tesign'+id_empl)
             var bodyadd='<tr id='+id_empl+'>'+
             '<td>'+formate.funt_sup+' </td>'+
             '<td>'+formate.bg_overt+' </td>'+
@@ -4296,7 +4296,7 @@ $('#cdi').on('click',function()
                 $('.del_btn').on('click',function()
             {
                 $('#reloading').removeClass('reload-hidden')
-                console.log('the id is'+$(this).closest("tr").attr('id'))
+                //console.log('the id is'+$(this).closest("tr").attr('id'))
                 var delID=$(this).closest("tr").attr('id')
                 $.ajax({
                     url:'/del_emplois',
@@ -4330,7 +4330,7 @@ $('#cdi').on('click',function()
                         $('#T_oc').text(t_oc) 
                         $('#T_va').text(t_va)
 
-                      // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
+                      // //console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
                        $('#'+delID).remove();   
                        $('#nbr_over').text(newover);
                        $('#nbr_occup').text(newoccup);
@@ -4419,7 +4419,7 @@ $('#corcom').on('click',function()
             $('#T-tables thead').empty()
             $('#T-tables tbody').empty()
             $('#T-tables tfoot').empty()
-        console.log('inside corcome');
+        //console.log('inside corcome');
         $('.btn_bg-handler').append(newbtn)
         $('#T-tables thead').append(headBF)
 
@@ -4453,7 +4453,7 @@ $('#corcom').on('click',function()
                     $('#nbr_vacants').text(response.totalVacants)
                     $('.del_btn').on('click',function()
                     {
-                        console.log('the id is'+$(this).closest("tr").attr('id'))
+                        //console.log('the id is'+$(this).closest("tr").attr('id'))
                         var delID=$(this).closest("tr").attr('id')
                         $.ajax({
                             url:'/del_emplois',
@@ -4487,7 +4487,7 @@ $('#corcom').on('click',function()
                                 $('#T_oc').text(t_oc) 
                                 $('#T_va').text(t_va)
 
-                              // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
+                              // //console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
                                $('#'+delID).remove();   
                                $('#nbr_over').text(newover);
                                $('#nbr_occup').text(newoccup);
@@ -4582,7 +4582,7 @@ $('#corcom').on('click',function()
                     _token: $('meta[name="csrf-token"]').attr("content"),
                     _method: "POST",
                 }
-                console.log('befor ajax')
+                //console.log('befor ajax')
                 $.ajax({
                     url:'/insertemploi',
                     type:'POST',
@@ -4592,11 +4592,11 @@ $('#corcom').on('click',function()
                         if(response.code == 200)
                             {
                                 $('#reloading').addClass('reload-hidden')   
-                        console.log('consl'+response.id_emp)
+                        //console.log('consl'+response.id_emp)
                         $('#reloading').addClass('reload-hidden')
                         id_empl=response.id_emp
               
-                console.log('tesign'+id_empl)
+                //console.log('tesign'+id_empl)
             var bodyadd='<tr id='+id_empl+'>'+
             '<td>'+formate.funt_sup+' </td>'+
             '<td>'+formate.bg_overt+' </td>'+
@@ -4638,7 +4638,7 @@ $('#corcom').on('click',function()
                 $('.del_btn').on('click',function()
             {
                 $('#reloading').removeClass('reload-hidden')
-                console.log('the id is'+$(this).closest("tr").attr('id'))
+                //console.log('the id is'+$(this).closest("tr").attr('id'))
                 var delID=$(this).closest("tr").attr('id')
                 $.ajax({
                     url:'/del_emplois',
@@ -4672,7 +4672,7 @@ $('#corcom').on('click',function()
                         $('#T_oc').text(t_oc) 
                         $('#T_va').text(t_va)
 
-                      // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
+                      // //console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
                        $('#'+delID).remove();   
                        $('#nbr_over').text(newover);
                        $('#nbr_occup').text(newoccup);
@@ -4756,7 +4756,7 @@ $('#post_sup').on('click',function()
     if($(this).children().first().is(':checked'))
         {
            
-        console.log('inside post sup commun')
+        //console.log('inside post sup commun')
         $('.btn_bg-handler').append(newbtn)
         $('#T-tables thead').append(headPS)
 
@@ -4789,7 +4789,7 @@ $('#post_sup').on('click',function()
                     $('#nbr_vacants').text(response.totalVacants)
                     $('.del_btn').on('click',function()
                     {
-                        console.log('the id is'+$(this).closest("tr").attr('id'))
+                        //console.log('the id is'+$(this).closest("tr").attr('id'))
                         var delID=$(this).closest("tr").attr('id')
                         $.  ajax({
                             url:'/del_emplois',
@@ -4821,7 +4821,7 @@ $('#post_sup').on('click',function()
                             $('#T_oc').text(t_oc) 
                             $('#T_va').text(t_va)
 
-                              // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
+                              // //console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
                                $("#"+delID).remove();   
                                $('#nbr_over').text(newover);
                                $('#nbr_occup').text(newoccup);
@@ -4960,7 +4960,7 @@ $('#post_sup').on('click',function()
                     $('.del_btn').on('click',function()
                 {
                    
-                    console.log('the id is'+$(this).closest("tr").attr('id'))
+                    //console.log('the id is'+$(this).closest("tr").attr('id'))
                     var delID=$(this).closest("tr").attr('id')
                     $.  ajax({
                         url:'/del_emplois',
@@ -4992,7 +4992,7 @@ $('#post_sup').on('click',function()
                             $('#T_oc').text(t_oc) 
                             $('#T_va').text(t_va)
 
-                          // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
+                          // //console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
                            $("#"+delID).remove();   
                            $('#nbr_over').text(newover);
                            $('#nbr_occup').text(newoccup);
@@ -5072,7 +5072,7 @@ $('#funt').on('click',function()
     if($(this).children().first().is(':checked'))
         {
       
-        console.log('inside function commun')
+        //console.log('inside function commun')
         $('.btn_bg-handler').append(newbtn)
         $('#T-tables thead').append(headBF)
         var bodyadd='';
@@ -5106,7 +5106,7 @@ $('#funt').on('click',function()
                         $('#nbr_vacants').text(response.totalVacants)
                         $('.del_btn').on('click',function()
                         {
-                            console.log('the id is'+$(this).closest("tr").attr('id'))
+                            //console.log('the id is'+$(this).closest("tr").attr('id'))
                             var delID=$(this).closest("tr").attr('id')
                             $.  ajax({
                                 url:'/del_emplois',
@@ -5123,7 +5123,7 @@ $('#funt').on('click',function()
                                     newover=parseInt($('#nbr_over').text())-parseInt( element.EmploiesOuverts)
                                     newoccup=parseInt($('#nbr_occup').text())-parseInt( element.EmploiesOccupes)
                                     newvacant=parseInt($('#nbr_vacants').text())-parseInt( element.EmploiesVacants)
-                                  // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
+                                  // //console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
 
                                     
                             var t_tr=parseInt($('#T_tr').text())-parseInt(element.EmploiesOuverts)
@@ -5136,7 +5136,7 @@ $('#funt').on('click',function()
                             var t_ov=parseInt($('#T_ov').text())-parseInt(element.TRAITEMENT_ANNUEL)
                             var t_oc=parseInt($('#T_oc').text())-parseInt(element.PRIMES_INDEMNITES)
                             var t_va=parseInt($('#T_va').text())-parseInt(element.DEPENSES_ANNUELLES)
-                            console.log('tv'+t_ov+'tva'+t_oc+' - '+t_va +'value original'+element.TRAITEMENT_ANNUEL+'Total'+parseInt($('#T_ov').text()))
+                            //console.log('tv'+t_ov+'tva'+t_oc+' - '+t_va +'value original'+element.TRAITEMENT_ANNUEL+'Total'+parseInt($('#T_ov').text()))
                             $('#T_ov').text(t_ov)
                             $('#T_oc').text(t_oc) 
                             $('#T_va').text(t_va)
@@ -5172,7 +5172,7 @@ $('#funt').on('click',function()
                 }
             })
             $('.print_apt').on('click',function(){
-                console.log('print function')
+                //console.log('print function')
                 window.open('/printlist_fonctions/'+id_s_act,'_blank')
             })
             $(".btn_add_budg").on('click',function(){
@@ -5238,7 +5238,7 @@ $('#funt').on('click',function()
                             data:formate,
                             success:function(response)
                             {
-                                console.log('response'+response.code)   
+                                //console.log('response'+response.code)   
                     if(response.code == 200)
                         {
                             $('#reloading').addClass('reload-hidden')
@@ -5281,7 +5281,7 @@ $('#funt').on('click',function()
 
                         $('.del_btn').on('click',function()
                     {
-                        console.log('the id is'+$(this).closest("tr").attr('id'))
+                        //console.log('the id is'+$(this).closest("tr").attr('id'))
                         var delID=$(this).closest("tr").attr('id')
                         $.ajax({
                             url:'/del_emplois',
@@ -5297,7 +5297,7 @@ $('#funt').on('click',function()
                                 newover=parseInt($('#nbr_over').text())-parseInt(formate.bg_overt)
                                 newoccup=parseInt($('#nbr_occup').text())-parseInt(formate.bg_occup)
                                 newvacant=parseInt($('#nbr_vacants').text())-parseInt(formate.bg_vacant)
-                              // console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
+                              // //console.log('new'+$('#nbr_over').text()+" - "+$(this).closest("tr").find("td").eq(1).text()+"="+newover)
                               /*if( (formate.tr_annuel == null || formate.tr_annuel === "" || (Array.isArray(formate.tr_annuel) && formate.tr_annuel === 0) || (typeof formate.tr_annuel === 'object' && formate.tr_annuel !== null && Object.keys(formate.tr_annuel).length === 0)) )
                               {
                               var t_tr=parseInt($('#T_tr').text())-parseInt($(this).closest("tr").find("td:eq(1)").text())
@@ -5388,7 +5388,7 @@ $('#port_T1').on('click',function()
                 success: function (response) {
                     if (response.code === 200) {
                         
-                        console.log('data' + JSON.stringify(Object.keys(response.results)).length)
+                        //console.log('data' + JSON.stringify(Object.keys(response.results)).length)
                         data_T_port = response.results;
                        tfooter='<tr><td colspan="2">Total</td>'+
                         '<td id="foot_AE_T1">' + ValAccountingFigures(data_T_port.total[0].values.totalAE) + '</td>' +
@@ -5410,7 +5410,7 @@ $('#port_T1').on('click',function()
         }   
 
             cnter++;
-            console.log('inside function commun')
+            //console.log('inside function commun')
        
 
     $('#T-tables thead').append(headT)
@@ -5422,7 +5422,7 @@ $('#port_T1').on('click',function()
         var ig = 0;
         var io = 0;
         var iso = 0;
-      //  console.log('testing split function' + splitcode(data_T_port.group[0].code, 5)[0].substring)
+      //  //console.log('testing split function' + splitcode(data_T_port.group[0].code, 5)[0].substring)
       if(code !== 200)
         {
            
@@ -5481,12 +5481,12 @@ $('#port_T1').on('click',function()
            
             if(code !== 200)
             {
-               console.log('testing')
+               //console.log('testing')
                Edit(id, T)
               ;
             }
             i++
-            console.log('the lengh' + lengT + 'and the pas' + i)
+            //console.log('the lengh' + lengT + 'and the pas' + i)
             if (i == lengT) {
                 if ($('.ref' + key + ' td').hasClass("editable")) {
                 }
@@ -5499,14 +5499,14 @@ $('#port_T1').on('click',function()
             else {
                 current = key;
                 if (current.split("0")[0].length > preve.split("0")[0].length) {
-                    //console.log('testing editable'+key)
+                    ////console.log('testing editable'+key)
                     $('.ref' + preve + ' td').each(function () {
                         $(this).removeClass('editable')
                     })
                     preve = current;
                 }
                 else {
-                    //   console.log('testing '+key)
+                    //   //console.log('testing '+key)
                     if ($('.ref' + preve + ' td').hasClass("editable")) {
 
 
@@ -5520,7 +5520,8 @@ $('#port_T1').on('click',function()
         });
         if(code === 200)
         {Update_dpia(T,id_s_act);
-        console.log('testing new update function')}
+        //console.log('testing new update function')
+        }
     }).fail(function () {
         console.error('Error loading JSON file.');
     });
@@ -5558,7 +5559,7 @@ if(code == 200)
         success: function (response) {
             if (response.code === 200) {
                 $('#reloading').addClass('reload-hidden')
-                console.log('data' + JSON.stringify(Object.keys(response.results)).length)
+                //console.log('data' + JSON.stringify(Object.keys(response.results)).length)
                 data_T_port = response.results;
                tfooter='<tr><td colspan="2">Total</td>'+
                 '<td  id="foot_AE_Over">'+ValAccountingFigures(data_T_port.total[0].values.totalAEouvrtvertical) + '</td>' +
@@ -5654,7 +5655,7 @@ else
                         '<td  class="someae" oninput="formatAccountingFigures(this)" id="AE_TT">' +ValAccountingFigures (data_T_port.group[ig].values.total_ae) + '</td>' +
                         '<td  class="somecp" oninput="formatAccountingFigures(this)" id="CP_TT">' +ValAccountingFigures (data_T_port.group[ig].values.total_cp) + '</td>' +
                         '</tr>';
-                        console.log('group T2'+JSON.stringify(data_T_port.group[ig].values.ae_attendu))
+                        //console.log('group T2'+JSON.stringify(data_T_port.group[ig].values.ae_attendu))
                     ig++
                    
                 }
@@ -5703,9 +5704,9 @@ else
             }
             else {
                 current = key;
-                console.log('cuureent' + current.split("0")[0] + ' prev' + preve.split("0")[0])
+                //console.log('cuureent' + current.split("0")[0] + ' prev' + preve.split("0")[0])
                 if (key.split("0")[0].length > preve.split("0")[0].length) {
-                    console.log('testing not adding' + preve)
+                    //console.log('testing not adding' + preve)
                     $('.ref' + preve + ' td').each(function () {
                         $(this).removeClass('editable')
                     })
@@ -5713,7 +5714,7 @@ else
                 }
                 else {
 
-                    console.log('testing adding ' + preve)
+                    //console.log('testing adding ' + preve)
                     if ($('.ref' + preve + ' td').hasClass("editable")) {
                     }
 
@@ -5734,7 +5735,7 @@ else
                
                Update_dpia(T,id_s_act);
                dataupdate=[]
-           console.log('testing new update function')
+           //console.log('testing new update function')
            }
     }).fail(function () {
         console.error('Error loading JSON file.');
@@ -5763,7 +5764,7 @@ function T3_table(id, T, id_s_act, port,code) {
                 '<td  id="foot_CP_not">'+0 + '</td>' +
                 '<td  id="foot_CP_consom">'+0 + '</td> </tr>' ;
     var newbtn = '<i id="new_ops" class="fas fa-folder-plus" style="font-size: 48px"></i>'
-    console.log('data is')
+    //console.log('data is')
     $('#Tport-handle').addClass('scale-out');
     setTimeout(() => {
         // Add the class to hide the table
@@ -5779,9 +5780,9 @@ if(code == 200){
         success: function (response) {
             if (response.code === 200) {
                 $('#reloading').addClass('reload-hidden')
-                console.log('data' + JSON.stringify(Object.keys(response.results)).length)
+                //console.log('data' + JSON.stringify(Object.keys(response.results)).length)
                 data_T_port = response.results;
-                console.log(data_T_port.total[0].values.totalAEnotifievertical)
+                //console.log(data_T_port.total[0].values.totalAEnotifievertical)
                 aerTpt=data_T_port.total[0].values.totalAEreportevertical
                 aenTpt=data_T_port.total[0].values.totalAEnotifievertical
                 aeeTpt=data_T_port.total[0].values.totalAEengagevertical
@@ -5845,7 +5846,7 @@ if(code == 200){
             // Create a table row
             var val = value.split('-')
 
-            //   console.log('values' + JSON.stringify(val))
+            //   //console.log('values' + JSON.stringify(val))
             let row = '<tr class="ref'+key+'" id="ref' + key + '">' +
                 '<td scope="row"  class="code">' + key + '</td>' +
                 '<td id="nom_ops"><p>' + val[0] + '</p> </td>' +
@@ -5866,7 +5867,7 @@ if(code == 200){
                var land=data_T_port.group[ig].code.length-5;
                // key=splitcode(data_T_port.group[ig].code, land)
                 if (key==data_T_port.group[ig].code.split('-')[6]) {
-                   // console.log(key+'keys --codes groupe'+data_T_port.group[ig].code.split('-')[6])
+                   // //console.log(key+'keys --codes groupe'+data_T_port.group[ig].code.split('-')[6])
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.group[ig].code + '">' +
                         '<td scope="row"  class="code">' + key + '</td>' +
                         '<td id="nom_ops"><p>'+data_T_port.group[ig].nom+'</p> </td>' +
@@ -5886,7 +5887,7 @@ if(code == 200){
                var land=data_T_port.operation[io].code.length-5;
               // key = splitcode(data_T_port.operation[io].code, land)
                 if ( key==data_T_port.operation[io].code.split('-')[7]) {
-                    console.log(key+'keys --codes opiration'+data_T_port.operation[io].code.split('-')[7])
+                    //console.log(key+'keys --codes opiration'+data_T_port.operation[io].code.split('-')[7])
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.operation[io].code + '">' +
                         '<td scope="row"  class="code">' + key + '</td>' +
                         '<td id="nom_ops"><p>' + data_T_port.operation[io].nom + '</p> </td>' +
@@ -5906,11 +5907,11 @@ if(code == 200){
                var land=data_T_port.sousOperation[iso].code.length-5;
                var last=data_T_port.sousOperation[iso].code.split('-').length
 
-                //console.log('all'+land+' split code'+splitcode(data_T_port.sousOperation[iso].code, land)+'Key code'+key+'the last'+data_T_port.sousOperation[iso].code.split('-')[last-1])
+                ////console.log('all'+land+' split code'+splitcode(data_T_port.sousOperation[iso].code, land)+'Key code'+key+'the last'+data_T_port.sousOperation[iso].code.split('-')[last-1])
                // key = splitcode(data_T_port.sousOperation[iso].code, land)
                 if (key==data_T_port.sousOperation[iso].code.split('-')[last-1] && data_T_port.sousOperation[iso].code.split('-').length <= 9) {
                     //only_def(data_T_port.sousOperation[iso].code)
-                   console.log('code orignal')
+                   //console.log('code orignal')
                     var def='';
                     var nom='';
                     var int='';
@@ -5945,10 +5946,10 @@ if(code == 200){
                    if(data_T_port.sousOperation[iso].code.split('-').length > 9 )
                    {
                     finder_s = true;
-                    console.log('new code  '+data_T_port.sousOperation[iso].code.split('-')[last-1]+'-- -leng --- '+data_T_port.sousOperation[iso].code.split('-').length)
+                    //console.log('new code  '+data_T_port.sousOperation[iso].code.split('-')[last-1]+'-- -leng --- '+data_T_port.sousOperation[iso].code.split('-').length)
                     while(finder_s){
                     if(data_T_port.sousOperation[iso].code.split('-').length > 9 && key!=data_T_port.sousOperation[iso].code){
-                        console.log('new code >> '+splitcode(data_T_port.sousOperation[iso].code, land)+' >> leng >>'+data_T_port.sousOperation[iso].code.split('-').length)
+                        //console.log('new code >> '+splitcode(data_T_port.sousOperation[iso].code, land)+' >> leng >>'+data_T_port.sousOperation[iso].code.split('-').length)
                         var def='';
                         var nom='';
                         var int='';
@@ -6023,7 +6024,7 @@ if(code == 200){
                     })
                 }
                 if (current.split("0")[0].length > preve.split("0")[0].length) {
-                    console.log('testing ' + preve)
+                    //console.log('testing ' + preve)
                     $('.ref' + preve + ' td').each(function () {
                         $(this).removeClass('editable')
                         
@@ -6032,7 +6033,7 @@ if(code == 200){
 
                 }
                 else {
-                    //console.log('testing editable'+preve)
+                    ////console.log('testing editable'+preve)
                     if ($('.ref' + preve + ' td').hasClass("editable")) {
                         $('.ref' + preve + ' #add_op').append(newbtn)
                         $('.ref' + preve + ' #add_op').on('click', function () {
@@ -6070,7 +6071,7 @@ if(code == 200){
            
            Update_dpia(T,iupdate);
            dataupdate=[]
-           console.log('testing new update function')
+           //console.log('testing new update function')
         }
     }).fail(function () {
         console.error('Error loading JSON file.');
@@ -6088,7 +6089,7 @@ function T4_table(id, T, id_s_act, port,code) {
     var tfooter='<tr><td colspan="3">Total</td>'+
     '<td id="foot_AE_T4">' + 0+ '</td>' +
     '<td id="foot_CP_T4">' + 0 + '</td>';  
-    console.log('data is')
+    //console.log('data is')
     $('#Tport-handle').addClass('scale-out');
     setTimeout(() => {
         // Add the class to hide the table
@@ -6105,7 +6106,7 @@ function T4_table(id, T, id_s_act, port,code) {
             if (response.code === 200) {
             
                 $('#reloading').addClass('reload-hidden')
-                console.log('data' + JSON.stringify(Object.keys(response.results)).length)
+                //console.log('data' + JSON.stringify(Object.keys(response.results)).length)
                 data_T_port = response.results;
                tfooter='<tr><td colspan="3">Total</td>'+
                 '<td id="foot_AE_T4">' + ValAccountingFigures(data_T_port.total[0].values.totalAE) + '</td>' +
@@ -6154,7 +6155,7 @@ function T4_table(id, T, id_s_act, port,code) {
         $.each(data, function (key, value) {
             // Create a table row
             var val = value.split('-')
-            //   console.log('values' + JSON.stringify(val))
+            //   //console.log('values' + JSON.stringify(val))
             let row = '<tr class="ref'+key+'" id="ref' + key + '">' +
                 '<td scope="row"  class="code">' + key + '</td>' +
                 '<td><p>' + value + '</p></td>' +
@@ -6166,20 +6167,22 @@ function T4_table(id, T, id_s_act, port,code) {
             if (data_T_port.group.length > 0 && data_T_port.group.length > ig) {
                var land=data_T_port.group[ig].code.length-5;
                 if (key == splitcode(data_T_port.group[ig].code, land)) {
+                    console.log('testing '+data_T_port.group[ig].values.ae_grpop)
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.group[ig].code + '">' +
                         '<td scope="row" class="code" >' + key + '</td>' +
                         '<td><p>' + value + '</p></td>' +
 
                         '<td  id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>null</p></td>'+
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T4">' +ValAccountingFigures (data_T_port.group[ig].values.ae_grpop) + '</td>' +
-                        '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T4">' +ValAccountingFigures (data_T_port.group[ig].values.cp_grpop) + '</td>' +
+                        '<td  oninput="formatAccountingFigures(this)" id="AE_T4">' +ValAccountingFigures(data_T_port.group[ig].values.ae_grpop) + '</td>' +
+                        '<td  oninput="formatAccountingFigures(this)" id="CP_T4">' +ValAccountingFigures(data_T_port.group[ig].values.cp_grpop) + '</td>' +
                         '</tr>';
                     ig++;
+                    $('#T-tables tbody').append(row);
                 }
             }
             if (data_T_port.operation.length > 0 && data_T_port.operation.length > io) {
                var land=data_T_port.operation[io].code.length-5;
-               //console.log(data_T_port.operation[io].code+'-- code so split' +splitcode(data_T_port.operation[io].code, land)+'his leng'+land +"Key origin"+key)
+               ////console.log(data_T_port.operation[io].code+'-- code so split' +splitcode(data_T_port.operation[io].code, land)+'his leng'+land +"Key origin"+key)
                 if (key == splitcode(data_T_port.operation[io].code, land)  ) {
                     row = '<tr class="ref'+key+'" id="ref'+ data_T_port.operation[io].code + '">' +
                         '<td scope="row" class="code" >' + key + '</td>' +
@@ -6190,15 +6193,15 @@ function T4_table(id, T, id_s_act, port,code) {
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T4">' +ValAccountingFigures (data_T_port.operation[io].values.cp_op) + '</td>' +
                         '</tr>';
                     io++;
-               
+                    $('#T-tables tbody').append(row);
             }
         }
             if (data_T_port.sousOperation.length > 0 && data_T_port.sousOperation.length > iso  ) {
                var land=data_T_port.sousOperation[iso].code.length-5;
                //&& data_T_port.operation[io]?.code !== undefined && data_T_port.sousOperation[iso]?.code !== undefined&& data_T_port.operation[io].code != data_T_port.sousOperation[iso].code
-               //console.log('T 4 sous operation'+data_T_port.operation[io].code +'!='+ data_T_port.sousOperation[iso+1].code)
+               ////console.log('T 4 sous operation'+data_T_port.operation[io].code +'!='+ data_T_port.sousOperation[iso+1].code)
                 if (key == splitcode(data_T_port.sousOperation[iso].code, land) && data_T_port.operation[io]?.code !== undefined && data_T_port.sousOperation[iso]?.code !== undefined&& data_T_port.operation[io].code != data_T_port.sousOperation[iso+1].code ) {
-                    //console.log('T 4' +data_T_port.operation[io-1].code)
+                    ////console.log('T 4' +data_T_port.operation[io-1].code)
                     if(data_T_port.operation[io-1].code === data_T_port.sousOperation[iso].code)
                         {
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
@@ -6209,6 +6212,7 @@ function T4_table(id, T, id_s_act, port,code) {
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T4">' +ValAccountingFigures (data_T_port.operation[io-1].values.ae_op) + '</td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T4">' +ValAccountingFigures( data_T_port.operation[io-1].values.ae_op) + '</td>' +
                         '</tr>';
+                        $('#T-tables tbody').append(row);
                     }
                     else
                     {
@@ -6220,6 +6224,7 @@ function T4_table(id, T, id_s_act, port,code) {
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T4">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_sousop) + '</td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T4">' +ValAccountingFigures( data_T_port.sousOperation[iso].values.cp_sousuop) + '</td>' +
                         '</tr>';
+                        $('#T-tables tbody').append(row);
                     }
                     iso++;
                     sousou=true
@@ -6228,7 +6233,7 @@ function T4_table(id, T, id_s_act, port,code) {
                  if(data_T_port.operation[io]?.code !== undefined && data_T_port.sousOperation[iso]?.code !== undefined&& data_T_port.operation[io].code == data_T_port.sousOperation[iso+1].code)
                  {
                     
-                    console.log('else T4')
+                    //console.log('else T4')
                     iso++;
                  }
                     while (sousou) {
@@ -6259,6 +6264,7 @@ function T4_table(id, T, id_s_act, port,code) {
                          
                             
                         sousou=false
+                        $('#T-tables tbody').append(row);
                     }
                     iso++; 
                     }
@@ -6272,7 +6278,7 @@ function T4_table(id, T, id_s_act, port,code) {
            
            }
             // Append the row to the table body
-            $('#T-tables tbody').append(row);
+           
 
             if (current.length == 0) {
                 current = key;
@@ -6286,7 +6292,7 @@ function T4_table(id, T, id_s_act, port,code) {
                     })
                 }
                 if (current.split("0")[0].length > preve.split("0")[0].length) {
-                    console.log('testing ' + preve)
+                    //console.log('testing ' + preve)
                     $('.ref' + preve + ' td').each(function () {
                         $(this).removeClass('editable')
                     })
@@ -6294,14 +6300,14 @@ function T4_table(id, T, id_s_act, port,code) {
 
                 }
                 else {
-                    //console.log('testing editable'+preve)
+                    ////console.log('testing editable'+preve)
                     if ($('.ref' + preve + ' td').hasClass("editable")) {
                         $('.ref' + preve + ' #add_op').append(newbtn)
                         $('.ref' + preve + ' #add_op').on('click', function () {
                            var newKey=$(this).parent().attr('id');
                            var ads = newKey.split('ref')[1]
                            $('.Tsop_handler').removeClass('Tsop_handler_h')
-                           console.log('add once');
+                           //console.log('add once');
                             add_newOPs_T4(ads, value , newKey,code);
                         })
                     }
@@ -6326,7 +6332,7 @@ function T4_table(id, T, id_s_act, port,code) {
                 {   
                    Update_dpia('4',iupdate);
                    dataupdate=[]
-                   console.log('testing new update function')
+                   //console.log('testing new update function')
      
                 }else
                 {
@@ -6348,7 +6354,7 @@ $(document).ready(function () {
         var indic = path3.length - 1
         var id = $(this).attr('id');
         var T = 1;
-        console.log('len' + path3.length + ' act ' + indic)
+        //console.log('len' + path3.length + ' act ' + indic)
         $.ajax({
             url: '/testing/codeSousOperation/' + ssact,
             type: 'GET',
@@ -6385,7 +6391,7 @@ $(document).ready(function () {
         var indic = path3.length - 1
         var T=2
         var id = $(this).attr('id');
-        console.log('len' + path3.length + ' act ' + indic)
+        //console.log('len' + path3.length + ' act ' + indic)
         $.ajax({
             url: '/testing/codeSousOperation/' + ssact,
             type: 'GET',
@@ -6419,7 +6425,7 @@ $(document).ready(function () {
         $("#vide_t").css('display','none')
         $('#reloading').removeClass('reload-hidden')
         var indic = path3.length - 1
-        console.log('len' + path3.length + ' act ' + indic)
+        //console.log('len' + path3.length + ' act ' + indic)
         var id = $(this).attr('id');
         var T = 3;
         $.ajax({
@@ -6457,7 +6463,7 @@ $(document).ready(function () {
         $("#vide_t").css('display','none')
         $('#reloading').removeClass('reload-hidden')
         var indic = path3.length - 1
-        console.log('len' + path3.length + ' act ' + indic)
+        //console.log('len' + path3.length + ' act ' + indic)
         var id = $(this).attr('id');
         var T = 4;
         $.ajax({
@@ -6503,7 +6509,7 @@ $(document).ready(function () {
             //var indic = path3.length - 1
             var id = $(this).attr('id');
             var T = 1;
-            console.log('len' + path3.length + ' act ' + indic)
+            //console.log('len' + path3.length + ' act ' + indic)
             $.ajax({
                 url: '/testing/codeSousOperation/' + ssact,
                 type: 'GET',
@@ -6644,7 +6650,7 @@ $(document).ready(function () {
 
 
         }
-        console.log('testign which port im ' + id_tport_c)
+        //console.log('testign which port im ' + id_tport_c)
     })
 
     $('.budget_port_switch').on('click',function()
@@ -6675,7 +6681,7 @@ $('#vider_t').on('click',function()
     $('#reloading').removeClass('reload-hidden')
     var ids=$('#T-tables tbody').attr('id')
     var listid=ids.split('_')
-    console.log('ids '+JSON.stringify(listid))
+    //console.log('ids '+JSON.stringify(listid))
    vider_t(listid[0],this,listid[1]);
 })
 })
