@@ -191,9 +191,11 @@ function get_list_postsup($id)
 
 {
 
-    $postssup=Emploi_budget::join('post_sups','post_sups.id_emp','=','emploi_budgets.id_emp')->orderBy('post_sups.id_postsup')->get();
+    $postssup=Emploi_budget::where('emploi_budgets.num_sous_action',$id)->join('post_sups','post_sups.id_emp','=','emploi_budgets.id_emp')->orderBy('post_sups.id_postsup')->get();
+   // dd($postssup,$id);
     if(!empty($postssup))
     {
+       
         $totalOuverts = $postssup->sum('EmploiesOuverts');
         $totalOccupes = $postssup->sum('EmploiesOccupes');
        $totalVacants = $postssup->sum('EmploiesVacants');
@@ -221,7 +223,7 @@ function get_list_post_communs($id)
 
 {
 
-    $postssup=Emploi_budget::join('post_communs','post_communs.id_emp','=','emploi_budgets.id_emp')->orderBy('post_communs.id_post')->get();
+    $postssup=Emploi_budget::where('emploi_budgets.num_sous_action',$id)->join('post_communs','post_communs.id_emp','=','emploi_budgets.id_emp')->orderBy('post_communs.id_post')->get();
     if(!empty($postssup))
     {
         $totalOuverts = $postssup->sum('EmploiesOuverts');
@@ -252,7 +254,7 @@ function get_list_cdd($id)
 
 {
 
-    $postssup=Emploi_budget::join('c_d_d_s','c_d_d_s.id_emp','=','emploi_budgets.id_emp')->orderBy('c_d_d_s.id_c_d_d_s')->get();
+    $postssup=Emploi_budget::where('emploi_budgets.num_sous_action',$id)->join('c_d_d_s','c_d_d_s.id_emp','=','emploi_budgets.id_emp')->orderBy('c_d_d_s.id_c_d_d_s')->get();
     if(!empty($postssup))
     {
         $totalOuverts = $postssup->sum('EmploiesOuverts');
@@ -283,7 +285,7 @@ function get_list_cdi($id)
 
 {
 
-    $postssup=Emploi_budget::join('c_d_i_s','c_d_i_s.id_emp','=','emploi_budgets.id_emp')->orderBy('c_d_i_s.id_c_d_i_s')->get();
+    $postssup=Emploi_budget::where('emploi_budgets.num_sous_action',$id)->join('c_d_i_s','c_d_i_s.id_emp','=','emploi_budgets.id_emp')->orderBy('c_d_i_s.id_c_d_i_s')->get();
     if(!empty($postssup))
     {
         $totalOuverts = $postssup->sum('EmploiesOuverts');
@@ -314,7 +316,7 @@ function get_list_OAC($id)
 
 {
 
-    $postssup=Emploi_budget::join('opconducteurs','opconducteurs.id_emp','=','emploi_budgets.id_emp')->orderBy('opconducteurs.id_opconducteurs')->get();
+    $postssup=Emploi_budget::where('emploi_budgets.num_sous_action',$id)->join('opconducteurs','opconducteurs.id_emp','=','emploi_budgets.id_emp')->orderBy('opconducteurs.id_opconducteurs')->get();
    // dd($postssup);
     if(!empty($postssup))
     {
@@ -344,7 +346,7 @@ function get_list_OAC($id)
 function get_list_fonction($id)
 
 {
-    $postssup=Emploi_budget::join('fonctions','fonctions.id_emp','=','emploi_budgets.id_emp')->orderBy('fonctions.id_fonction')->get();
+    $postssup=Emploi_budget::where('emploi_budgets.num_sous_action',$id)->join('fonctions','fonctions.id_emp','=','emploi_budgets.id_emp')->orderBy('fonctions.id_fonction')->get();
     if(!empty($postssup))
     { $totalOuverts = $postssup->sum('EmploiesOuverts');
         $totalOccupes = $postssup->sum('EmploiesOccupes');
