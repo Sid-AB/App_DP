@@ -440,7 +440,7 @@ function print_list_fonction($id)
   
     $data= Emploi_budget::join('fonctions','fonctions.id_emp','=','emploi_budgets.id_emp')->where('emploi_budgets.num_sous_action',$id)->orderBy('fonctions.id_fonction')->get();
    
-   // dd($fonction);
+   //dd($data);
 
    return $this->imprimer($data, 'fonction'); 
 }
@@ -456,8 +456,10 @@ function print_list_postsup($id)
 function print_list_post_communs($id)
 
 {
+    //dd($id);
+   
     $data=Emploi_budget::join('post_communs','post_communs.id_emp','=','emploi_budgets.id_emp')->where('emploi_budgets.num_sous_action',$id)->orderBy('post_communs.id_post')->get();
-   //dd($data);
+   // dd($data);
     return $this->imprimer($data, 'post_communs');
 }
 

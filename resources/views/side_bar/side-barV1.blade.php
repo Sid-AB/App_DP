@@ -5,7 +5,7 @@
   </div>
   <div class="elements-container dflex">
     <a class="element" href="/">
-      <i class="fas fa-tachometer-alt"></i> Tableau du Portefeuille
+      <i class="fas fa-tachometer-alt"></i> Tableau des portefeuilles
       </a>
       @if(isset($port) || isset($allport) || isset($paths))
       @if(isset($port))
