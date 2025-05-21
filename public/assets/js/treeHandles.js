@@ -73,9 +73,9 @@ $(document).ready(function(){
       })
       $(this).css('color','red')
         var inputfile='<div class="confirm-file-handle"><form>'+
-                      '<input type="file" class="form-control" id="file" accept=".pdf, .jpg, .jpeg, .png">'+
+                      '<input type="file" class="form-control" id="file" accept=".pdf, .jpg, .jpeg, .png" required>'+
                       ' </form>'+
-                      '<button class="button-70" id="button-70"  role="button">joindre fichier</button></div>'
+                      '<button class="button-70" id="button-70"  role="button">joindre fichier</button></div>';
     $('.confirm-justfie').addClass('setit-back')
     $('.confirm-justfie').append(inputfile)
     $('.float-export').css('display','none');  
@@ -96,6 +96,7 @@ $(document).ready(function(){
       window.location.reload();
     })
     $('#button-70').on('click',function(){
+      if ($('#file').prop('files').length !== 0){
   $('.float-export').css('display','block'); 
   $('.modif-contiant').addClass('setit-insert');
   $('.modif-handler').css('display','block');
@@ -478,7 +479,13 @@ $('#button-71').on('click',function(){
       $('#button-71').prop("disabled", false)
      }
 })
-    })
+    }
+    else
+    {
+      alert('Obligation de joindre fichier or pv')
+    }
+/*** end of button 70 */
+})
   })
   formatAccountingFigures()
 

@@ -2373,7 +2373,7 @@ $(document).ready(function () {
                         //console.log(response); // Vérifiez la réponse
 
                         //console.log('numwall_year path3: ' + JSON.stringify(path3));
-                         $('#file_holder   ').empty()
+                         $('#file_holder').empty()
 
                         // Remplir les champs du formulaire avec les données récupérées
                         $('#date_crt_portf').val(response.Date_portefeuille).trigger('change'); // Remplir et déclencher l'événement change
@@ -6254,7 +6254,7 @@ function T4_table(id, T, id_s_act, port,code) {
                         }
                     else
                     {  
-                        console.log('else insert ')
+                       
                         /*row = '<tr class="ref'+data_T_port.sousOperation[iso].code+'" id="ref' + data_T_port.sousOperation[iso].code +'">' +
                             '<td scope="row" class="code" >'+key+'</td>' +
                             '<td id="def">'+value+'</td>' +
