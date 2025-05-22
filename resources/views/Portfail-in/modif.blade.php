@@ -217,6 +217,8 @@ Object.entries(paths).forEach(([code,value])=>{
                                  <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="T4_CP_init"   placeholder="Entrer T4 CP Sous Programme" value={{$init_value['cp_T4']}}>
                                  </div>
                         </form>
+                        
+                        </div>
                         <br>
                         <div id="confirm-holder">
                         <button class="btn btn-primary" id="add-prg2">Modifier</button>
