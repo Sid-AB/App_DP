@@ -1,22 +1,36 @@
 
-function formatAccountingFigures() {
-  $('.chiffre').each(function() {
-      // Get the current text
-      let text = $(this).text();
-      
-      // Remove non-numeric characters (except dots)
-      let formatted = text.replace(/[^0-9.]/g, '');
-      
-      // Format as a number with commas (optional)
-      formatted = parseFloat(formatted).toLocaleString('dz-DZ', { 
-          minimumFractionDigits: 2, 
-          maximumFractionDigits: 2 
-      });
 
-      // Update the element's text
-      $(this).text(formatted);
-  });
+function upload_file(id_file,id_relat)
+{
+
+   let formDataFa = new FormData();
+   formDataFa.append('pdf_file', $('#'+id_file)[0].files[0]);
+   formDataFa.append('related_id',id_relat);
+   $.ajax({
+       url:'/upload-pdf',
+       type:'POST',
+       data:formDataFa,
+       processData: false,
+       contentType: false,
+       headers: {
+           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token
+       },
+       success:function(response)
+       {
+           if(response.code)
+           {
+          return response.code
+         }
+           else
+           {
+               return response.message;
+           }
+       }
+   })
+
 }
+
+
 function preview(file)
 {
        
@@ -49,6 +63,27 @@ function preview(file)
       }
     });
 }
+
+
+function formatAccountingFigures() {
+  $('.chiffre').each(function() {
+      // Get the current text
+      let text = $(this).text();
+      
+      // Remove non-numeric characters (except dots)
+      let formatted = text.replace(/[^0-9.]/g, '');
+      
+      // Format as a number with commas (optional)
+      formatted = parseFloat(formatted).toLocaleString('dz-DZ', { 
+          minimumFractionDigits: 2, 
+          maximumFractionDigits: 2 
+      });
+
+      // Update the element's text
+      $(this).text(formatted);
+  });
+}
+
 $(document).ready(function(){
   var change = false;
   var AE_T1=0
@@ -84,6 +119,7 @@ $(document).ready(function(){
       var id=$(this).parent().parent().attr('id');
       var port=$('.family-tree').attr('id');
       console.log('file loading  '+id)
+  
       $.ajax({
         url:'/allaction/'+port,
         type:'GET',
@@ -103,17 +139,19 @@ $(document).ready(function(){
           }
         }
       })
+     
       $(this).css('color','red')
         var inputfile='<div class="confirm-file-handle"><form>'+
                       '<input type="file" class="form-control" id="file" accept=".pdf, .jpg, .jpeg, .png" required>'+
                       ' </form>'+
                       '<button class="button-70" id="button-70"  role="button">joindre fichier</button></div>';
     $('.confirm-justfie').addClass('setit-back')
-    $('.confirm-justfie').append(inputfile)
-    $('.confirm-justfie').append('<div id="preview"></div>')
+    $('.form_holder_modif').append(inputfile)
+    preview('file')
+    $('.confirm-justfie').append('<div class="preview_window"><div id="preview"></div></div>')
     $('.float-export').css('display','none');  
     $('.confirm-justfie').on('click',function(){
-      $(this).empty()
+      $('.form_holder_modif').empty()
       $(this).removeClass('setit-back');
       $('.member .update-handl').css('color','black')
       $('.float-export').css('display','block');
@@ -130,8 +168,9 @@ $(document).ready(function(){
     })
     $('#button-70').on('click',function(){
     if ($('#file').prop('files').length !== 0)
-      {
-        
+    {
+      $('.confirm-justfie').empty()
+      $('.form_holder_modif').empty()
   $('.float-export').css('display','block'); 
   $('.modif-contiant').addClass('setit-insert');
   $('.modif-handler').css('display','block');
@@ -483,7 +522,15 @@ $('#button-71').on('click',function(){
     data:datamodif,
     success:function(response)
     {
-      console.log('Réponse du serveur:', response);
+      
+      if(upload_file('file',act_cible_env) == 200)
+      {
+          console.log('Réponse du serveur:', response);
+      }
+      else
+      {
+        alert('File upload')
+      }
     },
     error: function(xhr, status, error) {
       //  console.log('Erreur AJAX:', status, error);
