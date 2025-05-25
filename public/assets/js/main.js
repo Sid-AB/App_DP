@@ -11,6 +11,38 @@ var replac=false;
  * this function for adding button et makalah -_- ;
  */
 
+function preview(file)
+{
+    $('#'+file).on('change', function(event) {
+      const file = event.target.files[0];
+      const $preview = $('#preview');
+      $preview.html(''); // Clear previous content
+
+      if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+          const fileURL = e.target.result;
+
+          if (file.type.startsWith('image/')) {
+            const $img = $('<img>').attr('src', fileURL);
+            $preview.append($img);
+          } else if (file.type === 'application/pdf') {
+            const $iframe = $('<iframe>', {
+              src: fileURL,
+              width: '100%',
+              height: '600px'
+            });
+            $preview.append($iframe);
+          } else {
+            $preview.text('Unsupported file type!');
+          }
+        };
+
+        reader.readAsDataURL(file);
+      }
+    });
+}
 
 function openForm() {
     document.getElementById("myForm").style.display = "block";
@@ -2350,6 +2382,7 @@ $(document).ready(function () {
 
 
     // Vérifie l'existence du portefeuille lorsque le champ de date perd le focus
+    preview('file_holder')
     $('#date_crt_portf').on('focusout', function () {
         var num_portefeuil = $('#num_port').val(); // Récupérer la valeur du portefeuille
         var Date_portefeuille = $(this).val();  // Récupérer la valeur de la date
@@ -2403,6 +2436,7 @@ $(document).ready(function () {
         }
     });
     var deleg_action="centrale"
+
     $('#act_deleg').change(function() {
         if ($(this).is(':checked')) {
             deleg_action="delegation"
@@ -2520,7 +2554,7 @@ $("#date_insert_portef").on('focusout', function () {
 
     var year = new Date(Date_prog).getFullYear(); // Extraire l'année à partir de la date
     var numprog_year = path[0] +'-'+num_prog;
-
+    preview('file')
 
     // Vérifie que les deux champs sont remplis avant de continuer
     if (Date_prog && num_prog) {
@@ -2639,7 +2673,8 @@ $("#add-prg").on('click', function () {
         '</div>' +
          '<hr>' +
         '<button class="btn btn-primary" id="add-prg2">Ajouter</button>' +
-        '</div>'
+        '</div>'+
+        ' <div id="preview"></div>'
     var nexthop = '<div class="pinfo-handle">' +
         '<i class="fas fa-wallet"></i>' +
         '<p >Programm :</p>' +
@@ -2660,6 +2695,7 @@ $("#add-prg").on('click', function () {
                {
                    alert(response.message)
                    $('#reloading').addClass('reload-hidden')
+                   $('#preview').empty()
                }}
                 path.push(numprog_year);
                 path3.push(id_prog);
@@ -2670,7 +2706,7 @@ $("#add-prg").on('click', function () {
                 $('.the-path').append(nexthop)
                 $('#progam-handle').append(prg2)
                 $(this).text('Modifier')
-
+                preview('file')
                 // Vérifie l'existence du programme lorsque le champ de programme perd le focus
                 $('#date_insert_sousProg').on('focusout', function () {
                     var Date_sou_program = $(this).val(); // Récupérer la valeur du programme
@@ -2814,7 +2850,8 @@ $("#add-prg").on('click', function () {
                         '<hr>' +
                         '<div id="confirm-holder_act">' +
                         '<button class="btn btn-primary" id="add-prg3">Ajouter</button>' +
-                        '</div>'
+                        '</div>'+
+                        ' <div id="preview"></div>';
                     var formdatasou_prog = {
                         num_sous_prog: numsouprog_year,
                         nom_sous_prog: nom_sou_prog,
@@ -2877,6 +2914,7 @@ $("#add-prg").on('click', function () {
                                    {
                                     $('#reloading').addClass('reload-hidden')
                                        alert(response.message)
+                                       $('#preview').empty()
                                    }
                                   /* $.ajax({
                                        url:'/init_ports',
@@ -2906,7 +2944,7 @@ $("#add-prg").on('click', function () {
                                 $('#progam-handle').append(prg3)
                                 $(this).text('Modifier')
                                 focus_()
-
+                                preview('file')
                                 $('#date_insert_action').on('focusout', function () {
                                     //console.log('out')
                                     var date_act = $(this).val();
@@ -3046,7 +3084,6 @@ $("#add-prg").on('click', function () {
                                                     $('.the-path').append(nexthop)
                                                     $('#progam-handle').append(prg4);
                                                     focus_()
-
                                                     //===============CHECK SOUS ACTION=====================//
                                                     $('#date_insert_sou_action').on('focusout', function () {
                                                        //alert('out')

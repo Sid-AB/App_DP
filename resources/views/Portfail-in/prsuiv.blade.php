@@ -99,6 +99,7 @@ Object.entries(paths).forEach(([code,value])=>{
                         <input type="file" class="form-control" id="file">
                        
                         </div>
+                         <div id="preview"></div>
                         </div>
                  @endif
 
@@ -163,6 +164,7 @@ Object.entries(paths).forEach(([code,value])=>{
                         <input type="file" class="form-control" id="file">
                        
                         </div>
+                         <div id="preview"></div>
                         </div>
                  @endif
 
@@ -222,6 +224,7 @@ Object.entries(paths).forEach(([code,value])=>{
                         <input type="file" class="form-control" id="file">
                        
                         </div>
+                         <div id="preview"></div>
                         </div>
     </div>
     <div class="form-container" id="creati-act" style="display:none">
@@ -284,6 +287,7 @@ Object.entries(paths).forEach(([code,value])=>{
                         <input type="file" class="form-control" id="file">
                        
                         </div>
+                         <div id="preview"></div>
                         </div>
                  @endif
 
@@ -322,6 +326,7 @@ Object.entries(paths).forEach(([code,value])=>{
                         <input type="file" class="form-control" id="file">
                        
                         </div>
+                         <div id="preview"></div>
                         </div>
     </div>
 
@@ -380,6 +385,7 @@ Object.entries(paths).forEach(([code,value])=>{
                         <input type="file" class="form-control" id="file">
                        
                         </div>
+                         <div id="preview"></div>
                         </div>
     </div>
     <div class="form-container" id="creati-act" style="display:none">
@@ -442,6 +448,7 @@ Object.entries(paths).forEach(([code,value])=>{
                         <input type="file" class="form-control" id="file">
                        
                         </div>
+                         <div id="preview"></div>
                         </div>
                  @endif
                  </div>

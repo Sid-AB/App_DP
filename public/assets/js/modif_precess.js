@@ -1,4 +1,37 @@
 //console.log('testing'+JSON.stringify(path))
+
+function preview(file)
+{
+       
+    $('#'+file).on('change', function(event) {
+      const file = event.target.files[0];
+      const $preview = $('#preview');
+      $preview.html(''); // Clear previous content
+        console.log('inside preview')
+      if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+          const fileURL = e.target.result;
+
+          if (file.type.startsWith('image/')) {
+            const $img = $('<img>').attr('src', fileURL);
+            $preview.append($img);
+          } else if (file.type === 'application/pdf') {
+            const $iframe = $('<iframe>', {
+              src: fileURL,
+              width: '100%',
+              height: '600px'
+            });
+            $preview.append($iframe);
+          } else {
+            $preview.text('Unsupported file type!');
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+}
 function parseNumberWithoutCommas(input) {
     // Remove commas from the input string
     let cleanedInput = input.replace(/,/g, '');
@@ -844,8 +877,8 @@ calaulsomeAE_CP_act()
 calaulsomeAE_CP_sprog()
 
 
-
-
+preview('file_holder')
+preview('file')
 
 
     $('.btn-primary').on('click',function(event){
@@ -941,7 +974,7 @@ calaulsomeAE_CP_sprog()
                                   // alert(response.message);
                                    path.push(numwall_year);
                                    path3.push(num_wallet);
-        
+                                    $('#preview').empty()
                                    console.log("numwall_year path: " + JSON.stringify(path));
         
                                    $(".font-bk").removeClass("back-bk");
@@ -1065,8 +1098,8 @@ calaulsomeAE_CP_sprog()
                                                 if (response.code === 200 || response.code === 404) {
                                                     // Ajout du numéro de l'action au chemin
                                                     path.push(numaction_year);
-                                                    path3.push(num_act);
-
+                                                    path3.push(num_act);    
+                                                    $('#preview').empty()
                                                     console.log('A path: ' + JSON.stringify(path));
                                                     $('#confirm-holder_act').empty()
                                                     $('#confirm-holder_act').append('<i class="fas fa-wrench"></i>')
@@ -1217,7 +1250,7 @@ calaulsomeAE_CP_sprog()
                                                 if (response.code === 200 || response.code === 404) {
                                                     path.push(numaction_year);
                                                     path3.push(num_act);
-
+                                                    $('#preview').empty()
                                                    // console.log('response.num_sous_action: ' + response.num_sous_action);
                                                    // path.push(response.num_sous_action);
                                                    // console.log('response.num_sous_action: ' +response.num_sous_action);
@@ -1382,7 +1415,7 @@ calaulsomeAE_CP_sprog()
                                         {
 
                                             alert(response.message)
-
+                                            $('#preview').empty()
                                         }
                                         alert(response.message)
                                              window.location.reload()

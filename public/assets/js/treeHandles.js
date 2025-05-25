@@ -17,6 +17,38 @@ function formatAccountingFigures() {
       $(this).text(formatted);
   });
 }
+function preview(file)
+{
+       
+    $('#'+file).on('change', function(event) {
+      const file = event.target.files[0];
+      const $preview = $('#preview');
+      $preview.html(''); // Clear previous content
+        console.log('inside preview')
+      if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+          const fileURL = e.target.result;
+
+          if (file.type.startsWith('image/')) {
+            const $img = $('<img>').attr('src', fileURL);
+            $preview.append($img);
+          } else if (file.type === 'application/pdf') {
+            const $iframe = $('<iframe>', {
+              src: fileURL,
+              width: '100%',
+              height: '600px'
+            });
+            $preview.append($iframe);
+          } else {
+            $preview.text('Unsupported file type!');
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+}
 $(document).ready(function(){
   var change = false;
   var AE_T1=0
@@ -78,6 +110,7 @@ $(document).ready(function(){
                       '<button class="button-70" id="button-70"  role="button">joindre fichier</button></div>';
     $('.confirm-justfie').addClass('setit-back')
     $('.confirm-justfie').append(inputfile)
+    $('.confirm-justfie').append('<div id="preview"></div>')
     $('.float-export').css('display','none');  
     $('.confirm-justfie').on('click',function(){
       $(this).empty()
@@ -96,7 +129,9 @@ $(document).ready(function(){
       window.location.reload();
     })
     $('#button-70').on('click',function(){
-      if ($('#file').prop('files').length !== 0){
+    if ($('#file').prop('files').length !== 0)
+      {
+        
   $('.float-export').css('display','block'); 
   $('.modif-contiant').addClass('setit-insert');
   $('.modif-handler').css('display','block');

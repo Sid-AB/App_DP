@@ -588,7 +588,38 @@ function ValAccountingFigures(inputs) {
     // Combine integer and decimal parts
     return integerPart + '.' + decimalPart;
 }
+function preview(file)
+{
+       
+    $('#'+file).on('change', function(event) {
+      const file = event.target.files[0];
+      const $preview = $('#preview');
+      $preview.html(''); // Clear previous content
+        console.log('inside preview')
+      if (file) {
+        const reader = new FileReader();
 
+        reader.onload = function(e) {
+          const fileURL = e.target.result;
+
+          if (file.type.startsWith('image/')) {
+            const $img = $('<img>').attr('src', fileURL);
+            $preview.append($img);
+          } else if (file.type === 'application/pdf') {
+            const $iframe = $('<iframe>', {
+              src: fileURL,
+              width: '100%',
+              height: '600px'
+            });
+            $preview.append($iframe);
+          } else {
+            $preview.text('Unsupported file type!');
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+}
 function upload_file(id_file,id_relat)
 {
 
@@ -633,7 +664,7 @@ $(document).ready(function(){
             console.log('Checkbox is unchecked.', $(this).val());
         }
     });
-
+preview('file')
 //===================CHECK PROG==================================
 $("#date_insert_portef").on('focusout', function () {
     var num_prog = $('#num_prog').val(); // Récupérer la valeur du portefeuille
@@ -661,6 +692,7 @@ $("#date_insert_portef").on('focusout', function () {
                     console.log(response); // Vérifiez la réponse
                     console.log('numwall_year path3: ' + JSON.stringify(path3));
                     $("#file_holder_prog").empty();
+                    $('#preview').empty()
                     // Remplir les champs du formulaire avec les données récupérées
                     console.log('response.CP_prog' + response.CP_prog)
                     console.log('response.AE_prog' + response.AE_prog)
@@ -726,6 +758,7 @@ $('#date_insert_sousProg').on('focusout', function () {
                    $('#T4_CP_init').val(ValAccountingFigures(response.T4_CP_init)).trigger('change');
 
                    alert('Le sous-programme existe déjà.');
+                   $('#preview').empty()
                }  else {
                     // alert('Le programme n\'existe pas.');
                 }
@@ -774,7 +807,7 @@ $('#date_insert_action').on('focusout', function () {
                    $('#T4_AE_init_AC').val(ValAccountingFigures(response.T4_AE_init)).trigger('change');
                    $('#T4_CP_init_AC').val(ValAccountingFigures(response.T4_CP_init)).trigger('change');
                     alert('L`Action existe déjà');
-
+                    $('#preview').empty()
                 }
                 else {
                  //   alert('Erreur d`Opération');
@@ -810,7 +843,7 @@ $('#date_insert_sou_action').on('focusout', function () {
                     $('#AE_sous_act').val(ValAccountingFigures(response.AE_sous_act)).trigger('change'); // Remplir et déclencher l'événement change
                     $('#CP_sous_act').val(ValAccountingFigures(response.CP_sous_act)).trigger('change'); // Remplir et déclencher l'événement change
                     alert('L`Action existe déjà');
-
+                    $('#preview').empty()
                 }
                 else {
                    // alert('Erreur d`Opération');
@@ -938,6 +971,7 @@ calaulsomeAE_CP_sprog()
                                                     path.push(numaction_year);
                                                     path3.push(num_act);
                                                     upload_file('file',numaction_year)
+                                                    $('#preview').empty()
                                                     console.log('A path: ' + JSON.stringify(path));
                                                     $('#confirm-holder_act').empty()
                                                     $('#confirm-holder_act').append('<i class="fas fa-wrench"></i>')
@@ -1087,7 +1121,7 @@ calaulsomeAE_CP_sprog()
                                                 if (response.code === 200 || response.code === 404) {
                                                     path.push(numaction_year);
                                                     path3.push(num_act);
-
+                                                    $('#preview').empty()
                                                     console.log('response.num_sous_action: ' + response.num_sous_action);
                                                     path.push(response.num_sous_action);
                                                     console.log('response.num_sous_action: ' +response.num_sous_action);
@@ -1252,6 +1286,7 @@ calaulsomeAE_CP_sprog()
                                         {
 
                                             alert(response.message)
+                                            $('#preview').empty()
                                         }
                                         alert(response.message)
                                                 path.push(numsouprog_year);
@@ -1325,7 +1360,7 @@ if(id == "add-prg1")
                 $('.the-path').append(nexthop)
                 console.log('testing'+numprog_year);
                 upload_file('file',numprog_year)
-               
+               $('#preview').empty()
                document.getElementById("creati-sous_prog").style.display="block";
       }
       else

@@ -102,6 +102,7 @@ Object.entries(paths).forEach(([code,value])=>{
                         <input type="file" class="form-control" id="file">
                       
                         </div>
+                         <div id="preview"></div>
                         </div>
                  @endif
 
@@ -168,6 +169,7 @@ Object.entries(paths).forEach(([code,value])=>{
                         <input type="file" class="form-control" id="file">
                        
                         </div>
+                         <div id="preview"></div>
                         </div>
                  @endif
 
@@ -227,6 +229,7 @@ Object.entries(paths).forEach(([code,value])=>{
                         <input type="file" class="form-control" id="file">
                         
                         </div>
+                        <div id="preview"></div>
                         </div>
                  @endif
 
@@ -265,6 +268,7 @@ Object.entries(paths).forEach(([code,value])=>{
                         <input type="file" class="form-control" id="file">
                         
                         </div>
+                         <div id="preview"></div>
                         </div>
     </div>
 
@@ -316,11 +320,7 @@ Object.entries(paths).forEach(([code,value])=>{
                 </div>
                 </div>
                 <div id="message"></div>
-
-
-
-
-
+                <div id="preview"></div>
             </div>
                   @endif
                  </div>

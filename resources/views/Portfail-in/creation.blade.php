@@ -81,7 +81,9 @@
                     <i class="fas fa-plus"></i> Ajouter
                 </button>
                 <div id="message"></div>
+                
             </div>
+             <div id="preview"></div>
         </div>
     </div>
     <div id="progam-handle" style="display:none;">
@@ -118,6 +120,7 @@
         <button class="btn btn-primary" id="add-prg">Ajouter</button>
         </div>
     </div>
+    <div id="preview"></div>
     </div>
     <div id="sous_prog-handle">
 
