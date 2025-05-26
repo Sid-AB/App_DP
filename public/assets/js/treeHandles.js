@@ -517,7 +517,7 @@ $('#button-71').on('click',function(){
     }
     else
     {
-      alert('Obligation de joindre fichier or pv')
+      alert('Obligation de joindre un fichier ou un pv')
     }
 /*** end of button 70 */
 })
