@@ -24,7 +24,7 @@ return new class extends Migration
            
           
   
-            $table->integer('id_rp');
+            $table->integer('id_rp')->nullable();
             $table->foreign('id_rp')->references('id_rp')->on('respo__progs');
             $table->string('num_portefeuil');
             $table->foreign('num_portefeuil')->references('num_portefeuil')->on('portefeuilles');

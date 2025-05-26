@@ -88,10 +88,10 @@ Object.entries(paths).forEach(([code,value])=>{
                         <input type="text" oninput="formatAccountingFigures(this)" class="form-control" id="CP_sous_act" placeholder="Entrer CP sous Action">
                         </div>
 
-                        <div class="form-group">
+                        <!--div class="form-group">
                           <label for="CP_sous_act">Action de Delegatiion</label>
                          <input type="checkbox" id="act_deleg">
-                       </div>
+                       </div-->
 
                         </form>
                         <br>

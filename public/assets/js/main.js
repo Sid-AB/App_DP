@@ -2837,11 +2837,11 @@ $("#add-prg").on('click', function () {
                         '</div>'+
                         '</div>'+
                         '</div>'+
-                       ' <div class="form-group">'+
-                       ' <label for="CP_sous_act">Action de Délégation</label>'+
-                       '<input type="checkbox"  id="act_deleg">'+
-                        '</div>'+
-                        ' </form>' +
+                        ' <div class="form-group">'+
+                        ' <label for="CP_sous_act">Action de Délégation</label>'+
+                        '<input type="checkbox"  id="act_deleg">'+
+                         '</div>'+
+                         ' </form>' +
                         ' <br>' +
                         '<div id="confirm-holder_sprog">' +
                         ' <div class="file-handle" id="file_holder">' +

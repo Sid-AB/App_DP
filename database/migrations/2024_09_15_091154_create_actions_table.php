@@ -24,7 +24,7 @@ return new class extends Migration
 
             $table->float('AE_action_NONREPARTIS')->default(0.0);
             $table->float('CP_action_NONREPARTIS')->default(0.0);
-            $table->integer('id_ra');
+            $table->integer('id_ra')->nullable();
             $table->foreign('id_ra')->references('id_ra')->on('respo__actions');
 
             $table->string('num_sous_prog');
