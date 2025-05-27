@@ -114,13 +114,15 @@
         <br>
         <div id="confirm-holder">
         <div id="file_holder_prog">
-        <input type="file" class="form-control" id="file" accept=".pdf, .jpg, .jpeg, .png">
+        <input type="file" class="form-control" id="file_prg" accept=".pdf, .jpg, .jpeg, .png">
         </div>
+        <div id="preview"></div>
         <hr>
         <button class="btn btn-primary" id="add-prg">Ajouter</button>
         </div>
+        
     </div>
-    <div id="preview"></div>
+
     </div>
     <div id="sous_prog-handle">
 
@@ -152,6 +154,7 @@
   var jsonpath="{{asset('assets/Titre/dataT1.json')}}"
   var path=new Array();
   var path3=new Array();
+  
 </script>
 <script src="{{asset('assets/bootstrap-5.0.2/js/bootstrap.js')}}"></script>
 <script src="{{asset('assets/fontawesome-free/js/all.js')}}"></script>

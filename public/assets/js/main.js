@@ -20,7 +20,7 @@ function preview(file)
 
       if (file) {
         const reader = new FileReader();
-
+        console.log('access to preview')
         reader.onload = function(e) {
           const fileURL = e.target.result;
 
@@ -2504,7 +2504,7 @@ $(document).ready(function () {
                     alert(response.message);
                     path.push(numwall_year);
                     path3.push(num_wallet);
-                    upload_file('file',numwall_year) 
+                    upload_file('file_prg',numwall_year) 
                     //console.log("numwall_year path: " + JSON.stringify(path));
 
                     $(".font-bk").removeClass("back-bk");
@@ -2515,6 +2515,7 @@ $(document).ready(function () {
                     $("#progam-handle").removeClass("scale-out");
                     $("#progam-handle").addClass("scale-visible");
                     $("#w_id").text(num_wallet);
+                    preview('file_prg')
                 
                     
                 } else if( response.code == 404) {
@@ -2523,6 +2524,8 @@ $(document).ready(function () {
                    path.push(numwall_year);
                    path3.push(num_wallet);
                    upload_file('file',numwall_year) 
+                   preview('file')
+
                    //console.log("numwall_year path: " + JSON.stringify(path));
                    $(".font-bk").removeClass("back-bk");
                    $(".wallet-path").css("display", "flex");
@@ -2532,6 +2535,7 @@ $(document).ready(function () {
                    $("#progam-handle").removeClass("scale-out");
                    $("#progam-handle").addClass("scale-visible");
                    $("#w_id").text(num_wallet);
+                   preview('file_prg')
                }
                    else{
                     alert(response.message);
@@ -2548,13 +2552,14 @@ $(document).ready(function () {
 
 });
 focus_()
+
 $("#date_insert_portef").on('focusout', function () {
     var num_prog = $('#num_prog').val(); // Récupérer la valeur du portefeuille
     var Date_prog = $(this).val();  // Récupérer la valeur de la date
 
     var year = new Date(Date_prog).getFullYear(); // Extraire l'année à partir de la date
     var numprog_year = path[0] +'-'+num_prog;
-    preview('file')
+    
 
     // Vérifie que les deux champs sont remplis avant de continuer
     if (Date_prog && num_prog) {
@@ -2583,7 +2588,7 @@ $("#date_insert_portef").on('focusout', function () {
                     $('#nom_journ').val(response.nom_journal).trigger('change'); // Remplir et déclencher l'événement change
                     $('#num_journ').val(response.num_journal).trigger('change'); // Remplir et déclencher l'événement change
                     $('#add-prg').text('Modifier')
-
+                    preview('file_prg')
 
                     alert('Le programme existe déjà');
 
@@ -2595,6 +2600,7 @@ $("#date_insert_portef").on('focusout', function () {
         });
     }
 });
+
 $("#add-prg").on('click', function () {
     $('#reloading').removeClass('reload-hidden')
     var id_prog = $('#num_prog').val();
@@ -2669,7 +2675,7 @@ $("#add-prg").on('click', function () {
         ' <br>' +
         '<div id="confirm-holder_sprog">' +
         ' <div class="file-handle" id="file_holder">' +
-        '<input type="file" class="form-control" id="file" accept=".pdf, .jpg, .jpeg, .png">' +
+        '<input type="file" class="form-control" id="file_sprog" accept=".pdf, .jpg, .jpeg, .png">' +
         '</div>' +
          '<hr>' +
         '<button class="btn btn-primary" id="add-prg2">Ajouter</button>' +
@@ -2691,7 +2697,7 @@ $("#add-prg").on('click', function () {
             if (response.code == 200 || response.code == 404) {
 
                if(response.code == 200){
-               if(upload_file('file',numprog_year) == 200)
+               if(upload_file('file_sprog',numprog_year) == 200)
                {
                    alert(response.message)
                    $('#reloading').addClass('reload-hidden')
@@ -2706,7 +2712,8 @@ $("#add-prg").on('click', function () {
                 $('.the-path').append(nexthop)
                 $('#progam-handle').append(prg2)
                 $(this).text('Modifier')
-                preview('file')
+
+                preview('file_sprog')
                 // Vérifie l'existence du programme lorsque le champ de programme perd le focus
                 $('#date_insert_sousProg').on('focusout', function () {
                     var Date_sou_program = $(this).val(); // Récupérer la valeur du programme
@@ -2743,6 +2750,7 @@ $("#add-prg").on('click', function () {
                                    $('#T4_AE_init').val(ValAccountingFigures(response.T4_AE_init)).trigger('change');
                                    $('#T4_CP_init').val(ValAccountingFigures(response.T4_CP_init)).trigger('change');
                                    $('#add-prg2').text('Modifier')
+                                   preview('file_sprog')
                                    alert('Le sous-programme existe déjà.');
                                }  else {
                                     // alert('Le programme n\'existe pas.');
@@ -2844,14 +2852,15 @@ $("#add-prg").on('click', function () {
                          ' </form>' +
                         ' <br>' +
                         '<div id="confirm-holder_sprog">' +
-                        ' <div class="file-handle" id="file_holder">' +
-                        '<input type="file" class="form-control" id="file" accept=".pdf, .jpg, .jpeg, .png">' +
+                        '<div class="file-handle" id="file_holder">' +
+                        '<input type="file" class="form-control" id="fil_act" accept=".pdf, .jpg, .jpeg, .png">' +
                         '</div>' +
+                        '<div id="preview"></div>'+
                         '<hr>' +
                         '<div id="confirm-holder_act">' +
                         '<button class="btn btn-primary" id="add-prg3">Ajouter</button>' +
-                        '</div>'+
-                        ' <div id="preview"></div>';
+                        '</div>'
+                        ;
                     var formdatasou_prog = {
                         num_sous_prog: numsouprog_year,
                         nom_sous_prog: nom_sou_prog,
@@ -2910,12 +2919,13 @@ $("#add-prg").on('click', function () {
                         success: function (response) {
                             if (response.code == 200 || response.code == 404) {
                                if(response.code == 200){
-                                   if(upload_file('file',numsouprog_year) == 200)
+                                   if(upload_file('file_act',numsouprog_year) == 200)
                                    {
                                     $('#reloading').addClass('reload-hidden')
                                        alert(response.message)
                                        $('#preview').empty()
                                    }
+                                   preview('file_act')
                                   /* $.ajax({
                                        url:'/init_ports',
                                        type:'POST',
@@ -2944,7 +2954,7 @@ $("#add-prg").on('click', function () {
                                 $('#progam-handle').append(prg3)
                                 $(this).text('Modifier')
                                 focus_()
-                                preview('file')
+                                preview('file_act')
                                 $('#date_insert_action').on('focusout', function () {
                                     //console.log('out')
                                     var date_act = $(this).val();
@@ -2968,7 +2978,7 @@ $("#add-prg").on('click', function () {
                                                     $('#CP_act').val(ValAccountingFigures(response.CP_act)).trigger('change'); // Remplir et déclencher l'événement change
                                                     $('#add-prg3').text('Modifier')
                                                     alert('L`Action existe déjà');
-
+                                                    preview('file_act')
                                                 }
                                                 else {
                                                     //console.log('Erreur d`Opération');
@@ -6726,7 +6736,7 @@ $('#vider_t').on('click',function()
  *
  *  this js for creation from the index
  */
-
+preview('file')
 
 
 
