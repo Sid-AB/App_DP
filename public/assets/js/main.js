@@ -2922,7 +2922,7 @@ $("#add-prg").on('click', function () {
                         ' <br>' +
                         '<div id="confirm-holder_sprog">' +
                         '<div class="file-handle" id="file_holder">' +
-                        '<input type="file" class="form-control" id="fil_act" accept=".pdf, .jpg, .jpeg, .png">' +
+                        '<input type="file" class="form-control" id="file_act" accept=".pdf, .jpg, .jpeg, .png">' +
                         '</div>' +
                         '<div class="preview_handle_act">'+
                         '<div id="preview_act"></div>'+
@@ -3024,7 +3024,7 @@ $("#add-prg").on('click', function () {
                                 $('#progam-handle').append(prg3)
                                 $(this).text('Modifier')
                                 focus_()
-                                preview_sprog('file_sprog')
+                                preview_act('file_act')
                                 $('#date_insert_action').on('focusout', function () {
                                     //console.log('out')
                                     var date_act = $(this).val();
