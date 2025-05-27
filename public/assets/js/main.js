@@ -2853,7 +2853,7 @@ $("#add-prg").on('click', function () {
                         ' <br>' +
                         '<div id="confirm-holder_sprog">' +
                         '<div class="file-handle" id="file_holder">' +
-                        '<input type="file" class="form-control" id="fil_act" accept=".pdf, .jpg, .jpeg, .png">' +
+                        '<input type="file" class="form-control" id="file_act" accept=".pdf, .jpg, .jpeg, .png">' +
                         '</div>' +
                         '<div id="preview"></div>'+
                         '<hr>' +
@@ -2919,13 +2919,13 @@ $("#add-prg").on('click', function () {
                         success: function (response) {
                             if (response.code == 200 || response.code == 404) {
                                if(response.code == 200){
-                                   if(upload_file('file_act',numsouprog_year) == 200)
+                                   if(upload_file('file_sprog',numsouprog_year) == 200)
                                    {
                                     $('#reloading').addClass('reload-hidden')
                                        alert(response.message)
                                        $('#preview').empty()
                                    }
-                                   preview('file_act')
+                                  
                                   /* $.ajax({
                                        url:'/init_ports',
                                        type:'POST',
