@@ -116,7 +116,9 @@
         <div id="file_holder_prog">
         <input type="file" class="form-control" id="file_prg" accept=".pdf, .jpg, .jpeg, .png">
         </div>
+         <div class="preview_handle">
         <div id="preview"></div>
+         </div>
         <hr>
         <button class="btn btn-primary" id="add-prg">Ajouter</button>
         </div>
