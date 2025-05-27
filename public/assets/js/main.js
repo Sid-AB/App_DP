@@ -44,6 +44,73 @@ function preview(file)
     });
 }
 
+
+function preview_sprog(file)
+{
+    $('#'+file).on('change', function(event) {
+      const file = event.target.files[0];
+      const $preview = $('#preview_sporg');
+      $preview.html(''); // Clear previous content
+
+      if (file) {
+        const reader = new FileReader();
+        console.log('access to preview')
+        reader.onload = function(e) {
+          const fileURL = e.target.result;
+
+          if (file.type.startsWith('image/')) {
+            const $img = $('<img>').attr('src', fileURL);
+            $preview.append($img);
+          } else if (file.type === 'application/pdf') {
+            const $iframe = $('<iframe>', {
+              src: fileURL,
+              width: '100%',
+              height: '600px'
+            });
+            $preview.append($iframe);
+          } else {
+            $preview.text('Unsupported file type!');
+          }
+        };
+
+        reader.readAsDataURL(file);
+      }
+    });
+}
+
+function preview_act(file)
+{
+    $('#'+file).on('change', function(event) {
+      const file = event.target.files[0];
+      const $preview = $('#preview_act');
+      $preview.html(''); // Clear previous content
+
+      if (file) {
+        const reader = new FileReader();
+        console.log('access to preview')
+        reader.onload = function(e) {
+          const fileURL = e.target.result;
+
+          if (file.type.startsWith('image/')) {
+            const $img = $('<img>').attr('src', fileURL);
+            $preview.append($img);
+          } else if (file.type === 'application/pdf') {
+            const $iframe = $('<iframe>', {
+              src: fileURL,
+              width: '100%',
+              height: '600px'
+            });
+            $preview.append($iframe);
+          } else {
+            $preview.text('Unsupported file type!');
+          }
+        };
+
+        reader.readAsDataURL(file);
+      }
+    });
+}
+
 function openForm() {
     document.getElementById("myForm").style.display = "block";
   }
@@ -2588,6 +2655,7 @@ $("#date_insert_portef").on('focusout', function () {
                     $('#nom_journ').val(response.nom_journal).trigger('change'); // Remplir et déclencher l'événement change
                     $('#num_journ').val(response.num_journal).trigger('change'); // Remplir et déclencher l'événement change
                     $('#add-prg').text('Modifier')
+                    $('.preview_handle').empty()
                     preview('file_prg')
 
                     alert('Le programme existe déjà');
@@ -2677,10 +2745,10 @@ $("#add-prg").on('click', function () {
         ' <div class="file-handle" id="file_holder">' +
         '<input type="file" class="form-control" id="file_sprog" accept=".pdf, .jpg, .jpeg, .png">' +
         '</div>' +
+        '<div id="preview_sporg"></div>'+
          '<hr>' +
         '<button class="btn btn-primary" id="add-prg2">Ajouter</button>' +
-        '</div>'+
-        ' <div id="preview"></div>'
+        '</div>';
     var nexthop = '<div class="pinfo-handle">' +
         '<i class="fas fa-wallet"></i>' +
         '<p >Programm :</p>' +
@@ -2697,11 +2765,11 @@ $("#add-prg").on('click', function () {
             if (response.code == 200 || response.code == 404) {
 
                if(response.code == 200){
-               if(upload_file('file_sprog',numprog_year) == 200)
+               if(upload_file('file_prg',numprog_year) == 200)
                {
                    alert(response.message)
                    $('#reloading').addClass('reload-hidden')
-                   $('#preview').empty()
+                  // $('.preview_handle').empty()
                }}
                 path.push(numprog_year);
                 path3.push(id_prog);
@@ -2713,7 +2781,7 @@ $("#add-prg").on('click', function () {
                 $('#progam-handle').append(prg2)
                 $(this).text('Modifier')
 
-                preview('file_sprog')
+                preview_sprog('file_sprog')
                 // Vérifie l'existence du programme lorsque le champ de programme perd le focus
                 $('#date_insert_sousProg').on('focusout', function () {
                     var Date_sou_program = $(this).val(); // Récupérer la valeur du programme
@@ -2750,7 +2818,8 @@ $("#add-prg").on('click', function () {
                                    $('#T4_AE_init').val(ValAccountingFigures(response.T4_AE_init)).trigger('change');
                                    $('#T4_CP_init').val(ValAccountingFigures(response.T4_CP_init)).trigger('change');
                                    $('#add-prg2').text('Modifier')
-                                   preview('file_sprog')
+                                    $('.preview_handle').empty()
+                                   preview_sprog('file_sprog')
                                    alert('Le sous-programme existe déjà.');
                                }  else {
                                     // alert('Le programme n\'existe pas.');
@@ -2855,7 +2924,9 @@ $("#add-prg").on('click', function () {
                         '<div class="file-handle" id="file_holder">' +
                         '<input type="file" class="form-control" id="fil_act" accept=".pdf, .jpg, .jpeg, .png">' +
                         '</div>' +
-                        '<div id="preview"></div>'+
+                        '<div class="preview_handle_act">'+
+                        '<div id="preview_act"></div>'+
+                        '</div>'+
                         '<hr>' +
                         '<div id="confirm-holder_act">' +
                         '<button class="btn btn-primary" id="add-prg3">Ajouter</button>' +
@@ -2919,13 +2990,12 @@ $("#add-prg").on('click', function () {
                         success: function (response) {
                             if (response.code == 200 || response.code == 404) {
                                if(response.code == 200){
-                                   if(upload_file('file_act',numsouprog_year) == 200)
+                                   if(upload_file('file_sprog',numsouprog_year) == 200)
                                    {
                                     $('#reloading').addClass('reload-hidden')
                                        alert(response.message)
-                                       $('#preview').empty()
+                                      // $('.preview_handle').empty()
                                    }
-                                   preview('file_act')
                                   /* $.ajax({
                                        url:'/init_ports',
                                        type:'POST',
@@ -2954,7 +3024,7 @@ $("#add-prg").on('click', function () {
                                 $('#progam-handle').append(prg3)
                                 $(this).text('Modifier')
                                 focus_()
-                                preview('file_act')
+                                preview_sprog('file_sprog')
                                 $('#date_insert_action').on('focusout', function () {
                                     //console.log('out')
                                     var date_act = $(this).val();
@@ -2977,8 +3047,9 @@ $("#add-prg").on('click', function () {
                                                     $('#AE_act').val(ValAccountingFigures(response.AE_act)).trigger('change'); // Remplir et déclencher l'événement change
                                                     $('#CP_act').val(ValAccountingFigures(response.CP_act)).trigger('change'); // Remplir et déclencher l'événement change
                                                     $('#add-prg3').text('Modifier')
+                                                     $('.preview_handle').empty()
                                                     alert('L`Action existe déjà');
-                                                    preview('file_act')
+                                                    preview_act('file_act')
                                                 }
                                                 else {
                                                     //console.log('Erreur d`Opération');
