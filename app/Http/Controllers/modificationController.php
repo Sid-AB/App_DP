@@ -1142,7 +1142,7 @@ class modificationController extends Controller
            //dd( $modif);
 
 
-    return response()->json(['message' => 'Modifications insérées avec succès'], 200);
+    return response()->json(['message' => 'Modifications insérées avec succès','code'=>200], 200);
 }
 function affiche_modif($numport)
 {
@@ -1299,7 +1299,11 @@ function affiche_modif($numport)
             $TtportT4AE+=$prog['Total']['TotalT4_AE'];
             $TtportT4CP+=$prog['Total']['TotalT4_CP'];
             $modiflist=ModificationT::where('num_prog_retire',$prog['code'])->join('articles','modification_t_s.id_art','=','articles.id_art')->get();
-          //  dd($prog['code']);
+            if(count($modiflist) == 0)
+            {
+                $modiflist=ModificationT::where('num_prog',$prog['code'])->join('articles','modification_t_s.id_art','=','articles.id_art')->get();
+            }
+         //   dd($modiflist);
           /// 
           // dd( $modiflist);
             array_push($moficat_program,['reslut'=>$modiflist,'code_prog'=>$prog['code'],'nom_prog'=>$prog['nom']]);

@@ -3024,7 +3024,7 @@ $("#add-prg").on('click', function () {
                                 $('#progam-handle').append(prg3)
                                 $(this).text('Modifier')
                                 focus_()
-                                preview_sprog('file_sprog')
+                                preview_act('file_act')
                                 $('#date_insert_action').on('focusout', function () {
                                     //console.log('out')
                                     var date_act = $(this).val();
