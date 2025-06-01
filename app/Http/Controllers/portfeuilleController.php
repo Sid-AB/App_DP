@@ -504,6 +504,7 @@ public function live_File($id)
     {
         $ups='Opération réussie';
         $upsnot='Echec D` Opération';
+       // dd($id);
         if(isset($id[1]))
         {
         $numid=intval($id[1]);
@@ -517,6 +518,7 @@ public function live_File($id)
         }
         {
         $file=DB::table('multimedia')->where('related_id',$id)->select('filepath')->orderBy('date_upload','desc')->first();
+        dd( $file);
         if(!isset($file))
         {
             abort(404);

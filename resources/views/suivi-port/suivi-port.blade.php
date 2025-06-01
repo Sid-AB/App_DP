@@ -366,7 +366,7 @@
                                 //dd($codesp);
 
                                 $codeA = explode('-',$moficat_program[$i]['reslut'][$j]['num_sous_action']);
-                                //dd($codeA)
+                                //dd($codeA);
                                 $last = count($codeA) - 1;
                                 $codeA = $codeA[$last];
                                 //dd($codeA);
@@ -376,18 +376,20 @@
                                 $codepR = $codepR[$last];
                              
                                 $codespR = explode('-', $moficat_program[$i]['reslut'][$j]['num_sous_prog_retire']);
+                               
                                 $last = count($codespR) - 1;
                                 $codespR = $codespR[$last];
                              
 
                                 $codeAR= explode('-',$moficat_program[$i]['reslut'][$j]['num_sous_action_retire']);
                                 $last = count($codeAR) - 1;
+                               
                                 $codeAR = $codeAR[$last];
-                        
+                                $code_ci=$moficat_program[$i]['reslut'][$j]['num_sous_action'];
                         @endphp
                          
                             <tr id="{{$moficat_program[$i]['code_prog']}}">
-                            <th>{{$j}}</th>
+                            <th><a href="/live-pdf/T_023-2025-{{$code}}-{{$codesp}}-{{$codeA}}-01">{{$j}}</a></th>
                             <th>{{$code}} </th>
                            <th>{{$codesp}}</th>
                            <th>{{$codeA}}</th>
