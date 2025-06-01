@@ -178,12 +178,44 @@ class sousOperationController extends Controller
                     $paths=['code_port'=>$progms->num_portefeuil,'programme'=>$progms->num_prog,'sous Programme'=>$sprog->num_sous_prog,'Action'=>$code];
                     $getcode=explode('-',$code);
                     $code=$getcode[count(explode('-',$code))-1];
-                    $account =Accounts::join('actions','actions.id_ra','accounts.id_ra')->where('code_generated',$codes)->where('actions.num_action',$act->num_action)->first();
+
+                    $account =Accounts::join('actions','actions.id_ra','accounts.id_ra')
+                                        ->join('sous_actions','sous_actions.num_action','actions.num_action')
+                                        ->where('code_generated',$codes)->where('sous_actions.num_action',$act->num_action)->first();
+       // dd($act,$account,$code);
+                    if(!isset($account))
+                    {
+                        $account =Accounts::join('programmes','programmes.id_rp','accounts.id_rp')
+                                ->join('sous_programmes','sous_programmes.num_prog','programmes.num_prog')
+                                ->join('actions','actions.num_sous_prog','sous_programmes.num_sous_prog')
+                                ->where('code_generated',$codes)
+                                ->where('actions.num_action',$act->num_action)
+                                ->first();
+                    if(!isset($account))
+                    {
+                        $account =Accounts::join('portefeuilles','portefeuilles.id_min','accounts.id_min')
+                            ->join('programmes','programmes.num_portefeuil','portefeuilles.num_portefeuil')
+                             ->join('sous_programmes','sous_programmes.num_prog','programmes.num_prog')
+                            ->join('actions','actions.num_sous_prog','sous_programmes.num_sous_prog')
+                            ->where('code_generated',$codes)
+                            ->where('actions.num_action',$act->num_action)
+                            ->first();
+                    }
+      
+                        // dd($act,$account);
+                    if(!isset($account))
+                    {
+                        return back()->with('unsuccess', 'User registered indefined!');
+                    }
+                    }
+
+
+                 /*   $account =Accounts::join('actions','actions.id_ra','accounts.id_ra')->where('code_generated',$codes)->where('actions.num_action',$act->num_action)->first();
                      //dd($act,$account,$codes);
                       if(!isset($account))
                      {
                          return back()->with('unsuccess', 'User registered indefined!');
-                     }
+                     }*/
                     return view('Portfail-in.modif',compact('ae_glob','cp_glob','nom','code','date','init_value','leng','paths'));
                 }
         }
