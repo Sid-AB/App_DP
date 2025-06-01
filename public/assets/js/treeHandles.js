@@ -19,10 +19,12 @@ function upload_file(id_file,id_relat)
        {
            if(response.code)
            {
+            console.log (' update ')
           return response.code
          }
            else
            {
+             console.log (' error ')
                return response.message;
            }
        }
@@ -170,7 +172,7 @@ $(document).ready(function(){
     if ($('#file').prop('files').length !== 0)
     {
       $('.confirm-justfie').empty()
-      $('.form_holder_modif').empty()
+      $('.form_holder_modif').addClass('reload-hidden')
   $('.float-export').css('display','block'); 
   $('.modif-contiant').addClass('setit-insert');
   $('.modif-handler').css('display','block');
@@ -442,6 +444,8 @@ $(document).ready(function(){
 
 
 $('#button-71').on('click',function(){
+    var newcode="T_"+act_cible_env
+   var status= upload_file('file',newcode)
   if(selectedHobby.trim() != ''){
     
   if(T1select == true)
@@ -522,11 +526,13 @@ $('#button-71').on('click',function(){
     data:datamodif,
     success:function(response)
     {
-      
-      if(upload_file('file',act_cible_env) == 200)
+    
+      if(response.code == 200){
+    
+      if(status == 200)
       {
           console.log('Réponse du serveur:', response);
-      }
+      }}
       else
       {
         alert('File upload')
