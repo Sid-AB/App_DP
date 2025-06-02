@@ -1298,11 +1298,14 @@ function affiche_modif($numport)
             $TtportT3CP+=$prog['Total']['TotalT3_CP'];
             $TtportT4AE+=$prog['Total']['TotalT4_AE'];
             $TtportT4CP+=$prog['Total']['TotalT4_CP'];
-            $modiflist=ModificationT::where('num_prog_retire',$prog['code'])->join('articles','modification_t_s.id_art','=','articles.id_art')->get();
+           // dd($programmes);
+          
+              $modiflist=ModificationT::where('num_prog_retire',$prog['code'])->join('articles','modification_t_s.id_art','=','articles.id_art')->get();
             if(count($modiflist) == 0)
             {
                 $modiflist=ModificationT::where('num_prog',$prog['code'])->join('articles','modification_t_s.id_art','=','articles.id_art')->get();
             }
+
          //   dd($modiflist);
           /// 
           // dd( $modiflist);
@@ -1331,8 +1334,13 @@ function affiche_modif($numport)
            // dd($moficat_program);
 
 
-
-        return view('suivi-port.suivi-port', compact('programmes','Ttportglob','moficat_program','port'));
+            $modiflist=ModificationT::join('articles','modification_t_s.id_art','=','articles.id_art')->get();
+            if(count($modiflist) == 0)
+            {
+                $modiflist=ModificationT::where('num_prog',$prog['code'])->join('articles','modification_t_s.id_art','=','articles.id_art')->get();
+            }
+           // dd($modiflist);
+        return view('suivi-port.suivi-port', compact('programmes','Ttportglob','moficat_program','modiflist','port'));
          
        /* $pdf=SnappyPdf::loadView('impression.impression_dpicprgsousprog', compact('programmes','Ttportglob'))
          ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1.5);//lanscape mean orentation
