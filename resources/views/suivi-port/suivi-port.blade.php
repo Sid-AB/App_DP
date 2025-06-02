@@ -120,20 +120,20 @@
 </head>
 <body>
 @include('side_bar.side-barV1') 
-<div class="d-flex justify-content-center p-3" >
-    <h1 class="rounded-3 d-flex justify-content-center" style="width: 35%;background-color:#d3d5f9d4;text-align:center;">
+<div class="d-flex justify-content-center p-3 " >
+    <h1 class="rounded-3 d-flex justify-content-center card" style="width: 30%;background-color:#d3d5f9d4;text-align:center;">
         @for($i=0;$i< count($programmes);$i++)
         @foreach ($programmes[$i] as $programme)
         @php
                 $code =explode('-',$programme['code']);
                 $last =count($code)-1;
             // dd($code);
-                $filcode[$i] = '0'.$code[$last].' ';
+                $filcode[$i] = $code[$last].' ';
                 //dd($filcode);
         @endphp
         @endforeach
         @endfor
-    <p class="lead fw-bold"> LA PROGRAMMTION DES CREDITS DES PROGRAMMES ( 
+    <p class="lead fw-bold">Le Suivi Du Etat De PROGRAMMTION DES CREDITS DES PROGRAMMES ( 
     @for($i=0;$i< count($filcode);$i++)
     {{$filcode[$i]}} 
     @if ($i < count($filcode) - 1)
