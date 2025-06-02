@@ -348,75 +348,75 @@
 
                 <tbody>
                    
-                        @for($i=0;$i< count($moficat_program); $i++)
+                        @for($i=0;$i< count($modiflist); $i++)
                         @php
-                                $code = explode('-', $moficat_program[$i]['code_prog']);
+                                $code = explode('-', $modiflist[$i]['num_prog']);
                                 //dd($code)
                                 $last = count($code) - 1;
                                 $code = $code[$last];
                                 //dd($code);
-                        @endphp
-                            @for($j=0;$j< count($moficat_program[$i]['reslut']); $j++)
+                        @endphp 
+
                          
                             @php
-                                $codesp = explode('-', $moficat_program[$i]['reslut'][$j]['num_sous_prog']);
+                                $codesp = explode('-', $modiflist[$i]['num_sous_prog']);
                                 //dd($codesp)
                                 $last = count($codesp) - 1;
                                 $codesp = $codesp[$last];
                                 //dd($codesp);
 
-                                $codeA = explode('-',$moficat_program[$i]['reslut'][$j]['num_sous_action']);
+                                $codeA = explode('-',$modiflist[$i]['num_sous_action']);
                                 //dd($codeA);
                                 $last = count($codeA) - 1;
                                 $codeA = $codeA[$last];
                                 //dd($codeA);
 
-                                $codepR = explode('-', $moficat_program[$i]['reslut'][$j]['num_prog_retire']);
+                                $codepR = explode('-', $modiflist[$i]['num_prog_retire']);
                                 $last = count($codepR) - 1;
                                 $codepR = $codepR[$last];
                              
-                                $codespR = explode('-', $moficat_program[$i]['reslut'][$j]['num_sous_prog_retire']);
+                                $codespR = explode('-', $modiflist[$i]['num_sous_prog_retire']);
                                
                                 $last = count($codespR) - 1;
                                 $codespR = $codespR[$last];
                              
 
-                                $codeAR= explode('-',$moficat_program[$i]['reslut'][$j]['num_sous_action_retire']);
+                                $codeAR= explode('-',$modiflist[$i]['num_sous_action_retire']);
                                 $last = count($codeAR) - 1;
                                
                                 $codeAR = $codeAR[$last];
-                                $code_ci=$moficat_program[$i]['reslut'][$j]['num_sous_action'];
+                                $code_ci=$modiflist[$i]['num_sous_action'];
                         @endphp
                          
-                            <tr id="{{$moficat_program[$i]['code_prog']}}">
-                            <th><a href="/live-pdf/T_023-2025-{{$code}}-{{$codesp}}-{{$codeA}}-01">{{$j}}</a></th>
+                            <tr id="">
+                            <th><a href="/live-pdf/T_{{$code_ci}}">{{$i}}</a></th>
                             <th>{{$code}} </th>
                            <th>{{$codesp}}</th>
                            <th>{{$codeA}}</th>
-                            <th>{{$moficat_program[$i]['reslut'][$j]['code_t1'].'-'.
-                                $moficat_program[$i]['reslut'][$j]['code_t2'].'-'.
-                                $moficat_program[$i]['reslut'][$j]['code_t3'].'-'.
-                                $moficat_program[$i]['reslut'][$j]['code_t4']    
+                            <th>{{$modiflist[$i]['code_t1'].'-'.
+                                $modiflist[$i]['code_t2'].'-'.
+                                $modiflist[$i]['code_t3'].'-'.
+                                $modiflist[$i]['code_t4']    
                             }} </th>
-                            <th>{{number_format((float)$moficat_program[$i]['reslut'][$j]['AE_recoit_t1'], 2, '.', ',') ?? 'N/A'}} </th>
-                            <th>{{number_format((float)$moficat_program[$i]['reslut'][$j]['CP_recoit_t1'], 2, '.', ',') ?? 'N/A'}} </th>
-                            <th>{{number_format((float)$moficat_program[$i]['reslut'][$j]['AE_recoit_t2'], 2, '.', ',') ?? 'N/A'}} </th>
-                            <th>{{number_format((float)$moficat_program[$i]['reslut'][$j]['CP_recoit_t2'], 2, '.', ',') ?? 'N/A'}} </th>
-                            <th>{{number_format((float)$moficat_program[$i]['reslut'][$j]['AE_recoit_t3'], 2, '.', ',') ?? 'N/A'}} </th>
-                            <th>{{number_format((float)$moficat_program[$i]['reslut'][$j]['CP_recoit_t3'], 2, '.', ',') ?? 'N/A'}} </th>
-                            <th>{{number_format((float)$moficat_program[$i]['reslut'][$j]['AE_recoit_t4'], 2, '.', ',') ?? 'N/A'}} </th>
-                            <th>{{number_format((float)$moficat_program[$i]['reslut'][$j]['CP_recoit_t4'] , 2, '.', ',') ?? 'N/A'}} </th>
-                            <th>{{$moficat_program[$i]['reslut'][$j]['type_modif']}} </th>
+                            <th>{{number_format((float)$modiflist[$i]['AE_recoit_t1'], 2, '.', ',') ?? 'N/A'}} </th>
+                            <th>{{number_format((float)$modiflist[$i]['CP_recoit_t1'], 2, '.', ',') ?? 'N/A'}} </th>
+                            <th>{{number_format((float)$modiflist[$i]['AE_recoit_t2'], 2, '.', ',') ?? 'N/A'}} </th>
+                            <th>{{number_format((float)$modiflist[$i]['CP_recoit_t2'], 2, '.', ',') ?? 'N/A'}} </th>
+                            <th>{{number_format((float)$modiflist[$i]['AE_recoit_t3'], 2, '.', ',') ?? 'N/A'}} </th>
+                            <th>{{number_format((float)$modiflist[$i]['CP_recoit_t3'], 2, '.', ',') ?? 'N/A'}} </th>
+                            <th>{{number_format((float)$modiflist[$i]['AE_recoit_t4'], 2, '.', ',') ?? 'N/A'}} </th>
+                            <th>{{number_format((float)$modiflist[$i]['CP_recoit_t4'] , 2, '.', ',') ?? 'N/A'}} </th>
+                            <th>{{$modiflist[$i]['type_modif']}} </th>
                             <th id="">{{$codepR}} </th>
                             <th>{{$codespR}}</th>
                             <th>{{$codeAR}} </th>
-                            <!--th>{{$moficat_program[$i]['reslut'][$j]['situation_modif']}} </th-->
-                            <th>{{$moficat_program[$i]['reslut'][$j]['date_modif']}}  </th>
+                            <!--th>{{$modiflist[$i]['situation_modif']}} </th-->
+                            <th>{{$modiflist[$i]['date_modif']}}  </th>
                         
                             
                             </tr>
                           
-                            @endfor
+                          
                         @endfor
                 </tbody>
             </table>
