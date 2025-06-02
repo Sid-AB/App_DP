@@ -155,10 +155,7 @@
             @endphp
 
             {{-- Nouveau tableau pour chaque programme --}}
-            <div style="
-    width: 98rem;
-    /* width: inherit; */
-">
+            <div style="padding: 0px 5% 0px 0px ;display: contents" >
             <table >
                 <thead>
                     <tr>
@@ -314,13 +311,9 @@
     <!--<< at tis point start the dataTables js -->
 
         <div clas="Modift-handle" style="
-    width: 97rem;
-    /* width: inherit; */
+    width: fit-content;
 ">
-            <table class="table" id="ModiftT" style="
-    width: 97rem;
-    /* width: inherit; */
-">
+            <table class="table" id="ModiftT">
                 <thead>
                     <tr>
                         <th>#</th>
