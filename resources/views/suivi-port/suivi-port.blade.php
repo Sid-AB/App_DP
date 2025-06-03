@@ -15,107 +15,7 @@
         href="https://unpkg.com/@patternfly/patternfly/patternfly.css"
         crossorigin="anonymous"
       >
-    <style>
-        table {
-            background-color:#ffffff00;  
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        thead th
-        {
-            text-align: center;
-        }
-        th, td {
-            border: 1px solid #000;
-           /* text-align: left;*/
-           padding: 13px 20px;
-           text-align: center;
-       
-        }
-        table tbody
-        {
-            background-color:#fff; 
-        }
-
-        th {
-           /* background-color: #DDD9C4; /* Couleur en-têtes */
-            color: rgb(10, 10, 10);
-        }
-
-       
-        tr:nth-child(even) {
-            background-color: #fff; /* Ligne alternative */
-        }
-        tr.selected {
-        background-color:rgb(255, 237, 79) !important;
-    }
-     /*   tr:hover {
-            background-color: #0c0a0a;  Effet survol
-        }*/
-
-        .program-title {
-            text-align:center;
-            font-weight: bold;
-           /* background-color: #DDD9C4; /* Couleur plus sombre pour les programmes principaux */
-            color: rgb(8, 8, 8);
-           
-        }
-
-        .subprogram-title {
-            font-weight: bold;
-            background-color: #fff; /* Couleur grise pour les sous-programmes */
-            color: rgb(17, 16, 16);
-        }
-        .ttaction-title {
-            font-weight: bold;
-            background-color: #60497A; /* Couleur plus sombre pour les programmes principaux */
-            color:white;
-        }
-        .event-title {
-            font-weight: bold;
-            background-color: #00B050; /* Couleur eventuels credits */
-            color: rgb(245, 238, 238);
-        }
-        .event-title td {
-            font-weight: bold;
-            background-color: #00B050; /* Couleur eventuels credits */
-            color: rgb(245, 238, 238);
-        }
-
-        .totals {
-            font-weight: bold;
-            background-color: #31869B   ; /* Couleur totals des actions1..n */
-            color: rgb(243, 236, 236);
-        }
-        .totals td{
-            font-weight: bold;
-            background-color: #31869B   ; /* Couleur totals des actions1..n */
-            color: rgb(243, 236, 236);
-        }
-        .T
-        {
-        background-color:#DDD9C4;
-        }
-
-           h1 {
-            font-size: 1.2em;
-            margin-bottom: 20px;
-        }
-
-        p {
-            font-size: 1.2em;
-            margin-bottom: 30px;
-        }
-        
-        #ModiftT_wrapper
-        {
-            background-color: white;
-            
-          padding: 10px;
-}
-        
-    </style>
+<link href="{{asset('assets/css/suiv_css.css')}}" rel="stylesheet"/>
 
 </head>
 <body>
@@ -411,8 +311,8 @@
                                 @else
                                  
                                        <div class="d-flex flex-nowrap justify-content-around" style="width: 100%">
-                                        <button type="button" class="btn btn-success" style="padding: 10px"><i class="fas fa-check" ></i></button>
-                                        <button type="button" class="btn btn-danger" style="padding: 10px"><i class="fas fa-times"></i></button>
+                                        <button type="button" class="btn btn-success" style="padding: 10px" id="validate"><i class="fas fa-check" ></i></button>
+                                        <button type="button" class="btn btn-danger" style="padding: 10px" id="refuse"><i class="fas fa-times"></i></button>
                                         </div>
                                  
                                 @endif
@@ -422,6 +322,15 @@
                           
                           
                         @endfor
+
+                        <div class="confirm-justfie">
+ 
+                        </div>
+                        <div class="reload-handle reload-hidden" id="reloading">
+                            <div class="reload"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><radialGradient id="a12" cx=".66" fx=".66" cy=".3125" fy=".3125" gradientTransform="scale(1.5)"><stop offset="0" stop-color="#C6BC0A"></stop><stop offset=".3" stop-color="#C6BC0A" stop-opacity=".9"></stop><stop offset=".6" stop-color="#C6BC0A" stop-opacity=".6"></stop><stop offset=".8" stop-color="#C6BC0A" stop-opacity=".3"></stop><stop offset="1" stop-color="#C6BC0A" stop-opacity="0"></stop></radialGradient><circle transform-origin="center" fill="none" stroke="url(#a12)" stroke-width="29" stroke-linecap="round" stroke-dasharray="200 1000" stroke-dashoffset="0" cx="100" cy="100" r="70"><animateTransform type="rotate" attributeName="transform" calcMode="spline" dur="2" values="360;0" keyTimes="0;1" keySplines="0 0 1 1" repeatCount="indefinite"></animateTransform></circle><circle transform-origin="center" fill="none" opacity=".2" stroke="#C6BC0A" stroke-width="29" stroke-linecap="round" cx="100" cy="100" r="70"></circle></svg>
+                            </div>
+                        </div>
+                        <div class="form_holder_modif"></div>
                 </tbody>
             </table>
         </div>
@@ -436,8 +345,6 @@
                         url: "https://cdn.datatables.net/plug-ins/1.13.6/i18n/fr-FR.json"
 
                     }
-             
-               
                 });
 
                 $('#ModiftT tbody').on('click', 'tr', function() {
@@ -445,6 +352,6 @@
                 });
             });
         </script>
-
+        <script src="{{asset('assets/js/trace_suive.js')}}"></script>
     </body>
 </html>
