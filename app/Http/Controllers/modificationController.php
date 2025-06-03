@@ -1300,7 +1300,7 @@ function affiche_modif($numport)
             $TtportT4CP+=$prog['Total']['TotalT4_CP'];
            // dd($programmes);
           
-              $modiflist=ModificationT::where('num_prog_retire',$prog['code'])->join('articles','modification_t_s.id_art','=','articles.id_art')->get();
+              $modiflist=ModificationT::where('num_prog',$prog['code'])->join('articles','modification_t_s.id_art','=','articles.id_art')->get();
             if(count($modiflist) == 0)
             {
                 $modiflist=ModificationT::where('num_prog',$prog['code'])->join('articles','modification_t_s.id_art','=','articles.id_art')->get();
@@ -1330,10 +1330,10 @@ function affiche_modif($numport)
              *  Modif table
              * 
             */
-           // dd($Ttportglob);
-           // dd($moficat_program);
+           //dd($Ttportglob);
+        // dd($moficat_program);
 
-
+           // dd($programmes);
             $modiflist=ModificationT::join('articles','modification_t_s.id_art','=','articles.id_art')->get();
             if(count($modiflist) == 0)
             {
