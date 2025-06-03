@@ -133,7 +133,7 @@
         @endphp
         @endforeach
         @endfor
-    <p class="lead fw-bold">Le Suivi Du Etat De PROGRAMMTION DES CREDITS DES PROGRAMMES ( 
+    <p class="lead fw-bold">Le suivi de l’état de programmation des crédits des programmes ( 
     @for($i=0;$i< count($filcode);$i++)
     {{$filcode[$i]}} 
     @if ($i < count($filcode) - 1)
