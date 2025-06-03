@@ -333,7 +333,7 @@
                         <th>Programme source</th>
                         <th>Sous programme source</th>
                         <th>Action source</th>
-                        <!--th>situation modif</th-->
+                        <th>situation modif</th>
                         <th>Date modif </th>
                        
                     </tr>
@@ -403,10 +403,21 @@
                             <th id="">{{$codepR}} </th>
                             <th>{{$codespR}}</th>
                             <th>{{$codeAR}} </th>
-                            <!--th>{{$modiflist[$i]['situation_modif']}} </th-->
+                            <th>
+                                @if(isset($modiflist[$i]['situation_modif']) && $modiflist[$i]['situation_modif'] == 'true')
+                                
+                                    {{$modiflist[$i]['situation_modif']}}
+                                
+                                @else
+                                 
+                                       <div class="d-flex flex-nowrap justify-content-around" style="width: 100%">
+                                        <button type="button" class="btn btn-success" style="padding: 10px"><i class="fas fa-check" ></i></button>
+                                        <button type="button" class="btn btn-danger" style="padding: 10px"><i class="fas fa-times"></i></button>
+                                        </div>
+                                 
+                                @endif
+                            </th>
                             <th>{{$modiflist[$i]['date_modif']}}  </th>
-                        
-                            
                             </tr>
                           
                           
