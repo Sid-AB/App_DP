@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tableau CREDITS 088 </title>
+    <meta name="csrf-token" content=" {{csrf_token()}}">
+    <title>Tableau CREDITS </title>
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 <link href="{{asset('assets/css/main.css')}}" rel="stylesheet"/>
 <link href="{{asset('assets/css/jquery.dataTables.min.css')}}" rel="stylesheet"/>
@@ -282,28 +283,28 @@
                         @endphp
                          
                             <tr id="">
-                            <th><a href="/live-pdf/T_{{$code_ci}}">{{$i}}</a></th>
-                            <th>{{$code}} </th>
-                           <th>{{$codesp}}</th>
-                           <th>{{$codeA}}</th>
-                            <th>{{$modiflist[$i]['code_t1'].'-'.
+                            <td><a href="/live-pdf/T_{{$code_ci}}">{{$i}}</a></td>
+                            <td>{{$code}} </td>
+                           <td>{{$codesp}}</td>
+                           <td>{{$codeA}}</td>
+                            <td>{{$modiflist[$i]['code_t1'].'-'.
                                 $modiflist[$i]['code_t2'].'-'.
                                 $modiflist[$i]['code_t3'].'-'.
                                 $modiflist[$i]['code_t4']    
-                            }} </th>
-                            <th>{{number_format((float)$modiflist[$i]['AE_recoit_t1'], 2, '.', ',') ?? 'N/A'}} </th>
-                            <th>{{number_format((float)$modiflist[$i]['CP_recoit_t1'], 2, '.', ',') ?? 'N/A'}} </th>
-                            <th>{{number_format((float)$modiflist[$i]['AE_recoit_t2'], 2, '.', ',') ?? 'N/A'}} </th>
-                            <th>{{number_format((float)$modiflist[$i]['CP_recoit_t2'], 2, '.', ',') ?? 'N/A'}} </th>
-                            <th>{{number_format((float)$modiflist[$i]['AE_recoit_t3'], 2, '.', ',') ?? 'N/A'}} </th>
-                            <th>{{number_format((float)$modiflist[$i]['CP_recoit_t3'], 2, '.', ',') ?? 'N/A'}} </th>
-                            <th>{{number_format((float)$modiflist[$i]['AE_recoit_t4'], 2, '.', ',') ?? 'N/A'}} </th>
-                            <th>{{number_format((float)$modiflist[$i]['CP_recoit_t4'] , 2, '.', ',') ?? 'N/A'}} </th>
-                            <th>{{$modiflist[$i]['type_modif']}} </th>
-                            <th id="">{{$codepR}} </th>
-                            <th>{{$codespR}}</th>
-                            <th>{{$codeAR}} </th>
-                            <th>
+                            }} </td>
+                            <td>{{number_format((float)$modiflist[$i]['AE_recoit_t1'], 2, '.', ',') ?? 'N/A'}} </td>
+                            <td>{{number_format((float)$modiflist[$i]['CP_recoit_t1'], 2, '.', ',') ?? 'N/A'}} </td>
+                            <td>{{number_format((float)$modiflist[$i]['AE_recoit_t2'], 2, '.', ',') ?? 'N/A'}} </td>
+                            <td>{{number_format((float)$modiflist[$i]['CP_recoit_t2'], 2, '.', ',') ?? 'N/A'}} </td>
+                            <td>{{number_format((float)$modiflist[$i]['AE_recoit_t3'], 2, '.', ',') ?? 'N/A'}} </td>
+                            <td>{{number_format((float)$modiflist[$i]['CP_recoit_t3'], 2, '.', ',') ?? 'N/A'}} </td>
+                            <td>{{number_format((float)$modiflist[$i]['AE_recoit_t4'], 2, '.', ',') ?? 'N/A'}} </td>
+                            <td>{{number_format((float)$modiflist[$i]['CP_recoit_t4'] , 2, '.', ',') ?? 'N/A'}} </td>
+                            <td>{{$modiflist[$i]['type_modif']}} </td>
+                            <td id="">{{$codepR}} </td>
+                            <td>{{$codespR}}</td>
+                            <td>{{$codeAR}} </td>
+                            <td id="{{$code_ci}}">
                                 @if(isset($modiflist[$i]['situation_modif']) && $modiflist[$i]['situation_modif'] == 'true')
                                 
                                     {{$modiflist[$i]['situation_modif']}}
@@ -316,14 +317,18 @@
                                         </div>
                                  
                                 @endif
-                            </th>
-                            <th>{{$modiflist[$i]['date_modif']}}  </th>
+                            </td>
+                            <td>{{$modiflist[$i]['date_modif']}}  </td>
                             </tr>
                           
                           
                         @endfor
 
-                        <div class="confirm-justfie">
+                       
+                </tbody>
+            </table>
+        </div>
+         <div class="confirm-justfie">
  
                         </div>
                         <div class="reload-handle reload-hidden" id="reloading">
@@ -331,9 +336,7 @@
                             </div>
                         </div>
                         <div class="form_holder_modif"></div>
-                </tbody>
-            </table>
-        </div>
+        <div class="hide-access-form"></div>
         <script src="{{asset('assets/bootstrap-5.0.2/js/bootstrap.js')}}"></script>
         <script src="{{asset('assets/fontawesome-free/js/all.js')}}"></script>
         <script src="{{asset('assets/js/jquery-3.7.1.min.js')}}"></script>
@@ -351,6 +354,24 @@
                     $(this).toggleClass('selected');
                 });
             });
+            var chekl='<div class="form-popup-access" id="myForm">'+
+        //  '<div class="row align-items-center"style="justify-content: center;">'+
+          '<img src="{{asset('assets/img/logo_ministere.svg')}}" alt="" style="width: 60%"/>'+
+         // '<div >'+
+        '<form class="form-container-access">'+
+      
+         '<h1>Login</h1>'+
+          '<p id="alert-access"></p>'+
+         '<label for="email"><b>Email</b></label>'+
+         '<input class="form-control" type="text" placeholder="Veuillez entrer votre adresse email" name="email" id="email" required>'+
+
+         '<label for="psw"><b>Password</b></label>'+
+         '<input class="form-control" type="password" placeholder="Veuillez entrer votre mot de passe" name="psw" id="code_generated" required>'+
+
+         '<button type="button" class="btn" id="btn-form-access">Se connecter</button>'+
+         '<button type="button" class="btn cancel" id="form-cancel">Fermer</button>'+
+        '</form>'+
+        '</div>'; 
         </script>
         <script src="{{asset('assets/js/trace_suive.js')}}"></script>
     </body>

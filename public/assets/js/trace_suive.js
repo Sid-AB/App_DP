@@ -1,10 +1,50 @@
 
-function upload_file(id_file,id_relat)
+function upload_file(id_file,id_relat,id)
 {
 
    let formDataFa = new FormData();
    formDataFa.append('pdf_file', $('#'+id_file)[0].files[0]);
    formDataFa.append('related_id',id_relat);
+
+
+
+                                $('.form_holder_modif').empty()
+                                $('.confirm-justfie').empty();
+                                $('.confirm-justfie').removeClass('setit-back')
+                                 $('.hide-access-form').append(chekl)
+                                 $('#myForm').css('display','block')
+                                 $('.hide-access-form').addClass('form-access')
+                                 $('#form-cancel').on('click',function(){
+                                 $('#myForm').css('display','none')
+                                $(".hide-access-form").removeClass('form-access');
+                                $('.hide-access-form').empty()
+                                })
+
+       
+                        var cosnt=0;
+                        $('#btn-form-access').on('click',function(){
+                         $.ajax({
+                            url:'/login/account',
+                            type:'POST',
+                            data:{
+                                email:$('#email').val(),
+                                code_generated:$('#code_generated').val(),
+                                _token: $('meta[name="csrf-token"]').attr("content"),
+                                _method: "POST",},
+                        success:function(response)
+                        {
+                            if(response.code == 200)
+                             {
+                             path3=id.split('-')
+                              port=path3[0]+'-'+path3[1]+'-';
+                             prog=port+'-'+path3[2]+'-';
+                            sprog=prog+'-'+path3[3];
+                            act=sprog+'-'+path3[4];
+                            console.log('code',act)
+                          
+
+
+                            
    $.ajax({
        url:'/upload-pdf',
        type:'POST',
@@ -18,16 +58,56 @@ function upload_file(id_file,id_relat)
        {
            if(response.code)
            {
-            console.log (' update ')
-          return response.code
+            $.ajax({
+                url:'/validate_modif/'+id,
+                type:'GET',
+                success:function(response)
+                {
+                    
+                    if(response.code == 200)
+                    {
+                      window.location.href='/testing/Action/'+port+'/'+prog+'/'+sprog+'/'+act+'/?code='+response.account
+                    }
+                    else
+                    {
+                        alert(response.message)
+                    }
+                },
+                error:function(){
+                    alert('Error')
+                }
+            })
+          return true
          }
            else
            {
              console.log (' error ')
-               return response.message;
+               return false;
            }
        }
    })
+
+
+
+                            }
+                            else
+                            {
+                              window.location.href='/update/pass?code='+response.code_generated+'&mail='+response.account
+                            }
+             // 
+            },
+            error:function()
+            {
+              $('#email').css('border-color','red')
+              $('#code_generated').css('border-color','red')
+              console.log('out of range')
+            }
+            })
+            })
+
+                    
+
+
 
 }
 
@@ -69,7 +149,8 @@ function preview(file)
 $(document).ready(function()
 {
     $('#validate').on('click',function(){
-        console.log('testing')
+        var id=$(this).closest('td').attr('id')
+        console.log('testing'+id)
     var inputfile='<div class="confirm-file-handle"><form>'+
                       '<input type="file" class="form-control" id="file" accept=".pdf, .jpg, .jpeg, .png" required>'+
                       ' </form>'+
@@ -83,9 +164,10 @@ $(document).ready(function()
         $(this).removeClass('setit-back')
     })  
     $('#button-70').on('click',function(){
-            $('.confirm-justfie').empty()
-            $('.form_holder_modif').empty()
-            $('.confirm-justfie').removeClass('setit-back')
+        var newids='T_'+id;
+        var status_rep=upload_file('file',newids,id)
+        console.log('show status',status_rep)
+    
     })
     })
   

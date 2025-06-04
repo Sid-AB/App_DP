@@ -1300,7 +1300,7 @@ function affiche_modif($numport)
             $TtportT4CP+=$prog['Total']['TotalT4_CP'];
            // dd($programmes);
           
-              $modiflist=ModificationT::where('num_prog',$prog['code'])->join('articles','modification_t_s.id_art','=','articles.id_art')->get();
+              $modiflist=ModificationT::where('num_prog_retire',$prog['code'])->join('articles','modification_t_s.id_art','=','articles.id_art')->get();
             if(count($modiflist) == 0)
             {
                 $modiflist=ModificationT::where('num_prog',$prog['code'])->join('articles','modification_t_s.id_art','=','articles.id_art')->get();
@@ -1330,16 +1330,16 @@ function affiche_modif($numport)
              *  Modif table
              * 
             */
-           //dd($Ttportglob);
-        // dd($moficat_program);
+           // dd($Ttportglob);
+           // dd($moficat_program);
 
-           // dd($programmes);
+
             $modiflist=ModificationT::join('articles','modification_t_s.id_art','=','articles.id_art')->get();
             if(count($modiflist) == 0)
             {
                 $modiflist=ModificationT::where('num_prog',$prog['code'])->join('articles','modification_t_s.id_art','=','articles.id_art')->get();
             }
-           // dd($modiflist);
+           //  dd($modiflist);
         return view('suivi-port.suivi-port', compact('programmes','Ttportglob','moficat_program','modiflist','port'));
          
        /* $pdf=SnappyPdf::loadView('impression.impression_dpicprgsousprog', compact('programmes','Ttportglob'))
@@ -1578,4 +1578,26 @@ function delete_by_t(Request $request)
 return response()->json(['message'=>'suppimer avec success','code'=>200]);
 }
 }
+
+public function update_status($id)
+{
+   
+    
+        $modifupdate=ModificationT::where('num_sous_action',$id)->orderBy('date_modif','desc')->first();
+        $success_up=$modifupdate->update([
+            'situation_modif'=>'true'
+        ]);
+        //dd($success_up);
+        if($success_up == true)
+        {
+            return response()->json(['message'=> 'success','code'=>200]);
+        }
+        else
+        {
+          return  response()->json(['message'=> 'unsuccess','code'=>400]);
+        }
+   
+}
+
+
 }
