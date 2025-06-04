@@ -37,7 +37,7 @@ function upload_file(id_file,id_relat,id)
                              {
                              path3=id.split('-')
                               port=path3[0]+'-'+path3[1]+'-';
-                             prog=port+'-'+path3[2]+'-';
+                             prog=port+'-'+path3[2];
                             sprog=prog+'-'+path3[3];
                             act=sprog+'-'+path3[4];
                             console.log('code',act)
