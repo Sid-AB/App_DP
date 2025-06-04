@@ -511,7 +511,7 @@ $('#button-71').on('click',function(){
      type_extr:type_ext,
      act_cible_env:act_cible_env,
      act_cible_ret:act_cible_ret,
-     status:cmpt,
+     status:false,
      code_port:code_port,
      type_port:type_port,
      AE_port:AE_port,
