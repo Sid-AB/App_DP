@@ -300,10 +300,10 @@ $(document).ready(function(){
     ' <label for="input1">Tports source</label>'+
     '<select class="form-control" id="id-T-retire">'+
     '<option value="T0" >Séléctionner TPort</option>'+
-    '<option value="T1" >Port 01</option>'+
-    '<option value="T2" >Port 02</option>'+
-    '<option value="T3" >Port 03</option>'+
-    '<option value="T4" >Port 04</option>'+
+    '<option value="T1" >T1</option>'+
+    '<option value="T2" >T2</option>'+
+    '<option value="T3" >T3</option>'+
+    '<option value="T4" >T4</option>'+
     '</select>'+
     '</div>'+
     '<div class="Tenv-inpt-handle" >'+
