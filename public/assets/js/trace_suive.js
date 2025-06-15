@@ -35,8 +35,9 @@ function upload_file(id_file,id_relat,id)
                         {
                             if(response.code == 200)
                              {
+                                cosnt=response.account
                              path3=id.split('-')
-                              port=path3[0]+'-'+path3[1]+'-';
+                              port=path3[0]+'-'+path3[1];
                              prog=port+'-'+path3[2];
                             sprog=prog+'-'+path3[3];
                             act=sprog+'-'+path3[4];
@@ -66,7 +67,7 @@ function upload_file(id_file,id_relat,id)
                     
                     if(response.code == 200)
                     {
-                      window.location.href='/testing/Action/'+port+'/'+prog+'/'+sprog+'/'+act+'/?code='+response.account
+                      window.location.href='/testing/Action/'+port+'/'+prog+'/'+sprog+'/'+act+'/?code='+cosnt
                     }
                     else
                     {

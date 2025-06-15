@@ -818,7 +818,7 @@ class modificationController extends Controller
                     $ProgReçoit->save();
 
                     //portefeuille aussi 
-                    $portefRecoit->AE_portef += $validated['AE_T1'] + $validated['AE_T2'] + $validated['AE_T3'] + $validated['AE_T4'];
+                  /*  $portefRecoit->AE_portef += $validated['AE_T1'] + $validated['AE_T2'] + $validated['AE_T3'] + $validated['AE_T4'];
                     $portefRecoit->CP_portef += $validated['CP_T1'] +$validated['CP_T2'] +$validated['CP_T3'] +$validated['CP_T4'];
                 
                     $portefRecoit->AE_portef -=$validated['AE_env_T'];
@@ -827,7 +827,7 @@ class modificationController extends Controller
                 
                     $portefRecoit->Date_update_portefeuille = now();
              
-                    $portefRecoit->save();
+                    $portefRecoit->save();*/
 
 
          
@@ -839,10 +839,10 @@ class modificationController extends Controller
                             $ProgReçoit->save();
 
                                 //portefeuille 
-                            $portefRecoit->AE_portef += $validated['AE_T1'] + $validated['AE_T2'] + $validated['AE_T3'] + $validated['AE_T4'];
+                           /* $portefRecoit->AE_portef += $validated['AE_T1'] + $validated['AE_T2'] + $validated['AE_T3'] + $validated['AE_T4'];
                             $portefRecoit->CP_portef += $validated['CP_T1'] +$validated['CP_T2'] +$validated['CP_T3'] +$validated['CP_T4'];
                             $portefRecoit->Date_update_portefeuille = now();
-                            $portefRecoit->save();
+                            $portefRecoit->save();*/
                         
                           
                             $ProgRetire->AE_prog -= $validated['AE_env_T'];
@@ -851,10 +851,10 @@ class modificationController extends Controller
                             $ProgRetire->save();
 
                             //portefeuille
-                            $portefRetire ->AE_portef -=$validated['AE_env_T'];
+                          /*  $portefRetire ->AE_portef -=$validated['AE_env_T'];
                             $portefRetire->CP_portef -= $validated['CP_env_T'];
                             $portefRetire->Date_update_portefeuille  = now();
-                            $portefRetire->save();
+                            $portefRetire->save();*/
                     }
 
                     if($actionrec->num_sous_action==$actionret->num_sous_action){
@@ -1340,7 +1340,76 @@ function affiche_modif($numport)
                 $modiflist=ModificationT::where('num_prog',$prog['code'])->join('articles','modification_t_s.id_art','=','articles.id_art')->get();
             }
            //  dd($modiflist);
-        return view('suivi-port.suivi-port', compact('programmes','Ttportglob','moficat_program','modiflist','port'));
+            /***********************tableau modification en utilisant view  */
+    
+$viewName = 'init_ports_' . str_replace('-', '_', $numport);
+
+$tableExists = Schema::hasTable($viewName);
+
+//dd( $viewName->num_sous_prog);
+if ($tableExists) {
+    $view = DB::table($viewName)
+        ->join('sous_programmes', "$viewName.num_sous_prog", '=', 'sous_programmes.num_sous_prog')
+        ->join('programmes', 'sous_programmes.num_prog', '=', 'programmes.num_prog') 
+       
+       ->get();
+   //dd( $view);
+
+   
+   $prgrmsousact = $view->groupBy('num_prog')->map(function ($group) {
+    return [
+        'num_prog' => $group->first()->num_prog,
+        'nom_prog' => $group->first()->nom_prog,
+
+        // tataux des sous programmes
+        'total_AE_init_t1' => $group->where('num_action', null)->sum('AE_init_t1'),
+        'total_CP_init_t1' => $group->where('num_action', null)->sum('CP_init_t1'),
+        'total_AE_init_t2' => $group->where('num_action', null)->sum('AE_init_t2'),
+        'total_CP_init_t2' => $group->where('num_action', null)->sum('CP_init_t2'),
+        'total_AE_init_t3' => $group->where('num_action', null)->sum('AE_init_t3'),
+        'total_CP_init_t3' => $group->where('num_action', null)->sum('CP_init_t3'),
+        'total_AE_init_t4' => $group->where('num_action', null)->sum('AE_init_t4'),
+        'total_CP_init_t4' => $group->where('num_action', null)->sum('CP_init_t4'),
+
+        
+        'sous_programmes' => $group->where('num_action', null)->map(function ($sous_prog) use ($group) {
+            // ses actions 
+            $actions = $group->where('num_sous_prog', $sous_prog->num_sous_prog)->where('num_action', '!=', null);
+
+            return [
+                'num_sous_prog' => $sous_prog->num_sous_prog,
+                'nom_sous_prog' => $sous_prog->nom_sous_prog,
+
+             
+                'AE_init_t1' => $sous_prog->AE_init_t1,
+                'CP_init_t1' => $sous_prog->CP_init_t1,
+                'AE_init_t2' => $sous_prog->AE_init_t2,
+                'CP_init_t2' => $sous_prog->CP_init_t2,
+                'AE_init_t3' => $sous_prog->AE_init_t3,
+                'CP_init_t3' => $sous_prog->CP_init_t3,
+                'AE_init_t4' => $sous_prog->AE_init_t4,
+                'CP_init_t4' => $sous_prog->CP_init_t4,
+
+                // totaux des actions du sousprog
+                'total_act_AE_t1' => $actions->sum('AE_init_t1'),
+                'total_act_CP_t1' => $actions->sum('CP_init_t1'),
+                'total_act_AE_t2' => $actions->sum('AE_init_t2'),
+                'total_act_CP_t2' => $actions->sum('CP_init_t2'),
+                'total_act_AE_t3' => $actions->sum('AE_init_t3'),
+                'total_act_CP_t3' => $actions->sum('CP_init_t3'),
+                'total_act_AE_t4' => $actions->sum('AE_init_t4'),
+                'total_act_CP_t4' => $actions->sum('CP_init_t4'),
+
+                // liste des actions
+                'actions' => $actions->values(),
+            ];
+        })->values(), //pour afficher les valeurs 
+    ];
+});
+}
+//dd($prgrmsousact);
+
+        return view('suivi-port.suivi-port', compact('programmes','Ttportglob','moficat_program','modiflist','port','prgrmsousact'));
          
        /* $pdf=SnappyPdf::loadView('impression.impression_dpicprgsousprog', compact('programmes','Ttportglob'))
          ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1.5);//lanscape mean orentation
