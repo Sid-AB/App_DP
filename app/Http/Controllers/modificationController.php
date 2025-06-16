@@ -1170,6 +1170,7 @@ function affiche_modif($numport)
     $TtportT4AE=0;
     $TtportT4CP=0;
     $Ttportglob=[];
+    $prgrmsousact=[];
     $progms=Programme::where("num_portefeuil",$numport)->get();
     foreach($progms as $progm)
     {
@@ -1407,8 +1408,8 @@ if ($tableExists) {
     ];
 });
 }
-//dd($prgrmsousact);
-
+//dd($programmes);
+    
         return view('suivi-port.suivi-port', compact('programmes','Ttportglob','moficat_program','modiflist','port','prgrmsousact'));
          
        /* $pdf=SnappyPdf::loadView('impression.impression_dpicprgsousprog', compact('programmes','Ttportglob'))
