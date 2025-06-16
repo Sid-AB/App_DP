@@ -1146,7 +1146,200 @@ class modificationController extends Controller
 }
 function affiche_modif($numport)
 {
-    $port=$numport;
+    $ttall_ini=[];
+    $act_ini=[];
+    $all_act_ini=[];
+    $sousprog_ini=[];
+    $allaction=[];
+    $all_act=[];
+    $allsous_prog=[];
+    $programmes=[];
+    $moficat_program=[];
+    $ttall=[];
+    $TtAE1=0;
+    $TtCP1=0;
+    $TtAE2=0;
+    $TtCP2=0;
+    $TtAE3=0;
+    $TtCP3=0;
+    $TtAE4=0;
+    $TtCP4=0;
+    $TtportT1AE=0;
+    $TtportT1CP=0;
+    $TtportT2AE=0;
+    $TtportT2CP=0;
+    $TtportT3AE=0;
+    $TtportT3CP=0;
+    $TtportT4AE=0;
+    $TtportT4CP=0;
+    $TtAE1_act=0;
+       $TtCP1_act=0;
+       $TtAE2_act=0;
+       $TtCP2_act=0;
+       $TtAE3_act=0;
+       $TtCP3_act=0;
+       $TtAE4_act=0;
+       $TtCP4_act=0;
+    $Ttportglob=[];
+
+    $progms=Programme::where("num_portefeuil",$numport)->get();
+    foreach($progms as $progm)
+    {
+        $sousprog=SousProgramme::where('num_prog',$progm->num_prog)->get();
+        foreach($sousprog as $sprog)
+        {
+            $initsprog=initPort::where('num_sous_prog',$sprog->num_sous_prog)->get();
+          //dd($initsprog);
+            foreach($initsprog as $init)
+            {
+                $ttall=[];
+               //dd( $ttall);
+               if (isset($init->num_action))
+            {
+
+                $actsect=Action::where('num_action',$init->num_action)->firstOrFail();
+                //dd($actsect);
+                $TtAE1+=$init['AE_init_t1'];
+                $TtCP1+=$init['CP_init_t1'];
+    
+                $TtAE2+=$init['AE_init_t2'];
+                $TtCP2+=$init['CP_init_t2'];
+    
+                $TtAE3+=$init['AE_init_t3'];
+                $TtCP3+=$init['CP_init_t3'];
+    
+                $TtAE4+=$init['AE_init_t4'];
+                $TtCP4+=$init['CP_init_t4'];
+
+                $TtAE1_act+=$init['AE_init_t1'];
+                $TtCP1_act+=$init['CP_init_t1'];
+
+                $TtAE2_act+=$init['AE_init_t2'];
+                $TtCP2_act+=$init['CP_init_t2'];
+
+                $TtAE3_act+=$init['AE_init_t3'];
+                $TtCP3_act+=$init['CP_init_t3'];
+
+                $TtAE4_act+=$init['AE_init_t4'];
+                $TtCP4_act+=$init['CP_init_t4'];
+                $ttall=['TotalT1_AE_ini'=>$init['AE_init_t1'],'TotalT1_CP_ini'=>$init['CP_init_t1'],
+                'TotalT2_AE_ini'=>$init['AE_init_t2'],'TotalT2_CP_ini'=>$init['CP_init_t2'],
+                'TotalT3_AE_ini'=>$init['AE_init_t3'],'TotalT3_CP_ini'=>$init['CP_init_t3'],
+                'TotalT4_AE_ini'=>$init['AE_init_t4'],'TotalT4_CP_ini'=>$init['CP_init_t4'],
+            ];
+                array_push($act_ini,['actions'=>['code'=>$actsect->num_action,"nom"=>$actsect->nom_action,"type"=>$actsect->type_action,'TotalT'=>$ttall]]);
+               //dd($act_ini); 
+               $ttall_ini=['TotalT1_AE'=>$TtAE1_act,'TotalT1_CP'=>$TtCP1_act,
+               'TotalT2_AE'=>$TtAE2_act,'TotalT2_CP'=>$TtCP2_act,
+               'TotalT3_AE'=>$TtAE3_act,'TotalT3_CP'=>$TtCP3_act,
+               'TotalT4_AE'=>$TtAE4_act,'TotalT4_CP'=>$TtCP4_act,];
+               }
+            else
+            {
+                $all_act_ini=['TotalT1_AE_ini'=>$init['AE_init_t1'],'TotalT1_CP_ini'=>$init['CP_init_t1'],
+                'TotalT2_AE_ini'=>$init['AE_init_t2'],'TotalT2_CP_ini'=>$init['CP_init_t2'],
+                'TotalT3_AE_ini'=>$init['AE_init_t3'],'TotalT3_CP_ini'=>$init['CP_init_t3'],
+                'TotalT4_AE_ini'=>$init['AE_init_t4'],'TotalT4_CP_ini'=>$init['CP_init_t4'],
+                
+            ];
+           
+            }
+            $ttall_ini=['TotalT1_AE'=>$TtAE1,'TotalT1_CP'=>$TtCP1,
+            'TotalT2_AE'=>$TtAE2,'TotalT2_CP'=>$TtCP2,
+            'TotalT3_AE'=>$TtAE3,'TotalT3_CP'=>$TtCP3,
+            'TotalT4_AE'=>$TtAE4,'TotalT4_CP'=>$TtCP4,];
+       }
+       array_push($sousprog_ini,['sous_programmes'=>['code'=>$sprog->num_sous_prog,"nom"=>$sprog->nom_sous_prog,'actions'=>$act_ini,"Total_sp"=>$all_act_ini,"Total"=>$ttall_ini]]);
+       $act_ini=[];
+       $TtAE1_act=0;
+       $TtCP1_act=0;
+       $TtAE2_act=0;
+       $TtCP2_act=0;
+       $TtAE3_act=0;
+       $TtCP3_act=0;
+       $TtAE4_act=0;
+       $TtCP4_act=0;
+       
+            }
+
+           
+          //dd($sousprog_ini);
+           
+                   
+        //array_push();
+        array_push($programmes,['programmes'=>['code'=>$progm->num_prog,"nom"=>$progm->nom_prog,"sous_programmes"=>$sousprog_ini,'Total_p'=>$all_act_ini,"Total"=>$ttall_ini]]);
+        $TtAE1=0;
+        $TtCP1=0;
+        $TtAE2=0;
+        $TtCP2=0;
+        $TtAE3=0;
+        $TtCP3=0;
+        $TtAE4=0;
+        $TtCP4=0;
+        $ttall_ini=[];
+        $sousprog_ini=[];
+        $act_ini=[];
+      
+    }
+    //dd($programmes);
+        for ($i=0; $i < count($programmes) ; $i++)
+    {
+        foreach($programmes[$i] as $prog)
+        {//dd($prog['Total']['TotalT1_AE']);
+            if(!empty($prog['Total']))
+            {
+            $TtportT1AE+=$prog['Total']['TotalT1_AE'];
+            $TtportT1CP+=$prog['Total']['TotalT1_CP'];
+            $TtportT2AE+=$prog['Total']['TotalT2_AE'];
+            $TtportT2CP+=$prog['Total']['TotalT2_CP'];
+            $TtportT3AE+=$prog['Total']['TotalT3_AE'];
+            $TtportT3CP+=$prog['Total']['TotalT3_CP'];
+            $TtportT4AE+=$prog['Total']['TotalT4_AE'];
+            $TtportT4CP+=$prog['Total']['TotalT4_CP'];
+          //  dd($programmes);
+          
+            $modiflist=ModificationT::where('num_prog_retire',$prog['code'])->join('articles','modification_t_s.id_art','=','articles.id_art')->get();
+            //dd($modiflist);
+            if(count($modiflist) == 0)
+          {
+              $modiflist=ModificationT::where('num_prog',$prog['code'])->join('articles','modification_t_s.id_art','=','articles.id_art')->get();
+             // dd($modiflist);
+            }
+
+       // dd($modiflist);
+        /// 
+        // dd( $modiflist);
+          array_push($moficat_program,['reslut'=>$modiflist,'code_prog'=>$prog['code'],'nom_prog'=>$prog['nom']]);
+         // dd($moficat_program);
+            }
+       // dd($moficat_program);
+        };
+
+    };
+
+    array_push($Ttportglob,['TotalPortT1_AE'=>$TtportT1AE,'TotalPortT1_CP'=>$TtportT1CP,
+    'TotalPortT2_AE'=>$TtportT2AE,'TotalPortT2_CP'=>$TtportT2CP,
+    'TotalPortT3_AE'=>$TtportT3AE,'TotalPortT3_CP'=>$TtportT3CP,
+    'TotalPortT4_AE'=>$TtportT4AE,'TotalPortT4_CP'=>$TtportT4CP]);
+    //dd($Ttportglob);
+    if(count($programmes)>0)
+        {
+      
+            /***
+             *  Modif table
+             * */
+            
+           // dd($Ttportglob);
+           // dd($moficat_program);
+
+           $modiflist=ModificationT::join('articles','modification_t_s.id_art','=','articles.id_art')->get();
+            if(count($modiflist) == 0)
+            {
+                $modiflist=ModificationT::where('num_prog',$prog['code'])->join('articles','modification_t_s.id_art','=','articles.id_art')->get();
+            }
+        
+           //  dd($modiflist);
+    /*$port=$numport;
     $moficat_program=[];
     $allaction=[];
     $all_act=[];
@@ -1179,13 +1372,13 @@ function affiche_modif($numport)
 
 
                 $act=Action::where('num_sous_prog',$sprog->num_sous_prog)->get();
-            //    dd($act);
+            dd($act);
                 foreach($act as $listact)
                 {
                     if(isset($listact))
-                    {//dd($listact);
+                    {dd($listact);
                         $sous_act=SousAction::where('num_action',$listact->num_action)->get();
-                      //  dd($sous_act);
+                      dd($sous_act);
                         foreach($sous_act as $listsousact)
                         {
 
@@ -1205,7 +1398,7 @@ function affiche_modif($numport)
 
                 }
 
-                //dd($allaction);
+                dd($allaction);
                 for($i=0 ;$i<count($allaction);$i++)
                 {
                 foreach($allaction[$i] as $actsect)
@@ -1254,7 +1447,7 @@ function affiche_modif($numport)
             {
             foreach($allsous_prog[$i] as $sousprog)
              {
-                # code...
+                 code...
                 $TtAE1+=$sousprog['Total']['TotalT1_AE'];
                 $TtCP1+=$sousprog['Total']['TotalT1_CP'];
 
@@ -1284,7 +1477,7 @@ function affiche_modif($numport)
             $TtCP4=0;
             $allsous_prog=[];
         }
-           //  dd($programmes);
+             dd($programmes);
              
              for ($i=0; $i < count($programmes) ; $i++)
              {
@@ -1298,27 +1491,27 @@ function affiche_modif($numport)
             $TtportT3CP+=$prog['Total']['TotalT3_CP'];
             $TtportT4AE+=$prog['Total']['TotalT4_AE'];
             $TtportT4CP+=$prog['Total']['TotalT4_CP'];
-           // dd($programmes);
+            dd($programmes);
           
               $modiflist=ModificationT::where('num_prog_retire',$prog['code'])->join('articles','modification_t_s.id_art','=','articles.id_art')->get();
             if(count($modiflist) == 0)
             {
                 $modiflist=ModificationT::where('num_prog',$prog['code'])->join('articles','modification_t_s.id_art','=','articles.id_art')->get();
-            }
+            }*/
 
          //   dd($modiflist);
           /// 
           // dd( $modiflist);
-            array_push($moficat_program,['reslut'=>$modiflist,'code_prog'=>$prog['code'],'nom_prog'=>$prog['nom']]);
+         /*   array_push($moficat_program,['reslut'=>$modiflist,'code_prog'=>$prog['code'],'nom_prog'=>$prog['nom']]);
         };
     };
         array_push($Ttportglob,['TotalPortT1_AE'=>$TtportT1AE,'TotalPortT1_CP'=>$TtportT1CP,
                                 'TotalPortT2_AE'=>$TtportT2AE,'TotalPortT2_CP'=>$TtportT2CP,
                                 'TotalPortT3_AE'=>$TtportT3AE,'TotalPortT3_CP'=>$TtportT3CP,
-                                'TotalPortT4_AE'=>$TtportT4AE,'TotalPortT4_CP'=>$TtportT4CP]);
+                                'TotalPortT4_AE'=>$TtportT4AE,'TotalPortT4_CP'=>$TtportT4CP]);*/
        //dd($programmes[0]['programmes']['sous_programmes'][0]['sous_programmes']['actions'][1]['actions']['TotalT']['delegation']);
-        if(count($programmes)>0)
-        {
+       /* if(count($programmes)>0)
+        {*/
         /*return response()->json([
             'exists' => true,
             'actions'=>$allaction,
@@ -1334,16 +1527,16 @@ function affiche_modif($numport)
            // dd($moficat_program);
 
 
-            $modiflist=ModificationT::join('articles','modification_t_s.id_art','=','articles.id_art')->get();
+          /*  $modiflist=ModificationT::join('articles','modification_t_s.id_art','=','articles.id_art')->get();
             if(count($modiflist) == 0)
             {
                 $modiflist=ModificationT::where('num_prog',$prog['code'])->join('articles','modification_t_s.id_art','=','articles.id_art')->get();
-            }
+            }*/
            //  dd($modiflist);
             /***********************tableau modification en utilisant view  */
     
 $viewName = 'init_ports_' . str_replace('-', '_', $numport);
-
+$prgrmsousact=[];
 $tableExists = Schema::hasTable($viewName);
 
 //dd( $viewName->num_sous_prog);
@@ -1408,20 +1601,21 @@ if ($tableExists) {
 });
 }
 //dd($prgrmsousact);
-
-        return view('suivi-port.suivi-port', compact('programmes','Ttportglob','moficat_program','modiflist','port','prgrmsousact'));
+        return view('suivi-port.suivi-port', compact('programmes','Ttportglob','prgrmsousact','moficat_program','modiflist'));
+      //  return view('suivi-port.suivi-port', compact('programmes','Ttportglob','moficat_program','modiflist','port','prgrmsousact'));
          
        /* $pdf=SnappyPdf::loadView('impression.impression_dpicprgsousprog', compact('programmes','Ttportglob'))
          ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1.5);//lanscape mean orentation
                return $pdf->stream('impression_dpic.pdf');
        //return view('impression.programmes',compact('programmes','Ttportglob'));*/
-        }
+       }
         else
         {
             response()->json(['exists' => false]);
         }
 
 }
+
 
 
 function delete_by_id($id,Request $request)
