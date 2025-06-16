@@ -406,172 +406,10 @@
    @endfor
    </table>
    @endif
-    {{-- Boucle sur les programmes --}}
-   <!--  @for($i = 0; $i < count($programmes); $i++)
-        @foreach ($programmes[$i] as $programme)
-            @php
-                $code = explode('-', $programme['code']);
-                $last = count($code) - 1;
-                $code = $code[$last];
-            @endphp
-
-            {{-- Nouveau tableau pour chaque programme --}}
-            <div style="padding: 0px 5% 0px 0px ;display: contents" >
-            <table >
-                <thead>
-                    <tr>
-                        <th  style="border: none; background: #ffffff00;"  colspan=2></th>
-                        <th colspan="2" class="T">T1</th>
-                        <th colspan="2" class="T">T2</th>
-                        <th colspan="2" class="T">T3</th>
-                        <th colspan="2" class="T">T4</th>
-                    </tr>
-                    <tr>
-                        <th class="T">Code</th>
-                        <th class="T">Le Programme/Sous-programmes/Actions</th>
-                        <th>AE</th>
-                        <th>CP</th>
-                        <th>AE</th>
-                        <th>CP</th>
-                        <th>AE</th>
-                        <th>CP</th>
-                        <th>AE</th>
-                        <th>CP</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{-- Ligne principale pour le programme --}}
-                    <tr >
-                        <td class="program-title" >{{ $code }}</td>
-                        <td class="program-title">Programme :  {{ $programme['nom'] }}</td>
-                        <td>{{ number_format((float)$programme['Total']['TotalT1_AE'], 2, '.', ',') ?? '0' }}</td>
-                        <td>{{ number_format((float)$programme['Total']['TotalT1_CP'], 2, '.', ',') ?? '0' }}</td>
-                        <td>{{ number_format((float)$programme['Total']['TotalT2_AE'], 2, '.', ',') ?? '0' }}</td>
-                        <td>{{ number_format((float)$programme['Total']['TotalT2_CP'], 2, '.', ',') ?? '0' }}</td>
-                        <td>{{ number_format((float)$programme['Total']['TotalT3_AE'], 2, '.', ',') ?? '0' }}</td>
-                        <td>{{ number_format((float)$programme['Total']['TotalT3_CP'], 2, '.', ',') ?? '0' }}</td>
-                        <td>{{ number_format((float)$programme['Total']['TotalT4_AE'], 2, '.', ',') ?? '0' }}</td>
-                        <td>{{ number_format((float)$programme['Total']['TotalT4_CP'], 2, '.', ',') ?? '0' }}</td>
-                    </tr>
-
-                    {{-- Boucle sur les sous-programmes --}}
-                    @for($j = 0; $j < count($programme['sous_programmes']); $j++)
-                        @foreach ($programme['sous_programmes'][$j] as $sousProgramme)
-                            @php
-                                $code = explode('-', $sousProgramme['code']);
-                                $last = count($code) - 1;
-                                $code = $code[$last];
-                            @endphp
-
-                            <tr>
-                                <td class="subprogram-title">{{ $code }}</td>
-                                <td class="subprogram-title"> Sous Programme : {{ $sousProgramme['nom'] }}</td>
-                                <td>{{ number_format((float)$sousProgramme['Total']['TotalT1_AE'], 2, '.', ',') ?? '0' }}</td>
-                                <td>{{ number_format((float)$sousProgramme['Total']['TotalT1_CP'], 2, '.', ',') ?? '0' }}</td>
-                                <td>{{ number_format((float)$sousProgramme['Total']['TotalT2_AE'], 2, '.', ',') ?? '0' }}</td>
-                                <td>{{ number_format((float)$sousProgramme['Total']['TotalT2_CP'], 2, '.', ',') ?? '0' }}</td>
-                                <td>{{ number_format((float)$sousProgramme['Total']['TotalT3_AE'], 2, '.', ',') ?? '0' }}</td>
-                                <td>{{ number_format((float)$sousProgramme['Total']['TotalT3_CP'], 2, '.', ',') ?? '0' }}</td>
-                                <td>{{ number_format((float)$sousProgramme['Total']['TotalT4_AE'], 2, '.', ',') ?? '0' }}</td>
-                                <td>{{ number_format((float)$sousProgramme['Total']['TotalT4_CP'], 2, '.', ',') ?? '0' }}</td>
-                            </tr>
-
-                            {{-- Boucle sur les actions --}}
-                            @if(isset($sousProgramme['actions'][0]))
-                                @for($k = 0; $k < count($sousProgramme['actions']); $k++)
-                                    @foreach ($sousProgramme['actions'][$k] as $action)
-                                        @php
-                                            $code = explode('-', $action['code']);
-                                            $last = count($code) -2;
-                                            $code = $code[$last];
-                                           // dd($action);
-                                        @endphp
-                                        @if($action['type_action']=='centrale')
-                                        <tr >
-                                            <td>{{ $code }}</td>
-                                            <td>Action : {{ $action['nom'] }}</td>
-                                            <td>{{ number_format((float)$action['TotalT']['centrale']['T1']['total'][0]['values']['totalAE'], 2, '.', ',') ?? '0' }}</td>
-                                            <td>{{ number_format((float)$action['TotalT']['centrale']['T1']['total'][0]['values']['totalCP'], 2, '.', ',') ?? '0' }}</td>
-                                            <td>{{ number_format((float)$action['TotalT']['centrale']['T2']['total'][0]['values']['totalAE'], 2, '.', ',') ?? '0' }}</td>
-                                            <td>{{ number_format((float)$action['TotalT']['centrale']['T2']['total'][0]['values']['totalCP'], 2, '.', ',') ?? '0' }}</td>
-                                            <td>{{ number_format((float)$action['TotalT']['centrale']['T3']['total'][0]['values']['totalAE'], 2, '.', ',') ?? '0' }}</td>
-                                            <td>{{ number_format((float)$action['TotalT']['centrale']['T3']['total'][0]['values']['totalCP'], 2, '.', ',') ?? '0' }}</td>
-                                            <td>{{ number_format((float)$action['TotalT']['centrale']['T4']['total'][0]['values']['totalAE'], 2, '.', ',') ?? '0' }}</td>
-                                            <td>{{ number_format((float)$action['TotalT']['centrale']['T4']['total'][0]['values']['totalCP'], 2, '.', ',') ?? '0' }}</td>
-                                        </tr>
-                                        @elseif ($action['type_action']=='delegation')
-                                        <tr >
-                                            <td>{{ $code }}</td>
-                                            <td>Action : {{ $action['nom'] }}</td>
-                                            <td>{{ number_format((float)$action['TotalT']['delegation']['T1']['total'][0]['values']['totalAE'], 2, '.', ',') ?? '0' }}</td>
-                                            <td>{{ number_format((float)$action['TotalT']['delegation']['T1']['total'][0]['values']['totalCP'], 2, '.', ',') ?? '0' }}</td>
-                                            <td>{{ number_format((float)$action['TotalT']['delegation']['T2']['total'][0]['values']['totalAE'], 2, '.', ',') ?? '0' }}</td>
-                                            <td>{{ number_format((float)$action['TotalT']['delegation']['T2']['total'][0]['values']['totalCP'], 2, '.', ',') ?? '0' }}</td>
-                                            <td>{{ number_format((float)$action['TotalT']['delegation']['T3']['total'][0]['values']['totalAE'], 2, '.', ',') ?? '0' }}</td>
-                                            <td>{{ number_format((float)$action['TotalT']['delegation']['T3']['total'][0]['values']['totalCP'], 2, '.', ',') ?? '0' }}</td>
-                                            <td>{{ number_format((float)$action['TotalT']['delegation']['T4']['total'][0]['values']['totalAE'], 2, '.', ',') ?? '0' }}</td>
-                                            <td>{{ number_format((float)$action['TotalT']['delegation']['T4']['total'][0]['values']['totalCP'], 2, '.', ',') ?? '0' }}</td>
-                                        </tr>
-                                        @endif
-                                    @endforeach
-                             
-                                @endfor
-                            @endif
-
-                            {{-- Total des actions pour le sous-programme --}}
-                            <tr class="ttaction-title">
-                                <td class="ttaction-title"colspan="2">Total des actions</td>
-                                <td class="ttaction-title">{{ number_format((float)$sousProgramme['Total']['TotalT1_AE'], 2, '.', ',') ?? '0' }}</td>
-                                <td class="ttaction-title">{{ number_format((float)$sousProgramme['Total']['TotalT1_CP'], 2, '.', ',') ?? '0' }}</td>
-                                <td class="ttaction-title">{{ number_format((float)$sousProgramme['Total']['TotalT2_AE'], 2, '.', ',') ?? '0' }}</td>
-                                <td class="ttaction-title">{{ number_format((float)$sousProgramme['Total']['TotalT2_CP'], 2, '.', ',') ?? '0' }}</td>
-                                <td class="ttaction-title">{{ number_format((float)$sousProgramme['Total']['TotalT3_AE'], 2, '.', ',') ?? '0' }}</td>
-                                <td class="ttaction-title">{{ number_format((float)$sousProgramme['Total']['TotalT3_CP'], 2, '.', ',') ?? '0' }}</td>
-                                <td class="ttaction-title">{{ number_format((float)$sousProgramme['Total']['TotalT4_AE'], 2, '.', ',') ?? '0' }}</td>
-                                <td class="ttaction-title">{{ number_format((float)$sousProgramme['Total']['TotalT4_CP'], 2, '.', ',') ?? '0' }}</td>
-                            </tr>
-                        @endforeach
-                    @endfor
-
-                    {{-- Section "Eventuels crédits non répartis" --}}
-                    <tr class="event-title">
-                        <td colspan="2">Eventuels crédits non répartis</td>
-                        <td >0 </td>
-                        <td >0</td>
-                        <td >0</td>
-                        <td >0</td>
-                        <td >0</td>
-                        <td >0</td>
-                        <td >0</td>
-                        <td >0</td>
-
-                    </tr>
-
-                    {{-- Total des actions/crédits ouverts pour le programme --}}
-                    <tr class="totals">
-                        <th class="totals" colspan="2">TOTAL ACTIONS/CREDITS OUVERTS</th>
-                        <td>{{ number_format((float)$programme['Total']['TotalT1_AE'], 2, '.', ',') ?? '0' }}</td>
-                        <td>{{ number_format((float)$programme['Total']['TotalT1_CP'], 2, '.', ',') ?? '0' }}</td>
-                        <td>{{ number_format((float)$programme['Total']['TotalT2_AE'], 2, '.', ',') ?? '0' }}</td>
-                        <td>{{ number_format((float)$programme['Total']['TotalT2_CP'], 2, '.', ',') ?? '0' }}</td>
-                        <td>{{ number_format((float)$programme['Total']['TotalT3_AE'], 2, '.', ',') ?? '0' }}</td>
-                        <td>{{ number_format((float)$programme['Total']['TotalT3_CP'], 2, '.', ',') ?? '0' }}</td>
-                        <td>{{ number_format((float)$programme['Total']['TotalT4_AE'], 2, '.', ',') ?? '0' }}</td>
-                        <td>{{ number_format((float)$programme['Total']['TotalT4_CP'], 2, '.', ',') ?? '0' }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-            {{-- Ajouter un espace entre les tableaux --}}
-            <br><br>
-        @endforeach
-    @endfor
-
-
- -->
+    
     <!--<< at tis point start the dataTables js -->
 
-        <div clas="Modift-handle" style="
+        <div class="Modift-handle" style="
     width: fit-content;
 ">
             <table class="table" id="ModiftT">
@@ -601,7 +439,7 @@
                 </thead>
 
                 <tbody>
-                   
+
                         @for($i=0;$i< count($modiflist); $i++)
                         @php
                                 $code = explode('-', $modiflist[$i]['num_prog']);
@@ -681,10 +519,9 @@
                             <td>{{$modiflist[$i]['date_modif']}}  </td>
                             </tr>
                           
-                          
                         @endfor
 
-                       
+                        
                 </tbody>
             </table>
         </div>
