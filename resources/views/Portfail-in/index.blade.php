@@ -741,10 +741,12 @@
             _method: "POST",},
             success:function(response)
             {
+              var id_sou=id.split('_')
+              console.log('get ids'+JSON.stringify(id_sou))
               console.log('responsee',JSON.stringify(response))
               $.ajax({
-        url:'/delete_from_portfeuille/'+id+'?code='+response.account,
-        type:'GET',
+              url:'/delete_from_portfeuille/'+id+'?code='+response.account,
+              type:'GET',
         success:function(response)
         {
           if(response.code == 200)
@@ -885,7 +887,10 @@ listItemsWithNestedUl.each(function(){
    
     }
   })
-  $('.add-btn').on('click',function(){
+  /*$('.hide-access-form').on('click',function(){
+    $(this).removeClass('form-access')
+  })*/
+  $('.add-btn').on('dblclick',function(){
     
        var cosnt=0;
         var id = $(this).attr("id");

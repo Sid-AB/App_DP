@@ -1638,7 +1638,7 @@ function delete_by_id($id,Request $request)
         if($deletmodel)
         {
             $account =Accounts::join('programmes','programmes.id_rp','accounts.id_rp')->where('code_generated',$code)->where('programmes.num_prog',$deletmodel->num_prog)->first();
-                    // dd($act,$account,$code);
+           //  dd($account,$code);
                 if(!isset($account))
                   {
                          return back()->with('unsuccess', 'User registered indefined!');
@@ -1651,8 +1651,8 @@ function delete_by_id($id,Request $request)
     }
     if($split[0] == 'sousprog')
     {
-       // dd($split[0],$split[1]);
-        $deletmodel=SousProgramme::find($split[1])->first();
+        //dd($split[0],$split[1]);
+        $deletmodel=SousProgramme::where('num_sous_prog',$split[1])->first();
         $deletmulti=multimedia::where('related_id','=',$split[1])->get();
         $init_sous= initPort::where('num_sous_prog', $split[1])
         ->whereNull('num_action')
@@ -1660,9 +1660,9 @@ function delete_by_id($id,Request $request)
        // dd($deletmodel);
         if(isset($deletmodel))
         {
-            //dd($deletmodel);
+         //   dd($deletmodel);
             $account =Accounts::join('programmes','programmes.id_rp','accounts.id_rp')->where('code_generated',$code)->where('programmes.num_prog',$deletmodel->num_prog)->first();
-                    // dd($act,$account,$code);
+                 //    dd($account,$code);
                       if(!isset($account))
                      {
                          return back()->with('unsuccess', 'User registered indefined!');

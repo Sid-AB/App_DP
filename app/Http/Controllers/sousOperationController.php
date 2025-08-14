@@ -115,10 +115,11 @@ class sousOperationController extends Controller
                 }
                 if($chek[1] =='sprog')
                 {
+                    
                     $sprog=SousProgramme::where('num_sous_prog',$chek[0])->first();
                     $progms=Programme::where('num_prog',$sprog->num_prog)->first();
                     $leng=count(explode('-',$chek[0]));
-                    //dd($sprog);
+                   // dd($progms);
                     $ae_glob=$sprog->AE_sous_prog;
                     $cp_glob=$sprog->CP_sous_prog;
                     $nom=$sprog->nom_sous_prog;
@@ -140,7 +141,7 @@ class sousOperationController extends Controller
                     $getcode=explode('-',$code);
                     $code=$getcode[count(explode('-',$code))-1];
                     $account =Accounts::join('programmes','programmes.id_rp','accounts.id_rp')->where('code_generated',$codes)->where('programmes.num_prog',$progms->num_prog)->first();
-                    // dd($act,$account,$code);
+                     //dd($codes,$account,$paths);
                       if(!isset($account))
                      {
                          return back()->with('unsuccess', 'User registered indefined!');
