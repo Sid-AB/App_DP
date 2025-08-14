@@ -1178,6 +1178,13 @@ transition-timing-function: line;
 {
   cursor: pointer;
   scale: 0.9;
+  color: #5c44018a;
+}
+#del_ops svg:hover
+{
+  cursor: pointer;
+  scale: 1.2;
+  color: #5c44018a;
 }
 .add-btn
 {

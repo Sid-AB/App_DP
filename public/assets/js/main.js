@@ -11,6 +11,7 @@ var replac=false;
  * this function for adding button et makalah -_- ;
  */
 
+
 function preview(file)
 {
     $('#'+file).on('change', function(event) {
@@ -5766,7 +5767,7 @@ else
                 if (key == splitcode(data_T_port.group[ig].code, land)) {
                     row = '<tr class="ref' + key + '" id="ref'+data_T_port.group[ig].code+'">' +
                         '<td scope="row"  class="code">' + key + '</td>' +
-                        '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"> <p>' + value + '</p> </td>' +
+                        '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><div> <p>' + value + '</p>  <i class="fas fa-eraser" id="del_ops"></i> </div> </td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_Over">' +ValAccountingFigures( data_T_port.group[ig].values.ae_ouvert) + '</td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_Over">' +ValAccountingFigures (data_T_port.group[ig].values.cp_ouvert) + '</td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_att">' +ValAccountingFigures (data_T_port.group[ig].values.ae_attendu) + '</td>' +
@@ -5784,7 +5785,7 @@ else
                 if (key == splitcode(data_T_port.operation[io].code, land)) {
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.operation[io].code + '">' +
                         '<td scope="row"  class="code">' + key + '</td>' +
-                        '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"> <p>' + value + '</p> </td>' +
+                        '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><div> <p>' + value + '</p>  <i class="fas fa-eraser" id="del_ops"></i></div> </td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_Over">' +ValAccountingFigures (data_T_port.operation[io].values.ae_ouvert) + '</td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_Over">' +ValAccountingFigures (data_T_port.operation[io].values.cp_ouvert) + '</td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_att">' +ValAccountingFigures (data_T_port.operation[io].values.ae_attendu) + '</td>' +
@@ -5800,7 +5801,7 @@ else
                 if (key == splitcode(data_T_port.sousOperation[iso].code, land)) {
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                         '<td scope="row"  class="code">' + key + '</td>' +
-                        '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"> <p>' + value + '</p> </td>' +
+                        '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><div> <p>' + value + '</p> </div> </td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_Over">' + ValAccountingFigures(data_T_port.sousOperation[iso].values.ae_ouvert) + '</td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_Over">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_ouvert) + '</td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_att">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_attendu) + '</td>' +
@@ -5970,7 +5971,7 @@ if(code == 200){
                 '<td scope="row"  class="code">' + key + '</td>' +
                 '<td id="nom_ops"><p>' + val[0] + '</p> </td>' +
                 '<td> - </td>' +
-                '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + val[1] + '</p></td>' +
+                '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><div><p>' + val[1] + '</p>  <i class="fas fa-eraser" id="del_ops"></i></div></td>' +
                 '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' + 0 + '</td>' +
                 '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' + 0 + '</td>' +
                 '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' + 0 + '</td>' +
@@ -6011,7 +6012,7 @@ if(code == 200){
                         '<td scope="row"  class="code">' + key + '</td>' +
                         '<td id="nom_ops"><p>' + data_T_port.operation[io].nom + '</p> </td>' +
                         '<td> - </td>' +
-                        '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>'+val[0]+'</p></td>' +
+                        '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><div> <p>'+val[0]+'</p><i class="fas fa-eraser" id="del_ops"></i> </div> </td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' +ValAccountingFigures (data_T_port.operation[io].values.ae_reporte) + '</td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' +ValAccountingFigures (data_T_port.operation[io].values.ae_notifie) + '</td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' +ValAccountingFigures (data_T_port.operation[io].values.ae_engage) + '</td>' +
@@ -6048,7 +6049,7 @@ if(code == 200){
                         '<td scope="row"  class="code">' + key + '</td>' +
                         '<td id="nom_ops"><p>' +  nom + '</p> </td>' +
                         '<td> '+def+' </td>' +
-                        '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + int + '</p></td>' +
+                        '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><div><p>' + int + '</p> <i class="fas fa-eraser" id="del_ops"></i> </div></td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_reporte) + '</td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_notifie) + '</td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_engage) + '</td>' +
@@ -6086,7 +6087,7 @@ if(code == 200){
                    '<td scope="row"  class="code" style="visibility: hidden;" >' +key+"-"+splitcode(data_T_port.sousOperation[iso].code, land) + '</td>' +
                    '<td id="nom_ops">'+nom+'</td>' +
                    '<td id="def">'+def+'</td>' +
-                   '<td id="sous_def" style="display: flex;align-items: center; justify-content: space-between;">'+int+'</td>' +
+                   '<td id="sous_def" style="display: flex;align-items: center; justify-content: space-between;"><div>'+int+' <i class="fas fa-eraser" id="del_ops"></i> </div></td>' +
                    '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' +ValAccountingFigures( data_T_port.sousOperation[iso].values.ae_reporte) + '</td>' +
                    '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_notifie) + '</td>' +
                    '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_engage) + '</td>' +
@@ -6103,7 +6104,7 @@ if(code == 200){
                 '<td scope="row"  class="code" >' + key + '</td>' +
                 '<td id="nom_ops">'  +    nom + '</td>' +
                 '<td>  - </td>' +
-                '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><p>' + int + '</p></td>' +
+                '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><div><p>' + int + ' </p><i class="fas fa-eraser" id="del_ops"></i> </div></td>' +
                 '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_reporte) + '</td>' +
                 '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_notifie) + '</td>' +
                 '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_engage) + '</td>' +
@@ -6277,7 +6278,7 @@ function T4_table(id, T, id_s_act, port,code) {
             //   //console.log('values' + JSON.stringify(val))
             let row = '<tr class="ref'+key+'" id="ref' + key + '">' +
                 '<td scope="row"  class="code">' + key + '</td>' +
-                '<td><p>' + value + '</p></td>' +
+                '<td><div><p>' + value + '</p><i class="fas fa-eraser" id="del_ops"></i>  </div></td>' +
                 '<td  id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>null</p></td>'+
                 '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T4">' + 0 + ',00</td>' +
                 '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T4">' + 0 + ',00</td>' +
@@ -6289,7 +6290,7 @@ function T4_table(id, T, id_s_act, port,code) {
                     console.log('testing '+data_T_port.group[ig].values.ae_grpop)
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.group[ig].code + '">' +
                         '<td scope="row" class="code" >' + key + '</td>' +
-                        '<td><p>' + value + '</p></td>' +
+                        '<td><div><p>' + value + '</p> <i class="fas fa-eraser" id="del_ops"></i> </div></td>' +
 
                         '<td  id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>null</p></td>'+
                         '<td  class="editable" oninput="formatAccountingFigures(this)" id="AE_T4">' +ValAccountingFigures(data_T_port.group[ig].values.ae_grpop) + '</td>' +
@@ -6305,7 +6306,7 @@ function T4_table(id, T, id_s_act, port,code) {
                 if (key == splitcode(data_T_port.operation[io].code, land)  ) {
                     row = '<tr class="ref'+key+'" id="ref'+ data_T_port.operation[io].code + '">' +
                         '<td scope="row" class="code" >' + key + '</td>' +
-                        '<td ><p>' + value + '</p></td>' +
+                        '<td ><div><p>' + value + '</p><i class="fas fa-eraser" id="del_ops"></i></div> </td>' +
 
                         '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>null</p></td>'+
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T4">' +ValAccountingFigures (data_T_port.operation[io].values.ae_op) + '</td>' +
@@ -6325,7 +6326,7 @@ function T4_table(id, T, id_s_act, port,code) {
                         {
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                         '<td scope="row" class="code" >' + key + '</td>' +
-                        '<td ><p>' + value + '</p></td>' +
+                        '<td ><div><p>' + value + '</p><i class="fas fa-eraser" id="del_ops"></i></div> </td>' +
 
                         '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>null</p></td>'+
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T4">' +ValAccountingFigures (data_T_port.operation[io-1].values.ae_op) + '</td>' +
@@ -6337,7 +6338,7 @@ function T4_table(id, T, id_s_act, port,code) {
                     {
                         row = '<tr class="ref'+key+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                         '<td scope="row" class="code" >' + key + '</td>' +
-                        '<td ><p>' + value + '</p></td>' +
+                        '<td ><div><p>' + value + '</p> <i class="fas fa-eraser" id="del_ops"></i></div> </td>' +
 
                         '<td id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>null</p></td>'+
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T4">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_sousop) + '</td>' +
@@ -6361,13 +6362,18 @@ function T4_table(id, T, id_s_act, port,code) {
                                 console.log('else insert ')
                                 only_def(data_T_port.sousOperation[iso].code)
                             row = '<tr class="ref'+data_T_port.sousOperation[iso].code+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
-                            '<td scope="row" class="code" style="visibility: hidden;">'  +key+"-"+splitcode(data_T_port.sousOperation[iso].code, land)+'</td>' +
-                            '<td id="def"></td>' +
+                            '<td scope="row" class="code" style="visibility: hidden;">'  +key+"-"+splitcode(data_T_port.sousOperation[iso].code, land)+' </td>' +
+                            '<td><p id="def"></p> <div  id="del_ops" >  <i class="fas fa-eraser"  ></i></div></td>' +
                             '<td id="sous_def" ></td>'+
                             '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T4">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_sousop) + '</td>' +
                             '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T4">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_sousuop) + '</td>' +
                             '</tr>';
                             $('#T-tables tbody').append(row);
+                    $('.ref'+data_T_port.sousOperation[iso].code+' #del_ops').on('click',function(){
+                    var newKey=$(this).closest('tr').attr('id');
+                    var ads = newKey.split('ref')[1]
+                    alert('his id is'+ads)
+                })
                           //  iso++;
                           
                         }
