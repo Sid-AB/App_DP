@@ -304,6 +304,7 @@ function insert_edit(tid,T)
     //console.log('URL less' + url)
     }
     
+    
     $.ajax({
     url: url,
     type: 'GET',
