@@ -148,6 +148,54 @@ function print_dpa($numport)
        $TtCP4_act=0;
     $Ttportglob=[];
 
+
+    /*
+
+      $art = Article::selectRaw("id_art, CONCAT(nom_art, ' (', code_art, ')') as nom")->get();
+   //dd($art);
+  $grouped = DB::table('modification_t_s as m1')
+    ->join('articles', 'm1.id_art', '=', 'articles.id_art')
+    ->whereRaw("SUBSTRING_INDEX(m1.num_prog, '-', 2) = ?", [$numport])
+    ->select(
+        'm1.id_art',
+        DB::raw("SUM(AE_envoi_t1 + AE_recoit_t1) as total_AE_t1"),
+        DB::raw("SUM(CP_envoi_t1 + CP_recoit_t1) as total_CP_t1"),
+        DB::raw("SUM(AE_envoi_t2 + AE_recoit_t2) as total_AE_t2"),
+        DB::raw("SUM(CP_envoi_t2 + CP_recoit_t2) as total_CP_t2"),
+        DB::raw("SUM(AE_envoi_t3 + AE_recoit_t3) as total_AE_t3"),
+        DB::raw("SUM(CP_envoi_t3 + CP_recoit_t3) as total_CP_t3"),
+        DB::raw("SUM(AE_envoi_t4 + AE_recoit_t4) as total_AE_t4"),
+        DB::raw("SUM(CP_envoi_t4 + CP_recoit_t4) as total_CP_t4"),
+        DB::raw("MAX(m1.date_modif) as derniere_modif")
+    )
+    ->groupBy('m1.id_art');
+
+//pouir recuperer les autres champs 
+$modif = DB::table(DB::raw("({$grouped->toSql()}) as grouped"))
+    ->mergeBindings($grouped) // important pour que les bindings soient passés
+    ->join('modification_t_s as m1', 'grouped.id_art', '=', 'm1.id_art')
+    ->join('articles', 'm1.id_art', '=', 'articles.id_art')
+    ->select(
+        'm1.*', 
+        'articles.nom_art',
+        'articles.code_art',
+        'grouped.total_AE_t1',
+        'grouped.total_CP_t1',
+        'grouped.total_AE_t2',
+        'grouped.total_CP_t2',
+        'grouped.total_AE_t3',
+        'grouped.total_CP_t3',
+        'grouped.total_AE_t4',
+        'grouped.total_CP_t4',
+        'grouped.derniere_modif'
+    )
+    ->get();
+
+    //$modif = collect([$modif]);
+        dd($modif);
+    
+    */
+
     $progms=Programme::where("num_portefeuil",$numport)->get();
     foreach($progms as $progm)
     {
