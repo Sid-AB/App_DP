@@ -289,10 +289,10 @@ Ministère de la Communication
                 @if(isset($result['t1']['lastModif']) && $result['t1']['lastModif']->nom == $article->nom)
             <td>
                 @if(($result['t1']['lastModif']->AE_envoi_t1) > 0 || ( $result['t1']['lastModif']->AE_envoi_t1) < 0)
-                    {{number_format((float) $result['t1']['lastModif']->AE_envoi_t1 , 2, '.', ',') }}
+                    {{number_format((float) $com->total_AE_t1 , 2, '.', ',') }}
                     @php $total_AE_envoi_t1 += $result['t1']['lastModif']->AE_envoi_t1; @endphp
                 @elseif(($result['t1']['lastModif']->AE_recoit_t1) > 0 || ($result['t1']['lastModif']->AE_recoit_t1) < 0)
-                    {{ number_format((float)$result['t1']['lastModif']->AE_recoit_t1   , 2, '.', ',') }}
+                    {{ number_format((float)$com->total_AE_t1   , 2, '.', ',') }}
                     @php $total_AE_envoi_t1 += $result['t1']['lastModif']->AE_recoit_t1; @endphp
                 @else
                     0.00
@@ -300,10 +300,10 @@ Ministère de la Communication
             </td>
             <td>
                 @if(($result['t1']['lastModif']->CP_envoi_t1) > 0 || ($result['t1']['lastModif']->CP_envoi_t1) < 0)
-                    {{ number_format((float)$result['t1']['lastModif']->CP_envoi_t1    , 2, '.', ',')}}
+                    {{ number_format((float)$com->total_CP_t1    , 2, '.', ',')}}
                     @php $total_CP_envoi_t1 += $result['t1']['lastModif']->CP_envoi_t1; @endphp
                 @elseif(($result['t1']['lastModif']->CP_recoit_t1) > 0 || ($result['t1']['lastModif']->CP_recoit_t1) < 0)
-                    {{ number_format((float)$result['t1']['lastModif']->CP_recoit_t1  , 2, '.', ',')  }}
+                    {{ number_format((float)$com->total_CP_t1  , 2, '.', ',')  }}
                     @php $total_CP_envoi_t1 += $result['t1']['lastModif']->CP_recoit_t1; @endphp
                 @else
                     0.00
@@ -311,10 +311,10 @@ Ministère de la Communication
             </td>
             <td>
                 @if(($result['t2']['lastModif']->AE_envoi_t2) > 0 || ($result['t2']['lastModif']->AE_envoi_t2) < 0)
-                    {{number_format((float) $result['t2']['lastModif']->AE_envoi_t2  , 2, '.', ',') }}
+                    {{number_format((float) $com->total_AE_t2  , 2, '.', ',') }}
                     @php $total_AE_envoi_t2 += $result['t2']['lastModif']->AE_envoi_t2; @endphp
                 @elseif(($result['t2']['lastModif']->AE_recoit_t2) > 0 || ($result['t2']['lastModif']->AE_recoit_t2) < 0)
-                    {{ number_format((float)$result['t2']['lastModif']->AE_recoit_t2  , 2, '.', ',')  }}
+                    {{ number_format((float)$com->total_AE_t2  , 2, '.', ',')  }}
                     @php $total_AE_envoi_t2 += $result['t2']['lastModif']->AE_recoit_t2; @endphp
                 @else
                     0.00
@@ -322,10 +322,10 @@ Ministère de la Communication
             </td>
             <td>
                 @if(($result['t2']['lastModif']->CP_envoi_t2) > 0 || ($result['t2']['lastModif']->CP_envoi_t2) < 0)
-                    {{ number_format((float)$result['t2']['lastModif']->CP_envoi_t2    , 2, '.', ',')}}
+                    {{ number_format((float)$com->total_CP_t2    , 2, '.', ',')}}
                     @php $total_CP_envoi_t2 += $result['t2']['lastModif']->CP_envoi_t2; @endphp
                 @elseif(($result['t2']['lastModif']->CP_recoit_t2) > 0 || ($result['t2']['lastModif']->CP_recoit_t2) < 0)
-                    {{number_format((float)$result['t2']['lastModif']->CP_recoit_t2  , 2, '.', ',')}}
+                    {{number_format((float)$com->total_CP_t2  , 2, '.', ',')}}
                     @php $total_CP_envoi_t2 +=$result['t2']['lastModif']->CP_recoit_t2; @endphp
                 @else
                     0.00
@@ -333,10 +333,10 @@ Ministère de la Communication
             </td>
             <td>
                 @if(($result['t3']['lastModif']->AE_envoi_t3) > 0 || ($result['t3']['lastModif']->AE_envoi_t3) < 0)
-                    {{ number_format((float)$result['t3']['lastModif']->AE_envoi_t3   , 2, '.', ',') }}
+                    {{ number_format((float)$com->total_AE_t3   , 2, '.', ',') }}
                     @php $total_AE_envoi_t3 += $result['t3']['lastModif']->AE_envoi_t3; @endphp
                 @elseif(($result['t3']['lastModif']->AE_recoit_t3) > 0 || ($result['t3']['lastModif']->AE_recoit_t3) < 0)
-                    {{number_format((float) $result['t3']['lastModif']->AE_recoit_t3    , 2, '.', ',') }}
+                    {{number_format((float) $com->total_AE_t3    , 2, '.', ',') }}
                     @php $total_AE_envoi_t3 += $result['t3']['lastModif']->AE_recoit_t3; @endphp
                 @else
                     0.00
@@ -344,10 +344,10 @@ Ministère de la Communication
             </td>
             <td>
                 @if(($result['t3']['lastModif']->CP_envoi_t3) > 0 || ($result['t3']['lastModif']->CP_envoi_t3) < 0)
-                    {{ number_format((float)$result['t3']['lastModif']->CP_envoi_t3    , 2, '.', ',')}}
+                    {{ number_format((float)$com->total_CP_t3    , 2, '.', ',')}}
                     @php $total_CP_envoi_t3 += $result['t3']['lastModif']->CP_envoi_t3; @endphp
                 @elseif(($result['t3']['lastModif']->CP_recoit_t3) > 0 || ($result['t3']['lastModif']->CP_recoit_t3) < 0)
-                    {{ number_format((float)$result['t3']['lastModif']->CP_recoit_t3    , 2, '.', ',') }}
+                    {{ number_format((float)$com->total_CP_t3    , 2, '.', ',') }}
                     @php $total_CP_envoi_t3 += $result['t3']['lastModif']->CP_recoit_t3; @endphp
                 @else
                     0.00
@@ -355,10 +355,10 @@ Ministère de la Communication
             </td>
             <td>
                 @if(($result['t4']['lastModif']->AE_envoi_t4) > 0 || ($result['t4']['lastModif']->AE_envoi_t4) < 0)
-                    {{ number_format((float)$result['t4']['lastModif']->AE_envoi_t4    , 2, '.', ',')}}
+                    {{ number_format((float)$com->total_AE_t4   , 2, '.', ',')}}
                     @php $total_AE_envoi_t4 += $result['t4']['lastModif']->AE_envoi_t4; @endphp
                 @elseif(($result['t4']['lastModif']->AE_recoit_t4) > 0 || ($result['t4']['lastModif']->AE_recoit_t4) < 0)
-                    {{ number_format((float)$result['t4']['lastModif']->AE_recoit_t4    , 2, '.', ',')}}
+                    {{ number_format((float)$com->total_AE_t4    , 2, '.', ',')}}
                     @php $total_AE_envoi_t4 += $result['t4']['lastModif']->AE_recoit_t4; @endphp
                 @else
                     0.00
@@ -366,10 +366,10 @@ Ministère de la Communication
             </td>
             <td>
                 @if(($result['t4']['lastModif']->CP_envoi_t4) > 0 || ($result['t4']['lastModif']->CP_envoi_t4) < 0)
-                    {{ number_format((float)$result['t4']['lastModif']->CP_envoi_t4    , 2, '.', ',') }}
+                    {{ number_format((float)$com->total_CP_t4    , 2, '.', ',') }}
                     @php $total_CP_envoi_t4 += $result['t4']['lastModif']->CP_envoi_t4; @endphp
                 @elseif(($result['t4']['lastModif']->CP_recoit_t4) > 0 || ($result['t4']['lastModif']->CP_recoit_t4) < 0)
-                    {{ number_format((float)$result['t4']['lastModif']->CP_recoit_t4  , 2, '.', ',')  }}
+                    {{ number_format((float)$com->total_CP_t4  , 2, '.', ',')  }}
                     @php $total_CP_envoi_t4 += $result['t4']['lastModif']->CP_recoit_t4; @endphp
                 @else
                     0.00

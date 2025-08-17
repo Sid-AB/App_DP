@@ -149,7 +149,7 @@ function print_dpa($numport)
     $Ttportglob=[];
 
 
-    /*
+ 
 
       $art = Article::selectRaw("id_art, CONCAT(nom_art, ' (', code_art, ')') as nom")->get();
    //dd($art);
@@ -169,7 +169,7 @@ function print_dpa($numport)
         DB::raw("MAX(m1.date_modif) as derniere_modif")
     )
     ->groupBy('m1.id_art');
-
+     
 //pouir recuperer les autres champs 
 $modif = DB::table(DB::raw("({$grouped->toSql()}) as grouped"))
     ->mergeBindings($grouped) // important pour que les bindings soient passés
@@ -191,10 +191,11 @@ $modif = DB::table(DB::raw("({$grouped->toSql()}) as grouped"))
     )
     ->get();
 
-    //$modif = collect([$modif]);
-        dd($modif);
-    
-    */
+   // $modif = collect([$modif]);
+
+  //  dd($modif);
+    $com=$modif[0];
+  
 
     $progms=Programme::where("num_portefeuil",$numport)->get();
     foreach($progms as $progm)
@@ -703,10 +704,10 @@ if ($tableExists) {
         })->values(), //pour afficher les valeurs 
     ];
 });
-//dd($prgrmsousact);
+//dd($lastModif);
 
-//return view('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg','prgrmsousact'));
-$pdf=SnappyPdf::loadView('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg','prgrmsousact'))
+//return view('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg','prgrmsousact','com'));
+$pdf=SnappyPdf::loadView('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg','prgrmsousact','com'))
 ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1);//lanscape mean orentation
 return $pdf->stream('impression_dpic.pdf');
 
@@ -715,8 +716,8 @@ return $pdf->stream('impression_dpic.pdf');
 }else {
  
      
-//return view('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg'));
-$pdf=SnappyPdf::loadView('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg'))
+//return view('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg','com'));
+$pdf=SnappyPdf::loadView('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg','com'))
 ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1);//lanscape mean orentation
 return $pdf->stream('impression_dpic.pdf');
 
