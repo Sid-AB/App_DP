@@ -266,6 +266,7 @@ Ministère de la Communication
         <tbody>
             @php
                 
+                
                 $total_AE_envoi_t1 = 0;
                 $total_CP_envoi_t1 = 0;
                 $total_AE_envoi_t2 = 0;
@@ -277,104 +278,135 @@ Ministère de la Communication
                 
             @endphp
         @foreach($art as $article)
+            
             <tr >
                 <td colspan="2">{{ $article->nom }}</td>
                 @php
                     
                     //$lastModif= ($modif && $modif->nom == $article->nom) ? $modif : null;
                     //dd($article->nom);
-                   //dd($result['t1']['lastModif']->AE_envoi_t1);
+                   //dd($modif->AE_envoi_t1);
             
                 @endphp
-                @if(isset($result['t1']['lastModif']) && $result['t1']['lastModif']->nom == $article->nom)
+            @if(isset($result['t1']['lastModif'][0]) && $result['t1']['lastModif'][0]->nom == $article->nom)     
+            
+          
             <td>
-                @if(($result['t1']['lastModif']->AE_envoi_t1) > 0 || ( $result['t1']['lastModif']->AE_envoi_t1) < 0)
-                    {{number_format((float) $com->total_AE_t1 , 2, '.', ',') }}
-                    @php $total_AE_envoi_t1 += $result['t1']['lastModif']->AE_envoi_t1; @endphp
-                @elseif(($result['t1']['lastModif']->AE_recoit_t1) > 0 || ($result['t1']['lastModif']->AE_recoit_t1) < 0)
-                    {{ number_format((float)$com->total_AE_t1   , 2, '.', ',') }}
-                    @php $total_AE_envoi_t1 += $result['t1']['lastModif']->AE_recoit_t1; @endphp
+                @foreach($result['t1']['lastModif'] as $modif)
+                @if(($modif->AE_envoi_t1) > 0 || ( $modif->AE_envoi_t1) < 0)
+                   
+                    @php $total_AE_envoi_t1 += $modif->AE_envoi_t1; @endphp
+                @elseif(($modif->AE_recoit_t1) > 0 || ($modif->AE_recoit_t1) < 0)
+                  
+                    @php $total_AE_envoi_t1 += $modif->AE_recoit_t1; @endphp
+                    
                 @else
-                    0.00
+                   
                 @endif
+                 @endforeach
+                   {{ number_format((float)$total_AE_envoi_t1   , 2, '.', ',') }}
+            </td>
+            
+            <td>
+                @foreach($result['t1']['lastModif'] as $modif)
+                @if(($modif->CP_envoi_t1) > 0 || ($modif->CP_envoi_t1) < 0)
+                    @php $total_CP_envoi_t1 += $modif->CP_envoi_t1; @endphp
+                @elseif(($modif->CP_recoit_t1) > 0 || ($modif->CP_recoit_t1) < 0)
+                    
+                    @php $total_CP_envoi_t1 += $modif->CP_recoit_t1; @endphp
+                @else
+                  
+            
+                @endif
+                 @endforeach
+                 {{ number_format((float)$total_CP_envoi_t1  , 2, '.', ',')  }}
+            </td>
+           
+           
+            <td>
+                 @foreach($result['t2']['lastModif']  as $modif)
+                @if(($modif->AE_envoi_t2) > 0 || ($modif->AE_envoi_t2) < 0)
+                    @php $total_AE_envoi_t2 += $modif->AE_envoi_t2; @endphp
+                @elseif(($modif->AE_recoit_t2) > 0 || ($modif->AE_recoit_t2) < 0)
+                   
+                    @php $total_AE_envoi_t2 += $modif->AE_recoit_t2; @endphp
+                @else
+                
+                @endif
+                @endforeach
+                 {{ number_format((float)$total_AE_envoi_t2  , 2, '.', ',')  }}
             </td>
             <td>
-                @if(($result['t1']['lastModif']->CP_envoi_t1) > 0 || ($result['t1']['lastModif']->CP_envoi_t1) < 0)
-                    {{ number_format((float)$com->total_CP_t1    , 2, '.', ',')}}
-                    @php $total_CP_envoi_t1 += $result['t1']['lastModif']->CP_envoi_t1; @endphp
-                @elseif(($result['t1']['lastModif']->CP_recoit_t1) > 0 || ($result['t1']['lastModif']->CP_recoit_t1) < 0)
-                    {{ number_format((float)$com->total_CP_t1  , 2, '.', ',')  }}
-                    @php $total_CP_envoi_t1 += $result['t1']['lastModif']->CP_recoit_t1; @endphp
+                 @foreach($result['t2']['lastModif']  as $modif)
+                @if(($modif->CP_envoi_t2) > 0 || ($modif->CP_envoi_t2) < 0)
+                    @php $total_CP_envoi_t2 += $modif->CP_envoi_t2; @endphp
+                @elseif(($modif->CP_recoit_t2) > 0 || ($modif->CP_recoit_t2) < 0)
+                   
+                    @php $total_CP_envoi_t2 +=$modif->CP_recoit_t2; @endphp
                 @else
-                    0.00
+                  
                 @endif
+                @endforeach
+                 {{number_format((float)$total_CP_envoi_t2  , 2, '.', ',')}}
+            </td>
+            
+            
+            <td>
+                 @foreach($result['t3']['lastModif']  as $modif)
+                @if(($modif->AE_envoi_t3) > 0 || ($modif->AE_envoi_t3) < 0)
+                    @php $total_AE_envoi_t3 += $modif->AE_envoi_t3; @endphp
+                @elseif(($modif->AE_recoit_t3) > 0 || ($modif->AE_recoit_t3) < 0)
+                   
+                    @php $total_AE_envoi_t3 += $modif->AE_recoit_t3; @endphp
+                @else
+               
+                @endif
+                @endforeach
+                 {{number_format((float) $total_AE_envoi_t3   , 2, '.', ',') }}
             </td>
             <td>
-                @if(($result['t2']['lastModif']->AE_envoi_t2) > 0 || ($result['t2']['lastModif']->AE_envoi_t2) < 0)
-                    {{number_format((float) $com->total_AE_t2  , 2, '.', ',') }}
-                    @php $total_AE_envoi_t2 += $result['t2']['lastModif']->AE_envoi_t2; @endphp
-                @elseif(($result['t2']['lastModif']->AE_recoit_t2) > 0 || ($result['t2']['lastModif']->AE_recoit_t2) < 0)
-                    {{ number_format((float)$com->total_AE_t2  , 2, '.', ',')  }}
-                    @php $total_AE_envoi_t2 += $result['t2']['lastModif']->AE_recoit_t2; @endphp
+                 @foreach($result['t3']['lastModif']  as $modif)
+                @if(($modif->CP_envoi_t3) > 0 || ($modif->CP_envoi_t3) < 0)
+                    @php $total_CP_envoi_t3 += $modif->CP_envoi_t3; @endphp
+                @elseif(($modif->CP_recoit_t3) > 0 || ($modif->CP_recoit_t3) < 0)
+                    
+                    @php $total_CP_envoi_t3 += $modif->CP_recoit_t3; @endphp
                 @else
-                    0.00
+                 
                 @endif
+                @endforeach
+                {{ number_format((float)$total_CP_envoi_t3    , 2, '.', ',') }}
             </td>
+            
+           
             <td>
-                @if(($result['t2']['lastModif']->CP_envoi_t2) > 0 || ($result['t2']['lastModif']->CP_envoi_t2) < 0)
-                    {{ number_format((float)$com->total_CP_t2    , 2, '.', ',')}}
-                    @php $total_CP_envoi_t2 += $result['t2']['lastModif']->CP_envoi_t2; @endphp
-                @elseif(($result['t2']['lastModif']->CP_recoit_t2) > 0 || ($result['t2']['lastModif']->CP_recoit_t2) < 0)
-                    {{number_format((float)$com->total_CP_t2  , 2, '.', ',')}}
-                    @php $total_CP_envoi_t2 +=$result['t2']['lastModif']->CP_recoit_t2; @endphp
-                @else
-                    0.00
+                 @foreach($result['t4']['lastModif']  as $modif)
+                @if(($modif->AE_envoi_t4) > 0 || ($modif->AE_envoi_t4) < 0)
+                    @php $total_AE_envoi_t4 += $modif->AE_envoi_t4; @endphp
+                @elseif(($modif->AE_recoit_t4) > 0 || ($modif->AE_recoit_t4) < 0)
+                    @php $total_AE_envoi_t4 += $modif->AE_recoit_t4; @endphp
+               @else
+                 
                 @endif
+                 @endforeach
+                {{ number_format((float)$total_AE_envoi_t4    , 2, '.', ',')}}
             </td>
+            
             <td>
-                @if(($result['t3']['lastModif']->AE_envoi_t3) > 0 || ($result['t3']['lastModif']->AE_envoi_t3) < 0)
-                    {{ number_format((float)$com->total_AE_t3   , 2, '.', ',') }}
-                    @php $total_AE_envoi_t3 += $result['t3']['lastModif']->AE_envoi_t3; @endphp
-                @elseif(($result['t3']['lastModif']->AE_recoit_t3) > 0 || ($result['t3']['lastModif']->AE_recoit_t3) < 0)
-                    {{number_format((float) $com->total_AE_t3    , 2, '.', ',') }}
-                    @php $total_AE_envoi_t3 += $result['t3']['lastModif']->AE_recoit_t3; @endphp
-                @else
-                    0.00
+                 @foreach($result['t4']['lastModif']  as $modif)
+                @if(($modif->CP_envoi_t4) > 0 || ($modif->CP_envoi_t4) < 0)
+                   
+                    @php $total_CP_envoi_t4 += $modif->CP_envoi_t4; @endphp
+                @elseif(($modif->CP_recoit_t4) > 0 || ($modif->CP_recoit_t4) < 0)
+                    @php $total_CP_envoi_t4 += $modif->CP_recoit_t4; @endphp
+               @else
+                 
                 @endif
+               
+                 @endforeach
+                {{ number_format((float)$total_CP_envoi_t4  , 2, '.', ',')  }}
             </td>
-            <td>
-                @if(($result['t3']['lastModif']->CP_envoi_t3) > 0 || ($result['t3']['lastModif']->CP_envoi_t3) < 0)
-                    {{ number_format((float)$com->total_CP_t3    , 2, '.', ',')}}
-                    @php $total_CP_envoi_t3 += $result['t3']['lastModif']->CP_envoi_t3; @endphp
-                @elseif(($result['t3']['lastModif']->CP_recoit_t3) > 0 || ($result['t3']['lastModif']->CP_recoit_t3) < 0)
-                    {{ number_format((float)$com->total_CP_t3    , 2, '.', ',') }}
-                    @php $total_CP_envoi_t3 += $result['t3']['lastModif']->CP_recoit_t3; @endphp
-                @else
-                    0.00
-                @endif
-            </td>
-            <td>
-                @if(($result['t4']['lastModif']->AE_envoi_t4) > 0 || ($result['t4']['lastModif']->AE_envoi_t4) < 0)
-                    {{ number_format((float)$com->total_AE_t4   , 2, '.', ',')}}
-                    @php $total_AE_envoi_t4 += $result['t4']['lastModif']->AE_envoi_t4; @endphp
-                @elseif(($result['t4']['lastModif']->AE_recoit_t4) > 0 || ($result['t4']['lastModif']->AE_recoit_t4) < 0)
-                    {{ number_format((float)$com->total_AE_t4    , 2, '.', ',')}}
-                    @php $total_AE_envoi_t4 += $result['t4']['lastModif']->AE_recoit_t4; @endphp
-                @else
-                    0.00
-                @endif
-            </td>
-            <td>
-                @if(($result['t4']['lastModif']->CP_envoi_t4) > 0 || ($result['t4']['lastModif']->CP_envoi_t4) < 0)
-                    {{ number_format((float)$com->total_CP_t4    , 2, '.', ',') }}
-                    @php $total_CP_envoi_t4 += $result['t4']['lastModif']->CP_envoi_t4; @endphp
-                @elseif(($result['t4']['lastModif']->CP_recoit_t4) > 0 || ($result['t4']['lastModif']->CP_recoit_t4) < 0)
-                    {{ number_format((float)$com->total_CP_t4  , 2, '.', ',')  }}
-                    @php $total_CP_envoi_t4 += $result['t4']['lastModif']->CP_recoit_t4; @endphp
-                @else
-                    0.00
-                @endif
-            </td>
+           
                @else 
                <td>{{number_format((float) 0  , 2, '.', ',')}}</td>
                 <td>{{ number_format((float)0  , 2, '.', ',')}}</td>
@@ -458,11 +490,11 @@ Ministère de la Communication
                                     @if($item['prog'] === $programme['code'])
                                  
                                         @php
-                                            if ($index === 0) {  
-                                                $valeurAE = $item['valeurAE'] ?? 0;
+                                            if (array_keys($item)[0] === 'valeurAE') {  
+                                                $valeurAE += $item['valeurAE'] ?? 0;
                                             }
-                                            if ($index === 1) {  
-                                                $valeurCP = $item['valeurCP'] ?? 0;
+                                            if (array_keys($item)[0] === 'valeurCP') {  
+                                                $valeurCP += $item['valeurCP'] ?? 0;
                                             }
                                            
                                         @endphp
@@ -474,11 +506,11 @@ Ministère de la Communication
                                     @if($item['prog'] === $programme['code'])
                                    
                                         @php
-                                            if ($index === 0) { 
-                                                $valeurAE = $item['valeurAE'] ?? 0;
+                                            if (array_keys($item)[0] === 'valeurAE') { 
+                                                $valeurAE += $item['valeurAE'] ?? 0;
                                             }
-                                            if ($index === 1) { 
-                                                $valeurCP = $item['valeurCP'] ?? 0;
+                                            if (array_keys($item)[0] === 'valeurCP') { 
+                                                $valeurCP += $item['valeurCP'] ?? 0;
                                             }
 
                                         @endphp
@@ -537,10 +569,10 @@ Ministère de la Communication
                                     @foreach($tabsousprogcoit as $index => $item)
                                         @if($item['prog'] === $programme['code'] && $item['num_sous_prog'] === $sousProgramme['code'])
                                         @php
-                                            if ($index === 0) { 
+                                            if (array_keys($item)[0] === 'valeurAE') { 
                                                 $valeurAE = $item['valeurAE'] ?? 0;
                                             }
-                                            if ($index === 1) { 
+                                            if (array_keys($item)[0] === 'valeurCP') { 
                                                 $valeurCP = $item['valeurCP'] ?? 0;
                                             }
                                         @endphp
@@ -551,10 +583,10 @@ Ministère de la Communication
                                     @foreach($tabsousprogretir as $index => $item)
                                         @if($item['prog'] === $programme['code'] && $item['num_sous_prog'] === $sousProgramme['code'])
                                         @php
-                                            if ($index === 0) { 
+                                            if (array_keys($item)[0] === 'valeurAE') { 
                                                 $valeurAE = $item['valeurAE'] ?? 0;
                                             }
-                                            if ($index === 1) { 
+                                            if (array_keys($item)[0] === 'valeurCP') { 
                                                 $valeurCP = $item['valeurCP'] ?? 0;
                                             }
                                         @endphp
