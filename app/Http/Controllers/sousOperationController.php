@@ -665,6 +665,42 @@ class sousOperationController extends Controller
         }
     }
 
+    function del_sousop($id)
+    {
+        $ops=SousOperation::where('code_sous_operation',$id)->firstOrFail();
+        if(isset($ops)) 
+       {
+        $ops->delete();
+        return response()->json([
+            'code'=>200,
+            'result'=>$ops
+        ]);
+        }else
+        {
+            return response()->json([
+                'code'=>404,
+            ]);
+        }
+    }
+    
+    /*    function del_sousop($id)
+    {
+        $ops=SousOperation::where('code_sous_operation',$id)->firstOrFail();
+        if(isset($ops)) 
+       {
+        $ops->delete();
+        return response()->json([
+            'code'=>200,
+            'result'=>$ops
+        ]);
+        }else
+        {
+            return response()->json([
+                'code'=>404,
+            ]);
+        }
+    }*/
+
    }
 
 
