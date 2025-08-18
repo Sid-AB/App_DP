@@ -6385,16 +6385,13 @@ function T4_table(id, T, id_s_act, port,code) {
                 else
                 {   
                     
+
                         iso++;
-                      
+                       // $('#T-tables tbody').append(row);
                         
                 }
             }
                 else{
-                 if(data_T_port.operation[io]?.code !== undefined && data_T_port.sousOperation[iso]?.code !== undefined && data_T_port.operation[io].code == data_T_port.sousOperation[iso+1].code)
-                 {
-                    iso++;
-                 }
                     while (sousou) {
                         if(splitcode(data_T_port.sousOperation[iso].code, land).length < 5 )
                             {
@@ -6457,10 +6454,10 @@ function T4_table(id, T, id_s_act, port,code) {
                 
             }
            console.log('at the end'+iso+'op'+io)
-           if(iso == ll)
+           if( ll ==  iso && splitcode(data_T_port.sousOperation[iso].code, land).length < 5)
            {
-            
-                     only_def(data_T_port.sousOperation[iso].code)
+                                            console.log('else insert '+ console.log('else T4' +data_T_port.sousOperation[iso]?.code))
+                                only_def(data_T_port.sousOperation[iso].code)
                             row = '<tr class="ref'+data_T_port.sousOperation[iso].code+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                             '<td scope="row" class="code" style="visibility: hidden;">'  +key+"-"+splitcode(data_T_port.sousOperation[iso].code, land)+' </td>' +
                             '<td><p id="def"></p> <div  id="del_ops" >  <i class="fas fa-eraser"  ></i></div></td>' +
@@ -6468,7 +6465,32 @@ function T4_table(id, T, id_s_act, port,code) {
                             '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T4">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_sousop) + '</td>' +
                             '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T4">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_sousop) + '</td>' +
                             '</tr>';
-                         $('#T-tables tbody').append(row);
+                            $('#T-tables tbody').append(row);
+                    $('.ref'+data_T_port.sousOperation[iso].code+' #del_ops').on('click',function(){
+                    var newKey=$(this).closest('tr').attr('id');
+                    var rowdel=$(this).closest('tr')
+                    var ads = newKey.split('ref')[1]
+                     if (confirm("Cet Sous Operation sera Supprime Definitve Vous ete sur ?")) {
+                     $.ajax({
+                        url:'/del/sousop/'+ads,
+                        type:'GET',
+                        success:function(response)
+                        {
+                             rowdel.addClass("fade-out");
+                        setTimeout(function() {
+                        rowdel.remove();
+                    }, 800); // match transition duration
+
+                        },
+                        error:function()
+                        {
+                            alert('error du suppression')
+                        }
+                        
+                     })
+                    }
+                })
+                    
            }
            }
             if (current.length == 0) {
