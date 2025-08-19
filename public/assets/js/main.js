@@ -5769,7 +5769,7 @@ else
                 if (key == splitcode(data_T_port.group[ig].code, land)) {
                     row = '<tr class="ref' + key + '" id="ref'+data_T_port.group[ig].code+'">' +
                         '<td scope="row"  class="code">' + key + '</td>' +
-                        '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><div> <p>' + value + '</p>  <i class="fas fa-eraser" id="del_ops"></i> </div> </td>' +
+                        '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><div> <p>' + value + '</p> </div> </td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_Over">' +ValAccountingFigures( data_T_port.group[ig].values.ae_ouvert) + '</td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_Over">' +ValAccountingFigures (data_T_port.group[ig].values.cp_ouvert) + '</td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_att">' +ValAccountingFigures (data_T_port.group[ig].values.ae_attendu) + '</td>' +
@@ -5787,7 +5787,7 @@ else
                 if (key == splitcode(data_T_port.operation[io].code, land)) {
                     row = '<tr class="ref'+key+'" id="ref' + data_T_port.operation[io].code + '">' +
                         '<td scope="row"  class="code">' + key + '</td>' +
-                        '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><div> <p>' + value + '</p>  <i class="fas fa-eraser" id="del_ops"></i></div> </td>' +
+                        '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><div> <p>' + value + '</p></i></div> </td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_Over">' +ValAccountingFigures (data_T_port.operation[io].values.ae_ouvert) + '</td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_Over">' +ValAccountingFigures (data_T_port.operation[io].values.cp_ouvert) + '</td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_att">' +ValAccountingFigures (data_T_port.operation[io].values.ae_attendu) + '</td>' +
@@ -5973,7 +5973,7 @@ if(code == 200){
                 '<td scope="row"  class="code">' + key + '</td>' +
                 '<td id="nom_ops"><p>' + val[0] + '</p> </td>' +
                 '<td> - </td>' +
-                '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><div><p>' + val[1] + '</p>  <i class="fas fa-eraser" id="del_ops"></i></div></td>' +
+                '<td id="add_op" style="display: flex;align-items: center; justify-content: space-between;"><div><p>' + val[1] + '</p></div></td>' +
                 '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_rpor">' + 0 + '</td>' +
                 '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_not">' + 0 + '</td>' +
                 '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_enga">' + 0 + '</td>' +
@@ -6779,7 +6779,7 @@ $(document).ready(function () {
                         $('#reloading').addClass('reload-hidden')
                         alert('Nouveau')
                                code=404
-                        T2_table(id, T, ssact, path3[0],code)
+                        T2_table(id, T, ssact, path3[0],response.code)
                         $("#expExcel").css('display','block')
                         $("#vider_t").css('display','none')
                     }
@@ -6815,7 +6815,7 @@ $(document).ready(function () {
                     else {
                         alert('Nouveau ')
                         $('#reloading').addClass('reload-hidden')
-                        T3_table(id, T, ssact, path3[0],code)
+                        T3_table(id, T, ssact, path3[0],response.code)
                         $("#expExcel").css('display','block')
                         $("#vider_t").css('display','none')
                     }
@@ -6853,7 +6853,7 @@ $(document).ready(function () {
                         alert('Nouveau')
                         code =404
                         $('#reloading').addClass('reload-hidden')
-                        T4_table(id, T, ssact, path3[0],code)
+                        T4_table(id, T, ssact, path3[0],response.code)
                         $("#expExcel").css('display','block')
                         $("#vider_t").css('display','none')
                     }
