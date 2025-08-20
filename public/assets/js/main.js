@@ -6330,7 +6330,7 @@ function T4_table(id, T, id_s_act, port,code) {
             if (data_T_port.operation.length > 0 && data_T_port.operation.length > io) {
                var land=data_T_port.operation[io].code.length-5;
                ////console.log(data_T_port.operation[io].code+'-- code so split' +splitcode(data_T_port.operation[io].code, land)+'his leng'+land +"Key origin"+key)
-                if (key == splitcode(data_T_port.operation[io].code, land)  ) {
+                if (key == splitcode(data_T_port.operation[io].code, land)) {
                     row = '<tr class="ref'+key+'" id="ref'+ data_T_port.operation[io].code + '">' +
                         '<td scope="row" class="code" >' + key + '</td>' +
                         '<td ><div><p>' + value + '</p></div> </td>' +
@@ -6347,9 +6347,10 @@ function T4_table(id, T, id_s_act, port,code) {
                 var ll =data_T_port.sousOperation.length -1;
             if (data_T_port.sousOperation.length > 0 && data_T_port.sousOperation.length > iso  ) {
                var land=data_T_port.sousOperation[iso].code.length-5;
-                
+               //var lngv2=data_T_port.sousOperation[iso+1].code.split('-').length
+
                //&& data_T_port.operation[io]?.code !== undefined && data_T_port.sousOperation[iso]?.code !== undefined&& data_T_port.operation[io].code != data_T_port.sousOperation[iso].code
-               ////console.log('T 4 sous operation'+data_T_port.operation[io].code +'!='+ data_T_port.sousOperation[iso+1].code)
+               //console.log('T 4 sous operation'+data_T_port.operation[io].code +'!='+ data_T_port.sousOperation[iso+1].code)
                 if (key == splitcode(data_T_port.sousOperation[iso].code, land)  ) {
                    
                if(data_T_port.operation[io]?.code !== undefined && data_T_port.sousOperation[iso]?.code !== undefined && data_T_port.operation[io].code != data_T_port.sousOperation[iso+1].code)  
@@ -6365,7 +6366,7 @@ function T4_table(id, T, id_s_act, port,code) {
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T4">' +ValAccountingFigures( data_T_port.operation[io-1].values.ae_op) + '</td>' +
                         '</tr>';
                        // $('#T-tables tbody').append(row);
-                    }
+                        }
                     else
                     {
                         row = '<tr class="ref'+key+'" id="s1ref' + data_T_port.sousOperation[iso].code + '">' +
@@ -6376,27 +6377,71 @@ function T4_table(id, T, id_s_act, port,code) {
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T4">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_sousop) + '</td>' +
                         '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T4">' +ValAccountingFigures( data_T_port.sousOperation[iso].values.cp_sousuop) + '</td>' +
                         '</tr>';
-                      
+                     
                     }
                     iso++;
-                    sousou=true
+                   
                     $('#T-tables tbody').append(row);
                 }
                 else
                 {   
                     
-
+                    
                         iso++;
                        // $('#T-tables tbody').append(row);
                         
                 }
+            while(data_T_port.sousOperation[iso]?.code.split('-').length > 8)
+            {   
+      
+                            //console.log('else' +data_T_port.sousOperation[iso]?.code+'lng'+lngv2)
+                            sousou=true
+                           
+
+                             only_def(data_T_port.sousOperation[iso].code)
+                            row = '<tr class="ref'+data_T_port.sousOperation[iso].code+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
+                            '<td scope="row" class="code" style="visibility: hidden;">'  +key+"-"+splitcode(data_T_port.sousOperation[iso].code, land)+' </td>' +
+                            '<td><p id="def"></p> <div  id="del_ops" >  <i class="fas fa-eraser"  ></i></div></td>' +
+                            '<td id="sous_def" ></td>'+
+                            '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T4">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_sousop) + '</td>' +
+                            '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T4">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_sousop) + '</td>' +
+                            '</tr>';
+                            $('#T-tables tbody').append(row);
+                    $('.ref'+data_T_port.sousOperation[iso].code+' #del_ops').on('click',function(){
+                    var newKey=$(this).closest('tr').attr('id');
+                    var rowdel=$(this).closest('tr')
+                    var ads = newKey.split('ref')[1]
+                     if (confirm("Cet Sous Operation sera Supprime Definitve Vous ete sur ?")) {
+                     $.ajax({
+                        url:'/del/sousop/'+ads,
+                        type:'GET',
+                        success:function(response)
+                        {
+                             rowdel.addClass("fade-out");
+                        setTimeout(function() {
+                        rowdel.remove();
+                    }, 800); // match transition duration
+
+                        },
+                        error:function()
+                        {
+                            alert('error du suppression')
+                        }
+                        
+                     })
+                    }
+                })
+                 iso++
             }
-                else{
+            }
+                else{      
+                      
+                    console.log('so'+sousou) 
                     while (sousou) {
                         if(splitcode(data_T_port.sousOperation[iso].code, land).length < 5 )
                             {
-                                console.log('else insert '+ console.log('else T4' +data_T_port.sousOperation[iso]?.code))
-                                only_def(data_T_port.sousOperation[iso].code)
+                                
+                            only_def(data_T_port.sousOperation[iso].code)
                             row = '<tr class="ref'+data_T_port.sousOperation[iso].code+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                             '<td scope="row" class="code" style="visibility: hidden;">'  +key+"-"+splitcode(data_T_port.sousOperation[iso].code, land)+' </td>' +
                             '<td><p id="def"></p> <div  id="del_ops" >  <i class="fas fa-eraser"  ></i></div></td>' +
@@ -6453,7 +6498,6 @@ function T4_table(id, T, id_s_act, port,code) {
                 }
                 
             }
-           console.log('at the end'+iso+'op'+io)
            if( ll ==  iso && splitcode(data_T_port.sousOperation[iso].code, land).length < 5)
            {
                                             console.log('else insert '+ console.log('else T4' +data_T_port.sousOperation[iso]?.code))
