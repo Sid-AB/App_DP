@@ -1421,6 +1421,23 @@ transition-timing-function: line;
   cursor: pointer;
 }
 
+
+.access_handler
+{
+  background-color: azure;
+  height: 25px;
+  width: 85px;
+  border-radius: 5px;
+  z-index: 100
+}
+.access_handler:hover
+{
+  -webkit-box-shadow: inset -2px 0px 40px -15px rgb(195, 255, 56);
+  -moz-box-shadow: inset -2px 0px 40px -15px rgb(242, 255, 56);
+  box-shadow: inset -2px 0px 40px -15px rgb(212, 255, 56);
+  cursor: pointer;
+}
+
 #expExcel
 {
   color: black;
