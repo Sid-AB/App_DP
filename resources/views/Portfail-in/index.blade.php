@@ -231,7 +231,7 @@
                   <div class="two_handel" style="display: flex;align-items: center;justify-content: center;" id="{{$act['num_act']}}_file">
                    <div class="modift_handler" id="act_{{$act['num_act']}}"><i class="far fa-edit"></i></div> 
                    <div class="delete_handler" id="act_{{$act['num_act']}}"><i class="fas fa-trash-alt"></i></div>
-                   <div class="access_handler"  id="act_{{$act['num_act']}}"><i class="fas fa-location-arrow"></i></div>
+                   <div class="access_handler"  id="act_{{$act['num_act']}}"><i class="fas fa-door-open"></i></div>
                    <div class="file_handler" id="{{$act['num_act']}}"><i class="fas fa-file-pdf"></i></div>
                 </div>
                  

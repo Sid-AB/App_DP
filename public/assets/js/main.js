@@ -6401,8 +6401,8 @@ function T4_table(id, T, id_s_act, port,code) {
                              only_def(data_T_port.sousOperation[iso].code)
                             row = '<tr class="ref'+data_T_port.sousOperation[iso].code+'" id="ref' + data_T_port.sousOperation[iso].code + '">' +
                             '<td scope="row" class="code" style="visibility: hidden;">'  +key+"-"+splitcode(data_T_port.sousOperation[iso].code, land)+' </td>' +
-                            '<td><p id="def"></p> <div  id="del_ops" >  <i class="fas fa-eraser"  ></i></div></td>' +
-                            '<td id="sous_def" ></td>'+
+                            '<td><p id="sous_def"></p> <div  id="del_ops" >  <i class="fas fa-eraser"  ></i></div></td>' +
+                            '<td id="def" ></td>'+
                             '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T4">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.ae_sousop) + '</td>' +
                             '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T4">' +ValAccountingFigures (data_T_port.sousOperation[iso].values.cp_sousop) + '</td>' +
                             '</tr>';
