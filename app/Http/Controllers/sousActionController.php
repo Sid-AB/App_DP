@@ -277,30 +277,62 @@ function print_dpa($numport)
 
     $art = Article::selectRaw("id_art, CONCAT(nom_art, ' (', code_art, ')') as nom")->get();
    //dd($art);
-    $modif = DB::table('modification_t_s as m1')
+  $grouped = DB::table('modification_t_s as m1')
     ->join('articles', 'm1.id_art', '=', 'articles.id_art')
     ->whereRaw("SUBSTRING_INDEX(m1.num_prog, '-', 2) = ?", [$numport])
     ->select(
-        'm1.*',
-        DB::raw("CONCAT(articles.nom_art, ' (', articles.code_art, ')') as nom")
+        'm1.id_art',
+        DB::raw("SUM(AE_envoi_t1 + AE_recoit_t1) as total_AE_t1"),
+        DB::raw("SUM(CP_envoi_t1 + CP_recoit_t1) as total_CP_t1"),
+        DB::raw("SUM(AE_envoi_t2 + AE_recoit_t2) as total_AE_t2"),
+        DB::raw("SUM(CP_envoi_t2 + CP_recoit_t2) as total_CP_t2"),
+        DB::raw("SUM(AE_envoi_t3 + AE_recoit_t3) as total_AE_t3"),
+        DB::raw("SUM(CP_envoi_t3 + CP_recoit_t3) as total_CP_t3"),
+        DB::raw("SUM(AE_envoi_t4 + AE_recoit_t4) as total_AE_t4"),
+        DB::raw("SUM(CP_envoi_t4 + CP_recoit_t4) as total_CP_t4"),
+        DB::raw("MAX(m1.date_modif) as derniere_modif")
     )
-    ->orderBy('m1.date_modif', 'desc') 
-    ->first(); 
+    ->groupBy('m1.id_art');
+
+//pouir recuperer les autres champs 
+$modif = DB::table(DB::raw("({$grouped->toSql()}) as grouped"))
+    ->mergeBindings($grouped) // important pour que les bindings soient passés
+    ->join('modification_t_s as m1', 'grouped.id_art', '=', 'm1.id_art')
+    ->join('articles', 'm1.id_art', '=', 'articles.id_art')
+    ->select(
+        'm1.*', 
+        'articles.nom_art',
+        'articles.code_art',
+        'grouped.total_AE_t1',
+        'grouped.total_CP_t1',
+        'grouped.total_AE_t2',
+        'grouped.total_CP_t2',
+        'grouped.total_AE_t3',
+        'grouped.total_CP_t3',
+        'grouped.total_AE_t4',
+        'grouped.total_CP_t4',
+        'grouped.derniere_modif'
+    )
+    ->get();
+
     //$modif = collect([$modif]);
-        //dd($modif);
+        dd($modif);
     $result = []; 
-    $lastModif = null;
-   // dd($art);
+    $lastModif = [];
+   //dd($art);
     foreach($art as $article){
-        $lastM =($modif && $modif->id_art == $article->id_art) ? $modif : null;
+        {
+        foreach($modif as $mod )
+        $lastM =($mod && $mod->id_art == $article->id_art) ? $mod : null;
         if($lastM != null){
-            $lastModif= $lastM;
-        }
+            array_push($lastModif,$lastM) ;   }
     }
+}
         //dd($article);
 
-    //dd($lastModif);
+    dd($lastModif);
 //dd($article,$lastModif,$modif);
+$lastModif=$lastModif[0];
 if($lastModif){ 
 //mm prog et mm sousprog
 
@@ -331,7 +363,7 @@ $result['t4']=$this->compareT($lastModif, 't4');
     $result['t2']=$this->compareT($lastModif, 't2');
     $result['t3']=$this->compareT($lastModif, 't3');
     $result['t4']=$this->compareT($lastModif, 't4');
- //  dd($result);
+    // dd($result);
 } elseif ($lastModif->num_prog_retire != $lastModif->num_prog && $lastModif->num_sous_prog != $lastModif->num_sous_prog_retire) {
   
     $result['t1']=$this->compareT($lastModif, 't1');
@@ -339,7 +371,7 @@ $result['t4']=$this->compareT($lastModif, 't4');
     $result['t2']=$this->compareT($lastModif, 't2');
     $result['t3']=$this->compareT($lastModif, 't3');
     $result['t4']=$this->compareT($lastModif, 't4');
-  // dd($result);
+  dd($result);
 } elseif ($lastModif->num_prog_retire && $lastModif->num_prog == null && $lastModif->num_sous_prog_retire && $lastModif->num_sous_prog==null) {
     // Si envoi 
 
@@ -357,7 +389,7 @@ $result['t4']=$this->compareT($lastModif, 't4');
     $result['t2']=$this->compareT($lastModif, 't2');
     $result['t3']=$this->compareT($lastModif, 't3');
     $result['t4']=$this->compareT($lastModif, 't4');
-  //  dd($result);
+   // dd($result);
 }else{
     return ('erreur');
 }
@@ -657,10 +689,10 @@ if ($tableExists) {
 });
 //dd($prgrmsousact);
 
-//return view('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg','prgrmsousact'));
-$pdf=SnappyPdf::loadView('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg','prgrmsousact'))
+return view('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg','prgrmsousact'));
+/*$pdf=SnappyPdf::loadView('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg','prgrmsousact'))
 ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1);//lanscape mean orentation
-return $pdf->stream('impression_dpic.pdf');
+return $pdf->stream('impression_dpic.pdf');*/
 
 
 
