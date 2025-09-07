@@ -148,6 +148,55 @@ function print_dpa($numport)
        $TtCP4_act=0;
     $Ttportglob=[];
 
+
+ 
+
+      $art = Article::selectRaw("id_art, CONCAT(nom_art, ' (', code_art, ')') as nom")->get();
+   //dd($art);
+  $grouped = DB::table('modification_t_s as m1')
+    ->join('articles', 'm1.id_art', '=', 'articles.id_art')
+    ->whereRaw("SUBSTRING_INDEX(m1.num_prog, '-', 2) = ?", [$numport])
+    ->select(
+        'm1.id_art',
+        DB::raw("SUM(AE_envoi_t1 + AE_recoit_t1) as total_AE_t1"),
+        DB::raw("SUM(CP_envoi_t1 + CP_recoit_t1) as total_CP_t1"),
+        DB::raw("SUM(AE_envoi_t2 + AE_recoit_t2) as total_AE_t2"),
+        DB::raw("SUM(CP_envoi_t2 + CP_recoit_t2) as total_CP_t2"),
+        DB::raw("SUM(AE_envoi_t3 + AE_recoit_t3) as total_AE_t3"),
+        DB::raw("SUM(CP_envoi_t3 + CP_recoit_t3) as total_CP_t3"),
+        DB::raw("SUM(AE_envoi_t4 + AE_recoit_t4) as total_AE_t4"),
+        DB::raw("SUM(CP_envoi_t4 + CP_recoit_t4) as total_CP_t4"),
+        DB::raw("MAX(m1.date_modif) as derniere_modif")
+    )
+    ->groupBy('m1.id_art');
+     
+//pouir recuperer les autres champs 
+$modif = DB::table(DB::raw("({$grouped->toSql()}) as grouped"))
+    ->mergeBindings($grouped) // important pour que les bindings soient passés
+    ->join('modification_t_s as m1', 'grouped.id_art', '=', 'm1.id_art')
+    ->join('articles', 'm1.id_art', '=', 'articles.id_art')
+    ->select(
+        'm1.*', 
+        'articles.nom_art',
+        'articles.code_art',
+        'grouped.total_AE_t1',
+        'grouped.total_CP_t1',
+        'grouped.total_AE_t2',
+        'grouped.total_CP_t2',
+        'grouped.total_AE_t3',
+        'grouped.total_CP_t3',
+        'grouped.total_AE_t4',
+        'grouped.total_CP_t4',
+        'grouped.derniere_modif'
+    )
+    ->get();
+
+   // $modif = collect([$modif]);
+
+  //  dd($modif);
+    $com=$modif[0];
+        
+
     $progms=Programme::where("num_portefeuil",$numport)->get();
     foreach($progms as $progm)
     {
@@ -292,47 +341,30 @@ function print_dpa($numport)
         DB::raw("SUM(CP_envoi_t4 + CP_recoit_t4) as total_CP_t4"),
         DB::raw("MAX(m1.date_modif) as derniere_modif")
     )
-    ->groupBy('m1.id_art');
-
-//pouir recuperer les autres champs 
-$modif = DB::table(DB::raw("({$grouped->toSql()}) as grouped"))
-    ->mergeBindings($grouped) // important pour que les bindings soient passés
-    ->join('modification_t_s as m1', 'grouped.id_art', '=', 'm1.id_art')
-    ->join('articles', 'm1.id_art', '=', 'articles.id_art')
-    ->select(
-        'm1.*', 
-        'articles.nom_art',
-        'articles.code_art',
-        'grouped.total_AE_t1',
-        'grouped.total_CP_t1',
-        'grouped.total_AE_t2',
-        'grouped.total_CP_t2',
-        'grouped.total_AE_t3',
-        'grouped.total_CP_t3',
-        'grouped.total_AE_t4',
-        'grouped.total_CP_t4',
-        'grouped.derniere_modif'
-    )
-    ->get();
-
+    ->orderBy('m1.date_modif', 'desc') 
+    ->get(); 
     //$modif = collect([$modif]);
         dd($modif);
     $result = []; 
-    $lastModif = [];
-   //dd($art);
+    $lastModifs = [];
+   // dd($art);
     foreach($art as $article){
+        foreach($modif as $m)
         {
-        foreach($modif as $mod )
-        $lastM =($mod && $mod->id_art == $article->id_art) ? $mod : null;
-        if($lastM != null){
-            array_push($lastModif,$lastM) ;   }
+        $lastM =($m && $m->id_art == $article->id_art) ? $m : null;
+            if($lastM != null)
+            {
+            array_push($lastModifs, $lastM);
+            }
+        }
     }
-}
+
         //dd($article);
 
-    dd($lastModif);
+    //dd($lastModifs);
 //dd($article,$lastModif,$modif);
-$lastModif=$lastModif[0];
+foreach($lastModifs as $lastModif)
+{
 if($lastModif){ 
 //mm prog et mm sousprog
 
@@ -340,64 +372,64 @@ if($lastModif){
 if ($lastModif->num_prog == $lastModif->num_prog_retire && $lastModif->num_sous_prog == $lastModif->num_sous_prog_retire) {
 
 
-$result['t1']=$this->compareT($lastModif, 't1');
-$result['t2']=$this->compareT($lastModif, 't2');
-$result['t3']=$this->compareT($lastModif, 't3');
-$result['t4']=$this->compareT($lastModif, 't4');
+$result['t1']=$this->compareT($lastModifs, 't1');
+$result['t2']=$this->compareT($lastModifs, 't2');
+$result['t3']=$this->compareT($lastModifs, 't3');
+$result['t4']=$this->compareT($lastModifs, 't4');
   //dd($result);
 //dd($lastModif);
 } elseif ($lastModif->num_prog == $lastModif->num_prog_retire && $lastModif->num_sous_prog != $lastModif->num_sous_prog_retire) {
 
-    $result['t1']=$this->compareT($lastModif, 't1');
+    $result['t1']=$this->compareT($lastModifs, 't1');
   
-    $result['t2']=$this->compareT($lastModif, 't2');
-    $result['t3']=$this->compareT($lastModif, 't3');
-    $result['t4']=$this->compareT($lastModif, 't4');
+    $result['t2']=$this->compareT($lastModifs, 't2');
+    $result['t3']=$this->compareT($lastModifs, 't3');
+    $result['t4']=$this->compareT($lastModifs, 't4');
    //dd($lastModif); 
   //dd($result);
 }elseif ($lastModif->num_prog_retire != $lastModif->num_prog && $lastModif->num_sous_prog == $lastModif->num_sous_prog_retire) {
     //le cas diffrnt prog et mm sous prog
    
-    $result['t1']=$this->compareT($lastModif, 't1');
+    $result['t1']=$this->compareT($lastModifs, 't1');
   
-    $result['t2']=$this->compareT($lastModif, 't2');
-    $result['t3']=$this->compareT($lastModif, 't3');
-    $result['t4']=$this->compareT($lastModif, 't4');
-    // dd($result);
+    $result['t2']=$this->compareT($lastModifs, 't2');
+    $result['t3']=$this->compareT($lastModifs, 't3');
+    $result['t4']=$this->compareT($lastModifs, 't4');
+ //  dd($result);
 } elseif ($lastModif->num_prog_retire != $lastModif->num_prog && $lastModif->num_sous_prog != $lastModif->num_sous_prog_retire) {
   
-    $result['t1']=$this->compareT($lastModif, 't1');
+    $result['t1']=$this->compareT($lastModifs, 't1');
   
-    $result['t2']=$this->compareT($lastModif, 't2');
-    $result['t3']=$this->compareT($lastModif, 't3');
-    $result['t4']=$this->compareT($lastModif, 't4');
-  dd($result);
+    $result['t2']=$this->compareT($lastModifs, 't2');
+    $result['t3']=$this->compareT($lastModifs, 't3');
+    $result['t4']=$this->compareT($lastModifs, 't4');
+  // dd($result);
 } elseif ($lastModif->num_prog_retire && $lastModif->num_prog == null && $lastModif->num_sous_prog_retire && $lastModif->num_sous_prog==null) {
     // Si envoi 
 
-    $result['t1']=$this->compareT($lastModif, 't1');
+    $result['t1']=$this->compareT($lastModifs, 't1');
   
-    $result['t2']=$this->compareT($lastModif, 't2');
-    $result['t3']=$this->compareT($lastModif, 't3');
-    $result['t4']=$this->compareT($lastModif, 't4');
+    $result['t2']=$this->compareT($lastModifs, 't2');
+    $result['t3']=$this->compareT($lastModifs, 't3');
+    $result['t4']=$this->compareT($lastModifs, 't4');
   //  dd($result);
 } elseif ($lastModif->num_prog  && $lastModif->num_prog_retire == null && $lastModif->num_sous_prog && $lastModif->num_sous_prog_retire==null) {
     // Si reçoit
  
-    $result['t1']=$this->compareT($lastModif, 't1');
+    $result['t1']=$this->compareT($lastModifs, 't1');
   
-    $result['t2']=$this->compareT($lastModif, 't2');
-    $result['t3']=$this->compareT($lastModif, 't3');
-    $result['t4']=$this->compareT($lastModif, 't4');
-   // dd($result);
+    $result['t2']=$this->compareT($lastModifs, 't2');
+    $result['t3']=$this->compareT($lastModifs, 't3');
+    $result['t4']=$this->compareT($lastModifs, 't4');
+  //  dd($result);
 }else{
     return ('erreur');
 }
 
 
 }
-
-
+}
+//dd($result);
 $portefeuilles = Portefeuille::with(['Programme.SousProgramme.Action.SousAction'])->get();
 
 $resultData = [];
@@ -687,20 +719,20 @@ if ($tableExists) {
         })->values(), //pour afficher les valeurs 
     ];
 });
-//dd($prgrmsousact);
+//dd($result);
 
-return view('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg','prgrmsousact'));
-/*$pdf=SnappyPdf::loadView('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg','prgrmsousact'))
+//return view('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModifs','result','resultData','progg','prgrmsousact','com'));
+$pdf=SnappyPdf::loadView('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModifs','result','resultData','progg','prgrmsousact','com'))
 ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1);//lanscape mean orentation
-return $pdf->stream('impression_dpic.pdf');*/
+return $pdf->stream('impression_dpic.pdf');
 
 
 
 }else {
  
      
-//return view('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg'));
-$pdf=SnappyPdf::loadView('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModif','result','resultData','progg'))
+//return view('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModifs','result','resultData','progg','com'));
+$pdf=SnappyPdf::loadView('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModifs','result','resultData','progg','com'))
 ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1);//lanscape mean orentation
 return $pdf->stream('impression_dpic.pdf');
 
@@ -712,15 +744,18 @@ return $pdf->stream('impression_dpic.pdf');
 }
 
 //==============================fct compareT====================================================*
-function compareT($lastModif, $t) {
+function compareT($lastModifs, $t) {
+$tabsousprogretir=[];
+$tabsousprogrecoit=[];
 
+foreach ($lastModifs as $lastModif) {
+        # code...
+   
 $envoiAE = 'AE_envoi_' . $t;
 //dd($envoiAE );
 $recoitAE = 'AE_recoit_' . $t;
 $envoiCP = 'CP_envoi_' . $t;
 $recoitCP = 'CP_recoit_' . $t;
-$tabsousprogretir=[];
-$tabsousprogrecoit=[];
 
 $num_actionret = $lastModif->num_sous_action_retire;
 $partsret = explode('-', $num_actionret);
@@ -742,7 +777,7 @@ if ($lastModif->$envoiAE == $lastModif->$recoitAE && $lastModif->$envoiCP == $la
     $lastModif->$recoitAE = 0;
     $lastModif->$recoitCP = 0;
 
-    $tabsousprogretir[] = [
+   array_push( $tabsousprogretir, [
         'valeurAE' => $lastModif->$envoiAE,
         'valeurCP' => $lastModif->$envoiCP,
         'num_sous_prog' => $lastModif->num_sous_prog_retire,
@@ -750,7 +785,7 @@ if ($lastModif->$envoiAE == $lastModif->$recoitAE && $lastModif->$envoiCP == $la
         'num_action' => $num_action_retire,
         'num_sous_action' => $lastModif->num_sous_action_retire,
        
-    ];
+    ]);
 }
    
     //dd($tabsousprogretir, $tabsousprogrecoit);
@@ -758,13 +793,13 @@ if ($lastModif->$envoiAE == $lastModif->$recoitAE && $lastModif->$envoiCP == $la
     if (isset($lastModif->$envoiAE) && $lastModif->$envoiAE > 0) {
         $lastModif->$envoiAE = -$lastModif->$envoiAE;
 
-        $tabsousprogretir[] = [
+       array_push( $tabsousprogretir , [
             'valeurAE' => $lastModif->$envoiAE,
             'num_sous_prog' => $lastModif->num_sous_prog_retire,
             'prog' => $lastModif->num_prog_retire,
             'num_action' => $num_action_retire,
             'num_sous_action' => $lastModif->num_sous_action_retire,
-        ];
+        ]);
     
        // dd($tabsousprogretir);
     }
@@ -772,13 +807,13 @@ if ($lastModif->$envoiAE == $lastModif->$recoitAE && $lastModif->$envoiCP == $la
     if (isset($lastModif->$envoiCP) && $lastModif->$envoiCP > 0) {
         $lastModif->$envoiCP = -$lastModif->$envoiCP;
 
-        $tabsousprogretir[] = [
+       array_push ($tabsousprogretir, [
             'valeurCP' => $lastModif->$envoiCP,
             'num_sous_prog' => $lastModif->num_sous_prog_retire,
             'prog' => $lastModif->num_prog_retire,
             'num_action' => $num_action_retire,
             'num_sous_action' => $lastModif->num_sous_action_retire,
-        ];
+        ]);
     
       //  dd($tabsousprogretir);
     }
@@ -786,36 +821,36 @@ if ($lastModif->$envoiAE == $lastModif->$recoitAE && $lastModif->$envoiCP == $la
 
  
     if (isset($lastModif->$recoitAE) && $lastModif->$recoitAE > 0) {
-        $tabsousprogrecoit[] = [
+       array_push( $tabsousprogrecoit , [
             'valeurAE' => $lastModif->$recoitAE,
             'num_sous_prog' => $lastModif->num_sous_prog,
             'prog' => $lastModif->num_prog,
             'num_action' => $num_action_recoit,
             'num_sous_action' => $lastModif->num_sous_action,
-        ];
+        ]);
     }
 
     if (isset($lastModif->$recoitCP) && $lastModif->$recoitCP > 0) {
-        $tabsousprogrecoit[] = [
+      array_push ( $tabsousprogrecoit , [
             'valeurCP' => $lastModif->$recoitCP,
             'num_sous_prog' => $lastModif->num_sous_prog,
             'prog' => $lastModif->num_prog,
             'num_action' => $num_action_recoit,
             'num_sous_action' => $lastModif->num_sous_action,
-        ];
+        ]);
     }
     //dd($tabsousprogretir, $tabsousprogrecoit);
   
 }
 
-
+ }
 //dd($lastModif, $tabsousprogretir, $tabsousprogrecoit);
 
 
 return [
     'tabsousprogretir' => $tabsousprogretir,
     'tabsousprogrecoit' => $tabsousprogrecoit,
-    'lastModif' => $lastModif,
+    'lastModif' => $lastModifs,
 ];
 
 }

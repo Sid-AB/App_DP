@@ -171,7 +171,7 @@
             <td>{{ $namesT4[$avantDernierePartie] ?? 'Nom non trouvé' }}</td>
             <td class="vert4">{{ $dispo ?? $namesT4[$avantDernierePartie] }}</td>
             <td class="aecp">{{ number_format((float) ($sousOp['values']['ae_sousop'] ?? 0), 2, '.', ',') }}</td>
-            <td class="aecp">{{ number_format((float) ($sousOp['values']['cp_sousuop'] ?? 0), 2, '.', ',') }}</td>
+            <td class="aecp">{{ number_format((float) ($sousOp['values']['cp_sousop'] ?? 0), 2, '.', ',') }}</td>
         </tr>
     @else
      
@@ -180,7 +180,7 @@
             <td>{{ $namesT4[$avantDernierePartie] ?? 'Nom non trouvé' }}</td>
             <td class="vert4">{{ $dispo ?? $namesT4[$avantDernierePartie] }}</td>
             <td class="aecp">{{ number_format((float) ($sousOp['values']['ae_sousop'] ?? 0), 2, '.', ',') }}</td>
-            <td class="aecp">{{ number_format((float) ($sousOp['values']['cp_sousuop'] ?? 0), 2, '.', ',') }}</td>
+            <td class="aecp">{{ number_format((float) ($sousOp['values']['cp_sousop'] ?? 0), 2, '.', ',') }}</td>
         </tr>
     @endif
 @else
@@ -200,7 +200,7 @@
             <td>{{ $namesT4[$codeextr] ?? 'Nom non trouvé' }}</td>
             <td class="vert4">{{ $dispo ?? $namesT4[$avantDernierePartie] }}</td>
             <td class="aecp">{{ number_format((float) ($sousOp['values']['ae_sousop'] ?? 0), 2, '.', ',') }}</td>
-            <td class="aecp">{{ number_format((float) ($sousOp['values']['cp_sousuop'] ?? 0), 2, '.', ',') }}</td>
+            <td class="aecp">{{ number_format((float) ($sousOp['values']['cp_sousop'] ?? 0), 2, '.', ',') }}</td>
         </tr>
     @endif
 @endif

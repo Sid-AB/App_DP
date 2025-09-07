@@ -415,11 +415,11 @@
                                     @if(isset($item['prog']) && $item['prog'] === $programme['code'])
                                  
                                         @php
-                                            if ($index === 0) {  
-                                                $valeurAE = $item['valeurAE'] ?? $valeurAE;
+                                            if (array_keys($item)[0] === 'valeurAE') {  
+                                                $valeurAE += $item['valeurAE'] ?? $valeurAE;
                                             }
-                                            if ($index === 1) {  
-                                                $valeurCP = $item['valeurCP'] ?? $valeurCP;
+                                            if (array_keys($item)[0] === 'valeurCP') {  
+                                                $valeurCP += $item['valeurCP'] ?? $valeurCP;
                                             }
 
                                            
@@ -434,11 +434,11 @@
                                 @if(isset($item['prog']) && $item['prog'] === $programme['code'])
                                
                                         @php
-                                            if ($index === 0) { 
-                                                $valeurAE = $item['valeurAE'] ??$valeurAE;
+                                            if (array_keys($item)[0] === 'valeurAE') { 
+                                                $valeurAE += $item['valeurAE'] ??$valeurAE;
                                             }
-                                            if ($index === 1) { 
-                                                $valeurCP = $item['valeurCP'] ?? $valeurCP;
+                                            if (array_keys($item)[0] === 'valeurCP') { 
+                                                $valeurCP += $item['valeurCP'] ?? $valeurCP;
                                             }
 
                                         @endphp
@@ -470,10 +470,16 @@
                                     $CP_recoit_Key='CP_recoit_'.$key;
                                     $AE_envoi_Key='AE_envoi_'.$key;
                                     $CP_envoi_Key='CP_envoi_'.$key;
+
                                     if(!empty($result[$key])){
                                       //dd($result);
-                                    $valeurAEr=$result[$key]['lastModif']->$AE_recoit_Key + $result[$key]['lastModif']->$AE_envoi_Key;
-                                    $valeurCPr=$result[$key]['lastModif']->$CP_recoit_Key + $result[$key]['lastModif']->$CP_envoi_Key;}
+                                    foreach ($result[$key]['lastModif'] as $modif) 
+                                    {
+                                        # code...
+                                    $valeurAEr=$modif->$AE_recoit_Key + $modif->$AE_envoi_Key;
+                                    $valeurCPr=$modif->$CP_recoit_Key + $modif->$CP_envoi_Key;
+                                     }
+                                }
                                     //dd( $valeurAE,$valeurCP);
                                 @endphp
                                 
@@ -543,10 +549,10 @@
                                     @foreach($tabsousprogcoit as $index => $item)
                                         @if($item['prog'] === $programme['code'] && $item['num_sous_prog'] === $sousProgramme['code'])
                                         @php
-                                            if ($index === 0) { 
+                                            if (array_keys($item)[0] === 'valeurAE') { 
                                                 $valeurAE = $item['valeurAE'] ?? 0;
                                             }
-                                            if ($index === 1) { 
+                                            if (array_keys($item)[0] === 'valeurCP') { 
                                                 $valeurCP = $item['valeurCP'] ?? 0;
                                             }
                                         @endphp
@@ -557,10 +563,10 @@
                                     @foreach($tabsousprogretir as $index => $item)
                                         @if($item['prog'] === $programme['code'] && $item['num_sous_prog'] === $sousProgramme['code'])
                                         @php
-                                            if ($index === 0) { 
+                                            if (array_keys($item)[0] === 'valeurAE') { 
                                                 $valeurAE = $item['valeurAE'] ?? 0;
                                             }
-                                            if ($index === 1) { 
+                                            if (array_keys($item)[0] === 'valeurCP') { 
                                                 $valeurCP = $item['valeurCP'] ?? 0;
                                             }
                                         @endphp
@@ -572,9 +578,14 @@
                                     $CP_recoit_Key='CP_recoit_'.$key;
                                     $AE_envoi_Key='AE_envoi_'.$key;
                                     $CP_envoi_Key='CP_envoi_'.$key;
+
                                     if(!empty($result[$key])){
-                                    $valeurAEsr=$result[$key]['lastModif']->$AE_recoit_Key + $result[$key]['lastModif']->$AE_envoi_Key;
-                                    $valeurCPsr=$result[$key]['lastModif']->$CP_recoit_Key + $result[$key]['lastModif']->$CP_envoi_Key;}
+                                    foreach ($result[$key]['lastModif'] as $modif) {
+                                        # code...  
+                                    $valeurAEsr=$modif->$AE_recoit_Key + $modif->$AE_envoi_Key;
+                                    $valeurCPsr=$modif->$CP_recoit_Key + $modif->$CP_envoi_Key;
+                                    }
+                                  }
                                     //dd( $valeurAE,$valeurCP);
                                     @endphp
                                     {{-- Affichage des valeurs --}}
@@ -622,11 +633,11 @@
                                     @foreach($tabsousprogcoit as $index => $item)
                                         @if($item['prog'] === $programme['code'] && $item['num_sous_prog'] === $sousProgramme['code'] && $item['num_action'] === $action['code'])
                                         @php
-                                            if ($index === 0) { 
-                                                $valeurAE = $item['valeurAE'] ?? 0;
+                                            if (array_keys($item)[0] === 'valeurAE') { 
+                                                $valeurAE += $item['valeurAE'] ?? 0;
                                             }
-                                            if ($index === 1) { 
-                                                $valeurCP = $item['valeurCP'] ?? 0;
+                                            if (array_keys($item)[0] === 'valeurCP') { 
+                                                $valeurCP += $item['valeurCP'] ?? 0;
                                             }
                                         @endphp
                                         @endif
@@ -636,11 +647,11 @@
                                     @foreach($tabsousprogretir as $index => $item)
                                         @if($item['prog'] === $programme['code'] && $item['num_sous_prog'] === $sousProgramme['code'] && $item['num_action'] === $action['code'])
                                         @php
-                                            if ($index === 0) { 
-                                                $valeurAE = $item['valeurAE'] ?? 0;
+                                            if (array_keys($item)[0] === 'valeurAE') { 
+                                                $valeurAE += $item['valeurAE'] ?? 0;
                                             }
-                                            if ($index === 1) { 
-                                                $valeurCP = $item['valeurCP'] ?? 0;
+                                            if (array_keys($item)[0] === 'valeurCP') { 
+                                                $valeurCP += $item['valeurCP'] ?? 0;
                                             }
                                         @endphp
                                         @endif

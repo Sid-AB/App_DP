@@ -231,6 +231,7 @@
                   <div class="two_handel" style="display: flex;align-items: center;justify-content: center;" id="{{$act['num_act']}}_file">
                    <div class="modift_handler" id="act_{{$act['num_act']}}"><i class="far fa-edit"></i></div> 
                    <div class="delete_handler" id="act_{{$act['num_act']}}"><i class="fas fa-trash-alt"></i></div>
+                   <div class="access_handler"  id="act_{{$act['num_act']}}"><i class="fas fa-door-open"></i></div>
                    <div class="file_handler" id="{{$act['num_act']}}"><i class="fas fa-file-pdf"></i></div>
                 </div>
                  
@@ -741,10 +742,12 @@
             _method: "POST",},
             success:function(response)
             {
+              var id_sou=id.split('_')
+              console.log('get ids'+JSON.stringify(id_sou))
               console.log('responsee',JSON.stringify(response))
               $.ajax({
-        url:'/delete_from_portfeuille/'+id+'?code='+response.account,
-        type:'GET',
+              url:'/delete_from_portfeuille/'+id+'?code='+response.account,
+              type:'GET',
         success:function(response)
         {
           if(response.code == 200)
@@ -826,7 +829,7 @@ listItemsWithNestedUl.each(function(){
     console.log('-<<'+JSON.stringify(path)+"-->>"+JSON.stringify(typeact))
     if(typeact[0] =='act')
     {
-      $(this).on('click',function(){
+      $(".access_handler").on('click',function(){
        // window.location.href='/testing/Action/'+path3[0]+'/'+path3[1]+'/'+path3[2]+'/'+typeact[1]+'/?code='
         $('#myForm').css('display','block')
         $('.hide-access-form').append(chekl)
@@ -885,7 +888,10 @@ listItemsWithNestedUl.each(function(){
    
     }
   })
-  $('.add-btn').on('click',function(){
+  /*$('.hide-access-form').on('click',function(){
+    $(this).removeClass('form-access')
+  })*/
+  $('.access_handler').on('click',function(){
     
        var cosnt=0;
         var id = $(this).attr("id");
