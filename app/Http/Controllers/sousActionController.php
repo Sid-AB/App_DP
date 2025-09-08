@@ -336,7 +336,7 @@ $modif = DB::table(DB::raw("({$grouped->toSql()}) as grouped"))
     ->orderBy('m1.date_modif', 'desc') 
     ->get(); 
     //$modif = collect([$modif]);
-        dd($modif);
+      //  dd($modif);
     $result = []; 
     $lastModifs = [];
    // dd($art);

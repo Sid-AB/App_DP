@@ -64,8 +64,8 @@
                 <div class="row">
                   <div class="col-8">
                     <h5 class="card-title widget-card-title mb-3">Portefeuille</h5>
-                    <h4 class="card-subtitle text-body-secondary m-0">  Autorisations d’engagement :<p class="chiffre" >{{$allport['TotalAE']}}</p></h4>
-                    <h4 class="card-subtitle text-body-secondary m-0"> Crédits de paiement :<p class="chiffre">{{$allport['TotalCP']}}</p></h4>
+                    <h4 class="card-subtitle text-body-secondary m-0">  Autorisations d’engagement :<p class="chiffre" >{{number_format( $allport['TotalAE'], 2, ',', ' ')}}</p></h4>
+                    <h4 class="card-subtitle text-body-secondary m-0"> Crédits de paiement :<p class="chiffre">{{number_format( $allport['TotalCP'], 2, ',', ' ')}}</p></h4>
                   </div>
                   <div class="col-4">
                     <div class="d-flex justify-content-end">
@@ -119,10 +119,10 @@
                   <div class="col-10">
                     <h5 class="card-title widget-card-title mb-3">{{$portf['data']['nom_prog']}}</h5>
                     <h4 class="card-subtitle text-body-secondary m-0">
-                      <p> Autorisations d’engagement:</p><p class="chiffre">{{$portf['init_AE']}}</p>
+                      <p> Autorisations d’engagement:</p><p class="chiffre">{{ number_format($portf['init_AE'], 2, ',', ' ')}}</p>
                     </h4>
                     <h4 class="card-subtitle text-body-secondary m-0">
-                      <p> Crédits de paiement :</p><p class="chiffre">{{$portf['init_CP']}}</p>
+                      <p> Crédits de paiement :</p><p class="chiffre">{{number_format($portf['init_CP'], 2, ',', ' ')}}</p>
                     </h4>
                   </div>
                   <div class="col-2">
@@ -186,12 +186,12 @@
                   <div class="col-10">
                     <h5 class="card-title widget-card-title mb-3">{{$souportf['data']['nom_sous_prog']}}</h5>
                     <h4 class="card-subtitle text-body-secondary m-0">
-                    <p> Autorisations d’engagement:<p class="chiffre">{{$souportf['init_AE']}}</p></p>
+                    <p> Autorisations d’engagement:<p class="chiffre">{{number_format($souportf['init_AE'], 2, ',', ' ')}}</p></p>
                     </h4>
                     <h4 class="card-subtitle text-body-secondary m-0">
                     <div>
                      <div> <p>Crédits de paiement:</p>
-                      <p class="chiffre">{{$souportf['init_CP']}}</p></div>
+                      <p class="chiffre">{{number_format($souportf['init_CP'], 2, ',', ' ')}}</p></div>
                     </div> 
                     </h4>
                   </div>
@@ -244,10 +244,10 @@
                   <div class="col-8">
                     <h5 class="card-title widget-card-title mb-3">Action: {{$act['data']['nom_action'] }}</h5>
                     <h4 class="card-subtitle text-body-secondary m-0">
-                    <p>  Autorisations d’engagement :</p><p class="chiffre">{{$act['init_AE']}}</p>
+                    <p>  Autorisations d’engagement :</p><p class="chiffre">{{number_format($act['init_AE'], 2, ',', ' ')}}</p>
                     </h4>
                     <h4 class="card-subtitle text-body-secondary m-0">
-                    <p>  Crédits de paiement :</p><p class="chiffre">{{$act['init_CP']}}</p>
+                    <p>  Crédits de paiement :</p><p class="chiffre">{{number_format($act['init_CP'], 2, ',', ' ')}}</p>
                     </h4>
                   </div>
                   <div class="col-4">
@@ -536,12 +536,12 @@
         <div class="Tchecks">
         <div class="Tfields" >
         <label for="Tports">T1</label>
-         <input type="checkbox" class="form-check-input" id="T1" name="interest" value="T1" />
+         <input type="checkbox" class="form-check-input" id="T1" name="interest" value="T1"  />
          <div id="T1-inpt-handle" style="display:none;">
          <label for="Tports">AE</label>
-         <input type="number" class="form-control" id="AE_T1" name="interest" />
+         <input type="text" class="form-control" id="AE_T1" name="interest" oninput="formatAccountingFigures(this)" />
          <label for="number">CP</label>
-         <input type="number" class="form-control" id="CP_T1" name="interest" />
+         <input type="text" class="form-control" id="CP_T1" name="interest" oninput="formatAccountingFigures(this)" />
          </div>
          </div>
           
@@ -553,9 +553,9 @@
          <input type="checkbox" class="form-check-input" id="T2" name="interest" value="T2" />
          <div id="T2-inpt-handle" style="display:none;">
          <label for="Tports">AE</label>
-         <input type="number" class="form-control" id="AE_T2" name="interest" />
+         <input type="text" class="form-control" id="AE_T2" name="interest" oninput="formatAccountingFigures(this)"/>
          <label for="number">CP</label>
-         <input type="number" class="form-control" id="CP_T2" name="interest" />
+         <input type="text" class="form-control" id="CP_T2" name="interest"  oninput="formatAccountingFigures(this)"/>
          </div>
          </div>
          
@@ -563,12 +563,12 @@
 
          <div class="Tfields" >
         <label for="Tports">T3</label>
-         <input type="checkbox" class="form-check-input" id="T3" name="interest" value="T3" />
+         <input type="checkbox" class="form-check-input" id="T3" name="interest" value="T3"  />
          <div id="T3-inpt-handle" style="display:none;">
          <label for="Tports">AE</label>
-         <input type="number" class="form-control" id="AE_T3" name="interest" />
+         <input type="text" class="form-control" id="AE_T3" name="interest" oninput="formatAccountingFigures(this)"/>
          <label for="number">CP</label>
-         <input type="number" class="form-control" id="CP_T3" name="interest" />
+         <input type="text" class="form-control" id="CP_T3" name="interest" oninput="formatAccountingFigures(this)"/>
          </div>
          </div>
          
@@ -579,9 +579,9 @@
          <input type="checkbox" class="form-check-input" id="T4" name="interest" value="T4" />
          <div id="T4-inpt-handle" style="display:none;">
          <label for="Tports">AE</label>
-         <input type="number" class="form-control" id="AE_T4" name="interest" />
+         <input type="text" class="form-control" id="AE_T4" name="interest" oninput="formatAccountingFigures(this)"/>
          <label for="number">CP</label>
-         <input type="number" class="form-control" id="CP_T4" name="interest" />
+         <input type="text" class="form-control" id="CP_T4" name="interest" oninput="formatAccountingFigures(this)"/>
          </div>
          </div>
          </div>
