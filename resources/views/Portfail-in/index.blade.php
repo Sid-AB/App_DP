@@ -855,11 +855,12 @@ listItemsWithNestedUl.each(function(){
             {
                 if(response.code == 200)
                 {
-              window.location.href='/testing/Action/'+path3[0]+'/'+path3[1]+'/'+path3[2]+'/'+typeact[1]+'/?code='+response.account
+                 // console.log(path3[0]+'/'+path3[1]+'/'+path3[2]+'/'+typeact[1]+'/?code='+response.account)
+                 window.location.href='/testing/Action/'+path3[0]+'/'+path3[1]+'/'+path3[2]+'/'+typeact[1]+'/?code='+response.account
                 }
                 else
                 {
-                  window.location.href='/update/pass?code='+response.code_generated+'&mail='+response.account
+                 //  window.location.href='/update/pass?code='+response.code_generated+'&mail='+response.account
                 }
              // 
             },
@@ -891,12 +892,80 @@ listItemsWithNestedUl.each(function(){
   /*$('.hide-access-form').on('click',function(){
     $(this).removeClass('form-access')
   })*/
-  $('.access_handler').on('click',function(){
+
+
+        $(".access_handler").on('click',function(){
+            var cosnt=0;
+            var id = $(this).attr("id");
+            var indice=id ;
+            var typeact=id.split('_',2) 
+           if(typeact[0] == 'sact')
+    {
+      console.log('sub action'+typeact[0])
+    $(this).on('click',function(){
+
+      
+        $('#father4').append(chekl)
+        openForm()
+     window.location.href='/testing/S_action/'+path3[0]+'/'+path3[1]+'/'+path3[2]+'/'+path3[3]+'/'+typeact[1]+'/'
+      })
+   
+    }
+
+    
+    console.log('-<<'+JSON.stringify(path)+"-->>"+JSON.stringify(typeact))
+        console.log('i m the level '+indice) 
+        $('.hide-access-form').append(chekl)
+        $('.hide-access-form').addClass('form-access')
+        $('#myForm').css('display','block')
+        $('#form-cancel').on('click',function(){
+        $('#myForm').css('display','none')
+        $(".hide-access-form").removeClass('form-access');
+        $('.hide-access-form').empty()
+        })
+
+       
+        var cosnt=0;
+        $('#btn-form-access').on('click',function(){
+          $.ajax({
+            url:'/login/account',
+            type:'POST',
+            data:{
+            email:$('#email').val(),
+            code_generated:$('#code_generated').val(),
+            _token: $('meta[name="csrf-token"]').attr("content"),
+            _method: "POST",},
+            success:function(response)
+            {
+                if(response.code == 200)
+                {
+                 // console.log(path3[0]+'/'+path3[1]+'/'+path3[2]+'/'+typeact[1]+'/?code='+response.account)
+                 window.location.href='/testing/Action/'+path3[0]+'/'+path3[1]+'/'+path3[2]+'/'+typeact[1]+'/?code='+response.account
+                }
+                else
+                {
+                 //  window.location.href='/update/pass?code='+response.code_generated+'&mail='+response.account
+                }
+             // 
+            },
+            error:function()
+            {
+              $('#email').css('border-color','red')
+              $('#code_generated').css('border-color','red')
+              console.log('out of range')
+            }
+          })
+        })
+        //
+      })
+
+
+  $('.add-btn').on('click',function(){
     
        var cosnt=0;
         var id = $(this).attr("id");
             var indice=id ;
-            console.log('i m the level '+indice) 
+        console.log('i m the level '+indice) 
         $('.hide-access-form').append(chekl)
         $('.hide-access-form').addClass('form-access')
         $('#myForm').css('display','block')

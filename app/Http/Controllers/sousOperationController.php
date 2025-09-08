@@ -246,7 +246,7 @@ class sousOperationController extends Controller
         $account =Accounts::join('actions','actions.id_ra','accounts.id_ra')
         ->join('sous_actions','sous_actions.num_action','actions.num_action')
         ->where('code_generated',$code)->where('sous_actions.num_action',$act)->first();
-       // dd($act,$account,$code);
+        //dd($act,$account,$code);
          if(!isset($account))
         {
             $account =Accounts::join('programmes','programmes.id_rp','accounts.id_rp')
@@ -320,7 +320,7 @@ class sousOperationController extends Controller
                 {
                     $resultats=$resultats['delegation'];
                 }
-        //dd($resultats);
+       // dd($resultats);
            return view('Action-in.index',compact('port','prog','sous_prog','act','sact','resultats','years','totaltrait','totalprimes','totaldepense','totalOuverts','totalOccupes','totalVacants'));
    
        } catch (\Exception $e) {
