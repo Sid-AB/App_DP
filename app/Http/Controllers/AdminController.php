@@ -366,14 +366,14 @@ class AdminController extends Controller
     //dd( $request);
         $mail= $request['email'];
     $user = Accounts::where('email', $mail)->first();
-    //dd($user);
+   // dd($user);
     if (!$user || !Hash::check($request->code_generated, $user->code_generated)) {
-      
+      dd($user);
         return response()->json(['error' => 'Invalid credentials','code'=>401], 401);
     }
     if($user->update_code == 0)
     {
-        //dd($user);
+        dd($user);
         $mail= $request['email'];
         return response()->json([
             'code'=>201,
