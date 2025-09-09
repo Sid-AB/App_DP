@@ -6305,7 +6305,7 @@ function T4_table(id, T, id_s_act, port,code) {
             //   //console.log('values' + JSON.stringify(val))
             let row = '<tr class="ref'+key+'" id="ref' + key + '">' +
                 '<td scope="row"  class="code">' + key + '</td>' +
-                '<td><div><p>' + value + '</p><i class="fas fa-eraser" id="del_ops"></i>  </div></td>' +
+                '<td><div><p>' + value + '</p> </div></td>' +
                 '<td  id="add_op" style="display: flex;align-items: center;justify-content: space-between;"><p>null</p></td>'+
                 '<td class="editable" oninput="formatAccountingFigures(this)" id="AE_T4">' + 0 + ',00</td>' +
                 '<td class="editable" oninput="formatAccountingFigures(this)" id="CP_T4">' + 0 + ',00</td>' +
@@ -6536,6 +6536,10 @@ function T4_table(id, T, id_s_act, port,code) {
                 })
                     
            }
+           }
+           else
+           {
+            $('#T-tables tbody').append(row);
            }
             if (current.length == 0) {
                 current = key;
