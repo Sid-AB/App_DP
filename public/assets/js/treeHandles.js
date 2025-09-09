@@ -1,4 +1,40 @@
+function parseNumberWithoutCommas(input) {
+    // Remove commas from the input string
+    let cleanedInput = input.replace(/,/g, '');
+    // Parse the cleaned string into a float
+    return parseFloat(cleanedInput);
+}
 
+function formatAccountingFigures(input) {
+    // Remove non-numeric characters except for "."
+    let value = input.value.replace(/[^0-9.]/g, '');
+
+    // Split the input into integer and decimal parts
+    let parts = value.split('.');
+    let integerPart = parts[0];
+    let decimalPart = parts[1] ? '.' + parts[1] : '';
+
+    // Add commas to the integer part
+    integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+    // Combine integer and decimal parts
+    input.value = integerPart + decimalPart;
+}
+function ValAccountingFigures(inputs) {
+    if (isNaN(inputs)) {
+        return ''; // Return an empty string for invalid numbers
+    }
+      let formattedNumber = inputs.toFixed(2); // Keeps two decimal places
+
+    // Split the number into integer and decimal parts
+    let [integerPart, decimalPart] = formattedNumber.split('.');
+
+    // Add commas to the integer part
+    integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+    // Combine integer and decimal parts
+    return integerPart + '.' + decimalPart;
+  }
 
 function upload_file(id_file,id_relat)
 {
@@ -65,27 +101,6 @@ function preview(file)
       }
     });
 }
-
-
-function formatAccountingFigures() {
-  $('.chiffre').each(function() {
-      // Get the current text
-      let text = $(this).text();
-      
-      // Remove non-numeric characters (except dots)
-      let formatted = text.replace(/[^0-9.]/g, '');
-      
-      // Format as a number with commas (optional)
-      formatted = parseFloat(formatted).toLocaleString('dz-DZ', { 
-          minimumFractionDigits: 2, 
-          maximumFractionDigits: 2 
-      });
-
-      // Update the element's text
-      $(this).text(formatted);
-  });
-}
-
 $(document).ready(function(){
   var change = false;
   var AE_T1=0
@@ -352,9 +367,9 @@ $(document).ready(function(){
       }
       change= true;
       var init='<label for="Tports">AE</label>'+
-      '<input type="number" class="form-control" id="AE_env_T" name="interest" />'+
+      '<input type="text" class="form-control" id="AE_env_T" name="interest" oninput="formatAccountingFigures(this)"/>'+
        '<label for="number">CP</label>'+
-       '<input type="number" class="form-control" id="CP_env_T" name="interest" />';
+       '<input type="text" class="form-control" id="CP_env_T" name="interest" oninput="formatAccountingFigures(this)"/>';
       $('#id-T-retire').on('change',function(){
       $('.Tenv-inpt-handle').empty()
        selectTret =$('#id-T-retire').val();
@@ -423,7 +438,7 @@ $(document).ready(function(){
            ' <label for="Tports">Code du Portefeuille Externe :</label><input type="text" class="form-control" id="Code_port" name="interest">'+
       '  </div>'+
        ' <label> Montant du Portefeuille Externe :</label><br>'+
-    '<label for="Tports">AE</label><input type="number" class="form-control" id="AE_Port" name="interest"><label for="number">CP</label><input type="number" class="form-control" id="CP_Port" name="interest"></div>';
+    '<label for="Tports">AE</label><input type="text" class="form-control" id="AE_Port" name="interest" oninput="formatAccountingFigures(this)"/><label for="number">CP</label><input type="text" class="form-control" id="CP_Port" name="interest" oninput="formatAccountingFigures(this)"/></div>';
        $('.exter_type').append(init_port)
        $('#Type_op_port').change(function(){
         console.log('testing changing '+$(this).val());
@@ -450,23 +465,23 @@ $('#button-71').on('click',function(){
     
   if(T1select == true)
   {
-    AE_T1=$('#AE_T1').val();
-    CP_T1=$('#CP_T1').val();
+    AE_T1=parseNumberWithoutCommas($('#AE_T1').val()   )   
+    CP_T1=parseNumberWithoutCommas($('#CP_T1').val()   )
   }
   if(T2select == true)
   {
-    AE_T2=$('#AE_T2').val();
-    CP_T2=$('#CP_T2').val();
+    AE_T2=parseNumberWithoutCommas($('#AE_T2').val()   )
+    CP_T2=parseNumberWithoutCommas($('#CP_T2').val()   )
   }
   if(T3select == true)
   {
-    AE_T3=$('#AE_T3').val();
-    CP_T3=$('#CP_T3').val();   
+    AE_T3=parseNumberWithoutCommas($('#AE_T3').val()   )
+    CP_T3=parseNumberWithoutCommas($('#CP_T3').val()   )  
   }
   if(T4select == true)
   {
-    AE_T4=$('#AE_T4').val();
-    CP_T4=$('#CP_T4').val();     
+    AE_T4=parseNumberWithoutCommas($('#AE_T4').val() ) 
+    CP_T4=parseNumberWithoutCommas($('#CP_T4').val() )    
   }
   var cmpt=false;
   if(selectTret === '0' || selectedprogret === '' && selectedHobby === 'inter' && $('#id_cible').val() === '0')
@@ -486,8 +501,8 @@ $('#button-71').on('click',function(){
   } 
 
   code_port=$('#Code_port').val()
-  AE_port=$('#AE_Port').val()
-  CP_port=$('#CP_Port').val()
+  AE_port=$('#AE_Port').val()//parseNumberWithoutCommas($('#AE_Port').val())
+  CP_port=$('#CP_Port').val()//parseNumberWithoutCommas($('#CP_Port').val())
 
   var datamodif={
     ref:$('#id').val(),
@@ -575,7 +590,7 @@ $('#button-71').on('click',function(){
 /*** end of button 70 */
 })
   })
-  formatAccountingFigures()
+
 
 
 
