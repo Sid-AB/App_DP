@@ -6133,7 +6133,7 @@ if(code == 200){
                     var newKey=$(this).closest('tr').attr('id');
                     var rowdel=$(this).closest('tr')
                     var ads = newKey.split('ref')[1]
-                     if (confirm("Cet Sous Operation sera Supprime Definitve Vous ete sur ?")) {
+                     if (confirm("Cette sous-opération sera supprimée définitivement. Êtes-vous sûr ?")) {
                      $.ajax({
                         url:'/del/sousop/'+ads,
                         type:'GET',
@@ -6440,7 +6440,7 @@ function T4_table(id, T, id_s_act, port,code) {
                     var newKey=$(this).closest('tr').attr('id');
                     var rowdel=$(this).closest('tr')
                     var ads = newKey.split('ref')[1]
-                     if (confirm("Cet Sous Operation sera Supprime Definitve Vous ete sur ?")) {
+                     if (confirm("Cette sous-opération sera supprimée définitivement. Êtes-vous sûr ?")) {
                      $.ajax({
                         url:'/del/sousop/'+ads,
                         type:'GET',
@@ -6454,7 +6454,7 @@ function T4_table(id, T, id_s_act, port,code) {
                         },
                         error:function()
                         {
-                            alert('error du suppression')
+                            alert('Une erreur est survenue lors de la suppression')
                         }
                         
                      })
@@ -6483,7 +6483,7 @@ function T4_table(id, T, id_s_act, port,code) {
                     var newKey=$(this).closest('tr').attr('id');
                     var rowdel=$(this).closest('tr')
                     var ads = newKey.split('ref')[1]
-                     if (confirm("Cet Sous Operation sera Supprime Definitve Vous ete sur ?")) {
+                     if (confirm("Cette sous-opération sera supprimée définitivement. Êtes-vous sûr ?")) {
                      $.ajax({
                         url:'/del/sousop/'+ads,
                         type:'GET',
@@ -6497,7 +6497,7 @@ function T4_table(id, T, id_s_act, port,code) {
                         },
                         error:function()
                         {
-                            alert('error du suppression')
+                            alert('Une erreur est survenue lors de la suppression')
                         }
                         
                      })
@@ -6543,7 +6543,7 @@ function T4_table(id, T, id_s_act, port,code) {
                     var newKey=$(this).closest('tr').attr('id');
                     var rowdel=$(this).closest('tr')
                     var ads = newKey.split('ref')[1]
-                     if (confirm("Cet Sous Operation sera Supprime Definitve Vous ete sur ?")) {
+                     if (confirm("Cette sous-opération sera supprimée définitivement. Êtes-vous sûr ?")) {
                      $.ajax({
                         url:'/del/sousop/'+ads,
                         type:'GET',
@@ -6557,7 +6557,7 @@ function T4_table(id, T, id_s_act, port,code) {
                         },
                         error:function()
                         {
-                            alert('error du suppression')
+                            alert('Une erreur est survenue lors de la suppression')
                         }
                         
                      })

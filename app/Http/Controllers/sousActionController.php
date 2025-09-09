@@ -153,11 +153,13 @@ function print_dpa($numport)
 
       $art = Article::selectRaw("id_art, CONCAT(nom_art, ' (', code_art, ')') as nom")->get();
    //dd($art);
-  $grouped = DB::table('modification_t_s as m1')
+   $grouped=DB::table('modification_t_s as m1')
     ->join('articles', 'm1.id_art', '=', 'articles.id_art')
     ->whereRaw("SUBSTRING_INDEX(m1.num_prog, '-', 2) = ?", [$numport])
     ->select(
         'm1.id_art',
+        'articles.nom_art',
+        'articles.code_art',
         DB::raw("SUM(AE_envoi_t1 + AE_recoit_t1) as total_AE_t1"),
         DB::raw("SUM(CP_envoi_t1 + CP_recoit_t1) as total_CP_t1"),
         DB::raw("SUM(AE_envoi_t2 + AE_recoit_t2) as total_AE_t2"),
@@ -168,7 +170,8 @@ function print_dpa($numport)
         DB::raw("SUM(CP_envoi_t4 + CP_recoit_t4) as total_CP_t4"),
         DB::raw("MAX(m1.date_modif) as derniere_modif")
     )
-    ->groupBy('m1.id_art');
+    ->groupBy('m1.id_art', 'articles.nom_art', 'articles.code_art');
+   // ->get();
      
 //pouir recuperer les autres champs 
 $modif = DB::table(DB::raw("({$grouped->toSql()}) as grouped"))
@@ -193,7 +196,7 @@ $modif = DB::table(DB::raw("({$grouped->toSql()}) as grouped"))
 
    // $modif = collect([$modif]);
 
-  //  dd($modif);
+    //dd($modif);
     $com=$modif[0];
   
 
@@ -326,7 +329,7 @@ $modif = DB::table(DB::raw("({$grouped->toSql()}) as grouped"))
 
     $art = Article::selectRaw("id_art, CONCAT(nom_art, ' (', code_art, ')') as nom")->get();
    //dd($art);
-    $modif = DB::table('modification_t_s as m1')
+ $modif = DB::table('modification_t_s as m1')
     ->join('articles', 'm1.id_art', '=', 'articles.id_art')
     ->whereRaw("SUBSTRING_INDEX(m1.num_prog, '-', 2) = ?", [$numport])
     ->select(
@@ -334,12 +337,12 @@ $modif = DB::table(DB::raw("({$grouped->toSql()}) as grouped"))
         DB::raw("CONCAT(articles.nom_art, ' (', articles.code_art, ')') as nom")
     )
     ->orderBy('m1.date_modif', 'desc') 
-    ->get(); 
+    ->get();    
     //$modif = collect([$modif]);
-      //  dd($modif);
+        //dd($modif);
     $result = []; 
     $lastModifs = [];
-   // dd($art);
+   // dd($art); 
     foreach($art as $article){
         foreach($modif as $m)
         {
@@ -352,8 +355,9 @@ $modif = DB::table(DB::raw("({$grouped->toSql()}) as grouped"))
     }
         //dd($article);
 
-    //dd($lastModifs);
+   //dd($lastModifs);
 //dd($article,$lastModif,$modif);
+$resulg=[];
 foreach($lastModifs as $lastModif)
 {
 if($lastModif){ 
@@ -369,6 +373,7 @@ $result['t3']=$this->compareT($lastModifs, 't3');
 $result['t4']=$this->compareT($lastModifs, 't4');
   //dd($result);
 //dd($lastModif);
+array_push($resulg,['resulta'=>$result]);
 } elseif ($lastModif->num_prog == $lastModif->num_prog_retire && $lastModif->num_sous_prog != $lastModif->num_sous_prog_retire) {
 
     $result['t1']=$this->compareT($lastModifs, 't1');
@@ -376,6 +381,7 @@ $result['t4']=$this->compareT($lastModifs, 't4');
     $result['t2']=$this->compareT($lastModifs, 't2');
     $result['t3']=$this->compareT($lastModifs, 't3');
     $result['t4']=$this->compareT($lastModifs, 't4');
+    array_push($resulg,['resulta'=>$result]);
    //dd($lastModif); 
   //dd($result);
 }elseif ($lastModif->num_prog_retire != $lastModif->num_prog && $lastModif->num_sous_prog == $lastModif->num_sous_prog_retire) {
@@ -386,6 +392,7 @@ $result['t4']=$this->compareT($lastModifs, 't4');
     $result['t2']=$this->compareT($lastModifs, 't2');
     $result['t3']=$this->compareT($lastModifs, 't3');
     $result['t4']=$this->compareT($lastModifs, 't4');
+    array_push($resulg,['resulta'=>$result]);
  //  dd($result);
 } elseif ($lastModif->num_prog_retire != $lastModif->num_prog && $lastModif->num_sous_prog != $lastModif->num_sous_prog_retire) {
   
@@ -394,7 +401,8 @@ $result['t4']=$this->compareT($lastModifs, 't4');
     $result['t2']=$this->compareT($lastModifs, 't2');
     $result['t3']=$this->compareT($lastModifs, 't3');
     $result['t4']=$this->compareT($lastModifs, 't4');
-  // dd($result);
+    array_push($resulg,['resulta'=>$result]);
+  //dd($result);
 } elseif ($lastModif->num_prog_retire && $lastModif->num_prog == null && $lastModif->num_sous_prog_retire && $lastModif->num_sous_prog==null) {
     // Si envoi 
 
@@ -403,6 +411,7 @@ $result['t4']=$this->compareT($lastModifs, 't4');
     $result['t2']=$this->compareT($lastModifs, 't2');
     $result['t3']=$this->compareT($lastModifs, 't3');
     $result['t4']=$this->compareT($lastModifs, 't4');
+    array_push($resulg,['resulta'=>$result]);
   //  dd($result);
 } elseif ($lastModif->num_prog  && $lastModif->num_prog_retire == null && $lastModif->num_sous_prog && $lastModif->num_sous_prog_retire==null) {
     // Si reçoit
@@ -412,7 +421,8 @@ $result['t4']=$this->compareT($lastModifs, 't4');
     $result['t2']=$this->compareT($lastModifs, 't2');
     $result['t3']=$this->compareT($lastModifs, 't3');
     $result['t4']=$this->compareT($lastModifs, 't4');
-  //  dd($result);
+    array_push($resulg,['resulta'=>$result]);
+    //  dd($result);
 }else{
     return ('erreur');
 }
@@ -421,6 +431,7 @@ $result['t4']=$this->compareT($lastModifs, 't4');
 }
 }
 //dd($result);
+//dd($resulg);
 $portefeuilles = Portefeuille::with(['Programme.SousProgramme.Action.SousAction'])->get();
 
 $resultData = [];
