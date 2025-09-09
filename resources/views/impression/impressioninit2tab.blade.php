@@ -340,10 +340,12 @@ Ministère de la Communication
             </tr>
      
         <tbody>
+             @foreach ($resulg as $res)
                 @php
+                 $result = $res['resulta']; 
                 $totalAE_t1 = $totalAE_t2 = $totalAE_t3 = $totalAE_t4 = 0;
                 $totalCP_t1 = $totalCP_t2 = $totalCP_t3 = $totalCP_t4 = 0;
-                //dd($result);
+                dd($resulg);
                 @endphp
 
                 {{-- Boucle sur les programmes --}}
@@ -500,7 +502,7 @@ Ministère de la Communication
                 <td>{{ number_format((float)$totalCP_t4, 2, '.', ',') }}</td>
             </tr>
 
-           
+           @endforeach
 
         </tbody>
     </table>
