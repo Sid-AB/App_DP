@@ -176,7 +176,6 @@ function appliquer_up(T)
                 dataupdate.forEach(elemnt=>{
                     //console.log('green add to '+elemnt.code)
                     $('#ref'+elemnt.code).addClass('row-updated');
-
                     dataupdate=Array();
                 })
                 }
@@ -188,7 +187,6 @@ function appliquer_up(T)
        //console.log('testing'+JSON.stringify(dataupdate))
        $('.change_app').empty()
     click=0;
-
         }
     })
 }
@@ -1240,7 +1238,7 @@ function add_newOPs_T3(id, value, key,code) {
                         $('.Tsop_handler').removeClass('Tsop_handler_h')
                         add_newOPs_T3(ads, 2500, newKey,code);
                         if(code != 200)
-                            {
+                        {
                         Edit(tid, T)
                         }
                      })
@@ -1323,7 +1321,6 @@ function add_newOPs_T4(id, value, key,code) {
     
     mount_chang=true;
 
-
     idsz=id+'-'+counter;
     var buttons = '<button class="btn btn-primary" id="changin"> appliquer</button>'
     $('.change_app').append(buttons)
@@ -1347,7 +1344,7 @@ function add_newOPs_T4(id, value, key,code) {
 
        if(idsfinal.length == 9 || idsfinal.length == 1)
         {
-             //console.log('testing remplace'+idsfinal.length)
+        //console.log('testing remplace'+idsfinal.length)
          $('#' + key).after(row)
         setTimeout(() => $("#ref"+idsz).addClass("show"), 100);
         }
@@ -1384,14 +1381,45 @@ function add_newOPs_T4(id, value, key,code) {
                 Edit(id, T)
             }
          })
+            var finder=false
+            var cuurent=idsz;
+            while(!finder)
+                {
+                   let next = $('.ref' + cuurent).next(); // ✅ get next row
+                    let nextID = next.attr('id'); // e.g. "ref-12"
+                    if (!nextID) {
+                        console.log("No next row");
+                        finder = true;
+                    }
+                    else{
+                    let idspli = nextID.split('-');
+                    let cleanID = nextID.split('ref')[1]; // part after "ref"
+
+                    console.log('Next ID: ' + cleanID);
+
+                    if (cuurent === cleanID) {
+                       
+                        console.log('Found ' + cuurent + ' → next: ' + idspli[idspli.length - 1]);
+
+                        cuurent = cleanID; // update current
+                        console.log('Current is now ' + cuurent);
+                    } else {
+                        finder = true;
+                        console.log('Out with id ' + cuurent);
+                        counter=parseInt(idspli[idspli.length - 1])+1
+                    }}
+                }         
        counter++
-   dataupdate.push({code:idsz,value:{ae:data_add_ops.AE_T4,cp:data_add_ops.CP_T4,dispo:data_add_ops.descrp}})
+       //idsz=id+'-'+counter;
+       const newidsz=id+'-'+counter
+       console.log('idsz'+idsz+'counter -'+counter)
+   dataupdate.push({code:newidsz,value:{ae:data_add_ops.AE_T4,cp:data_add_ops.CP_T4,dispo:data_add_ops.descrp}})
   /* $('#' + key + ' td').each(function () {
        $(this).removeClass('editable');
    })*/
-       //console.log('data T4'+JSON.stringify(data_add_ops))
-        $('#Tport-vals').removeClass('T4')
-        $("#dispo").val('');
+       console.log('data T4'+JSON.stringify(dataupdate))
+       $('#Tport-vals').removeClass('T4')
+       $("#dispo").val('');
        $('.Tsop_handler').empty();
        $('#add_sops').trigger('reset');
        $('.Tsop_handler').addClass('Tsop_handler_h')
@@ -1401,11 +1429,12 @@ function add_newOPs_T4(id, value, key,code) {
             appliquer_up(T)
         }   
         else {
-            T=4;
-            $('#changin').on('click',function(){
-                insert_edit(tid, T)
-                })
+        T=4;
+        $('#changin').on('click',function(){
+            insert_edit(tid, T)
+            })
         }
+
    })
    $('#cancel_ops').click(function(){
        $('.Tsop_handler').empty();
@@ -6570,6 +6599,7 @@ function T4_table(id, T, id_s_act, port,code) {
                            $('.Tsop_handler').removeClass('Tsop_handler_h')
                            //console.log('add once');
                             add_newOPs_T4(ads, value , newKey,code);
+                            Edit(id, T)
                         })
                     }
 
@@ -6586,6 +6616,7 @@ function T4_table(id, T, id_s_act, port,code) {
                        var ads = newKey.split('ref')[1] 
                        $('.Tsop_handler').removeClass('Tsop_handler_h')
                         add_newOPs_T4(ads, value, newKey,code);
+                        Edit(id, T)
                     })
                 }
             }
