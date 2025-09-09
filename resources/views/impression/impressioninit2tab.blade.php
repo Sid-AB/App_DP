@@ -240,200 +240,81 @@ Ministère de la Communication
     </table>
     <div class="page-break"> </div>
     <h1 style="font-family: Arial Narrow, sans-serif; font-size: 14pt; font-weight: bold;"> 1.1.2. CREDITS ATTENDUS DEVENUS DISPONIBLES EN COURS D’ANNEE <?php echo date("Y"); ?> </h1>
-    <table >
-    
-            <tr>
-            <th  style="border: none; background: white; "   colspan="2" rowspan="2" ></th>
-                <th colspan="2" class="T">T1</th>
-                <th colspan="2" class="T">T2</th>
-                <th colspan="2" class="T">T3</th>
-                <th colspan="2" class="T">T4</th>
-             
-            </tr>
-            <tr>
-    
-                <th style="text-align:center;  ">AE</th>
-                <th style="text-align:center; ">CP</th>
-                <th style="text-align:center;  ">AE</th>
-                <th style="text-align:center; ">CP</th>
-                <th style="text-align:center;  ">AE</th>
-                <th style="text-align:center;  ">CP</th>
-                <th style="text-align:center;">AE</th>
-                <th style="text-align:center;  ">CP</th>
-                
-            </tr>
-     
-        <tbody>
-            @php
-                
-                
-                $total_AE_envoi_t1 = 0;
-                $total_CP_envoi_t1 = 0;
-                $total_AE_envoi_t2 = 0;
-                $total_CP_envoi_t2 = 0;
-                $total_AE_envoi_t3 = 0;
-                $total_CP_envoi_t3 = 0;
-                $total_AE_envoi_t4 = 0;
-                $total_CP_envoi_t4 = 0;
-                
-            @endphp
+    <table>
+    <tr>
+        <th colspan="2" rowspan="2" style="border: none; background: white;"></th>
+        <th colspan="2" class="T">T1</th>
+        <th colspan="2" class="T">T2</th>
+        <th colspan="2" class="T">T3</th>
+        <th colspan="2" class="T">T4</th>
+    </tr>
+    <tr>
+        <th style="text-align:center;">AE</th>
+        <th style="text-align:center;">CP</th>
+        <th style="text-align:center;">AE</th>
+        <th style="text-align:center;">CP</th>
+        <th style="text-align:center;">AE</th>
+        <th style="text-align:center;">CP</th>
+        <th style="text-align:center;">AE</th>
+        <th style="text-align:center;">CP</th>
+    </tr>
+
+    <tbody>
+        @php
+            $total_AE_t1 = $total_CP_t1 = 0;
+            $total_AE_t2 = $total_CP_t2 = 0;
+            $total_AE_t3 = $total_CP_t3 = 0;
+            $total_AE_t4 = $total_CP_t4 = 0;
+           // dd($result);
+        @endphp
+
         @foreach($art as $article)
-            
-            <tr >
+            <tr>
                 <td colspan="2">{{ $article->nom }}</td>
-                @php
-                    
-                    //$lastModif= ($modif && $modif->nom == $article->nom) ? $modif : null;
-                    //dd($article->nom);
-                   //dd($modif->AE_envoi_t1);
-            
-                @endphp
-            @if(isset($result['t1']['lastModif'][0]) && $result['t1']['lastModif'][0]->nom == $article->nom)     
-            
-          
-            <td>
-                @foreach($result['t1']['lastModif'] as $modif)
-                @if(($modif->AE_envoi_t1) > 0 || ( $modif->AE_envoi_t1) < 0)
-                   
-                    @php $total_AE_envoi_t1 += $modif->AE_envoi_t1; @endphp
-                @elseif(($modif->AE_recoit_t1) > 0 || ($modif->AE_recoit_t1) < 0)
-                  
-                    @php $total_AE_envoi_t1 += $modif->AE_recoit_t1; @endphp
-                    
-                @else
-                   
-                @endif
-                 @endforeach
-                   {{ number_format((float)$total_AE_envoi_t1   , 2, '.', ',') }}
-            </td>
-            
-            <td>
-                @foreach($result['t1']['lastModif'] as $modif)
-                @if(($modif->CP_envoi_t1) > 0 || ($modif->CP_envoi_t1) < 0)
-                    @php $total_CP_envoi_t1 += $modif->CP_envoi_t1; @endphp
-                @elseif(($modif->CP_recoit_t1) > 0 || ($modif->CP_recoit_t1) < 0)
-                    
-                    @php $total_CP_envoi_t1 += $modif->CP_recoit_t1; @endphp
-                @else
-                  
-            
-                @endif
-                 @endforeach
-                 {{ number_format((float)$total_CP_envoi_t1  , 2, '.', ',')  }}
-            </td>
-           
-           
-            <td>
-                 @foreach($result['t2']['lastModif']  as $modif)
-                @if(($modif->AE_envoi_t2) > 0 || ($modif->AE_envoi_t2) < 0)
-                    @php $total_AE_envoi_t2 += $modif->AE_envoi_t2; @endphp
-                @elseif(($modif->AE_recoit_t2) > 0 || ($modif->AE_recoit_t2) < 0)
-                   
-                    @php $total_AE_envoi_t2 += $modif->AE_recoit_t2; @endphp
-                @else
-                
-                @endif
+
+                @foreach(['t1','t2','t3','t4'] as $t)
+                    @php
+                        $AE = 0; $CP = 0;
+                        if(isset($result[$t]['lastModif'])){
+                            foreach($result[$t]['lastModif'] as $modif){
+                                if($modif->nom == $article->nom){
+                                  
+                                    $AE += ($modif->{"AE_envoi_$t"} != 0)
+                                            ? $modif->{"AE_envoi_$t"}
+                                            : $modif->{"AE_recoit_$t"};
+                                  
+                                    $CP += ($modif->{"CP_envoi_$t"} != 0)
+                                            ? $modif->{"CP_envoi_$t"}
+                                            : $modif->{"CP_recoit_$t"};
+                                }
+                            }
+                        }
+
+                   //ajouter au total global 
+                        ${"total_AE_$t"} += $AE;
+                        ${"total_CP_$t"} += $CP;
+                    @endphp
+
+                    <td>{{ number_format($AE, 2, '.', ',') }}</td>
+                    <td>{{ number_format($CP, 2, '.', ',') }}</td>
                 @endforeach
-                 {{ number_format((float)$total_AE_envoi_t2  , 2, '.', ',')  }}
-            </td>
-            <td>
-                 @foreach($result['t2']['lastModif']  as $modif)
-                @if(($modif->CP_envoi_t2) > 0 || ($modif->CP_envoi_t2) < 0)
-                    @php $total_CP_envoi_t2 += $modif->CP_envoi_t2; @endphp
-                @elseif(($modif->CP_recoit_t2) > 0 || ($modif->CP_recoit_t2) < 0)
-                   
-                    @php $total_CP_envoi_t2 +=$modif->CP_recoit_t2; @endphp
-                @else
-                  
-                @endif
-                @endforeach
-                 {{number_format((float)$total_CP_envoi_t2  , 2, '.', ',')}}
-            </td>
-            
-            
-            <td>
-                 @foreach($result['t3']['lastModif']  as $modif)
-                @if(($modif->AE_envoi_t3) > 0 || ($modif->AE_envoi_t3) < 0)
-                    @php $total_AE_envoi_t3 += $modif->AE_envoi_t3; @endphp
-                @elseif(($modif->AE_recoit_t3) > 0 || ($modif->AE_recoit_t3) < 0)
-                   
-                    @php $total_AE_envoi_t3 += $modif->AE_recoit_t3; @endphp
-                @else
-               
-                @endif
-                @endforeach
-                 {{number_format((float) $total_AE_envoi_t3   , 2, '.', ',') }}
-            </td>
-            <td>
-                 @foreach($result['t3']['lastModif']  as $modif)
-                @if(($modif->CP_envoi_t3) > 0 || ($modif->CP_envoi_t3) < 0)
-                    @php $total_CP_envoi_t3 += $modif->CP_envoi_t3; @endphp
-                @elseif(($modif->CP_recoit_t3) > 0 || ($modif->CP_recoit_t3) < 0)
-                    
-                    @php $total_CP_envoi_t3 += $modif->CP_recoit_t3; @endphp
-                @else
-                 
-                @endif
-                @endforeach
-                {{ number_format((float)$total_CP_envoi_t3    , 2, '.', ',') }}
-            </td>
-            
-           
-            <td>
-                 @foreach($result['t4']['lastModif']  as $modif)
-                @if(($modif->AE_envoi_t4) > 0 || ($modif->AE_envoi_t4) < 0)
-                    @php $total_AE_envoi_t4 += $modif->AE_envoi_t4; @endphp
-                @elseif(($modif->AE_recoit_t4) > 0 || ($modif->AE_recoit_t4) < 0)
-                    @php $total_AE_envoi_t4 += $modif->AE_recoit_t4; @endphp
-               @else
-                 
-                @endif
-                 @endforeach
-                {{ number_format((float)$total_AE_envoi_t4    , 2, '.', ',')}}
-            </td>
-            
-            <td>
-                 @foreach($result['t4']['lastModif']  as $modif)
-                @if(($modif->CP_envoi_t4) > 0 || ($modif->CP_envoi_t4) < 0)
-                   
-                    @php $total_CP_envoi_t4 += $modif->CP_envoi_t4; @endphp
-                @elseif(($modif->CP_recoit_t4) > 0 || ($modif->CP_recoit_t4) < 0)
-                    @php $total_CP_envoi_t4 += $modif->CP_recoit_t4; @endphp
-               @else
-                 
-                @endif
-               
-                 @endforeach
-                {{ number_format((float)$total_CP_envoi_t4  , 2, '.', ',')  }}
-            </td>
-           
-               @else 
-               <td>{{number_format((float) 0  , 2, '.', ',')}}</td>
-                <td>{{ number_format((float)0  , 2, '.', ',')}}</td>
-                <td>{{ number_format((float)0 , 2, '.', ',')}}</td>
-                <td>{{ number_format((float)0  , 2, '.', ',')}}</td>
-                <td>{{ number_format((float)0 , 2, '.', ',')}}</td>
-                <td>{{ number_format((float)0 , 2, '.', ',') }}</td>
-                <td>{{ number_format((float)0, 2, '.', ',') }}</td>
-                <td>{{ number_format((float)0 , 2, '.', ',') }}</td>
-                @endif
             </tr>
         @endforeach
 
-            <tr class="vert3">
-                <th style=" width: 200px; "colspan="2" >TOTAL (2) POUR DES CREDITS ATTENDUS DEVENUS DISPONIBLES  POUR LE PORTEFEUILLE DE PROGRAMMES</th>
-                <td>{{number_format((float) $total_AE_envoi_t1  , 2, '.', ',')}}</td>
-                <td>{{ number_format((float)$total_CP_envoi_t1  , 2, '.', ',')}}</td>
-                <td>{{ number_format((float)$total_AE_envoi_t2  , 2, '.', ',')}}</td>
-                <td>{{ number_format((float)$total_CP_envoi_t2  , 2, '.', ',')}}</td>
-                <td>{{ number_format((float)$total_AE_envoi_t3  , 2, '.', ',')}}</td>
-                <td>{{ number_format((float)$total_CP_envoi_t3 , 2, '.', ',') }}</td>
-                <td>{{ number_format((float)$total_AE_envoi_t4 , 2, '.', ',') }}</td>
-                <td>{{ number_format((float)$total_CP_envoi_t4 , 2, '.', ',') }}</td>
-            </tr>
+        <tr class="vert3">
+            <th colspan="2">TOTAL (2) POUR DES CREDITS ATTENDUS DEVENUS DISPONIBLES POUR LE PORTEFEUILLE DE PROGRAMMES</th>
+            <td>{{ number_format($total_AE_t1, 2, '.', ',') }}</td>
+            <td>{{ number_format($total_CP_t1, 2, '.', ',') }}</td>
+            <td>{{ number_format($total_AE_t2, 2, '.', ',') }}</td>
+            <td>{{ number_format($total_CP_t2, 2, '.', ',') }}</td>
+            <td>{{ number_format($total_AE_t3, 2, '.', ',') }}</td>
+            <td>{{ number_format($total_CP_t3, 2, '.', ',') }}</td>
+            <td>{{ number_format($total_AE_t4, 2, '.', ',') }}</td>
+            <td>{{ number_format($total_CP_t4, 2, '.', ',') }}</td>
+        </tr>
+    </tbody>
+</table>
 
-        </tbody>
-    </table>
 
     <table >
     
@@ -462,6 +343,7 @@ Ministère de la Communication
                 @php
                 $totalAE_t1 = $totalAE_t2 = $totalAE_t3 = $totalAE_t4 = 0;
                 $totalCP_t1 = $totalCP_t2 = $totalCP_t3 = $totalCP_t4 = 0;
+                //dd($result);
                 @endphp
 
                 {{-- Boucle sur les programmes --}}
