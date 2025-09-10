@@ -1175,6 +1175,34 @@ function add_newOPs_T3(id, value, key,code) {
            _method: "POST",
 
        }
+       var finder=false
+            var cuurent=idsz;
+            while(!finder)
+                {
+                   let next = $('.ref' + cuurent).next(); // ✅ get next row
+                    let nextID = next.attr('id'); // e.g. "ref-12"
+                    if (!nextID) {
+                        console.log("No next row");
+                        finder = true;
+                    }
+                    else{
+                    let idspli = nextID.split('-');
+                    let cleanID = nextID.split('ref')[1]; // part after "ref"
+
+                    console.log('Next ID: ' + cleanID);
+
+                    if (cuurent === cleanID) {
+                       
+                        console.log('Found ' + cuurent + ' → next: ' + idspli[idspli.length - 1]);
+
+                        cuurent = cleanID; // update current
+                        console.log('Current is now ' + cuurent);
+                    } else {
+                        finder = true;
+                        console.log('Out with id ' + cuurent);
+                        counter=parseInt(idspli[idspli.length - 1])+1
+                    }}
+                }         
        dataupdate.push({code:idsz,value:{ae_notifie:sopdata_add.AE_not,ae_reporte:sopdata_add.AE_rpor,ae_engage:sopdata_add.AE_enga,
         cp_notifie:sopdata_add.CP_not,cp_reporte:sopdata_add.CP_rpor,cp_consome:sopdata_add.CP_consom,desc:sopdata_add.descrp,intitule:sopdata_add.intituel}})
        //console.log('data T3'+JSON.stringify(sopdata_add))
@@ -1263,6 +1291,7 @@ function add_newOPs_T3(id, value, key,code) {
                       }
                    
                     }
+                    
                     if(code == 200)
                     {
                        
