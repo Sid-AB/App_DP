@@ -340,12 +340,13 @@ Ministère de la Communication
             </tr>
      
         <tbody>
-             @foreach ($resulg as $res)
+  
                 @php
-                 $result = $res['resulta']; 
+               // dd($resulg);
+                  $result = $resulg[0]['resulta'] ?? [];
                 $totalAE_t1 = $totalAE_t2 = $totalAE_t3 = $totalAE_t4 = 0;
                 $totalCP_t1 = $totalCP_t2 = $totalCP_t3 = $totalCP_t4 = 0;
-                dd($resulg);
+              
                 @endphp
 
                 {{-- Boucle sur les programmes --}}
@@ -454,10 +455,10 @@ Ministère de la Communication
                                         @if($item['prog'] === $programme['code'] && $item['num_sous_prog'] === $sousProgramme['code'])
                                         @php
                                             if (array_keys($item)[0] === 'valeurAE') { 
-                                                $valeurAE = $item['valeurAE'] ?? 0;
+                                                $valeurAE += $item['valeurAE'] ?? 0;
                                             }
                                             if (array_keys($item)[0] === 'valeurCP') { 
-                                                $valeurCP = $item['valeurCP'] ?? 0;
+                                                $valeurCP += $item['valeurCP'] ?? 0;
                                             }
                                         @endphp
                                         @endif
@@ -468,10 +469,10 @@ Ministère de la Communication
                                         @if($item['prog'] === $programme['code'] && $item['num_sous_prog'] === $sousProgramme['code'])
                                         @php
                                             if (array_keys($item)[0] === 'valeurAE') { 
-                                                $valeurAE = $item['valeurAE'] ?? 0;
+                                                $valeurAE += $item['valeurAE'] ?? 0;
                                             }
                                             if (array_keys($item)[0] === 'valeurCP') { 
-                                                $valeurCP = $item['valeurCP'] ?? 0;
+                                                $valeurCP += $item['valeurCP'] ?? 0;
                                             }
                                         @endphp
                                         @endif
@@ -502,7 +503,7 @@ Ministère de la Communication
                 <td>{{ number_format((float)$totalCP_t4, 2, '.', ',') }}</td>
             </tr>
 
-           @endforeach
+        
 
         </tbody>
     </table>
@@ -537,7 +538,7 @@ Ministère de la Communication
                     //les num des programmes 
                     $indiceProg = []; 
 
-                 
+                // dd($prgrmsousact);
                     $total_t1_ae = $total_t1_cp = 0;
                     $total_t2_ae = $total_t2_cp = 0;
                     $total_t3_ae = $total_t3_cp = 0;

@@ -345,7 +345,12 @@
     <div class="page-break"> </div>
     <h1 style="font-family: Arial Narrow, sans-serif; font-size: 14pt; font-weight: bold;"> 1.2.2. PROGRAMMATION DES CREDITS ATTENDUS DEVENUS DISPONIBLES EN COURS D'ANNEE   <?php echo date("Y"); ?> </h1>
     <table >
-    
+    @php
+               // dd($resulg);
+                  $result = $resulg[0]['resulta'] ?? [];
+              
+                @endphp
+
     <tr>
    
     {{-- Boucle sur les programmes --}}
@@ -550,10 +555,10 @@
                                         @if($item['prog'] === $programme['code'] && $item['num_sous_prog'] === $sousProgramme['code'])
                                         @php
                                             if (array_keys($item)[0] === 'valeurAE') { 
-                                                $valeurAE = $item['valeurAE'] ?? 0;
+                                                $valeurAE += $item['valeurAE'] ?? 0;
                                             }
                                             if (array_keys($item)[0] === 'valeurCP') { 
-                                                $valeurCP = $item['valeurCP'] ?? 0;
+                                                $valeurCP += $item['valeurCP'] ?? 0;
                                             }
                                         @endphp
                                         @endif
@@ -564,10 +569,10 @@
                                         @if($item['prog'] === $programme['code'] && $item['num_sous_prog'] === $sousProgramme['code'])
                                         @php
                                             if (array_keys($item)[0] === 'valeurAE') { 
-                                                $valeurAE = $item['valeurAE'] ?? 0;
+                                                $valeurAE += $item['valeurAE'] ?? 0;
                                             }
                                             if (array_keys($item)[0] === 'valeurCP') { 
-                                                $valeurCP = $item['valeurCP'] ?? 0;
+                                                $valeurCP += $item['valeurCP'] ?? 0;
                                             }
                                         @endphp
                                         @endif
