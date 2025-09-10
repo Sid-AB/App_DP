@@ -493,6 +493,8 @@ $resultData[] = [
 //dd($result);
 
 $newArray = []; 
+foreach($resulg as $res){
+  $result = $res['resulta']; 
 
 foreach (['t1', 't2', 't3', 't4'] as $tKey) {
 if (isset($result[$tKey])) {
@@ -612,6 +614,7 @@ foreach ($resultData as $data) {
                 }
             }
         }
+    } 
     }
  //dd($newArray);    
 //pour eviter les 2 clés en mm temsp 
@@ -724,7 +727,7 @@ if ($tableExists) {
 //dd($result);
 
 //return view('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModifs','result','resultData','progg','prgrmsousact','com'));
-$pdf=SnappyPdf::loadView('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModifs','result','resultData','progg','prgrmsousact','com'))
+$pdf=SnappyPdf::loadView('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModifs','result','resulg','resultData','progg','prgrmsousact','com'))
 ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1);//lanscape mean orentation
 return $pdf->stream('impression_dpic.pdf');
 
@@ -734,7 +737,7 @@ return $pdf->stream('impression_dpic.pdf');
  
      
 //return view('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModifs','result','resultData','progg','com'));
-$pdf=SnappyPdf::loadView('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModifs','result','resultData','progg','com'))
+$pdf=SnappyPdf::loadView('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModifs','result','resulg','resultData','progg','com'))
 ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1);//lanscape mean orentation
 return $pdf->stream('impression_dpic.pdf');
 
