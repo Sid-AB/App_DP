@@ -448,7 +448,7 @@ class modificationController extends Controller
 
     //insérer dans la table moddif
     public function insertModif(Request $request)
-    {
+    {dd($request);
         //récupéreer lees données
             $modifications = $request->all();
            //dd($modifications);
@@ -666,22 +666,38 @@ class modificationController extends Controller
                     foreach ($view as $row) {
                         if ($row->num_sous_prog == $sousProgReçoit->num_sous_prog && is_null($row->num_action)) {
                        
-                        DB::table($viewName)
+                         $updated=DB::table($viewName)
                             ->where('num_sous_prog', $row->num_sous_prog)
                             ->whereNull('num_action')
-                            ->update([
-                                'AE_init_t1' => DB::raw("AE_init_t1 + {$validated['AE_T1']}"),
-                                'CP_init_t1' => DB::raw("CP_init_t1 + {$validated['CP_T1']}"),
-                                'AE_init_t2' => DB::raw("AE_init_t2 + {$validated['AE_T2']}"),
-                                'CP_init_t2' => DB::raw("CP_init_t2 + {$validated['CP_T2']}"),
-                                'AE_init_t3' => DB::raw("AE_init_t3 + {$validated['AE_T3']}"),
-                                'CP_init_t3' => DB::raw("CP_init_t3 + {$validated['CP_T3']}"),
-                                'AE_init_t4' => DB::raw("AE_init_t4 + {$validated['AE_T4']}"),
-                                'CP_init_t4' => DB::raw("CP_init_t4 + {$validated['CP_T4']}")
-                            ]);
-                    }
+                            ->first();
+                           
+                                $AE_init_t1= $updated->AE_init_t1+(float)$validated['AE_T1'];
+                                $CP_init_t1=$updated->CP_init_t1+(float)$validated['CP_T1'];
+                                $AE_init_t2 =$updated->AE_init_t2 + (float)$validated['AE_T2'];
+                                $CP_init_t2 =$updated->CP_init_t2 + (float)$validated['CP_T2'];
+                                $AE_init_t3=$updated->AE_init_t3 +(float) $validated['AE_T3'];
+                                $CP_init_t3 =$updated->CP_init_t3 + (float)$validated['CP_T3']; 
+                                $AE_init_t4=$updated->AE_init_t4 + (float)$validated['AE_T4']; 
+                                $CP_init_t4 =$updated->CP_init_t4 +(float) $validated['CP_T4']; 
 
-                        if ($row->num_action == $actionrec_->num_action ) {
+                                $updated= DB::table($viewName)
+                                ->where('num_sous_prog', $sousProgReçoit->num_sous_prog)
+                                ->whereNull('num_action')->
+                                update([
+                                    'AE_init_t1' =>   $AE_init_t1,
+                                    'CP_init_t1' =>  $CP_init_t1,
+                                    'AE_init_t2' =>  $AE_init_t2,
+                                    'CP_init_t2' => $CP_init_t2 ,
+                                    'AE_init_t3' =>  $AE_init_t3,
+                                    'CP_init_t3' => $CP_init_t3,
+                                    'AE_init_t4' =>  $AE_init_t4,
+                                    'CP_init_t4' => $CP_init_t4 ,
+                                ]);
+                                $queries = DB::getQueryLog(); 
+                                dd($updated);
+                            }
+
+                            if ($row->num_action == $actionrec_->num_action ) {
                        
                         DB::table($viewName)
                             ->where('num_action', $row->num_action)
