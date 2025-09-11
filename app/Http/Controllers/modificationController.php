@@ -448,7 +448,7 @@ class modificationController extends Controller
 
     //insérer dans la table moddif
     public function insertModif(Request $request)
-    {
+    {dd($request);
         //récupéreer lees données
             $modifications = $request->all();
            //dd($modifications);

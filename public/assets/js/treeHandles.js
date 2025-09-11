@@ -501,9 +501,26 @@ $('#button-71').on('click',function(){
   } 
 
   code_port=$('#Code_port').val()
-  AE_port=$('#AE_Port').val()//parseNumberWithoutCommas($('#AE_Port').val())
-  CP_port=$('#CP_Port').val()//parseNumberWithoutCommas($('#CP_Port').val())
+  if($('#AE_Port').val() !== undefined || $('#AE_Port').val() =='')
+  {
+  AE_port=parseNumberWithoutCommas($('#AE_Port').val())
+  }
+  if($('#CP_Port').val() !== undefined || $('#CP_Port').val() !== '')
+    {
+  CP_port=parseNumberWithoutCommas($('#CP_Port').val())
+    }
+  var AE_env_t=$('#AE_env_T').val();
+  var CP_env_t=$('#CP_env_T').val();
+  console.log('tt'+$('#AE_env_T').val())
+  /*if($('#AE_env_T').val() !== undefined || $('#AE_env_T').val() !== 'undefined' )
+  {
+     AE_env_t=parseNumberWithoutCommas(AE_env_t)
+  }
+  if($('#CP_env_T').val() !== undefined || $('#CP_env_T').val() !=='undefined')
+  {
+ CP_env_t=parseNumberWithoutCommas(CP_env_t)
 
+  }*/
   var datamodif={
     ref:$('#id').val(),
     id_port:port,
@@ -516,8 +533,8 @@ $('#button-71').on('click',function(){
      AE_T4:parseFloat(AE_T4),
      CP_T4:parseFloat(CP_T4),
      T_port_env:selectTret,
-     AE_env_T: parseFloat($('#AE_env_T').val()),
-     CP_env_T: parseFloat($('#CP_env_T').val()),
+     AE_env_T: parseFloat(AE_env_t),
+     CP_env_T: parseFloat(CP_env_t),
      prog_retirer:selectedprogret,
      Sous_prog_retire:selectdsousret,
      type:selectedHobby,
@@ -529,8 +546,8 @@ $('#button-71').on('click',function(){
      status:false,
      code_port:code_port,
      type_port:type_port,
-     AE_port:AE_port,
-     CP_port:CP_port,
+     AE_port:parseFloat(AE_port),
+     CP_port:parseFloat(CP_port),
      _token: $('meta[name="csrf-token"]').attr("content"),
      _method: "POST",
   }
