@@ -126,7 +126,7 @@ $(document).ready(function(){
   var type_ext=""
   var sousProgs={};
   var code_port='';
-  var type_port='';
+  var type_port='recoit_port';
   var AE_port=0;
   var CP_port=0;
   var act_cible_ret='';
@@ -501,16 +501,24 @@ $('#button-71').on('click',function(){
   } 
 
   code_port=$('#Code_port').val()
-  if($('#AE_Port').val() !== undefined || $('#AE_Port').val() =='')
+  if($('#AE_Port').val() !== undefined && $('#AE_Port').val() !=='' && selectedHobby !== 'inter')
   {
-  AE_port=parseNumberWithoutCommas($('#AE_Port').val())
+      AE_port=parseNumberWithoutCommas($('#AE_Port').val())
   }
-  if($('#CP_Port').val() !== undefined || $('#CP_Port').val() !== '')
+  if($('#CP_Port').val() !== undefined && $('#CP_Port').val() !== '' && selectedHobby !== 'inter')
     {
-  CP_port=parseNumberWithoutCommas($('#CP_Port').val())
+      CP_port=parseNumberWithoutCommas($('#CP_Port').val())
     }
-  var AE_env_t=$('#AE_env_T').val();
-  var CP_env_t=$('#CP_env_T').val();
+  var AE_env_t=0;
+  var CP_env_t=0;
+    if($('#AE_env_T').val() !== undefined && $('#AE_env_T').val() !== '')
+    {
+      AE_env_t=parseNumberWithoutCommas($('#AE_env_T').val())
+    }
+      if($('#CP_env_T').val() !== undefined && $('#CP_env_T').val() !== '')
+    {
+      CP_env_t=parseNumberWithoutCommas($('#CP_env_T').val())
+    }
   console.log('tt'+$('#AE_env_T').val())
   /*if($('#AE_env_T').val() !== undefined || $('#AE_env_T').val() !== 'undefined' )
   {
