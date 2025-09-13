@@ -501,11 +501,11 @@ $('#button-71').on('click',function(){
   } 
 
   code_port=$('#Code_port').val()
-  if($('#AE_Port').val() !== undefined || $('#AE_Port').val() =='')
+  if($('#AE_Port').val() !== undefined && $('#AE_Port').val() =='' && typeof $('#AE_Port').val() !== "undefined")
   {
   AE_port=parseNumberWithoutCommas($('#AE_Port').val())
   }
-  if($('#CP_Port').val() !== undefined || $('#CP_Port').val() !== '')
+  if($('#CP_Port').val() !== undefined && $('#CP_Port').val() !== '' && typeof $('#CP_Port').val() !== "undefined" )
     {
   CP_port=parseNumberWithoutCommas($('#CP_Port').val())
     }
