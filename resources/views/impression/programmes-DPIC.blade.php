@@ -794,12 +794,7 @@
          
            
                 @if(isset($prgrmsousact) && count($prgrmsousact) > 0)
-                    @php 
-                    $total_t1_ae = $total_t1_cp = 0;
-                    $total_t2_ae = $total_t2_cp = 0;
-                    $total_t3_ae = $total_t3_cp = 0;
-                    $total_t4_ae = $total_t4_cp = 0;
-                    @endphp
+               
                     {{-- Ligne principale pour le programme --}}
                     <tr class="program-title">
                     @foreach($prgrmsousact as $programme)
@@ -807,8 +802,15 @@
                         $code =explode('-',$programme['num_prog']);
                         $last =count($code)-1;
                         //dd($code);
-                    
-                    
+                        $total_t1_ae = 0;
+                        $total_t1_cp = 0;
+                        $total_t2_ae = 0;
+                        $total_t2_cp = 0;
+                        $total_t3_ae = 0;
+                        $total_t3_cp = 0;
+                        $total_t4_ae = 0;
+                        $total_t4_cp = 0;
+                                    
                         $code = $code[$last];
                         $indiceProg[] = count($indiceProg) + 1;
                         //dd($indiceProg);

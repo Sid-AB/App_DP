@@ -153,6 +153,7 @@ function print_dpa($numport)
 
       $art = Article::selectRaw("id_art, CONCAT(nom_art, ' (', code_art, ')') as nom")->get();
    //dd($art);
+
    $grouped=DB::table('modification_t_s as m1')
     ->join('articles', 'm1.id_art', '=', 'articles.id_art')
     ->whereRaw("SUBSTRING_INDEX(m1.num_prog, '-', 2) = ?", [$numport])
@@ -197,7 +198,7 @@ $modif = DB::table(DB::raw("({$grouped->toSql()}) as grouped"))
    // $modif = collect([$modif]);
 
     //dd($modif);
-    $com=$modif[0];
+   // $com=$modif[0];
   
 
     $progms=Programme::where("num_portefeuil",$numport)->get();
@@ -326,12 +327,15 @@ $modif = DB::table(DB::raw("({$grouped->toSql()}) as grouped"))
     'TotalPortT4_AE'=>$TtportT4AE,'TotalPortT4_CP'=>$TtportT4CP]);
     //dd($Ttportglob);
     //modification et article 
-
+   // dd($numport);
     $art = Article::selectRaw("id_art, CONCAT(nom_art, ' (', code_art, ')') as nom")->get();
    //dd($art);
  $modif = DB::table('modification_t_s as m1')
     ->join('articles', 'm1.id_art', '=', 'articles.id_art')
-    ->whereRaw("SUBSTRING_INDEX(m1.num_prog, '-', 2) = ?", [$numport])
+   ->where(function($q) use ($numport) {
+        $q->whereRaw("SUBSTRING_INDEX(m1.num_prog, '-', 2) = ?", [$numport])
+          ->orWhereRaw("SUBSTRING_INDEX(m1.num_prog_retire, '-', 2) = ?", [$numport]);
+    })
     ->select(
         'm1.*',
         DB::raw("CONCAT(articles.nom_art, ' (', articles.code_art, ')') as nom")
@@ -339,7 +343,7 @@ $modif = DB::table(DB::raw("({$grouped->toSql()}) as grouped"))
     ->orderBy('m1.date_modif', 'desc') 
     ->get();    
     //$modif = collect([$modif]);
-        //dd($modif);
+       // dd($modif);
     $result = []; 
     $lastModifs = [];
    // dd($art); 
@@ -727,7 +731,7 @@ if ($tableExists) {
 //dd($result);
 
 //return view('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModifs','result','resultData','progg','prgrmsousact','com'));
-$pdf=SnappyPdf::loadView('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModifs','result','resulg','resultData','progg','prgrmsousact','com'))
+$pdf=SnappyPdf::loadView('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModifs','result','resulg','resultData','progg','prgrmsousact'))
 ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1);//lanscape mean orentation
 return $pdf->stream('impression_dpic.pdf');
 
@@ -737,7 +741,7 @@ return $pdf->stream('impression_dpic.pdf');
  
      
 //return view('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModifs','result','resultData','progg','com'));
-$pdf=SnappyPdf::loadView('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModifs','result','resulg','resultData','progg','com'))
+$pdf=SnappyPdf::loadView('impression.impression_dpic_init', compact('programmes','Ttportglob','art','modif','lastModifs','result','resulg','resultData','progg'))
 ->setPaper("A4","landscape")->setOption('dpi', 300) ->setOption('zoom', 1);//lanscape mean orentation
 return $pdf->stream('impression_dpic.pdf');
 
@@ -775,6 +779,7 @@ $num_action_recoit = implode('-', array_slice($partsrec, 0, 5));
 // si ae et cp du mm t
 //dd($lastModif);
 //dd('avant boucle', $tabsousprogretir);
+ if ($lastModif->type_modif === 'inter') {
 if ($lastModif->$envoiAE == $lastModif->$recoitAE && $lastModif->$envoiCP == $lastModif->$recoitCP) {
     if ($lastModif->$envoiAE !=0 && $lastModif->$recoitAE!=0 && $lastModif->$envoiCP !=0 && $lastModif->$recoitCP!=0){
 
@@ -848,10 +853,56 @@ if ($lastModif->$envoiAE == $lastModif->$recoitAE && $lastModif->$envoiCP == $la
   
 }
 
+ }elseif ($lastModif->type_modif === 'exter_port') {
+   
+            if (
+                !empty($lastModif->num_sous_prog_retire) ) {
+                if (!empty($lastModif->$recoitAE) && $lastModif->$recoitAE > 0) {
+                        $lastModif->$recoitAE = -$lastModif->$recoitAE;
+                         array_push ( $tabsousprogretir , [
+                        'valeurAE'      => $lastModif->$recoitAE,
+                        'num_sous_prog' => $lastModif->num_sous_prog_retire,
+                        'prog'          => $lastModif->num_prog_retire,
+                        'num_action'    => $num_action_retire,
+                        'num_sous_action' => $lastModif->num_sous_action_retire,
+                    ]);
+                }
+                if (!empty($lastModif->$recoitCP) && $lastModif->$recoitCP > 0) {
+                     $lastModif->$recoitCP = -$lastModif->$recoitCP;
+                    array_push ( $tabsousprogretir , [
+                        'valeurCP'      => $lastModif->$recoitCP,
+                        'num_sous_prog' => $lastModif->num_sous_prog_retire,
+                        'prog'          => $lastModif->num_prog_retire,
+                        'num_action'    => $num_action_retire,
+                        'num_sous_action' => $lastModif->num_sous_action_retire,
+                    ]);
+                }
+            } else {
+                if (!empty($lastModif->$recoitAE) && $lastModif->$recoitAE > 0) {
+                         array_push ( $tabsousprogrecoit , [
+                        'valeurAE'      => $lastModif->$recoitAE,
+                        'num_sous_prog' => $lastModif->num_sous_prog,
+                        'prog'          => $lastModif->num_prog,
+                        'num_action'    => $num_action_recoit,
+                        'num_sous_action' => $lastModif->num_sous_action,
+                    ]);
+                }
+                if (!empty($lastModif->$recoitCP) && $lastModif->$recoitCP > 0) {
+                     array_push ( $tabsousprogrecoit , [
+                        'valeurCP'      => $lastModif->$recoitCP,
+                        'num_sous_prog' => $lastModif->num_sous_prog,
+                        'prog'          => $lastModif->num_prog,
+                        'num_action'    => $num_action_recoit,
+                        'num_sous_action' => $lastModif->num_sous_action,
+                    ]);
+                }
+            
+        
  }
 //dd($lastModif, $tabsousprogretir, $tabsousprogrecoit);
 
-
+}
+ }
 return [
     'tabsousprogretir' => $tabsousprogretir,
     'tabsousprogrecoit' => $tabsousprogrecoit,

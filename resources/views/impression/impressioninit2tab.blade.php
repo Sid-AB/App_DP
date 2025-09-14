@@ -265,7 +265,7 @@ Ministère de la Communication
             $total_AE_t2 = $total_CP_t2 = 0;
             $total_AE_t3 = $total_CP_t3 = 0;
             $total_AE_t4 = $total_CP_t4 = 0;
-           // dd($result);
+            //dd($result);
         @endphp
 
         @foreach($art as $article)
