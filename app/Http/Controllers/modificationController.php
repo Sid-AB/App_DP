@@ -939,70 +939,67 @@ class modificationController extends Controller
                         $actionret_->save();
                       
                     }
-  // Retirer à l’action source
-DB::table($viewName)
-    ->where('num_action', $actionret_->num_action)
-    ->update([
-        'AE_init_t1' => DB::raw("AE_init_t1 - $AE_env_T1"),
-        'CP_init_t1' => DB::raw("CP_init_t1 - $CP_env_T1"),
-        'AE_init_t2' => DB::raw("AE_init_t2 - $AE_env_T2"),
-        'CP_init_t2' => DB::raw("CP_init_t2 - $CP_env_T2"),
-        'AE_init_t3' => DB::raw("AE_init_t3 - $AE_env_T3"),
-        'CP_init_t3' => DB::raw("CP_init_t3 - $CP_env_T3"),
-        'AE_init_t4' => DB::raw("AE_init_t4 - $AE_env_T4"),
-        'CP_init_t4' => DB::raw("CP_init_t4 - $CP_env_T4"),
-    ]);
 
-// ⚠️ NE RIEN FAIRE ici pour l’action destinataire
-// (on ne fait pas de " + valeur " car ça va être repris par le SUM)
+                DB::table($viewName)
+                    ->where('num_action', $actionret_->num_action)
+                    ->update([
+                        'AE_init_t1' => DB::raw("AE_init_t1 - $AE_env_T1"),
+                        'CP_init_t1' => DB::raw("CP_init_t1 - $CP_env_T1"),
+                        'AE_init_t2' => DB::raw("AE_init_t2 - $AE_env_T2"),
+                        'CP_init_t2' => DB::raw("CP_init_t2 - $CP_env_T2"),
+                        'AE_init_t3' => DB::raw("AE_init_t3 - $AE_env_T3"),
+                        'CP_init_t3' => DB::raw("CP_init_t3 - $CP_env_T3"),
+                        'AE_init_t4' => DB::raw("AE_init_t4 - $AE_env_T4"),
+                        'CP_init_t4' => DB::raw("CP_init_t4 - $CP_env_T4"),
+                    ]);
 
-// Recalculer totaux sous-programme source
-$totauxSource = DB::table($viewName)
-    ->selectRaw("SUM(AE_init_t1) as total_AE_t1, SUM(CP_init_t1) as total_CP_t1,
-                 SUM(AE_init_t2) as total_AE_t2, SUM(CP_init_t2) as total_CP_t2,
-                 SUM(AE_init_t3) as total_AE_t3, SUM(CP_init_t3) as total_CP_t3,
-                 SUM(AE_init_t4) as total_AE_t4, SUM(CP_init_t4) as total_CP_t4")
-    ->where('num_sous_prog', $sousProgRetire->num_sous_prog)
-    ->whereNotNull('num_action')
-    ->first();
+             
+                $totauxSource = DB::table($viewName)
+                    ->selectRaw("SUM(AE_init_t1) as total_AE_t1, SUM(CP_init_t1) as total_CP_t1,
+                                SUM(AE_init_t2) as total_AE_t2, SUM(CP_init_t2) as total_CP_t2,
+                                SUM(AE_init_t3) as total_AE_t3, SUM(CP_init_t3) as total_CP_t3,
+                                SUM(AE_init_t4) as total_AE_t4, SUM(CP_init_t4) as total_CP_t4")
+                    ->where('num_sous_prog', $sousProgRetire->num_sous_prog)
+                    ->whereNotNull('num_action')
+                    ->first();
 
-DB::table($viewName)
-    ->where('num_sous_prog', $sousProgRetire->num_sous_prog)
-    ->whereNull('num_action')
-    ->update([
-        'AE_init_t1' => $totauxSource->total_AE_t1,
-        'CP_init_t1' => $totauxSource->total_CP_t1,
-        'AE_init_t2' => $totauxSource->total_AE_t2,
-        'CP_init_t2' => $totauxSource->total_CP_t2,
-        'AE_init_t3' => $totauxSource->total_AE_t3,
-        'CP_init_t3' => $totauxSource->total_CP_t3,
-        'AE_init_t4' => $totauxSource->total_AE_t4,
-        'CP_init_t4' => $totauxSource->total_CP_t4,
-    ]);
+                DB::table($viewName)
+                    ->where('num_sous_prog', $sousProgRetire->num_sous_prog)
+                    ->whereNull('num_action')
+                    ->update([
+                        'AE_init_t1' => $totauxSource->total_AE_t1,
+                        'CP_init_t1' => $totauxSource->total_CP_t1,
+                        'AE_init_t2' => $totauxSource->total_AE_t2,
+                        'CP_init_t2' => $totauxSource->total_CP_t2,
+                        'AE_init_t3' => $totauxSource->total_AE_t3,
+                        'CP_init_t3' => $totauxSource->total_CP_t3,
+                        'AE_init_t4' => $totauxSource->total_AE_t4,
+                        'CP_init_t4' => $totauxSource->total_CP_t4,
+                    ]);
 
-// Recalculer totaux sous-programme destinataire
-$totauxDest = DB::table($viewName)
-    ->selectRaw("SUM(AE_init_t1) as total_AE_t1, SUM(CP_init_t1) as total_CP_t1,
-                 SUM(AE_init_t2) as total_AE_t2, SUM(CP_init_t2) as total_CP_t2,
-                 SUM(AE_init_t3) as total_AE_t3, SUM(CP_init_t3) as total_CP_t3,
-                 SUM(AE_init_t4) as total_AE_t4, SUM(CP_init_t4) as total_CP_t4")
-    ->where('num_sous_prog', $sousProgReçoit->num_sous_prog)
-    ->whereNotNull('num_action')
-    ->first();
+  
+                $totauxDest = DB::table($viewName)
+                    ->selectRaw("SUM(AE_init_t1) as total_AE_t1, SUM(CP_init_t1) as total_CP_t1,
+                                SUM(AE_init_t2) as total_AE_t2, SUM(CP_init_t2) as total_CP_t2,
+                                SUM(AE_init_t3) as total_AE_t3, SUM(CP_init_t3) as total_CP_t3,
+                                SUM(AE_init_t4) as total_AE_t4, SUM(CP_init_t4) as total_CP_t4")
+                    ->where('num_sous_prog', $sousProgReçoit->num_sous_prog)
+                    ->whereNotNull('num_action')
+                    ->first();
 
-DB::table($viewName)
-    ->where('num_sous_prog', $sousProgReçoit->num_sous_prog)
-    ->whereNull('num_action')
-    ->update([
-        'AE_init_t1' => $totauxDest->total_AE_t1,
-        'CP_init_t1' => $totauxDest->total_CP_t1,
-        'AE_init_t2' => $totauxDest->total_AE_t2,
-        'CP_init_t2' => $totauxDest->total_CP_t2,
-        'AE_init_t3' => $totauxDest->total_AE_t3,
-        'CP_init_t3' => $totauxDest->total_CP_t3,
-        'AE_init_t4' => $totauxDest->total_AE_t4,
-        'CP_init_t4' => $totauxDest->total_CP_t4,
-    ]);
+                DB::table($viewName)
+                    ->where('num_sous_prog', $sousProgReçoit->num_sous_prog)
+                    ->whereNull('num_action')
+                    ->update([
+                        'AE_init_t1' => $totauxDest->total_AE_t1,
+                        'CP_init_t1' => $totauxDest->total_CP_t1,
+                        'AE_init_t2' => $totauxDest->total_AE_t2,
+                        'CP_init_t2' => $totauxDest->total_CP_t2,
+                        'AE_init_t3' => $totauxDest->total_AE_t3,
+                        'CP_init_t3' => $totauxDest->total_CP_t3,
+                        'AE_init_t4' => $totauxDest->total_AE_t4,
+                        'CP_init_t4' => $totauxDest->total_CP_t4,
+                    ]);
 
     } elseif ($validated['type'] == "exter" && $validated['type_extr'] == "res") {
         $sousProgReçoit->AE_sous_prog += $validated['AE_T1'] +  $validated['AE_T2'] +  $validated['AE_T3'] + $validated['AE_T4'];
