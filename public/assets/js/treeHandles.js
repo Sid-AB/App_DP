@@ -566,21 +566,21 @@ $('#button-71').on('click',function(){
     data:datamodif,
     success:function(response)
     {
+    console.log('Réponse du serveur:', JSON.stringify(response));
+      if(response.status == 200){
     
-      if(response.code == 200){
-    
-      if(status == 200)
-      {
-          console.log('Réponse du serveur:', response);
-      }}
+          
+      
+      }
       else
       {
         alert('File upload')
       }
     },
+
     error: function(xhr, status, error) {
-      //  console.log('Erreur AJAX:', status, error);
-      //  console.log('Détails de la réponse:', xhr.responseText);
+        console.log('Erreur AJAX:', status, error);
+        console.log('Détails de la réponse:', xhr.responseText);
     }
   })
 
@@ -601,7 +601,9 @@ $('#button-71').on('click',function(){
     $('#CP_T3').val('')
     $('#AE_T4').val('')
     $('#CP_T4').val('')
-     change=false;}
+     change=false;
+        window.location.reload();
+    }
      else
      {
       $('#button-71').prop("disabled", false)

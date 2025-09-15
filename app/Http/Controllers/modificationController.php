@@ -1113,9 +1113,16 @@ DB::table($viewName)
 
 
               // dd( $modif);
+                if(isset($modif))
+                {
+                return response()->json(['code'=>200,'message '=>'success']);;
+                }
+                else
+                {
+                return response()->json(['code'=>404,'message '=>'unsuccess']);;
+                }
 
-
-    return response()->json(['message' => 'Modifications insérées avec succès','code'=>200], 200);
+   
 }
 function affiche_modif($numport)
 {
