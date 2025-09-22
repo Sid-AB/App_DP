@@ -153,14 +153,14 @@ function vider_t(t,id,id_sa)
 function appliquer_up(T)
 {
     $('.change_app').on('click',function(){
-        var idbtn=$(this).children('#changin').attr('id');
-        if(idbtn =='changin' )
+        var idbtn=$(this).children('#changin_op').attr('id');
+        console.log('click once appliquer_up'+iupdate);
+        if(idbtn =='changin_op' )
         {
-            //console.log('i insert '+JSON.stringify(dataupdate))
-            //console.log('click once'+iupdate);
+            console.log('i insert '+JSON.stringify(dataupdate))
 
 
-            //console.log('click after'+iupdate);
+            console.log('click after'+iupdate);
    $.ajax({
         url:'/update',
         type:'POST',
@@ -174,7 +174,7 @@ function appliquer_up(T)
                 if(response.code == 200)
                     {
                 dataupdate.forEach(elemnt=>{
-                    //console.log('green add to '+elemnt.code)
+                    console.log('green add to '+elemnt.code)
                     $('#ref'+elemnt.code).addClass('row-updated');
                     dataupdate=Array();
                 })
@@ -1315,6 +1315,7 @@ function add_newOPs_T3(id, value, key,code) {
 }
 
 function add_newOPs_T4(id, value, key,code) {
+   $('.Tsop_handler').empty()
    $('.change_app').empty()
    $("#dispo").val('');
    $('.desp').text('Dispositive');
@@ -1349,12 +1350,17 @@ function add_newOPs_T4(id, value, key,code) {
    $('#ajt').click(function(){
     
     mount_chang=true;
-
-    idsz=id+'-'+counter;
-    var buttons = '<button class="btn btn-primary" id="changin"> appliquer</button>'
+    if(counter != 10)
+        {
+         idsz=id+'-'+counter;
+        }
+        else
+        {
+            idsz=id
+        }
+    var buttons = '<button class="btn btn-primary" id="changin_op"> appliquer</button>'
     $('.change_app').append(buttons)
        var data_add_ops={
-           code:idsz,
            descrp:$('#dispo').val(),
           // defi:$('#def_T4').val(),
            AE_T4:$('#add_AE_T4').val(),
@@ -1387,7 +1393,7 @@ function add_newOPs_T4(id, value, key,code) {
        '<td id="AE_T4">' + data_add_ops.AE_T4 + '</td>' +
        '<td  id="CP_T4">' + data_add_ops.CP_T4 + '</td>' +
        '</tr>';
-            $('#' + key).after(row)
+           
         }
 
        /* var cpold=parseNumberWithoutCommas($('#'+key+' td:last').text());
@@ -1404,22 +1410,35 @@ function add_newOPs_T4(id, value, key,code) {
             var ads = newKey.split('ref')[1]
             $('.Tsop_handler').removeClass('Tsop_handler_h')
              add_newOPs_T4(ads, 2500, key,code);
-            if(code != 200)
+            if(code == 200)
             {
-                T=4;
-                Edit(id, T)
+            T=4;
+            appliquer_up(T)
+            }
+            {
+                 T=4;
+            Edit(id, T)
             }
          })
             var finder=false
             var cuurent=idsz;
+            console.log('click function'+idsz)
             while(!finder)
                 {
-                   let next = $('.ref' + cuurent).next(); // ✅ get next row
+                       
+                    let next = $('#ref'+idsz).next(); // ✅ get next row
                     let nextID = next.attr('id'); // e.g. "ref-12"
+                    console.log("next id"+nextID+'  cuurent di'+idsz)
+                    //if()
                     if (!nextID) {
+                       
+                        
                         console.log("No next row");
                         finder = true;
+                        counter++
+                           
                     }
+                    
                     else{
                     let idspli = nextID.split('-');
                     let cleanID = nextID.split('ref')[1]; // part after "ref"
@@ -1433,16 +1452,19 @@ function add_newOPs_T4(id, value, key,code) {
                         cuurent = cleanID; // update current
                         console.log('Current is now ' + cuurent);
                     } else {
-                        finder = true;
+                        //finder = true;
                         console.log('Out with id ' + cuurent);
                         counter=parseInt(idspli[idspli.length - 1])+1
+                        idsz=id+'-'+counter;
                     }}
-                }         
-       counter++
+                }        
        //idsz=id+'-'+counter;
+       //counter++
        const newidsz=id+'-'+counter
        console.log('idsz'+idsz+'counter -'+counter)
    dataupdate.push({code:newidsz,value:{ae:data_add_ops.AE_T4,cp:data_add_ops.CP_T4,dispo:data_add_ops.descrp}})
+    counter++;            
+    $('#' + key).after(row)
   /* $('#' + key + ' td').each(function () {
        $(this).removeClass('editable');
    })*/
@@ -1454,8 +1476,9 @@ function add_newOPs_T4(id, value, key,code) {
        $('.Tsop_handler').addClass('Tsop_handler_h')
        if(code == 200)
         {
-            T=4;
-            appliquer_up(T)
+             T=4;
+             appliquer_up(T)
+  
         }   
         else {
         T=4;

@@ -50,7 +50,7 @@ class modificationController extends Controller
         $Tport = $data['Tport']; 
         $resultats = $data['result']; //les valeurs [code_sous_op,ae et cp]
         //dd($Tport);
-        //dd( $resultats );
+       // dd( $resultats );
         //validation
         if (!in_array($Tport, ['1', '2', '3', '4'])) {
             return response()->json(['erreur' => 'Type de T invalide reçu '], 400);
@@ -68,9 +68,9 @@ class modificationController extends Controller
 
             // récupérer la ligne d'entrée
             $sousOperation = SousOperation::where('code_sous_operation', $code)->first();
-            //dd($sousOperation);
+            
            // modification d'aprés les t
-           if ($sousOperation) {
+           if (isset($sousOperation)) {
             switch ($Tport) {
                 case '1':
                     $this->ModifT1($sousOperation, $values);
@@ -85,6 +85,7 @@ class modificationController extends Controller
                     break;
 
                 case '4':
+                    dd($sousOperation);
                     $this->ModifT4($sousOperation, $values);
                     break;
             }
@@ -135,12 +136,12 @@ class modificationController extends Controller
                         'CP_ouvert_dpia' => null,
                         'CP_atendu_dpia' => null,
             
-                        'AE_reporte_dpia' => floatval(str_replace(',', '', $values['ae_reporte'])) ?? $sousOperation->AE_reporte,
-                        'AE_notifie_dpia' =>  floatval(str_replace(',', '', $values['ae_notifie'])) ?? $sousOperation->AE_notifie,
-                        'AE_engage_dpia' => floatval(str_replace(',', '', $values['ae_engage'])) ?? $sousOperation->AE_engage,
-                        'CP_reporte_dpia' => floatval(str_replace(',', '', $values['cp_reporte'])) ?? $sousOperation->CP_reporte,
-                        'CP_notifie_dpia' => floatval(str_replace(',', '', $values['cp_notifie'])) ?? $sousOperation->CP_notifie,
-                        'CP_consome_dpia' => floatval(str_replace(',', '', $values['cp_consome'])) ?? $sousOperation->CP_consome,
+                        'AE_reporte_dpia' => floatval(str_replace(',', '', $values['ae_reporte'])) ?? $sous->AE_reporte,
+                        'AE_notifie_dpia' =>  floatval(str_replace(',', '', $values['ae_notifie'])) ?? $sous->AE_notifie,
+                        'AE_engage_dpia' => floatval(str_replace(',', '', $values['ae_engage'])) ?? $sous->AE_engage,
+                        'CP_reporte_dpia' => floatval(str_replace(',', '', $values['cp_reporte'])) ?? $sous->CP_reporte,
+                        'CP_notifie_dpia' => floatval(str_replace(',', '', $values['cp_notifie'])) ?? $sous->CP_notifie,
+                        'CP_consome_dpia' => floatval(str_replace(',', '', $values['cp_consome'])) ?? $sous->CP_consome,
                         'id_rp' => 1,
                         'id_ra' => 1,
                     ]);
@@ -197,8 +198,10 @@ class modificationController extends Controller
                       // vérifier si le code est > 9 parties séparé par - 
                       $parts = explode('-', $code);
                       //dd($parts);
+                      $codepor=$parts[0].'-'.$parts[1];
+                      $portefeuille = Portefeuille::where('num_portefeuil',$codepor)->firstOrFail();
                       $code_operation = implode('-', array_slice($parts, 0, 8));
-                      //dd($code_operation );
+                     // dd($code_operation );
                       if (count($parts) > 7) {
                         // insertion d'une nouvelle sous-opération
                           $sous=SousOperation::create([
@@ -215,13 +218,13 @@ class modificationController extends Controller
                           //dd($sous);
                       // insérer dans ConstruireDPIA
                       ConstruireDPIA::create([
-                          'code_sous_operation' =>  $sousOperation->code_sous_operation,
+                          'code_sous_operation' =>  $sous->code_sous_operation,
                           'motif_dpia' => 'Modification T4 insert dispositif',
                           'date_creation_dpia' => $portefeuille->Date_portefeuille,
                           'date_modification_dpia' => now(),
               
-                          'AE_dpia_nv' => floatval(str_replace(',', '', $values['ae'])) ?? $sousOperation->AE_sous_operation, //si existe ok sinn aucune modif (ae_sous_op sera utilisé)
-                          'CP_dpia_nv' => floatval(str_replace(',', '', $values['cp'])) ?? $sousOperation->CP_sous_operation,
+                          'AE_dpia_nv' => floatval(str_replace(',', '', $values['ae'])) ?? $sous->AE_sous_operation, //si existe ok sinn aucune modif (ae_sous_op sera utilisé)
+                          'CP_dpia_nv' => floatval(str_replace(',', '', $values['cp'])) ?? $sous->CP_sous_operation,
               
                           'AE_ouvert_dpia' => null,
                           'AE_atendu_dpia' => null,
@@ -1601,7 +1604,7 @@ function delete_by_id($id,Request $request)
     $succe_pr_gr=false;
     $split=explode("_",$id);
     $gropos=null;
-    //dd($split);
+   // dd($split);
     $code=$request['code'];
         
     if(!isset($code))
@@ -1618,7 +1621,13 @@ function delete_by_id($id,Request $request)
            //  dd($account,$code);
                 if(!isset($account))
                   {
-                         return back()->with('unsuccess', 'User registered indefined!');
+                     $account =Accounts::join('portefeuilles','portefeuilles.id_min','accounts.id_min')
+                    ->join('programmes','programmes.num_portefeuil','portefeuilles.num_portefeuil')
+                    ->where('code_generated',$code)->first();
+                           if(!isset($account))
+                             {
+                                return back()->with('unsuccess', 'User registered indefined!');
+                             }
                   }
             $deletmodel->delete();
         return response()->json(['code'=>200,'message '=>'success']);
@@ -1628,25 +1637,35 @@ function delete_by_id($id,Request $request)
     }
     if($split[0] == 'sousprog')
     {
-        //dd($split[0],$split[1]);
+       // dd($split[0],$split[1]);
         $deletmodel=SousProgramme::where('num_sous_prog',$split[1])->first();
         $deletmulti=multimedia::where('related_id','=',$split[1])->get();
         $init_sous= initPort::where('num_sous_prog', $split[1])
         ->whereNull('num_action')
         ->first();
-       // dd($deletmodel);
+        //dd($deletmulti,$init_sous);
         if(isset($deletmodel))
         {
-         //   dd($deletmodel);
+          //  dd($deletmodel);
             $account =Accounts::join('programmes','programmes.id_rp','accounts.id_rp')->where('code_generated',$code)->where('programmes.num_prog',$deletmodel->num_prog)->first();
                  //    dd($account,$code);
                       if(!isset($account))
                      {
+                        // dd($deletmulti,$init_sous);
+                        $account =Accounts::join('portefeuilles','portefeuilles.id_min','accounts.id_min')
+                        ->join('programmes','programmes.num_portefeuil','portefeuilles.num_portefeuil')
+                        ->join('sous_programmes','sous_programmes.num_prog','programmes.num_prog')
+                        ->where('code_generated',$code)->first();  
+                       // dd($account) ;
+                         if(!isset($account))
+                             {
                          return back()->with('unsuccess', 'User registered indefined!');
+                             }
                      }
-            if(isset($deletmulti))
+           // dd($deletmulti,$init_sous);   
+            if(count($deletmulti) > 0)
             {
-                
+               
                 foreach ($deletmulti as $media)
                 {
                     $media->delete();
@@ -1655,9 +1674,10 @@ function delete_by_id($id,Request $request)
             }
             if(isset($init_sous))
             {
+                
                 $init_sous->delete();
             }
-            
+           // dd($deletmodel);
             DB::delete('DELETE FROM sous_programmes WHERE num_sous_prog = ?',[ $split[1]]);
             return response()->json(['code'=>200,'message '=>'success']);
            
@@ -1685,7 +1705,7 @@ function delete_by_id($id,Request $request)
              // dd($deletmodelA,$account);
               if(!isset($account))
               {
-                dd($deletmodelA,$account);
+              //  dd($deletmodelA,$account);
                 $account =Accounts::join('actions','actions.id_ra','accounts.id_ra')
                 ->join('sous_actions','sous_actions.num_action','actions.num_action')
                 ->where('code_generated',$code)->where('sous_actions.num_action',$deletmodelA->num_action)->first();
