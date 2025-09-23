@@ -178,6 +178,7 @@
                         //$totalOperations = count($operationData['sousOperations']);
                         $totalOperations = count($groupData['operations']);
                       //  dd($totalOperations);
+                     // dd($namesT3[$codeop]);
                      @endphp
                 @if (count($operationData['sousOperations']) > 0)
                    <tr class="operation-row with-sousop">
@@ -231,17 +232,42 @@
        
                     if (strpos($nom, '_') !== false) {
                     $explodnom = explode('_', $nom);
-                    $decision=reset($explodnom);
+                    //$decision=reset($explodnom);
+                    $decision= $explodnom[1];
                     //dd($decision);
                     $intitule=end($explodnom);
-                    //dd($intitule);
+                   // dd($intitule);
                     }else {
                             $decision ='';
                             $intitule = '';
                     }
+                //dd($namesT3[$codeextr]);
                 @endphp  
                 @if ($codeextr !== $codeop)
                     <tr>
+                    <td class="code">{{  (strlen($codeextr) === 5) ? $codeextr : '' }}</td>
+    
+                    <td>{{ $namesT3[$codeextr] ??$namesT3[$avantDernierePartie] }}</td>
+                    <td >{{ $decision }}</td>
+                    <td class="vert3">{{ $intitule }}</td>
+                    <!--td style="text-align: center; " class="code">{{ $codeextr }}</td>
+
+                    <td>{{$namesT3[$codegrp]}}</td-->
+
+                   
+
+
+                    <td class="aecp " style="text-align: center; ">{{ number_format((float)$sousOp['values']['ae_reporte'], 2, '.', ',') ?? 'N/A' }}</td>
+                    <td class="aecp " style="text-align: center; ">{{ number_format((float)$sousOp['values']['ae_notifie'], 2, '.', ',') ?? 'N/A' }}</td>
+                    <td class="aecp " style="text-align: center; ">{{ number_format((float)$sousOp['values']['ae_engage'], 2, '.', ',') ?? 'N/A' }}</td>
+
+                    <td class="aecp " style="text-align: center; ">{{ number_format((float)$sousOp['values']['cp_reporte'], 2, '.', ',') ?? 'N/A' }}</td>
+                    <td class="aecp " style="text-align: center; ">{{ number_format((float)$sousOp['values']['cp_notifie'], 2, '.', ',') ?? 'N/A' }}</td>
+                    <td class="aecp " style="text-align: center; ">{{ number_format((float)$sousOp['values']['cp_consome'], 2, '.', ',') ?? 'N/A' }}</td>
+                </tr>
+                @elseif (($codeextr == $codeop) && (isset($explodnom[1]) && $explodnom[1] != '-'))
+
+                     <tr>
                     <td class="code">{{  (strlen($codeextr) === 5) ? $codeextr : '' }}</td>
     
                     <td>{{ $namesT3[$codeextr] ??$namesT3[$avantDernierePartie] }}</td>
