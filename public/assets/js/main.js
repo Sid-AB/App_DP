@@ -1463,7 +1463,7 @@ function add_newOPs_T4(id, value, key,code) {
        const newidsz=id+'-'+counter
        console.log('idsz'+idsz+'counter -'+counter)
    dataupdate.push({code:newidsz,value:{ae:data_add_ops.AE_T4,cp:data_add_ops.CP_T4,dispo:data_add_ops.descrp}})
-    counter++;            
+    //counter++;            
     $('#' + key).after(row)
   /* $('#' + key + ' td').each(function () {
        $(this).removeClass('editable');
