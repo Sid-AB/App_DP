@@ -11,7 +11,7 @@ var replac=false;
  * this function for adding button et makalah -_- ;
  */
 
-console.log('main update');
+
 function preview(file)
 {
     $('#'+file).on('change', function(event) {
@@ -6380,6 +6380,7 @@ function T4_table(id, T, id_s_act, port,code) {
     var sousou=true
     var sop_to_op=false;
         // Loop through each item in the JSON data
+        console.log('main update read  json T4');
         $.each(data, function (key, value) {
             // Create a table row
             var val = value.split('-')
