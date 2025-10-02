@@ -5597,6 +5597,7 @@ $('#port_T1').on('click',function()
                         '<td id="foot_AE_T1">' + ValAccountingFigures(data_T_port.total[0].values.totalAE) + '</td>' +
                         '<td id="foot_CP_T1">' + ValAccountingFigures(data_T_port.total[0].values.totalCP) + '</td>';
                         $('#reloading').addClass('reload-hidden')
+                        readT1(data_T_port)
                     }
                     else {
                         alert(response.message);
@@ -5618,7 +5619,7 @@ $('#port_T1').on('click',function()
 
     $('#T-tables thead').append(headT)
    
-    $.getJSON(jsonpath1, function (data) {
+    function readT1(data_T_port){$.getJSON(jsonpath1, function (data) {
         // Loop through each item in the JSON data
         var lengT = Object.keys(data).length
         var i = 0;
@@ -5727,7 +5728,7 @@ $('#port_T1').on('click',function()
         }
     }).fail(function () {
         console.error('Error loading JSON file.');
-    });
+    });}
 }
 })
 }
@@ -5772,7 +5773,7 @@ if(code == 200)
                 '<td  id="foot_AE_TT">'+ValAccountingFigures(data_T_port.total[0].values.totalAE) + '</td>' +
                 '<td  id="foot_CP_TT">'+ValAccountingFigures(data_T_port.total[0].values.totalCP) + '</td> </tr>' ;
                 
-                
+                readT2(data_T_port)
             }
             else {
                 alert(response.message);
@@ -5819,7 +5820,8 @@ else
         '</tr>';
     $('#T-tables thead').append(headT)
  
-    $.getJSON(jsonpath2, function (data) {
+    function readT2(data_T_port)
+    {$.getJSON(jsonpath2, function (data) {
         // Loop through each item in the JSON data
         var lengT = Object.keys(data).length
         var i = 0;
@@ -5942,7 +5944,7 @@ else
            }
     }).fail(function () {
         console.error('Error loading JSON file.');
-    });
+    });}
 }
 function T3_table(id, T, id_s_act, port,code) {
     
@@ -6000,7 +6002,7 @@ if(code == 200){
                 '<td  id="foot_CP_not">'+ValAccountingFigures(cpnTpt) + '</td>' +
                 '<td  id="foot_CP_consom">'+ValAccountingFigures(cpcTpt) + '</td> </tr>' ;
                
-                
+                readT3(data_T_port);
             }
             else {
                 alert(response.message);
@@ -6036,7 +6038,7 @@ if(code == 200){
         
     $('#T-tables thead').append(headT)
 
-  
+  function readT3(data_T_port){
     $.getJSON(jsonpath3, function (data) {
         // Loop through each item in the JSON data
         var lengT = Object.keys(data).length
@@ -6303,7 +6305,7 @@ if(code == 200){
         }
     }).fail(function () {
         console.error('Error loading JSON file.');
-    });
+    });}
     
 }
 function T4_table(id, T, id_s_act, port,code) {
