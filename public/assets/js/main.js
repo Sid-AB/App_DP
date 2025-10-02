@@ -11,7 +11,7 @@ var replac=false;
  * this function for adding button et makalah -_- ;
  */
 
-
+console.log('main update');
 function preview(file)
 {
     $('#'+file).on('change', function(event) {
