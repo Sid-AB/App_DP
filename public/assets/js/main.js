@@ -6340,7 +6340,7 @@ function T4_table(id, T, id_s_act, port,code) {
                 '<td id="foot_AE_T4">' + ValAccountingFigures(data_T_port.total[0].values.totalAE) + '</td>' +
                 '<td id="foot_CP_T4">' + ValAccountingFigures(data_T_port.total[0].values.totalCP) + '</td> </tr>';  
 
-               
+               readT4(data_T_port)
             }
             else {
                 alert(response.message);
@@ -6370,7 +6370,8 @@ function T4_table(id, T, id_s_act, port,code) {
         '</tr>';
     $('#T-tables thead').append(headT)
     
-
+function readT4(data_T_port)
+{
     $.getJSON(jsonpath4, function (data) {
     var lengT = Object.keys(data).length
     var i = 0;
@@ -6688,7 +6689,7 @@ function T4_table(id, T, id_s_act, port,code) {
         
     }).fail(function () {
         console.error('Error loading JSON file.');
-    });
+    });}
 }
 $(document).ready(function () { 
 
