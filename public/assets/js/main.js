@@ -6332,7 +6332,7 @@ function T4_table(id, T, id_s_act, port,code) {
         type: 'GET',
         success: function (response) {
             if (response.code === 200) {
-            
+                console.log('main update reading api T4');
                 $('#reloading').addClass('reload-hidden')
                 //console.log('data' + JSON.stringify(Object.keys(response.results)).length)
                 data_T_port = response.results;
