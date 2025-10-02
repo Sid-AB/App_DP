@@ -7067,9 +7067,9 @@ function update(currentActive) {
         }
     });
 
-    const activeCircles = document.querySelectorAll(".active");
+   /* const activeCircles = document.querySelectorAll(".active");
     progress.style.width =
-        ((activeCircles.length - 1) / (stepCircles.length - 1)) * 100 + "%";
+        ((activeCircles.length - 1) / (stepCircles.length - 1)) * 100 + "%";*/
 
 
 }
